@@ -1,0 +1,31 @@
+# required
+port                   "6600"
+music_directory        "~/mp3"
+playlist_directory     "~/.playlists"
+db_file                "~/.mpd/db"
+state_file             "~/.mpd/state"
+log_file               "~/.mpd/log"
+error_file             "~/.mpd/error"
+pid_file               "~/.mpd/pid"
+
+log_level "default"
+
+audio_output {
+	type "oss"
+	name "oss output"
+	device "/dev/dsp"
+}
+
+# optional
+max_connections        "5"
+max_command_list_size  "2048"
+max_output_buffer_size "2048"
+connection_timeout     "60"
+save_absolute_paths_in_playlists "no"
+
+max_playlist_length    "4096"
+buffer_before_play     "25%"
+bind_to_address	       "localhost"
+
+mixer_type             "oss"
+mixer_device           "/dev/mixer"
