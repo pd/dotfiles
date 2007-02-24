@@ -1,0 +1,9 @@
+# vim:ft=muttrc:
+subscribe wmii
+subscribe wmii-hackers
+subscribe dwm
+subscribe ruby-talk
+subscribe freebsd-security-notifications
+subscribe freebsd-announce
+subscribe freebsd-questions
+subscribe freebsd-ports

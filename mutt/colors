@@ -1,0 +1,52 @@
+# Default colour definitions
+color hdrdefault white        green
+color quoted     cyan         default
+color quoted1    white        default
+color quoted2    cyan         default
+color quoted3    white        default
+color signature  white        default
+color indicator  black        green
+color attachment black        green
+color error      brightred    default
+color message    white        default
+color search     brightwhite  magenta
+color status     black        cyan
+color tree       cyan         default
+color normal     white        default
+color tilde      green        default
+color bold       brightyellow default
+color markers    red          default
+
+# Colours for items in the reader
+color header brightwhite green "^(From|Subject):"
+color header red         green "^X-Junked-Because: "
+color header red         green "^X-Virus-hagbard: .* FOUND"
+
+# Colours for items in the index
+color index brightblue  white ~N
+color index brightgreen white "~N (~x hagbard\.davep\.org | ~h \"^In-[Rr]eply-[Tt]o: .*hagbard\.davep\.org\")"
+color index red         white ~F
+color index black       green ~T
+color index brightwhite black ~D
+
+# Highlights inside the body of a message.
+
+# URLs
+#color body brightblue  white "(http|https|ftp|news|telnet|finger)://[^ \">\t\r\n]*"
+#color body brightblue  white "mailto:[-a-z_0-9.]+@[-a-z_0-9.]+"
+#color body brightblue  white "news:[^ \">\t\r\n]*"
+#mono  body bold              "(http|https|ftp|news|telnet|finger)://[^ \">\t\r\n]*"
+#mono  body bold              "mailto:[-a-z_0-9.]+@[-a-z_0-9.]+"
+#mono  body bold              "news:[^ \">\t\r\n]*"
+
+# email addresses
+#color body brightblue  white "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
+#mono  body bold              "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
+
+# Various smilies and the like
+#color body brightgreen white "<[Gg]>"                                            # <g>
+#color body brightgreen white "<[Bb][Gg]>"                                        # <bg>
+#color body brightgreen white " [;:]-*[)>(<|]"                                    # :-) etc...
+#color body brightblue  white "(^|[[:space:]])\\*[^[:space:]]+\\*([[:space:]]|$)" # *Bold* text.
+#color body brightblue  white "(^|[[:space:]])_[^[:space:]]+_([[:space:]]|$)"     # _Underlined_ text.
+#color body brightblue  white "(^|[[:space:]])/[^[:space:]]+/([[:space:]]|$)"     # /Italic/ text.
