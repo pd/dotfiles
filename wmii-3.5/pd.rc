@@ -1,9 +1,28 @@
 #!/usr/local/plan9/bin/rc
 # vim:ft=conf:
 
-# XXX
-#tagrules_file=$WMII_NS_HOME/tagrules.$pid
-tagrules_file=$home/tagrules.$pid
+tagrules_file=$WMII_NS_DIR/tagrules.$pid
+
+# Functions {{{1
+fn replace_default_tagrules {
+	rule=$1
+	wmiir read /tagrules | 9 grep '^\/\.\*\/' > $tagrules_file
+	{
+		wmiir read /tagrules | 9 grep -v '^\/\.\*\/'
+		echo $rule
+	} | wmiir write /tagrules
+}
+
+fn restore_default_tagrules {
+	{
+		wmiir read /tagrules | 9 grep -v '^\/\.\*\/'
+		cat $tagrules_file
+	} | wmiir write /tagrules
+}
+
+fn queue_tag {
+	replace_default_tagrules '/.*/ -> '^$1
+}
 
 # Events {{{1
 fn Event-CreateClient {
@@ -17,8 +36,8 @@ fn Event-CreateClient {
 fn status { # include uptime in status {{{2
 	echo -n `{uptime | sed 's/.*up/up/; s/,//g; s/load averages:/ | /'} '|' `{date}
 }
-fn Action-term { # open a terminal in 'dev' {{{2
-	queue_tag dev
+fn Action-term { # open a terminal in 'sauce' {{{2
+	queue_tag sauce
 	run_command $WMII_TERM &
 }
 fn Action-vim { # {{{2
@@ -74,25 +93,4 @@ fn Key-$MODKEY-Control-r { # raw mode {{{2
 		wmiir xwrite /ctl keys $MODKEY-Control-t
 		wmiir xwrite /ctl grabmod Mod3
 	}
-}
-
-# Functions {{{1
-fn replace_default_tagrules {
-	rule=$1
-	wmiir read /tagrules | 9 grep '^\/\.\*\/' > $tagrules_file
-	{
-		wmiir read /tagrules | 9 grep -v '^\/\.\*\/'
-		echo $rule
-	} | wmiir write /tagrules
-}
-
-fn restore_default_tagrules {
-	{
-		wmiir read /tagrules | 9 grep -v '^\/\.\*\/'
-		cat $tagrules_file
-	} | wmiir write /tagrules
-}
-
-fn queue_tag {
-	replace_default_tagrules '/.*/ -> '^$1
 }
