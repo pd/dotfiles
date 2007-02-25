@@ -20,14 +20,12 @@ color markers    red          default
 # Colours for items in the reader
 color header brightwhite green "^(From|Subject):"
 color header red         green "^X-Junked-Because: "
-color header red         green "^X-Virus-hagbard: .* FOUND"
 
 # Colours for items in the index
-color index brightblue  white ~N
-color index brightgreen white "~N (~x hagbard\.davep\.org | ~h \"^In-[Rr]eply-[Tt]o: .*hagbard\.davep\.org\")"
+color index black       white ~N
 color index red         white ~F
-color index black       green ~T
-color index brightwhite black ~D
+color index black       cyan  ~T
+color index red         black ~D
 
 # Highlights inside the body of a message.
 
