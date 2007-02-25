@@ -1,0 +1,76 @@
+#!/usr/local/plan9/bin/rc
+# vim:ft=sh:
+
+# Key bindings {{{1
+fn Key-$MODKEY2-KP_Add      { mixer pcm +5:+5 }
+fn Key-$MODKEY2-KP_Subtract { mixer pcm -5:-5 }
+fn Key-$MODKEY2-n { mpc next }
+fn Key-$MODKEY2-b { mpc prev }
+fn Key-$MODKEY2-s { mpc stop }
+fn Key-$MODKEY2-p { mpc toggle }
+fn Key-$MODKEY2-r { mpc random }
+
+# Action {{{1
+fn Action-mp3 {
+	wmii-mpc-status &
+	wmii-mpc-controls &
+}
+fn Action-playlist { # {{{2
+	choice=`{mpc playlist | wmiimenu}
+	if (test -n $choice)
+		mpc play `{echo $choice|sed 's/^#([0-9]+)\).*/\1/'}
+}
+
+# Functions {{{1
+fn wmii-mpc-info {
+	format='%artist% -[[ %album% -]&[ %track -]] %title%'
+	echo np: `{mpc --format $format|head -1} [ `{mpc|head -2|tail -1|cut -d ' ' -f 5} ]
+}
+
+fn wmii-mpc-status {
+	bar=200_mp3status
+	if (wmiir remove /rbar/$bar >[2]/dev/null)
+		sleep 2
+	echo $WMII_NORMCOLORS | wmiir create /rbar/$bar
+	while (wmii-mpc-info | wmiir write /rbar/$bar)
+		sleep 1
+}
+
+fn wmii-mpc-controls {
+	bars=(201_mp3ldiv 202_mp3prev 203_mp3stop 204_mp3toggle 205_mp3next 206_mp3rdiv)
+	for (bar in $bars)
+		wmiir remove /rbar/$bar >[2]/dev/null
+	sleep 2
+	for (bar in $bars)  {
+		echo $WMII_NORM_COLORS | wmiir create /rbar/$bar
+		switch ($bar) {
+			case *ldiv
+				sym = '['
+			case *prev
+				sym = '<<'
+			case *stop
+				sym = 'X'
+			case *toggle
+				sym = '#'
+			case *next
+				sym = '>>'
+			case *rdiv
+				sym = '] |'
+		}
+		wmiir xwrite /rbar/$bar $WMII_NORMCOLORS $sym
+	}
+}
+
+fn wmii-mpc-barclick {
+	bar=$1
+	switch ($bar) {
+		case *mp3prev
+			mpc prev
+		case *mp3stop
+			mpc stop
+		case *mp3toggle
+			mpc toggle
+		case *mp3next
+			mpc next
+	}
+}
