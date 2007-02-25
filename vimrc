@@ -102,10 +102,7 @@ map K <Nop>
 iab pdiish #!/bin/sh<CR>. $HOME/irc/pdii/pdii.sh.include
 " 1}}}
 
-" aug pdJava {{{1
-" [m ]m are for java
-" make the [ command work in java, too
-aug pdJava
+aug pdJava " {{{1
 	" clear previous autocommands in this group (pdJava)
 	au!
 
@@ -122,8 +119,7 @@ aug pdJava
 	au FileType java map <silent> <Leader>u :s!^//!!<CR>
 aug END
 
-" aug pdC {{{1
-aug pdC
+aug pdC " {{{1
 	au!
 	au FileType c  set cin
 	au FileType cc set cin
@@ -134,21 +130,18 @@ aug pdC
 	au FileType c map <silent> <Leader>u :s!^//!!<CR>
 aug END
 
-" aug pdWiki {{{1
-aug pdWiki
+aug pdWiki " {{{1
 	au!
 	au FileType wiki setf wikipedia
 aug END
 
-" aug pdPy {{{1
-aug pdPy
+aug pdPy " {{{1
 	au!
 	" prevents the annoyance of forcing # to the first column
 	au FileType python inoremap # X#
 aug END
 
-" aug pdLisp {{{1
-aug pdLisp
+aug pdLisp " {{{1
 	au!
 	au FileType lisp set et showmatch
 
@@ -156,8 +149,7 @@ aug pdLisp
 	au FileType lisp map <silent> <Leader>u :s!^;!!<CR>
 aug end
 
-" aug pdHaskell {{{1
-aug pdHaskell
+aug pdHaskell " {{{1
 	au!
 	au FileType haskell set et showmatch
 
@@ -165,8 +157,7 @@ aug pdHaskell
 	au FileType haskell map <silent> <Leader>u :s!^--!!<CR>
 aug end
 
-" aug pdRuby {{{1
-aug pdRuby
+aug pdRuby " {{{1
 	au!
 
 	" prevents the annoyance of forcing # to the first column
@@ -180,8 +171,7 @@ aug pdRuby
 	au FileType ruby map <F4> :!rake cov<Enter>
 aug END
 
-" aug pdRSpecs {{{1
-aug pdRSpecs
+aug pdRSpecs " {{{1
 	" in addition to ruby changes, i want SimpleFold to work with rspec
 	" syntax, and i dun wanna use that {{{ }}} crap.
 	au!
