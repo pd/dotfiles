@@ -12,9 +12,12 @@ URxvt.secondaryScroll: true
 # white on black:
 URxvt.background: black
 URxvt.foreground: #fcfcfc
-URxvt.color2:     #808bed  #  --- lightgreen => blue (from inkpot hi Statement)
-URxvt.color3:     #cd8b00  #  --- cyan => tan (from inkpot hi String)
-URxvt.color6:     #ffcd8b  #  --- yellow => brown (from inkpot hi Comment)
+# lightgreen => blue (from inkpot hi Statement)
+URxvt.color2:     #808bed
+# cyan => tan (from inkpot hi String)
+URxvt.color3:     #cd8b00
+# yellow => brown (from inkpot hi Comment)
+URxvt.color6:     #ffcd8b
 
 URxvt.font: -windows-proggyclean-*-*-*-*-12-*-*-*-*-*-*-*
 # 1}}}
