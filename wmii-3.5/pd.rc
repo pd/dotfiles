@@ -1,0 +1,98 @@
+#!/usr/local/plan9/bin/rc
+# vim:ft=conf:
+
+# XXX
+#tagrules_file=$WMII_NS_HOME/tagrules.$pid
+tagrules_file=$home/tagrules.$pid
+
+# Events {{{1
+fn Event-CreateClient {
+	if (test -f $tagrules_file) {
+		restore_default_tagrules
+		rm -f $tagrules_file
+	}
+}
+
+# Actions {{{1
+fn status { # include uptime in status {{{2
+	echo -n `{uptime | sed 's/.*up/up/; s/,//g; s/load averages:/ | /'} '|' `{date}
+}
+fn Action-term { # open a terminal in 'dev' {{{2
+	queue_tag dev
+	run_command $WMII_TERM &
+}
+fn Action-vim { # {{{2
+	run_command $WMII_TERM -e vim &
+}
+fn Action-irc { # {{{2
+	queue_tag irc
+	run_command $WMII_TERM -e screen -raAd &
+}
+fn Action-ff { # launch clipboard contents as url in ff {{{2
+	run_command firefox `{sselp}
+}
+fn Action-screenshot { # {{{2
+	run_command xwd -root | xwdtopnm | pnmtopng >$home/ss.png
+}
+
+# Keybindings {{{1
+for(i in `{seq 0 9}) { # navigate tags alphabetically {{{2
+	fn Key-$MODKEY-$i {
+		wmiir xwrite /ctl view `{wmiir ls /tag | egrep -v '^sel/' | sed -n `{echo $1 | sed 's/.*-//'}^p}
+	}
+	fn Key-$MODKEY2-$i {
+		wmiir xwrite /ctl view `{echo $1 | sed 's/.*-//'}
+	}
+	fn Key-Shift-$MODKEY-$i {
+		wmiir xwrite /client/sel/tags `{echo $1 | sed 's/.*-//'}
+	}
+}
+
+fn Key-$MODKEY-Control-$UP { # up a tag {{{2
+	ctag=`{wmiir read /tag/sel/ctl}
+	wmiir xwrite /ctl view `{
+		wmiir ls /tag \
+		| sed 's|/$||; /^sel$/d' | sort -r \
+		| awk 'NR==1{ntag=$0} /^'$ctag'$/{ntag=getline?$0:ntag; print ntag}'
+	}
+}
+fn Key-$MODKEY-Control-$DOWN { # {{{2
+	ctag=`{wmiir read /tag/sel/ctl}
+	wmiir xwrite /ctl view `{
+		wmiir ls /tag \
+		| sed 's|/$||; /^sel$/d' \
+		| awk 'NR==1{ntag=$0} /^'$ctag'$/{ntag=getline?$0:ntag; print ntag}'
+	}
+}
+
+fn Key-$MODKEY-Control-r { # raw mode {{{2
+	if(~ `{wmiir read /keys | wc -l} 0) {
+		initkeys
+		wmiir xwrite /ctl grabmod $MODKEY
+	}
+	if not {
+		wmiir xwrite /ctl keys $MODKEY-Control-t
+		wmiir xwrite /ctl grabmod Mod3
+	}
+}
+
+# Functions {{{1
+fn replace_default_tagrules {
+	rule=$1
+	wmiir read /tagrules | 9 grep '^\/\.\*\/' > $tagrules_file
+	{
+		wmiir read /tagrules | 9 grep -v '^\/\.\*\/'
+		echo $rule
+	} | wmiir write /tagrules
+}
+
+fn restore_default_tagrules {
+	{
+		wmiir read /tagrules | 9 grep -v '^\/\.\*\/'
+		cat $tagrules_file
+	} | wmiir write /tagrules
+}
+
+fn queue_tag {
+	replace_default_tagrules '/.*/ -> '^$1
+}

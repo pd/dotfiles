@@ -1,5 +1,5 @@
 #!/usr/local/plan9/bin/rc
-# vim:ft=sh:
+# vim:ft=conf:
 
 # Key bindings {{{1
 fn Key-$MODKEY2-KP_Add      { mixer pcm +5:+5 }
