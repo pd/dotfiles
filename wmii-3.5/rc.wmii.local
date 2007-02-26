@@ -1,0 +1,14 @@
+# In BSD, you'll have to mount fdescfs for this file to be
+# sourced properly.
+
+MODKEY2=Mod4
+WMII_FONT='-windows-proggytiny-*-r-*-*-*-*-*-*-*-*-*-*'
+WMII_NORMCOLORS=('#f6f6f6' '#666666' '#666666')
+WMII_FOCUSCOLORS=('#ffcd8b' '#404040' '#404040')
+WMII_BACKGROUND='#222222'
+WMII_TERM=(urxvtc)
+
+# Overrides
+. $home/.wmii-3.5/pd.rc
+. $home/.wmii-3.5/mpc.rc
+Action mp3 &
