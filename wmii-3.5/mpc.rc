@@ -24,7 +24,7 @@ fn Action-playlist { # {{{2
 # Functions {{{1
 fn wmii-mpc-info {
 	format='%artist% -[[ %album% -]&[ %track% -]] %title%'
-	echo np: `{mpc --format $format|head -1} [ `{mpc|head -2|tail -1|cut -d ' ' -f 5} ]
+	echo np: `{mpc --format $format|head -1}
 }
 
 fn wmii-mpc-status {
