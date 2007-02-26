@@ -1,22 +1,15 @@
-" vim:fdl=1 fdm=marker
+" vim:fdm=marker
 
-" SUMMARY {{{1
-"
-" My leader is set to ; so most mappings use that. :he <Leader>
-"
+" :he <Leader>
 "   <Leader>s -- clear search highlights
 "   <Leader>p -- toggle paste mode
 "   <Leader>n -- toggle line number
 "   <Leader>r -- resource vimrc
-"   <Leader>c and <Leader>u -- comment/uncomment a block (use vselect first)
-"     ^^ this should work reasonably well for both ruby and c/cpp/java.
-"   <Leader>e -- convenience mapping for opening a file which is in the same
-"                directory as the current file.
-"
+"   <Leader>c,-- comment/uncomment a block
+"   <Leader>u
 "	<Leader>a -- expands to ":Align "
-"	  ^^ allows ";a}<Enter>" for ":Align }<Enter>"
+"	    :he align.txt
 "
-" Function keys
 "   <F5>  -- toggle buffer list display
 "   <F6>  -- toggle tag list display
 "   <F9>  -- cd's to directory of current buffer
@@ -24,20 +17,15 @@
 "   <F11> -- enters ii mode
 "   <F12> -- opens a directory explorer in a vsplit window (:VSTreeExplore)
 "
-" Ruby specific bindings:
-"   <F1>       -- runs the current file through the ruby interpreter (:!ruby %)
-"   <F2>       -- runs 'rake'
-"   <F3>       -- runs 'rake showspecs'
-"   <F4>       -- runs 'rake cov'
+" ruby:
+"   <F1>  -- runs the current file through the ruby interpreter (:!ruby %)
+"   <F2>  -- runs 'rake'
+"   <F3>  -- runs 'rake showspecs'
+"   <F4>  -- runs 'rake cov'
 "
-" Miscellany
+" misc:
 "   %/   -- in Command mode, expands to the path of the current file's
 "           directory.
-"
-" I considered adding mapping for things like 'collapse all folds', but
-" then found :he fold-commands. 
-"
-" 1}}}
 
 colorscheme inkpot
 filetype plugin indent on " :he :filetype-overview
@@ -61,8 +49,9 @@ let mapleader=";"
 set tabstop=4 shiftwidth=4 softtabstop=4
 set autoindent smartindent noexpandtab smarttab
 set formatoptions+=croql
-" aligns switch/case statements:
-set nocin
+set cinoptions+=:0
+set cinkeys-=0#
+set nocindent
 set nowrap
 set number
 set lazyredraw
@@ -71,30 +60,25 @@ set smartcase
 set noerrorbells visualbell
 set shortmess=atI
 set title titleold=despot
-set cino+=:0
-set cinkeys-=0#
-" mouse use in terms
-" set mouse=a
-" default fold method is marker
 set fdm=marker fdl=0
+" set mouse=a     " mouse use in terms
 
 " simplest syntax syncing. can be slow. {{{1
 " :he :syn-sync-first
 syntax on
 au BufEnter * :syntax sync fromstart
 
-" basic keymappings {{{1
+" keymappings {{{1
 map <silent> <Leader>s :noh<CR>
 map <silent> <Leader>p :set paste!<CR>
 map <silent> <Leader>n :set number!<CR>
 map <silent> <Leader>c :s/^/#/<CR>
 map <silent> <Leader>u :s/^#//<CR>
 map <silent> <Leader>r :source ~/.vimrc<CR>
-map <silent> <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+map <Leader>e :e <C-R>=expand("%:p:h")<CR>
 map <Leader>a :Align 
 map <silent> <F9> :cd %:p:h<CR>
 map <F10> :echo synIDattr(synID(line('.'), col('.'), 1), 'name')<CR>
-map <F11> :so ~/irc/pdii/vim/iikeys.vim<CR>
 cmap %/ <C-R>=expand("%:p:h")."/"<CR>
 map K <Nop>
 
@@ -103,18 +87,7 @@ iab pdiish #!/bin/sh<CR>. $HOME/irc/pdii/pdii.sh.include
 " 1}}}
 
 aug pdJava " {{{1
-	" clear previous autocommands in this group (pdJava)
 	au!
-
-	" make the [ command work in java, too
-	" this is magic that i just found somewhere else. i don't
-	" think i ever even used it.
-	au FileType java map [[ ?{<CR>w99[{
-	au FileType java map ][ /}<CR>b99]{
-	au FileType java map ]] j0[[%/{<CR>
-	au FileType java map [] k$][%?}<CR>
-
-	" override the above comment/uncomment mappings
 	au FileType java map <silent> <Leader>c :s!^!//!<CR>
 	au FileType java map <silent> <Leader>u :s!^//!!<CR>
 aug END
@@ -125,7 +98,6 @@ aug pdC " {{{1
 	au FileType cc set cin
 	au FileType h  set cin
 
-	" override the above comment/uncomment mappings
 	au FileType c map <silent> <Leader>c :s!^!//!<CR>
 	au FileType c map <silent> <Leader>u :s!^//!!<CR>
 aug END
@@ -133,12 +105,6 @@ aug END
 aug pdWiki " {{{1
 	au!
 	au FileType wiki setf wikipedia
-aug END
-
-aug pdPy " {{{1
-	au!
-	" prevents the annoyance of forcing # to the first column
-	au FileType python inoremap # X#
 aug END
 
 aug pdLisp " {{{1
@@ -172,8 +138,7 @@ aug pdRuby " {{{1
 aug END
 
 aug pdRSpecs " {{{1
-	" in addition to ruby changes, i want SimpleFold to work with rspec
-	" syntax, and i dun wanna use that {{{ }}} crap.
+	" turned out i didn't want simplefold
 	au!
 	au BufEnter *_spec.rb let b:simplefold_expr = 
 		\'\v(^\s*(context|def|class|module|attr_reader|attr_accessor|alias_method|' .
