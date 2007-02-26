@@ -1,21 +1,36 @@
 #!/usr/local/plan9/bin/rc
 # vim:ft=conf:
 
+mpc_barpids=()
+mpc_status_bar=200_mp3status
+mpc_control_bars=(201_mp3ldiv 202_mp3prev 203_mp3stop 204_mp3toggle 205_mp3next 206_mp3rdiv)
+
 # Key bindings {{{1
-fn Key-$MODKEY2-KP_Add      { mixer pcm +5:+5 }
-fn Key-$MODKEY2-KP_Subtract { mixer pcm -5:-5 }
 fn Key-$MODKEY2-n { mpc next }
 fn Key-$MODKEY2-b { mpc prev }
 fn Key-$MODKEY2-s { mpc stop }
 fn Key-$MODKEY2-p { mpc toggle }
 fn Key-$MODKEY2-r { mpc random }
+fn Key-$MODKEY2-KP_Add      { mixer pcm +5:+5 }
+fn Key-$MODKEY2-KP_Subtract { mixer pcm -5:-5 }
 
 # Action {{{1
 fn Action-mp3 {
-	wmii-mpc-status &
-	wmii-mpc-controls &
+	if (~ $1 off) {
+		for (p in $mpc_barpids)
+			kill -15 $p
+		mpc_barpids=()
+		for (bar in ($mpc_status_bar $mpc_control_bars))
+			wmiir remove /rbar/$bar
+	}
+	if not {
+		wmii-mpc-status &
+		mpc_barpids=($mpc_barpids $apid)
+		wmii-mpc-controls &
+		mpc_barpids=($mpc_barpids $apid)
+	}
 }
-fn Action-playlist { # {{{2
+fn Action-playlist {
 	choice=`{mpc playlist | wmiimenu}
 	if (test -n $choice)
 		mpc play `{echo $choice|sed 's/^#([0-9]+)\).*/\1/'}
@@ -28,20 +43,18 @@ fn wmii-mpc-info {
 }
 
 fn wmii-mpc-status {
-	bar=200_mp3status
-	if (wmiir remove /rbar/$bar >[2]/dev/null)
+	if (wmiir remove /rbar/$mpc_status_bar >[2]/dev/null)
 		sleep 2
-	echo $WMII_NORMCOLORS | wmiir create /rbar/$bar
-	while (wmii-mpc-info | wmiir write /rbar/$bar)
+	echo $WMII_NORMCOLORS | wmiir create /rbar/$mpc_status_bar
+	while (wmii-mpc-info | wmiir write /rbar/$mpc_status_bar)
 		sleep 1
 }
 
 fn wmii-mpc-controls {
-	bars=(201_mp3ldiv 202_mp3prev 203_mp3stop 204_mp3toggle 205_mp3next 206_mp3rdiv)
-	for (bar in $bars)
+	for (bar in $mpc_control_bars)
 		wmiir remove /rbar/$bar >[2]/dev/null
 	sleep 2
-	for (bar in $bars)  {
+	for (bar in $mpc_control_bars)  {
 		echo $WMII_NORM_COLORS | wmiir create /rbar/$bar
 		switch ($bar) {
 			case *ldiv
