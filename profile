@@ -6,7 +6,6 @@ unset HISTFILE
 
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/X11R6/bin:/usr/local/bin:/usr/local/sbin:/usr/games
 PATH=$HOME/bin:$PATH:.
-PATH=$HOME/irc/pdii/bin:$PATH
 PATH=$PATH:$PLAN9/bin
 export PATH HOME TERM
 
@@ -14,13 +13,18 @@ promptcmd() {
 	_whoami=`whoami`
 	_uname=`uname -n|sed -e "1s/.internal//"`
 	_pwd=`pwd|sed -e "1s/\/home\/pd/~/"`
-	echo -ne "\033]0;${_whoami}@${_uname}:${_pwd}\007"
+#	echo -ne "\033]0;${_whoami}@${_uname}:${_pwd}\007"
+	settitle "${_whoami}@${_uname}:${_pwd}"
 }
 
 case $TERM in
-	xterm*|screen*|rxvt*)
+	xterm*|rxvt*)
 		PROMPT_COMMAND="promptcmd"
 		PS1='$ '
+		;;
+	screen*)
+		PROMPT_COMMAND="promptcmd"
+		PS1='\[\033k\033\\\]$ '  # for screen's shelltitle
 		;;
 	*)
 		PS1='$ '
@@ -32,6 +36,7 @@ set -o vi vi-tabcomplete
 
 export CVSROOT="anoncvs@anoncvs1.usa.openbsd.org:/cvs"
 export VISUAL="vim"
+export BROWSER="firefox"
 unset RUBYOPT
 
 alias pkg_add="PKGDIR='/usr/ports/pkg-distfiles6.2' sudo pkg_add -K"
@@ -43,7 +48,3 @@ alias diff="diff -u"
 alias cvs="cvs -z9"
 alias irb="irb --readline -r irb/completion"
 alias fcnt="ls -l|head -1|cut -d ' ' -f 2"
-
-# for wmii
-export BROWSER="firefox"
-. /usr/local/share/mercurial/contrib/bash_completion

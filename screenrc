@@ -1,6 +1,6 @@
 startup_message off
 shell -bash
-shelltitle sh
+shelltitle "$ |sh"
 defutf8 on
 
 # first line:  hardstatus in xterm title
