@@ -80,7 +80,6 @@ map <Leader>a :Align
 map <silent> <F9> :cd %:p:h<CR>
 map <F10> :echo synIDattr(synID(line('.'), col('.'), 1), 'name')<CR>
 cmap %/ <C-R>=expand("%:p:h")."/"<CR>
-map K <Nop>
 
 " abbreviations {{{1
 iab pdiish #!/bin/sh<CR>. $HOME/irc/pdii/pdii.sh.include
