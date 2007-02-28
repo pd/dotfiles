@@ -1,0 +1,12 @@
+list-format = %artist% -[[ %album% -]&[ %track% -]] %title%
+status-format = %artist% -[[ %album% -]&[ %track% -]] %title%
+xterm-title-format = ncmpc: %artist% -[[ %album% -]&[ %track% -]] %title%
+
+set-xterm-title = yes
+enable-colors = yes
+color list = cyan
+color list-bold = brightwhite
+color progressbar = green
+color status-state = green
+color status-song = cyan
+color status-time = green
