@@ -27,7 +27,7 @@
 "   %/   -- in Command mode, expands to the path of the current file's
 "           directory.
 
-colorscheme inkpot
+colorscheme adam
 filetype plugin indent on " :he :filetype-overview
 
 " use 88 colors in urxvt {{{1
@@ -63,10 +63,8 @@ set title titleold=despot
 set fdm=marker fdl=0
 " set mouse=a     " mouse use in terms
 
-" simplest syntax syncing. can be slow. {{{1
-" :he :syn-sync-first
-syntax on
-au BufEnter * :syntax sync fromstart
+" no syntax highlighting for the p9 side... {{{1
+syntax off
 
 " keymappings {{{1
 map <silent> <Leader>s :noh<CR>
