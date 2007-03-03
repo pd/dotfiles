@@ -11,3 +11,8 @@ termcapinfo xterm-color*|rxvt* Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm
 # i want my programs to be able to use hardstatus, so screen uses the caption
 hardstatus off
 caption always "%{= Kw}%c %H: %w"
+
+bind h prev
+bind l next
+bind m screen -ln mutt
+bind e screen -ln vim
