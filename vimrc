@@ -99,6 +99,8 @@ aug pdC " {{{1
 
 	au FileType c map <silent> <Leader>c :s!^!//!<CR>
 	au FileType c map <silent> <Leader>u :s!^//!!<CR>
+
+	au FileType c set fdm=syntax
 aug END
 
 aug pdWiki " {{{1
