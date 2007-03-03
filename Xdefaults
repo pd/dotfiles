@@ -1,7 +1,6 @@
 # vim:set et:
 
 # urxvt {{{1
-URxvt.geometry: 110x50
 URxvt.loginShell: true
 URxvt.saveLines: 1024
 URxvt.charClass: 33:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48,35:48
@@ -9,17 +8,9 @@ URxvt.cursorColor:  #dc74d1
 URxvt.scrollstyle:  plain
 URxvt.secondaryScroll: true
 
-# white on black:
-URxvt.background: black
-URxvt.foreground: #fcfcfc
-# lightgreen => blue (from inkpot hi Statement)
-URxvt.color2:     #808bed
-# cyan => tan (from inkpot hi String)
-URxvt.color3:     #cd8b00
-# yellow => brown (from inkpot hi Comment)
-URxvt.color6:     #ffcd8b
-
 URxvt.font: -windows-proggyclean-*-*-*-*-12-*-*-*-*-*-*-*
+URxvt.background: #f8f9fb
+URxvt.foreground: #000000
 # 1}}}
 
 # xterm {{{1
@@ -28,11 +19,8 @@ xterm*loginShell: true
 xterm*saveLines: 1024
 xterm*charClass: 33:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48,35:48
 xterm*termName: xterm-color
-xterm*foreground: rgb:ff/ff/ff
-xterm*background: rgb:00/00/00
-xterm*color2:     #808bed
-xterm*color3:     #cd8b00
-xterm*color6:     #ffcd8b
+xterm*foreground: rgb:00/00/00
+xterm*background: rgb:dd/dd/dd
 
 # rxvt {{{1
 rxvt*font: -windows-proggyclean-*-*-*-*-12-*-*-*-*-*-*-*
