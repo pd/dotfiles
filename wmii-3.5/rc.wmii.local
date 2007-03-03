@@ -9,6 +9,14 @@ WMII_BACKGROUND='#222222'
 WMII_TERM=(urxvtc)
 
 # Overrides
+wmiir write /tagrules <<!
+/XMMS.*/ -> ~
+/MPlayer.*/ -> ~
+/Firefox.*/ -> www
+/.*/ -> !
+/.*/ -> 1
+!
+
 . $home/.wmii-3.5/pd.rc
 . $home/.wmii-3.5/mpc.rc
 Action mp3 &
