@@ -1,2 +1,2 @@
-set guioptions=cg
+set guioptions=cgt
 colorscheme chela_light

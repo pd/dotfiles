@@ -1,16 +1,16 @@
 # Default colour definitions
-color hdrdefault green        white
-color quoted     magenta      default
-color quoted1    default      default
-color quoted2    magenta      default
+color hdrdefault black        white
+color quoted     cyan         default
+color quoted1    magenta      default
+color quoted2    cyan         default
 color quoted3    black        default
 color signature  black        default
-color indicator  black        green
-color attachment black        green
-color error      brightred    default
+color indicator  green        white
+color attachment default      default
+color error      red          default
 color message    black        default
 color search     brightwhite  magenta
-color status     black        cyan
+color status     white        brightblack
 color tree       magenta      default
 color normal     black        default
 color tilde      green        default
@@ -18,13 +18,13 @@ color bold       brightyellow default
 color markers    red          default
 
 # Colours for items in the reader
-color header brightwhite green "^(From|Subject):"
+color header green white "^(From|Subject):"
 
 # Colours for items in the index
-color index black       white ~N
+color index blue        white ~N
 color index red         white ~F
-color index black       cyan  ~T
-color index red         black ~D
+color index green       white ~T
+color index brightred   brightwhite ~D
 
 # Highlights inside the body of a message.
 
