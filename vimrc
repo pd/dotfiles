@@ -63,8 +63,10 @@ set title titleold=despot
 set fdm=marker fdl=0
 " set mouse=a     " mouse use in terms
 
-" no syntax highlighting for the p9 side... {{{1
-syntax off
+" simplest syntax syncing. can be slow. {{{1
+" :he :syn-sync-first
+syntax on
+au BufEnter * :syntax sync fromstart
 
 " keymappings {{{1
 map <silent> <Leader>s :noh<CR>
