@@ -39,7 +39,6 @@ elseif &term == "xterm-color"
 	set t_Co=256
 elseif &term == "cons25"
 	set t_Co=8
-	colorscheme darkblue
 else
 	set t_Co=8
 endif

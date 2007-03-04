@@ -36,8 +36,8 @@ fn Event-CreateClient {
 fn status { # include uptime in status {{{2
 	echo -n `{uptime | sed 's/.*up/up/; s/,//g; s/load averages:/ | /'} '|' `{date}
 }
-fn Action-term { # open a terminal in 'sauce' {{{2
-	queue_tag sauce
+fn Action-term { # open a terminal in 'dev' {{{2
+	queue_tag dev
 	run_command $WMII_TERM &
 }
 fn Action-vim { # {{{2
