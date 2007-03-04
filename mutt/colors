@@ -1,5 +1,5 @@
 # Default colour definitions
-color hdrdefault white        green
+color hdrdefault green        white
 color quoted     magenta      default
 color quoted1    default      default
 color quoted2    magenta      default
@@ -19,7 +19,6 @@ color markers    red          default
 
 # Colours for items in the reader
 color header brightwhite green "^(From|Subject):"
-color header red         green "^X-Junked-Because: "
 
 # Colours for items in the index
 color index black       white ~N
