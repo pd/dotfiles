@@ -58,11 +58,11 @@ abstracts = {
   ##
 
   # highlighted nick/host is printed (joins)
-  channick_hilight = "$*";
+  channick_hilight = "%r$*";
   chanhost_hilight = "{nickhost %b$*%n}";
 
   # nick/host is printed (parts, quits, etc.)
-  channick = "$*";
+  channick = "%r$*";
   chanhost = "{nickhost %b$*%n}";
 
   # highlighted channel name is printed
@@ -76,8 +76,8 @@ abstracts = {
   ##
 
   # the basic styling of how to print message, $0 = nick mode, $1 = nick
-  msgnick = "<$0$1-> %n";
-  msghi = "%K<%M$0$1-%K>%n ";
+  msgnick = "   $0$1-: %n";
+  msghi = "   $0%M$1-%K:%n ";
   # message from you is printed. "msgownnick" specifies the styling of the
   # nick ($0 part in msgnick) and "ownmsgnick" specifies the styling of the
   # whole line.
@@ -103,7 +103,7 @@ abstracts = {
   pubnick = "%N$*%n";
 
   # public message in channel meant for me, $0 = nick mode, $1 = nick
-  pubmsgmenick = "{msgnick $0 $1-}";
+  pubmsgmenick = "{msghi $0 $1-}";
   menick = "$*";
 
   # public highlighted message in channel
