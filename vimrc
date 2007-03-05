@@ -23,9 +23,12 @@
 "   <F3>  -- runs 'rake showspecs'
 "   <F4>  -- runs 'rake cov'
 "
+" c:
+"   <F1>  -- :make
+"
 " misc:
-"   %/   -- in Command mode, expands to the path of the current file's
-"           directory.
+"   %/    -- in Command mode, expands to the path of the current file's
+"            directory.
 
 colorscheme adam
 filetype plugin indent on " :he :filetype-overview
@@ -100,6 +103,7 @@ aug pdC " {{{1
 	au FileType c map <silent> <Leader>u :s!^//!!<CR>
 
 	au FileType c set fdm=syntax
+	au FileType c map <F1> :make<Enter>
 aug END
 
 aug pdWiki " {{{1
