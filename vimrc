@@ -185,7 +185,7 @@ if ! has("gui_running") && &t_Co == 88
 	highlight Identifier cterm=NONE ctermfg=22
 	highlight String cterm=NONE ctermfg=black ctermbg=74
 	highlight Type cterm=NONE ctermfg=20
-	highlight LineNr cterm=NONE ctermfg=black ctermbg=27
+	highlight LineNr cterm=NONE ctermfg=black ctermbg=43
 	highlight PreProc cterm=NONE ctermfg=51
 	highlight StatusLine cterm=bold ctermfg=black ctermbg=53
 	highlight StatusLineNC cterm=NONE ctermfg=white ctermbg=82
