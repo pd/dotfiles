@@ -30,7 +30,7 @@
 "   %/    -- in Command mode, expands to the path of the current file's
 "            directory.
 
-colorscheme adam
+colorscheme default
 filetype plugin indent on " :he :filetype-overview
 
 " use 88 colors in urxvt {{{1
@@ -178,9 +178,17 @@ map <silent> <F12> :VSTreeExplore<CR>
 let g:miniBufExplModSelTarget=1
 " 1}}}
 
-" fix inkpot's Folded color in term. {{{1
-if ! has("gui_running")
-	highlight Folded cterm=NONE ctermfg=black ctermbg=22
+" color changes when in term {{{1
+" this looks awful in xterm-256. use urxvt.
+if ! has("gui_running") && &t_Co == 88
+	highlight Folded cterm=NONE ctermfg=17 ctermbg=87
+	highlight Identifier cterm=NONE ctermfg=22
+	highlight String cterm=NONE ctermfg=black ctermbg=74
+	highlight Type cterm=NONE ctermfg=20
+	highlight LineNr cterm=NONE ctermfg=black ctermbg=27
+	highlight PreProc cterm=NONE ctermfg=51
+	highlight StatusLine cterm=bold ctermfg=black ctermbg=53
+	highlight StatusLineNC cterm=NONE ctermfg=white ctermbg=82
 endif
 
 " kill off vim7's matchparen plugin {{{1
