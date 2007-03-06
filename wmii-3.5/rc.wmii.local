@@ -1,3 +1,4 @@
+# vim:ft=rc:
 # In BSD, you'll have to mount fdescfs for this file to be
 # sourced properly.
 
@@ -16,6 +17,7 @@ wmiir write /tagrules <<!
 /Gimp.*/ -> ~
 /Gimp.*/ -> gimp
 /Angband.*/ -> ~
+/Angband.*/ -> band
 /.*/ -> !
 /.*/ -> 1
 !
