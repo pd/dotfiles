@@ -11,6 +11,7 @@ URxvt.font: -windows-proggyclean-*-*-*-*-*-*-*-*-*-*-*-*
 URxvt.background: #fafafa
 URxvt.foreground: #000000
 URxvt.color2: #339900
+URxvt.color6: #36b1c0
 
 # xterm {{{1
 xterm*font: -windows-proggyclean-*-*-*-*-12-*-*-*-*-*-*-*

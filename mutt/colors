@@ -5,7 +5,7 @@ color quoted1    magenta      default
 color quoted2    cyan         default
 color quoted3    black        default
 color signature  black        default
-color indicator  green        white
+color indicator  brightblue   white
 color attachment default      default
 color error      red          default
 color message    black        default
@@ -23,7 +23,7 @@ color header green white "^(From|Subject):"
 # Colours for items in the index
 color index blue        white ~N
 color index red         white ~F
-color index green       white ~T
+color index magenta     white ~T
 color index brightred   brightwhite ~D
 
 # Highlights inside the body of a message.
