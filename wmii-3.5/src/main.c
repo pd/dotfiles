@@ -151,9 +151,9 @@ main(int argc, char *argv[])
 	for (b = Bars; b->name; b++)
 		snprintf(b->path, sizeof(b->path)-1, "/rbar/%d_mp3%s", b->pos + 200, b->name);
 
+	// kill any other instances before our child starts reading events
 	init_app(&displayer);
 	wmii_write_file(displayer.ixp, "/event", "Stop mpdbar");
-
 	init_app(&controller);
 
 	wmii_remove_bars(displayer.ixp, Bars);

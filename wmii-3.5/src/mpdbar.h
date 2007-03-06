@@ -9,9 +9,9 @@ typedef struct wmii_bar {
 } Bar;
 
 enum {
-	MPD_PLAY,
+	MPD_STOP,
 	MPD_PAUSE,
-	MPD_STOP
+	MPD_PLAY,
 };
 
 typedef struct mpd_state {
