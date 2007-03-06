@@ -37,6 +37,7 @@ set -o vi vi-tabcomplete
 export CVSROOT="anoncvs@anoncvs1.usa.openbsd.org:/cvs"
 export VISUAL="vim"
 export BROWSER="firefox"
+export HGWEB="http://pd.eggsampler.com/cgi-bin/hgwebdir.cgi"
 unset RUBYOPT
 
 alias pkg_add="PKGDIR='/usr/ports/pkg-distfiles6.2' sudo pkg_add -K"
