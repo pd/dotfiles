@@ -4,7 +4,7 @@
 MODKEY2=Mod4
 WMII_FONT='-windows-proggytiny-*-r-*-*-*-*-*-*-*-*-*-*'
 WMII_NORMCOLORS=('#000000' '#f8f8f4' '#f8f8f4')
-WMII_FOCUSCOLORS=('#000000' '#e6feff' '#585051')
+WMII_FOCUSCOLORS=('#000000' '#8f9fff' '#000000')
 WMII_BACKGROUND='#f8f8f4'
 WMII_TERM=(urxvtc)
 
@@ -15,6 +15,7 @@ wmiir write /tagrules <<!
 /Firefox.*/ -> www
 /Gimp.*/ -> ~
 /Gimp.*/ -> gimp
+/Angband.*/ -> ~
 /.*/ -> !
 /.*/ -> 1
 !

@@ -2,13 +2,13 @@
 # vim:ft=conf:
 
 # Key bindings {{{1
-fn Key-$MODKEY2-n { mpc next }
-fn Key-$MODKEY2-b { mpc prev }
-fn Key-$MODKEY2-s { mpc stop }
-fn Key-$MODKEY2-p { mpc toggle }
-fn Key-$MODKEY2-r { mpc random }
-fn Key-$MODKEY2-KP_Add      { mixer pcm +5:+5 }
-fn Key-$MODKEY2-KP_Subtract { mixer pcm -5:-5 }
+fn Key-$MODKEY2-n { mpc next >/dev/null }
+fn Key-$MODKEY2-b { mpc prev >/dev/null }
+fn Key-$MODKEY2-s { mpc stop >/dev/null }
+fn Key-$MODKEY2-p { mpc toggle >/dev/null }
+fn Key-$MODKEY2-r { mpc random >/dev/null }
+fn Key-$MODKEY2-KP_Add      { mixer pcm +5:+5 >/dev/null }
+fn Key-$MODKEY2-KP_Subtract { mixer pcm -5:-5 >/dev/null }
 
 # Action {{{1
 fn Action-mp3 {
