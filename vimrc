@@ -161,8 +161,6 @@ aug END
 " 1}}}
 
 " bufferlist config {{{1
-hi BufferSelected ctermfg=darkcyan ctermbg=black cterm=bold
-hi BufferNormal   ctermfg=white    ctermbg=black cterm=NONE
 map <silent> <F5> :call BufferList()<CR>
 
 " taglist config {{{1
@@ -181,14 +179,17 @@ let g:miniBufExplModSelTarget=1
 " color changes when in term {{{1
 " this looks awful in xterm-256. use urxvt.
 if ! has("gui_running") && &t_Co == 88
+	highlight Normal cterm=NONE ctermfg=black ctermbg=white
 	highlight Folded cterm=NONE ctermfg=17 ctermbg=87
 	highlight Identifier cterm=NONE ctermfg=22
-	highlight String cterm=NONE ctermfg=black ctermbg=74
+	highlight String cterm=NONE ctermfg=fg ctermbg=74
 	highlight Type cterm=NONE ctermfg=20
-	highlight LineNr cterm=NONE ctermfg=black ctermbg=43
+	highlight LineNr cterm=NONE ctermfg=fg ctermbg=43
 	highlight PreProc cterm=NONE ctermfg=51
-	highlight StatusLine cterm=bold ctermfg=black ctermbg=53
+	highlight StatusLine cterm=bold ctermfg=fg ctermbg=53
 	highlight StatusLineNC cterm=NONE ctermfg=white ctermbg=82
+	highlight BufferSelected cterm=bold ctermfg=fg ctermbg=43
+	highlight BufferNormal cterm=NONE ctermfg=fg ctermbg=bg
 endif
 
 " kill off vim7's matchparen plugin {{{1
