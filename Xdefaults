@@ -7,7 +7,9 @@ URxvt.cursorColor: #dc74d1
 URxvt.scrollstyle: plain
 URxvt.secondaryScroll: true
 
-URxvt.font: -windows-proggyclean-*-*-*-*-*-*-*-*-*-*-*-*
+URxvt.font: xft:Bitstream Vera Sans Mono:pixelsize=10 \
+            -windows-proggyclean-*-*-*-*-*-*-*-*-*-*-*-* \
+            fixed
 URxvt.background: #fafafa
 URxvt.foreground: #000000
 URxvt.color2: #339900
