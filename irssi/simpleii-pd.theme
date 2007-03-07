@@ -59,11 +59,11 @@ abstracts = {
   ##
 
   # highlighted nick/host is printed (joins)
-  channick_hilight = "%r$*";
+  channick_hilight = "%r$*%n";
   chanhost_hilight = "{nickhost %b$*%n}";
 
   # nick/host is printed (parts, quits, etc.)
-  channick = "%r$*";
+  channick = "%r$*%n";
   chanhost = "{nickhost %b$*%n}";
 
   # highlighted channel name is printed
@@ -97,7 +97,7 @@ abstracts = {
 
   # $0 = nick mode, $1 = nick
   ownmsgnick = "{msgnick $0 $1-}";
-  ownnick = "%K$*%n";
+  ownnick = "%b$*%n";
 
   # public message in channel, $0 = nick mode, $1 = nick
   pubmsgnick = "{msgnick $0 $1-}";
