@@ -6,13 +6,14 @@ MODKEY2=Mod4
 WMII_FONT='-windows-proggytiny-*-r-*-*-*-*-*-*-*-*-*-*'
 WMII_NORMCOLORS=('#000000' '#f8f8f4' '#f8f8f4')
 WMII_FOCUSCOLORS=('#000000' '#8f9fff' '#000000')
-WMII_BACKGROUND='#f8f8f4'
+WMII_BACKGROUND='#ddeedd'
 WMII_TERM=(urxvtc)
 
 # Overrides
 wmiir write /tagrules <<!
 /XMMS.*/ -> ~
 /MPlayer.*/ -> ~
+/Firefox.*/ -> ~
 /Firefox.*/ -> www
 /Gimp.*/ -> ~
 /Gimp.*/ -> gimp
