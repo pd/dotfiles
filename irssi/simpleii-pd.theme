@@ -2,6 +2,7 @@
 # epic4 script "anduril"'s "default" look.  it looks nice so hell, 
 # why not. 
 
+# no idea who wrote the above.
 #############################################################################
 
 # default foreground color (%N) - -1 is the "default terminal color"
@@ -77,7 +78,7 @@ abstracts = {
 
   # the basic styling of how to print message, $0 = nick mode, $1 = nick
   msgnick = "   $0$1-: %n";
-  msghi = "   $0%M$1-%K:%n ";
+  msghi = "   $0%R$1-%K:%n ";
   # message from you is printed. "msgownnick" specifies the styling of the
   # nick ($0 part in msgnick) and "ownmsgnick" specifies the styling of the
   # whole line.
@@ -216,9 +217,9 @@ abstracts = {
   # background for prompt / input line
   sb_prompt_bg = "%n";
   # background for info statusbar
-  sb_info_bg = "";
+  sb_info_bg = "%n";
   # background for topicbar (same default)
-  sb_topic_bg = "%n";
+  sb_topic_bg = "%7%k";
 
   # text at the beginning of statusbars. sb-item already puts
   # space there,so we don't use anything by default.
@@ -241,9 +242,9 @@ abstracts = {
   # normal text
   sb_act_text = "%k$*%n";
   # public message
-  sb_act_msg = "%k$*%n";
+  sb_act_msg = "%b$*%n";
   # hilight
-  sb_act_hilight = "%K$*%n";
+  sb_act_hilight = "%R$*%n";
   # hilight with specified color, $0 = color, $1 = text
   sb_act_hilight_color = "$0$1-%n";
 };
