@@ -180,6 +180,7 @@ let g:miniBufExplModSelTarget=1
 " this looks awful in xterm-256. use urxvt.
 if ! has("gui_running") && &t_Co == 88
 	highlight Normal cterm=NONE ctermfg=black ctermbg=white
+	highlight Visual cterm=NONE ctermfg=fg ctermbg=41
 	highlight Folded cterm=NONE ctermfg=17 ctermbg=87
 	highlight Identifier cterm=NONE ctermfg=22
 	highlight String cterm=NONE ctermfg=fg ctermbg=74
