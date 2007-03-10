@@ -31,7 +31,7 @@ export PS1
 
 export CVSROOT='anoncvs@anoncvs1.usa.openbsd.org:/cvs'
 export VISUAL='vim'
-export BROWSER='firefox'
+export BROWSER='links -g'
 
 unset  HISTFILE
 unset  RUBYOPT

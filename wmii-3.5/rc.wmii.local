@@ -15,6 +15,7 @@ wmiir write /tagrules <<!
 /MPlayer.*/ -> ~
 /Firefox.*/ -> ~
 /Firefox.*/ -> www
+/Links.*/ -> www
 /Gimp.*/ -> ~
 /Gimp.*/ -> gimp
 /Angband.*/ -> ~
