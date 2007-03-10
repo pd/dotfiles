@@ -11,5 +11,5 @@ color progressbar = black
 color status-state = black
 color status-time = black
 color status-song = black
-color status-alert = red
+color alert = red
 color list-bold = blue
