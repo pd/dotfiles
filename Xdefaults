@@ -23,10 +23,3 @@ xterm*charClass: 33:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48,35:48
 xterm*termName: xterm-color
 xterm*background: #fafafa
 xterm*foreground: #000000
-
-# rxvt {{{1
-rxvt*font: -windows-proggyclean-*-*-*-*-12-*-*-*-*-*-*-*
-rxvt*boldMode: false
-rxvt*loginShell: true
-rxvt*saveLines: 1024
-rxvt*charClass: 33:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48,35:48
