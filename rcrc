@@ -7,7 +7,7 @@ fn prompt {
 	whoami=`{whoami}
 	curdir=`{pwd|sed '1s/^\/home\/pd/~/'}
 	if (! ~ $TERM 'cons25') {
-		settitle $whoami^@^$hostname^:^$curdir
+		settitle -t 'rc: '^$whoami^@^$hostname^:^$curdir
 	}
 }
 

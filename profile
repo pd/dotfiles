@@ -11,7 +11,7 @@ export PATH HOME TERM
 
 # PROMPT_COMMAND is bash only.
 promptcmd () {
-	settitle "`whoami`@${hostname}:`dirs`"
+	settitle -t "sh: `whoami`@${hostname}:`dirs`"
 }
 
 case $TERM in
