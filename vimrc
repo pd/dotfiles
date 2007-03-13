@@ -25,6 +25,7 @@
 "
 " c:
 "   <F1>  -- :make
+"   <F2>  -- :cnext
 "
 " misc:
 "   %/    -- in Command mode, expands to the path of the current file's
@@ -104,6 +105,7 @@ aug pdC " {{{1
 
 	au FileType c set fdm=syntax
 	au FileType c map <F1> :make<Enter>
+	au FileType c map <F2> :cnext<Enter>
 aug END
 
 aug pdWiki " {{{1
