@@ -39,6 +39,7 @@ unset  RUBYOPT
 hostname=${hostname:=`uname -n`}
 export hostname=${hostname%.internal}
 export p9=$PLAN9
+export lcl=/usr/local
 export hgweb='http://pd.eggsampler.com/cgi-bin/hgwebdir.cgi'
 export PDII_ADDRESS="unix!/tmp/ns.pd.${DISPLAY%.0}/pdii"
 
@@ -51,7 +52,9 @@ alias diff='diff -u'
 alias cvs='cvs -z9'
 alias irb='irb --readline -r irb/completion'
 
-# this is better than another bloody --format option to mpc.
+# bash expands the next word
+alias sudo='sudo '
+
 export MPD_HOST=localhost
 export MPD_PORT=6600
 alias pls="echo playlist|nc ${MPD_HOST} ${MPD_PORT}"
