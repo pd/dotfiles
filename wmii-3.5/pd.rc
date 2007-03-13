@@ -91,18 +91,7 @@ fn Key-$MODKEY-Control-$DOWN { # {{{2
 	}
 }
 
-fn Key-$MODKEY-Control-r { # raw mode {{{2
-	if(~ `{wmiir read /keys | wc -l} 0) {
-		initkeys
-		wmiir xwrite /ctl grabmod $MODKEY
-	}
-	if not {
-		wmiir xwrite /ctl keys $MODKEY-Control-r
-		wmiir xwrite /ctl grabmod Mod3
-	}
-}
-
-fn Key-$MODKEY-Control-t { # was raw mode, now: retag all clients in view {{{2
+fn Key-$MODKEY-Control-r {
 	ctag=`{read_tags | wmiimenu}
 	clients=`{wmiir read /tag/sel/index|awk '$0 !~ /^# / { print $2 }'}
 	for (c in $clients)
