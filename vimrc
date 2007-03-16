@@ -119,6 +119,8 @@ aug pdLisp " {{{1
 
 	au FileType lisp map <silent> <Leader>c :s!^!;!<CR>
 	au FileType lisp map <silent> <Leader>u :s!^;!!<CR>
+
+	au FileType lisp map <F1> :!clisp %<CR>
 aug end
 
 aug pdHaskell " {{{1
