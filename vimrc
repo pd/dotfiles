@@ -164,9 +164,6 @@ aug pdRSpecs " {{{1
 aug END
 " 1}}}
 
-" bufferlist config {{{1
-map <silent> <F5> :call BufferList()<CR>
-
 " taglist config {{{1
 let Tlist_Ctags_Cmd="/usr/local/bin/exctags"
 map <silent> <F6> :TlistToggle<CR>
@@ -177,6 +174,8 @@ let treeExplWinSize=50
 map <silent> <F12> :VSTreeExplore<CR>
 
 " minibufexpl config {{{1
+map <silent> <F5> :MiniBufExplorer<CR>
+let g:miniBufExplSplitBelow=0
 let g:miniBufExplModSelTarget=1
 " 1}}}
 
