@@ -16,3 +16,4 @@ bind h prev
 bind l next
 bind m screen -ln mutt
 bind e screen -ln vim
+bind P screen -ln ncmpc
