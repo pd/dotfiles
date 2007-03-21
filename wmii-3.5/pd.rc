@@ -71,7 +71,7 @@ fn Action-screenshot { # {{{2
 # M-[0-9] navigate tags alphabetically {{{2
 for(i in `{seq 0 9}) {
 	fn Key-$MODKEY-$i {
-		wmiir xwrite /ctl view `{wmiir ls /tag | egrep -v '^sel/' | sed -n `{echo $1 | sed 's/.*-//'}^p}
+		wmiir xwrite /ctl view `{read_tags | sed -n `{echo $1 | sed 's/.*-//'}^p}
 	}
 	fn Key-$MODKEY2-$i {
 		wmiir xwrite /ctl view `{echo $1 | sed 's/.*-//'}
