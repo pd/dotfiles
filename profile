@@ -14,6 +14,11 @@ promptcmd () {
 	settitle -t "sh: `whoami`@${hostname}:`dirs`"
 }
 
+line () {
+	num=$1; shift
+	sed -n "${num}{p; q;}" $*
+}
+
 case $TERM in
 	xterm*|rxvt*)
 		PROMPT_COMMAND='promptcmd'
@@ -29,6 +34,7 @@ case $TERM in
 esac
 export PS1
 
+export LANG='en_US.UTF-8'
 export CVSROOT='anoncvs@anoncvs1.usa.openbsd.org:/cvs'
 export VISUAL='vim'
 export BROWSER='links -g'
