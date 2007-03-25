@@ -96,16 +96,20 @@ aug END
 
 aug pdC " {{{1
 	au!
-	au FileType c  set cin
+	au FileType c set cin
 	au FileType cc set cin
-	au FileType h  set cin
+	au FileType cpp set cin
 
 	au FileType c map <silent> <Leader>c :s!^!//!<CR>
 	au FileType c map <silent> <Leader>u :s!^//!!<CR>
 
 	au FileType c set fdm=syntax
+	au FileType cc set fdm=syntax
+	au FileType cpp set fdm=syntax
 	au FileType c map <F1> :make<Enter>
 	au FileType c map <F2> :cnext<Enter>
+	au FileType cpp map <F1> :make<Enter>
+	au FileType cpp map <F2> :cnext<Enter>
 aug END
 
 aug pdWiki " {{{1
