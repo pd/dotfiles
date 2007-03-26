@@ -1,4 +1,4 @@
-#!/usr/local/plan9/bin/rc
+#!/usr/bin/env 9 rc
 
 # Key bindings {{{1
 fn Key-$MODKEY2-n { mpc next >/dev/null }
