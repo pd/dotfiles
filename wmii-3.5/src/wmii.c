@@ -18,7 +18,7 @@ wmii_create_file(IXPClient *ixpc, const char *path)
 		return -1;
 
 	p++;
-	if (ixp_client_create(ixpc, fid, p, IXP_DMWRITE, IXP_OWRITE) == -1)
+	if (ixp_client_create(ixpc, fid, p, P9DMWRITE, IXP_OWRITE) == -1)
 		ret = -1;
 
 	ixp_client_close(ixpc, fid);
