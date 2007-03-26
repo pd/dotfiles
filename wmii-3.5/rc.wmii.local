@@ -4,10 +4,11 @@
 
 MODKEY2=Mod4
 WMII_FONT='-windows-proggytiny-*-r-*-*-*-*-*-*-*-*-*-*'
+WMII_TERM=(urxvtc)
+
 WMII_NORMCOLORS=('#000000' '#f8f8f4' '#f8f8f4')
 WMII_FOCUSCOLORS=('#000000' '#bbc5ff' '#000000')
 WMII_BACKGROUND='#ddeedd'
-WMII_TERM=(urxvtc)
 
 # Overrides
 wmiir write /tagrules <<!
@@ -26,4 +27,3 @@ wmiir write /tagrules <<!
 
 . $home/.wmii-3.5/pd.rc
 . $home/.wmii-3.5/mpc.rc
-Action mp3 &
