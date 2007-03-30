@@ -37,6 +37,17 @@ fn Event-CreateClient {
 	}
 }
 
+# view 'irc' and kill the bar entry for irssi notification
+fn Event-RightBarClick {
+	button = $1
+	bar = $2
+	if (~ $bar 100_hiirc) {
+		if (~ $button 3)
+			wmiir xwrite /ctl view irc
+		wmiir remove /rbar/100_hiirc
+	}
+}
+
 # Actions {{{1
 fn status { # include uptime in status {{{2
 	echo -n `{uptime | sed 's/.*up/up/; s/,//g; s/load averages:/ | /'} '|' `{date}
