@@ -116,3 +116,7 @@ fn Key-$MODKEY-Control-r { # retag all clients in view {{{2
 	for (c in $clients)
 		wmiir xwrite /client/$c/tags $tag
 }
+
+fn Key-$MODKEY2-i { # clear irc bar. see related event above {{{2
+	wmiir remove /rbar/100_hiirc
+}
