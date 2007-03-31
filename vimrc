@@ -140,9 +140,12 @@ aug pdRuby " {{{1
 
 	" more&more rails. starting to need this as default.
 	au FileType ruby set et sw=2 ts=2 sts=2
+	au FileType eruby set et sw=2 ts=2 sts=2
+	au FileType eruby set ai
 
 	" prevents the annoyance of forcing # to the first column
 	au FileType ruby inoremap # X#
+	au FileType eruby inoremap # X#
 
 	" prolly should be using makeprg=... or some such, but this
 	" is plenty fine for me.
@@ -168,6 +171,11 @@ aug pdRSpecs " {{{1
 	au BufEnter *_spec.rb let b:simplefold_nestable_end_expr = 
 		\ '\v^\s*end'
 	au BufEnter *_spec.rb let b:simplefold_prefix='\v^\s*(#.*)?$'
+aug END
+aug pdWeb " {{{1
+	au!
+	au FileType css set ai et sw=2 ts=2 sts=2
+	au FileType html set ai et sw=2 ts=2 sts=2
 aug END
 " 1}}}
 
