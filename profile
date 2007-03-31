@@ -56,7 +56,6 @@ alias ll='ls -l'
 alias lla='ls -la'
 alias diff='diff -u'
 alias cvs='cvs -z9'
-alias irb='irb --readline -r irb/completion'
 
 # bash expands the next word
 alias sudo='sudo '
