@@ -105,18 +105,14 @@ fn Key-$MODKEY-Control-$RIGHT { wmiir xwrite /tag/sel/ctl swap sel right }
 fn Key-$MODKEY-Control-$UP    { wmiir xwrite /tag/sel/ctl swap sel up }
 fn Key-$MODKEY-Control-$DOWN  { wmiir xwrite /tag/sel/ctl swap sel down }
 
+fn Key-$MODKEY-Shift-t { # allow tag[+-] for [+-]tag {{{2
+	tag=`{read_tags | wmiimenu | sed 's/(.*)([+\-])$/\2\1/'}
+	wmiir xwrite /client/`{wmiir read /client/sel/ctl}^/tags $tag
+}
+
 fn Key-$MODKEY-Control-r { # retag all clients in view {{{2
-	tag=`{read_tags | wmiimenu}
+	tag=`{read_tags | wmiimenu | sed 's/(.*)([+\-])$/\2\1/'}
 	clients=`{wmiir read /tag/sel/index|awk '$0 !~ /^# / { print $2 }'}
 	for (c in $clients)
 		wmiir xwrite /client/$c/tags $tag
-}
-
-fn Key-$MODKEY-Shift-t { # allow tag[+-] for [+-]tag {{{2
-	tag=`{read_tags | wmiimenu}
-	if (~ $tag *-)
-		tag=`{echo $tag | sed 's/-$//; s/.*/-&/'}
-	if (~ $tag *+)
-		tag=`{echo $tag | sed 's/\+$//; s/.*/+&/'}
-	wmiir xwrite /client/`{wmiir read /client/sel/ctl}^/tags $tag
 }
