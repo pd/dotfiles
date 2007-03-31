@@ -138,6 +138,9 @@ aug end
 aug pdRuby " {{{1
 	au!
 
+	" rjs files
+	au BufEnter *.rjs set ft=ruby
+
 	" more&more rails. starting to need this as default.
 	au FileType ruby set et sw=2 ts=2 sts=2
 	au FileType eruby set et sw=2 ts=2 sts=2
