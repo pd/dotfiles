@@ -138,6 +138,9 @@ aug end
 aug pdRuby " {{{1
 	au!
 
+	" more&more rails. starting to need this as default.
+	au FileType ruby set et sw=2 ts=2 sts=2
+
 	" prevents the annoyance of forcing # to the first column
 	au FileType ruby inoremap # X#
 
