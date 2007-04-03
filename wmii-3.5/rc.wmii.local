@@ -6,9 +6,25 @@ MODKEY2=Mod4
 WMII_FONT='-windows-proggytiny-*-r-*-*-*-*-*-*-*-*-*-*'
 WMII_TERM=(urxvtc)
 
-WMII_NORMCOLORS=('#000000' '#f8f8f4' '#f8f8f4')
-WMII_FOCUSCOLORS=('#000000' '#bbc5ff' '#000000')
-WMII_BACKGROUND='#ddeedd'
+# my pastel blue&white
+#WMII_NORMCOLORS=('#000000' '#f8f8f4' '#f8f8f4')
+#WMII_FOCUSCOLORS=('#000000' '#bbc5ff' '#000000')
+#WMII_BACKGROUND='#ddeedd'
+
+# wmii-3.1 style
+#WMII_FOCUSCOLORS=('#ffffff' '#285577' '#4C7899')
+#WMII_NORMCOLORS=('#888888' '#222222' '#333333')
+#WMII_BACKGROUND='#333333'
+
+# acme
+#WMII_FOCUSCOLORS=('#000000' '#eaffff' '#8888cc')
+#WMII_NORMCOLORS=('#000000' '#ffffea' '#bdb76b')
+#WMII_BACKGROUND='#757575'
+
+# anthrazit
+WMII_FOCUSCOLORS=('#eeeeee' '#506070' '#708090')
+WMII_NORMCOLORS=('#bbbbbb' '#222222' '#000000')
+WMII_BACKGROUND='#333333'
 
 # Overrides
 wmiir write /tagrules <<!

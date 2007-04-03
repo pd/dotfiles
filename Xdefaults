@@ -10,10 +10,12 @@ URxvt.secondaryScroll: true
 URxvt.font: xft:Bitstream Vera Sans Mono:pixelsize=10 \
             -windows-proggyclean-*-*-*-*-*-*-*-*-*-*-*-* \
             fixed
-URxvt.background: #fafafa
-URxvt.foreground: #000000
-URxvt.color2: #339900
-URxvt.color6: #36b1c0
+#URxvt.background: #fafafa
+#URxvt.foreground: #000000
+#URxvt.color2: #339900
+#URxvt.color6: #36b1c0
+URxvt.background: #333333
+URxvt.foreground: #cccccc
 
 # xterm {{{1
 xterm*font: -windows-proggyclean-*-*-*-*-12-*-*-*-*-*-*-*
