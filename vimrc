@@ -201,6 +201,7 @@ let g:miniBufExplModSelTarget=1
 if ! has("gui_running") && &t_Co == 88
 	colorscheme inkpot
 	highlight Folded cterm=NONE ctermfg=black ctermbg=22
+	highlight MBEVisibleNormal cterm=NONE ctermfg=black ctermbg=22
 endif
 
 " kill off vim7's matchparen plugin {{{1
