@@ -1,65 +1,53 @@
-# $OpenBSD: dot.profile,v 1.4 2005/02/16 06:56:57 matthieu Exp $
-#
-# sh/ksh initialization
+PATH="/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:$PATH"
+PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+PATH="$HOME/bin:$PATH"
+export PATH
 
-set -o vi vi-tabcomplete
+export PS1='\w $ '
+export EDITOR=vi
+export DISPLAY=:0.0
 
-PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/X11R6/bin:/usr/local/bin:/usr/local/sbin:/usr/games
-PATH=$HOME/bin:$PATH:.
-PATH=$PATH:$PLAN9/bin
-export PATH HOME TERM
-
-# PROMPT_COMMAND is bash only.
-promptcmd () {
-	settitle -t "sh: `whoami`@${hostname}:`dirs`"
-}
-
-line () {
-	num=$1; shift
-	sed -n "${num}{p; q;}" $*
-}
-
-case $TERM in
-	xterm*|rxvt*)
-		PROMPT_COMMAND='promptcmd'
-		PS1='$ '
-		;;
-	screen*)
-		PROMPT_COMMAND='promptcmd'
-		PS1='\[\033k\033\\\]$ '  # for screen's shelltitle
-		;;
-	*)
-		PS1='$ '
-		;;
-esac
-export PS1
-
-export LANG='en_US.UTF-8'
-export CVSROOT='anoncvs@anoncvs1.usa.openbsd.org:/cvs'
-export VISUAL='vim'
-export BROWSER='links -g'
-
-unset  HISTFILE
-unset  RUBYOPT
-
-hostname=${hostname:=`uname -n`}
-export hostname=${hostname%.internal}
-export p9=$PLAN9
-export lcl=/usr/local
-export hgweb='http://pd.eggsampler.com/cgi-bin/hgwebdir.cgi'
-export PDII_ADDRESS="unix!/tmp/ns.pd.${DISPLAY%.0}/pdii"
-
-alias pkg_add="PKGDIR='/usr/ports/pkg-distfiles6.2' sudo pkg_add -K"
-alias ls='ls -F'
-alias la='ls -a'
+## generic
+alias ls='ls -Fh'
 alias ll='ls -l'
-alias lla='ls -la'
-alias diff='diff -u'
-alias cvs='cvs -z9'
+alias la='ls -a'
+alias l='ls'
+alias h='history'
+alias bd='cd "$OLDPWD"'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias .p="source $HOME/.profile"
 
-# bash expands the next word
-alias sudo='sudo '
+## depressingly generic
+alias mt='mate .'
 
-export MPD_HOST=localhost
-export MPD_PORT=6600
-alias pls="echo playlist|nc ${MPD_HOST} ${MPD_PORT}"
+## for textmate bundles from svn with their shitty names.
+export LC_CTYPE=en_US.UTF-8
+
+## railsby
+alias rails="ruby ~/vendor/rails/railties/bin/rails"
+alias ss='./script/server'
+alias sc='./script/console'
+function cdgem {
+  cd /usr/local/lib/ruby/gems/1.8/gems
+  cd `ls | grep $1 | sort | tail -1`
+}
+
+## (c) Chapter Communications
+alias ccmaster='mysql -h lwdb.madbytes.net -u ccmaster -p ccmaster'
+
+## g blah -- grep -R 'blah' * | grep -v \.svn
+## gf 'foo' '*.php' -- find all 'foo' in **/*.php
+## svnrv -- svn revert all outstanding changes
+function g  { grep -R "$1" * | grep -v \.svn; }
+function gf { find . -iname "$2" -print0 | xargs -0 grep -Hn "$1"; }
+function svnrv {
+  if [ "x" != "x$*" ]; then
+    svn revert $*
+  else
+    svn status | awk '{print $2}' | xargs svn revert
+  fi
+}
+
+## emacs^[dd
+set -o vi vi-tabcomplete
