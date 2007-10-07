@@ -41,12 +41,31 @@ autoload -U compinit
 compinit
 
 ## iterm
-function description { echo $HOST:r:r:$PWD }
-function settab { echo -ne "\e]1;`description`\a" }
-function settitle { echo -ne "\e]2;`description`\a" }
-function chpwd { settab; settitle }
-function precmd { settab; settitle }
-function preexec { printf "\e]2;$HOST:$(history $HISTCMD | cut -b7- )\a" }
+##   \e]1 = tab label
+##   \e]2 = window title
+function iterm_set_tab_label {
+  echo -ne "\e]1;$*\a"
+}
+function iterm_set_window_title {
+  echo -ne "\e]2;$*\a"
+}
+
+# executed before printing a prompt
+function precmd {
+  host="$HOST:t:t"
+  pwd=`echo $PWD | sed "s,$HOME,~,"`
+  str="$host: $pwd"
+  iterm_set_tab_label $str
+  iterm_set_window_title $str
+}
+# executed just after reading a command, before running it
+function preexec {
+  host="$HOST:t:t"
+  cmd=$(history $HISTCMD | cut -b7-)
+  str="$host: $cmd"
+  iterm_set_tab_label $str
+  iterm_set_window_title $str
+}
 
 ## emacs^[dd
 set -o vi vi-tabcomplete
