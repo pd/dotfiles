@@ -1,0 +1,9 @@
+[ui]
+username = Kyle Hargraves <kyleh@chaptercommunications.com>
+
+[extensions]
+hgext.mq=
+hgk=
+
+[hgk]
+path=/opt/local/share/mercurial/contrib/hgk

@@ -1,0 +1,18 @@
+# vim:ts=2 sw=2 sts=2 ft=ruby:
+module Autotest::Growl
+  def self.growl(title, msg, img, pri=0, sticky="")
+    system "growlnotify -n autotest --image #{img} -p #{pri} -m #{msg.inspect} #{title} #{sticky} 2>/dev/null"
+  end
+
+  Autotest.add_hook :ran_command do |at|
+    results = [at.results].flatten.join("\n")
+    output = results.slice(/(\d+)\s+examples?,\s*(\d+)\s+failures?/)
+    if output
+      if $~[2].to_i > 0
+        growl "Tests Failing", "#{output}", "~/Pictures/Growl/Autotest/fail.png", 2
+      else
+        growl "Tests Passing", "#{output}", "~/Pictures/Growl/Autotest/pass.png"
+      end
+    end
+  end
+end
