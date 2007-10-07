@@ -10,8 +10,8 @@
 	local = yellow
 	remote = yellow reverse
 [color "diff"]
-	meta = yellow bold
-	frag = magenta bold
+	meta = white bold
+	frag = cyan bold
 	old = red bold
 	new = green bold
 [color "status"]
