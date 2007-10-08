@@ -1,16 +1,20 @@
 PATH="/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:$PATH"
 PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-PATH="$HOME/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
 
-PS1='kyleh %~ %# '
-EDITOR=vi
-DISPLAY=:0.0
+export PS1='kyleh %~ %# '
+export EDITOR=vi
+export DISPLAY=:0.0
+
+## for textmate bundles from svn with their shitty names.
+export LC_CTYPE=en_US.UTF-8
 
 alias ls='ls -Fh'
 alias ll='ls -l'
 alias la='ls -a'
 alias l='ls'
 alias .z='source ~/.zshrc'
+alias p='ps axww'
 alias mt='mate .'
 alias scp='scp -C'
 
