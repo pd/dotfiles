@@ -1,6 +1,9 @@
-PATH="/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:$PATH"
-PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-export PATH="$HOME/bin:$PATH"
+PATH="/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
+PATH="$PATH:/opt/local/bin:/opt/local/sbin"
+PATH="$PATH:/usr/local/mysql/bin"
+PATH="$PATH:/opt/local/lib/postgresql82/bin"
+PATH="$HOME/bin:$PATH"
+export PATH
 
 export PS1='kyleh %~ %# '
 export EDITOR=vi
@@ -13,10 +16,13 @@ alias ls='ls -Fh'
 alias ll='ls -l'
 alias la='ls -a'
 alias l='ls'
-alias .z='source ~/.zshrc'
+alias h='history'
 alias p='ps axww'
 alias mt='mate .'
 alias scp='scp -C'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias .z='source ~/.zshrc'
 
 ## no spelling correction on certain commands
 alias rm='nocorrect rm'
@@ -38,6 +44,9 @@ function svnrv {
   else
     svn status | awk '{print $2}' | xargs svn revert
   fi
+}
+function svnsum {
+  svn diff --summarize -r "$1":"$2"
 }
 
 ## expanded tabcomplete
