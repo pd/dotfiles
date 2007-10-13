@@ -1,5 +1,8 @@
 " vim:fdm=marker
 
+" blasphemy:
+" kyleh ~ % mate .vimrc
+
 " :he <Leader>
 "   <Leader>s -- clear search highlights
 "   <Leader>p -- toggle paste mode
@@ -30,6 +33,8 @@
 " misc:
 "   %/    -- in Command mode, expands to the path of the current file's
 "            directory.
+
+set nocompatible
 
 colorscheme default
 filetype plugin indent on " :he :filetype-overview
@@ -87,6 +92,9 @@ cmap %/ <C-R>=expand("%:p:h")."/"<CR>
 " abbreviations {{{1
 iab pdiish #!/bin/sh<CR>. $HOME/irc/pdii/pdii.sh.include
 " 1}}}
+
+set laststatus=2 " = always
+set statusline=%<%f\%h%m%r%=%-20.(line=%l\ \ col=%c%V\ \ totlin=%L%)\ \ \ %h%m%r%=%-40(bytval=0x%B,%n%Y%)\%P
 
 aug pdJava " {{{1
 	au!
