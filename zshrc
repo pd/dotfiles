@@ -45,6 +45,11 @@ function svnrv {
     svn status | awk '{print $2}' | xargs svn revert
   fi
 }
+
+## % svnsum 1112 1118
+## A blah/some.new.file
+## U blah/some.updated.file
+## etc.
 function svnsum {
   svn diff --summarize -r "$1":"$2"
 }
