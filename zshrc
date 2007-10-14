@@ -8,6 +8,11 @@ path=(
 )
 fpath=( '/opt/local/share/zsh/4.2.6/functions' "$HOME/.zsh/functions" )
 
+## make zsh maintain the dir stack
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushd_silent
+
 export PS1='kyleh %~ %# '
 export EDITOR=vi
 export DISPLAY=:0.0
@@ -31,6 +36,10 @@ alias .z='source ~/.zshrc'
 alias gst='git status'
 alias gco='git checkout'
 alias gci='git commit'
+
+## dir stack manipulation
+alias d='dirs -v'
+alias rcd='cd +1'
 
 ## no spelling correction on certain commands
 alias rm='nocorrect rm'
