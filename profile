@@ -51,3 +51,7 @@ function svnrv {
 
 ## emacs^[dd
 set -o vi vi-tabcomplete
+
+if [ -f /opt/local/etc/bash_completion ]; then
+  . /opt/local/etc/bash_completion
+fi
