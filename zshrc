@@ -6,7 +6,7 @@ path=(
   '/usr/local/bin' '/usr/local/sbin'
   '/bin' '/sbin' '/usr/bin' '/usr/sbin'
 )
-fpath=( '/opt/local/share/zsh/4.2.6/functions' )
+fpath=( '/opt/local/share/zsh/4.2.6/functions' "$HOME/.zsh/functions" )
 
 export PS1='kyleh %~ %# '
 export EDITOR=vi
