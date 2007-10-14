@@ -36,6 +36,8 @@ alias .z='source ~/.zshrc'
 alias gst='git status'
 alias gco='git checkout'
 alias gci='git commit'
+alias gb='git branch'
+alias gsh='git show'
 
 ## dir stack manipulation
 alias d='dirs -v'
