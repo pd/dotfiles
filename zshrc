@@ -27,6 +27,10 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias .z='source ~/.zshrc'
 
+## i dislike that git won't let me abbreviate
+alias gst='git status'
+alias gco='git checkout'
+
 ## no spelling correction on certain commands
 alias rm='nocorrect rm'
 alias mv='nocorrect mv'
