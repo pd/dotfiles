@@ -54,8 +54,8 @@ endif
 
 " basic options {{{1
 let mapleader=";"
-set tabstop=4 shiftwidth=4 softtabstop=4
-set autoindent smartindent noexpandtab smarttab
+set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+set autoindent smartindent smarttab
 set formatoptions+=croql
 set cinoptions+=:0
 set cinkeys-=0#
