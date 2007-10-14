@@ -1,9 +1,11 @@
-PATH="/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
-PATH="$PATH:/opt/local/bin:/opt/local/sbin"
-PATH="$PATH:/usr/local/mysql/bin"
-PATH="$PATH:/opt/local/lib/postgresql82/bin"
-PATH="$HOME/bin:$PATH"
-export PATH
+path=(
+  "$HOME/bin"
+  '/opt/local/bin' '/opt/local/sbin'
+  '/opt/local/lib/postgresql82/bin'
+  '/usr/local/mysql/bin'
+  '/usr/local/bin' '/usr/local/sbin'
+  '/bin' '/sbin' '/usr/bin' '/usr/sbin'
+)
 
 export PS1='kyleh %~ %# '
 export EDITOR=vi
