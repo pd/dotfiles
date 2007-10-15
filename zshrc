@@ -38,11 +38,12 @@ alias gco='git checkout'
 alias gci='git commit'
 alias gb='git branch'
 alias gsh='git show'
+alias gshb='git show-branch'
 alias gl='git log'
+alias gd='git diff'
 
 ## dir stack manipulation
 alias d='dirs -v'
-alias rcd='cd +1'
 
 ## no spelling correction on certain commands
 alias rm='nocorrect rm'
