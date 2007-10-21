@@ -41,6 +41,9 @@ alias gsh='git show'
 alias gshb='git show-branch'
 alias gl='git log'
 alias gd='git diff'
+alias gdhd='git diff HEAD'
+alias stash='git stash'
+alias unstash='git stash apply'
 
 ## dir stack manipulation
 alias d='dirs -v'
