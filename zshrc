@@ -44,6 +44,8 @@ alias gd='git diff'
 alias gdhd='git diff HEAD'
 alias stash='git stash'
 alias unstash='git stash apply'
+alias stash-ls='git stash show'
+alias stash-patch='git stash show -p'
 
 ## dir stack manipulation
 alias d='dirs -v'
