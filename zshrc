@@ -113,5 +113,8 @@ function preexec {
   iterm_set_window_title $str
 }
 
+## way too much to type
+gems="/opt/local/lib/ruby/gems/1.8/gems"
+
 ## emacs^[dd
 set -o vi vi-tabcomplete
