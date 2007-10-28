@@ -31,6 +31,7 @@ alias scp='scp -C'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias .z='source ~/.zshrc'
+alias cls='clear'
 
 ## i dislike that git won't let me abbreviate
 alias gst='git status'
