@@ -26,12 +26,16 @@ alias la='ls -a'
 alias l='ls'
 alias h='history'
 alias p='ps axww'
-alias mt='mate .'
 alias scp='scp -C'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias .z='source ~/.zshrc'
 alias cls='clear'
+
+function mt {
+  [ "$PWD" = "$HOME" ] && echo "not in $HOME." && return
+  mate .
+}
 
 ## i dislike that git won't let me abbreviate
 alias gst='git status'
