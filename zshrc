@@ -37,7 +37,6 @@ function mt {
   mate .
 }
 
-## i dislike that git won't let me abbreviate
 alias gst='git status'
 alias gco='git checkout'
 alias gci='git commit'
