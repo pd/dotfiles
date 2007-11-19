@@ -9,9 +9,9 @@ module Autotest::Growl
     output = results.slice(/(\d+)\s+examples?,\s*(\d+)\s+failures?/)
     if output
       if $~[2].to_i > 0
-        growl "Tests Failing", "#{output}", "~/Pictures/Growl/Autotest/fail.png", 2
+        growl "Red", "#{output}", "~/Pictures/Growl/Autotest/fail.png", 2
       else
-        growl "Tests Passing", "#{output}", "~/Pictures/Growl/Autotest/pass.png"
+        growl "Green", "#{output}", "~/Pictures/Growl/Autotest/pass.png"
       end
     end
   end
