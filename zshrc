@@ -34,6 +34,7 @@ alias cls='clear'
 
 alias ss='./script/server'
 alias sc='./script/console'
+alias att='autotest'
 
 function mt {
   [ "$PWD" = "$HOME" ] && echo "not in $HOME." && return
