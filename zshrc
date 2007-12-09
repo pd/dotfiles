@@ -94,6 +94,23 @@ function svnsum {
   svn diff --summarize -r "$1":"$2"
 }
 
+## i don't know why the launchd file for these don't work
+## but ffs it's horrid XML files and i don't care to learn.
+function psqld {
+  if [ "$1" = "stop" ]; then
+    sudo -u postgres pg_ctl -D /opt/local/var/db/postgresql82/defaultdb stop -s -m fast
+  else
+    sudo -u postgres pg_ctl -D /opt/local/var/db/postgresql82/defaultdb start -l /opt/local/var/log/postgresql82/postgres.log
+  fi
+}
+function mysqld {
+  if [ "$1" = "stop" ]; then
+    /opt/local/share/mysql5/mysql/mysql.server stop
+  else
+    /opt/local/share/mysql5/mysql/mysql.server start
+  fi
+}
+
 ## expanded tabcomplete
 autoload -U compinit
 compinit
