@@ -35,6 +35,7 @@ alias cls='clear'
 alias ss='./script/server'
 alias sc='./script/console'
 alias att='autotest'
+alias rbst='ruby stories/all.rb'
 
 function mt {
   [ "$PWD" = "$HOME" ] && echo "not in $HOME." && return
