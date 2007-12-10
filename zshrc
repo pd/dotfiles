@@ -36,6 +36,7 @@ alias ss='./script/server'
 alias sc='./script/console'
 alias att='autotest'
 alias rbst='ruby stories/all.rb'
+alias gs='gem_server'
 
 function mt {
   [ "$PWD" = "$HOME" ] && echo "not in $HOME." && return
