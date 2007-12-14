@@ -76,10 +76,6 @@ map <silent> <F9> :cd %:p:h<CR>
 map <F10> :echo synIDattr(synID(line('.'), col('.'), 1), 'name')<CR>
 cmap %/ <C-R>=expand("%:p:h")."/"<CR>
 
-" abbreviations {{{1
-iab pdiish #!/bin/sh<CR>. $HOME/irc/pdii/pdii.sh.include
-" 1}}}
-
 set laststatus=2 " = always
 set statusline=%<%f\%h%m%r%=%-20.(line=%l\ \ col=%c%V\ \ totlin=%L%)\ \ \ %h%m%r%=%-40(bytval=0x%B,%n%Y%)\%P
 
