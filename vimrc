@@ -96,6 +96,27 @@ iab pdiish #!/bin/sh<CR>. $HOME/irc/pdii/pdii.sh.include
 set laststatus=2 " = always
 set statusline=%<%f\%h%m%r%=%-20.(line=%l\ \ col=%c%V\ \ totlin=%L%)\ \ \ %h%m%r%=%-40(bytval=0x%B,%n%Y%)\%P
 
+aug pdRuby " {{{1
+	au!
+
+	" rjs files
+	au BufEnter *.rjs set ft=ruby
+
+	" more&more rails. starting to need this as default.
+	au FileType ruby set et sw=2 ts=2 sts=2
+	au FileType eruby set et sw=2 ts=2 sts=2
+	au FileType eruby set ai
+
+	" prevents the annoyance of forcing # to the first column
+  "	au FileType ruby inoremap # X#
+	" au FileType eruby inoremap # X#
+
+	" prolly should be using makeprg=... or some such, but this
+	" is plenty fine for me.
+	au FileType ruby map <F1> :!ruby %<Enter>
+	au FileType ruby map <F2> :!rake<Enter>
+aug END
+
 aug pdJava " {{{1
 	au!
 	au FileType java map <silent> <Leader>c :s!^!//!<CR>
@@ -120,11 +141,6 @@ aug pdC " {{{1
 	au FileType cpp map <F2> :cnext<Enter>
 aug END
 
-aug pdWiki " {{{1
-	au!
-	au FileType wiki setf wikipedia
-aug END
-
 aug pdLisp " {{{1
 	au!
 	au FileType lisp set et showmatch
@@ -134,37 +150,6 @@ aug pdLisp " {{{1
 
 	au FileType lisp map <F1> :!clisp %<CR>
 aug end
-
-aug pdHaskell " {{{1
-	au!
-	au FileType haskell set et showmatch
-
-	au FileType haskell map <silent> <Leader>c :s!^!--!<CR>
-	au FileType haskell map <silent> <Leader>u :s!^--!!<CR>
-aug end
-
-aug pdRuby " {{{1
-	au!
-
-	" rjs files
-	au BufEnter *.rjs set ft=ruby
-
-	" more&more rails. starting to need this as default.
-	au FileType ruby set et sw=2 ts=2 sts=2
-	au FileType eruby set et sw=2 ts=2 sts=2
-	au FileType eruby set ai
-
-	" prevents the annoyance of forcing # to the first column
-	au FileType ruby inoremap # X#
-	au FileType eruby inoremap # X#
-
-	" prolly should be using makeprg=... or some such, but this
-	" is plenty fine for me.
-	au FileType ruby map <F1> :!ruby %<Enter>
-	au FileType ruby map <F2> :!rake<Enter>
-	au FileType ruby map <F3> :!rake showspecs<Enter>
-	au FileType ruby map <F4> :!rake cov<Enter>
-aug END
 
 aug pdWeb " {{{1
 	au!
