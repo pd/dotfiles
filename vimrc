@@ -90,10 +90,6 @@ aug pdRuby " {{{1
 	au FileType eruby set et sw=2 ts=2 sts=2
 	au FileType eruby set ai
 
-	" prevents the annoyance of forcing # to the first column
-  "	au FileType ruby inoremap # X#
-	" au FileType eruby inoremap # X#
-
 	" prolly should be using makeprg=... or some such, but this
 	" is plenty fine for me.
 	au FileType ruby map <F1> :!ruby %<Enter>
