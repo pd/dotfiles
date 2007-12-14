@@ -37,6 +37,9 @@
 set nocompatible
 
 colorscheme default
+if has("gui_running")
+  colorscheme autumnleaf
+endif
 filetype plugin indent on " :he :filetype-overview
 
 " basic options {{{1
