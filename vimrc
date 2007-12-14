@@ -39,19 +39,6 @@ set nocompatible
 colorscheme default
 filetype plugin indent on " :he :filetype-overview
 
-" use 88 colors in urxvt {{{1
-if &term == "rxvt"
-	set t_Co=88
-elseif &term == "screen"
-	set t_Co=88
-elseif &term == "xterm-color"
-	set t_Co=256
-elseif &term == "cons25"
-	set t_Co=8
-else
-	set t_Co=8
-endif
-
 " basic options {{{1
 let mapleader=";"
 set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
