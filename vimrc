@@ -56,7 +56,7 @@ set noerrorbells visualbell
 set shortmess=atI
 set title titleold=despot
 set fdm=marker fdl=0
-" set mouse=a     " mouse use in terms
+set mouse=a
 
 " simplest syntax syncing. can be slow. {{{1
 " :he :syn-sync-first
