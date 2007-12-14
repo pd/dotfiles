@@ -137,14 +137,10 @@ aug pdWeb " {{{1
 aug END
 " 1}}}
 
-" taglist config {{{1
-let Tlist_Ctags_Cmd="/usr/local/bin/exctags"
-map <silent> <F6> :TlistToggle<CR>
-
 " vtreeexplorer config {{{1
 let treeExplVertical=1
 let treeExplWinSize=50
-map <silent> <F12> :VSTreeExplore<CR>
+map <silent> <F1> :VSTreeExplore<CR>
 
 " minibufexpl config {{{1
 map <silent> <F5> :MiniBufExplorer<CR>
