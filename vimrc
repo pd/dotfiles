@@ -148,12 +148,5 @@ let g:miniBufExplSplitBelow=0
 let g:miniBufExplModSelTarget=1
 " 1}}}
 
-" inkpot in 88 color terms {{{1
-if ! has("gui_running") && &t_Co == 88
-	colorscheme inkpot
-	highlight Folded cterm=NONE ctermfg=black ctermbg=22
-	highlight MBEVisibleNormal cterm=NONE ctermfg=black ctermbg=22
-endif
-
 " kill off vim7's matchparen plugin {{{1
 let loaded_matchparen = 1
