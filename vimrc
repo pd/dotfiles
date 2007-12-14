@@ -166,23 +166,6 @@ aug pdRuby " {{{1
 	au FileType ruby map <F4> :!rake cov<Enter>
 aug END
 
-aug pdRSpecs " {{{1
-	" turned out i didn't want simplefold
-	au!
-	au BufEnter *_spec.rb let b:simplefold_expr = 
-		\'\v(^\s*(context|def|class|module|attr_reader|attr_accessor|alias_method|' .
-			\   'attr|module_function' . ')\s' . 
-		\ '|\v^\s*(public|private|protected)>' .
-		\ '|^\s*\w+attr_(reader|accessor)\s|^\s*[#%"0-9]{0,4}\s*\{\{\{[^{])' .
-		\ '|^\s*[A-Z]\w+\s*\=[^=]|^__END__$'
-	au BufEnter *_spec.rb let b:simplefold_nestable_start_expr = 
-		\ '\v^\s*(setup>|specify>|def>|if>|unless>|while>.*(<do>)?|' . 
-		\         'until>.*(<do>)?|case>|for>|begin>)' .
-		\ '|^[^#]*.*<do>\s*(\|.*\|)?'
-	au BufEnter *_spec.rb let b:simplefold_nestable_end_expr = 
-		\ '\v^\s*end'
-	au BufEnter *_spec.rb let b:simplefold_prefix='\v^\s*(#.*)?$'
-aug END
 aug pdWeb " {{{1
 	au!
 	au FileType css set ai et sw=2 ts=2 sts=2
