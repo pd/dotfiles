@@ -140,16 +140,5 @@ aug pdWeb " {{{1
 aug END
 " 1}}}
 
-" vtreeexplorer config {{{1
-let treeExplVertical=1
-let treeExplWinSize=50
-map <silent> <F1> :VSTreeExplore<CR>
-
-" minibufexpl config {{{1
-map <silent> <F5> :MiniBufExplorer<CR>
-let g:miniBufExplSplitBelow=0
-let g:miniBufExplModSelTarget=1
-" 1}}}
-
 " kill off vim7's matchparen plugin {{{1
 let loaded_matchparen = 1
