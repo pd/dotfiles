@@ -10,21 +10,14 @@
 "   <Leader>r -- resource vimrc
 "   <Leader>c,-- comment/uncomment a block
 "   <Leader>u
-"	<Leader>a -- expands to ":Align "
-"	    :he align.txt
 "
-"   <F5>  -- toggle buffer list display
 "   <F6>  -- toggle tag list display
 "   <F9>  -- cd's to directory of current buffer
 "   <F10> -- echoes the name of the syntax element beneath the cursor
-"   <F11> -- enters ii mode
-"   <F12> -- opens a directory explorer in a vsplit window (:VSTreeExplore)
 "
 " ruby:
 "   <F1>  -- runs the current file through the ruby interpreter (:!ruby %)
 "   <F2>  -- runs 'rake'
-"   <F3>  -- runs 'rake showspecs'
-"   <F4>  -- runs 'rake cov'
 "
 " c:
 "   <F1>  -- :make
