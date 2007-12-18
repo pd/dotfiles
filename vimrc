@@ -52,7 +52,9 @@ set noerrorbells visualbell
 set shortmess=atI
 set title titleold=despot
 set fdm=marker fdl=0
-set mouse=a
+if has("gui_running")
+  set mouse=a
+endif
 
 " simplest syntax syncing. can be slow. {{{1
 " :he :syn-sync-first
