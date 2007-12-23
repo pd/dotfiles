@@ -15,6 +15,11 @@
 "   <F9>  -- cd's to directory of current buffer
 "   <F10> -- echoes the name of the syntax element beneath the cursor
 "
+" :he cmdline-window
+"   q:  -- command line window for : commands
+"   q?, -- command line window for search commands
+"   q?/
+"
 " ruby:
 "   <F1>  -- runs the current file through the ruby interpreter (:!ruby %)
 "   <F2>  -- runs 'rake'
