@@ -66,12 +66,22 @@ map <silent> <Leader>p :set paste!<CR>
 map <silent> <Leader>n :set number!<CR>
 map <silent> <Leader>c :s/^/#/<CR>
 map <silent> <Leader>u :s/^#//<CR>
-map <silent> <Leader>r :source ~/.vimrc<CR>
 map <Leader>e :e <C-R>=expand("%:p:h")<CR>
 map <Leader>a :Align 
 map <silent> <F9> :cd %:p:h<CR>
 map <F10> :echo synIDattr(synID(line('.'), col('.'), 1), 'name')<CR>
 cmap %/ <C-R>=expand("%:p:h")."/"<CR>
+
+if !exists("*ResourceVim")
+  function ResourceVim()
+    source ~/.vimrc
+    if has("gui_running")
+      source ~/.gvimrc
+    endif
+  endfunction
+endif
+map <silent> <Leader>r :call ResourceVim()<CR>
+
 
 " status line {{{1
 set laststatus=2 " = always
