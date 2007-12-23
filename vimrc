@@ -37,7 +37,7 @@ set nocompatible
 colorscheme default
 filetype plugin indent on " :he :filetype-overview
 
-" basic options {{{1
+" basic options
 let mapleader=";"
 set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 set autoindent smartindent smarttab
@@ -54,14 +54,13 @@ set noerrorbells visualbell
 set shortmess=atI
 set title titleold=despot
 set fdm=marker fdl=0
-" simplest syntax syncing. can be slow. {{{2
+
 " :he :syn-sync-first
+" simplest syntax syncing. can be slow
 syntax on
 au BufEnter * :syntax sync fromstart
 
-" 1}}}
-
-" keymappings {{{1
+" keymappings
 map <silent> <Leader>s :noh<CR>
 map <silent> <Leader>p :set paste!<CR>
 map <silent> <Leader>n :set number!<CR>
@@ -78,6 +77,7 @@ cmap %/ <C-R>=expand("%:p:h")."/"<CR>
 set laststatus=2 " = always
 set statusline=%<%f\%h%m%r%=%-20.(line=%l\ \ col=%c%V\ \ totlin=%L%)\ \ \ %h%m%r%=%-40(bytval=0x%B,%n%Y%)\%P
 
+" 1}}}
 
 aug pdRuby " {{{1
 	au!
