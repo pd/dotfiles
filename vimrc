@@ -34,7 +34,6 @@
 
 set nocompatible
 
-
 colorscheme default
 filetype plugin indent on " :he :filetype-overview
 
@@ -55,11 +54,12 @@ set noerrorbells visualbell
 set shortmess=atI
 set title titleold=despot
 set fdm=marker fdl=0
-
-" simplest syntax syncing. can be slow. {{{1
+" simplest syntax syncing. can be slow. {{{2
 " :he :syn-sync-first
 syntax on
 au BufEnter * :syntax sync fromstart
+
+" 1}}}
 
 " keymappings {{{1
 map <silent> <Leader>s :noh<CR>
@@ -74,8 +74,10 @@ map <silent> <F9> :cd %:p:h<CR>
 map <F10> :echo synIDattr(synID(line('.'), col('.'), 1), 'name')<CR>
 cmap %/ <C-R>=expand("%:p:h")."/"<CR>
 
+" status line {{{1
 set laststatus=2 " = always
 set statusline=%<%f\%h%m%r%=%-20.(line=%l\ \ col=%c%V\ \ totlin=%L%)\ \ \ %h%m%r%=%-40(bytval=0x%B,%n%Y%)\%P
+
 
 aug pdRuby " {{{1
 	au!
