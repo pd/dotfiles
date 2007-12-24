@@ -1,3 +1,5 @@
+# vim:ft=sh
+
 PATH="/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:$PATH"
 PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 PATH="$HOME/bin:$PATH"
