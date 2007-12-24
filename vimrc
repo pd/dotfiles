@@ -20,14 +20,6 @@
 "   q?, -- command line window for search commands
 "   q?/
 "
-" ruby:
-"   <F1>  -- runs the current file through the ruby interpreter (:!ruby %)
-"   <F2>  -- runs 'rake'
-"
-" c:
-"   <F1>  -- :make
-"   <F2>  -- :cnext
-"
 " misc:
 "   %/    -- in Command mode, expands to the path of the current file's
 "            directory.
@@ -107,18 +99,9 @@ set statusline=%<%f\%h%m%r%=%-20.(line=%l\ \ col=%c%V\ \ totlin=%L%)\ \ \ %h%m%r
 aug pdRuby " {{{1
 	au!
 
-	" rjs files
-	au BufEnter *.rjs set ft=ruby
-
-	" more&more rails. starting to need this as default.
 	au FileType ruby set et sw=2 ts=2 sts=2
 	au FileType eruby set et sw=2 ts=2 sts=2
 	au FileType eruby set ai
-
-	" prolly should be using makeprg=... or some such, but this
-	" is plenty fine for me.
-	au FileType ruby map <F1> :!ruby %<Enter>
-	au FileType ruby map <F2> :!rake<Enter>
 aug END
 
 aug pdJava " {{{1
@@ -139,10 +122,6 @@ aug pdC " {{{1
 	au FileType c set fdm=syntax
 	au FileType cc set fdm=syntax
 	au FileType cpp set fdm=syntax
-	au FileType c map <F1> :make<Enter>
-	au FileType c map <F2> :cnext<Enter>
-	au FileType cpp map <F1> :make<Enter>
-	au FileType cpp map <F2> :cnext<Enter>
 aug END
 
 aug pdLisp " {{{1
