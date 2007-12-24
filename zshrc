@@ -43,6 +43,7 @@ function mt {
   mate .
 }
 
+## git. some to be used, some for reference.
 alias gst='git status'
 alias gbst='git branch -a -v'
 alias gco='git checkout'
