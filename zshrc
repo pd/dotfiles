@@ -63,9 +63,6 @@ alias stash-patch='git stash show -p'
 
 alias qg='open ~/bin/qgit.app'
 
-## dir stack manipulation
-alias d='dirs -v'
-
 ## no spelling correction on certain commands
 alias rm='nocorrect rm'
 alias mv='nocorrect mv'
