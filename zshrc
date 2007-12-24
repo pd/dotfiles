@@ -129,7 +129,7 @@ function iterm_set_window_title {
 
 # executed before printing a prompt
 function precmd {
-  host="kyleh.local"
+  host="kyleh"
   _pwd=`echo $PWD | sed "s,$HOME,~,"`
   str="$host: $_pwd"
   iterm_set_tab_label $str
@@ -137,7 +137,7 @@ function precmd {
 }
 # executed just after reading a command, before running it
 function preexec {
-  host="kyleh.local"
+  host="kyleh"
   cmd=$(history $HISTCMD | cut -b7-)
   str="$host: $cmd"
   iterm_set_tab_label $str
