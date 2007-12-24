@@ -1,8 +1,5 @@
 " vim:fdm=marker
 
-" blasphemy:
-" kyleh ~ % mate .vimrc
-
 " :he <Leader>
 "   <Leader>s -- clear search highlights
 "   <Leader>p -- toggle paste mode
@@ -19,6 +16,9 @@
 "   q:  -- command line window for : commands
 "   q?, -- command line window for search commands
 "   q?/
+"
+" regenerate documentation for ~/dotfiles/vim/doc
+"   :helptags ~/dotfiles/vim/doc
 "
 " misc:
 "   %/    -- in Command mode, expands to the path of the current file's
