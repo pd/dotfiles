@@ -97,47 +97,48 @@ set statusline=%<%f\%h%m%r%=%-20.(line=%l\ \ col=%c%V\ \ totlin=%L%)\ \ \ %h%m%r
 " 1}}}
 
 aug pdRuby " {{{1
-	au!
+  au!
 
-	au FileType ruby set et sw=2 ts=2 sts=2
-	au FileType eruby set et sw=2 ts=2 sts=2
-	au FileType eruby set ai
+  au FileType ruby set et sw=2 ts=2 sts=2
+  au FileType ruby set foldmethod=syntax
+  au FileType eruby set et sw=2 ts=2 sts=2
+  au FileType eruby set ai
 aug END
 
 aug pdJava " {{{1
-	au!
-	au FileType java map <silent> <Leader>c :s!^!//!<CR>
-	au FileType java map <silent> <Leader>u :s!^//!!<CR>
+  au!
+  au FileType java map <silent> <Leader>c :s!^!//!<CR>
+  au FileType java map <silent> <Leader>u :s!^//!!<CR>
 aug END
 
 aug pdC " {{{1
-	au!
-	au FileType c set cin
-	au FileType cc set cin
-	au FileType cpp set cin
+  au!
+  au FileType c set cin
+  au FileType cc set cin
+  au FileType cpp set cin
 
-	au FileType c map <silent> <Leader>c :s!^!//!<CR>
-	au FileType c map <silent> <Leader>u :s!^//!!<CR>
+  au FileType c map <silent> <Leader>c :s!^!//!<CR>
+  au FileType c map <silent> <Leader>u :s!^//!!<CR>
 
-	au FileType c set fdm=syntax
-	au FileType cc set fdm=syntax
-	au FileType cpp set fdm=syntax
+  au FileType c set fdm=syntax
+  au FileType cc set fdm=syntax
+  au FileType cpp set fdm=syntax
 aug END
 
 aug pdLisp " {{{1
-	au!
-	au FileType lisp set et showmatch
+  au!
+  au FileType lisp set et showmatch
 
-	au FileType lisp map <silent> <Leader>c :s!^!;!<CR>
-	au FileType lisp map <silent> <Leader>u :s!^;!!<CR>
+  au FileType lisp map <silent> <Leader>c :s!^!;!<CR>
+  au FileType lisp map <silent> <Leader>u :s!^;!!<CR>
 
-	au FileType lisp map <F1> :!clisp %<CR>
+  au FileType lisp map <F1> :!clisp %<CR>
 aug end
 
 aug pdWeb " {{{1
-	au!
-	au FileType css set ai et sw=2 ts=2 sts=2
-	au FileType html set ai et sw=2 ts=2 sts=2
+  au!
+  au FileType css set ai et sw=2 ts=2 sts=2
+  au FileType html set ai et sw=2 ts=2 sts=2
 aug END
 " 1}}}
 
