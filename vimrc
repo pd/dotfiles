@@ -59,7 +59,6 @@ map <silent> <Leader>n :set number!<CR>
 map <silent> <Leader>c :s/^/#/<CR>
 map <silent> <Leader>u :s/^#//<CR>
 map <Leader>e :e <C-R>=expand("%:p:h")<CR>
-map <Leader>a :Align 
 map <silent> <F9> :cd %:p:h<CR>
 map <F10> :echo synIDattr(synID(line('.'), col('.'), 1), 'name')<CR>
 cmap %/ <C-R>=expand("%:p:h")."/"<CR>
