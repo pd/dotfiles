@@ -51,7 +51,7 @@ syntax on
 au BufEnter * :syntax sync fromstart
 
 " keymappings
-map <silent> <Leader>s :noh<CR>
+map <silent> <Leader>s :nohlsearch<CR>
 map <silent> <Leader>p :set paste!<CR>
 map <silent> <Leader>n :set number!<CR>
 
