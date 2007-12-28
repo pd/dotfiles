@@ -63,22 +63,15 @@ map <silent> <F9> :cd %:p:h<CR>
 map <F10> :echo synIDattr(synID(line('.'), col('.'), 1), 'name')<CR>
 cmap %/ <C-R>=expand("%:p:h")."/"<CR>
 
+" buffer view resizing: M-S-Right/Left/Up/Down {{{1
 " technically probably won't work in console, but
 " generic enough it's worth having outside of gvimrc
-" the resize is very naive and sucks. but i don't know
-" a better way of to say
-"   map <S-R-Right>
-"     -- if there's a border on the right:
-"          move it further right 3 columns
-"          (growing the window)
-"     -- if there's a window edge on the right:
-"          move the left-hand border further right 3 columns
-"          (shrinking the window)
 map <M-S-Right> :vertical resize +3<CR>
 map <M-S-Left> :vertical resize -3<CR>
 map <M-S-Up> :resize +3<CR>
 map <M-S-Down> :resize -3<CR>
 
+" vimrc resourcing {{{1
 if !exists("*ResourceVim")
   function ResourceVim()
     source ~/.vimrc
