@@ -105,7 +105,6 @@ nnoremap <silent> <space> :call ToggleFold()<CR>
 " status line {{{1
 set laststatus=2 " = always
 set statusline=%<%f\%h%m%r%=%-20.(line=%l\ \ col=%c%V\ \ totlin=%L%)\ \ \ %h%m%r%=%-40(bytval=0x%B,%n%Y%)\%P
-
 " 1}}}
 
 aug pdRuby " {{{1
