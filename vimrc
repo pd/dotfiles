@@ -64,7 +64,7 @@ set statusline=%<buffer(%n):\ %f\ (%P)\ %m%h%r%=%-20.(line=%l\ \ col=%c%V\ \ tot
 set titlestring=vim:\ buffer(%n):\ %F\ %m\ (%P)
 " 1}}}
 
-" buffer view resizing: M-S-Right/Left/Up/Down {{{1
+" buffer view resizing: <M-S-{Right,Left,Up,Down}> {{{1
 " technically probably won't work in console, but
 " generic enough it's worth having outside of gvimrc
 map <M-S-Right> :vertical resize +3<CR>
@@ -72,7 +72,7 @@ map <M-S-Left> :vertical resize -3<CR>
 map <M-S-Up> :resize +3<CR>
 map <M-S-Down> :resize -3<CR>
 
-" vimrc resourcing {{{1
+" vimrc resourcing with <Leader>r {{{1
 if !exists("*ResourceVim")
   function ResourceVim()
     source ~/.vimrc
