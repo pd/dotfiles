@@ -54,12 +54,9 @@ au BufEnter * :syntax sync fromstart
 map <silent> <Leader>s :noh<CR>
 map <silent> <Leader>p :set paste!<CR>
 map <silent> <Leader>n :set number!<CR>
-map <silent> <Leader>c :s/^/#/<CR>
-map <silent> <Leader>u :s/^#//<CR>
-map <Leader>e :e <C-R>=expand("%:p:h")<CR>
-cmap %/ <C-R>=expand("%:p:h")."/"<CR>
 
 map <M-F10> :echo synIDattr(synID(line('.'), col('.'), 1), 'name')<CR>
+cmap %/ <C-R>=expand("%:p:h")."/"<CR>
 
 " buffer view resizing: M-S-Right/Left/Up/Down {{{1
 " technically probably won't work in console, but
@@ -105,52 +102,6 @@ nnoremap <silent> <space> :call ToggleFold()<CR>
 " status line {{{1
 set laststatus=2 " = always
 set statusline=%<%f\%h%m%r%=%-20.(line=%l\ \ col=%c%V\ \ totlin=%L%)\ \ \ %h%m%r%=%-40(bytval=0x%B,%n%Y%)\%P
-" 1}}}
-
-aug pdRuby " {{{1
-  au!
-
-  au FileType ruby set et sw=2 ts=2 sts=2
-  au FileType ruby set foldmethod=syntax
-  au FileType eruby set et sw=2 ts=2 sts=2
-  au FileType eruby set ai
-aug END
-
-aug pdJava " {{{1
-  au!
-  au FileType java map <silent> <Leader>c :s!^!//!<CR>
-  au FileType java map <silent> <Leader>u :s!^//!!<CR>
-aug END
-
-aug pdC " {{{1
-  au!
-  au FileType c set cin
-  au FileType cc set cin
-  au FileType cpp set cin
-
-  au FileType c map <silent> <Leader>c :s!^!//!<CR>
-  au FileType c map <silent> <Leader>u :s!^//!!<CR>
-
-  au FileType c set fdm=syntax
-  au FileType cc set fdm=syntax
-  au FileType cpp set fdm=syntax
-aug END
-
-aug pdLisp " {{{1
-  au!
-  au FileType lisp set et showmatch
-
-  au FileType lisp map <silent> <Leader>c :s!^!;!<CR>
-  au FileType lisp map <silent> <Leader>u :s!^;!!<CR>
-
-  au FileType lisp map <F1> :!clisp %<CR>
-aug end
-
-aug pdWeb " {{{1
-  au!
-  au FileType css set ai et sw=2 ts=2 sts=2
-  au FileType html set ai et sw=2 ts=2 sts=2
-aug END
 " 1}}}
 
 " kill off vim7's matchparen plugin {{{1
