@@ -43,7 +43,7 @@ set smartcase
 set noerrorbells visualbell
 set shortmess=atI
 set title titleold=despot
-set fdm=marker fdl=0
+set foldmethod=marker foldlevelstart=99
 
 " :he :syn-sync-first
 " simplest syntax syncing. can be slow
