@@ -89,6 +89,28 @@ if !exists("*ResourceVim")
 endif
 map <silent> <Leader>r :call ResourceVim()<CR>
 
+" toggle folds with <SPACE> {{{1
+" from http://vim.wikia.com/wiki/Toggle_a_fold_with_a_single_keystroke
+" Toggle fold state between closed and opened.
+"
+" If there is no fold at current line, just moves forward.
+" If it is present, reverse it's state.
+fun! ToggleFold()
+  if foldlevel('.') == 0
+    normal! l
+  else
+    if foldclosed('.') < 0
+      . foldclose
+    else
+      . foldopen
+    endif
+  endif
+  " Clear status line
+ echo
+endfun
+nnoremap <silent> <space> :call ToggleFold()<CR>
+" 1}}}
+
 " status line {{{1
 set laststatus=2 " = always
 set statusline=%<%f\%h%m%r%=%-20.(line=%l\ \ col=%c%V\ \ totlin=%L%)\ \ \ %h%m%r%=%-40(bytval=0x%B,%n%Y%)\%P
