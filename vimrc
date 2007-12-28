@@ -42,7 +42,7 @@ set ruler
 set smartcase
 set noerrorbells visualbell
 set shortmess=atI
-set title titleold=despot
+set title
 set foldmethod=marker foldlevelstart=99
 
 " :he :syn-sync-first
@@ -57,6 +57,12 @@ map <silent> <Leader>n :set number!<CR>
 
 map <M-F10> :echo synIDattr(synID(line('.'), col('.'), 1), 'name')<CR>
 cmap %/ <C-R>=expand("%:p:h")."/"<CR>
+
+" status line and window title {{{1
+set laststatus=2 " = always
+set statusline=%<buffer(%n):\ %f\ (%P)\ %m%h%r%=%-20.(line=%l\ \ col=%c%V\ \ totlin=%L%)\ \ \ %=%-40(bytval=0x%B%)
+set titlestring=vim:\ buffer(%n):\ %F\ %m\ (%P)
+" 1}}}
 
 " buffer view resizing: M-S-Right/Left/Up/Down {{{1
 " technically probably won't work in console, but
@@ -97,11 +103,6 @@ fun! ToggleFold()
  echo
 endfun
 nnoremap <silent> <space> :call ToggleFold()<CR>
-" 1}}}
-
-" status line {{{1
-set laststatus=2 " = always
-set statusline=%<%f\%h%m%r%=%-20.(line=%l\ \ col=%c%V\ \ totlin=%L%)\ \ \ %h%m%r%=%-40(bytval=0x%B,%n%Y%)\%P
 " 1}}}
 
 " kill off vim7's matchparen plugin {{{1
