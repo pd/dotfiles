@@ -8,9 +8,7 @@
 "   <Leader>c,-- comment/uncomment a block
 "   <Leader>u
 "
-"   <F6>  -- toggle tag list display
-"   <F9>  -- cd's to directory of current buffer
-"   <F10> -- echoes the name of the syntax element beneath the cursor
+"   <M-F10> -- echoes the name of the syntax element beneath the cursor
 "
 " :he cmdline-window
 "   q:  -- command line window for : commands
@@ -59,9 +57,9 @@ map <silent> <Leader>n :set number!<CR>
 map <silent> <Leader>c :s/^/#/<CR>
 map <silent> <Leader>u :s/^#//<CR>
 map <Leader>e :e <C-R>=expand("%:p:h")<CR>
-map <silent> <F9> :cd %:p:h<CR>
-map <F10> :echo synIDattr(synID(line('.'), col('.'), 1), 'name')<CR>
 cmap %/ <C-R>=expand("%:p:h")."/"<CR>
+
+map <M-F10> :echo synIDattr(synID(line('.'), col('.'), 1), 'name')<CR>
 
 " buffer view resizing: M-S-Right/Left/Up/Down {{{1
 " technically probably won't work in console, but
