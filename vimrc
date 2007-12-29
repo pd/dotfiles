@@ -38,30 +38,31 @@ set nocindent
 set nowrap
 set number
 set lazyredraw
-set ruler
 set smartcase
 set noerrorbells visualbell
 set shortmess=atI
 set title
 set foldmethod=marker foldlevelstart=99
+" set ruler " :he 'statusline', see note re:CTRL-G
 
 " :he :syn-sync-first
 " simplest syntax syncing. can be slow
 syntax on
 au BufEnter * :syntax sync fromstart
 
-" keymappings
+" generic keymappings
 map <silent> <Leader>s :nohlsearch<CR>
 map <silent> <Leader>p :set paste!<CR>
 map <silent> <Leader>n :set number!<CR>
-
 map <M-F10> :echo synIDattr(synID(line('.'), col('.'), 1), 'name')<CR>
 cmap %/ <C-R>=expand("%:p:h")."/"<CR>
 
 " status line and window title {{{1
-set laststatus=2 " = always
-set statusline=%<buffer(%n):\ %f\ (%P)\ %m%h%r%=%-20.(line=%l\ \ col=%c%V\ \ totlin=%L%)\ \ \ %=%-40(bytval=0x%B%)
-set titlestring=vim:\ buffer(%n):\ %F\ %m\ (%P)
+" :he 'statusline'
+" it's a beast.
+set laststatus=2 " = always display the status line
+set statusline=%3.3(%M%)\ buffer(%n):\ %f\ %y\ %=chr:\ %3b\ 0x%02B\ \|\ %P:\ ln\ %l/%L\ col\ %2c
+set titlestring=vim:\ buf\ %n:\ %f\ %m
 " 1}}}
 
 " buffer view resizing: <M-S-{Right,Left,Up,Down}> {{{1
