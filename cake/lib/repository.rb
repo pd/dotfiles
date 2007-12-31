@@ -20,7 +20,7 @@ class Repository
     elsif File.directory? File.join(path, '.svn')
       'svn'
     else
-      raise ArgumentError, "unknown repository type in #{path}"
+      '?'
     end
   end
 
@@ -29,7 +29,17 @@ class Repository
       if type == 'hg'
         in_repo { `hg head --template '{rev}'` }
       elsif type == 'git'
-        in_repo { `git-show --stat --abbrev-commit HEAD | sed -n 's/^commit //p'` }
+        in_repo do
+          stat = `git-show --stat --abbrev-commit HEAD`
+          stat.match(/^commit (\w+)\.\.\./).captures.first
+        end
+      elsif type == 'git-svn'
+        in_repo do
+          stat = `git-show --stat --abbrev-commit HEAD`
+          gitrev = stat.match(/commit (\w+)\.\.\./).captures.first
+          svnrev = stat.match(/git-svn-id: .*@(\d+)/).captures.first
+          "#{gitrev} = r#{svnrev}"
+        end
       elsif type == 'svn'
         in_repo { `svn info | sed -n 's/^Revision: //p'` }
       else
