@@ -48,6 +48,21 @@ class Repository
     end
   end
 
+  def update
+    case type
+    when 'hg'
+      in_repo { `hg pull -u` }
+    when 'git-svn'
+      in_repo { `git-svn rebase` }
+    when 'git'
+      in_repo { `git pull` }
+    when 'svn'
+      in_repo { `svn update` }
+    else
+      "can't update unknown repository type"
+    end
+  end
+
   private
     def in_repo
       cwd = Dir.pwd
