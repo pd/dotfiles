@@ -38,7 +38,8 @@ function mt {
 }
 
 ## ruby/rails misc.
-alias ss='./script/server'
+alias sst='./script/story'
+alias sse='./script/server'
 alias sc='./script/console'
 alias att='autotest'
 alias rbst='ruby stories/all.rb'
