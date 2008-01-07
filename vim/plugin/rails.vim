@@ -3065,7 +3065,7 @@ function! s:BufSyntax()
       if t =~ '^controller\>' || t =~ '^view\>' || t=~ '^helper\>'
         syn keyword rubyRailsMethod params request response session headers cookies flash
         syn match rubyRailsError '[@:]\@<!@\%(params\|request\|response\|session\|headers\|cookies\|flash\)\>'
-        syn match rubyRailsError '\<\%(render_partial\|puts\)\>'
+        syn match rubyRailsError '\<\%(render_partial\)\>'
         syn keyword rubyRailsRenderMethod render
         syn keyword rubyRailsMethod logger
       endif
