@@ -1,18 +1,33 @@
-# vim:ts=2 sw=2 sts=2 ft=ruby:
+# vim:set ft=ruby:
 module Autotest::Growl
   def self.growl(title, msg, img, pri=0, sticky="")
     system "growlnotify -n autotest --image #{img} -p #{pri} -m #{msg.inspect} #{title} #{sticky} 2>/dev/null"
   end
 
-  Autotest.add_hook :ran_command do |at|
-    results = [at.results].flatten.join("\n")
-    output = results.slice(/(\d+)\s+examples?,\s*(\d+)\s+failures?/)
-    if output
-      if $~[2].to_i > 0
-        growl "Red", "#{output}", "~/Pictures/Growl/Autotest/fail.png", 2
-      else
-        growl "Green", "#{output}", "~/Pictures/Growl/Autotest/pass.png"
-      end
+  def self.growl_light(color, msg)
+    case color
+    when :green
+      growl 'Green', msg, "~/Pictures/Growl/Autotest/pass.png"
+    when :red
+      growl 'Red', msg, "~/Pictures/Growl/Autotest/fail.png", 2
     end
   end
+
+  def self.results_summary(results)
+    results.slice(/(\d+)\s+examples?,\s*(\d+)\s+failures?/)
+  end
+
+  Autotest.add_hook :all_good do |at|
+    growl_light :green, results_summary(at.results)
+  end
+
+  Autotest.add_hook :green do |at|
+    growl_light :green, results_summary(at.results)
+  end
+
+  Autotest.add_hook :red do |at|
+    growl_light :red, results_summary(at.results)
+  end
 end
+
+$VERBOSE = false
