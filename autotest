@@ -7,9 +7,9 @@ module Autotest::Growl
   def self.growl_light(color, msg)
     case color
     when :green
-      growl 'Green', msg, "~/Pictures/Growl/Autotest/pass.png"
+      growl 'Green', msg, "~/.autotest_images/pass.png"
     when :red
-      growl 'Red', msg, "~/Pictures/Growl/Autotest/fail.png", 2
+      growl 'Red', msg, "~/.autotest_images/fail.png", 2
     end
   end
 
