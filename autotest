@@ -17,10 +17,6 @@ module Autotest::Growl
     results.slice(/(\d+)\s+examples?,\s*(\d+)\s+failures?/)
   end
 
-  Autotest.add_hook :all_good do |at|
-    growl_light :green, results_summary(at.results)
-  end
-
   Autotest.add_hook :green do |at|
     growl_light :green, results_summary(at.results)
   end
