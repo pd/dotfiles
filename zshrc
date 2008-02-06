@@ -65,6 +65,7 @@ alias unstash='git stash apply'
 alias stash-ls='git stash list'
 alias stash-patch='git stash show -p'
 
+# doesn't work for merges, but generally it's good enough
 function gci {
   if echo $PWD | grep 'chapcom' >/dev/null 2>&1; then
     command git-commit --author "Kyle Hargraves <kyleh@chaptercommunications.com>" $*
