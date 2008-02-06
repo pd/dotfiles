@@ -26,4 +26,8 @@ module Autotest::Growl
   end
 end
 
+Autotest.add_hook :initialize do |at|
+  %w[.hg .git vendor].each { |exception| at.add_exception(exception) }
+end
+
 $VERBOSE = false
