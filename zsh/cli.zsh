@@ -9,4 +9,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias .z='source ~/.zshrc'
 alias cls='clear'
-function g { grep -R "$1" * | grep -v \.svn; }
+
+## ack > g
+## it sucks that rak is too close to rake to be usable
+alias ack='ack -a'
