@@ -89,22 +89,6 @@ alias ccmaster='mysql -h db.madbytes.net -u ccmaster -p ccmaster'
 
 ## util
 function g { grep -R "$1" * | grep -v \.svn; }
-function gf { find . -iname "$2" -print0 | xargs -0 grep -Hn "$1"; }
-function svnrv {
-  if [ "x" != "x$*" ]; then
-    svn revert $*
-  else
-    svn status | awk '{print $2}' | xargs svn revert
-  fi
-}
-
-## % svnsum 1112 1118
-## A blah/some.new.file
-## U blah/some.updated.file
-## etc.
-function svnsum {
-  svn diff --summarize -r "$1":"$2"
-}
 
 ## i don't know why the launchd file for these don't work
 ## but ffs it's horrid XML files and i don't care to learn.
