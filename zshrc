@@ -28,7 +28,7 @@ done
 ## redefine gci just for me eh
 # doesn't work for merges, but generally it's good enough
 unalias gci
-function gci {
+gci () {
   if echo $PWD | grep 'chapcom' >/dev/null 2>&1; then
     command git-commit --author "Kyle Hargraves <kyleh@chaptercommunications.com>" $*
   else
@@ -40,7 +40,7 @@ function gci {
 ## lame hack to let me hit ctrl+t for a new iterm tab and
 ## be in the same dir.
 _qdir_tmpfile=~/.pd.qdir.tmp
-function qdir {
+qdir () {
   pwd > $_qdir_tmpfile
 }
 

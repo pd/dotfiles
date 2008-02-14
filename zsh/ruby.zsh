@@ -7,7 +7,7 @@ alias att='autotest'
 alias rbst='ruby stories/all.rb'
 alias gs='gem server'
 
-function mt {
+mt () {
   [ "$PWD" = "$HOME" ] && echo "not in $HOME." && return
   mate .
 }

@@ -2,7 +2,7 @@ _prompt_host=`hostname -s`
 export PS1="$_prompt_host %~ %# "
 
 # executed before printing a prompt
-function precmd {
+precmd () {
   _pwd=`echo $PWD | sed "s,$HOME,~,"`
   str="$_prompt_host: $_pwd"
   iterm_set_tab_label $str
@@ -10,7 +10,7 @@ function precmd {
 }
 
 # executed just after reading a command, before running it
-function preexec {
+preexec () {
   cmd=$(history $HISTCMD | cut -b7-)
   str="$_prompt_host: $cmd"
   iterm_set_tab_label $str
