@@ -25,6 +25,17 @@ for mod in prompt cli ruby git osx madbytes; do
   source ~/.zsh/$mod.zsh
 done
 
+## redefine gci just for me eh
+# doesn't work for merges, but generally it's good enough
+unalias gci
+function gci {
+  if echo $PWD | grep 'chapcom' >/dev/null 2>&1; then
+    command git-commit --author "Kyle Hargraves <kyleh@chaptercommunications.com>" $*
+  else
+    command git-commit $*
+  fi
+}
+
 ## stores the pwd for the place the next shell will open.
 ## lame hack to let me hit ctrl+t for a new iterm tab and
 ## be in the same dir.
