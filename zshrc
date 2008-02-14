@@ -9,18 +9,15 @@ path=(
 )
 fpath+=("$HOME/.zsh/functions")
 
+## emacs^[dd
+set -o vi vi-tabcomplete
+
 ## turn on expanded tabcomplete
 autoload -U compinit
 compinit
 
-## emacs^[dd
-set -o vi vi-tabcomplete
-
-export PS1='kyleh %~ %# '
 export EDITOR=vi
 export DISPLAY=:0.0
-
-## for textmate bundles from svn with their shitty names.
 export LC_CTYPE=en_US.UTF-8
 
 alias ls='ls -Fh'
@@ -34,34 +31,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias .z='source ~/.zshrc'
 alias cls='clear'
-
-## no spelling correction on certain commands
-alias rm='nocorrect rm'
-alias mv='nocorrect mv'
-alias cp='nocorrect cp'
-
-## (c) MadBytes, LLC Exclusively Contracted with Chapter Communications, Inc.
-alias digns1='dig @ns1.madbytes.net'
-
-## util
 function g { grep -R "$1" * | grep -v \.svn; }
-
-# executed before printing a prompt
-function precmd {
-  host="kyleh"
-  _pwd=`echo $PWD | sed "s,$HOME,~,"`
-  str="$host: $_pwd"
-  iterm_set_tab_label $str
-  iterm_set_window_title $str
-}
-# executed just after reading a command, before running it
-function preexec {
-  host="kyleh"
-  cmd=$(history $HISTCMD | cut -b7-)
-  str="$host: $cmd"
-  iterm_set_tab_label $str
-  iterm_set_window_title $str
-}
 
 ## hey modularity
 source ~/.zsh/ruby.zsh
