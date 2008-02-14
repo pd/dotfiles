@@ -1,0 +1,12 @@
+alias ls='ls -Fh'
+alias ll='ls -l'
+alias la='ls -a'
+alias l='ls'
+alias h='history'
+alias p='ps axww'
+alias scp='scp -C'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias .z='source ~/.zshrc'
+alias cls='clear'
+function g { grep -R "$1" * | grep -v \.svn; }

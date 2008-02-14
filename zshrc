@@ -16,25 +16,12 @@ set -o vi vi-tabcomplete
 autoload -U compinit
 compinit
 
-export EDITOR=vi
+export EDITOR=vim
 export DISPLAY=:0.0
 export LC_CTYPE=en_US.UTF-8
 
-alias ls='ls -Fh'
-alias ll='ls -l'
-alias la='ls -a'
-alias l='ls'
-alias h='history'
-alias p='ps axww'
-alias scp='scp -C'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias .z='source ~/.zshrc'
-alias cls='clear'
-function g { grep -R "$1" * | grep -v \.svn; }
-
 ## hey modularity
-for mod in prompt ruby git osx madbytes; do
+for mod in prompt cli ruby git osx madbytes; do
   source ~/.zsh/$mod.zsh
 done
 
