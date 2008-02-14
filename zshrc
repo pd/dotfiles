@@ -9,6 +9,10 @@ path=(
 )
 fpath+=("$HOME/.zsh/functions")
 
+## turn on expanded tabcomplete
+autoload -U compinit
+compinit
+
 export PS1='kyleh %~ %# '
 export EDITOR=vi
 export DISPLAY=:0.0
@@ -108,10 +112,6 @@ function mysqld {
     /opt/local/share/mysql5/mysql/mysql.server start
   fi
 }
-
-## expanded tabcomplete
-autoload -U compinit
-compinit
 
 ## iterm
 ##   \e]1 = tab label
