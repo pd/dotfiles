@@ -85,7 +85,7 @@ alias cp='nocorrect cp'
 alias finder='open -a finder .'
 
 ## (c) MadBytes, LLC Exclusively Contracted with Chapter Communications, Inc.
-alias ccmaster='mysql -h db.madbytes.net -u ccmaster -p ccmaster'
+alias digns1='dig @ns1.madbytes.net'
 
 ## util
 function g { grep -R "$1" * | grep -v \.svn; }
