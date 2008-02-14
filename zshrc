@@ -9,11 +9,6 @@ path=(
 )
 fpath=( '/opt/local/share/zsh/4.2.6/functions' "$HOME/.zsh/functions" )
 
-## make zsh maintain the dir stack
-setopt auto_pushd
-setopt pushd_ignore_dups
-setopt pushd_silent
-
 export PS1='kyleh %~ %# '
 export EDITOR=vi
 export DISPLAY=:0.0
@@ -150,3 +145,16 @@ gems="/opt/local/lib/ruby/gems/1.8/gems"
 
 ## emacs^[dd
 set -o vi vi-tabcomplete
+
+## stores the pwd for the place the next shell will open.
+## lame hack to let me hit ctrl+t for a new iterm tab and
+## be in the same dir.
+_qdir_tmpfile=~/.pd.qdir.tmp
+function qdir {
+  pwd > $_qdir_tmpfile
+}
+
+if [ -f $_qdir_tmpfile ]; then
+  _qd=`cat $_qdir_tmpfile`
+  [ -d $_qd ] && cd $_qd && rm $_qdir_tmpfile
+fi
