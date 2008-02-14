@@ -34,9 +34,9 @@ alias cls='clear'
 function g { grep -R "$1" * | grep -v \.svn; }
 
 ## hey modularity
-source ~/.zsh/ruby.zsh
-source ~/.zsh/git.zsh
-source ~/.zsh/osx.zsh
+for mod in prompt ruby git osx madbytes; do
+  source ~/.zsh/$mod.zsh
+done
 
 ## stores the pwd for the place the next shell will open.
 ## lame hack to let me hit ctrl+t for a new iterm tab and
