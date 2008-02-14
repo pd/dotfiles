@@ -81,6 +81,13 @@ alias rm='nocorrect rm'
 alias mv='nocorrect mv'
 alias cp='nocorrect cp'
 
+## quarantine is lame
+function clear-xattr {
+  for a in `xattr $1`; do
+    xattr -d $a $1
+  done
+}
+
 ## wtfeh
 alias finder='open -a finder .'
 
