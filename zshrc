@@ -13,6 +13,9 @@ fpath+=("$HOME/.zsh/functions")
 autoload -U compinit
 compinit
 
+## emacs^[dd
+set -o vi vi-tabcomplete
+
 export PS1='kyleh %~ %# '
 export EDITOR=vi
 export DISPLAY=:0.0
@@ -142,9 +145,6 @@ function preexec {
 
 ## way too much to type
 gems="/opt/local/lib/ruby/gems/1.8/gems"
-
-## emacs^[dd
-set -o vi vi-tabcomplete
 
 ## stores the pwd for the place the next shell will open.
 ## lame hack to let me hit ctrl+t for a new iterm tab and
