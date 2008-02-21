@@ -10,7 +10,7 @@ path=(
 fpath+=("$HOME/.zsh/functions")
 
 ## emacs^[dd
-set -o vi vi-tabcomplete
+bindkey -v
 
 ## turn on expanded tabcomplete
 autoload -U compinit
