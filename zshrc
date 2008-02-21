@@ -1,13 +1,13 @@
 path=(
-  "$HOME/bin"
-  '/opt/local/bin' '/opt/local/sbin'
-  '/opt/local/lib/postgresql82/bin'
-  '/opt/local/lib/erlang/bin'
-  '/usr/local/mysql/bin'
-  '/usr/local/bin' '/usr/local/sbin'
-  '/bin' '/sbin' '/usr/bin' '/usr/sbin'
+  ~/bin
+  /opt/local/bin /opt/local/sbin
+  /opt/local/lib/postgresql82/bin
+  /opt/local/lib/erlang/bin
+  /usr/local/mysql/bin
+  /usr/local/bin /usr/local/sbin
+  /bin /sbin /usr/bin /usr/sbin
 )
-fpath+=("$HOME/.zsh/functions")
+fpath=(~/.zsh/functions $fpath)
 
 ## emacs^[dd
 bindkey -v
