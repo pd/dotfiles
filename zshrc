@@ -16,6 +16,13 @@ bindkey -v
 autoload -U compinit
 compinit
 
+## history
+export HISTSIZE=500
+export SAVEHIST=1000
+export HISTFILE=~/.history.zsh
+setopt histverify
+
+## eh
 export EDITOR=vim
 export DISPLAY=:0.0
 export LC_CTYPE=en_US.UTF-8
