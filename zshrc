@@ -16,6 +16,9 @@ bindkey -v
 autoload -U compinit
 compinit
 
+## if i type '../somedir', just cd there.
+setopt autocd
+
 ## history
 export HISTSIZE=500
 export SAVEHIST=1000
