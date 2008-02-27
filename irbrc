@@ -9,3 +9,7 @@ IRB.conf[:AUTO_INDENT] = true
 def commify(number)
   number.to_s.reverse.scan(/.{1,3}/).reverse.map(&:reverse).join ','
 end
+
+def incfr
+  include FixtureReplacement
+end
