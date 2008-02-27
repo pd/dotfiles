@@ -1,22 +1,21 @@
-## some to be used, some for reference.
 alias gst='git status'
 alias gbst='git branch -a -v'
+
 alias gco='git checkout'
 alias gci='git commit'
 alias gpl='git pull'
 alias gps='git push'
+
 alias gb='git branch'
-alias gsh='git show'
-alias gshb='git show-branch'
-alias gl='git log'
 alias gm='git merge'
+alias grb='git rebase'
+
+alias gl='git log'
+
+alias gsh='git show'
 alias gd='git diff'
 alias gds='git diff --cached'
 alias gdhd='git diff HEAD'
 alias gdst='git diff --stat'
-alias stash='git stash'
-alias unstash='git stash apply'
-alias stash-ls='git stash list'
-alias stash-patch='git stash show -p'
-alias grb='git rebase'
+
 alias qg='~/bin/qgit --all'
