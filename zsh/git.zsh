@@ -18,4 +18,6 @@ alias gds='git diff --cached'
 alias gdhd='git diff HEAD'
 alias gdst='git diff --stat'
 
+alias gsm='git submodule'
+
 alias qg='~/bin/qgit --all'
