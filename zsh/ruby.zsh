@@ -17,6 +17,7 @@ sg () {
 sst () {
   ([ -f './script/story' ] && ruby ./script/story $*) || rake 'story[all]'
 }
+alias edge-rails='ruby ~/vendor/rails/railties/bin/rails'
 
 ## launch textmate using the cwd as the project root
 mt () {
