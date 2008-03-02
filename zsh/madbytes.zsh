@@ -1,26 +1,30 @@
 ## (c) MadBytes, LLC Exclusively Contracted with Chapter Communications, Inc.
 alias dns1='dig @ns1.madbytes.net'
 
-_single_o2st () {
-  proj=$1
-  echo -n "$proj @ "
-  (cd $proj;
-   git-show --abbrev-commit --pretty=format:'%h' | head -1)
+olyst () {
+  if [ ! -d 'apps' -o ! -d '.git' ]; then
+    echo "This doesn't look like the olympian repository."
+    return 1
+  fi
 
-  [[ "ambrosia" = $proj ]] && return
+  echo olympian branches:
+  git branch -a -v
 
-  echo -n "  w/ambrosia @ "
-  (cd $proj/vendor/plugins/ambrosia;
-   git-show --abbrev-commit --pretty=format:'%h' | head -1)
-}
-o2st () {
-  for d in o2 ambrosia olympian; do
-    [[ ! -d $d ]] && echo "Can't find $d repository" && return
+  echo
+  echo olympian status:
+  git status
+
+  echo
+  echo olympian submodule status:
+  git submodule status
+
+  for app in 'apps/admin' 'apps/sites' 'apps/dashboard'; do
+    echo
+    echo $app branches:
+    (cd $app; git branch -a -v)
+
+    echo
+    echo $app status:
+    (cd $app; git status)
   done
-
-  _single_o2st ambrosia
-  echo
-  _single_o2st o2
-  echo
-  _single_o2st olympian
 }
