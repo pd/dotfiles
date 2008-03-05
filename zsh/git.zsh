@@ -5,6 +5,7 @@ alias gco='git checkout'
 alias gci='git commit'
 alias gpl='git pull'
 alias gps='git push'
+alias gf='git fetch'
 
 alias gb='git branch'
 alias gm='git merge'
