@@ -19,6 +19,8 @@ class Repository
       'git'
     elsif File.directory? File.join(path, '.svn')
       'svn'
+    elsif File.directory? File.join(path, 'CVS')
+      'cvs'
     else
       '?'
     end
@@ -42,6 +44,8 @@ class Repository
         end
       elsif type == 'svn'
         in_repo { `svn info | sed -n 's/^Revision: //p'` }
+      elsif type == 'cvs'
+        'cvs-dun-work-like-that?'
       else
         'dunno yet'
       end
@@ -58,6 +62,8 @@ class Repository
       in_repo { `git pull` }
     when 'svn'
       in_repo { `svn update` }
+    when 'cvs'
+      in_repo { `cvs -q update -dP` }
     else
       "can't update unknown repository type"
     end
