@@ -1,17 +1,18 @@
 alias gst='git status'
 alias gbst='git branch -a -v'
 
+alias gl='git log'
+
 alias gco='git checkout'
 alias gci='git commit'
-alias gpl='git pull'
-alias gps='git push'
-alias gf='git fetch'
-
 alias gb='git branch'
 alias gm='git merge'
 alias grb='git rebase'
 
-alias gl='git log'
+alias gpl='git pull'
+alias gps='git push'
+alias gf='git fetch'
+alias gru='git remote update'
 
 alias gsh='git show'
 alias gd='git diff'
