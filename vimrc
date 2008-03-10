@@ -43,6 +43,7 @@ set noerrorbells visualbell
 set shortmess=atI
 set title
 set foldmethod=marker foldlevelstart=99
+set modeline modelines=2
 " set ruler " :he 'statusline', see note re:CTRL-G
 
 " :he :syn-sync-first
