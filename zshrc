@@ -16,8 +16,8 @@ bindkey -v
 autoload -U compinit
 compinit
 
-## if i type '../somedir', just cd there.
-setopt autocd
+setopt autocd     ## if i type '../somedir', just cd there.
+setopt cdablevars ## 'cd foo' can be 'cd $foo' if 'foo' doesn't exist
 
 ## history
 export HISTSIZE=500
