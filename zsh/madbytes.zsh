@@ -1,6 +1,11 @@
 ## (c) MadBytes, LLC Exclusively Contracted with Chapter Communications, Inc.
 alias dns1='dig @ns1.madbytes.net'
 
+# allow 'cd ~cc/apps', 'cd ~oly'
+cc=~/chapcom
+oly=~/chapcom/apps/olympian
+: ~cc ~oly
+
 olyst () {
   if [ ! -d 'apps' -o ! -d '.git' ]; then
     echo "This doesn't look like the olympian repository."
