@@ -33,3 +33,25 @@ olyst () {
     (cd $app; git status)
   done
 }
+
+olygru () {
+  if [ ! -d 'apps' -o ! -d '.git' ]; then
+    echo "This doesn't look like the olympian repository."
+    return 1
+  fi
+
+  echo updating olympian-base:
+  git remote update
+
+  for app in apps/*; do
+    echo
+    echo updating $app:
+    (cd $app; git remote update)
+  done
+
+  for plugin in plugins/*; do
+    echo
+    echo updating $plugin:
+    (cd $plugin; git remote update)
+  done
+}
