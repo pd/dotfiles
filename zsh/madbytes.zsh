@@ -40,18 +40,18 @@ olygru () {
     return 1
   fi
 
-  echo updating olympian-base:
+  echo fetching olympian-base:
   git remote update
 
   for app in apps/*; do
     echo
-    echo updating $app:
+    echo fetching $app:
     (cd $app; git remote update)
   done
 
   for plugin in plugins/*; do
     echo
-    echo updating $plugin:
+    echo fetching $plugin:
     (cd $plugin; git remote update)
   done
 }
