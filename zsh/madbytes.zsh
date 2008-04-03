@@ -8,16 +8,18 @@ oly=~/chapcom/apps/olympian
 
 olyst () {
   if [ ! -d 'apps' -o ! -d '.git' ]; then
-    echo "This doesn't look like the olympian repository."
+    echo This is not the olympian repository.
     return 1
   fi
 
-  echo olympian branches:
-  git branch -a -v
+  C="${fg[cyan]}"
+  N="$terminfo[sgr0]"
+  echo "$C"olympian"$N" status:
+  git status
 
   echo
-  echo olympian status:
-  git status
+  echo "$C"olympian"$N" branches:
+  git branch -a -v
 
   echo
   echo olympian submodule status:
@@ -25,33 +27,35 @@ olyst () {
 
   for app in 'apps/admin' 'apps/sites' 'apps/dashboard'; do
     echo
-    echo $app branches:
-    (cd $app; git branch -a -v)
+    echo "$C"$app"$N" status:
+    (cd $app; git status)
 
     echo
-    echo $app status:
-    (cd $app; git status)
+    echo "$C"$app"$N" branches:
+    (cd $app; git branch -a -v)
   done
 }
 
 olygru () {
   if [ ! -d 'apps' -o ! -d '.git' ]; then
-    echo "This doesn't look like the olympian repository."
+    echo This is not the olympian repository.
     return 1
   fi
 
-  echo fetching olympian-base:
+  C="${fg[cyan]}"
+  N="$terminfo[sgr0]"
+  echo "$C"olympian-base"$N":
   git remote update
 
   for app in apps/*; do
     echo
-    echo fetching $app:
+    echo "$C"$app"$N":
     (cd $app; git remote update)
   done
 
   for plugin in plugins/*; do
     echo
-    echo fetching $plugin:
+    echo "$C"$plugin"$N":
     (cd $plugin; git remote update)
   done
 }

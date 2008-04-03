@@ -16,6 +16,10 @@ bindkey -v
 autoload -U compinit
 compinit
 
+## allows $fg[white], $bg[red], $terminfo[bold]
+autoload colors zsh/terminfo
+colors
+
 setopt autocd     ## if i type '../somedir', just cd there.
 setopt cdablevars ## 'cd foo' can be 'cd $foo' if 'foo' doesn't exist
 
