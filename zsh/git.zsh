@@ -1,5 +1,6 @@
 alias gst='git status'
-alias gbst='git branch -a -v'
+alias gba='git branch -a'
+alias gbav='gba -v'
 
 alias gl='git log'
 
