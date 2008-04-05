@@ -1,7 +1,10 @@
 ## generic shortcuts
-gems="/opt/local/lib/ruby/gems/1.8/gems"
 alias gs='gem server'
 alias att='autotest'
+
+## use gems from ~/gems, easier to maintain
+export GEM_HOME=~/gems
+path=(~/gems/bin $path)
 
 ## rails / merb
 ## uses the rails command if it's present, otherwise merb
