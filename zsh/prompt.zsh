@@ -10,4 +10,4 @@ _prompt_git_current_branch () {
 # export PS1='%m %~ $(_prompt_git_current_branch)%# '
 export PS1='
 -- $fg[yellow][$fg[default] %n @ %m $fg[yellow]]$fg[default] $fg[yellow][$fg[default] $fg[magenta]%~ $fg[yellow]]$fg[default] $(_prompt_git_current_branch)$fg[yellow][$fg[default] %D{%a, %b %d %T} $fg[yellow]]$fg[default] 
--- %(?||(exit: $fg[red]%?$fg[default]%) )%# '
+-- %(?||(\$!: $fg[red]%?$fg[default]%) )%# '
