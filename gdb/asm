@@ -1,0 +1,179 @@
+
+# ASM DEBUGGING
+# define special help command "h" that shows asm related commands only
+#
+define h
+echo -------\n
+echo asm debugging commands, see "help" for other gdb comands\n
+echo \ \n
+echo g <adr>  exec & set temp break <adr>     u <n> disassemble from pc n times\n
+echo c  run program (continue)                uu <adr> <n> disassemble from adr n times\n
+echo n  step one instruction                  ss <n> show stack n locations\n
+echo nn  step but do not enter calls          r  show registers\n
+echo until  step or run to end of loop        db <adr> <n> display bytes\n
+echo \                                         dw <adr> <n> display words\n
+echo q  quit gdb                              dd <adr> <n> display dword\n
+echo \                                         ds <adr> <n> display string\n
+echo bs  show breaks                                                      \n
+echo bc  clear breaks                                                     \n
+echo                                                                     \n
+echo modifying the code within gdb requires reload, recompile easier? \n
+echo to change register -> set $eax = 0x123456 \n
+echo ------\n
+end
+#
+# set gdb initialization flags - change these as needed
+#
+# eliminate the pesky exit message that says program is running
+set confirm off
+set language asm
+# set disassembly-flavor intel
+# enable the following to work in hex, the default is decimal
+set output-radix 16
+set input-radix 16
+#
+# disable pesky hook messages?? this may not be necessary in other versions of gdb
+#
+define hook-stop
+end
+define hook-continue
+end
+#------------- define special commands for assembler -------------------
+#
+# go (run) to temporary break location "g <label>"
+#
+define g
+tbreak $arg0
+continue
+x/1i $pc
+echo ----------\n
+end
+#
+# show stack  "ss <n>" where n is number of entries to show
+#
+define ss
+x/$arg0xh $esp-(4 * $arg0)
+end
+#
+# define nn to single step over calls
+#
+define nn
+echo --------------
+nexti
+printf "eax=%x ebx=%x ecx=%x edx=%x esi=%x edi=%x ebp=%x esp=%x\n",$eax,$ebx,$ecx,$edx,$esi,$edi,$ebp,$esp
+x /4i $pc
+end
+#
+# define n to single step one instruction
+#
+define n
+echo line-
+si
+printf "eax=%x ebx=%x ecx=%x edx=%x esi=%x edi=%x ebp=%x esp=%x eflags=%x\n",$eax,$ebx,$ecx,$edx,$esi,$edi,$ebp,$esp,$eflags
+#disassemble $pc $pc+14
+x /4i $pc
+end
+#
+# define "u <n>"  to disassemble n locations from $pc
+#
+define u
+# x/$arg0i $eip
+ disassemble $eip $eip+$arg0
+#disassemble $arg0
+ end
+#
+# define "uu <label> <n>"  to disassemble n locations from given label
+#
+define uu
+x/$arg1i $arg0
+# disassemble $arg0 $arg0+$arg1
+ end
+#
+# define "bs" show breaks
+#
+define bs
+info break
+end
+#
+# define "bc" clear all breakpoints
+#
+define bc
+delete
+end
+#
+# define "r" show  registers
+#
+define r
+echo -----\n
+printf "eax=%x ebx=%x ecx=%x edx=%x esi=%x edi=%x ebp=%x\n",$eax,$ebx,$ecx,$edx,$esi,$edi,$ebp
+printf "esp=%x   eip=%x   flag=%x -->     O D I T   S Z - AC  - P - C\n",$esp,$eip,$eflags
+echo flags= Overflow, Direction, Interrupt, Trap, Sign, Zero, AuxCarry, Parity, Carry\n
+x/i $pc
+echo -----\n
+end
+#
+# define "db <adr> <n>"  display <n> bytes at <adr>
+#
+define db
+x/$arg1xb $arg0
+end
+#
+# define "dw <adr> <n>"  display <n> words at <adr>
+#
+define dw
+x/$arg1xh $arg0
+end
+#
+# define "dd <adr> <n>"  display <n> dwords at <adr>
+#
+define dd
+x/$arg1xw $arg0
+end
+#
+# define "ds <adr> <n>"  display <n> char(ascii) at <adr>
+#
+define ds
+x/$arg1cb $arg0
+end
+
+# attempt a string display...
+define dstr
+x /1sb &$arg0
+end
+
+
+set $asm_instruction_counter = 0
+define icount
+  print "stepi instructions: %d\n", $asm_instruction_counter
+end
+
+define hook-n
+  set $asm_instruction_counter = $asm_instruction_counter + 1
+end
+
+define icountreset
+  set $asm_instruction_counter = 0
+end
+
+#
+# start of code initialization ----------------------
+#
+# to initialize gdb we need to use the "run" command once, first
+# we display the current instruction, then set a break at next location.
+# Warning - the first instruction must be one byte long.
+# Next, we start the program executing (run) then clear all breakpoints.
+#
+
+# x /1i *_start
+# echo ---------------
+# break *_start+1
+# run
+# delete
+# x /1i *_start+1
+
+echo \n---------\n
+echo for some reason nasm symbols appear as functions?  ignore\n
+echo symbol related warnings.\n
+echo \n
+echo -------- type <h> for asm cmds  <help> for gdb commands\n
+
