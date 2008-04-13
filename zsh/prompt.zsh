@@ -6,8 +6,33 @@ _prompt_git_current_branch () {
   echo "(gb: $fg[green]${ref#refs/heads/}$fg[default]) "
 }
 
+## iterm
+##   \e]1 = tab label
+##   \e]2 = window title
+iterm_set_tab_label () {
+  echo -ne "\e]1;$*\a"
+}
+iterm_set_window_title () {
+  echo -ne "\e]2;$*\a"
+}
+
+# executed just before printing a prompt
+precmd () {
+  str=`print -P '%m: %~'`
+  iterm_set_tab_label $str
+  iterm_set_window_title $str
+}
+
+# executed just after reading a command, before running it
+preexec () {
+  cmd=$(history $HISTCMD | cut -b7-)
+  str=`print -P "%m: $cmd"`
+  iterm_set_tab_label $str
+  iterm_set_window_title $str
+}
+
 ## okay now
 # export PS1='%m %~ $(_prompt_git_current_branch)%# '
 export PS1='
--- $fg[yellow][$fg[default] %n @ %m $fg[yellow]]$fg[default] $fg[yellow][$fg[default] $fg[magenta]%~ $fg[yellow]]$fg[default] $(_prompt_git_current_branch)$fg[yellow][$fg[default] %D{%a, %b %d %T} $fg[yellow]]$fg[default] 
+-- $fg[yellow][$fg[default] %n @ %m $fg[green]%~ $fg[yellow]]$fg[default] $(_prompt_git_current_branch)$fg[yellow][$fg[default] %D{%a, %b %d %T} $fg[yellow]]$fg[default]%(1j. !! has a job.)
 -- %(?||(\$!: $fg[red]%?$fg[default]%) )%# '
