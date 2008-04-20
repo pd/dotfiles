@@ -1,0 +1,58 @@
+#!/usr/bin/env ruby
+
+def options
+  @options ||= {
+    :email   => 'philodespotos@gmail.com',
+    :smart   => false,
+    :fkndoit => false
+  }
+end
+
+def args
+  @args ||= ARGV.clone
+end
+
+if args.include? '-F'
+  args.reject! { |e| e == '-F' }
+  options[:fkndoit] = true
+end
+
+if args.include? '-s'
+  args.reject! { |e| e == '-s' }
+  options[:smart] = true
+end
+
+if !args.empty?
+  options[:email] = args[0]
+end
+
+def is_repo?(dir)
+  File.directory?(dir) &&
+    File.exist?(File.join(dir, 'config'))
+end
+
+def email_for(repo)
+  return options[:email] unless options[:smart]
+  path = File.expand_path(repo)
+  if !path.include?('/vendor/') && (path.include?('/kyleh/chapcom/') || path =~ %r{/kyleh/oly(/\w|$)})
+    'kyleh@chaptercommunications.com'
+  else
+    options[:email]
+  end
+end
+
+repos = Dir['./**/.git'].select { |dir| is_repo?(dir) }.map { |repo| File.dirname(repo) }
+repos.each do |repo|
+  email = email_for(repo)
+  print "* #{email}: #{repo}"
+  unless options[:fkndoit]
+    print "  (skipped!)\n"
+  else
+    print "\n"
+    Dir.chdir(repo) { %x|git config user.email #{options[:email]}| }
+  end
+end
+
+unless options[:fkndoit]
+  puts "\nDummy run; use -F to actually do it."
+end
