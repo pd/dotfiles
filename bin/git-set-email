@@ -49,7 +49,7 @@ repos.each do |repo|
     print "  (skipped!)\n"
   else
     print "\n"
-    Dir.chdir(repo) { %x|git config user.email #{options[:email]}| }
+    Dir.chdir(repo) { %x|git config user.email #{email}| }
   end
 end
 
