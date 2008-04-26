@@ -1,5 +1,4 @@
 ## generic shortcuts
-alias gs='gem server'
 alias att='autotest'
 
 ## use gems from ~/gems, easier to maintain
