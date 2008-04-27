@@ -24,8 +24,15 @@
 
 set nocompatible
 
-colorscheme default
 filetype plugin indent on " :he :filetype-overview
+
+" :he :syn-sync-first
+syntax on
+au BufEnter * :syntax sync fromstart
+
+" tends to be the best fit
+colorscheme default
+set background=dark
 
 " basic options
 let mapleader=";"
@@ -45,11 +52,6 @@ set title
 set foldmethod=marker foldlevelstart=99
 set modeline modelines=2
 " set ruler " :he 'statusline', see note re:CTRL-G
-
-" :he :syn-sync-first
-" simplest syntax syncing. can be slow
-syntax on
-au BufEnter * :syntax sync fromstart
 
 " generic keymappings
 map <silent> <Leader>s :nohlsearch<CR>
