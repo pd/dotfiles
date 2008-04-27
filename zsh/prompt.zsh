@@ -3,7 +3,7 @@ setopt prompt_percent prompt_subst
 
 _prompt_git_current_branch () {
   ref=$(git-symbolic-ref HEAD 2>/dev/null) || return
-  echo "(gb: $fg[green]${ref#refs/heads/}$fg[default]) "
+  echo "(gb: $fg[green]${ref#refs/heads/}$reset_color) "
 }
 
 ## iterm
@@ -32,7 +32,6 @@ preexec () {
 }
 
 ## okay now
-# export PS1='%m %~ $(_prompt_git_current_branch)%# '
 export PS1='
--- $fg[yellow][$fg[default] %n @ %m $fg[green]%~ $fg[yellow]]$fg[default] $(_prompt_git_current_branch)$fg[yellow][$fg[default] %D{%a, %b %d %T} $fg[yellow]]$fg[default]%(1j. !! has a job.)
--- %(?||(\$!: $fg[red]%?$fg[default]%) )%# '
+-- %{$fg_bold[yellow]%}[%{$reset_color%} %n @ %m %{$fg[green]%}%~ %{$fg_bold[yellow]%}]%{$reset_color%} $(_prompt_git_current_branch)%{$fg_bold[yellow]%}[%{$reset_color%} %D{%a, %b %d %T} %{$fg_bold[yellow]%}]%{$reset_color%}%(1j. !! has a job.)
+-- %(?||(\$!: %{$fg_bold[grey]%}%?%{$reset_color%}%) )%# '
