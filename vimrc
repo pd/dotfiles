@@ -5,8 +5,6 @@
 "   <Leader>p -- toggle paste mode
 "   <Leader>n -- toggle line number
 "   <Leader>r -- resource vimrc
-"   <Leader>c,-- comment/uncomment a block
-"   <Leader>u
 "
 "   <M-F10> -- echoes the name of the syntax element beneath the cursor
 "
