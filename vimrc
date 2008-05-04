@@ -28,9 +28,9 @@ filetype plugin indent on " :he :filetype-overview
 syntax on
 au BufEnter * :syntax sync fromstart
 
-" tends to be the best fit
-colorscheme default
+" I use his Terminal.app theme, too, so this gels very well
 set background=dark
+colorscheme ir_black
 
 " basic options
 let mapleader=";"
