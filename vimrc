@@ -109,4 +109,6 @@ nnoremap <silent> <space> :call ToggleFold()<CR>
 
 " kill off vim7's matchparen plugin {{{1
 let loaded_matchparen = 1
+
+" misc plugin config {{{1
 let NERDShutUp = 1
