@@ -2,8 +2,10 @@
 alias att='autotest'
 
 ## use gems from ~/gems, easier to maintain
-export GEM_HOME=~/gems
-path=(~/gems/bin $path)
+if [ -d ~/gems ]; then
+  export GEM_HOME=~/gems
+  path=(~/gems/bin $path)
+fi
 
 ## rails / merb
 ## uses the rails command if it's present, otherwise merb
