@@ -1,6 +1,7 @@
 path=(
   ~/bin
   /opt/local/bin /opt/local/sbin
+  /opt/local/lib/postgresql83/bin
   /opt/local/lib/postgresql82/bin
   /opt/local/lib/erlang/bin
   /usr/local/mysql/bin

@@ -9,13 +9,13 @@ clear-xattr () {
 ## maybe some day
 alias finder='open -a finder .'
 
-## i don't know why the launchd file for these don't work
-## but ffs it's horrid XML files and i don't care to learn.
+## for some reason launchctl just doesn't actually start these things.
+## they are configured, daemondo monitors them, but just doesn't run them.
 psqld () {
   if [ "$1" = "stop" ]; then
-    sudo -u postgres pg_ctl -D /opt/local/var/db/postgresql82/defaultdb stop -s -m fast
+    sudo -u postgres pg_ctl -D /opt/local/var/db/postgresql83/defaultdb stop -s -m fast
   else
-    sudo -u postgres pg_ctl -D /opt/local/var/db/postgresql82/defaultdb start -l /opt/local/var/log/postgresql82/postgres.log
+    sudo -u postgres pg_ctl -D /opt/local/var/db/postgresql83/defaultdb start -l /opt/local/var/log/postgresql83/postgres.log
   fi
 }
 mysqld () {
