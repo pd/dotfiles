@@ -25,3 +25,8 @@ mysqld () {
     /opt/local/share/mysql5/mysql/mysql.server start
   fi
 }
+
+mount-apps () {
+  [[ ! -d "$HOME/fs/apps" ]] && mkdir -p $HOME/fs/apps
+  sshfs kyleh@lwapp.madbytes.net:/cc/apps $HOME/fs/apps -oreconnect,volname=apps
+}
