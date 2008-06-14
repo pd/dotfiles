@@ -7,6 +7,7 @@ path=(
   /usr/local/mysql/bin
   /usr/local/bin /usr/local/sbin
   /bin /sbin /usr/bin /usr/sbin
+  .
 )
 fpath=(~/.zsh/functions $fpath)
 
