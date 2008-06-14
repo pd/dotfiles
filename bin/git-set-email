@@ -34,7 +34,7 @@ end
 def email_for(repo)
   return options[:email] unless options[:smart]
   path = File.expand_path(repo)
-  if !path.include?('/vendor/') && (path.include?('/kyleh/chapcom/') || path =~ %r{/kyleh/oly(/\w|$)})
+  if !path.include?('/vendor/') && (path.include?('/kyleh/chapcom/') || path =~ %r{/kyleh/oly(?:-dev)?(/\w|$)})
     'kyleh@chaptercommunications.com'
   else
     options[:email]
