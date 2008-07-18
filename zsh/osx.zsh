@@ -23,6 +23,7 @@ mysqld () {
     /opt/local/share/mysql5/mysql/mysql.server stop
   else
     /opt/local/share/mysql5/mysql/mysql.server start
+    ln -s /opt/local/var/run/mysql5/mysqld.sock /tmp/mysql.sock
   fi
 }
 
