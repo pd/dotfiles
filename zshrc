@@ -48,6 +48,7 @@ _qdir_tmpfile=~/.pd.qdir.tmp
 qdir () {
   pwd > $_qdir_tmpfile
 }
+alias qd='qdir'
 
 if [ -f $_qdir_tmpfile ]; then
   _qd=`cat $_qdir_tmpfile`
