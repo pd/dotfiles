@@ -30,4 +30,10 @@ Autotest.add_hook :initialize do |at|
   %w[.hg .git vendor].each { |exception| at.add_exception(exception) }
 end
 
+Autotest.add_hook :initialize do |at|
+  unless ARGV.empty?
+    at.find_directories = ARGV.dup
+  end
+end
+
 $VERBOSE = false
