@@ -1,5 +1,5 @@
 ## generic shortcuts
-alias att='autotest'
+alias att='RSPEC=1 autotest'
 
 ## use gems from ~/gems, easier to maintain
 if [ -d ~/gems ]; then
@@ -13,6 +13,7 @@ alias ss='./script/spec -O spec/spec.opts'
 alias sse='./script/server'
 alias sc='./script/console'
 alias sg='./script/generate'
+alias sdb='./script/dbconsole'
 alias edge-rails='ruby ~/vendor/rails/railties/bin/rails'
 
 ## launch textmate using the cwd as the project root
