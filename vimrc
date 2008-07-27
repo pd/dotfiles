@@ -62,7 +62,7 @@ cmap %/ <C-R>=expand("%:p:h")."/"<CR>
 " :he 'statusline'
 " it's a beast.
 set laststatus=2 " = always display the status line
-set statusline=%3.3(%M%)\ buffer(%n):\ %f\ %y\ %=chr:\ %3b\ 0x%02B\ \|\ %P:\ ln\ %l/%L\ col\ %2c
+set statusline=%3.3(%M%)\ buffer(%n):\ %f\%{GitBranchInfoString()}%*\ %y\ %=chr:\ %3b\ 0x%02B\ \|\ %P:\ ln\ %l/%L\ col\ %2c
 set titlestring=vim:\ buf\ %n:\ %f\ %m
 " 1}}}
 
@@ -112,3 +112,7 @@ let loaded_matchparen = 1
 
 " misc plugin config {{{1
 let NERDShutUp = 1
+
+let g:git_branch_status_text=" gb: "
+let g:git_branch_status_nogit=""
+let g:git_branch_status_around=""
