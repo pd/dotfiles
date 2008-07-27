@@ -33,5 +33,5 @@ preexec () {
 
 ## okay now
 export PS1='
--- %{$fg_bold[blue]%}[%{$reset_color%} %n @ %m %{$fg[green]%}%~ %{$fg_bold[blue]%}]%{$reset_color%} $(_prompt_git_current_branch)%{$fg_bold[blue]%}[%{$reset_color%} %D{%a, %b %d %T} %{$fg_bold[blue]%}]%{$reset_color%}%(1j. !! has a job.)
+-- %{$fg_bold[blue]%}[%{$reset_color%} %n @ %m %{$fg[green]%}%~ %{$fg_bold[blue]%}]%{$reset_color%} $(_prompt_git_current_branch)%{$fg_bold[blue]%}[%{$reset_color%} %D{%a, %b %d %T} %{$fg_bold[blue]%}]%{$reset_color%}
 -- %(?||(\$!: %{$fg[red]%}%?%{$reset_color%}%) )%# '
