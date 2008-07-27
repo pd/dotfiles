@@ -20,3 +20,6 @@
 	untracked = cyan
 [core]
 	excludesfile = /Users/kyleh/.gitignore
+[status]
+	submodulesummary = true
+	relativePaths = false
