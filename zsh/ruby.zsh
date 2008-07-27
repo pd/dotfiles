@@ -1,5 +1,5 @@
 ## generic shortcuts
-alias asp='autospec'
+alias asp='RSPEC=1 autotest'
 alias att='autotest'
 
 ## use gems from ~/gems, easier to maintain
