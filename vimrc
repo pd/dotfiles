@@ -57,6 +57,7 @@ map <silent> <Leader>p :set paste!<CR>
 map <silent> <Leader>n :set number!<CR>
 map <M-F10> :echo synIDattr(synID(line('.'), col('.'), 1), 'name')<CR>
 cmap %/ <C-R>=expand("%:p:h")."/"<CR>
+cmap %% <C-R>=expand("%")<CR>
 
 " status line and window title {{{1
 " :he 'statusline'
