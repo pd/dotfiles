@@ -1,5 +1,6 @@
 ## generic shortcuts
-alias att='RSPEC=1 autotest'
+alias asp='autospec'
+alias att='autotest'
 
 ## use gems from ~/gems, easier to maintain
 if [ -d ~/gems ]; then
