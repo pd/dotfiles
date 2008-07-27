@@ -5,6 +5,7 @@ $VERBOSE = false
 class Autotest::Rspec < Autotest
   def results_breakdown
     result = results.is_a?(Array) ? results.last : results.split("\n").last
+    return [] unless result =~ /example/
     bd = %w(example failure pending).inject({}) do |acc, x|
       acc[x] = result[/(\d+) #{x}/, 1].to_i
       acc
@@ -24,8 +25,10 @@ class Autotest::Rspec < Autotest
   end
 
   # Use `spec`, not ruby
-  def make_test_cmd(files_to_test)
-    return "spec #{add_options_if_present} #{files_to_test.keys.flatten.join(' ')}"
+  unless defined? Autotest::RailsRspec
+    def make_test_cmd(files_to_test)
+      return "spec #{add_options_if_present} #{files_to_test.keys.flatten.join(' ')}"
+    end
   end
 end
 
