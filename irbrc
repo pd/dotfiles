@@ -8,7 +8,7 @@ require 'irb/ext/save-history'
 IRB.conf[:PROMPT_MODE] = :SIMPLE
 IRB.conf[:AUTO_INDENT] = true
 
-if VERSION == '1.8.6'
+if RUBY_VERSION == '1.8.6'
   require 'wirble'
   Wirble.init
 end
