@@ -1,6 +1,7 @@
 alias ls='ls -Fh'
 alias ll='ls -l'
 alias la='ls -a'
+alias lla='ls -al'
 alias l='ls'
 alias h='history'
 alias p='ps axww'
