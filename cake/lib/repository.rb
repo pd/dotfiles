@@ -69,6 +69,11 @@ class Repository
     end
   end
 
+  def gc
+    return unless type == 'git' || type == 'git-svn'
+    in_repo { `git gc` }
+  end
+
   private
     def in_repo
       cwd = Dir.pwd
