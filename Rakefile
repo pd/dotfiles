@@ -7,6 +7,7 @@ IMPORTANT_FILES = %w(
   gitignore
   inputrc
   irbrc
+  screenrc
   vim
   vimrc
   zsh
