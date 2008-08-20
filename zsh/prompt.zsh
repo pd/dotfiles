@@ -2,7 +2,7 @@
 setopt prompt_percent prompt_subst
 
 _prompt_git_current_branch () {
-  ref=$(git-symbolic-ref HEAD 2>/dev/null) || return
+  ref=$(git symbolic-ref HEAD 2>/dev/null) || return
   echo "(gb: $fg[green]${ref#refs/heads/}$reset_color) "
 }
 
