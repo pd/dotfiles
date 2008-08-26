@@ -52,6 +52,31 @@ _prompt_git_info () {
   fi
 }
 
+## iterm
+##   \e]1 = tab label
+##   \e]2 = window title
+iterm_set_tab_label () {
+  echo -ne "\e]1;$*\a"
+}
+iterm_set_window_title () {
+  echo -ne "\e]2;$*\a"
+}
+
+# executed just before printing a prompt
+precmd () {
+  str=`print -P '%m: %~'`
+  iterm_set_tab_label $str
+  iterm_set_window_title $str
+}
+
+# executed just after reading a command, before running it
+preexec () {
+  cmd=$(history $HISTCMD | cut -b7-)
+  str=`print -P "%m: $cmd"`
+  iterm_set_tab_label $str
+  iterm_set_window_title $str
+}
+
 ## okay now
 export PS1='
 -- %{$fg_bold[blue]%}[%{$reset_color%} %n @ %m %{$fg[green]%}%~ %{$fg_bold[blue]%}]%{$reset_color%} $(_prompt_git_info)%{$fg_bold[blue]%}[%{$reset_color%} %D{%a, %b %d %T} %{$fg_bold[blue]%}]%{$reset_color%}
