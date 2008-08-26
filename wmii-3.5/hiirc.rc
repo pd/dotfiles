@@ -1,5 +1,0 @@
-#!/usr/bin/env 9 rc
-colors='#000000 #ff002e #000000'
-if (~ `{wmiir ls /rbar |grep 100_hiirc |wc -l} 0)
-	echo $colors |wmiir create /rbar/100_hiirc
-wmiir xwrite /rbar/100_hiirc $colors $*

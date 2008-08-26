@@ -1,5 +1,0 @@
-# vim:ft=muttrc:
-mailboxes +inbox +ed +chrisid +abs +mutti
-mailboxes +wmii +wmii-hackers +dwm
-mailboxes +9fans
-mailboxes +freebsd-ports +freebsd-questions +freebsd-security-notifications +freebsd-announce
