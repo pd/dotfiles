@@ -6,6 +6,7 @@ _prompt_git_info () {
   if [ -n "$g" ]; then
     local r
     local b
+
     if [ -d "$g/../.dotest" ]
     then
       if test -f "$g/../.dotest/rebasing"
