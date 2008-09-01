@@ -32,12 +32,12 @@ class Repository
         in_repo { `hg head --template '{rev}'` }
       elsif type == 'git'
         in_repo do
-          stat = `git-show --stat --abbrev-commit HEAD`
+          stat = `git show --stat --abbrev-commit HEAD`
           stat.match(/^commit (\w+)\.\.\./).captures.first
         end
       elsif type == 'git-svn'
         in_repo do
-          stat = `git-show --stat --abbrev-commit HEAD`
+          stat = `git show --stat --abbrev-commit HEAD`
           gitrev = stat.match(/commit (\w+)\.\.\./).captures.first
           svnrev = stat.match(/git-svn-id: .*@(\d+)/).captures.first
           "#{gitrev} = r#{svnrev}"
@@ -57,7 +57,7 @@ class Repository
     when 'hg'
       in_repo { `hg pull -u` }
     when 'git-svn'
-      in_repo { `git-svn rebase` }
+      in_repo { `git svn rebase` }
     when 'git'
       in_repo { `git pull` }
     when 'svn'
