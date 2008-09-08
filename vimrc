@@ -16,9 +16,9 @@
 " regenerate documentation for ~/dotfiles/vim/doc
 "   :helptags ~/dotfiles/vim/doc
 "
-" misc:
-"   %/    -- in Command mode, expands to the path of the current file's
-"            directory.
+" command mode expansions:
+"   %% -- the path to the current file
+"   %/ -- the path to the current file's directory
 
 set nocompatible
 
