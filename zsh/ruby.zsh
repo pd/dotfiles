@@ -16,6 +16,7 @@ alias sc='./script/console'
 alias sg='./script/generate'
 alias sdb='./script/dbconsole'
 alias edge-rails='ruby ~/vendor/rails/railties/bin/rails'
+alias sl='ruby ~/oly-dev/script/launcher'
 
 ## launch textmate using the cwd as the project root
 mt () {
