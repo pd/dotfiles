@@ -24,3 +24,4 @@ alias gdst='git diff --stat'
 alias gsm='git submodule'
 
 alias qg='detach qgit --all'
+alias gx='gitx --all'
