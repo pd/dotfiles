@@ -81,6 +81,12 @@ map <M-S-Left> :vertical resize -3<CR>
 map <M-S-Up> :resize +3<CR>
 map <M-S-Down> :resize -3<CR>
 
+" disable 'K', docs sucks; H/L are ends of the line; Y is yank to end {{{1
+map H ^
+map L $
+map K <Nop>
+map Y y$
+
 " vimrc resourcing with <Leader>r {{{1
 if !exists("*ResourceVim")
   function ResourceVim()
