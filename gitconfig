@@ -23,3 +23,5 @@
 [status]
 	submodulesummary = true
 	relativePaths = false
+[github]
+  user = pd
