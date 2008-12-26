@@ -2,9 +2,10 @@
 ; Liberally stealing from the emacs-starter-kit, but doing it manually
 ; because eventually I had no idea why things were behaving as they did.
 
-; STFU.
+; STFU, GTFO.
 (setq inhibit-startup-screen t)
 (setq inhibit-startup-echo-area-message t)
+(menu-bar-mode -1)
 
 ; Always ~/.emacs.d/ for me, but hey why not.
 (setq dotfiles-dir (file-name-directory
