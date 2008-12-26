@@ -63,8 +63,8 @@
 (add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Rakefile\\'" . ruby-mode))
 (add-hook 'ruby-mode-hook
- '(lambda ()
-    (require 'ruby-electric)))
+	  '(lambda ()
+	     (require 'ruby-electric)))
 
 (autoload 'haml-mode "haml-mode" "Major mode for HAML files" t)
 (autoload 'sass-mode "sass-mode" "Major mode for Sass files" t)
