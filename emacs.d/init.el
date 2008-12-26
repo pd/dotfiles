@@ -19,6 +19,10 @@
 (require 'ansi-color)
 (require 'recentf)
 
+; Can't believe how awkward good line numbering is in Emacs.
+(require 'linum)
+(global-set-key (kbd "<f6>") 'linum-mode)
+
 ; Ships with Carbon emacs.
 (require 'color-theme)
 (setq color-theme-is-cumulative nil)
