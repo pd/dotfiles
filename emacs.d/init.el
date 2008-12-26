@@ -2,6 +2,10 @@
 ; Liberally stealing from the emacs-starter-kit, but doing it manually
 ; because eventually I had no idea why things were behaving as they did.
 
+; STFU.
+(setq inhibit-startup-screen t)
+
+; Always ~/.emacs.d/ for me, but hey why not.
 (setq dotfiles-dir (file-name-directory
 		    (or (buffer-file-name) load-file-name)))
 (add-to-list 'load-path dotfiles-dir)
@@ -9,6 +13,7 @@
 
 ; Make sure Custom doesn't write to this friggin file.
 (setq custom-file (concat dotfiles-dir "/custom.el"))
+(load custom-file 'noerror)
 
 ; Libraries the emacs-starter-kit assures me I always want. Cursory
 ; overview suggests it's generally the case.
@@ -18,6 +23,9 @@
 (require 'uniquify)
 (require 'ansi-color)
 (require 'recentf)
+
+(require 'ido)
+(ido-mode t)
 
 ; Can't believe how awkward good line numbering is in Emacs.
 (require 'linum)
