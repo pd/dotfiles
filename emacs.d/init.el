@@ -51,7 +51,7 @@
 ; ruby mode
 (autoload 'ruby-mode "ruby-mode"
   "Major mode for ruby" t)
-(add-to-list 'auto-mode-alist '("\\.(rb|rake)\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
 (add-hook 'ruby-mode-hook
  '(lambda ()
     (require 'ruby-electric)))
