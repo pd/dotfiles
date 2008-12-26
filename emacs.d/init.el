@@ -3,8 +3,8 @@
 ; because eventually I had no idea why things were behaving as they did.
 
 ; STFU, GTFO.
-(setq inhibit-startup-screen t)
-(setq inhibit-startup-echo-area-message t)
+(setq inhibit-startup-screen t
+      inhibit-startup-echo-area-message t)
 (menu-bar-mode -1)
 
 ; Always ~/.emacs.d/ for me, but hey why not.
