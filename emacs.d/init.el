@@ -39,8 +39,9 @@
 (global-set-key (kbd "<f6>") 'linum-mode)
 
 ; Settings which are obviously preferable to the defaults.
-(setq column-number-mode t)  ; ruler shows column number
-(setq transient-mark-mode t) ; actually *see* what i'm selecting...
+(setq column-number-mode t   ; ruler shows column number
+      transient-mark-mode t  ; actually *see* what i'm selecting...
+      indent-tabs-mode nil)  ; never ever ever insert an actual tab; maybe should be a mode hook instead
 
 ; color-theme ships with Carbon emacs.
 (require 'color-theme)
@@ -63,8 +64,8 @@
 (add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Rakefile\\'" . ruby-mode))
 (add-hook 'ruby-mode-hook
-	  '(lambda ()
-	     (require 'ruby-electric)))
+          '(lambda ()
+             (require 'ruby-electric)))
 
 (autoload 'haml-mode "haml-mode" "Major mode for HAML files" t)
 (autoload 'sass-mode "sass-mode" "Major mode for Sass files" t)
