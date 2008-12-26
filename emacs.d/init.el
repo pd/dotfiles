@@ -31,6 +31,9 @@
 (global-set-key (kbd "M-s") 'save-buffer)
 (global-set-key (kbd "M-SPC") 'set-mark-command) ; Quicksilver is C-SPC
 
+; Liked this from emacs-starter-kit
+(global-set-key (kbd "C-c v") 'eval-buffer)
+
 ;;;; Things only to be loaded on demand
 
 ; ruby mode
@@ -47,6 +50,10 @@
   "Minor mode for Sass files" t)
 (add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
 (add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
+
+(autoload 'js2-mode "js2-mode"
+  "Major mode for JS files" t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 (autoload 'yaml-mode "yaml-mode"
   "Minor mode for YAML files" t)
