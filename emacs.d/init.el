@@ -29,8 +29,9 @@
 (require 'uniquify)
 (require 'ansi-color)
 (require 'recentf)
-(recentf-mode t)
 (require 'ido)
+(setq save-place-file (concat dotfiles-dir "places"))
+(recentf-mode t)
 (ido-mode t)
 
 ; Can't believe how awkward good line numbering is in Emacs.
