@@ -50,26 +50,26 @@
 
 ; ruby mode
 (autoload 'ruby-mode "ruby-mode"
-  "Minor mode for ruby" t)
-(add-to-list 'auto-mode-alist '("\\.(rb|rake)$" . ruby-mode))
+  "Major mode for ruby" t)
+(add-to-list 'auto-mode-alist '("\\.(rb|rake)\\'" . ruby-mode))
 (add-hook 'ruby-mode-hook
  '(lambda ()
     (require 'ruby-electric)))
 
 (autoload 'haml-mode "haml-mode"
-  "Minor mode for HAML files" t)
+  "Major mode for HAML files" t)
 (autoload 'sass-mode "sass-mode"
-  "Minor mode for Sass files" t)
-(add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
-(add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
+  "Major mode for Sass files" t)
+(add-to-list 'auto-mode-alist '("\\.haml\\'" . haml-mode))
+(add-to-list 'auto-mode-alist '("\\.sass\\'" . sass-mode))
 
 (autoload 'js2-mode "js2-mode"
   "Major mode for JS files" t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
 (autoload 'yaml-mode "yaml-mode"
-  "Minor mode for YAML files" t)
-(add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
+  "Major mode for YAML files" t)
+(add-to-list 'auto-mode-alist '("\\.ya?ml\\'" . yaml-mode))
 
 (autoload 'git-blame-mode "git-blame"
   "Minor mode for incremental blame for Git" t)
