@@ -29,7 +29,7 @@
 (require 'uniquify)
 (require 'ansi-color)
 (require 'recentf)
-
+(recentf-mode t)
 (require 'ido)
 (ido-mode t)
 
