@@ -55,8 +55,37 @@
 (global-set-key (kbd "M-s") 'save-buffer)
 (global-set-key (kbd "M-SPC") 'set-mark-command) ; Quicksilver is C-SPC
 
-; Liked this from emacs-starter-kit
+; Bindings from emacs-starter-kit that were reasonable enough
 (global-set-key (kbd "C-c v") 'eval-buffer)
+(global-set-key (kbd "C-h a") 'apropos) ; defaults to command-apropos
+(global-set-key (kbd "C-/") 'hippie-expand) ; keep M-/ around for now, I suppose
+
+(windmove-default-keybindings) ; S-<dir> moves to the window in that direction
+(global-set-key (kbd "C-x O") (lambda () (interactive) (other-window -1)))
+(global-set-key (kbd "C-x C-o") (lambda () (interactive) (other-window 2)))
+
+; Also from emacs-starter-kit
+(defun cleanup-buffer ()
+  "Reindent, untabify, and delete trailing whitespace from this buffer"
+  (interactive)
+  (indent-buffer)
+  (untabify-buffer)
+  (delete-trailing-whitespace))
+(global-set-key (kbd "C-c c") 'cleanup-buffer)
+(global-set-key (kbd "C-c w") 'delete-trailing-whitespace)
+
+(defun recentf-ido-find-file ()
+  "Find a recent file using ido."
+  (interactive)
+  (let ((file (ido-completing-read "Choose recent file: " recentf-list nil t)))
+    (when file
+      (find-file file))))
+(global-set-key (kbd "C-x f") 'ido-find-file)
+(global-set-key (kbd "C-x C-f") 'recentf-ido-find-file)
+
+; Back off, hippie expand.
+(delete 'try-expand-line hippie-expand-try-functions-list)
+(delete 'try-expand-list hippie-expand-try-functions-list)
 
 ;;;; Things only to be loaded on demand
 
