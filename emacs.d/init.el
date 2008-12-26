@@ -17,6 +17,10 @@
 (setq custom-file (concat dotfiles-dir "/custom.el"))
 (load custom-file 'noerror)
 
+; Move backup files somewhere else
+(setq backup-directory-alist `(("." . ,(expand-file-name
+					(concat dotfiles-dir "backups")))))
+
 ; Libraries the emacs-starter-kit assures me I always want. Cursory
 ; overview suggests it's generally the case.
 (require 'cl)
