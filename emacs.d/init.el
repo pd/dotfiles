@@ -13,13 +13,14 @@
 (add-to-list 'load-path dotfiles-dir)
 (add-to-list 'load-path (concat dotfiles-dir "/vendor"))
 
-; Make sure Custom doesn't write to this friggin file.
-(setq custom-file (concat dotfiles-dir "/custom.el"))
-(load custom-file 'noerror)
+; Get emacs to stop auto-writing things to this init.el, or the cwd, &c
+(setq backup-directory-alist `(("." . ,(expand-file-name (concat dotfiles-dir "backups"))))
+      save-place-file (concat dotfiles-dir "/places")
+      custom-file (concat dotfiles-dir "/custom.el"))
 
-; Move backup files somewhere else
-(setq backup-directory-alist `(("." . ,(expand-file-name
-					(concat dotfiles-dir "backups")))))
+; Gotta load the customization file manually; but don't actually do so.
+; Discourage use of customize at all. My god it's ugly.
+; (load custom-file 'noerror)
 
 ; Libraries the emacs-starter-kit assures me I always want. Cursory
 ; overview suggests it's generally the case.
@@ -30,7 +31,6 @@
 (require 'ansi-color)
 (require 'recentf)
 (require 'ido)
-(setq save-place-file (concat dotfiles-dir "places"))
 (recentf-mode t)
 (ido-mode t)
 
