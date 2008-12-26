@@ -1,3 +1,5 @@
 *.swp
-emacs.d/auto-save-list
 *.elc
+emacs.d/auto-save-list
+emacs.d/backups
+emacs.d/places
