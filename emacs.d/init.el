@@ -4,6 +4,7 @@
 
 ; STFU.
 (setq inhibit-startup-screen t)
+(setq inhibit-startup-echo-area-message t)
 
 ; Always ~/.emacs.d/ for me, but hey why not.
 (setq dotfiles-dir (file-name-directory
@@ -31,7 +32,11 @@
 (require 'linum)
 (global-set-key (kbd "<f6>") 'linum-mode)
 
-; Ships with Carbon emacs.
+; Settings which are obviously preferable to the defaults.
+(setq column-number-mode t)  ; ruler shows column number
+(setq transient-mark-mode t) ; actually *see* what i'm selecting...
+
+; color-theme ships with Carbon emacs.
 (require 'color-theme)
 (setq color-theme-is-cumulative nil)
 (color-theme-initialize)
