@@ -59,7 +59,6 @@
 
 ;;;; Things only to be loaded on demand
 
-; ruby mode
 (autoload 'ruby-mode "ruby-mode"
   "Major mode for ruby" t)
 (add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
