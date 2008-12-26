@@ -80,8 +80,8 @@
   (let ((file (ido-completing-read "Choose recent file: " recentf-list nil t)))
     (when file
       (find-file file))))
-(global-set-key (kbd "C-x f") 'ido-find-file)
-(global-set-key (kbd "C-x C-f") 'recentf-ido-find-file)
+(global-set-key (kbd "C-x C-f") 'ido-find-file)
+(global-set-key (kbd "C-x f") 'recentf-ido-find-file)
 
 ; Back off, hippie expand.
 (delete 'try-expand-line hippie-expand-try-functions-list)
