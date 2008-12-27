@@ -3,4 +3,4 @@
 (color-theme-initialize)
 (color-theme-deep-blue)
 
-(provide 'color-theme)
+(provide 'my-color-theme)
