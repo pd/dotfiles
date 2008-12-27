@@ -164,7 +164,7 @@ search result\(s\)."
   (let ((*dirs* (findr-make-queue))
         *found-files*)
     (labels ((findr-1 (dir)
-               (message "Searching %s ..." dir)
+               (message "Searching %s ... for %s" dir name)
                (let ((files (directory-files dir t "\\w")))
                  (loop
                      for file in files
