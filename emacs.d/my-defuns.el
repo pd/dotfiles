@@ -1,3 +1,14 @@
+(require 'project-root)
+
+(defun project-root-or-current-directory ()
+  (unless project-details (project-root-fetch))
+  (or (cdr project-details) default-directory))
+
+(defun reverse-alist-pairs (alist)
+  (mapcar
+   (lambda (cell) (cons (cdr cell) (car cell)))
+   alist))
+
 ; From Pat Maddox
 (defun append-and-move-to-new-line ()
   "Inserts a blank line after the current one, and moves to it"

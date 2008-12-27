@@ -1,14 +1,4 @@
-(require 'project-root)
 (require 'jump)
-
-(defun project-root-or-current-directory ()
-  (unless project-details (project-root-fetch))
-  (or (cdr project-details) default-directory))
-
-(defun reverse-alist (alist)
-  (mapcar
-   (lambda (cell) (cons (cdr cell) (car cell)))
-   alist))
 
 ; Disable inflection of the regexp matches; this probably breaks
 ; rinari's use of jump-inflections, but I don't use it yet.
@@ -23,7 +13,7 @@
 	("plugins/\\1/lib/\\2.rb"     . "plugins/\\1/spec/lib/\\2_spec.rb")
 	("plugins/\\1/lib/\\2.rb"     . "plugins/\\1/spec/lib/integration/\\2_spec.rb")))
 (setq rspec-spec-to-impl-file-map
-      (reverse-alist rspec-impl-to-spec-file-map))
+      (reverse-alist-pairs rspec-impl-to-spec-file-map))
 
 (defjump 'jump-to-spec-file
   rspec-impl-to-spec-file-map
