@@ -1,7 +1,14 @@
 (require 'color-theme)
 (setq color-theme-is-cumulative nil)
+
+; Causes color-theme-initialize to blow up for unknown reasons:
+;(setq color-theme-directory (concat dotfiles-dir "themes"))
+
+(dolist (theme '("all_hallows_eve" "inkpot" "railscasts" "tango"))
+    (load (concat dotfiles-dir "themes/" theme ".el")))
+
 (color-theme-initialize)
-(color-theme-dark-blue2)
+(color-theme-inkpot)
 
 ; Other decent themes so far:
 ; (color-theme-deep-blue)
