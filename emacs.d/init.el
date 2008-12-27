@@ -6,6 +6,7 @@
 (setq inhibit-startup-screen t
       inhibit-startup-echo-area-message t)
 (menu-bar-mode -1)
+(tool-bar-mode -1)
 
 ; Always ~/.emacs.d/ for me, but hey why not.
 (setq dotfiles-dir (file-name-directory
