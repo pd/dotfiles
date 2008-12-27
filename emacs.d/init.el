@@ -80,15 +80,9 @@
 (global-set-key (kbd "C-x O") (lambda () (interactive) (other-window -1)))
 (global-set-key (kbd "C-x C-o") (lambda () (interactive) (other-window 2)))
 
-; Also from emacs-starter-kit
-(defun cleanup-buffer ()
-  "Reindent, untabify, and delete trailing whitespace from this buffer"
-  (interactive)
-  (indent-buffer)
-  (untabify-buffer)
-  (delete-trailing-whitespace))
-(global-set-key (kbd "C-c c") 'cleanup-buffer)
+; Handy ways to clean up whitespace around point
 (global-set-key (kbd "C-c w") 'delete-trailing-whitespace)
+(global-set-key (kbd "M-\\") 'delete-horizontal-space)
 
 (defun recentf-ido-find-file ()
   "Find a recent file using ido."
