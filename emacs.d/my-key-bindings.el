@@ -1,3 +1,5 @@
+(require 'my-defuns)
+
 ; General keybindings
 (global-set-key (kbd "C-S-k") 'kill-whole-line)
 (global-set-key (kbd "C-w") 'backward-kill-word)

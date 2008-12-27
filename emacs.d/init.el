@@ -44,6 +44,7 @@
         ("emacs.d"       :root-contains-files ("init.el" "custom.el"))))
 
 (require 'my-color-theme)
+(require 'my-defuns)
 (require 'my-key-bindings)
 (require 'my-jumps)
 (require 'my-modes)
