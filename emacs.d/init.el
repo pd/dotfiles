@@ -39,7 +39,7 @@
 
 (require 'project-root)
 (setq project-roots
-      '(("Rails project" :root-contains-files ("app" "public"))
+      '(("Rails project" :root-contains-files ("config/environment.rb"))
         ("Ruby project"  :root-contains-files ("Rakefile" "lib"))
         ("emacs.d"       :root-contains-files ("init.el" "custom.el"))))
 

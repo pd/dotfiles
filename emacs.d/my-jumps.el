@@ -10,6 +10,10 @@
    (lambda (cell) (cons (cdr cell) (car cell)))
    alist))
 
+; Disable inflection of the regexp matches; this probably breaks
+; rinari's use of jump-inflections, but I don't use it yet.
+(defun jump-inflections (terms) (cons terms nil))
+
 (setq rspec-impl-to-spec-file-map
       '(("app/\\1.rb" . "spec/\\1_spec.rb")
 	("lib/\\1.rb" . "spec/lib/\\1_spec.rb")
