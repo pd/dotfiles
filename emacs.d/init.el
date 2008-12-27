@@ -35,6 +35,11 @@
 (recentf-mode t)
 (ido-mode t)
 
+(require 'project-root)
+(setq project-roots
+      '(("Rails project" :root-contains-files ("app" "spec" "vendor"))
+        ("Ruby project"  :root-contains-files ("Rakefile" "lib"))))
+
 ; Can't believe how awkward good line numbering is in Emacs.
 (require 'linum)
 (global-set-key (kbd "<f6>") 'linum-mode)
