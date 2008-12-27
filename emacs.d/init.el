@@ -32,15 +32,16 @@
 (require 'ansi-color)
 (require 'recentf)
 (require 'ido)
+(require 'linum)
+
 (recentf-mode t)
 (ido-mode t)
 
-(require 'linum)
-
 (require 'project-root)
 (setq project-roots
-      '(("Rails project" :root-contains-files ("app" "spec" "vendor"))
-        ("Ruby project"  :root-contains-files ("Rakefile" "lib"))))
+      '(("Rails project" :root-contains-files ("app" "public"))
+        ("Ruby project"  :root-contains-files ("Rakefile" "lib"))
+        ("emacs.d"       :root-contains-files ("init.el" "custom.el"))))
 
 (require 'my-color-theme)
 (require 'my-key-bindings)
