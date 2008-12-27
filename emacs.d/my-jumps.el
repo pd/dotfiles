@@ -6,9 +6,8 @@
   (or (cdr project-details) default-directory))
 
 (defjump 'jump-to-spec-file
-  '(("app/\\1/\\2.rb" . "spec/\\1/\\2_spec.rb")
-    ("app/\\1/\\2/\\3.rb" . "spec/\\1/\\2/\\3_spec.rb")
-    ("lib/\\1.rb"     . "spec/lib/\\1_spec.rb")
+  '(("app/\\1.rb" . "spec/\\1_spec.rb")
+    ("lib/\\1.rb" . "spec/lib/\\1_spec.rb")
     ("plugins/\\1/app/\\2/\\3.rb" . "plugins/\\1/spec/\\2/\\3_spec.rb")
     ("plugins/\\1/app/\\2/\\3.rb" . "plugins/\\1/spec/\\2/integration/\\3_spec.rb"))
   'project-root-or-current-directory
