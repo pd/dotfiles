@@ -9,6 +9,7 @@
 (tool-bar-mode -1)
 (blink-cursor-mode -1)
 (defalias 'yes-or-no-p 'y-or-n-p)
+(setq auto-save-default nil) ; no more "#foo#" files. ty fkn god.
 
 ; Always ~/.emacs.d/ for me, but hey why not.
 (setq dotfiles-dir (file-name-directory
@@ -51,10 +52,15 @@
 (require 'my-jumps)
 (require 'my-modes)
 
+; The Thing To Do
+(prefer-coding-system 'utf-8)
+
 ; Settings which are obviously preferable to the defaults.
-(setq column-number-mode t   ; ruler shows column number
-      transient-mark-mode t  ; actually *see* what i'm selecting...
-      indent-tabs-mode nil)  ; never ever ever insert an actual tab; maybe should be a mode hook instead
+(setq column-number-mode t        ; ruler shows column number
+      transient-mark-mode t       ; actually *see* what i'm selecting...
+      indent-tabs-mode nil        ; don't insert an actual tab; move to mode hooks?
+      show-trailing-whitespace t
+      require-final-newline t)
 
 ; Back off, hippie.
 (delete 'try-expand-line hippie-expand-try-functions-list)
