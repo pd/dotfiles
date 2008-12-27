@@ -50,11 +50,26 @@
 (color-theme-initialize)
 (color-theme-deep-blue)
 
-; Keybindings to mimic OS X and readline in my terminal
+; General keybindings
+(global-set-key (kbd "C-S-k") 'kill-whole-line)
 (global-set-key (kbd "C-w") 'backward-kill-word)
 (global-set-key (kbd "M-z") 'undo)
 (global-set-key (kbd "M-s") 'save-buffer)
 (global-set-key (kbd "M-SPC") 'set-mark-command) ; Quicksilver is C-SPC
+
+(defun append-and-move-to-new-line () ; by pat maddox
+  "Inserts a blank line after the current one, and moves to it"
+  (interactive)
+  (end-of-line)
+  (funcall (or (local-key-binding (kbd "<return>")) (key-binding (kbd "RET")))))
+(defun prepend-and-move-to-new-line ()
+  "Inserts a blank line before the current one, and move to it"
+  (interactive)
+  (previous-line)
+  (append-and-move-to-new-line))
+
+(global-set-key (kbd "M-<return>") 'append-and-move-to-new-line)
+(global-set-key (kbd "M-S-<return>") 'prepend-and-move-to-new-line)
 
 ; Bindings from emacs-starter-kit that were reasonable enough
 (global-set-key (kbd "C-c v") 'eval-buffer)
