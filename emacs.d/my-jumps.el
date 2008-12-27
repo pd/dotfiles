@@ -1,7 +1,8 @@
+(require 'project-root)
 (require 'jump)
 
 (defun project-root-or-current-directory ()
-  (unless project-details (project-fetch-root))
+  (unless project-details (project-root-fetch))
   (or (cdr project-details) default-directory))
 
 (defjump 'jump-to-spec-file
