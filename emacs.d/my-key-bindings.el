@@ -31,6 +31,9 @@
 (global-set-key (kbd "C-x C-f") 'ido-find-file)
 (global-set-key (kbd "C-x f") 'recentf-ido-find-file)
 
+; Always auto-indent on a newline. This will probably have to be limited.
+(global-set-key (kbd "<return>") 'newline-and-indent)
+
 ; Jumping from spec to implementation and back
 (add-hook 'ruby-mode-hook
 	  (lambda ()
