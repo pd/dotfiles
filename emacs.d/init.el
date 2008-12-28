@@ -8,10 +8,13 @@
 (setq auto-save-default nil) ; no more "#foo#" files. ty fkn god.
 
 ; Always ~/.emacs.d/ for me, but hey why not.
-(setq emacs-dotfiles-dir (file-name-directory
-		    (or (buffer-file-name) load-file-name)))
+; aka ~/dotfiles/emacs.d, tho.
+(setq emacs-dotfiles-dir (file-name-directory (or (buffer-file-name) load-file-name))
+      dotfiles-dir (file-name-as-directory "~/dotfiles"))
 (add-to-list 'load-path emacs-dotfiles-dir)
 (add-to-list 'load-path (concat emacs-dotfiles-dir "vendor"))
+(dolist (dir (directory-files (concat dotfiles-dir "vendor") 'full "[^\\.]"))
+  (add-to-list 'load-path dir))
 
 ; Get emacs to stop auto-writing things to this init.el, or the cwd, &c
 (setq backup-directory-alist `(("." . ,(expand-file-name (concat emacs-dotfiles-dir "backups"))))
@@ -45,6 +48,9 @@
 (dolist (file '("defuns.el" "global-key-bindings.el" "jumps.el" "modes.el" "colors.el"))
   (load (concat emacs-dotfiles-dir file)))
 
+(dolist (file (directory-files (concat emacs-dotfiles-dir "modes") 'full ".el$"))
+  (load file))
+
 ; The Thing To Do
 (prefer-coding-system 'utf-8)
 
@@ -58,15 +64,3 @@
 ; Back off, hippie.
 (delete 'try-expand-line hippie-expand-try-functions-list)
 (delete 'try-expand-list hippie-expand-try-functions-list)
-
-; I probably don't actually always want slime loaded.
-(add-to-list 'load-path "~/dotfiles/vendor/slime")
-(add-to-list 'load-path "~/dotfiles/vendor/clojure-mode")
-(add-to-list 'load-path "~/dotfiles/vendor/swank-clojure")
-
-(require 'clojure-auto)
-(require 'swank-clojure-autoload)
-(swank-clojure-config
- (setq swank-clojure-jar-path "/Users/kyleh/vendor/clojure/clojure.jar"))
-
-(require 'slime-autoloads)
