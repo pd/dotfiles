@@ -1,11 +1,6 @@
 (require 'my-defuns)
 (require 'my-jumps)
 
-(defun coding-hook ()
-  (set (make-local-variable 'comment-auto-fill-only-comments) t)
-  (auto-fill-mode)
-  (pretty-lambdas))
-
 (autoload 'ruby-mode "ruby-mode" "Major mode for ruby" t)
 (add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Rakefile\\'" . ruby-mode))
