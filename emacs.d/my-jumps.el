@@ -27,7 +27,4 @@
   'project-root-or-current-directory
   "Jump from a spec to its implementation")
 
-(global-set-key (kbd "C-c j s") 'jump-to-spec-file)
-(global-set-key (kbd "C-c j i") 'jump-to-implementation-file)
-
 (provide 'my-jumps)

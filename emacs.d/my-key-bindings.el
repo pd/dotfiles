@@ -29,4 +29,10 @@
 (global-set-key (kbd "C-x C-f") 'ido-find-file)
 (global-set-key (kbd "C-x f") 'recentf-ido-find-file)
 
+; Jumping from spec to implementation and back
+(add-hook 'ruby-mode-hook
+	  (lambda ()
+	    (define-key ruby-mode-map (kbd "C-c j s") 'jump-to-spec-file)
+	    (define-key ruby-mode-map (kbd "C-c j i") 'jump-to-implementation-file)))
+
 (provide 'my-key-bindings)
