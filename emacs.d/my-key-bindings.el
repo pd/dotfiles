@@ -1,3 +1,6 @@
+; This only defines the global keybindings; also see my-modes.el for
+; mode specific keybindings.
+
 (require 'my-defuns)
 
 ; General keybindings
@@ -30,14 +33,5 @@
 ; Finding files
 (global-set-key (kbd "C-x C-f") 'ido-find-file)
 (global-set-key (kbd "C-x f") 'recentf-ido-find-file)
-
-; Always auto-indent on a newline. This will probably have to be limited.
-(global-set-key (kbd "<return>") 'newline-and-indent)
-
-; Jumping from spec to implementation and back
-(add-hook 'ruby-mode-hook
-	  (lambda ()
-	    (define-key ruby-mode-map (kbd "C-c j s") 'jump-to-spec-file)
-	    (define-key ruby-mode-map (kbd "C-c j i") 'jump-to-implementation-file)))
 
 (provide 'my-key-bindings)

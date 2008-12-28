@@ -29,4 +29,16 @@
     (when file
       (find-file file))))
 
+(defun pretty-lambdas ()
+  (font-lock-add-keywords
+   nil `(("(?\\(lambda\\>\\)"
+          (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                    ,(make-char 'greek-iso8859-7 107))
+                    nil))))))
+
+(defun coding-hook ()
+  (set (make-local-variable 'comment-auto-fill-only-comments) t)
+  (auto-fill-mode)
+  (pretty-lambdas))
+
 (provide 'my-defuns)
