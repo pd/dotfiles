@@ -45,7 +45,7 @@
         ("Ruby project"  :root-contains-files ("Rakefile" "lib"))
         ("emacs.d"       :root-contains-files ("init.el" "custom.el"))))
 
-(dolist (file '("defuns.el" "global-key-bindings.el" "jumps.el" "modes.el" "colors.el"))
+(dolist (file '("defuns.el" "global-key-bindings.el" "jumps.el" "colors.el"))
   (load (concat emacs-dotfiles-dir file)))
 
 (dolist (file (directory-files (concat emacs-dotfiles-dir "modes") 'full ".el$"))
