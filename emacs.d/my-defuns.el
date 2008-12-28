@@ -9,6 +9,13 @@
    (lambda (cell) (cons (cdr cell) (car cell)))
    alist))
 
+(defun highlight-warning-words ()
+  (progn
+    (font-lock-add-keywords
+     nil '(("\\<\\(TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
+	    1 font-lock-warning-face t)))
+    nil))
+
 ; From Pat Maddox
 (defun append-and-move-to-new-line ()
   "Inserts a blank line after the current one, and moves to it"
@@ -31,6 +38,7 @@
 
 (defun coding-hook ()
   (set (make-local-variable 'comment-auto-fill-only-comments) t)
-  (auto-fill-mode))
+  (auto-fill-mode)
+  (highlight-warning-words))
 
 (provide 'my-defuns)
