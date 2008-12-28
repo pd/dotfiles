@@ -3,6 +3,8 @@
 ; General keybindings
 (global-set-key (kbd "C-S-k") 'kill-whole-line)
 (global-set-key (kbd "C-w") 'backward-kill-word)
+(global-set-key (kbd "C-x C-k") 'kill-region)
+(global-set-key (kbd "C-c C-k") 'kill-region)
 (global-set-key (kbd "M-z") 'undo)
 (global-set-key (kbd "M-s") 'save-buffer)
 (global-set-key (kbd "M-SPC") 'set-mark-command) ; Quicksilver is C-SPC
