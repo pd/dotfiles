@@ -26,5 +26,3 @@
   rspec-spec-to-impl-file-map
   'project-root-or-current-directory
   "Jump from a spec to its implementation")
-
-(provide 'my-jumps)

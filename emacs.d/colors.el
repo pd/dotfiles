@@ -5,7 +5,7 @@
 ;(setq color-theme-directory (concat dotfiles-dir "themes"))
 
 (dolist (theme '("all_hallows_eve" "inkpot" "railscasts" "tango"))
-    (load (concat dotfiles-dir "themes/" theme ".el")))
+    (load (concat emacs-dotfiles-dir "themes/" theme ".el")))
 
 (color-theme-initialize)
 (color-theme-inkpot)
@@ -17,5 +17,3 @@
 ; (color-theme-vim-colors)
 ; (color-theme-pok-wob) ; white on black
 ; (color-theme-pok-wog) ; white on grey
-
-(provide 'my-color-theme)

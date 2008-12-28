@@ -40,5 +40,3 @@
   (set (make-local-variable 'comment-auto-fill-only-comments) t)
   (auto-fill-mode)
   (highlight-warning-words))
-
-(provide 'my-defuns)

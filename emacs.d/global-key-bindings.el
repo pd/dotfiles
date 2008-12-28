@@ -1,8 +1,3 @@
-; This only defines the global keybindings; also see my-modes.el for
-; mode specific keybindings.
-
-(require 'my-defuns)
-
 ; General keybindings
 (global-set-key (kbd "C-S-k") 'kill-whole-line)
 (global-set-key (kbd "C-w") 'backward-kill-word)
@@ -33,5 +28,3 @@
 ; Finding files
 (global-set-key (kbd "C-x C-f") 'ido-find-file)
 (global-set-key (kbd "C-x f") 'recentf-ido-find-file)
-
-(provide 'my-key-bindings)
