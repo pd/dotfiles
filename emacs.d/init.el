@@ -15,12 +15,12 @@
 (setq dotfiles-dir (file-name-directory
 		    (or (buffer-file-name) load-file-name)))
 (add-to-list 'load-path dotfiles-dir)
-(add-to-list 'load-path (concat dotfiles-dir "/vendor"))
+(add-to-list 'load-path (concat dotfiles-dir "vendor"))
 
 ; Get emacs to stop auto-writing things to this init.el, or the cwd, &c
 (setq backup-directory-alist `(("." . ,(expand-file-name (concat dotfiles-dir "backups"))))
-      save-place-file (concat dotfiles-dir "/places")
-      custom-file (concat dotfiles-dir "/custom.el"))
+      save-place-file (concat dotfiles-dir "places")
+      custom-file (concat dotfiles-dir "custom.el"))
 
 ; Gotta load the customization file manually; but don't actually do so.
 ; Discourage use of customize at all. My god it's ugly.
@@ -65,3 +65,15 @@
 ; Back off, hippie.
 (delete 'try-expand-line hippie-expand-try-functions-list)
 (delete 'try-expand-list hippie-expand-try-functions-list)
+
+; I probably don't actually always want slime loaded.
+(add-to-list 'load-path "~/dotfiles/vendor/slime")
+(add-to-list 'load-path "~/dotfiles/vendor/clojure-mode")
+(add-to-list 'load-path "~/dotfiles/vendor/swank-clojure")
+
+(require 'clojure-auto)
+(require 'swank-clojure-autoload)
+(swank-clojure-config
+ (setq swank-clojure-jar-path "/Users/kyleh/vendor/clojure/clojure.jar"))
+
+(require 'slime-autoloads)
