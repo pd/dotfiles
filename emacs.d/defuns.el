@@ -16,6 +16,10 @@
 	    1 font-lock-warning-face t)))
     nil))
 
+(defun lisp-eval-buffer ()
+  (interactive)
+  (lisp-eval-buffer (point-min) (point-max)))
+
 ; From Pat Maddox
 (defun append-and-move-to-new-line ()
   "Inserts a blank line after the current one, and moves to it"
