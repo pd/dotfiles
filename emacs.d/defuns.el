@@ -18,7 +18,7 @@
 
 (defun lisp-eval-buffer ()
   (interactive)
-  (lisp-eval-buffer (point-min) (point-max)))
+  (lisp-eval-region (point-min) (point-max)))
 
 ; From Pat Maddox
 (defun append-and-move-to-new-line ()
