@@ -53,30 +53,35 @@ _prompt_git_info () {
   fi
 }
 
-## iterm
+## works in at least Terminal.app and iTerm
 ##   \e]1 = tab label
 ##   \e]2 = window title
-iterm_set_tab_label () {
+terminal_set_tab_label () {
   echo -ne "\e]1;$*\a"
 }
-iterm_set_window_title () {
+terminal_set_window_title () {
   echo -ne "\e]2;$*\a"
 }
 
+## only use the iterm commands when in Terminal.app
+## what a misnomer eh
+
+if [[ $TERM = "xterm-color" ]]; then
 # executed just before printing a prompt
-precmd () {
-  str=`print -P '%m: %~'`
-  iterm_set_tab_label $str
-  iterm_set_window_title $str
-}
+  precmd () {
+    str=`print -P '%m: %~'`
+    terminal_set_tab_label $str
+    terminal_set_window_title $str
+  }
 
 # executed just after reading a command, before running it
-preexec () {
-  cmd=$(history $HISTCMD | cut -b7-)
-  str=`print -P "%m: $cmd"`
-  iterm_set_tab_label $str
-  iterm_set_window_title $str
-}
+  preexec () {
+    cmd=$(history $HISTCMD | cut -b7-)
+    str=`print -P "%m: $cmd"`
+    terminal_set_tab_label $str
+    terminal_set_window_title $str
+  }
+fi
 
 ## okay now
 export PS1='
