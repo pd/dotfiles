@@ -12,6 +12,8 @@
 
 (global-set-key (kbd "<f6>") 'linum-mode)
 
+(global-set-key (kbd "C-M-<return>") 'toggle-fullscreen)
+
 ; Bindings from emacs-starter-kit that were reasonable enough
 (global-set-key (kbd "C-c v") 'eval-buffer)
 (global-set-key (kbd "C-h a") 'apropos) ; defaults to command-apropos
