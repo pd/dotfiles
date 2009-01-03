@@ -7,6 +7,10 @@
            erc-full-name "Kyle Hargraves"
            erc-max-buffer-size 20000)
 
+     (add-to-list 'erc-modules 'logs)
+     (setq erc-log-channels-directory "~/.erc/logs")
+     (add-hook 'erc-insert-post-hook 'erc-save-buffer-in-logs)
+
      ; Passwords and autojoin lists are loaded from a file ignored by git.
      (require 'erc-super-secret)
      (setq erc-autojoin-channels-alist erc-super-secret-autojoin-alist)))
