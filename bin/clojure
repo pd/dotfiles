@@ -1,4 +1,0 @@
-#!/bin/sh
-cljar=~/vendor/clojure/clojure.jar
-jline=~/.clojure/jline.jar
-exec java -cp $cljar:$jline jline.ConsoleRunner clojure.lang.Repl $*
