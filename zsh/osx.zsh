@@ -9,6 +9,7 @@ clear-xattr () {
 ## maybe some day
 alias finder='open -a finder .'
 alias emacs='detach /Applications/Emacs.app/Contents/MacOS/Emacs -g 120x50'
+emacs_site_lisp=/Applications/Emacs.app/Contents/Resources/site-lisp
 
 ## for some reason launchctl just doesn't actually start these things.
 ## they are configured, daemondo monitors them, but just doesn't run them.
