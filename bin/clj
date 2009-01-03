@@ -2,6 +2,8 @@
 classpath=(
   ~/.clj/clojure.jar
   ~/.clj/libs/*.jar
+
+  ~/sandbox/clojoku/{src,test}
 )
 
 exec java -cp ${(j.:.)classpath} jline.ConsoleRunner clojure.lang.Repl $*
