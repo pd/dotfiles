@@ -7,3 +7,6 @@
 [submodule "vendor/swank-clojure"]
 	path = vendor/swank-clojure
 	url = git://github.com/jochu/swank-clojure.git
+[submodule "vendor/eproject"]
+	path = vendor/eproject
+	url = git://git.jrock.us/eproject.git

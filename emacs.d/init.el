@@ -43,11 +43,17 @@
 (ido-everywhere t)
 (setq ido-enable-flex-matching t) ; "acs" matches "application_controller_spec"
 
-(require 'project-root)
-(setq project-roots
-      '(("Rails project" :root-contains-files ("config/environment.rb"))
-        ("Ruby project"  :root-contains-files ("Rakefile" "lib"))
-        ("emacs.d"       :root-contains-files ("init.el" "custom.el"))))
+(require 'eproject)
+(define-project-type rails (generic)
+  (look-for "config/environment.rb"))
+(define-project-type ruby (generic)
+  (or (look-for "Rakefile")
+      (look-for "src/*.rb")
+      (look-for "spec/*.rb")))
+(define-project-type emacs-d (generic)
+  (look-for "init.el"))
+(define-project-type clojure (generic)
+  (look-for "src/*.clj"))
 
 (dolist (file '("defuns.el" "global-key-bindings.el" "jumps.el" "colors.el"))
   (load (concat emacs-dotfiles-dir file)))

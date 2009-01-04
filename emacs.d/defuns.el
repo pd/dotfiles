@@ -1,8 +1,7 @@
 (require 'project-root)
 
 (defun project-root-or-current-directory ()
-  (unless project-details (project-root-fetch))
-  (or (cdr project-details) default-directory))
+  (or eproject-root default-directory))
 
 (defun reverse-alist-pairs (alist)
   (mapcar
