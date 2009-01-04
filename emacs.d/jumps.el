@@ -13,7 +13,7 @@
 	("plugins/\\1/lib/\\2.rb"     . "plugins/\\1/spec/lib/\\2_spec.rb")
 	("plugins/\\1/lib/\\2.rb"     . "plugins/\\1/spec/lib/integration/\\2_spec.rb")))
 (setq rspec-spec-to-impl-file-map
-      (reverse-alist-pairs rspec-impl-to-spec-file-map))
+      (swap-alist-pairs rspec-impl-to-spec-file-map))
 
 (defjump 'jump-to-spec-file
   rspec-impl-to-spec-file-map

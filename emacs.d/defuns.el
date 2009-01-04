@@ -3,7 +3,7 @@
 (defun project-root-or-current-directory ()
   (or eproject-root default-directory))
 
-(defun reverse-alist-pairs (alist)
+(defun swap-alist-pairs (alist)
   (mapcar
    (lambda (cell) (cons (cdr cell) (car cell)))
    alist))
