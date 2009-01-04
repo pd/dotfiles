@@ -67,20 +67,39 @@ terminal_set_window_title () {
 ## what a misnomer eh
 
 if [[ $TERM = "xterm-color" ]]; then
-# executed just before printing a prompt
+  # executed just before printing a prompt
   precmd () {
     str=`print -P '%m: %~'`
     terminal_set_tab_label $str
     terminal_set_window_title $str
   }
 
-# executed just after reading a command, before running it
+  # executed just after reading a command, before running it
   preexec () {
     cmd=$(history $HISTCMD | cut -b7-)
     str=`print -P "%m: $cmd"`
     terminal_set_tab_label $str
     terminal_set_window_title $str
   }
+fi
+
+if [[ $TERM = "eterm-color" ]]; then
+  eterm-set-cwd () {
+    $@
+    echo -e "\033AnSiTc" $(pwd)
+  }
+
+  eterm-reset () {
+    echo -e "\033AnSiTu" $(whoami)
+    echo -e "\033AnSiTc" $(pwd)
+    echo -e "\033AnSiTh" $(hostname -s)
+  }
+
+  for d in cd pushd popd; do
+    alias $d="eterm-set-cwd $d"
+  done
+
+  eterm-reset
 fi
 
 ## okay now
