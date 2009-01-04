@@ -36,6 +36,7 @@
 (require 'recentf)
 (require 'ido)
 (require 'linum)
+(require 'ack)
 
 (recentf-mode t)
 (ido-mode t)
