@@ -39,6 +39,8 @@
 
 (recentf-mode t)
 (ido-mode t)
+(ido-everywhere t)
+(setq ido-enable-flex-matching t) ; "acs" matches "application_controller_spec"
 
 (require 'project-root)
 (setq project-roots

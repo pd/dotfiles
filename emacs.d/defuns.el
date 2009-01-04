@@ -26,6 +26,45 @@
                                            nil
                                          'fullboth)))
 
+(defun non-erc-buffer-list ()
+  (save-excursion
+    (delq nil
+          (mapcar (lambda (buf)
+                    (when (buffer-live-p buf)
+                      (with-current-buffer buf
+                        (and (not (eq major-mode 'erc-mode))
+                             buf))))
+                  (buffer-list)))))
+
+(defun buffer-names (bufs)
+  (mapcar (lambda (buf) (buffer-name buf))
+          bufs))
+
+(defmacro with-ido-buf-list (bufs &rest body)
+  `(let ((ido-make-buffer-list-hook
+          (lambda () (setq ido-temp-list ,bufs))))
+     ,@body))
+
+(defun ido-switch-buffer-erc ()
+  (interactive)
+  (with-ido-buf-list (buffer-names (erc-buffer-list))
+                     (switch-to-buffer (ido-read-buffer "IRC: "))))
+
+(defun ido-switch-buffer-non-erc ()
+  (interactive)
+  (with-ido-buf-list (buffer-names (non-erc-buffer-list))
+                     (switch-to-buffer (ido-read-buffer "Buffer: "))))
+
+(defun ido-kill-buffer-erc ()
+  (interactive)
+  (with-ido-buf-list (buffer-names (erc-buffer-list))
+                     (kill-buffer (ido-read-buffer "Kill IRC buffer: "))))
+
+(defun ido-kill-buffer-non-erc ()
+  (interactive)
+  (with-ido-buf-list (buffer-names (non-erc-buffer-list))
+                     (kill-buffer (ido-read-buffer "Kill buffer: "))))
+
 ; From Pat Maddox
 (defun append-and-move-to-new-line ()
   "Inserts a blank line after the current one, and moves to it"
