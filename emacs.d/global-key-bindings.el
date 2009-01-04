@@ -15,7 +15,7 @@
 (global-set-key (kbd "C-M-<return>") 'toggle-fullscreen)
 
 ; Bindings from emacs-starter-kit that were reasonable enough
-(global-set-key (kbd "C-c v") 'eval-buffer)
+(global-set-key (kbd "C-c e") 'eval-buffer)
 (global-set-key (kbd "C-h a") 'apropos) ; defaults to command-apropos
 (global-set-key (kbd "C-/") 'hippie-expand) ; keep M-/ around for now, I suppose
 
