@@ -1,4 +1,4 @@
-(require 'project-root)
+(require 'eproject)
 
 (defun project-root-or-current-directory ()
   (or eproject-root default-directory))
