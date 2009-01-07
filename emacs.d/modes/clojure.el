@@ -13,4 +13,5 @@
 (add-hook 'clojure-mode-hook
           (lambda ()
             (define-key clojure-mode-map (kbd "C-c b") 'slime-eval-buffer)
+            (define-key clojure-mode-map (kbd "C-x C-e") 'slime-eval-last-expression)
             (setq indent-tabs-mode nil)))
