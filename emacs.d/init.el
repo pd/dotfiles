@@ -3,6 +3,7 @@
       inhibit-startup-echo-area-message t)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
+(scroll-bar-mode -1)
 (blink-cursor-mode -1)
 (setq visible-bell t)
 (defalias 'yes-or-no-p 'y-or-n-p)
