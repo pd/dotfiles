@@ -6,7 +6,10 @@
 (blink-cursor-mode -1)
 (setq visible-bell t)
 (defalias 'yes-or-no-p 'y-or-n-p)
-(setq auto-save-default nil) ; no more "#foo#" files. ty fkn god.
+
+; scattered auto-save files are an #annoyance#
+(add-to-list 'auto-save-file-name-transforms
+             (list "\\'/\\([^/]*\\)\\'" (concat emacs-dotfiles-dir "autosaves/\\2") 'uniquify))
 
 ; Always ~/.emacs.d/ for me, but hey why not.
 ; aka ~/dotfiles/emacs.d, tho.
@@ -64,10 +67,11 @@
 ; The Thing To Do
 (prefer-coding-system 'utf-8)
 
-; Settings which are obviously preferable to the defaults.
-(setq column-number-mode t        ; ruler shows column number
+; Settings which are religiously preferable to the defaults.
+(setq indent-tabs-mode nil        ; has to be set again in some mode
+                                  ; hooks which override this?
+      column-number-mode t        ; ruler shows column number
       transient-mark-mode t       ; actually *see* what i'm selecting...
-      indent-tabs-mode nil        ; don't insert an actual tab; move to mode hooks?
       show-trailing-whitespace t
       require-final-newline t
       uniquify-buffer-name-style 'forward) ; a/b, c/b, not b<2>
