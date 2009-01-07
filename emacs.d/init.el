@@ -7,10 +7,6 @@
 (setq visible-bell t)
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-; scattered auto-save files are an #annoyance#
-(add-to-list 'auto-save-file-name-transforms
-             (list "\\'/\\([^/]*\\)\\'" (concat emacs-dotfiles-dir "autosaves/\\2") 'uniquify))
-
 ; Always ~/.emacs.d/ for me, but hey why not.
 ; aka ~/dotfiles/emacs.d, tho.
 (setq emacs-dotfiles-dir (file-name-directory (or (buffer-file-name) load-file-name))
@@ -24,6 +20,10 @@
 (setq backup-directory-alist `(("." . ,(expand-file-name (concat emacs-dotfiles-dir "backups"))))
       save-place-file (concat emacs-dotfiles-dir "places")
       custom-file (concat emacs-dotfiles-dir "custom.el"))
+
+; Since I can't get it to gtfo, just turn off autosaving. This isn't
+; 100% either, tho. Fuck this feature.
+(setq auto-save-default nil)
 
 ; Gotta load the customization file manually; but don't actually do so.
 ; Discourage use of customize at all. My god it's ugly.
