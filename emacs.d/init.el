@@ -69,7 +69,8 @@
       transient-mark-mode t       ; actually *see* what i'm selecting...
       indent-tabs-mode nil        ; don't insert an actual tab; move to mode hooks?
       show-trailing-whitespace t
-      require-final-newline t)
+      require-final-newline t
+      uniquify-buffer-name-style 'forward) ; a/b, c/b, not b<2>
 
 ; Back off, hippie.
 (delete 'try-expand-line hippie-expand-try-functions-list)
