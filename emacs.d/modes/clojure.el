@@ -14,4 +14,5 @@
           (lambda ()
             (define-key clojure-mode-map (kbd "C-c b") 'slime-eval-buffer)
             (define-key clojure-mode-map (kbd "C-x C-e") 'slime-eval-last-expression)
+            (define-key clojure-mode-map (kbd "C-x M-e") 'slime-eval-print-last-expression)
             (setq indent-tabs-mode nil)))
