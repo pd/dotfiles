@@ -4,11 +4,11 @@
 ; Causes color-theme-initialize to blow up for unknown reasons:
 ;(setq color-theme-directory (concat dotfiles-dir "themes"))
 
-(dolist (theme '("all_hallows_eve" "inkpot" "railscasts" "tango"))
-    (load (concat emacs-dotfiles-dir "themes/" theme ".el")))
+(dolist (file (directory-files (concat emacs-dotfiles-dir "themes") 'full "\\.el\\'"))
+  (load file))
 
 (color-theme-initialize)
-(color-theme-inkpot)
+(color-theme-hober2)
 
 ; Other decent themes so far:
 ; (color-theme-deep-blue)
