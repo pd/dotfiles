@@ -15,14 +15,12 @@
 (setq rspec-spec-to-impl-file-map
       (swap-alist-pairs rspec-impl-to-spec-file-map))
 
-(defjump 'jump-to-spec-file
+(defjump 'rspec-jump-to-spec-file
   rspec-impl-to-spec-file-map
   'project-root-or-current-directory
   "Jump from an implementation to its spec")
 
-; I really just want the jump specs here to be the ALIST from above,
-; but with key/value swapped. But an hour of attempts ended in failure.
-(defjump 'jump-to-implementation-file
+(defjump 'rspec-jump-to-implementation-file
   rspec-spec-to-impl-file-map
   'project-root-or-current-directory
   "Jump from a spec to its implementation")
