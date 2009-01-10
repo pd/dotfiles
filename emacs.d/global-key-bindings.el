@@ -31,8 +31,8 @@
 (global-set-key (kbd "C-x C-f") 'ido-find-file)
 (global-set-key (kbd "C-x f") 'recentf-ido-find-file)
 
-(global-set-key (kbd "C-x b") 'ido-switch-buffer-non-erc)
-(global-set-key (kbd "C-x k") 'ido-kill-buffer-non-erc)
+; (global-set-key (kbd "C-x b") 'ido-switch-buffer-non-erc)
+; (global-set-key (kbd "C-x k") 'ido-kill-buffer-non-erc)
 
 ; IRC beneath C-x i
 (global-unset-key (kbd "C-x i"))
