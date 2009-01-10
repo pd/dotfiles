@@ -30,8 +30,7 @@
 ; Discourage use of customize at all. My god it's ugly.
 ; (load custom-file 'noerror)
 
-; Libraries the emacs-starter-kit assures me I always want. Cursory
-; overview suggests it's generally the case.
+; quality stuff that there's no reason to load on demand
 (require 'cl)
 (require 'saveplace)
 (require 'ffap)
@@ -41,25 +40,14 @@
 (require 'ido)
 (require 'linum)
 (require 'ack)
+(require 'eproject)
 
 (recentf-mode t)
 (ido-mode t)
 (ido-everywhere t)
 (setq ido-enable-flex-matching t) ; "acs" matches "application_controller_spec"
 
-(require 'eproject)
-(define-project-type rails (generic)
-  (look-for "config/environment.rb"))
-(define-project-type ruby (generic)
-  (or (look-for "Rakefile")
-      (look-for "src/*.rb")
-      (look-for "spec/*.rb")))
-(define-project-type emacs-d (generic)
-  (look-for "init.el"))
-(define-project-type clojure (generic)
-  (look-for "src/*.clj"))
-
-(dolist (file '("defuns.el" "global-key-bindings.el" "jumps.el" "colors.el"))
+(dolist (file '("defuns.el" "projects.el" "global-key-bindings.el" "jumps.el" "colors.el"))
   (load (concat emacs-dotfiles-dir file)))
 
 (dolist (file (directory-files (concat emacs-dotfiles-dir "modes") 'full ".el$"))

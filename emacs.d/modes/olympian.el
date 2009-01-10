@@ -1,34 +1,31 @@
 (eval-when-compile (require 'linkify))
 
-(define-minor-mode olympian-mode
-  "Minor mode for Olympian projects"
-  :lighter " oly-dev"
-  :keymap (let ((km (make-sparse-keymap)))
-            (define-key km (kbd "C-c o a") 'olympian-run-aok)
-            (define-key km (kbd "C-c o s") 'olympian-run-aok:specs)
-            (define-key km (kbd "C-c o i") 'olympian-run-aok:integration)
-            (define-key km (kbd "C-c o f") 'olympian-run-aok:features)
-            km))
-
-(add-hook 'find-file-hook
+(add-hook 'oly-app-project-file-visit-hook
           (lambda ()
-            (if (string-match "oly-dev/" (expand-file-name (buffer-file-name)))
-                (olympian-mode))))
+            (define-key eproject-mode-map (kbd "C-c o a") 'olympian-run-aok)
+            (define-key eproject-mode-map (kbd "C-c o s") 'olympian-run-aok:specs)
+            (define-key eproject-mode-map (kbd "C-c o i") 'olympian-run-aok:integration)
+            (define-key eproject-mode-map (kbd "C-c o f") 'olympian-run-aok:features)))
 
 (defun olympian-ansi-linkify-proc-filter (proc string)
   (linkify-filter proc (ansi-color-apply string)))
 
-(defun olympian-rake (task)
-  (setq rake-results (get-buffer-create "rake-results"))
+(defun olympian-run (bufname cmd args)
+  "Uses start-process to run CMD with ARGS, with output to buffer BUFNAME"
+  (setq buf (get-buffer-create bufname))
   (save-excursion
-    (set-buffer rake-results)
+    (set-buffer buf)
     (erase-buffer)
     (setq linkify-regexps
           '("^\\(/.*\\):\\([0-9]+\\)$"
             " \\(features/.+\\):\\([0-9]+\\)")))
-  (setq proc (apply #'start-process (concat "rake " task) rake-results "rake" (list task)))
+  (setq proc (apply #'start-process (concat "olympian: " cmd) buf cmd args))
   (set-process-filter proc 'olympian-ansi-linkify-proc-filter)
-  (display-buffer rake-results))
+  (display-buffer buf))
+
+(defun olympian-rake (task)
+  (olympian-run (concat "oly: rake " task)
+                "rake" (list task)))
 
 (defun olympian-run-aok ()
   (interactive)
