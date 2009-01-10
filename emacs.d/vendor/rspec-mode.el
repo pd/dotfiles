@@ -25,24 +25,31 @@
               (t "spec")))
     "spec"))
 
-(defun run-specs ()
-  "Run specs and display results in same buffer"
+(defun rspec-run-suite ()
+  "Run the spec suite"
   (interactive)
-  (do-run-spec))
+  (do-run-spec (concat (rails-root) "spec")))
 
-(defun run-focused-spec ()
+(defun rspec-run-examples ()
+  "Run the examples in the current buffer's file"
+  (interactive)
+  (do-run-spec (buffer-file-name)))
+
+(defun rspec-run-example ()
   "Run the example defined on the current line"
   (interactive)
-  (do-run-spec (concat "--line=" (number-to-string (line-number-at-pos)))))
+  (do-run-spec (buffer-file-name) (concat "--line=" (number-to-string (line-number-at-pos)))))
 
 (require 'linkify)
-(defun do-run-spec (&rest args)
+
+(defun do-run-spec (file-name &rest args)
   (setq rspec-results (get-buffer-create "rspec-results"))
   (save-excursion
     (set-buffer rspec-results)
     (erase-buffer)
     (setq linkify-regexps '("^\\(/.*\\):\\([0-9]*\\):$")))
-  (setq proc (apply #'start-process "rspec" rspec-results (spec-command) (buffer-file-name) args))
+  (setq proc (apply #'start-process "rspec" rspec-results (spec-command) file-name args))
   (set-process-filter proc 'linkify-filter)
   (display-buffer rspec-results))
+
 (provide 'rspec-mode)
