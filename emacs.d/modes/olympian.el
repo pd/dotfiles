@@ -1,3 +1,5 @@
+(eval-when-compile (require 'linkify))
+
 (define-minor-mode olympian-mode
   "Minor mode for Olympian projects"
   :lighter " oly-dev"
@@ -23,7 +25,7 @@
     (erase-buffer)
     (setq linkify-regexps
           '("^\\(/.*\\):\\([0-9]+\\)$"
-            " \\(.+/.+\\):\\([0-9]+\\)")))
+            " \\(features/.+\\):\\([0-9]+\\)")))
   (setq proc (apply #'start-process (concat "rake " task) rake-results "rake" (list task)))
   (set-process-filter proc 'olympian-ansi-linkify-proc-filter)
   (display-buffer rake-results))
