@@ -8,6 +8,11 @@
             (define-key km (kbd "C-c o f") 'olympian-run-aok:features)
             km))
 
+(add-hook 'find-file-hook
+          (lambda ()
+            (if (string-match "oly-dev/" (expand-file-name (buffer-file-name)))
+                (olympian-mode))))
+
 (defun olympian-ansi-linkify-proc-filter (proc string)
   (linkify-filter proc (ansi-color-apply string)))
 
