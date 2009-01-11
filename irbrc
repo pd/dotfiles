@@ -22,7 +22,7 @@ if ENV.include?('RAILS_ENV')
     include FixtureReplacement
   end
 
-  unless Object.const_defined?('RAILS_DEFAULT_LOGGER')
+  unless Object.const_defined?('RAILS_DEFAULT_LOGGER') || ENV['EMACS'] == 't'
     Object.const_set('RAILS_DEFAULT_LOGGER', Logger.new(STDOUT))
   end
 end

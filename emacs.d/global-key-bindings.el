@@ -38,3 +38,6 @@
 (global-unset-key (kbd "C-x i"))
 (global-set-key (kbd "C-x i b") 'ido-switch-buffer-erc)
 (global-set-key (kbd "C-x i k") 'ido-kill-buffer-erc)
+
+; "ruby", but I use irb for all kinds of shit
+(global-set-key (kbd "C-c r i") 'run-ruby)

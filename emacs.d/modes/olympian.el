@@ -5,7 +5,23 @@
             (define-key eproject-mode-map (kbd "C-c o a") 'olympian-run-aok)
             (define-key eproject-mode-map (kbd "C-c o s") 'olympian-run-aok:specs)
             (define-key eproject-mode-map (kbd "C-c o i") 'olympian-run-aok:integration)
-            (define-key eproject-mode-map (kbd "C-c o f") 'olympian-run-aok:features)))
+            (define-key eproject-mode-map (kbd "C-c o f") 'olympian-run-aok:features)
+            (define-key eproject-mode-map (kbd "C-c o L") 'olympian-tail-log)
+            ; Overrides my typical ruby irb keybinding
+            (define-key eproject-mode-map (kbd "C-c r i") 'olympian-run-script-console)))
+
+(defun olympian-app-root ()
+  (file-name-as-directory eproject-root))
+
+(defmacro olympian-in-app-root (&rest body)
+  `(let ((default-directory ,(olympian-app-root)))
+     ,@body))
+
+; Use script/console, not irb
+(defun olympian-run-script-console ()
+  (interactive)
+  (olympian-in-app-root
+   (run-ruby "script/console")))
 
 (defun olympian-ansi-linkify-proc-filter (proc string)
   (linkify-filter proc (ansi-color-apply string)))
@@ -19,8 +35,8 @@
     (setq linkify-regexps
           '("^\\(/.*\\):\\([0-9]+\\)$"
             " \\(features/.+\\):\\([0-9]+\\)")))
-  (setq proc (apply #'start-process (concat "olympian: " cmd) buf cmd args))
-  (set-process-filter proc 'olympian-ansi-linkify-proc-filter)
+  (set-process-filter (apply #'start-process (concat "olympian: " cmd) buf cmd args)
+                      'olympian-ansi-linkify-proc-filter)
   (display-buffer buf))
 
 (defun olympian-rake (task)
@@ -42,3 +58,8 @@
 (defun olympian-run-aok:features ()
   (interactive)
   (olympian-rake "aok:features"))
+
+(defun olympian-tail-log ()
+  (interactive)
+  (olympian-run (concat "oly: development.log")
+                "tail" (list "-f" (concat (olympian-app-root) "log/development.log"))))
