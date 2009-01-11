@@ -59,7 +59,12 @@
   (interactive)
   (olympian-rake "aok:features"))
 
-(defun olympian-tail-log ()
-  (interactive)
-  (olympian-run (concat "oly: development.log")
-                "tail" (list "-f" (concat (olympian-app-root) "log/development.log"))))
+(defun olympian-tail-log (log)
+  "Opens a buffer, tailing the named log; defaults to development.log"
+  (interactive "sLog (default development): ")
+  (let ((log (concat (if (string= "" log)
+                         "development"
+                       log) ".log")))
+    (olympian-in-app-root
+     (olympian-run (concat "oly: " log)
+                   "tail" (list "-f" (concat "log/" log))))))
