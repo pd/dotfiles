@@ -40,8 +40,9 @@
   (display-buffer buf))
 
 (defun olympian-rake (task)
-  (olympian-run (concat "oly: rake " task)
-                "rake" (list task)))
+  (olympian-in-app-root
+   (olympian-run (concat "oly: rake " task)
+                 "rake" (list task))))
 
 (defun olympian-run-aok ()
   (interactive)
