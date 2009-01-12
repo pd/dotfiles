@@ -25,6 +25,8 @@
                                            nil
                                          'fullboth)))
 
+;; A bunch of buffer management that I no longer use, but
+;; are worth keeping around as reference for now.
 (defun non-erc-buffer-list ()
   (save-excursion
     (delq nil
