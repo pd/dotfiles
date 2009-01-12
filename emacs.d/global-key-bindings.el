@@ -1,3 +1,6 @@
+; I wish there were more consistency to the modifier keys.
+; Some day I will be annoyed enough to do that.
+
 ; General keybindings
 (global-set-key (kbd "C-S-k") 'kill-whole-line)
 (global-set-key (kbd "C-w") 'backward-kill-word)
@@ -39,5 +42,6 @@
 (global-set-key (kbd "C-x i b") 'ido-switch-buffer-erc)
 (global-set-key (kbd "C-x i k") 'ido-kill-buffer-erc)
 
-; "ruby", but I use irb for all kinds of shit
+; irb and git are constants
 (global-set-key (kbd "C-c r i") 'run-ruby)
+(global-set-key (kbd "C-M-g") 'magit-status)
