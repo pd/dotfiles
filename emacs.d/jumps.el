@@ -1,5 +1,3 @@
-(require 'jump)
-
 ; Disable inflection of the regexp matches; this probably breaks
 ; rinari's use of jump-inflections, but I don't use it yet.
 (defun jump-inflections (terms) (cons terms nil))

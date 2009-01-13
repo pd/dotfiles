@@ -30,7 +30,8 @@
 ; Discourage use of customize at all. My god it's ugly.
 ; (load custom-file 'noerror)
 
-; quality stuff that there's no reason to load on demand
+;; quality stuff that there's no reason to load on demand
+; shipped with carbon emacs:
 (require 'cl)
 (require 'saveplace)
 (require 'ffap)
@@ -38,13 +39,18 @@
 (require 'ansi-color)
 (require 'recentf)
 (require 'ido)
+
+; vendor/*:
 (require 'linum)
 (require 'ack)
 (require 'eproject)
+(require 'shell-command)
+(require 'jump)
 
 (recentf-mode t)
 (ido-mode t)
 (ido-everywhere t)
+(shell-command-completion-mode t)
 (setq ido-enable-flex-matching t) ; "acs" matches "application_controller_spec"
 
 (dolist (file '("defuns.el" "projects.el" "global-key-bindings.el" "jumps.el" "colors.el"))
