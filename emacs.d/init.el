@@ -22,13 +22,8 @@
       save-place-file (concat emacs-dotfiles-dir "places")
       custom-file (concat emacs-dotfiles-dir "custom.el"))
 
-; Since I can't get it to gtfo, just turn off autosaving. This isn't
-; 100% either, tho. Fuck this feature.
+; autosave is tough to get to behave, so i just turn it off.
 (setq auto-save-default nil)
-
-; Gotta load the customization file manually; but don't actually do so.
-; Discourage use of customize at all. My god it's ugly.
-; (load custom-file 'noerror)
 
 ;; quality stuff that there's no reason to load on demand
 ; shipped with carbon emacs:
@@ -71,6 +66,5 @@
       require-final-newline t
       uniquify-buffer-name-style 'forward) ; a/b, c/b, not b<2>
 
-; Back off, hippie.
+; Tell hippie expand not to expand an entire line
 (delete 'try-expand-line hippie-expand-try-functions-list)
-(delete 'try-expand-list hippie-expand-try-functions-list)
