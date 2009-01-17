@@ -2,6 +2,9 @@
 (require 'swank-clojure-autoload)
 (require 'slime-autoloads)
 
+(define-project-type clojure (generic)
+  (look-for "src/*.clj"))
+
 (slime-setup '(slime-repl))
 
 (swank-clojure-config

@@ -1,4 +1,11 @@
-(eval-when-compile (require 'linkify))
+(eval-when-compile
+  (require 'eproject)
+  (require 'linkify))
+
+(define-project-type oly-app (rails)
+  (eproject--scan-parents-for file
+                              (lambda (dir)
+                                (or (string-match "oly-dev/$" (file-name-directory dir)) nil))))
 
 (add-hook 'oly-app-project-file-visit-hook
           (lambda ()
@@ -69,3 +76,15 @@
     (olympian-in-app-root
      (olympian-run (concat "oly: " log)
                    "tail" (list "-f" (concat "log/" log))))))
+
+(defun olympian-run-feature ()
+  (interactive)
+  (olympian-in-app-root
+   (olympian-run "oly: cucumber" "script/cucumber" (list (buffer-file-name)))))
+
+(defun olympian-run-feature-at-line ()
+  (interactive)
+  (olympian-in-app-root
+   (olympian-run "oly: cucumber" "script/cucumber" (list
+                                                    (concat (buffer-file-name) ":"
+                                                            (number-to-string (line-number-at-pos)))))))

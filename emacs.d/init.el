@@ -53,7 +53,7 @@
 (shell-command-completion-mode t)
 (setq ido-enable-flex-matching t) ; "acs" matches "application_controller_spec"
 
-(dolist (file '("defuns.el" "projects.el" "global-key-bindings.el" "jumps.el" "colors.el"))
+(dolist (file '("defuns.el" "global-key-bindings.el" "jumps.el" "colors.el"))
   (load (concat emacs-dotfiles-dir file)))
 
 (dolist (file (directory-files (concat emacs-dotfiles-dir "modes") 'full ".el$"))
