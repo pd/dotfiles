@@ -1,4 +1,4 @@
-; stfu, gtfo.
+; why so hostile
 (setq inhibit-startup-screen t
       inhibit-startup-echo-area-message t)
 (menu-bar-mode -1)
@@ -8,10 +8,11 @@
 (setq visible-bell t)
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-; Always ~/.emacs.d/ for me, but hey why not.
-; aka ~/dotfiles/emacs.d, tho.
-(setq emacs-dotfiles-dir (file-name-directory (or (buffer-file-name) load-file-name))
+; ...
+(setq emacs-dotfiles-dir (file-name-as-directory "~/dotfiles/emacs.d")
       dotfiles-dir (file-name-as-directory "~/dotfiles"))
+
+; Add emacs.d, emacs.d/vendor, and dotfiles/vendor/* to the load path
 (add-to-list 'load-path emacs-dotfiles-dir)
 (add-to-list 'load-path (concat emacs-dotfiles-dir "vendor"))
 (dolist (dir (directory-files (concat dotfiles-dir "vendor") 'full "[^\\.]"))
@@ -20,10 +21,8 @@
 ; Get emacs to stop auto-writing things to this init.el, or the cwd, &c
 (setq backup-directory-alist `(("." . ,(expand-file-name (concat emacs-dotfiles-dir "backups"))))
       save-place-file (concat emacs-dotfiles-dir "places")
-      custom-file (concat emacs-dotfiles-dir "custom.el"))
-
-; autosave is tough to get to behave, so i just turn it off.
-(setq auto-save-default nil)
+      custom-file (concat emacs-dotfiles-dir "custom.el")
+      auto-save-default nil)
 
 ;; quality stuff that there's no reason to load on demand
 ; shipped with carbon emacs:
