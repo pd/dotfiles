@@ -22,9 +22,8 @@
 (global-set-key (kbd "C-h a") 'apropos) ; defaults to command-apropos
 (global-set-key (kbd "C-/") 'hippie-expand) ; keep M-/ around for now, I suppose
 
-(windmove-default-keybindings) ; S-<dir> moves to the window in that direction
-(global-set-key (kbd "C-x O") (lambda () (interactive) (other-window -1)))
-(global-set-key (kbd "C-x C-o") (lambda () (interactive) (other-window 2)))
+; S-<dir> moves to the window in that direction
+(windmove-default-keybindings)
 
 ; Handy ways to clean up whitespace around point
 (global-set-key (kbd "C-c w") 'delete-trailing-whitespace)
