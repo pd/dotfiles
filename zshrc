@@ -1,3 +1,5 @@
+# -*- mode: sh -*-
+
 path=(
   ~/bin
   ~/vendor/ioke/bin
