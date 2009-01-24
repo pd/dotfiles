@@ -79,15 +79,20 @@
      (olympian-run (concat "oly: " log)
                    "tail" (list "-f" (concat "log/" log))))))
 
-(defun olympian-run-feature ()
+(defun olympian-run-cucumber (&rest args)
+  "Runs cucumber with from the application root, using the default profile,
+with arguments ARGS"
   (interactive)
   (olympian-in-app-root
-   (olympian-run "oly: cucumber" "script/cucumber" (list "-p" "default" (buffer-file-name)))))
+   (olympian-run "oly: cucumber"
+                 "script/cucumber" (nconc (list "-p" "default") args))))
+
+(defun olympian-run-feature ()
+  "Runs the current buffer's file with cucumber"
+  (interactive)
+  (olympian-run-cucumber (buffer-file-name)))
 
 (defun olympian-run-feature-at-line ()
+  "Runs the scenario beneath the cursor with cucumber"
   (interactive)
-  (olympian-in-app-root
-   (olympian-run "oly: cucumber" "script/cucumber" (list
-                                                    "-p" "default"
-                                                    (concat (buffer-file-name) ":"
-                                                            (number-to-string (line-number-at-pos)))))))
+  (olympian-run-cucumber (concat (buffer-file-name) ":" (number-to-string (line-number-at-pos)))))
