@@ -2,8 +2,8 @@
 ; Some day I will be annoyed enough to do that.
 
 ; General keybindings
-(global-set-key (kbd "C-S-k") 'kill-whole-line)
 (global-set-key (kbd "C-w") 'backward-kill-word)
+(global-set-key (kbd "C-S-k") 'kill-whole-line)
 (global-set-key (kbd "C-x C-k") 'kill-region)
 (global-set-key (kbd "M-z") 'undo)
 (global-set-key (kbd "M-s") 'save-buffer)
@@ -28,9 +28,6 @@
 (global-set-key (kbd "C-c w") 'delete-trailing-whitespace)
 (global-set-key (kbd "M-\\") 'delete-horizontal-space)
 
-; Finding files and buffers should always go through ido
-(global-set-key (kbd "C-x C-f") 'ido-find-file)
-(global-set-key (kbd "C-x f") 'recentf-ido-find-file)
 
 ; (global-set-key (kbd "C-x b") 'ido-switch-buffer-non-erc)
 ; (global-set-key (kbd "C-x k") 'ido-kill-buffer-non-erc)

@@ -79,13 +79,6 @@
   (append-and-move-to-new-line))
 
 ; From emacs-starter-kit
-(defun recentf-ido-find-file ()
-  "Find a recent file using ido."
-  (interactive)
-  (let ((file (ido-completing-read "Choose recent file: " recentf-list nil t)))
-    (when file
-      (find-file file))))
-
 (defun coding-hook ()
   (set (make-local-variable 'comment-auto-fill-only-comments) t)
   (auto-fill-mode)
