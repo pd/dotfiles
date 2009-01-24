@@ -8,13 +8,17 @@
 (global-set-key (kbd "M-z") 'undo)
 (global-set-key (kbd "M-s") 'save-buffer)
 (global-set-key (kbd "M-SPC") 'set-mark-command) ; Quicksilver is C-SPC
+(global-set-key (kbd "<f6>") 'linum-mode)
+(global-set-key (kbd "C-M-<return>") 'toggle-fullscreen)
 
+; cuz it was tough to live without o and O
 (global-set-key (kbd "M-<return>") 'append-and-move-to-new-line)
 (global-set-key (kbd "M-S-<return>") 'prepend-and-move-to-new-line)
 
-(global-set-key (kbd "<f6>") 'linum-mode)
-
-(global-set-key (kbd "C-M-<return>") 'toggle-fullscreen)
+; management of buffers/windows
+(global-unset-key (kbd "C-x C-b"))
+(global-set-key (kbd "C-x C-b b") 'bury-buffer)
+(global-set-key (kbd "C-x C-b l") 'list-buffers)
 
 ; Bindings from emacs-starter-kit that were reasonable enough
 (global-set-key (kbd "C-c e") 'eval-buffer)
