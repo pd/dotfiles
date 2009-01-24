@@ -28,15 +28,6 @@
 (global-set-key (kbd "C-c w") 'delete-trailing-whitespace)
 (global-set-key (kbd "M-\\") 'delete-horizontal-space)
 
-
-; (global-set-key (kbd "C-x b") 'ido-switch-buffer-non-erc)
-; (global-set-key (kbd "C-x k") 'ido-kill-buffer-non-erc)
-
-; IRC beneath C-x i
-(global-unset-key (kbd "C-x i"))
-(global-set-key (kbd "C-x i b") 'ido-switch-buffer-erc)
-(global-set-key (kbd "C-x i k") 'ido-kill-buffer-erc)
-
 ; irb and git are constants
 (global-set-key (kbd "C-c r i") 'run-ruby)
 (global-set-key (kbd "C-M-g") 'magit-status)
