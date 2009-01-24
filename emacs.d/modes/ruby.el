@@ -1,14 +1,6 @@
 (autoload 'ruby-mode "ruby-mode" "Major mode for ruby" t)
 (autoload 'run-ruby "inf-ruby" "Inferior mode for ruby" t)
 
-(define-project-type ruby (generic)
-  (or (look-for "Rakefile")
-      (look-for "src/*.rb")
-      (look-for "spec/*.rb")))
-
-(define-project-type rails (ruby)
-  (look-for "config/environment.rb"))
-
 (add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Rakefile\\'" . ruby-mode))
 
