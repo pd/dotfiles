@@ -9,13 +9,13 @@
 
 (add-hook 'oly-app-project-file-visit-hook
           (lambda ()
-            (define-key eproject-mode-map (kbd "C-c o a") 'olympian-run-aok)
-            (define-key eproject-mode-map (kbd "C-c o s") 'olympian-run-aok:specs)
-            (define-key eproject-mode-map (kbd "C-c o i") 'olympian-run-aok:integration)
-            (define-key eproject-mode-map (kbd "C-c o f") 'olympian-run-aok:features)
-            (define-key eproject-mode-map (kbd "C-c o L") 'olympian-tail-log)
-            (define-key eproject-mode-map (kbd "C-c f RET") 'olympian-run-feature)
-            (define-key eproject-mode-map (kbd "C-c f .") 'olympian-run-feature-at-line)
+            (define-key eproject-mode-map (kbd "C-c C-o a RET") 'olympian-run-aok)
+            (define-key eproject-mode-map (kbd "C-c C-o a s") 'olympian-run-aok:specs)
+            (define-key eproject-mode-map (kbd "C-c C-o a i") 'olympian-run-aok:integration)
+            (define-key eproject-mode-map (kbd "C-c C-o a f") 'olympian-run-aok:features)
+            (define-key eproject-mode-map (kbd "C-c C-o l") 'olympian-tail-log)
+            (define-key eproject-mode-map (kbd "C-c C-o f RET") 'olympian-run-feature)
+            (define-key eproject-mode-map (kbd "C-c C-o f .") 'olympian-run-feature-at-line)
             ; Overrides my typical ruby irb keybinding
             (define-key eproject-mode-map (kbd "C-c r i") 'olympian-run-script-console)))
 
