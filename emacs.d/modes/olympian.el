@@ -2,7 +2,7 @@
   (require 'eproject)
   (require 'linkify))
 
-(define-project-type oly-app (rails)
+(define-project-type oly-app (generic)
   (eproject--scan-parents-for file
                               (lambda (dir)
                                 (or (string-match "oly-dev/$" (file-name-directory dir)) nil))))
