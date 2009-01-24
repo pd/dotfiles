@@ -10,3 +10,6 @@
 [submodule "vendor/eproject"]
 	path = vendor/eproject
 	url = git://git.jrock.us/eproject.git
+[submodule "vendor/magit"]
+	path = vendor/magit
+	url = git://gitorious.org/magit/mainline.git
