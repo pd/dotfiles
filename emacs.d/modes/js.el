@@ -2,9 +2,10 @@
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
 (eval-after-load 'js2-mode
-  (progn
-    (setq js2-electric-keys '())))
+  '(progn
+     (setq js2-electric-keys '())))
 
 (add-hook 'js2-mode-hook
           (lambda ()
-            (coding-hook)))
+            (coding-hook)
+            (setq indent-tabs-mode nil)))
