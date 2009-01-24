@@ -14,6 +14,8 @@
             (define-key eproject-mode-map (kbd "C-c o i") 'olympian-run-aok:integration)
             (define-key eproject-mode-map (kbd "C-c o f") 'olympian-run-aok:features)
             (define-key eproject-mode-map (kbd "C-c o L") 'olympian-tail-log)
+            (define-key eproject-mode-map (kbd "C-c f RET") 'olympian-run-feature)
+            (define-key eproject-mode-map (kbd "C-c f .") 'olympian-run-feature-at-line)
             ; Overrides my typical ruby irb keybinding
             (define-key eproject-mode-map (kbd "C-c r i") 'olympian-run-script-console)))
 
@@ -80,11 +82,12 @@
 (defun olympian-run-feature ()
   (interactive)
   (olympian-in-app-root
-   (olympian-run "oly: cucumber" "script/cucumber" (list (buffer-file-name)))))
+   (olympian-run "oly: cucumber" "script/cucumber" (list "-p" "default" (buffer-file-name)))))
 
 (defun olympian-run-feature-at-line ()
   (interactive)
   (olympian-in-app-root
    (olympian-run "oly: cucumber" "script/cucumber" (list
+                                                    "-p" "default"
                                                     (concat (buffer-file-name) ":"
                                                             (number-to-string (line-number-at-pos)))))))
