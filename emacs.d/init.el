@@ -57,11 +57,12 @@
 (prefer-coding-system 'utf-8)
 
 ; Settings which are religiously preferable to the defaults.
-(setq indent-tabs-mode nil        ; has to be set again in some mode
-                                  ; hooks which override this?
-      column-number-mode t        ; ruler shows column number
+(setq-default indent-tabs-mode nil
+              show-trailing-whitespace t)
+
+; And so on
+(setq column-number-mode t        ; ruler shows column number
       transient-mark-mode t       ; actually *see* what i'm selecting...
-      show-trailing-whitespace t
       require-final-newline t
       uniquify-buffer-name-style 'forward) ; a/b, c/b, not b<2>
 

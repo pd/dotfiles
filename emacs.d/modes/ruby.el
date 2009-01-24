@@ -8,7 +8,6 @@
           (lambda ()
             (require 'ruby-electric)
             (coding-hook)
-            (setq indent-tabs-mode nil)
             (define-key ruby-mode-map (kbd "C-c j s")  'rspec-jump-to-spec-file)
             (define-key ruby-mode-map (kbd "C-c j i")  'rspec-jump-to-implementation-file)
             (define-key ruby-mode-map (kbd "<return>") 'newline-and-indent)))

@@ -7,5 +7,4 @@
 
 (add-hook 'js2-mode-hook
           (lambda ()
-            (coding-hook)
-            (setq indent-tabs-mode nil)))
+            (coding-hook)))
