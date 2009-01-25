@@ -42,8 +42,7 @@
     (set-buffer buf)
     (erase-buffer)
     (setq linkify-regexps
-          '("^\\(/.*\\):\\([0-9]+\\):?$"
-            " \\(features/.+\\):\\([0-9]+\\)")))
+          '(" ?\\(/?[a-zA-z_/0-9\\.-]+\\):\\([0-9]+\\)")))
   (set-process-filter (apply #'start-process (concat "olympian: " cmd) buf cmd args)
                       'olympian-ansi-linkify-proc-filter)
   (display-buffer buf))
