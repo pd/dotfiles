@@ -35,3 +35,7 @@
 ; irb and git are constants
 (global-set-key (kbd "C-c r i") 'run-ruby)
 (global-set-key (kbd "C-M-g") 'magit-status)
+
+; terminal will hopefully be a constant some day, i'm sick of
+; switching to terminal.app so often
+(global-set-key (kbd "C-c C-t") 'multi-term)
