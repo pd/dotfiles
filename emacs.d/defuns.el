@@ -25,6 +25,16 @@
                                            nil
                                          'fullboth)))
 
+(defun toggle-dedicated-window ()
+  (interactive)
+  (let* ((window    (selected-window))
+         (dedicated (window-dedicated-p window)))
+    (set-window-dedicated-p window (not dedicated))
+    (message "Window %sdedicated to %s"
+             (if dedicated "no longer " "")
+             (buffer-name))))
+
+
 ; From Pat Maddox
 (defun append-and-move-to-new-line ()
   "Inserts a blank line after the current one, and moves to it"

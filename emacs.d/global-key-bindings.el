@@ -19,6 +19,7 @@
 (global-unset-key (kbd "C-x C-b"))
 (global-set-key (kbd "C-x C-b b") 'bury-buffer)
 (global-set-key (kbd "C-x C-b l") 'list-buffers)
+(global-set-key (kbd "C-x C-w") 'toggle-dedicated-window)
 
 ; Bindings from emacs-starter-kit that were reasonable enough
 (global-set-key (kbd "C-c e") 'eval-buffer)
