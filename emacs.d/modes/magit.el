@@ -6,6 +6,10 @@
     (goto-char (point-max))
     (insert "\n" (magit-shell "git submodule summary"))))
 
+(add-hook 'magit-mode-hook
+          (lambda ()
+            (setq show-trailing-whitespace nil)))
+
 (add-hook 'magit-log-edit-mode-hook
           (lambda ()
             (define-key magit-log-edit-map (kbd "C-M-s") 'magit-insert-submodule-summary)))
