@@ -10,6 +10,9 @@
      (setq erc-log-channels-directory "~/.erc/logs")
      (add-hook 'erc-insert-post-hook 'erc-save-buffer-in-logs)
 
+     ; only show activity for actual conversation, not joins/parts/&c
+     (setq erc-track-exclude-types '("JOIN" "PART" "QUIT" "NICK" "MODE"))
+
      ; Passwords and autojoin lists are loaded from a file ignored by git.
      (require 'erc-super-secret)
      (setq erc-autojoin-channels-alist erc-super-secret-autojoin-alist)))
