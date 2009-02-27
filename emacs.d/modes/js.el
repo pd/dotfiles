@@ -7,7 +7,9 @@
                                             (indent-for-tab-command)
                                             (back-to-indentation)))
      (setq js2-bounce-indent-flag nil
-           js2-indent-on-enter-key t)
+           js2-indent-on-enter-key t
+           js2-mirror-mode nil
+           js2-mode-escape-quotes nil)
 
      (add-hook 'js2-mode-hook 'coding-hook)
 
