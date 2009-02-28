@@ -70,3 +70,6 @@
 
 ; Tell hippie expand not to expand an entire line
 (delete 'try-expand-line hippie-expand-try-functions-list)
+
+; Hullo emacsclient
+(server-start)
