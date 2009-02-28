@@ -10,6 +10,7 @@
 (global-set-key (kbd "M-SPC") 'set-mark-command) ; Quicksilver is C-SPC
 (global-set-key (kbd "<f6>") 'linum-mode)
 (global-set-key (kbd "C-M-<return>") 'toggle-fullscreen)
+(global-set-key (kbd "C-c C-a") 'ack-from-dir)
 
 ; cuz it was tough to live without o and O
 (global-set-key (kbd "M-<return>") 'append-and-move-to-new-line)

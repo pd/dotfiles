@@ -34,6 +34,10 @@
              (if dedicated "no longer " "")
              (buffer-name))))
 
+(defun ack-from-dir ()
+  (interactive)
+  (let ((default-directory (expand-file-name (read-directory-name "Run ack in directory: " nil "" t))))
+    (call-interactively 'ack)))
 
 ; From Pat Maddox
 (defun append-and-move-to-new-line ()

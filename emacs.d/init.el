@@ -46,6 +46,8 @@
 (ido-everywhere t)
 (shell-command-completion-mode t)
 (setq ido-enable-flex-matching t) ; "acs" matches "application_controller_spec"
+(setq ack-guess-type t)
+(add-to-list 'ack-mode-type-map '((ruby-mode) . "ruby") 'append)
 
 (dolist (file '("defuns.el" "global-key-bindings.el" "jumps.el" "colors.el"))
   (load (concat emacs-dotfiles-dir file)))
