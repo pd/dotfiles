@@ -66,7 +66,9 @@
 (setq column-number-mode t        ; ruler shows column number
       transient-mark-mode t       ; actually *see* what i'm selecting...
       require-final-newline t
-      uniquify-buffer-name-style 'forward) ; a/b, c/b, not b<2>
+      uniquify-buffer-name-style 'forward ; a/b, c/b, not b<2>
+      tramp-default-method "ssh"
+      tramp-shell-prompt-pattern "^$ ")
 
 ; Tell hippie expand not to expand an entire line
 (delete 'try-expand-line hippie-expand-try-functions-list)
