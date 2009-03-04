@@ -103,7 +103,13 @@ if [[ $TERM = "eterm-color" ]]; then
 fi
 
 ## okay now
-# this is so mindblowingly awful.
-export PS1='
+if [[ $TERM = "dumb" ]]; then
+  # dead simple prompt for tramp
+  unsetopt zle
+  PS1='$ '
+else
+  # this is so mindblowingly awful.
+  export PS1='
 -- %{$fg_bold[blue]%}[%{$reset_color%} %n @ %m %{$fg[green]%}%~ %{$fg_bold[blue]%}]%{$reset_color%} $(_prompt_git_info)%{$fg_bold[blue]%}[%{$reset_color%} %D{%a, %b %d %T} %{$fg_bold[blue]%}]%{$reset_color%}
 -- %(?||(\$!: %{$fg[red]%}%?%{$reset_color%}%) )%# '
+fi
