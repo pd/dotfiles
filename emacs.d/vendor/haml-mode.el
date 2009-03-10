@@ -1,20 +1,27 @@
-;;; haml-mode.el -- Major mode for editing Haml files
-;;; Written by Nathan Weizenbaum
+;;; haml-mode.el --- Major mode for editing Haml files
 
-;;; Because Haml's indentation schema is similar
-;;; to that of YAML and Python, many indentation-related
-;;; functions are similar to those in yaml-mode and python-mode.
+;; Copyright (c) 2007, 2008 Nathan Weizenbaum
 
-;;; To install, save this somewhere and add the following to your .emacs file:
-;;;
-;;; (add-to-list 'load-path "/path/to/haml-mode.el")
-;;; (require 'haml-mode nil 't)
-;;; (add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
-;;;
+;; Author: Nathan Weizenbaum
+;; URL: http://github.com/nex3/haml/tree/master
+;; Version: 1.0
+;; Keywords: markup, language
+
+;;; Commentary:
+
+;; Because Haml's indentation schema is similar
+;; to that of YAML and Python, many indentation-related
+;; functions are similar to those in yaml-mode and python-mode.
+
+;; To install, save this on your load path and add the following to
+;; your .emacs file:
+;;
+;; (require 'haml-mode)
 
 ;;; Code:
 
 (eval-when-compile (require 'cl))
+(require 'ruby-mode)
 
 ;; User definable variables
 
@@ -72,11 +79,10 @@ text nested beneath them.")
 (defconst haml-font-lock-keywords
   `((,(haml-nested-regexp "-#.*")  0 font-lock-comment-face)
     (,(haml-nested-regexp ":\\w+") 0 font-lock-string-face)
+    (haml-highlight-ruby-tag     1 font-lock-preprocessor-face)
+    (haml-highlight-ruby-script  1 font-lock-preprocessor-face)
     ("^ *\\(\t\\)"               1 'haml-tab-face)
     ("^!!!.*"                    0 font-lock-constant-face)
-    ("\\('[^']*'\\)"             1 font-lock-string-face append)
-    ("\\(\"[^\"]*\"\\)"          1 font-lock-string-face append)
-    ("@[a-z0-9_]+"               0 font-lock-variable-name-face append)
     ("| *$"                      0 font-lock-string-face)
     ("^[ \t]*\\(/.*\\)$"         1 font-lock-comment-face append)
     ("^ *\\(#[a-z0-9_]+\/?\\)"   1 font-lock-keyword-face)
@@ -91,14 +97,61 @@ text nested beneath them.")
     ("^ *\\(%[a-z0-9_]+\/?\\)"   (1 font-lock-function-name-face)
      ("\\.[a-z0-9_]+" nil nil    (0 font-lock-type-face)))
     ("^ *\\(%[a-z0-9_]+\/?\\)"   (1 font-lock-function-name-face)
-     ("\\#[a-z0-9_]+" nil nil    (0 font-lock-keyword-face)))
-    ("^ *\\([~=-] .*\\)"         1 font-lock-preprocessor-face prepend)
-    ("^ *[\\.#%a-z0-9_]+\\([~=-] .*\\)"     1 font-lock-preprocessor-face prepend)
-    ("^ *[\\.#%a-z0-9_]+\\({[^}]+}\\)"      1 font-lock-preprocessor-face prepend)
-    ("^ *[\\.#%a-z0-9_]+\\(\\[[^]]+\\]\\)"  1 font-lock-preprocessor-face prepend)))
+     ("\\#[a-z0-9_]+" nil nil    (0 font-lock-keyword-face)))))
 
 (defconst haml-filter-re "^ *\\(:\\)\\w+")
 (defconst haml-comment-re "^ *\\(-\\)\\#")
+
+(defun haml-fontify-region-as-ruby (beg end)
+  "Use Ruby's font-lock variables to fontify the region between BEG and END."
+  (save-excursion
+    (save-match-data
+      (let ((font-lock-keywords ruby-font-lock-keywords)
+            (font-lock-syntactic-keywords ruby-font-lock-syntactic-keywords)
+            font-lock-extend-region-functions
+            font-lock-keywords-case-fold-search)
+        ;; font-lock-fontify-region apparently isn't inclusive,
+        ;; so we have to move the beginning back one char
+        (font-lock-fontify-region (- beg 1) end)))))
+
+(defun haml-highlight-ruby-script (limit)
+  "Highlight a Ruby script expression (-, =, or ~)."
+  (when (re-search-forward "^ *\\([-=~]\\) \\(.*\\)$" limit t)
+    (haml-fontify-region-as-ruby (match-beginning 2) (match-end 2))))
+
+(defun* haml-highlight-ruby-tag (limit)
+  "Highlight Ruby code within a Haml tag.
+
+This highlights the tag attributes and object refs of the tag,
+as well as the script expression (-, =, or ~) following the tag.
+
+For example, this will highlight all of the following:
+  %p{:foo => 'bar'}
+  %p[@bar]
+  %p= 'baz'
+  %p{:foo => 'bar'}[@bar]= 'baz'"
+  (when (re-search-forward "^ *\\(?:[%.#][a-z_-:.#]+\\)\\(\\)" limit t)
+    (let ((eol (save-excursion (end-of-line) (point)))
+          beg forward-sexp-function)
+      (dolist (char '(?\{ ?\[))
+        (when (eq (char-after) char)
+          (setq beg (point))
+          (condition-case err
+              (save-restriction
+                (narrow-to-region (point) eol)
+                (forward-sexp))
+            ;; If the attr hash or object ref is unclosed,
+            ;; just highlight the whole line.
+            (scan-error
+             (unless (equal (nth 1 err) "Unbalanced parentheses")
+               (signal 'scan-error (cdr err)))
+             (haml-fontify-region-as-ruby (nth 2 err) eol)
+             (return t)))
+          (haml-fontify-region-as-ruby beg (point))))
+      (when (looking-at "[<>&!]+") (goto-char (match-end 0)))
+      (when (looking-at "\\([=~]\\)\\(.*\\)$")
+        (haml-fontify-region-as-ruby (match-beginning 2) (match-end 2)))
+      t)))
 
 (defun* haml-extend-region ()
   "Extend the font-lock region to encompass filters and comments."
@@ -136,6 +189,8 @@ text nested beneath them.")
     (define-key map "\C-c\C-u" 'haml-up-list)
     (define-key map "\C-c\C-d" 'haml-down-list)
     (define-key map "\C-c\C-k" 'haml-kill-line-and-indent)
+    (define-key map "\C-c\C-r" 'haml-output-region)
+    (define-key map "\C-c\C-l" 'haml-output-buffer)
     map))
 
 ;;;###autoload
@@ -179,6 +234,32 @@ text nested beneath them.")
     (haml-mark-sexp)
     (kill-line 1)
     (haml-reindent-region-by (- haml-indent-offset))))
+
+(defun haml-replace-region (start end)
+  "Replaces the current block of Haml code with the HTML equivalent."
+  (interactive "r")
+  (save-excursion
+    (goto-char end)
+    (setq end (point-marker))
+    (goto-char start)
+    (let ((ci (current-indentation)))
+      (while (re-search-forward "^ +" end t)
+        (replace-match (make-string (- (current-indentation) ci) ? ))))
+    (shell-command-on-region start end "haml" "haml-output" t)))
+
+(defun haml-output-region (start end)
+  "Displays the HTML output for the current block of Haml code."
+  (interactive "r")
+  (kill-new (buffer-substring start end)) 
+  (with-temp-buffer
+    (yank)
+    (haml-indent-region (point-min) (point-max))
+    (shell-command-on-region (point-min) (point-max) "haml" "haml-output")))
+
+(defun haml-output-buffer ()
+  "Displays the HTML output for entire buffer."
+  (interactive)
+  (haml-output-region (point-min) (point-max)))
 
 ;; Navigation
 
@@ -392,6 +473,9 @@ the current line."
   "Return the indentation string for `haml-indent-offset'."
   (mapconcat 'identity (make-list haml-indent-offset " ") ""))
 
-;; Setup/Activation
+;;;###autoload
+(add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
 
+;; Setup/Activation
 (provide 'haml-mode)
+;;; haml-mode.el ends here
