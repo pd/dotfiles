@@ -2,11 +2,17 @@
   (require 'eproject)
   (require 'linkify))
 
+;; Make sure this is available globally
+(setq-default olympian-run-cmd nil)
+(make-variable-buffer-local 'olympian-run-cmd)
+
+;; How to determine if we're in an olympian project
 (define-project-type oly-app (generic)
   (eproject--scan-parents-for file
                               (lambda (dir)
                                 (or (string-match "oly-dev/$" (file-name-directory dir)) nil))))
 
+;; When we are, we get special keybindings
 (add-hook 'oly-app-project-file-visit-hook
           (lambda ()
             (define-key eproject-mode-map (kbd "C-c C-o a RET") 'olympian-run-aok)
@@ -19,6 +25,7 @@
             ; Overrides my typical ruby irb keybinding
             (define-key eproject-mode-map (kbd "C-c r i") 'olympian-run-script-console)))
 
+;; Implementation
 (defun olympian-app-root ()
   (file-name-as-directory eproject-root))
 
@@ -37,19 +44,35 @@
 
 (defun olympian-run (bufname cmd args)
   "Uses start-process to run CMD with ARGS, with output to buffer BUFNAME"
-  (setq buf (get-buffer-create (concat "*" bufname "*")))
+  (setq buf (get-buffer-create bufname))
   (save-excursion
     (set-buffer buf)
     (erase-buffer)
-    (setq linkify-regexps
-          '(" ?\\(/?[a-zA-z_/0-9\\.-]+\\):\\([0-9]+\\)")))
-  (set-process-filter (apply #'start-process (concat "olympian: " cmd) buf cmd args)
-                      'olympian-ansi-linkify-proc-filter)
+    (setq linkify-regexps '(" ?\\(/?[a-zA-z_/0-9\\.-]+\\):\\([0-9]+\\)"))
+    (olympian-store-rerun-infos cmd args)
+    (local-set-key (kbd "C-c C-r") 'olympian-rerun))
+  (olympian-run-with-ansi-linkify buf cmd args)
   (display-buffer buf))
+
+(defun olympian-run-with-ansi-linkify (buf cmd args)
+  (set-process-filter
+   (apply #'start-process (concat "olympian: " cmd) buf cmd args)
+   'olympian-ansi-linkify-proc-filter))
+
+(defun olympian-store-rerun-infos (cmd args)
+  (setq olympian-run-cmd (list cmd args)))
+
+(defun olympian-rerun ()
+  "Reruns the command used in an olympian-run buffer"
+  (interactive)
+  (let ((cmd  (car  olympian-run-cmd))
+        (args (cadr olympian-run-cmd))
+        (buf  (buffer-name (current-buffer))))
+    (olympian-run buf cmd args)))
 
 (defun olympian-rake (task)
   (olympian-in-app-root
-   (olympian-run (concat "oly: rake " task)
+   (olympian-run (concat "*oly: rake " task "*")
                  "rake" (list task))))
 
 (defun olympian-run-aok ()
@@ -75,7 +98,7 @@
                          "development"
                        log) ".log")))
     (olympian-in-app-root
-     (olympian-run (concat "oly: " log)
+     (olympian-run (concat "*oly: " log "*")
                    "tail" (list "-f" (concat "log/" log))))))
 
 (defun olympian-run-cucumber (&rest args)
@@ -83,7 +106,7 @@
 with arguments ARGS"
   (interactive)
   (olympian-in-app-root
-   (olympian-run "oly: cucumber"
+   (olympian-run "*oly: cucumber*"
                  "script/cucumber" (nconc (list "-p" "default") args))))
 
 (defun olympian-run-feature ()
