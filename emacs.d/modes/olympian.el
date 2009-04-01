@@ -37,7 +37,7 @@
 
 (defun olympian-run (bufname cmd args)
   "Uses start-process to run CMD with ARGS, with output to buffer BUFNAME"
-  (setq buf (get-buffer-create bufname))
+  (setq buf (get-buffer-create (concat "*" bufname "*")))
   (save-excursion
     (set-buffer buf)
     (erase-buffer)
