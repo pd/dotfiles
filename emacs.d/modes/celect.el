@@ -18,21 +18,21 @@
 (add-hook 'celect-app-project-file-visit-hook
           (lambda ()
             ; rake aok:*
-            (define-key eproject-mode-map (kbd "C-c C-o a RET") 'celect-run-aok)
-            (define-key eproject-mode-map (kbd "C-c C-o a s") 'celect-run-aok:specs)
-            (define-key eproject-mode-map (kbd "C-c C-o a i") 'celect-run-aok:integration)
-            (define-key eproject-mode-map (kbd "C-c C-o a f") 'celect-run-aok:features)
+            (define-key eproject-mode-map (kbd "C-c C-c a RET") 'celect-run-aok)
+            (define-key eproject-mode-map (kbd "C-c C-c a s") 'celect-run-aok:specs)
+            (define-key eproject-mode-map (kbd "C-c C-c a i") 'celect-run-aok:integration)
+            (define-key eproject-mode-map (kbd "C-c C-c a f") 'celect-run-aok:features)
 
             ; rspec
-            (define-key eproject-mode-map (kbd "C-c C-o s RET") 'celect-run-spec)
-            (define-key eproject-mode-map (kbd "C-c C-o s .") 'celect-run-spec-at-line)
+            (define-key eproject-mode-map (kbd "C-c C-c s RET") 'celect-run-spec)
+            (define-key eproject-mode-map (kbd "C-c C-c s .") 'celect-run-spec-at-line)
 
             ; Cucumber
-            (define-key eproject-mode-map (kbd "C-c C-o f RET") 'celect-run-feature)
-            (define-key eproject-mode-map (kbd "C-c C-o f .") 'celect-run-feature-at-line)
+            (define-key eproject-mode-map (kbd "C-c C-c f RET") 'celect-run-feature)
+            (define-key eproject-mode-map (kbd "C-c C-c f .") 'celect-run-feature-at-line)
 
             ; misc
-            (define-key eproject-mode-map (kbd "C-c C-o l") 'celect-tail-log)
+            (define-key eproject-mode-map (kbd "C-c C-c l") 'celect-tail-log)
 
             ; Overrides my typical ruby irb keybinding
             (define-key eproject-mode-map (kbd "C-c r i") 'celect-run-script-console)))
