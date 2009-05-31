@@ -45,11 +45,18 @@
   (interactive)
   (end-of-line)
   (funcall (or (local-key-binding (kbd "<return>")) (key-binding (kbd "RET")))))
+
 (defun prepend-and-move-to-new-line ()
   "Inserts a blank line before the current one, and move to it"
   (interactive)
-  (previous-line)
-  (append-and-move-to-new-line))
+  (if (= 1 (line-number-at-pos))
+      (progn
+        (beginning-of-buffer)
+        (funcall (or (local-key-binding (kbd "<return>")) (key-binding (kbd "RET"))))
+        (beginning-of-buffer))
+    (progn
+      (previous-line)
+      (append-and-move-to-new-line))))
 
 ; From emacs-starter-kit
 (defun coding-hook ()
