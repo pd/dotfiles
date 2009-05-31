@@ -17,13 +17,23 @@
 ;; When we are, we get special keybindings
 (add-hook 'celect-app-project-file-visit-hook
           (lambda ()
+            ; rake aok:*
             (define-key eproject-mode-map (kbd "C-c C-o a RET") 'celect-run-aok)
             (define-key eproject-mode-map (kbd "C-c C-o a s") 'celect-run-aok:specs)
             (define-key eproject-mode-map (kbd "C-c C-o a i") 'celect-run-aok:integration)
             (define-key eproject-mode-map (kbd "C-c C-o a f") 'celect-run-aok:features)
-            (define-key eproject-mode-map (kbd "C-c C-o l") 'celect-tail-log)
+
+            ; rspec
+            (define-key eproject-mode-map (kbd "C-c C-o s RET") 'celect-run-spec)
+            (define-key eproject-mode-map (kbd "C-c C-o s .") 'celect-run-spec-at-line)
+
+            ; Cucumber
             (define-key eproject-mode-map (kbd "C-c C-o f RET") 'celect-run-feature)
             (define-key eproject-mode-map (kbd "C-c C-o f .") 'celect-run-feature-at-line)
+
+            ; misc
+            (define-key eproject-mode-map (kbd "C-c C-o l") 'celect-tail-log)
+
             ; Overrides my typical ruby irb keybinding
             (define-key eproject-mode-map (kbd "C-c r i") 'celect-run-script-console)))
 
@@ -103,13 +113,30 @@
      (celect-run (concat "*celect: " log "*")
                    "tail" (list "-f" (concat "log/" log))))))
 
+(defun celect-run-rspec (&rest args)
+  "Runs specs from the application root, using spec.opts, with arguments ARGS"
+  (interactive)
+  (celect-in-app-root
+     (celect-run "*celect: spec*"
+                 "script/spec" (nconc (list "-O" "spec/spec.opts") args))))
+
+(defun celect-run-spec ()
+  "Runs the current buffer's specs"
+  (interactive)
+  (celect-run-rspec (buffer-file-name)))
+
+(defun celect-run-spec-at-line ()
+  "Runs the spec at point"
+  (interactive)
+  (celect-run-rspec (concat (buffer-file-name) ":" (number-to-string (line-number-at-pos)))))
+
 (defun celect-run-cucumber (&rest args)
-  "Runs cucumber with from the application root, using the default profile,
+  "Runs cucumber from the application root, using the default profile,
 with arguments ARGS"
   (interactive)
   (celect-in-app-root
    (celect-run "*celect: cucumber*"
-                 "script/cucumber" (nconc (list "-p" "default") args))))
+               "script/cucumber" (nconc (list "-p" "default") args))))
 
 (defun celect-run-feature ()
   "Runs the current buffer's file with cucumber"
