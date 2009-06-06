@@ -4,3 +4,4 @@ emacs.d/auto-save-list
 emacs.d/backups
 emacs.d/places
 emacs.d/erc-super-secret.el
+emacs.d/smex.save
