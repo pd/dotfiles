@@ -16,3 +16,6 @@
 [submodule "vendor/keats"]
 	path = vendor/keats
 	url = git://github.com/rejeep/keats.git
+[submodule "vendor/smex"]
+	path = vendor/smex
+	url = git://github.com/nonsequitur/smex.git
