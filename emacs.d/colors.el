@@ -11,6 +11,7 @@
 (color-theme-hober2)
 
 ; Other decent themes so far:
+; (color-theme-subdued)
 ; (color-theme-deep-blue)
 ; (color-theme-hober)
 ; (color-theme-snow)
