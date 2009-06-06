@@ -12,6 +12,11 @@
 (global-set-key (kbd "C-M-<return>") 'toggle-fullscreen)
 (global-set-key (kbd "C-c C-a") 'ack-from-dir)
 
+; Replace standard M-x with smex
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+(global-set-key (kbd "C-c M-x") 'execute-extended-command) ; original M-x
+
 ; cuz it was tough to live without o and O
 (global-set-key (kbd "M-<return>") 'append-and-move-to-new-line)
 (global-set-key (kbd "M-S-<return>") 'prepend-and-move-to-new-line)

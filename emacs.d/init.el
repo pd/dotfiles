@@ -42,6 +42,7 @@
 (require 'jump)
 (require 'keats)
 (require 'keats-interactive)
+(require 'smex)
 
 (recentf-mode t)
 (ido-mode t)
@@ -51,6 +52,7 @@
 (setq ack-guess-type t)
 (add-to-list 'ack-mode-type-map '((ruby-mode) . "ruby") 'append)
 (setq keats-file (concat emacs-dotfiles-dir "keats"))
+(smex-auto-update 120) ; auto update after 2 mins idle
 
 (dolist (file '("defuns.el" "global-key-bindings.el" "jumps.el" "colors.el"))
   (load (concat emacs-dotfiles-dir file)))
@@ -78,3 +80,6 @@
 
 ; Hullo emacsclient
 (server-start)
+
+; very last please
+(smex-initialize)
