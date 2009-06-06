@@ -13,3 +13,6 @@
 [submodule "vendor/magit"]
 	path = vendor/magit
 	url = git://gitorious.org/magit/mainline.git
+[submodule "vendor/keats"]
+	path = vendor/keats
+	url = git://github.com/rejeep/keats.git

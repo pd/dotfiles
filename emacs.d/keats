@@ -1,0 +1,6 @@
+C-M-s|magit-commit-mode: insert git submodule summary
+C-x C-e|eval-last-sexp
+C-x (|start-kbd-macro
+C-x )|end-kbd-macro
+C-x e|call-last-kbd-macro
+C-M-g|magit

@@ -40,6 +40,8 @@
 (require 'eproject)
 (require 'shell-command)
 (require 'jump)
+(require 'keats)
+(require 'keats-interactive)
 
 (recentf-mode t)
 (ido-mode t)
@@ -48,6 +50,7 @@
 (setq ido-enable-flex-matching t) ; "acs" matches "application_controller_spec"
 (setq ack-guess-type t)
 (add-to-list 'ack-mode-type-map '((ruby-mode) . "ruby") 'append)
+(setq keats-file (concat emacs-dotfiles-dir "keats"))
 
 (dolist (file '("defuns.el" "global-key-bindings.el" "jumps.el" "colors.el"))
   (load (concat emacs-dotfiles-dir file)))
