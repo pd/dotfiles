@@ -53,6 +53,7 @@
 (add-to-list 'ack-mode-type-map '((ruby-mode) . "ruby") 'append)
 (setq keats-file     (concat emacs-dotfiles-dir "keats")
       smex-save-file (concat emacs-dotfiles-dir "smex.save"))
+(keats-mode t)
 (smex-auto-update 120) ; auto update after 2 mins idle
 
 (dolist (file '("defuns.el" "global-key-bindings.el" "jumps.el" "colors.el"))
