@@ -1,6 +1,5 @@
-C-M-s|magit-commit-mode: insert git submodule summary
-C-x C-e|eval-last-sexp
-C-x (|start-kbd-macro
-C-x )|end-kbd-macro
-C-x e|call-last-kbd-macro
-C-M-g|magit
+((:key "C-x (" :description "start-kbd-macro")
+ (:key "C-x )" :description "end-kbd-macro")
+ (:key "C-x e" :description "call-last-kbd-macro")
+ (:key "C-M-g" :description "magit")
+ (:key "C-M-s" :description "magit-commit: insert submodule summary"))
