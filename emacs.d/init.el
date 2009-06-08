@@ -55,6 +55,7 @@
       smex-save-file (concat emacs-dotfiles-dir "smex.save"))
 (keats-mode t)
 (smex-auto-update 120) ; auto update after 2 mins idle
+(setq org-replace-disputed-keys t)
 
 (dolist (file '("defuns.el" "global-key-bindings.el" "jumps.el" "colors.el"))
   (load (concat emacs-dotfiles-dir file)))
