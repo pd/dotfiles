@@ -2,7 +2,7 @@
 
 def options
   @options ||= {
-    :email   => 'philodespotos@gmail.com',
+    :email   => 'pd@krh.me',
     :smart   => false,
     :fkndoit => false
   }
