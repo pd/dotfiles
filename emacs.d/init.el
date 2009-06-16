@@ -24,6 +24,10 @@
       custom-file (concat emacs-dotfiles-dir "custom.el")
       auto-save-default nil)
 
+;; elpa
+(load (concat emacs-dotfiles-dir "elpa/package.el"))
+(package-initialize)
+
 ;; quality stuff that there's no reason to load on demand
 ; shipped with carbon emacs:
 (require 'cl)
@@ -44,6 +48,7 @@
 (require 'keats-interactive)
 (require 'smex)
 
+;; turn all that shit on
 (recentf-mode t)
 (ido-mode t)
 (ido-everywhere t)
@@ -55,7 +60,7 @@
       smex-save-file (concat emacs-dotfiles-dir "smex.save"))
 (keats-mode t)
 (smex-auto-update 120) ; auto update after 2 mins idle
-(setq org-replace-disputed-keys t)
+
 
 (dolist (file '("defuns.el" "global-key-bindings.el" "jumps.el" "colors.el"))
   (load (concat emacs-dotfiles-dir file)))
@@ -86,3 +91,4 @@
 
 ; very last please
 (smex-initialize)
+
