@@ -25,8 +25,10 @@
       auto-save-default nil)
 
 ;; elpa
-(load (concat emacs-dotfiles-dir "elpa/package.el"))
-(package-initialize)
+(let ((package-el (concat emacs-dotfiles-dir "elpa/package.el")))
+  (when (file-readable-p package-el)
+    (load package-el)
+    (package-initialize)))
 
 ;; quality stuff that there's no reason to load on demand
 ; shipped with carbon emacs:
@@ -43,7 +45,6 @@
 (require 'ack)
 (require 'eproject)
 (require 'shell-command)
-(require 'jump)
 (require 'keats)
 (require 'keats-interactive)
 (require 'smex)
