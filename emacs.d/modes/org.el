@@ -10,7 +10,7 @@
       org-special-ctrl-k t
       org-agenda-restore-windows-after-quit t)
 
-(setq org-agenda-files (list "~/org/todo.org"))
+(setq org-agenda-files (directory-files "~/org" 'full "\\.org$"))
 
 (setq org-todo-keywords
       '((sequence "TODO(t)" "WISH(w)" "|"
