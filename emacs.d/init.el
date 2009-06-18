@@ -37,7 +37,6 @@
 (require 'ffap)
 (require 'uniquify)
 (require 'ansi-color)
-(require 'recentf)
 (require 'ido)
 
 ; vendor/*:
@@ -50,7 +49,6 @@
 (require 'smex)
 
 ;; turn all that shit on
-(recentf-mode t)
 (ido-mode t)
 (ido-everywhere t)
 (shell-command-completion-mode t)
