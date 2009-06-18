@@ -1,16 +1,18 @@
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (global-set-key (kbd "C-c a") 'org-agenda)
 
+(setq org-directory "~/org/"
+      org-agenda-files (directory-files org-directory 'full "\\.org$"))
+
 (setq org-log-done 'time
       org-replace-disputed-keys t
       org-completion-use-ido t
       org-hide-leading-stars t
+      org-odd-levels-only t
       org-startup-folded nil
       org-special-ctrl-a/e t
       org-special-ctrl-k t
       org-agenda-restore-windows-after-quit t)
-
-(setq org-agenda-files (directory-files "~/org" 'full "\\.org$"))
 
 (setq org-todo-keywords
       '((sequence "TODO(t)" "WISH(w)" "|"
