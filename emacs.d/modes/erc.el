@@ -17,7 +17,7 @@
      (require 'erc-super-secret)
      (setq erc-autojoin-channels-alist erc-super-secret-autojoin-alist)))
 
-(setq default-erc-server-list '("irc.freenode.net"))
+(setq default-erc-server-list '("irc.freenode.net" "irc.shroomery.org"))
 (defun irc-please ()
   "Connect to IRC, maybe. And prompt for each server to ensure we want to connect to it."
   (interactive)
