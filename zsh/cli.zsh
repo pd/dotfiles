@@ -9,6 +9,7 @@ alias scp='scp -C'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
+alias .....='cd ../../../..'
 alias .z='source ~/.zshrc'
 alias cls='clear'
 
