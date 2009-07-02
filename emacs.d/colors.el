@@ -10,6 +10,10 @@
 (color-theme-initialize)
 (color-theme-hober2)
 
+; See list-faces-display, list-colors-display
+(set-face-foreground 'font-lock-string-face "DarkOrange")
+(set-face-foreground 'font-lock-string-face "DarkOrange")
+
 ; Other decent themes so far:
 ; (color-theme-subdued)
 ; (color-theme-deep-blue)
