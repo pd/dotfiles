@@ -19,6 +19,8 @@
           (lambda ()
             ; rake aok:*
             (define-key eproject-mode-map (kbd "C-c C-c a RET") 'celect-run-aok)
+            (define-key eproject-mode-map (kbd "C-c C-c a e") 'celect-run-aok:environment)
+            (define-key eproject-mode-map (kbd "C-c C-c a d") 'celect-run-aok:db)
             (define-key eproject-mode-map (kbd "C-c C-c a s") 'celect-run-aok:specs)
             (define-key eproject-mode-map (kbd "C-c C-c a i") 'celect-run-aok:integration)
             (define-key eproject-mode-map (kbd "C-c C-c a f") 'celect-run-aok:features)
@@ -90,6 +92,14 @@
 (defun celect-run-aok ()
   (interactive)
   (celect-rake "aok"))
+
+(defun celect-run-aok:environment ()
+  (interactive)
+  (celect-rake "aok:environment"))
+
+(defun celect-run-aok:db ()
+  (interactive)
+  (celect-rake "aok:db"))
 
 (defun celect-run-aok:specs ()
   (interactive)
