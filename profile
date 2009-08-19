@@ -29,4 +29,6 @@ export LC_CTYPE=en_US.UTF-8
 
 if [ -f /opt/local/etc/bash_completion ]; then
   . /opt/local/etc/bash_completion
+elif [ -f /etc/bash_completion ]; then
+  . /etc/bash_completion
 fi
