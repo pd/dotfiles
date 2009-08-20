@@ -107,15 +107,17 @@
 (global-set-key (kbd "M-S-<return>") 'pd/prepend-and-move-to-new-line)
 
 ; colors
-(require 'color-theme)
 (defun pd/load-directory (path)
   (dolist (file (directory-files path 'full "\\.el\\'"))
     (load file)))
-(pd/load-directory "~/dotfiles/emacs.d/themes")
 
-(setq color-theme-is-cumulative nil)
-(color-theme-initialize)
-(color-theme-subdued)
+(require 'color-theme)
+(eval-after-load "color-theme"
+  '(progn
+     (setq color-theme-is-cumulative nil)
+     (color-theme-initialize)
+     (pd/load-directory "~/dotfiles/emacs.d/themes")
+     (color-theme-subdued)))
 
 ; lisps
 (defun pd/lisp-modes ()
