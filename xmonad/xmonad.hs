@@ -13,9 +13,9 @@ myModMask = mod3Mask
 
 myDzenPP h = defaultPP
    { ppOutput = hPutStrLn h
-   , ppCurrent = dzenColor "#77507b" "#000" . wrap "<" "*>"
-   , ppHidden = dzenColor "#855c1b" "#000" . wrap "" "*"
-   , ppHiddenNoWindows = dzenColor "#855c1b" "black"
+   , ppCurrent = dzenColor "#855c1b" "#000" . wrap "<" "*>"
+   , ppHidden = dzenColor "grey" "#000" . wrap "" "*"
+   , ppHiddenNoWindows = dzenColor "grey" "#000"
    , ppExtras = [ date "%a %b %d  %I:%M %p"
                 , loadAvg
                 , battery
@@ -27,7 +27,7 @@ myDzenPP h = defaultPP
    }
 
 myDzenFont = "'-*-terminus-*-*-*-*-14-*-*-*-*-*-iso8859'"
-myDzenCommand = "dzen2 -bg '#000' -fg '#555753' -fn " ++ myDzenFont
+myDzenCommand = "dzen2 -bg '#000' -fg 'grey' -fn " ++ myDzenFont
 
 main = do
     dzen <- spawnPipe myDzenCommand
