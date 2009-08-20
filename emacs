@@ -181,6 +181,8 @@
 (autoload 'magit-status "magit"
   "Major mode for git interaction" t)
 
+(global-set-key (kbd "C-M-g") 'magit-status)
+
 (defun magit-insert-submodule-summary ()
   (interactive)
   (save-excursion
