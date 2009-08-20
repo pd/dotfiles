@@ -1,3 +1,4 @@
+urxvt*scrollBar: False
 urxvt*loginShell: true
 urxvt*background: black
 urxvt*foreground: white
