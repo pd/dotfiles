@@ -1,0 +1,4 @@
+urxvt*loginShell: true
+urxvt*background: black
+urxvt*foreground: white
+urxvt*font: xft:Inconsolata:pixelsize=15
