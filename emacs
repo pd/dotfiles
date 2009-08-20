@@ -10,6 +10,13 @@
 (setq visible-bell t)
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+; and go away.
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups"))
+      save-place-file "~/.emacs.d/places"
+      custom-file "~/.emacs.d/custom.el"
+      auto-save-default nil)
+
+; always.
 (require 'cl)
 (require 'ido)
 (require 'uniquify)
