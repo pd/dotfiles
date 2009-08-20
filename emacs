@@ -25,7 +25,8 @@
 (labels ((add-path (p)
                    (add-to-list 'load-path p)))
   (add-path "~/dotfiles/emacs.d/vendor")
-  (add-path "~/dotfiles/vendor/magit"))
+  (add-path "~/dotfiles/vendor/magit")
+  (add-path "~/dotfiles/vendor/smex"))
 
 (ido-mode t)
 (ido-everywhere t)
@@ -209,3 +210,15 @@
      (set-face-background 'magit-item-highlight "gray12")
      (set-face-foreground 'magit-diff-add "green3")
      (set-face-foreground 'magit-diff-del "red3")))
+
+; smex. should always come last.
+(require 'smex)
+(smex-initialize)
+
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+(global-set-key (kbd "C-c M-x") 'smex-update-and-run)
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
+(setq smex-save-file "~/.emacs.d/smex.save")
+(smex-auto-update 120) ; auto update after 2 minutes idle
