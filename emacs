@@ -15,8 +15,10 @@
 (require 'uniquify)
 (require 'ffap)
 
-(add-to-list 'load-path "~/dotfiles/emacs.d/vendor")
-(add-to-list 'load-path "~/dotfiles/vendor/magit")
+(labels ((add-path (p)
+                   (add-to-list 'load-path p)))
+  (add-path "~/dotfiles/emacs.d/vendor")
+  (add-path "~/dotfiles/vendor/magit"))
 
 (ido-mode t)
 (ido-everywhere t)
@@ -98,8 +100,10 @@
 
 ; colors
 (require 'color-theme)
-(dolist (file (directory-files "~/dotfiles/emacs.d/themes" 'full "\\.el\\'"))
-  (load file))
+(defun pd/load-directory (path)
+  (dolist (file (directory-files path 'full "\\.el\\'"))
+    (load file)))
+(pd/load-directory "~/dotfiles/emacs.d/themes")
 
 (setq color-theme-is-cumulative nil)
 (color-theme-initialize)
