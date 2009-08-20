@@ -1,3 +1,5 @@
+;; -*- mode: Emacs-Lisp -*-
+
 ; shush.
 (setq inhibit-startup-screen t
       inhibit-startup-echo-area-message t)
@@ -14,6 +16,7 @@
 (require 'ffap)
 
 (add-to-list 'load-path "~/dotfiles/emacs.d/vendor")
+(add-to-list 'load-path "~/dotfiles/vendor/magit")
 
 (ido-mode t)
 (ido-everywhere t)
@@ -142,3 +145,54 @@
 (require 'ansi-color)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 (global-set-key (kbd "C-c s") 'shell)
+
+; irc
+(autoload 'erc "erc" "Emacs IRC Client" t)
+(load "~/.erc-secrets.el") ; passwords, autojoin lists, etc
+
+(eval-after-load 'erc
+  '(progn
+     (setq erc-nick "pd"
+           erc-nick-uniquifier "_"
+           erc-full-name "pd"
+           erc-max-buffer-size 5000)
+     (setq erc-log-channels-directory "~/.erc/logs")
+     (add-hook 'erc-insert-post-hook 'erc-save-buffer-in-logs)
+
+     ; only notify about activity for actual conversation
+     (setq erc-track-exclude-types '("JOIN" "PART" "QUIT" "NICK" "MODE"))
+     (setq erc-autojoin-channels-alist pd/erc-secrets-autojoin-alist)))
+
+(defun pd/irc ()
+  "Connect to IRC, maybe. And prompt for each server to ensure we want to connect to it."
+  (interactive)
+  (when (y-or-n-p "IRC? ")
+    (dolist (server pd/erc-secrets-server-list)
+      (when (y-or-n-p (concat server "? "))
+        (erc :server server :password pd/erc-secrets-password)))))
+
+(defalias 'irc 'pd/irc)
+
+; magit
+(autoload 'magit-status "magit"
+  "Major mode for git interaction" t)
+
+(defun magit-insert-submodule-summary ()
+  (interactive)
+  (save-excursion
+    (goto-char (point-max))
+    (insert "\n" (magit-shell "git submodule summary"))))
+
+(add-hook 'magit-mode-hook
+          (lambda ()
+            (setq show-trailing-whitespace nil)))
+
+(add-hook 'magit-log-edit-mode-hook
+          (lambda ()
+            (define-key magit-log-edit-map (kbd "C-M-s") 'magit-insert-submodule-summary)))
+
+(eval-after-load 'magit
+  '(progn
+     (set-face-background 'magit-item-highlight "gray12")
+     (set-face-foreground 'magit-diff-add "green3")
+     (set-face-foreground 'magit-diff-del "red3")))
