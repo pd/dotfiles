@@ -1,9 +1,9 @@
 ;;; zenburn.el --- just some alien fruit salad to keep you in the zone
-;; Copyright (C) 2003, 2004, 2005  Daniel Brockman
+;; Copyright (C) 2003, 2004, 2005, 2006  Daniel Brockman
 
 ;; Author: Daniel Brockman <daniel@brockman.se>
 ;; URL: http://www.brockman.se/software/zenburn/zenburn.el
-;; Updated: 2005-11-01 03:29
+;; Updated: 2008-06-23 12:03
 
 ;; This file is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -221,7 +221,7 @@ static char *gnus-pointer[] = {
      '(zenburn-highlight-damp
        ((t (:foreground "#88b090" :background "#2e3330"))))
      '(zenburn-highlight-alerting
-       ((t (:background "#2e3330"))))
+       ((t (:foreground "#e37170" :background "#332323"))))
      '(zenburn-highlight-subtle
        ((t (:background "#464646"))))
 
@@ -395,6 +395,8 @@ static char *gnus-pointer[] = {
      '(mtorus-highlight ((t (:inherit zenburn-highlight-bluish))))
      '(mtorus-notify-highlight ((t (:inherit zenburn-primary-1))))
 
+     '(which-func ((t (:inherit mode-line))))
+
      '(apt-utils-normal-package
        ((t (:inherit zenburn-primary-1))))
      '(apt-utils-virtual-package
@@ -501,7 +503,20 @@ static char *gnus-pointer[] = {
      '(erc-timestamp ((t (:inherit zenburn-green+1))))
      '(erc-underline ((t (:inherit underline))))
 
-     '(eshell-prompt ((t (:foreground "DeepSkyBlue"))))
+     '(circe-highlight-nick-face ((t (:inherit zenburn-primary-1))))
+     '(circe-my-message-face ((t (:inherit zenburn-yellow))))
+     '(circe-originator-face ((t (:inherit bold))))
+     '(circe-prompt-face ((t (:inherit zenburn-primary-1))))
+     '(circe-server-face ((t (:inherit font-lock-comment-face))))
+
+     '(rcirc-my-nick ((t (:inherit zenburn-primary-1))))
+     '(rcirc-other-nick ((t (:inherit bold))))
+     '(rcirc-server ((t (:inherit zenburn-green))))
+     '(rcirc-nick-in-message ((t (:inherit bold))))
+     '(rcirc-prompt ((t (:inherit zenburn-primary-1))))
+     '(rcirc-mode-line-nick ((t (:inherit zenburn-primary-1))))
+
+     '(eshell-prompt ((t (:inherit zenburn-primary-1))))
      '(eshell-ls-archive ((t (:foreground "#c3bf9f" :weight bold))))
      '(eshell-ls-backup ((t (:inherit font-lock-comment))))
      '(eshell-ls-clutter ((t (:inherit font-lock-comment))))
@@ -643,6 +658,9 @@ static char *gnus-pointer[] = {
      '(jabber-chat-prompt-foreign
        ((t (:inherit zenburn-primary-2))))
 
+     '(jabber-rare-time-face
+       ((t (:inherit zenburn-green+1))))
+
      '(jde-java-font-lock-modifier
        ((t (:inherit zenburn-primary-2))))
      '(jde-java-font-lock-doc-tag
@@ -658,6 +676,9 @@ static char *gnus-pointer[] = {
      '(jde-java-font-lock-link
        ((t (:inherit zenburn-primary-5 :underline t))))
 
+		 '(semantic-tag-boundary-face
+			 ((t (:overline "#5f5f5f"))))
+		 
      '(keywiz-right ((t (:inherit zenburn-primary-1))))
      '(keywiz-wrong ((t (:inherit font-lock-warning))))
      '(keywiz-command ((t (:inherit zenburn-primary-2))))
@@ -764,6 +785,9 @@ static char *gnus-pointer[] = {
      '(tuareg-font-lock-operator
        ((t (:inherit font-lock-operator))))
 
+		 '(flymake-errline ((t (:underline "#cc9393"))))
+		 '(flymake-warnline ((t (:underline "#f0dfaf"))))
+		 
      '(w3m-form-button
        ((t (:inherit widget-button))))
      '(w3m-form-button-pressed
@@ -1042,8 +1066,14 @@ static char *gnus-pointer[] = {
        widget-single-line-field-face))
     )))
 
-;;;###autoload
 (defalias 'zenburn #'color-theme-zenburn)
 
 (provide 'zenburn)
+
+;; Local Variables:
+;; time-stamp-format: "%:y-%02m-%02d %02H:%02M"
+;; time-stamp-start: "Updated: "
+;; time-stamp-end: "$"
+;; End:
+
 ;;; zenburn.el ends here.
