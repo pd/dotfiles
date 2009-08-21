@@ -66,11 +66,8 @@
 (global-set-key (kbd "C-c C-b l") 'list-buffers)
 (global-set-key (kbd "C-c C-b r") 'rename-buffer)
 
-; C-c C-w ...: window management
-(global-set-key (kbd "C-c C-w h") 'windmove-left)
-(global-set-key (kbd "C-c C-w j") 'windmove-down)
-(global-set-key (kbd "C-c C-w k") 'windmove-up)
-(global-set-key (kbd "C-c C-w l") 'windmove-right)
+; super-[left/up/down/right]
+(windmove-default-keybindings 'super)
 
 (defun pd/toggle-fullscreen ()
   (interactive)
