@@ -116,12 +116,9 @@
     (load file)))
 
 (require 'color-theme)
-(eval-after-load "color-theme"
-  '(progn
-     (setq color-theme-is-cumulative nil)
-     (color-theme-initialize)
-     (pd/load-directory "~/dotfiles/emacs.d/themes")
-     (color-theme-subdued)))
+(setq color-theme-history-max-length t) ; unlimited
+(pd/load-directory "~/dotfiles/emacs.d/themes")
+(color-theme-subdued)
 
 ; lisps
 (defun pd/lisp-modes ()
