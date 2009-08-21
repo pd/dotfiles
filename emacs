@@ -69,6 +69,13 @@
 ; super-[left/up/down/right]
 (windmove-default-keybindings 'super)
 
+; remove a few unnecessary text movement aliases
+(global-unset-key (kbd "M-<left>"))
+(global-unset-key (kbd "M-<right>"))
+
+; i hit the menu key aiming for left arrow all the time
+(global-unset-key (kbd "<menu>"))
+
 (defun pd/toggle-fullscreen ()
   (interactive)
   (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)
