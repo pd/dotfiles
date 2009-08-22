@@ -1,6 +1,11 @@
 background no
 out_to_console yes
 out_to_x no
+short_units yes
 
 TEXT
-cpus: ${cpu cpu1}% ${cpu cpu2}% procs: ${running_processes}/${processes} ${loadavg 3} ram: ${memfree}/${memmax} free
+^fg(yellow)^i(/home/pd/.dzen/xbm/cpu.xbm) ^fg()${cpu cpu0}% \
+^fg(yellow)^i(/home/pd/.dzen/xbm/mem.xbm) ^fg()${memperc}% \
+^fg(yellow)^i(/home/pd/.dzen/xbm/net_wired.xbm) ^fg()eth0: ^fg(yellow)^i(/home/pd/.dzen/xbm/net_up_03.xbm) ^fg()${upspeed eth0} ^fg(yellow)^i(/home/pd/.dzen/xbm/net_down_03.xbm) ^fg()${downspeed eth0} \
+^fg(yellow)^i(/home/pd/.dzen/xbm/wifi_02.xbm) ^fg()wlan0: ^fg(yellow)^i(/home/pd/.dzen/xbm/net_up_03.xbm) ^fg()${upspeed wlan0} ^fg(yellow)^i(/home/pd/.dzen/xbm/net_down_03.xbm) ^fg()${downspeed wlan0} | \
+${time %F %k:%M} ^fg(green)^i(/home/pd/.dzen/xbm/shroom.xbm) 
