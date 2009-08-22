@@ -1,6 +1,6 @@
 import XMonad hiding (Tall) -- use the one in HintedTile
 import XMonad.Util.Run(spawnPipe)
-import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Util.EZConfig(additionalKeysP,removeKeysP)
 import XMonad.Util.Themes
 import XMonad.Util.Loggers
 
@@ -14,6 +14,7 @@ import XMonad.Layout.Grid
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 
+import System.Exit
 import System.IO
 import Data.Char (toLower)
 
@@ -63,3 +64,11 @@ main = do
         , manageHook = manageDocks <+> manageHook defaultConfig
         , layoutHook = avoidStruts $ myLayout
         }
+        `additionalKeysP`
+        [ ("M-x e", spawn "emacsclient -c")
+        , ("M-x S-e", spawn "emacs")
+        , ("M-x f", spawn "firefox")
+        , ("M-S-<F12>", io (exitWith ExitSuccess))
+        , ("M-q", spawn "killall dzen2; killall conky" >> restart "xmonad" True)
+        ]
+        `removeKeysP` ["M-S-q"]
