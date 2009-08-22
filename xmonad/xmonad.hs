@@ -30,11 +30,9 @@ myLogHook h = dynamicLogWithPP $ defaultPP
 
 myDzenFont = "-*-liberation mono-medium-r-*-*-14-*-*-*-*-*-*-*"
 myXMonadBarCommand = "dzen2 -ta l -bg '#000' -fg 'grey' -fn '" ++ myDzenFont ++ "'"
-myStatsBarCommand = "dzen2 -bg '#000' -fg 'grey' -fn " ++ myDzenFont
 
 main = do
     xmonadBar <- spawnPipe myXMonadBarCommand
-    statsBar <- spawnPipe myStatsBarCommand
     xmonad $ defaultConfig
         { modMask = myModMask
         , workspaces = ["web", "sauce", "irc", "sh", "min"]
