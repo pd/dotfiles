@@ -24,7 +24,6 @@ myLogHook h = dynamicLogWithPP $ defaultPP
    , ppLayout = map toLower . wrap "(" ")"
    , ppWsSep  = " "
    , ppSep    = "  "
-   , ppTitle  = shorten 45
    , ppOrder  = \(ws:l:t:exs) -> [ws,l,t]++exs
    }
 
