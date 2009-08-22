@@ -4,12 +4,13 @@ import XMonad.Util.EZConfig(additionalKeysP,removeKeysP)
 import XMonad.Util.Themes
 import XMonad.Util.Loggers
 
+import XMonad.Layout.Circle
+import XMonad.Layout.Grid
 import XMonad.Layout.HintedTile
-import XMonad.Layout.TabBarDecoration
-import XMonad.Layout.PerWorkspace
 import XMonad.Layout.LayoutHints
 import XMonad.Layout.NoBorders
-import XMonad.Layout.Grid
+import XMonad.Layout.PerWorkspace
+import XMonad.Layout.TabBarDecoration
 
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
@@ -39,14 +40,13 @@ myXmonadBar   = myDzenCommand ++ " -ta l"
 myStatusBar   = "conky | " ++ myDzenCommand ++ " -ta r -x 800"
 
 -- Layout
-standardLayout = tiled Tall ||| Full ||| Grid
+standardLayout = tiled Tall ||| Full ||| Grid ||| Circle
     where tiled   = HintedTile nmaster delta ratio TopLeft
           nmaster = 1
           delta   = 3/100
           ratio   = 3/5
 fullLayout = layoutHints(noBorders Full)
 myLayout = onWorkspace "sauce" Full $
-         onWorkspace "min" Grid $
          standardLayout
 
 -- Key bindings
