@@ -6,6 +6,7 @@ short_units yes
 TEXT
 ^fg(light steel blue)^i(/home/pd/.dzen/xbm/cpu.xbm) ^fg()${cpu cpu0}% \
 ^fg(light steel blue)^i(/home/pd/.dzen/xbm/mem.xbm) ^fg()${memperc}% \
+^fg(light steel blue)^i(/home/pd/.dzen/xbm/fs_01.xbm) ^fg()/: ${fs_used_perc /}% /home: ${fs_used_perc /home}% \
 ${if_up eth0}^fg(light steel blue)^i(/home/pd/.dzen/xbm/net_wired.xbm) ^fg()eth0: ^fg(light steel blue)^i(/home/pd/.dzen/xbm/net_up_03.xbm) ^fg()${upspeed eth0} ^fg(light steel blue)^i(/home/pd/.dzen/xbm/net_down_03.xbm) ^fg()${downspeed eth0}${endif} \
 ${if_up wlan0}^fg(light steel blue)^i(/home/pd/.dzen/xbm/wifi_02.xbm) ^fg()wlan0: ^fg(light steel blue)^i(/home/pd/.dzen/xbm/net_up_03.xbm) ^fg()${upspeed wlan0} ^fg(light steel blue)^i(/home/pd/.dzen/xbm/net_down_03.xbm) ^fg()${downspeed wlan0}${endif} \
 ^fg(light steel blue)^i(/home/pd/.dzen/xbm/clock.xbm) ^fg()${time %a %F %k:%M} \
