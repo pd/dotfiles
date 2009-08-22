@@ -23,7 +23,7 @@ myModMask = mod3Mask
 -- Log hook
 myLogHook h = dynamicLogWithPP $ defaultPP
    { ppOutput           = \s -> hPutStrLn h (" " ++ s)
-   , ppCurrent          = dzenColor "#855c1b" "#000" . wrap "" "*"
+   , ppCurrent          = dzenColor "#000" "#aaa" . wrap " " " "
    , ppHidden           = dzenColor "grey" "#000"
    , ppHiddenNoWindows  = dzenColor "grey" "#000"
    , ppLayout = map toLower . wrap "(" ")"
