@@ -118,7 +118,7 @@
 (require 'color-theme)
 (setq color-theme-history-max-length t) ; unlimited
 (pd/load-directory "~/dotfiles/emacs.d/themes")
-(color-theme-subdued)
+(color-theme-inkpot)
 
 ; lisps
 (defun pd/lisp-modes ()
