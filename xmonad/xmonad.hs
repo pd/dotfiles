@@ -1,9 +1,10 @@
-import XMonad
+import XMonad hiding (Tall) -- use the one in HintedTile
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Util.Themes
 import XMonad.Util.Loggers
 
+import XMonad.Layout.HintedTile
 import XMonad.Layout.TabBarDecoration
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.LayoutHints
@@ -34,11 +35,11 @@ myLogHook h = dynamicLogWithPP $ defaultPP
 -- Bars
 myDzenCommand = "dzen2 -bg black -fg grey -fn '-*-liberation mono-medium-r-*-*-14-*-*-*-*-*-*-*'"
 myXmonadBar   = myDzenCommand ++ " -ta l"
-myStatusBar   = "conky | " ++ myDzenCommand ++ " -ta r -x 1000"
+myStatusBar   = "conky | " ++ myDzenCommand ++ " -ta r -x 400"
 
 -- Layout
-standardLayout = tiled ||| Full ||| Grid
-    where tiled   = Tall nmaster delta ratio
+standardLayout = tiled Tall ||| Full ||| Grid
+    where tiled   = HintedTile nmaster delta ratio TopLeft
           nmaster = 1
           delta   = 3/100
           ratio   = 3/5
