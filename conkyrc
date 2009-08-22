@@ -1,0 +1,6 @@
+background no
+out_to_console yes
+out_to_x no
+
+TEXT
+cpus: ${cpu cpu1}% ${cpu cpu2}% procs: ${running_processes}/${processes} ${loadavg 3} ram: ${memfree}/${memmax} free

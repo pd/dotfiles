@@ -5,12 +5,16 @@ import XMonad.Util.Themes
 import XMonad.Util.Loggers
 
 import XMonad.Layout.TabBarDecoration
+import XMonad.Layout.PerWorkspace
+import XMonad.Layout.LayoutHints
+import XMonad.Layout.NoBorders
+import XMonad.Layout.Grid
 
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 
 import System.IO
-import Data.Char
+import Data.Char (toLower)
 
 -- bound in xinitrc to alt_r
 myModMask = mod3Mask
@@ -27,11 +31,25 @@ myLogHook h = dynamicLogWithPP $ defaultPP
    , ppOrder  = \(ws:l:t:exs) -> [ws,l,t]++exs
    }
 
-myDzenFont = "-*-liberation mono-medium-r-*-*-14-*-*-*-*-*-*-*"
-myXMonadBarCommand = "dzen2 -ta l -bg '#000' -fg 'grey' -fn '" ++ myDzenFont ++ "'"
+-- Bars
+myDzenCommand = "dzen2 -bg black -fg grey -fn '-*-liberation mono-medium-r-*-*-14-*-*-*-*-*-*-*'"
+myXmonadBar   = myDzenCommand ++ " -ta l"
+myStatusBar   = "conky | " ++ myDzenCommand ++ " -ta r -x 1000"
+
+-- Layout
+standardLayout = tiled ||| Full ||| Grid
+    where tiled   = Tall nmaster delta ratio
+          nmaster = 1
+          delta   = 3/100
+          ratio   = 3/5
+fullLayout = layoutHints(noBorders Full)
+myLayout = onWorkspace "sauce" Full $
+         onWorkspace "min" Grid $
+         standardLayout
 
 main = do
-    xmonadBar <- spawnPipe myXMonadBarCommand
+    xmonadBar <- spawnPipe myXmonadBar
+    statusBar <- spawnPipe myStatusBar
     xmonad $ defaultConfig
         { modMask = myModMask
         , workspaces = ["web", "sauce", "irc", "sh", "min"]
@@ -42,5 +60,5 @@ main = do
         , focusedBorderColor = "#729fcf"
         , logHook = myLogHook xmonadBar
         , manageHook = manageDocks <+> manageHook defaultConfig
-        , layoutHook = avoidStruts $ layoutHook defaultConfig
+        , layoutHook = avoidStruts $ myLayout
         }
