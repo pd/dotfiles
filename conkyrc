@@ -8,5 +8,5 @@ TEXT
 ^fg(light steel blue)^i(/home/pd/.dzen/xbm/mem.xbm) ^fg()${memperc}% \
 ^fg(light steel blue)^i(/home/pd/.dzen/xbm/net_wired.xbm) ^fg()eth0: ^fg(light steel blue)^i(/home/pd/.dzen/xbm/net_up_03.xbm) ^fg()${upspeed eth0} ^fg(light steel blue)^i(/home/pd/.dzen/xbm/net_down_03.xbm) ^fg()${downspeed eth0} \
 ^fg(light steel blue)^i(/home/pd/.dzen/xbm/wifi_02.xbm) ^fg()wlan0: ^fg(light steel blue)^i(/home/pd/.dzen/xbm/net_up_03.xbm) ^fg()${upspeed wlan0} ^fg(light steel blue)^i(/home/pd/.dzen/xbm/net_down_03.xbm) ^fg()${downspeed wlan0} \
-^fg(light steel blue)^i(/home/pd/.dzen/xbm/clock.xbm) ^fg()${time %F %k:%M} \
+^fg(light steel blue)^i(/home/pd/.dzen/xbm/clock.xbm) ^fg()${time %a %F %k:%M} \
 ^fg(black)^bg(gainsboro) ^i(/home/pd/.dzen/xbm/shroom.xbm) 
