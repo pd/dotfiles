@@ -49,26 +49,34 @@ myLayout = onWorkspace "sauce" Full $
          onWorkspace "min" Grid $
          standardLayout
 
+-- Key bindings
+myAdditionalKeys =
+    [ ("M-x e", spawn "emacsclient -c")
+    , ("M-x S-e", spawn "emacs")
+    , ("M-x f", spawn "firefox")
+    , ("M-x i", spawn "emacsclient -c -e '(irc)'")
+    , ("M-S-<F12>", io (exitWith ExitSuccess))
+    , ("M-q", spawn "killall dzen2; killall conky" >> restart "xmonad" True)
+    ]
+myRemovedKeys = ["M-S-q"]
+
+-- XConfig
+myConfig xmonadBar = defaultConfig
+    { modMask = myModMask
+    , workspaces = ["web", "sauce", "irc", "sh", "min"]
+    , focusFollowsMouse = False
+    , terminal = "urxvt"
+    , borderWidth = 1
+    , normalBorderColor = "#555753"
+    , focusedBorderColor = "#729fcf"
+    , logHook = myLogHook xmonadBar
+    , manageHook = manageDocks <+> manageHook defaultConfig
+    , layoutHook = avoidStruts $ myLayout
+    }
+
 main = do
     xmonadBar <- spawnPipe myXmonadBar
     statusBar <- spawnPipe myStatusBar
-    xmonad $ defaultConfig
-        { modMask = myModMask
-        , workspaces = ["web", "sauce", "irc", "sh", "min"]
-        , focusFollowsMouse = False
-        , terminal = "urxvt"
-        , borderWidth = 1
-        , normalBorderColor = "#555753"
-        , focusedBorderColor = "#729fcf"
-        , logHook = myLogHook xmonadBar
-        , manageHook = manageDocks <+> manageHook defaultConfig
-        , layoutHook = avoidStruts $ myLayout
-        }
-        `additionalKeysP`
-        [ ("M-x e", spawn "emacsclient -c")
-        , ("M-x S-e", spawn "emacs")
-        , ("M-x f", spawn "firefox")
-        , ("M-S-<F12>", io (exitWith ExitSuccess))
-        , ("M-q", spawn "killall dzen2; killall conky" >> restart "xmonad" True)
-        ]
-        `removeKeysP` ["M-S-q"]
+    xmonad $ myConfig xmonadBar
+        `additionalKeysP` myAdditionalKeys
+        `removeKeysP` myRemovedKeys
