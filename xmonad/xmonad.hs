@@ -34,9 +34,9 @@ myLogHook h = dynamicLogWithPP $ defaultPP
    }
 
 -- Bars
-myDzenCommand = "dzen2 -bg black -fg grey -fn '-*-liberation mono-medium-r-*-*-14-*-*-*-*-*-*-*'"
+myDzenCommand = "dzen2 -bg black -fg grey -fn '-*-dina-medium-r-*-*-*-*-*-*-*-*-*-*'"
 myXmonadBar   = myDzenCommand ++ " -ta l"
-myStatusBar   = "conky | " ++ myDzenCommand ++ " -ta r -x 400"
+myStatusBar   = "conky | " ++ myDzenCommand ++ " -ta r -x 800"
 
 -- Layout
 standardLayout = tiled Tall ||| Full ||| Grid
