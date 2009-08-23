@@ -42,14 +42,13 @@ myXmonadBar   = myDzenCommand ++ " -ta l -w 800"
 myStatusBar   = "conky | " ++ myDzenCommand ++ " -ta r -x 800"
 
 -- Layout
-standardLayout = tiled Tall ||| fullLayout ||| Grid ||| Circle
-    where tiled   = HintedTile nmaster delta ratio TopLeft
-          nmaster = 1
-          delta   = 3/100
-          ratio   = 3/5
-fullLayout = layoutHints(noBorders Full)
-myLayout = onWorkspace "sauce" fullLayout $
-         standardLayout
+myLayout = onWorkspace "sauce" fullLayout $ onWorkspace "irc" fullLayout $ standardLayout
+    where standardLayout = tiled Tall ||| fullLayout ||| Grid ||| Circle
+          fullLayout = layoutHints(noBorders Full)
+          tiled      = HintedTile nmaster delta ratio TopLeft
+          nmaster    = 1
+          delta      = 3/100
+          ratio      = 3/5
 
 -- Key bindings
 myAdditionalKeys =
