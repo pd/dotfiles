@@ -57,6 +57,8 @@ myAdditionalKeys =
                  , ("M-x f", spawn "firefox")
                  , ("M-x i", spawn "emacsclient -c -e '(irc)'")
                  , ("M-x v", spawn "urxvt -e alsamixer")
+                 , ("M-v m", spawn "aumix -v 100")
+                 , ("M-v S-m", spawn "aumix -v 0")
                  , ("M-=", spawn "aumix -v +2")
                  , ("M-+", spawn "aumix -v +2")
                  , ("M--", spawn "aumix -v -2")
