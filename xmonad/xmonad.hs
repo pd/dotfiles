@@ -25,14 +25,14 @@ myModMask = mod3Mask
 -- Log hook
 myLogHook h = dynamicLogWithPP $ defaultPP
    { ppOutput           = \s -> hPutStrLn h (" " ++ s)
-   , ppCurrent          = dzenColor "#000" "#aaa" . wrap " " " "
+   , ppCurrent          = dzenColor "#000" "steel blue" . wrap " " " "
    , ppHidden           = dzenColor "grey" "#000" . wrap "" "."
    , ppHiddenNoWindows  = dzenColor "grey" "#000"
    , ppLayout = map toLower
    , ppTitle  = shorten 50
    , ppExtras = [ logCmd "sh -c 'echo `whoami`@`uname -n`'" ]
    , ppWsSep  = " "
-   , ppSep    = dzenColor "light steel blue" "#000" " :: "
+   , ppSep    = dzenColor "steel blue" "#000" " :: "
    , ppOrder  = \(ws:l:t:exs) -> exs++[ws,l,t]
    }
 
@@ -71,7 +71,7 @@ myConfig xmonadBar = defaultConfig
     , terminal = "urxvt"
     , borderWidth = 1
     , normalBorderColor = "#555753"
-    , focusedBorderColor = "#729fcf"
+    , focusedBorderColor = "steel blue"
     , logHook = myLogHook xmonadBar
     , manageHook = manageDocks <+> manageHook defaultConfig
     , layoutHook = avoidStruts $ myLayout
