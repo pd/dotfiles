@@ -52,13 +52,13 @@ myLayout = onWorkspace "sauce" Full $
 
 -- Key bindings
 myAdditionalKeys =
-    [ ("M-x e", spawn "emacsclient -c")
-    , ("M-x S-e", spawn "emacs")
-    , ("M-x f", spawn "firefox")
-    , ("M-x i", spawn "emacsclient -c -e '(irc)'")
-    , ("M-S-<F12>", io (exitWith ExitSuccess))
-    , ("M-q", spawn "killall dzen2; killall conky" >> restart "xmonad" True)
-    ]
+                 [ ("M-x e", spawn "emacsclient -c")
+                 , ("M-x S-e", spawn "emacs")
+                 , ("M-x f", spawn "firefox")
+                 , ("M-x i", spawn "emacsclient -c -e '(irc)'")
+                 , ("M-S-<F12>", io (exitWith ExitSuccess))
+                 , ("M-q", spawn "killall dzen2; killall conky" >> restart "xmonad" True)
+                 ]
 myRemovedKeys = ["M-S-q"]
 
 -- XConfig
