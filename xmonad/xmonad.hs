@@ -58,6 +58,10 @@ myAdditionalKeys =
                  , ("M-x f", spawn "firefox")
                  , ("M-x i", spawn "emacsclient -c -e '(irc)'")
                  , ("M-x v", spawn "urxvt -e alsamixer")
+                 , ("M-=", spawn "aumix -v +2")
+                 , ("M-+", spawn "aumix -v +2")
+                 , ("M--", spawn "aumix -v -2")
+                 , ("M-_", spawn "aumix -v -2")
                  , ("M-S-<F12>", io (exitWith ExitSuccess))
                  , ("M-q", spawn "killall dzen2; killall conky" >> restart "xmonad" True)
                  ]
