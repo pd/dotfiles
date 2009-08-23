@@ -130,16 +130,9 @@
 (add-hook 'clojure-mode-hook 'pd/lisp-modes)
 
 ; haskell
-(setq auto-mode-alist
-      (append auto-mode-alist
-              '(("\\.[hg]s$"  . haskell-mode)
-                ("\\.hi$"     . haskell-mode)
-                ("\\.l[hg]s$" . literate-haskell-mode))))
-
-(autoload 'haskell-mode "haskell-mode"
-  "Major mode for editing Haskell scripts." t)
-(autoload 'literate-haskell-mode "haskell-mode"
-  "Major mode for editing literate Haskell scripts." t)
+(load "haskell-site-file")
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-font-lock)
 
 ; ruby
 (setq auto-mode-alist
