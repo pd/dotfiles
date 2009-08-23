@@ -29,9 +29,10 @@ myLogHook h = dynamicLogWithPP $ defaultPP
    , ppHidden           = dzenColor "grey" "#000" . wrap "" "."
    , ppHiddenNoWindows  = dzenColor "grey" "#000"
    , ppLayout = map toLower . wrap "(" ")"
+   , ppExtras = [ logCmd "sh -c 'echo `whoami`@`uname -n`'" ]
    , ppWsSep  = " "
    , ppSep    = "  "
-   , ppOrder  = \(ws:l:t:exs) -> [ws,l,t]++exs
+   , ppOrder  = \(ws:l:t:exs) -> exs++[ws,l,t]
    }
 
 -- Bars
