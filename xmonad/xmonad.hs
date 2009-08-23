@@ -38,7 +38,7 @@ myLogHook h = dynamicLogWithPP $ defaultPP
 
 -- Bars
 myDzenCommand = "dzen2 -bg black -fg grey -fn '-*-dina-medium-r-*-*-*-*-*-*-*-*-*-*'"
-myXmonadBar   = myDzenCommand ++ " -ta l"
+myXmonadBar   = myDzenCommand ++ " -ta l -w 800"
 myStatusBar   = "conky | " ++ myDzenCommand ++ " -ta r -x 800"
 
 -- Layout
