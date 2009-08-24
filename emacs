@@ -169,7 +169,11 @@
 
      ; only notify about activity for actual conversation
      (setq erc-track-exclude-types '("JOIN" "PART" "QUIT" "NICK" "MODE"))
-     (setq erc-autojoin-channels-alist pd/erc-secrets-autojoin-alist)))
+     (setq erc-autojoin-channels-alist pd/erc-secrets-autojoin-alist)
+
+     ; current theme's color for my own input is awful
+     (set-face-foreground 'erc-input-face "light steel blue")
+     (set-face-foreground 'erc-my-nick-face "steel blue")))
 
 (defun pd/irc ()
   "Connect to IRC, maybe. And prompt for each server to ensure we want to connect to it."
@@ -180,6 +184,12 @@
         (erc :server server :password pd/erc-secrets-password)))))
 
 (defalias 'irc 'pd/irc)
+
+(eval-after-load 'magit
+  '(progn
+     (set-face-background 'magit-item-highlight "gray12")
+     (set-face-foreground 'magit-diff-add "green3")
+     (set-face-foreground 'magit-diff-del "red3")))
 
 ; magit
 (autoload 'magit-status "magit"
