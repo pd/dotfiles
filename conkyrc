@@ -4,6 +4,7 @@ out_to_x no
 short_units yes
 
 TEXT
+^fg(steel blue)^i(/home/pd/.dzen/xbm/test.xbm) ^fg()${loadavg 1 2 3} \
 ^fg(steel blue)^i(/home/pd/.dzen/xbm/cpu.xbm) ^fg()${cpu cpu0}% \
 ^fg(steel blue)^i(/home/pd/.dzen/xbm/mem.xbm) ^fg()${memperc}% \
 ^fg(steel blue)^i(/home/pd/.dzen/xbm/bat_full_01.xbm) ${if_match ${battery_percent BAT1} <= 25}^bg(orange red)^fg(black)${else}^fg()${endif}${battery_short BAT1} ${battery_time BAT1}^bg()\
