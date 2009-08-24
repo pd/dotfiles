@@ -7,6 +7,7 @@ import XMonad.Util.Loggers
 import XMonad.Layout.Circle
 import XMonad.Layout.Grid
 import XMonad.Layout.HintedTile
+import XMonad.Layout.IM
 import XMonad.Layout.LayoutHints
 import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
@@ -18,6 +19,7 @@ import XMonad.Hooks.ManageDocks
 import System.Exit
 import System.IO
 import Data.Char (toLower)
+import Data.Ratio ((%))
 
 -- bound in xinitrc to alt_r
 myModMask = mod3Mask
@@ -38,17 +40,22 @@ myLogHook h = dynamicLogWithPP $ defaultPP
 
 -- Bars
 myDzenCommand = "dzen2 -bg black -fg grey -fn '-*-dina-medium-r-*-*-*-*-*-*-*-*-*-*'"
-myXmonadBar   = myDzenCommand ++ " -ta l -w 800"
-myStatusBar   = "conky | " ++ myDzenCommand ++ " -ta r -x 800"
+myXmonadBar   = myDzenCommand ++ " -ta l -w 750"
+myStatusBar   = "conky | " ++ myDzenCommand ++ " -ta r -x 750"
 
 -- Layout
-myLayout = onWorkspace "sauce" fullLayout $ onWorkspace "irc" fullLayout $ standardLayout
-    where standardLayout = tiled Tall ||| fullLayout ||| Grid ||| Circle
-          fullLayout = layoutHints(noBorders Full)
-          tiled      = HintedTile nmaster delta ratio TopLeft
-          nmaster    = 1
-          delta      = 3/100
-          ratio      = 3/5
+myLayout =
+    onWorkspace "sauce" fullLayout $
+    onWorkspace "irc" fullLayout $
+    onWorkspace "im" imLayout $
+    standardLayout
+  where standardLayout = tiled Tall ||| fullLayout ||| Grid ||| Circle
+        fullLayout = layoutHints(noBorders Full)
+        imLayout   = withIM (1%5) (Role "buddy_list") $ tiled Tall
+        tiled      = HintedTile nmaster delta ratio TopLeft
+        nmaster    = 1
+        delta      = 3/100
+        ratio      = 3/5
 
 -- Key bindings
 myAdditionalKeys =
@@ -71,7 +78,7 @@ myRemovedKeys = ["M-S-q"]
 -- XConfig
 myConfig xmonadBar = defaultConfig
     { modMask = myModMask
-    , workspaces = ["web", "sauce", "irc", "sh", "min"]
+    , workspaces = ["web", "sauce", "irc", "im", "sh", "min"]
     , focusFollowsMouse = False
     , terminal = "urxvt"
     , borderWidth = 1
