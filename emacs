@@ -173,7 +173,8 @@
 
      ; current theme's color for my own input is awful
      (set-face-foreground 'erc-input-face "light steel blue")
-     (set-face-foreground 'erc-my-nick-face "steel blue")))
+     (set-face-foreground 'erc-my-nick-face "steel blue")
+     (set-face-foreground 'erc-timestamp-face "grey50")))
 
 (defun pd/irc ()
   "Connect to IRC, maybe. And prompt for each server to ensure we want to connect to it."
