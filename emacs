@@ -149,7 +149,10 @@
 
 ; shell
 (require 'ansi-color)
-(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+(add-hook 'shell-mode-hook
+          (lambda ()
+            (ansi-color-for-comint-mode-on)
+            (setq show-trailing-whitespace nil)))
 (global-set-key (kbd "C-c s") 'shell)
 
 ; irc
