@@ -59,21 +59,22 @@ myLayout =
 
 -- Key bindings
 myAdditionalKeys =
-                 [ ("M-x e", spawn "emacsclient -c")
-                 , ("M-x S-e", spawn "emacs")
-                 , ("M-x f", spawn "firefox")
-                 , ("M-x i", spawn "emacsclient -c -e '(irc)'")
-                 , ("M-x v", spawn "urxvt -e alsamixer")
-                 , ("M-v m", spawn "aumix -v 100")
-                 , ("M-v S-m", spawn "aumix -v 0")
-                 , ("M-=", spawn "aumix -v +2")
-                 , ("M-+", spawn "aumix -v +2")
-                 , ("M--", spawn "aumix -v -2")
-                 , ("M-_", spawn "aumix -v -2")
-                 , ("M-S-<F12>", io (exitWith ExitSuccess))
-                 , ("M-q", spawn "killall dzen2; killall conky" >> restart "xmonad" True)
-                 ]
-myRemovedKeys = ["M-S-q"]
+    [ ("M-S-x", spawn "exe=`dmenu_path | dmenu` && eval \"exec $exe\"")
+    , ("M-x e", spawn "emacsclient -c")
+    , ("M-x S-e", spawn "emacs")
+    , ("M-x f", spawn "firefox")
+    , ("M-x i", spawn "emacsclient -c -e '(irc)'")
+    , ("M-x v", spawn "urxvt -e alsamixer")
+    , ("M-v m", spawn "aumix -v 100")
+    , ("M-v S-m", spawn "aumix -v 0")
+    , ("M-=", spawn "aumix -v +2")
+    , ("M-+", spawn "aumix -v +2")
+    , ("M--", spawn "aumix -v -2")
+    , ("M-_", spawn "aumix -v -2")
+    , ("M-S-<F12>", io (exitWith ExitSuccess))
+    , ("M-q", spawn "killall dzen2; killall conky" >> restart "xmonad" True)
+    ]
+myRemovedKeys = ["M-S-q", "M-p"]
 
 -- XConfig
 myConfig xmonadBar = defaultConfig
