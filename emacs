@@ -140,10 +140,8 @@
               '(("\\.rake\\'" . ruby-mode)
                 ("Rakefile\\'" . ruby-mode))))
 
-(autoload 'ruby-mode "ruby-mode"
-  "Major mode for ruby" t)
-(autoload 'run-ruby "inf-ruby"
-  "Inferior mode for ruby" t)
+(autoload 'ruby-mode "ruby-mode" "Major mode for ruby" t)
+(autoload 'run-ruby "inf-ruby" "Inferior mode for ruby" t)
 
 (add-hook 'ruby-mode-hook
           (lambda ()
@@ -189,8 +187,7 @@
 (defalias 'irc 'pd/irc)
 
 ; magit
-(autoload 'magit-status "magit"
-  "Major mode for git interaction" t)
+(autoload 'magit-status "magit" "Major mode for git interaction" t)
 
 (global-set-key (kbd "C-M-g") 'magit-status)
 
