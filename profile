@@ -1,6 +1,6 @@
 PATH="/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:$PATH"
 PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-PATH="$HOME/bin:$PATH"
+PATH="$HOME/bin:$HOME/.cabal/bin:$PATH"
 export PATH
 
 export PS1='\w $ '
