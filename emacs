@@ -169,8 +169,10 @@
 
      ; only notify about activity for actual conversation
      (setq erc-track-exclude-types '("JOIN" "PART" "QUIT" "NICK" "MODE"))
-     (setq erc-autojoin-channels-alist pd/erc-secrets-autojoin-alist)
+     (setq erc-autojoin-channels-alist pd/erc-secrets-autojoin-alist)))
 
+(eval-after-load 'erc-stamp
+  '(progn
      ; current theme's color for my own input is awful
      (set-face-foreground 'erc-input-face "light steel blue")
      (set-face-foreground 'erc-my-nick-face "steel blue")
