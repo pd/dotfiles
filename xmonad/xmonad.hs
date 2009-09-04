@@ -38,11 +38,6 @@ myLogHook h = dynamicLogWithPP $ defaultPP
    , ppOrder  = \(ws:l:t:exs) -> exs++[ws,l,t]
    }
 
--- Bars
-myDzenCommand = "dzen2 -bg black -fg grey -fn '-*-dina-medium-r-*-*-*-*-*-*-*-*-*-*'"
-myXmonadBar   = myDzenCommand ++ " -ta l -w 750"
-myStatusBar   = "conky | " ++ myDzenCommand ++ " -ta r -x 750"
-
 -- Layout
 myLayout =
     onWorkspace "sauce" fullLayout $
@@ -75,6 +70,11 @@ myAdditionalKeys =
     , ("M-q", spawn "killall dzen2; killall conky" >> restart "xmonad" True)
     ]
 myRemovedKeys = ["M-S-q", "M-p"]
+
+-- Bars
+myDzenCommand = "dzen2 -bg black -fg grey -fn '-*-dina-medium-r-*-*-*-*-*-*-*-*-*-*'"
+myXmonadBar   = myDzenCommand ++ " -ta l -w 750"
+myStatusBar   = "conky | " ++ myDzenCommand ++ " -ta r -x 750"
 
 -- XConfig
 myConfig xmonadBar = defaultConfig
