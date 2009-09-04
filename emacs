@@ -194,7 +194,12 @@
 (autoload 'tweet "twittering-mode" "Major mode for twitter interaction" t)
 (defun tweet ()
   (interactive)
-  (twittering-mode))
+  (twittering-mode)
+  (twittering-icon-mode))
+
+(add-hook 'twittering-mode-hook
+          (lambda ()
+            (local-unset-key (kbd "C-c C-l"))))
 
 ; magit
 (autoload 'magit-status "magit" "Major mode for git interaction" t)
