@@ -40,7 +40,7 @@ export DISPLAY=:0.0
 export LC_CTYPE=en_US.UTF-8
 
 ## hey modularity
-for mod in prompt cli ruby git osx famous madbytes; do
+for mod in prompt cli ruby git osx famous ; do
   source ~/.zsh/$mod.zsh
 done
 
