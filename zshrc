@@ -2,7 +2,7 @@
 
 path=(
   ~/bin
-  ~/vendor/ioke/bin
+  ~/.cabal/bin
   /opt/local/bin /opt/local/sbin
   /opt/local/lib/postgresql83/bin
   /opt/local/lib/postgresql82/bin
