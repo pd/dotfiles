@@ -186,8 +186,7 @@
 (autoload 'tweet "twittering-mode" "Major mode for twitter interaction" t)
 (defun tweet ()
   (interactive)
-  (twittering-mode)
-  (twittering-icon-mode))
+  (twittering-mode))
 
 (add-hook 'twittering-mode-hook
           (lambda ()
