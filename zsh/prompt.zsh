@@ -106,7 +106,7 @@ fi
 if [[ $TERM = "dumb" ]]; then
   # dead simple prompt for tramp
   unsetopt zle
-  PS1='$ '
+  PS1='%~ $ '
 else
   # this is so mindblowingly awful.
   export PS1='
