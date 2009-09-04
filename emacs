@@ -76,13 +76,15 @@
 ; i hit the menu key aiming for left arrow all the time
 (global-unset-key (kbd "<menu>"))
 
-(defun pd/toggle-fullscreen ()
-  (interactive)
-  (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)
-                                           nil
-                                         'fullboth)))
+; colors
+(defun pd/load-directory (path)
+  (dolist (file (directory-files path 'full "\\.el\\'"))
+    (load file)))
 
-(global-set-key (kbd "C-M-<return>") 'pd/toggle-fullscreen)
+(require 'color-theme)
+(setq color-theme-history-max-length t) ; unlimited
+(pd/load-directory "~/dotfiles/emacs.d/themes")
+(color-theme-inkpot)
 
 ; vi's o and O
 (defun pd/insert-new-line ()
@@ -109,16 +111,6 @@
 
 (global-set-key (kbd "M-<return>") 'pd/append-and-move-to-new-line)
 (global-set-key (kbd "M-S-<return>") 'pd/prepend-and-move-to-new-line)
-
-; colors
-(defun pd/load-directory (path)
-  (dolist (file (directory-files path 'full "\\.el\\'"))
-    (load file)))
-
-(require 'color-theme)
-(setq color-theme-history-max-length t) ; unlimited
-(pd/load-directory "~/dotfiles/emacs.d/themes")
-(color-theme-inkpot)
 
 ; lisps
 (defun pd/lisp-modes ()
