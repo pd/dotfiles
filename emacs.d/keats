@@ -1,5 +1,0 @@
-((:key "C-x (" :description "start-kbd-macro")
- (:key "C-x )" :description "end-kbd-macro")
- (:key "C-x e" :description "call-last-kbd-macro")
- (:key "C-M-g" :description "magit")
- (:key "C-M-s" :description "magit-commit: insert submodule summary"))
