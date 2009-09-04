@@ -190,6 +190,12 @@
 
 (defalias 'irc 'pd/irc)
 
+; twitter
+(autoload 'tweet "twittering-mode" "Major mode for twitter interaction" t)
+(defun tweet ()
+  (interactive)
+  (twittering-mode))
+
 ; magit
 (autoload 'magit-status "magit" "Major mode for git interaction" t)
 
