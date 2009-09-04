@@ -45,17 +45,3 @@ export LC_CTYPE=en_US.UTF-8
 for mod in prompt cli ruby git osx famous ; do
   source ~/.zsh/$mod.zsh
 done
-
-## stores the pwd for the place the next shell will open.
-## lame hack to let me hit ctrl+t for a new iterm tab and
-## be in the same dir.
-_qdir_tmpfile=~/.pd.qdir.tmp
-qdir () {
-  pwd > $_qdir_tmpfile
-}
-alias qd='qdir'
-
-if [ -f $_qdir_tmpfile ]; then
-  _qd=`cat $_qdir_tmpfile`
-  [ -d $_qd ] && cd $_qd && rm $_qdir_tmpfile
-fi
