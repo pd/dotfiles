@@ -15,7 +15,9 @@ path=(
 fpath=(~/.zsh/functions $fpath)
 
 ## emacs^[dd
-bindkey -v
+# bindkey -v
+## vim<C-S-k>
+bindkey -e
 
 ## turn on expanded tabcomplete
 autoload -U compinit
