@@ -83,7 +83,7 @@
 
 (require 'color-theme)
 (setq color-theme-history-max-length t) ; unlimited
-(pd/load-directory "~/.emacs.d/themes")
+(pd/load-directory "~/.emacs.d/vendor/themes")
 (color-theme-inkpot)
 
 ; vi's o and O
