@@ -7,7 +7,6 @@ import XMonad.Util.Loggers
 import XMonad.Layout.Circle
 import XMonad.Layout.Grid
 import XMonad.Layout.HintedTile
-import XMonad.Layout.IM
 import XMonad.Layout.LayoutHints
 import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
@@ -42,11 +41,9 @@ myLogHook h = dynamicLogWithPP $ defaultPP
 myLayout =
     onWorkspace "sauce" fullLayout $
     onWorkspace "irc" fullLayout $
-    onWorkspace "im" imLayout $
     standardLayout
   where standardLayout = tiled Tall ||| fullLayout ||| Grid ||| Circle
         fullLayout = layoutHints(noBorders Full)
-        imLayout   = withIM (1%5) (Role "buddy_list") $ tiled Tall
         tiled      = HintedTile nmaster delta ratio TopLeft
         nmaster    = 1
         delta      = 3/100
@@ -79,7 +76,7 @@ myStatusBar   = "conky | " ++ myDzenCommand ++ " -ta r -x 750"
 -- XConfig
 myConfig xmonadBar = defaultConfig
     { modMask = myModMask
-    , workspaces = ["web", "sauce", "irc", "im", "sh", "min"]
+    , workspaces = ["web", "sauce", "irc", "misc"]
     , focusFollowsMouse = False
     , terminal = "urxvt"
     , borderWidth = 1
