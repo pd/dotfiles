@@ -3,11 +3,9 @@
 path=(
   ~/bin
   ~/.cabal/bin
+  ~/vendor/narwhal/bin
+  /opt/java/bin
   /opt/local/bin /opt/local/sbin
-  /opt/local/lib/postgresql83/bin
-  /opt/local/lib/postgresql82/bin
-  /opt/local/lib/erlang/bin
-  /usr/local/mysql/bin
   /usr/local/bin /usr/local/sbin
   /bin /sbin /usr/bin /usr/sbin
   .
