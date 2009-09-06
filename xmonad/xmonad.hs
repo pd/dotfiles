@@ -73,6 +73,11 @@ myDzenCommand = "dzen2 -bg black -fg grey -fn '-*-dina-medium-r-*-*-*-*-*-*-*-*-
 myXmonadBar   = myDzenCommand ++ " -ta l -w 750"
 myStatusBar   = "conky | " ++ myDzenCommand ++ " -ta r -x 750"
 
+-- Float things that should be
+myManageHook = composeAll
+    [ title =? "Downloads" --> doFloat
+    , manageDocks ]
+
 -- XConfig
 myConfig xmonadBar = defaultConfig
     { modMask = myModMask
@@ -83,7 +88,7 @@ myConfig xmonadBar = defaultConfig
     , normalBorderColor = "#555753"
     , focusedBorderColor = "steel blue"
     , logHook = myLogHook xmonadBar
-    , manageHook = manageDocks <+> manageHook defaultConfig
+    , manageHook = myManageHook <+> manageHook defaultConfig
     , layoutHook = avoidStruts $ myLayout
     }
 
