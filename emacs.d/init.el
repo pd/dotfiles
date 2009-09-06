@@ -60,7 +60,7 @@
 (global-set-key (kbd "<f6>") 'linum-mode)
 (global-set-key (kbd "C-h a") 'apropos) ; defaults to command-apropos
 (global-set-key (kbd "C-c w") 'delete-trailing-whitespace)
-(global-set-key (kbd "C-c m") 'man)
+(global-set-key (kbd "C-c m") 'woman)
 
 ; C-c C-b ...: buffer management
 (global-set-key (kbd "C-c C-b b") 'bury-buffer)
