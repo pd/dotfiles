@@ -184,18 +184,14 @@
 (defalias 'irc 'pd/irc)
 
 ; twitter
-(autoload 'tweet "twittering-mode" "Major mode for twitter interaction" t)
-(defun tweet ()
-  (interactive)
-  (twittering-mode))
-
+(autoload 'twit "twittering-mode" "Major mode for twitter interaction" t)
+(defalias 'tweet 'twit)
 (add-hook 'twittering-mode-hook
           (lambda ()
             (local-unset-key (kbd "C-c C-l"))))
 
 ; magit
 (autoload 'magit-status "magit" "Major mode for git interaction" t)
-
 (global-set-key (kbd "C-M-g") 'magit-status)
 
 (defun magit-insert-submodule-summary ()
