@@ -99,7 +99,7 @@
   (pd/insert-new-line))
 
 (defun pd/prepend-and-move-to-new-line ()
-  "Inserts a blank line before the current one, and move to it"
+  "Inserts a blank line before the current one, and moves to it"
   (interactive)
   (if (= 1 (line-number-at-pos))
       (progn
