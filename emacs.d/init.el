@@ -88,7 +88,7 @@
 (color-theme-inkpot)
 
 ; vi's o and O
-(defun pd/insert-new-line ()
+(defun pd/insert-newline ()
   (funcall (or (local-key-binding (kbd "<return>"))
                (key-binding (kbd "RET")))))
 
@@ -96,7 +96,7 @@
   "Inserts a blank line after the current one, and moves to it"
   (interactive)
   (end-of-line)
-  (pd/insert-new-line))
+  (pd/insert-newline))
 
 (defun pd/prepend-and-move-to-new-line ()
   "Inserts a blank line before the current one, and moves to it"
@@ -104,7 +104,7 @@
   (if (= 1 (line-number-at-pos))
       (progn
         (beginning-of-buffer)
-        (pd/insert-new-line)
+        (pd/insert-newline)
         (beginning-of-buffer))
     (progn
       (previous-line)
@@ -174,7 +174,7 @@
      (set-face-foreground 'erc-timestamp-face "grey50")))
 
 (defun pd/irc ()
-  "Connect to IRC, maybe. And prompt for each server to ensure we want to connect to it."
+  "Connect to IRC, maybe."
   (interactive)
   (when (y-or-n-p "IRC? ")
     (dolist (server pd/erc-secrets-server-list)
@@ -194,7 +194,7 @@
 (autoload 'magit-status "magit" "Major mode for git interaction" t)
 (global-set-key (kbd "C-M-g") 'magit-status)
 
-(defun magit-insert-submodule-summary ()
+(defun pd/magit-insert-submodule-summary ()
   (interactive)
   (save-excursion
     (goto-char (point-max))
@@ -206,7 +206,7 @@
 
 (add-hook 'magit-log-edit-mode-hook
           (lambda ()
-            (define-key magit-log-edit-map (kbd "C-M-s") 'magit-insert-submodule-summary)))
+            (define-key magit-log-edit-map (kbd "C-M-s") 'pd/magit-insert-submodule-summary)))
 
 (eval-after-load 'magit
   '(progn
@@ -225,3 +225,4 @@
 
 (setq smex-save-file "~/.emacs.d/smex.save")
 (smex-auto-update 120) ; auto update after 2 minutes idle
+
