@@ -2,4 +2,6 @@ urxvt*scrollBar: False
 urxvt*loginShell: true
 urxvt*background: black
 urxvt*foreground: white
-urxvt*font: xft:Inconsolata:pixelsize=15
+urxvt*font: xft:Inconsolata:pixelsize=18
+
+Emacs.font: Bitstream Vera Sans Mono-10
