@@ -123,9 +123,9 @@
 (add-hook 'clojure-mode-hook 'pd/lisp-modes)
 
 ; haskell
-(load "haskell-site-file")
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-font-lock)
+(when (load "haskell-site-file" 'noerror)
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-font-lock))
 
 ; ruby
 (setq auto-mode-alist
@@ -225,4 +225,3 @@
 
 (setq smex-save-file "~/.emacs.d/smex.save")
 (smex-auto-update 120) ; auto update after 2 minutes idle
-
