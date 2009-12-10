@@ -55,6 +55,8 @@
 (prefer-coding-system 'utf-8)
 
 ; generics
+(global-set-key (kbd "M-[") 'backward-paragraph)
+(global-set-key (kbd "M-]") 'forward-paragraph)
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "C-S-k") 'kill-whole-line)
 (global-set-key (kbd "<f6>") 'linum-mode)
