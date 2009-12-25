@@ -1,2 +1,7 @@
 #!/bin/sh
-amixer sget Master,0 | grep '^ \+Mono' | sed 's/^.*\[\([0-9]\+\%\)\].*$/\1/'
+line=`amixer sget Master,0 | grep '^ \+Mono'`
+if echo $line | grep '\[off\]' >/dev/null; then
+  echo "muted"
+else
+  echo $line | sed 's/^.*\[\([0-9]\+\%\)\].*$/\1/'
+fi
