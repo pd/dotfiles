@@ -9,5 +9,6 @@ xmodmap -e "add control = Caps_Lock"
 xsetroot -cursor_name left_ptr
 
 emacs --daemon &
+mpd ~/.mpd/config
 
 exec xmonad
