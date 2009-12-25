@@ -7,7 +7,6 @@ import XMonad.Util.Themes
 import XMonad.Util.Loggers
 
 import XMonad.Layout.Circle
-import XMonad.Layout.Grid
 import XMonad.Layout.HintedTile
 import XMonad.Layout.LayoutHints
 import XMonad.Layout.NoBorders
@@ -16,6 +15,8 @@ import XMonad.Layout.TabBarDecoration
 
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
+
+import XMonad.Actions.Volume
 
 import System.Exit
 import System.IO
@@ -40,15 +41,14 @@ myLogHook h = dynamicLogWithPP $ defaultPP
    }
 
 -- Layout
-myLayout = avoidStruts $ layoutHints $ smartBorders $ layoutOrder
-  where layoutOrder = Full ||| tiled Tall ||| Grid ||| Circle
-        tiled       = HintedTile nmaster delta ratio TopLeft
-        nmaster     = 1
-        delta       = 3/100
-        ratio       = 3/5
+myLayout = avoidStruts $ smartBorders $
+           fullLayout ||| tiledLayout ||| Circle
+  where fullLayout   = layoutHints Full
+        tiledLayout  = HintedTile 1 (3/100) (3/5) TopLeft Tall
 
 -- Key bindings
 spawnOnWs ws command = (windows $ W.greedyView ws) >> spawn command
+
 myAdditionalKeys =
     [ -- run anything
       ("M-S-x", spawn "exe=`dmenu_path | dmenu` && eval \"exec $exe\"")
@@ -62,12 +62,9 @@ myAdditionalKeys =
     , ("M-x v",   spawnOnWs "music" "urxvt -e alsamixer")
 
       -- volume control
-    , ("M-v m",   spawn "aumix -v 0")
-    , ("M-v S-m", spawn "aumix -v 100")
-    , ("M-=",     spawn "aumix -v +5")
-    , ("M-+",     spawn "aumix -v +5")
-    , ("M--",     spawn "aumix -v -5")
-    , ("M-_",     spawn "aumix -v -5")
+    , ("<XF86AudioMute>",        toggleMute >> return ())
+    , ("<XF86AudioRaiseVolume>", raiseVolume 5 >> return ())
+    , ("<XF86AudioLowerVolume>", lowerVolume 5 >> return ())
 
       -- gtfo
     , ("M-q", spawn "killall dzen2; killall conky" >> restart "xmonad" True)
