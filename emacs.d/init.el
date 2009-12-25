@@ -69,8 +69,15 @@
 (global-set-key (kbd "C-c C-b l") 'list-buffers)
 (global-set-key (kbd "C-c C-b r") 'rename-buffer)
 
-; super-[left/up/down/right]
+; super-[left/up/down/right]: window focus switching
 (windmove-default-keybindings 'super)
+
+; M-S-[left/up/down/right]: window resizing
+; the directions unfortunately don't always make sense in context
+(global-set-key (kbd "M-S-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "M-S-<up>") 'enlarge-window)
+(global-set-key (kbd "M-S-<down>") 'shrink-window)
+(global-set-key (kbd "M-S-<right>") 'enlarge-window-horizontally)
 
 ; remove a few unnecessary text movement aliases
 (global-unset-key (kbd "M-<left>"))
