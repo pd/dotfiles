@@ -1,4 +1,6 @@
 import XMonad hiding (Tall) -- use the one in HintedTile
+import qualified XMonad.StackSet as W
+
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeysP,removeKeysP)
 import XMonad.Util.Themes
@@ -38,33 +40,38 @@ myLogHook h = dynamicLogWithPP $ defaultPP
    }
 
 -- Layout
-myLayout =
-    onWorkspace "sauce" fullLayout $
-    onWorkspace "irc" fullLayout $
-    standardLayout
-  where standardLayout = tiled Tall ||| fullLayout ||| Grid ||| Circle
-        fullLayout = layoutHints(noBorders Full)
-        tiled      = HintedTile nmaster delta ratio TopLeft
-        nmaster    = 1
-        delta      = 3/100
-        ratio      = 3/5
+myLayout = avoidStruts $ layoutHints $ smartBorders $ layoutOrder
+  where layoutOrder = Full ||| tiled Tall ||| Grid ||| Circle
+        tiled       = HintedTile nmaster delta ratio TopLeft
+        nmaster     = 1
+        delta       = 3/100
+        ratio       = 3/5
 
 -- Key bindings
+spawnOnWs ws command = (windows $ W.greedyView ws) >> spawn command
 myAdditionalKeys =
-    [ ("M-S-x", spawn "exe=`dmenu_path | dmenu` && eval \"exec $exe\"")
-    , ("M-x e", spawn "emacsclient -c")
-    , ("M-x S-e", spawn "emacs")
-    , ("M-x f", spawn "firefox")
-    , ("M-x i", spawn "emacsclient -c -e '(irc)'")
-    , ("M-x v", spawn "urxvt -e alsamixer")
-    , ("M-v m", spawn "aumix -v 0")
+    [ -- run anything
+      ("M-S-x", spawn "exe=`dmenu_path | dmenu` && eval \"exec $exe\"")
+
+      -- predetermined locations
+    , ("M-x e",   spawnOnWs "sauce" "emacsclient -c")
+    , ("M-x S-e", spawnOnWs "sauce" "emacs")
+    , ("M-x f",   spawnOnWs "web" "firefox")
+    , ("M-x i",   spawnOnWs "irc" "emacsclient -c -e '(irc)'")
+    , ("M-x m",   spawnOnWs "music" "ario")
+    , ("M-x v",   spawnOnWs "music" "urxvt -e alsamixer")
+
+      -- volume control
+    , ("M-v m",   spawn "aumix -v 0")
     , ("M-v S-m", spawn "aumix -v 100")
-    , ("M-=", spawn "aumix -v +5")
-    , ("M-+", spawn "aumix -v +5")
-    , ("M--", spawn "aumix -v -5")
-    , ("M-_", spawn "aumix -v -5")
-    , ("M-S-<F12>", io (exitWith ExitSuccess))
+    , ("M-=",     spawn "aumix -v +5")
+    , ("M-+",     spawn "aumix -v +5")
+    , ("M--",     spawn "aumix -v -5")
+    , ("M-_",     spawn "aumix -v -5")
+
+      -- gtfo
     , ("M-q", spawn "killall dzen2; killall conky" >> restart "xmonad" True)
+    , ("M-S-<F12>", io (exitWith ExitSuccess))
     ]
 myRemovedKeys = ["M-S-q", "M-p"]
 
@@ -75,21 +82,22 @@ myStatusBar   = "conky | " ++ myDzenCommand ++ " -ta r -x 750"
 
 -- Float things that should be
 myManageHook = composeAll
-    [ title =? "Downloads" --> doFloat
-    , manageDocks ]
+    [ title     =? "Downloads" --> doFloat
+    , className =? "Ario"      --> doF (W.shift "music")
+    , manageDocks ] <+> manageHook defaultConfig
 
 -- XConfig
 myConfig xmonadBar = defaultConfig
-    { modMask = myModMask
-    , workspaces = ["web", "sauce", "irc", "misc"]
-    , focusFollowsMouse = False
-    , terminal = "urxvt"
-    , borderWidth = 1
-    , normalBorderColor = "#555753"
+    { modMask            = myModMask
+    , workspaces         = ["web", "sauce", "irc", "music", "log"]
+    , focusFollowsMouse  = False
+    , terminal           = "urxvt"
+    , borderWidth        = 1
+    , normalBorderColor  = "#555753"
     , focusedBorderColor = "steel blue"
-    , logHook = myLogHook xmonadBar
-    , manageHook = myManageHook <+> manageHook defaultConfig
-    , layoutHook = avoidStruts $ myLayout
+    , logHook            = myLogHook xmonadBar
+    , manageHook         = myManageHook
+    , layoutHook         = myLayout
     }
 
 main = do
