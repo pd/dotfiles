@@ -6,6 +6,7 @@ emacs.d/places
 emacs.d/erc-super-secret.el
 emacs.d/smex.save
 
+bin/xmonad
 xmonad/xmonad.errors
 xmonad/xmonad.hi
 xmonad/xmonad.o
