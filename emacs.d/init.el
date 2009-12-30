@@ -21,6 +21,7 @@
 (require 'ido)
 (require 'uniquify)
 (require 'ffap)
+(require 'recentf)
 
 (labels ((add-path (p)
                    (add-to-list 'load-path p)))
@@ -31,6 +32,7 @@
 (ido-mode t)
 (ido-everywhere t)
 (setq ido-enable-flex-matching t)
+(recentf-mode t)
 
 ; ~ in ido file/dir nav
 (defun pd/ido-move-to-home ()
@@ -85,6 +87,15 @@
 
 ; i hit the menu key aiming for left arrow all the time
 (global-unset-key (kbd "<menu>"))
+
+; ido access to recentf-list
+; ganked from emacs-starter-kit
+(defun pd/recentf-ido-find-file ()
+  (interactive)
+  (let ((file (ido-completing-read "Find recent: " recentf-list nil t)))
+    (when file
+      (find-file file))))
+(global-set-key (kbd "C-x f") 'pd/recentf-ido-find-file)
 
 ; colors
 (defun pd/load-directory (path)
