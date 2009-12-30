@@ -1,0 +1,3 @@
+#!/bin/sh
+# as it should be
+emacs --daemon
