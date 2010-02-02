@@ -19,3 +19,6 @@
 [submodule "vendor/smex"]
 	path = vendor/smex
 	url = git://github.com/nonsequitur/smex.git
+[submodule "vendor/emacs_chrome"]
+	path = vendor/emacs_chrome
+	url = git://github.com/stsquad/emacs_chrome.git
