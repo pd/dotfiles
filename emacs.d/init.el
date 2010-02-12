@@ -27,7 +27,8 @@
                    (add-to-list 'load-path p)))
   (add-path "~/.emacs.d/vendor")
   (add-path "~/dotfiles/vendor/magit")
-  (add-path "~/dotfiles/vendor/smex"))
+  (add-path "~/dotfiles/vendor/smex")
+  (add-path "~/dotfiles/vendor/emacs_chrome/servers"))
 
 (ido-mode t)
 (ido-everywhere t)
@@ -236,6 +237,12 @@
 
 ; tramp
 (setq tramp-default-method "ssh")
+
+; boot emacs chrome server if this is emacsd
+(if (and (daemonp) (locate-library "edit-server"))
+    (progn
+      (require 'edit-server)
+      (edit-server-start)))
 
 ; smex. should always come last.
 (require 'smex)
