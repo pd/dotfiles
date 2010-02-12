@@ -15,7 +15,7 @@
      (show-paren-match-face ((t (:background "#606060"))))
      (isearch ((t (:bold t :foreground "#303030" :background "#cd8b60"))))
      (modeline ((t (:bold t :foreground "#b9b9b9" :background "#3e3e5e"))))
-     (modeline-inactive ((t (:foreground "#708090" :background "#3e3e5e"))))
+     (modeline-inactive ((t (:foreground "#708090" :background "#303030"))))
      (modeline-buffer-id ((t (:bold t :foreground "#b9b9b9" :background "#3e3e5e"))))
      (minibuffer-prompt ((t (:bold t :foreground "#708090"))))
      (font-lock-builtin-face ((t (:foreground "#c080d0"))))
