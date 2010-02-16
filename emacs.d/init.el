@@ -146,7 +146,7 @@
 ; haskell
 (when (load "haskell-site-file" 'noerror)
   (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-  (add-hook 'haskell-mode-hook 'turn-on-haskell-font-lock))
+  (add-hook 'haskell-mode-hook 'turn-on-font-lock))
 
 ; ruby
 (setq auto-mode-alist
