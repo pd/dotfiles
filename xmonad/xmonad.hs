@@ -58,7 +58,6 @@ myAdditionalKeys =
     , ("M-x S-e", spawnOnWs "sauce" "emacs")
     , ("M-x w",   spawnOnWs "web" "chromium")
     , ("M-x i",   spawnOnWs "irc" "emacsclient -c -e '(irc)'")
-    , ("M-x m",   spawnOnWs "music" "ario")
     , ("M-x v",   spawnOnWs "music" "urxvt -e alsamixer")
 
       -- don't move
@@ -84,7 +83,6 @@ myStatusBar   = "conky | " ++ myDzenCommand ++ " -ta r -x 750"
 -- Float things that should be
 myManageHook = composeAll
     [ title     =? "Downloads" --> doFloat
-    , className =? "Ario"      --> doF (W.shift "music")
     , manageDocks ] <+> manageHook defaultConfig
 
 -- XConfig
