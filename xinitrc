@@ -8,7 +8,9 @@ xmodmap -e "add control = Caps_Lock"
 
 xsetroot -cursor_name left_ptr
 
-emacs --daemon &
-mpd ~/.mpd/config
+# restore sound settings
+alsactl restore
 
+# do it
+emacs --daemon &
 exec xmonad
