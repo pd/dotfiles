@@ -7,15 +7,9 @@
 [submodule "vendor/swank-clojure"]
 	path = vendor/swank-clojure
 	url = git://github.com/jochu/swank-clojure.git
-[submodule "vendor/eproject"]
-	path = vendor/eproject
-	url = git://git.jrock.us/eproject.git
 [submodule "vendor/magit"]
 	path = vendor/magit
 	url = git://gitorious.org/magit/mainline.git
-[submodule "vendor/keats"]
-	path = vendor/keats
-	url = git://github.com/pd/keats.git
 [submodule "vendor/smex"]
 	path = vendor/smex
 	url = git://github.com/nonsequitur/smex.git
