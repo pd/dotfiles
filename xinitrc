@@ -8,6 +8,10 @@ xmodmap -e "add control = Caps_Lock"
 
 xsetroot -cursor_name left_ptr
 
+# add to x's font path
+xset fp+ /usr/share/fonts/local
+xset fp rehash
+
 # restore sound settings
 alsactl restore
 
