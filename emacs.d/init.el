@@ -171,7 +171,7 @@
 
 ; irc
 (autoload 'erc "erc" "Emacs IRC Client" t)
-(load "~/.erc-secrets.el") ; passwords, autojoin lists, etc
+(load "~/.erc-secrets.el" 'noerror 'nomessage) ; passwords, autojoin lists, etc
 
 (eval-after-load 'erc
   '(progn
