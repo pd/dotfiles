@@ -12,7 +12,4 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias .z='source ~/.zshrc'
 alias cls='clear'
-
-## ack > g
-## it sucks that rak is too close to rake to be usable
-alias ack='ack -a'
+alias sudo='command sudo '
