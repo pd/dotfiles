@@ -144,9 +144,11 @@
 (add-hook 'clojure-mode-hook 'pd/lisp-modes)
 
 ; haskell
-(when (load "haskell-site-file" 'noerror)
-  (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-  (add-hook 'haskell-mode-hook 'turn-on-font-lock))
+(if (load "haskell-site-file" 'noerror)
+    (progn
+      (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+      (add-hook 'haskell-mode-hook 'turn-on-font-lock))
+  (message "Haskell mode unavailable"))
 
 ; ruby
 (setq auto-mode-alist
