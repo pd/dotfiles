@@ -2,7 +2,7 @@ import XMonad hiding (Tall) -- use the one in HintedTile
 import qualified XMonad.StackSet as W
 
 import XMonad.Util.Run(spawnPipe)
-import XMonad.Util.EZConfig(additionalKeysP,removeKeysP)
+import XMonad.Util.EZConfig(additionalKeysP,removeKeysP,additionalMouseBindings)
 import XMonad.Util.Themes
 import XMonad.Util.Loggers
 
@@ -84,6 +84,14 @@ myAdditionalKeys =
     ]
 myRemovedKeys = ["M-S-q", "M-p"]
 
+-- mod3 (alt_r) is my mouse hand, so allow mod1 for resizing float windows
+myAdditionalMouseBindings =
+    [ ((mod1Mask, button1), (\w -> focus w >> mouseMoveWindow w
+                                           >> windows W.shiftMaster))
+    , ((mod1Mask, button3), (\w -> focus w >> mouseResizeWindow w
+                                           >> windows W.shiftMaster))
+    ]
+
 -- Bars
 myDzenCommand = "dzen2 -bg black -fg grey -fn '-*-dina-medium-r-*-*-*-*-*-*-*-*-*-*'"
 myXmonadBar   = myDzenCommand ++ " -ta l -w 750"
@@ -114,3 +122,4 @@ main = do
     xmonad $ myConfig xmonadBar
         `additionalKeysP` myAdditionalKeys
         `removeKeysP` myRemovedKeys
+        `additionalMouseBindings` myAdditionalMouseBindings
