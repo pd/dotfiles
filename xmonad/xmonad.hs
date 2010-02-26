@@ -8,6 +8,7 @@ import XMonad.Util.Loggers
 
 import XMonad.Layout.Circle
 import XMonad.Layout.LayoutHints
+import XMonad.Layout.Named
 import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.ResizableTile
@@ -46,7 +47,7 @@ myWorkspaces = ["web", "sauce", "irc", "music", "5", "6", "7", "8", "9"]
 myLayout = avoidStruts
            $ smartBorders
            $ Full ||| tiled ||| Circle
-  where tiled    = hinted (ResizableTall 1 (3/100) (3/5) [])
+  where tiled    = named "tile" $ hinted (ResizableTall 1 (3/100) (3/5) [])
         hinted l = layoutHints l
 
 -- Key bindings
