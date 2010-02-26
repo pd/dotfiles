@@ -7,11 +7,10 @@ import XMonad.Util.Themes
 import XMonad.Util.Loggers
 
 import XMonad.Layout.Circle
-import XMonad.Layout.HintedTile
 import XMonad.Layout.LayoutHints
 import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
-import XMonad.Layout.TabBarDecoration
+import XMonad.Layout.ResizableTile
 
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
@@ -40,11 +39,15 @@ myLogHook h = dynamicLogWithPP $ defaultPP
    , ppOrder  = \(ws:l:t:exs) -> exs++[ws,l,t]
    }
 
--- Layout
-myLayout = avoidStruts $ smartBorders $
-           fullLayout ||| tiledLayout ||| Circle
-  where fullLayout   = layoutHints Full
-        tiledLayout  = HintedTile 1 (3/100) (3/5) TopLeft Tall
+-- Workspaces
+myWorkspaces = ["web", "sauce", "irc", "music", "5", "6", "7", "8", "9"]
+
+-- Layouts
+myLayout = avoidStruts
+           $ smartBorders
+           $ Full ||| tiled ||| Circle
+  where tiled    = hinted (ResizableTall 1 (3/100) (3/5) [])
+        hinted l = layoutHints l
 
 -- Key bindings
 spawnOnWs ws command = (windows $ W.greedyView ws) >> spawn command
@@ -70,6 +73,10 @@ myAdditionalKeys =
     , ("<XF86AudioRaiseVolume>", raiseVolume 5 >> return ())
     , ("<XF86AudioLowerVolume>", lowerVolume 5 >> return ())
 
+      -- window management
+    , ("M-S-h", sendMessage MirrorShrink)
+    , ("M-S-l", sendMessage MirrorExpand)
+
       -- gtfo
     , ("M-q", spawn "killall dzen2; killall conky" >> restart "xmonad" True)
     , ("M-S-<F12>", io (exitWith ExitSuccess))
@@ -89,7 +96,7 @@ myManageHook = composeAll
 -- XConfig
 myConfig xmonadBar = defaultConfig
     { modMask            = myModMask
-    , workspaces         = ["web", "sauce", "irc", "music", "log"]
+    , workspaces         = myWorkspaces
     , focusFollowsMouse  = False
     , terminal           = "urxvt"
     , borderWidth        = 1
