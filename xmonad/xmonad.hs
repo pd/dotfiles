@@ -7,7 +7,6 @@ import XMonad.Util.Themes
 import XMonad.Util.Loggers
 
 import XMonad.Layout.Circle
-import XMonad.Layout.HintedTile
 import XMonad.Layout.LayoutHints
 import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
@@ -48,7 +47,7 @@ myLayout = avoidStruts
            $ smartBorders
            $ Full ||| tiled ||| Circle
   where tiled    = hinted (ResizableTall 1 (3/100) (3/5) [])
-        hinted l = layoutHintsWithPlacement (0,0) l
+        hinted l = layoutHints l
 
 -- Key bindings
 spawnOnWs ws command = (windows $ W.greedyView ws) >> spawn command
