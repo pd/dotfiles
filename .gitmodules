@@ -1,12 +1,3 @@
-[submodule "vendor/slime"]
-	path = vendor/slime
-	url = git://git.boinkor.net/slime.git
-[submodule "vendor/clojure-mode"]
-	path = vendor/clojure-mode
-	url = git://github.com/technomancy/clojure-mode.git
-[submodule "vendor/swank-clojure"]
-	path = vendor/swank-clojure
-	url = git://github.com/jochu/swank-clojure.git
 [submodule "vendor/magit"]
 	path = vendor/magit
 	url = git://gitorious.org/magit/mainline.git
