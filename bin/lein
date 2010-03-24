@@ -1,0 +1,114 @@
+#!/bin/bash
+
+VERSION="1.1.0"
+
+CLASSPATH="$(find lib/ -follow -mindepth 1 -maxdepth 1 -print0 2> /dev/null | tr \\0 \:)"
+LEIN_JAR="$HOME/.m2/repository/leiningen/leiningen/$VERSION/leiningen-$VERSION-standalone.jar"
+CLOJURE_JAR="$HOME/.m2/repository/org/clojure/clojure/1.1.0/clojure-1.1.0.jar"
+
+# normalize $0 on certain BSDs
+if [ "$(dirname $0)" = "." ]; then
+    SCRIPT="$(which $(basename $0))"
+else
+    SCRIPT="$0"
+fi
+
+# resolve symlinks to the script itself portably
+while [ -h "$SCRIPT" ] ; do
+    ls=`ls -ld "$SCRIPT"`
+    link=`expr "$ls" : '.*-> \(.*\)$'`
+    if expr "$link" : '/.*' > /dev/null; then
+        SCRIPT="$link"
+    else
+        SCRIPT="`dirname "$SCRIPT"`/$link"
+    fi
+done
+
+BIN_DIR="$(dirname "$SCRIPT")"
+
+if [ -r "$BIN_DIR/../src/leiningen/core.clj" ]; then
+    # Running from source checkout
+    LEIN_DIR="$(dirname "$BIN_DIR")"
+    LEIN_LIBS="$(find -H $LEIN_DIR/lib -mindepth 2> /dev/null 1 -maxdepth 1 -print0 | tr \\0 \:)"
+    CLASSPATH="$LEIN_DIR/src:$LEIN_LIBS:$CLASSPATH"
+
+    if [ "$LEIN_LIBS" = "" -a "$1" != "self-install" ]; then
+        echo "Your Leiningen development checkout is missing its dependencies."
+        echo "Please download a stable version of Leiningen to fetch the deps."
+        echo "See the \"Hacking\" section of the readme for details."
+        exit 1
+    fi
+else
+    # Not running from a checkout
+    CLASSPATH="$LEIN_JAR:$CLASSPATH"
+
+    if [ ! -r "$LEIN_JAR" -a "$1" != "self-install" ]; then
+        echo "Leiningen is not installed. Please run \"lein self-install\"."
+        exit 1
+    fi
+fi
+
+if [ $DEBUG ]; then
+    echo $CLASSPATH
+fi
+
+# escape command-line arguments so they can be evaled as strings
+ESCAPED_ARGS=""
+for ARG in "$@"; do
+  ESCAPED_ARGS="$ESCAPED_ARGS"' "'$(echo $ARG | sed -e 's/\\/\\\\/g' -e 's/"/\\"/g')'"'
+done
+
+HTTP_CLIENT="wget -O"
+if type -p curl >/dev/null 2>&1; then
+    HTTP_CLIENT="curl -L -o"
+fi
+
+if [ "$1" = "repl" ]; then
+    if [ -r project.clj ]; then
+        echo "Warning: the repl task currently doesn't honor some project.clj"
+        echo "options due to I/O stream issues. Future versions will address"
+        echo "this, but for now you will get more consistent behaviour from repls"
+        echo "launched by either the lein-swank plugin or the lein-nailgun plugin."
+        echo
+    fi
+    $RLWRAP java -client $JAVA_OPTS -cp "src/:classes/:$CLASSPATH" jline.ConsoleRunner clojure.main ${@:2}
+elif [ "$1" = "self-install" ]; then
+    if [[ $VERSION == *SNAPSHOT ]]; then
+        echo "The self-install task is only meant for stable releases."
+        echo "See the \"Hacking\" section of the README."
+        exit 1
+    fi
+    echo "Downloading Leiningen now..."
+    mkdir -p `dirname "$LEIN_JAR"`
+    LEIN_URL="http://github.com/downloads/technomancy/leiningen/leiningen-$VERSION-standalone.jar"
+    exec $HTTP_CLIENT "$LEIN_JAR" "$LEIN_URL"
+elif [ "$1" = "upgrade" ]; then
+    if [[ $VERSION == *SNAPSHOT ]]; then
+        echo "The upgrade task is only meant for stable releases."
+        echo "See the \"Hacking\" section of the README."
+        exit 1
+    fi
+    if [ ! -w "$SCRIPT" ]; then
+        echo "You do not have permission to upgrade the installation in $SCRIPT"
+        exit 1
+    else
+        echo "The script at $SCRIPT will be upgraded to the latest stable version."
+        echo -n "Do you want to continue [Y/n]? "
+        read RESP
+        case "$RESP" in
+            y|Y|"")
+                echo
+                echo "Upgrading..."
+                LEIN_SCRIPT_URL="http://github.com/technomancy/leiningen/raw/stable/bin/lein"
+                $HTTP_CLIENT "$SCRIPT" "$LEIN_SCRIPT_URL" \
+                    && chmod +x "$SCRIPT" \
+                    && echo && $SCRIPT self-install && echo && echo "Now running" `$SCRIPT version`
+                exit $?;;
+            *)
+                echo "Aborted."
+                exit 1;;
+        esac
+    fi
+else
+    exec java -Xbootclasspath/a:"$CLOJURE_JAR" -client $JAVA_OPTS -cp "$CLASSPATH" -Dleiningen.version="$VERSION" clojure.main -e "(use 'leiningen.core)(-main $ESCAPED_ARGS)"
+fi
