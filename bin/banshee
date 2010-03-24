@@ -1,0 +1,3 @@
+#!/bin/sh
+# why is it named this?
+exec banshee-1
