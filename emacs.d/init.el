@@ -35,6 +35,10 @@
 (setq ido-enable-flex-matching t)
 (recentf-mode t)
 
+; load elpa
+(when (load (expand-file-name "~/.emacs.d/elpa/package.el"))
+  (package-initialize))
+
 ; ~ in ido file/dir nav
 (defun pd/ido-move-to-home ()
   (interactive)
