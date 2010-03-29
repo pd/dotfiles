@@ -73,8 +73,8 @@
 
 ; C-c C-b ...: buffer management
 (global-set-key (kbd "C-c C-b b") 'bury-buffer)
-(global-set-key (kbd "C-c C-b l") 'list-buffers)
 (global-set-key (kbd "C-c C-b r") 'rename-buffer)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ; super-[left/up/down/right]: window focus switching
 (windmove-default-keybindings 'super)
