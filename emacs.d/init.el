@@ -254,6 +254,12 @@
 ; tramp
 (setq tramp-default-method "ssh")
 
+; ack
+(eval-after-load 'full-ack
+  '(progn
+     (setq ack-ignore-case t
+           ack-arguments (list "-a"))))
+
 ; boot emacs chrome server if this is emacsd
 (if (and (daemonp) (locate-library "edit-server"))
     (progn
