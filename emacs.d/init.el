@@ -34,6 +34,7 @@
 (ido-everywhere t)
 (setq ido-enable-flex-matching t)
 (recentf-mode t)
+(setq ibuffer-default-sorting-mode 'major-mode)
 
 ; load elpa
 (when (load (expand-file-name "~/.emacs.d/elpa/package.el"))
