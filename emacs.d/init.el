@@ -142,11 +142,16 @@
 ; lisps
 (defun pd/lisp-modes ()
   (show-paren-mode t)
+  (paredit-mode)
   (define-key lisp-mode-shared-map (kbd "<return>") 'newline-and-indent))
+
 
 (add-hook 'lisp-mode-hook 'pd/lisp-modes)
 (add-hook 'emacs-lisp-mode-hook 'pd/lisp-modes)
 (add-hook 'clojure-mode-hook 'pd/lisp-modes)
+(add-hook 'slime-repl-mode-hook
+          (lambda ()
+            (paredit-mode)))
 
 ; haskell
 (if (load "haskell-site-file" 'noerror)
