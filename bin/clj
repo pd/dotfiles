@@ -1,8 +1,0 @@
-#!/bin/zsh
-classpath=(
-  ~/clj/clojure.jar
-  ~/clj/libs/*.jar
-  ~/clj/*/{src,test}
-)
-
-exec java -server -cp ${(j.:.)classpath} jline.ConsoleRunner clojure.lang.Repl $*
