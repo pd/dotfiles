@@ -139,12 +139,26 @@
 (global-set-key (kbd "M-<return>") 'pd/append-and-move-to-new-line)
 (global-set-key (kbd "M-S-<return>") 'pd/prepend-and-move-to-new-line)
 
+; hippie-expand: don't complete a giant lisp list if we can just complete
+; a symbol first. redefining all ordering because it's clearer than
+; doing lots of list manipulation.
+(setq hippie-expand-try-functions-list
+      '(try-expand-all-abbrevs
+        try-complete-file-name-partially
+        try-complete-file-name
+        try-expand-dabbrev
+        try-expand-dabbrev-from-kill
+        try-complete-lisp-symbol-partially
+        try-complete-lisp-symbol
+        try-expand-dabbrev-all-buffers
+        try-expand-list
+        try-expand-line))
+
 ; lisps
 (defun pd/lisp-modes ()
   (show-paren-mode t)
   (paredit-mode)
   (define-key lisp-mode-shared-map (kbd "<return>") 'newline-and-indent))
-
 
 (add-hook 'lisp-mode-hook 'pd/lisp-modes)
 (add-hook 'emacs-lisp-mode-hook 'pd/lisp-modes)
@@ -248,7 +262,8 @@
 
 (add-hook 'magit-log-edit-mode-hook
           (lambda ()
-            (define-key magit-log-edit-map (kbd "C-M-s") 'pd/magit-insert-submodule-summary)))
+            (define-key magit-log-edit-map (kbd "C-M-s")
+              'pd/magit-insert-submodule-summary)))
 
 (eval-after-load 'magit
   '(progn
