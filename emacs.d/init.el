@@ -71,6 +71,7 @@
 (global-set-key (kbd "C-h a") 'apropos) ; defaults to command-apropos
 (global-set-key (kbd "C-c w") 'delete-trailing-whitespace)
 (global-set-key (kbd "C-c m") 'woman)
+(global-set-key (kbd "C-x C-;") 'comment-or-uncomment-region)
 
 ; C-c C-b ...: buffer management
 (global-set-key (kbd "C-c C-b b") 'bury-buffer)
