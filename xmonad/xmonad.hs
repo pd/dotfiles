@@ -59,8 +59,10 @@ myAdditionalKeys =
 
       -- predetermined locations
     , ("M-x e",   spawnOnWs "sauce" "emacsclient -c")
+    , ("M-x M-e", spawnOnWs "sauce" "emacsclient -c")
     , ("M-x S-e", spawnOnWs "sauce" "emacs")
     , ("M-x w",   spawnOnWs "web"   "chromium")
+    , ("M-x M-w", spawnOnWs "web"   "chromium")
     , ("M-x i",   spawnOnWs "irc"   "emacsclient -c -e '(irc)'")
     , ("M-x m",   spawnOnWs "music" "banshee")
     , ("M-x v",   spawnOnWs "music" "urxvt -e alsamixer")
