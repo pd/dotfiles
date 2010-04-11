@@ -161,6 +161,14 @@
   (paredit-mode)
   (define-key lisp-mode-shared-map (kbd "<return>") 'newline-and-indent))
 
+(defun pd/lein-swank ()
+  (interactive)
+  (let ((default-directory (locate-dominating-file (buffer-file-name) "project.clj"))
+        (explicit-shell-file-name "lein")
+        (explicit-lein-args '("swank")))
+    (when default-directory
+      (shell "*lein-swank*"))))
+
 (add-hook 'lisp-mode-hook 'pd/lisp-modes)
 (add-hook 'emacs-lisp-mode-hook 'pd/lisp-modes)
 (add-hook 'clojure-mode-hook 'pd/lisp-modes)
