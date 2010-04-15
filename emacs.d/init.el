@@ -157,7 +157,9 @@
         try-complete-lisp-symbol
         try-expand-dabbrev-all-buffers
         try-expand-list
-        try-expand-line))
+        try-expand-line
+        try-expand-list-all-buffers
+        try-expand-line-all-buffers))
 
 ; lisps
 (defun pd/lisp-modes ()
