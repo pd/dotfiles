@@ -57,7 +57,8 @@
 
 (setq column-number-mode t
       require-final-newline t
-      uniquify-buffer-name-style 'forward) ; a/b, c/b, not b<2>
+      uniquify-buffer-name-style 'forward ; a/b, c/b, not b<2>
+      woman-use-own-frame nil)
 
 ; The Thing To Do
 (prefer-coding-system 'utf-8)
