@@ -15,7 +15,7 @@
 	    [(1 1)
 	     nil "mediawiki frontend" single])
  (wrap-region .
-	      [(0 1 2)
+	      [(0 1 3)
 	       nil "Wrap text with punctation or tag" single])
  (twitter .
 	  [(20090422)
@@ -356,7 +356,7 @@
 	   [(4 2)
 	    nil "minor mode to highlight current line in buffer" single])
  (lua-mode .
-	   [(20070703)
+	   [(20100404)
 	    nil "a major-mode for editing Lua scripts" single])
  (css-mode .
 	   [(1 0)
