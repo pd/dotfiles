@@ -13,12 +13,11 @@
 
 ; focused
 (require 'pd/shell)
+(require 'pd/magit)
+(require 'pd/chrome)
 (require 'pd/lisps)
 (require 'pd/ruby)
 (require 'pd/js)
 (require 'pd/haskell)
-(require 'pd/haml-sass)
-(require 'pd/magit)
 (require 'pd/irc)
-(require 'pd/chrome)
 (require 'pd/smex)
