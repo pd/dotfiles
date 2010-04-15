@@ -12,6 +12,7 @@
 
 ; and go away.
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups"))
+      tramp-backup-directory-alist '(("." . "~/.emacs.d/backups"))
       save-place-file "~/.emacs.d/places"
       custom-file "~/.emacs.d/custom.el"
       auto-save-default nil)
