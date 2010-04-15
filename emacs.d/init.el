@@ -278,7 +278,7 @@
 
 (add-hook 'magit-log-edit-mode-hook
           (lambda ()
-            (define-key magit-log-edit-map (kbd "C-M-s")
+            (define-key magit-log-edit-mode-map (kbd "C-M-s")
               'pd/magit-insert-submodule-summary)))
 
 (eval-after-load 'magit
