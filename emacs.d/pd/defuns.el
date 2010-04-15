@@ -1,6 +1,6 @@
-(defun pd/load-directory (path)
+(defun pd/load-directory (path &optional noerror nomessage)
   (dolist (file (directory-files path 'full "\\.el\\'"))
-    (load file)))
+    (load file noerror nomessage)))
 
 ; vi's o and O
 (defun pd/insert-newline ()
