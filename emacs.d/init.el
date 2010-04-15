@@ -295,6 +295,10 @@
      (setq ack-ignore-case t
            ack-arguments (list "-a"))))
 
+; chrome is my default browser
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "chromium")
+
 ; boot emacs chrome server if this is emacsd
 (if (and (daemonp) (locate-library "edit-server"))
     (progn
