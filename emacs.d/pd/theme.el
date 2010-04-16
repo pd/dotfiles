@@ -55,7 +55,6 @@ but since I use emacsd 99% of the time that's not much of an issue"
 
      (show-paren-match-face ((t (:foreground "steel blue"))))
 
-     (magit-item-highlight ((t (:background "gray12"))))
      (magit-diff-add ((t (:foreground "green3"))))
      (magit-diff-del ((t (:foreground "red3"))))
 
