@@ -31,7 +31,7 @@ but since I use emacsd 99% of the time that's not much of an issue"
      (fringe ((t (:background "#090909"))))
 
      (font-lock-builtin-face ((t (:foreground "#c080d0"))))
-     (font-lock-comment-face ((t (:foreground "#708090" :italic t))))
+     (font-lock-comment-face ((t (:foreground "#708090"))))
      (font-lock-constant-face ((t (:foreground "#506dbd"))))
      (font-lock-doc-face ((t (:foreground "#cd8b00"))))
      (font-lock-function-name-face ((t (:foreground "#87cefa"))))
