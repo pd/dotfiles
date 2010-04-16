@@ -1,9 +1,17 @@
 (require 'color-theme)
 
 (setq color-theme-history-max-length t
+      color-theme-is-global nil
       color-theme-is-cumulative nil)
 
-(pd/load-directory "~/.emacs.d/vendor/themes" nil 'nomessage)
+(defun pd/set-color-theme (&optional frame)
+  "Set the color theme only when in a window system
+This is run from a hook that isn't called for the first frame,
+but since I use emacsd 99% of the time that's not much of an issue"
+  (let ((color-theme-is-global nil))
+    (select-frame frame)
+    (when window-system
+      (color-theme-despot))))
 
 (defun color-theme-despot ()
   "color-theme for pd. mostly inkpot."
@@ -56,12 +64,6 @@
      (erc-timestamp-face ((t (:foreground "grey50"))))
 
      )))
-
-(defun pd/set-color-theme (&optional frame)
-  (let ((color-theme-is-global nil))
-    (select-frame frame)
-    (when window-system
-      (color-theme-despot))))
 
 (add-hook 'after-make-frame-functions 'pd/set-color-theme)
 
