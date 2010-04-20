@@ -47,7 +47,7 @@
      (modeline ((t (:bold t :foreground "#b9b9b9" :background "#3e3e5e"))))
      (modeline-inactive ((t (:bold t :foreground "#708090" :background "#303030"))))
 
-     (show-paren-match-face ((t (:foreground "steel blue"))))
+     (show-paren-match ((t (:foreground "steel blue" :background nil))))
 
      (magit-branch ((t (:foreground "#c080d0"))))
      (magit-diff-add ((t (:foreground "green3"))))
