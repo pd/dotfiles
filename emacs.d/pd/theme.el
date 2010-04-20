@@ -55,9 +55,12 @@ but since I use emacsd 99% of the time that's not much of an issue"
 
      (show-paren-match-face ((t (:foreground "steel blue"))))
 
+     (magit-branch ((t (:foreground "#c080d0"))))
      (magit-diff-add ((t (:foreground "green3"))))
      (magit-diff-del ((t (:foreground "red3"))))
      (magit-item-highlight ((t (:background "#1a1a1a"))))
+     (magit-log-graph ((t (:foreground "steel blue"))))
+     (magit-log-sha1 ((t (:foreground "#ffcd8b"))))
 
      (erc-input-face ((t (:foreground "light steel blue"))))
      (erc-my-nick-face ((t (:foreground "steel blue"))))
