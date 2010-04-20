@@ -1,5 +1,7 @@
 (require 'ansi-color)
 
+(setq shell-prompt-pattern "^[^\n]*[#$%>»] *")
+
 (defun pd/enable-ansi-color-for-comint ()
   (ansi-color-for-comint-mode-on))
 

@@ -13,6 +13,7 @@
 
 ; focused
 (require 'pd/shell)
+(require 'pd/tramp)
 (require 'pd/magit)
 (require 'pd/chrome)
 (require 'pd/lisps)
