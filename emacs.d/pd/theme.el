@@ -42,7 +42,8 @@
 
      (minibuffer-prompt ((t (:bold t :foreground "steel blue"))))
 
-     (isearch ((t (:bold t :foreground "#090909" :background "#3e3e5e"))))
+     (isearch ((t (:bold t :foreground "#ffffff" :background "#3e3e5e"))))
+     (lazy-highlight ((t (:foreground "#000000" :background "#3e3e5e"))))
 
      (modeline ((t (:bold t :foreground "#b9b9b9" :background "#3e3e5e"))))
      (modeline-inactive ((t (:bold t :foreground "#708090" :background "#303030"))))
