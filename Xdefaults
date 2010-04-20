@@ -5,4 +5,4 @@ urxvt*foreground: white
 urxvt*font: xft:Inconsolata:pixelsize=18
 urxvt*fading: 35
 
-Emacs.font: Bitstream Vera Sans Mono-8
+Emacs.font: Inconsolata-9

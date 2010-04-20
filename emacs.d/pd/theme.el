@@ -1,5 +1,8 @@
 (require 'color-theme)
 
+; for when i'm trying out new fonts:
+; (set-face-attribute 'default nil :family "Inconsolata" :height 90)
+
 (setq color-theme-history-max-length t
       color-theme-is-global nil
       color-theme-is-cumulative nil)
