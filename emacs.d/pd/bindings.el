@@ -1,13 +1,14 @@
 ; i hit the menu key aiming for left arrow all the time
 (global-unset-key (kbd "<menu>"))
 
-; remove a few unnecessary text movement aliases
+; remove a few unnecessary text movement aliases,
+; some habits i want to break
 (global-unset-key (kbd "M-<left>"))
 (global-unset-key (kbd "M-<right>"))
+(global-unset-key (kbd "M-}"))
+(global-unset-key (kbd "M-{"))
 
 ; text navigation
-(global-set-key (kbd "M-[") 'backward-paragraph)
-(global-set-key (kbd "M-]") 'forward-paragraph)
 (global-set-key (kbd "M-p") 'backward-paragraph)
 (global-set-key (kbd "M-n") 'forward-paragraph)
 
