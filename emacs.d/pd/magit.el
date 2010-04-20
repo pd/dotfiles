@@ -1,6 +1,9 @@
 (autoload 'magit-status "magit" "Major mode for git interaction" t)
 (global-set-key (kbd "C-M-g") 'magit-status)
-(setq magit-save-some-buffers nil)
+
+(setq magit-save-some-buffers nil
+      magit-completing-read 'ido-completing-read
+      magit-omit-untracked-dir-contents t) ; show unstaged dir, not its contents
 
 (defun pd/magit-insert-submodule-summary ()
   (interactive)
