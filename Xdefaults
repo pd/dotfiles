@@ -2,7 +2,7 @@ urxvt*scrollBar: False
 urxvt*loginShell: true
 urxvt*background: black
 urxvt*foreground: white
-urxvt*font: xft:Inconsolata:pixelsize=18
+urxvt*font: xft:Inconsolata:size=9
 urxvt*fading: 35
 
 Emacs.font: Inconsolata-9
