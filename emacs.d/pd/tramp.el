@@ -1,3 +1,5 @@
+(require 'tramp)
+
 (setq tramp-default-method "scp"
       tramp-default-user "pd")
 
