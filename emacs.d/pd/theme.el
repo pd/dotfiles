@@ -57,6 +57,7 @@ but since I use emacsd 99% of the time that's not much of an issue"
 
      (magit-diff-add ((t (:foreground "green3"))))
      (magit-diff-del ((t (:foreground "red3"))))
+     (magit-item-highlight ((t (:background "#1a1a1a"))))
 
      (erc-input-face ((t (:foreground "light steel blue"))))
      (erc-my-nick-face ((t (:foreground "steel blue"))))
