@@ -6,7 +6,7 @@
   (interactive)
   (save-excursion
     (goto-char (point-max))
-    (insert "\n" (magit-shell "git submodule summary"))))
+    (insert "\n" (magit-git-string "submodule" "summary"))))
 
 (defun pd/add-magit-commit-keybindings ()
   (define-key magit-log-edit-mode-map (kbd "C-M-s")
