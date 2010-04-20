@@ -4,17 +4,8 @@
 ; (set-face-attribute 'default nil :family "Inconsolata" :height 90)
 
 (setq color-theme-history-max-length t
-      color-theme-is-global nil
-      color-theme-is-cumulative nil)
-
-(defun pd/set-color-theme (&optional frame)
-  "Set the color theme only when in a window system
-This is run from a hook that isn't called for the first frame,
-but since I use emacsd 99% of the time that's not much of an issue"
-  (let ((color-theme-is-global nil))
-    (select-frame frame)
-    (when window-system
-      (color-theme-despot))))
+      color-theme-is-global nil)
+; color-theme-is-cumulative nil
 
 (defun color-theme-despot ()
   "color-theme for pd. mostly inkpot."
@@ -71,6 +62,18 @@ but since I use emacsd 99% of the time that's not much of an issue"
 
      )))
 
+(defun pd/set-color-theme (&optional frame)
+  "Set the color theme only when in a window system
+This is run from a hook that isn't called for the first frame,
+but since I use emacsd 99% of the time that's not much of an issue"
+  (let ((color-theme-is-global nil))
+    (select-frame frame)
+    (when window-system
+      (color-theme-despot))))
+
 (add-hook 'after-make-frame-functions 'pd/set-color-theme)
+
+(when (or window-system (daemonp))
+  (color-theme-despot))
 
 (provide 'pd/theme)
