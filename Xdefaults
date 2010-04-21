@@ -6,3 +6,9 @@ urxvt*font: xft:Inconsolata:size=9
 urxvt*fading: 35
 
 Emacs.font: Inconsolata-9
+
+Xft.dpi:        96
+Xft.antialias:  true
+Xft.rgba:       rgb
+Xft.hinting:    true
+Xft.hintstyle:  hintslight
