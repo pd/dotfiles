@@ -15,14 +15,4 @@
 (add-hook 'clojure-mode-hook 'pd/run-lisp-hook)
 (add-hook 'slime-repl-mode-hook 'pd/run-lisp-hook)
 
-; dunno where else to put this atm
-(defun pd/lein-swank ()
-  (interactive)
-  (let ((default-directory (locate-dominating-file (buffer-file-name) "project.clj"))
-        (explicit-shell-file-name "lein")
-        (explicit-lein-args '("swank")))
-    (when default-directory
-      (shell "*lein-swank*"))))
-
-
 (provide 'pd/lisps)
