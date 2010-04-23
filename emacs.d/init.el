@@ -22,3 +22,4 @@
 (require 'pd/haskell)
 (require 'pd/irc)
 (require 'pd/smex)
+(require 'pd/misc)

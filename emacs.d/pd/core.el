@@ -43,12 +43,8 @@
 (require 'recentf)
 (recentf-mode t)
 
-;; (defun pd/recentf-ido-find-file ()
-;;   (interactive)
-;;   (let ((file (ido-completing-read "Find recent: " recentf-list nil t)))
-;;     (when file
-;;       (find-file file))))
-
-;; (global-set-key (kbd "C-x f") 'pd/recentf-ido-find-file)
+; better buffer menu
+(require 'ibuffer)
+(setq ibuffer-default-sorting-mode 'major-mode)
 
 (provide 'pd/core)
