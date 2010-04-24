@@ -26,6 +26,14 @@
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 
+; on my rarely used macbook pro, cmd=meta, option=super
+(defun pd/macosx-p ()
+  (string-equal "darwin" system-type))
+
+(when (pd/macosx-p)
+  (setq ns-command-modifier   'meta
+        ns-alternate-modifier 'super))
+
 ; everyone loves clisp
 (require 'cl)
 

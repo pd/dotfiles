@@ -45,4 +45,8 @@
 (global-set-key (kbd "C-h a") 'apropos) ; defaults to command-apropos
 (global-set-key (kbd "C-c m") 'woman)
 
+; mac fullscreening
+(when (pd/macosx-p)
+  (global-set-key (kbd "s-S-<return>") 'ns-toggle-fullscreen))
+
 (provide 'pd/bindings)
