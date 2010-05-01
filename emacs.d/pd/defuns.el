@@ -32,13 +32,4 @@
     (when file
       (find-file file))))
 
-; easy access to `lein swank`
-(defun pd/lein-swank ()
-  (interactive)
-  (let ((default-directory (locate-dominating-file (buffer-file-name) "project.clj"))
-        (explicit-shell-file-name "lein")
-        (explicit-lein-args '("swank")))
-    (when default-directory
-      (shell "*lein-swank*"))))
-
 (provide 'pd/defuns)
