@@ -15,4 +15,12 @@
 (add-hook 'clojure-mode-hook 'pd/run-lisp-hook)
 (add-hook 'slime-repl-mode-hook 'pd/run-lisp-hook)
 
+; slime-mode overrides these for slime-next-note, slime-previous-note
+; i don't know what that is so please give me my pararaph nav back
+(defun pd/restore-paragraph-movement ()
+  (define-key slime-mode-map (kbd "M-p") 'backward-paragraph)
+  (define-key slime-mode-map (kbd "M-n") 'forward-paragraph))
+
+(add-hook 'slime-mode-hook 'pd/restore-paragraph-movement)
+
 (provide 'pd/lisps)
