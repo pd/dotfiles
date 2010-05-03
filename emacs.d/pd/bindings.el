@@ -44,6 +44,7 @@
 (global-set-key (kbd "<f6>") 'linum-mode)
 (global-set-key (kbd "C-h a") 'apropos) ; defaults to command-apropos
 (global-set-key (kbd "C-c m") 'woman)
+(global-set-key (kbd "C-x C-y") 'x-clipboard-yank)
 
 ; mac fullscreening
 (when (pd/macosx-p)
