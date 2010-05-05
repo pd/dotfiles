@@ -15,8 +15,8 @@
 ; C-x C-b: ibuffer
 ; C-c C-b ...: misc buffer ops
 (global-set-key (kbd "C-x C-b") 'ibuffer)
-(global-set-key (kbd "C-c C-b b") 'bury-buffer)
-(global-set-key (kbd "C-c C-b r") 'rename-buffer)
+(global-set-key (kbd "C-c b b") 'bury-buffer)
+(global-set-key (kbd "C-c b r") 'rename-buffer)
 
 ; super-[left/up/down/right]: window navigation
 (windmove-default-keybindings 'super)
@@ -37,14 +37,14 @@
 (global-set-key (kbd "C-c w") 'delete-trailing-whitespace)
 (global-set-key (kbd "M-<return>") 'pd/append-and-move-to-new-line)
 (global-set-key (kbd "M-S-<return>") 'pd/prepend-and-move-to-new-line)
-(global-set-key (kbd "C-x C-;") 'comment-or-uncomment-region)
+(global-set-key (kbd "C-c C-;") 'comment-or-uncomment-region)
 
 ; misc
 (global-set-key (kbd "C-c s") 'shell)
 (global-set-key (kbd "<f6>") 'linum-mode)
 (global-set-key (kbd "C-h a") 'apropos) ; defaults to command-apropos
 (global-set-key (kbd "C-c m") 'woman)
-(global-set-key (kbd "C-x C-y") 'x-clipboard-yank)
+(global-set-key (kbd "C-c y") 'x-clipboard-yank)
 
 ; mac fullscreening
 (when (pd/macosx-p)
