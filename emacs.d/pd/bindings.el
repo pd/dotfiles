@@ -38,6 +38,7 @@
 (global-set-key (kbd "M-<return>") 'pd/append-and-move-to-new-line)
 (global-set-key (kbd "M-S-<return>") 'pd/prepend-and-move-to-new-line)
 (global-set-key (kbd "C-c C-;") 'comment-or-uncomment-region)
+(global-set-key (kbd "C-c r") 'revert-buffer)
 
 ; misc
 (global-set-key (kbd "C-c s") 'shell)
