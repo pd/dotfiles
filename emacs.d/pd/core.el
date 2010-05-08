@@ -50,6 +50,7 @@
 ; reopen that file you just accidentally killed
 (require 'recentf)
 (recentf-mode t)
+(setq recentf-max-saved-items 50)
 
 ; better buffer menu
 (require 'ibuffer)
