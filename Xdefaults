@@ -5,7 +5,7 @@ urxvt*foreground: white
 urxvt*font: xft:Inconsolata:size=12
 urxvt*fading: 35
 
-Emacs.font: Inconsolata-9
+Emacs.font: Inconsolata-12
 
 Xft.dpi:        96
 Xft.antialias:  true
