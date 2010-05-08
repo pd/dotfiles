@@ -15,7 +15,6 @@
      (setq erc-track-exclude-types '("JOIN" "PART" "QUIT" "NICK" "MODE"))
      (setq erc-autojoin-channels-alist pd/erc-secrets-autojoin-alist)))
 
-; autoservers
 (defun pd/irc ()
   "Connect to IRC, maybe."
   (interactive)
