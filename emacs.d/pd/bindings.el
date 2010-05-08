@@ -40,6 +40,12 @@
 (global-set-key (kbd "C-c C-;") 'comment-or-uncomment-region)
 (global-set-key (kbd "C-c r") 'revert-buffer)
 
+; C-c x: launch various repls
+(global-set-key (kbd "C-c x e") 'ielm)
+(global-set-key (kbd "C-c x r") 'run-ruby)
+(global-set-key (kbd "C-c x p") 'run-python)
+(global-set-key (kbd "C-c x h") 'run-haskell)
+
 ; misc
 (global-set-key (kbd "C-c s") 'shell)
 (global-set-key (kbd "<f6>") 'linum-mode)
