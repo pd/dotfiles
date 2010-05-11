@@ -165,7 +165,7 @@
 		      (2 1)))
 		    "run a ruby process in a compilation buffer" single])
  (gist .
-       [(0 3)
+       [(0 4)
 	nil "Emacs integration for gist.github.com" single])
  (confluence .
 	     [(1 4)
