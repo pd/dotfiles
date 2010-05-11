@@ -47,6 +47,7 @@
 (global-set-key (kbd "C-c x r") 'run-ruby)
 (global-set-key (kbd "C-c x p") 'run-python)
 (global-set-key (kbd "C-c x h") 'run-haskell)
+(global-set-key (kbd "C-c x l") 'slime) ; how this defaults to clojure i dunno
 
 ; misc
 (global-set-key (kbd "C-c s") 'shell)
