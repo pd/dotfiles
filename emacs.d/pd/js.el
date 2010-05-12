@@ -9,6 +9,11 @@
 (add-hook 'js-mode-hook 'pd/run-coding-hook)
 (add-hook 'js-mode-hook 'pd/add-js-bindings)
 
+; js-comint on rhino
+(autoload 'run-js "js-comint" "Javascript REPL" t)
+(setq inferior-js-program-command "java -jar /home/pd/dotfiles/emacs.d/vendor/js.jar")
+
+; mozrepl
 (defun pd/enable-moz-minor-mode ()
   (moz-minor-mode 1))
 

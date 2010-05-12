@@ -44,11 +44,12 @@
 
 ; C-c x: launch various repls
 (global-set-key (kbd "C-c x e") 'ielm)
+(global-set-key (kbd "C-c x l") 'slime) ; how this defaults to clojure i dunno
 (global-set-key (kbd "C-c x r") 'run-ruby)
 (global-set-key (kbd "C-c x p") 'run-python)
 (global-set-key (kbd "C-c x h") 'run-haskell)
-(global-set-key (kbd "C-c x l") 'slime) ; how this defaults to clojure i dunno
-(global-set-key (kbd "C-c x j") 'run-mozilla)
+(global-set-key (kbd "C-c x j") 'run-js)
+(global-set-key (kbd "C-c x m") 'run-mozilla)
 
 ; misc
 (global-set-key (kbd "C-c s") 'shell)
