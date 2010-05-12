@@ -8,6 +8,7 @@
   (add-path "~/.emacs.d/vendor")
   (add-path "~/dotfiles/vendor/magit")
   (add-path "~/dotfiles/vendor/smex")
-  (add-path "~/dotfiles/vendor/emacs_chrome/servers"))
+  (add-path "~/dotfiles/vendor/emacs_chrome/servers")
+  (add-path "~/dotfiles/vendor/inf-ruby-bond"))
 
 (provide 'pd/packages)
