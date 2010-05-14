@@ -41,7 +41,9 @@
 (require 'ido)
 (ido-mode t)
 (ido-everywhere t)
-(setq ido-enable-flex-matching t)
+(setq ido-enable-flex-matching t
+      ido-default-file-method 'selected-window
+      ido-default-buffer-method 'selected-window)
 
 ; a/b, c/b; not b<2>
 (require 'uniquify)
