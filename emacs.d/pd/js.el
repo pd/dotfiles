@@ -20,4 +20,13 @@
 (autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
 (add-hook 'js-mode-hook 'pd/enable-moz-minor-mode)
 
+; function( -> ƒ(
+; ty emacs-starter-kit
+(eval-after-load 'js
+  '(progn (font-lock-add-keywords
+           'js-mode `(("\\(function *\\)("
+                       (0 (progn (compose-region (match-beginning 1)
+                                                 (match-end 1) "ƒ")
+                                 nil)))))))
+
 (provide 'pd/js)
