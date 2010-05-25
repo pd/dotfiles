@@ -2,10 +2,10 @@ urxvt*scrollBar: False
 urxvt*loginShell: true
 urxvt*background: black
 urxvt*foreground: white
-urxvt*font: xft:Inconsolata:size=12
+urxvt*font: xft:Droid Sans Mono:size=10
 urxvt*fading: 35
 
-Emacs.font: Inconsolata-12
+Emacs.font: Droid Sans Mono-10
 
 Xft.dpi:        96
 Xft.antialias:  true
