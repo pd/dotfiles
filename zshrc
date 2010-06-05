@@ -3,7 +3,7 @@
 path=(
   ~/bin
   ~/.cabal/bin
-  ~/vendor/narwhal/bin
+  ~/.seeds/bin
   /opt/java/bin
   /opt/local/bin /opt/local/sbin
   /usr/local/bin /usr/local/sbin
