@@ -10,3 +10,6 @@
 [submodule "vendor/inf-ruby-bond"]
 	path = vendor/inf-ruby-bond
 	url = git://github.com/pd/inf-ruby-bond
+[submodule "vendor/nvm"]
+	path = vendor/nvm
+	url = git://github.com/creationix/nvm.git
