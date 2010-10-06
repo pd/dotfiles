@@ -58,7 +58,7 @@
 (global-set-key (kbd "C-c m") 'woman)
 (global-set-key (kbd "C-c y") 'x-clipboard-yank)
 
-; mac fullscreening
+; mac only
 (when (pd/macosx-p)
   (global-set-key (kbd "s-S-<return>") 'ns-toggle-fullscreen))
 

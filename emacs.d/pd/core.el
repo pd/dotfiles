@@ -26,13 +26,19 @@
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 
-; on my rarely used macbook pro, cmd=meta, option=super
 (defun pd/macosx-p ()
   (string-equal "darwin" system-type))
 
+; on mac, cmd=meta, option=super
 (when (pd/macosx-p)
   (setq ns-command-modifier   'meta
         ns-alternate-modifier 'super))
+
+; explicit exec-path for cocoa emacs, which doesn't inherit $PATH from
+; the shell if you launch from the dock, as there is no shell involved
+(when (pd/macosx-p)
+  (setq exec-path '("~/bin" "/usr/local/bin" "/usr/local/sbin"
+                    "/bin" "/sbin" "/usr/bin" "/usr/sbin")))
 
 ; everyone loves clisp
 (require 'cl)
