@@ -13,15 +13,15 @@
 
      ; only notify about activity for actual conversation
      (setq erc-track-exclude-types '("JOIN" "PART" "QUIT" "NICK" "MODE"))
-     (setq erc-autojoin-channels-alist pd/erc-secrets-autojoin-alist)))
+     (setq erc-autojoin-channels-alist pd/erc-secrets-autojoins)))
 
 (defun pd/irc ()
   "Connect to IRC, maybe."
   (interactive)
   (when (y-or-n-p "IRC? ")
-    (dolist (server pd/erc-secrets-server-list)
-      (when (y-or-n-p (concat server "? "))
-        (erc :server server :password pd/erc-secrets-password)))))
+    (dolist (srv pd/erc-secrets-servers)
+      (when (y-or-n-p (concat (cadr srv) "? "))
+        (apply 'erc srv)))))
 
 (defalias 'irc 'pd/irc)
 
