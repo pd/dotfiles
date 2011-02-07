@@ -17,6 +17,9 @@ fpath=(~/.zsh/functions $fpath)
 ## vim<C-S-k>
 bindkey -e
 
+# but in terminal.app, vi mode is still the easiest:
+[[ $TERM_PROGRAM = "Apple_Terminal" ]] && bindkey -v
+
 ## turn on expanded tabcomplete
 autoload -U compinit
 compinit
