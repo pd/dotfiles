@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cd ~ && rsync --archive --delete-during -vv kyleh@mbp:Music/ Music
