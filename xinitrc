@@ -15,6 +15,10 @@ xset fp rehash
 # restore sound settings
 alsactl restore
 
+# I constantly switch emacs buffer by accidentally palming the
+# touchpad. I rarely click using the touchpad. Disable it.
+synclient TapButton1=0
+
 # do it
 emacs --daemon &
 exec xmonad
