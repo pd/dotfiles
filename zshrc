@@ -43,6 +43,12 @@ export DISPLAY=:0.0
 export LC_CTYPE=en_US.UTF-8
 
 ## hey look "modularity"
-for mod in prompt cli ruby git node osx arch famous ; do
+for mod in prompt cli ruby git node famous ; do
   source ~/.zsh/$mod.zsh
 done
+
+if [[ `uname -s` -eq "Linux" ]]; then
+  source ~/.zsh/arch.zsh
+else
+  source ~/.zsh/osx.zsh
+fi
