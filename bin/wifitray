@@ -1,0 +1,6 @@
+#!/bin/sh
+
+sudo netcfg -a
+sudo /etc/rc.d/networkmanager start
+stalonetray &
+exec nm-applet
