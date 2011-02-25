@@ -61,7 +61,7 @@ myAdditionalKeys =
     , ("M-x e",   spawnOnWs "sauce" "emacsclient -c")
     , ("M-x M-e", spawnOnWs "sauce" "emacsclient -c")
     , ("M-x S-e", spawnOnWs "sauce" "emacs")
-    , ("M-x w",   spawnOnWs "web"   "chromium")
+    , ("M-x w",   spawnOnWs "web"   "chromium-dev")
     , ("M-x M-w", spawnOnWs "web"   "chromium")
     , ("M-x i",   spawnOnWs "irc"   "emacsclient -c -e '(irc)'")
     , ("M-x m",   spawnOnWs "music" "banshee")
@@ -69,7 +69,8 @@ myAdditionalKeys =
 
       -- don't move
     , ("M-u M-x e", spawn "emacsclient -c")
-    , ("M-u M-x w", spawn "chromium")
+    , ("M-u M-x w", spawn "chromium-dev")
+    , ("M-u M-x M-w", spawn "chromium")
 
       -- volume control
     , ("<XF86AudioMute>",        toggleMute >> return ())
