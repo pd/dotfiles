@@ -5,6 +5,7 @@
 (add-hook 'ruby-mode-hook 'pd/add-ruby-keybindings)
 
 (setq auto-mode-alist (cons '("\\.rake\\'" . ruby-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("Gemfile\\'" . ruby-mode) auto-mode-alist))
 
 (require 'inf-ruby-bond)
 
