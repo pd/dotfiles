@@ -3,7 +3,6 @@
 path=(
   ~/bin
   ~/.cabal/bin
-  ~/.seeds/bin
   /opt/java/bin
   /opt/local/bin /opt/local/sbin
   /usr/local/bin /usr/local/sbin
@@ -43,7 +42,7 @@ export DISPLAY=:0.0
 export LC_CTYPE=en_US.UTF-8
 
 ## hey look "modularity"
-for mod in prompt cli ruby git node famous ; do
+for mod in prompt cli ruby git ; do
   source ~/.zsh/$mod.zsh
 done
 
