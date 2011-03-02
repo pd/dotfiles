@@ -60,17 +60,15 @@ myAdditionalKeys =
       ("M-S-x", spawn "exe=`dmenu_path | dmenu` && eval \"exec $exe\"")
 
       -- predetermined locations
-    , ("M-x e",   spawnOnWs "sauce" "emacsclient -c")
-    , ("M-x M-e", spawnOnWs "sauce" "emacsclient -c")
+    , ("M-x e",   spawnOnWs "sauce" "emacsclient -s main -c")
+    , ("M-x M-e", spawnOnWs "sauce" "emacsclient -s main -c")
     , ("M-x S-e", spawnOnWs "sauce" "emacs")
     , ("M-x w",   spawnOnWs "web"   "chromium-dev")
     , ("M-x M-w", spawnOnWs "web"   "chromium")
-    , ("M-x i",   spawnOnWs "irc"   "emacs --eval '(irc)'")
-    , ("M-x m",   spawnOnWs "music" "banshee")
-    , ("M-x v",   spawnOnWs "music" "urxvt -e alsamixer")
+    , ("M-x i",   spawnOnWs "irc"   "emacsclient -s irc -c --eval '(irc)'")
 
       -- don't move
-    , ("M-u M-x e", spawn "emacsclient -c")
+    , ("M-u M-x e", spawn "emacsclient -s main -c")
     , ("M-u M-x w", spawn "chromium-dev")
     , ("M-u M-x M-w", spawn "chromium")
 

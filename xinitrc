@@ -20,5 +20,6 @@ alsactl restore
 synclient TapButton1=0
 
 # do it
-emacs --daemon &
+emacs --daemon=main --eval "(turn-on-save-visited-files-mode)" &
+emacs --daemon=irc &
 exec xmonad
