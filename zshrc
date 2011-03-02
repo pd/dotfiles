@@ -42,7 +42,7 @@ export DISPLAY=:0.0
 export LC_CTYPE=en_US.UTF-8
 
 ## hey look "modularity"
-for mod in prompt cli ruby git ; do
+for mod in prompt cli ruby git node ; do
   source ~/.zsh/$mod.zsh
 done
 
