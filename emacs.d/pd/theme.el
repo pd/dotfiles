@@ -57,9 +57,10 @@
      (magit-log-graph ((t (:foreground "steel blue"))))
      (magit-log-sha1 ((t (:foreground "#ffcd8b"))))
 
-     (erc-input-face ((t (:foreground "light steel blue"))))
      (erc-my-nick-face ((t (:foreground "steel blue"))))
+     (erc-input-face ((t (:foreground "light steel blue"))))
      (erc-timestamp-face ((t (:foreground "grey50"))))
+     (erc-prompt-face ((t (:foreground "#c080d0" :background "black"))))
 
      )))
 
