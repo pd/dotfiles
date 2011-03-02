@@ -43,7 +43,11 @@ myLogHook h = dynamicLogWithPP $ defaultPP
    }
 
 -- Workspaces
-myWorkspaces = ["web", "sauce", "irc", "misc"]
+myWorkspaces = clickable . (map dzenEscape) $ ["web", "sauce", "irc", "misc"]
+  where clickable l = [ wsname i ws |
+                        (i,ws) <- zip [1..] l,
+                        let n = i ]
+        wsname n ws  = "^ca(1,xdotool key Alt_R+" ++ show (n) ++ ")" ++ ws ++ "^ca()"
 
 -- Layouts
 myLayout = avoidStruts
