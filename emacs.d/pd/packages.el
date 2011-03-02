@@ -4,6 +4,11 @@
           (load (expand-file-name "~/.emacs.d/elpa/package.el")))
   (package-initialize))
 
+; emacs' built-in elpa only uses the GNU repo. lame.
+(dolist (source '(("technomancy" . "http://repo.technomancy.us/emacs/")
+                  ("elpa" . "http://tromey.com/elpa/")))
+  (add-to-list 'package-archives source t))
+
 ; but elpa doesn't have it all
 (labels ((add-path (p)
                    (add-to-list 'load-path p)))
