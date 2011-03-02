@@ -63,7 +63,7 @@ myAdditionalKeys =
     , ("M-x S-e", spawnOnWs "sauce" "emacs")
     , ("M-x w",   spawnOnWs "web"   "chromium-dev")
     , ("M-x M-w", spawnOnWs "web"   "chromium")
-    , ("M-x i",   spawnOnWs "irc"   "emacsclient -c -e '(irc)'")
+    , ("M-x i",   spawnOnWs "irc"   "emacs --eval '(irc)'")
     , ("M-x m",   spawnOnWs "music" "banshee")
     , ("M-x v",   spawnOnWs "music" "urxvt -e alsamixer")
 

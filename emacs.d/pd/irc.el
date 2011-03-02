@@ -19,6 +19,7 @@
   "Connect to IRC, maybe."
   (interactive)
   (when (y-or-n-p "IRC? ")
+    (turn-off-save-visited-files-mode)
     (dolist (srv pd/erc-secrets-servers)
       (when (y-or-n-p (concat (cadr srv) "? "))
         (apply 'erc srv)))))
