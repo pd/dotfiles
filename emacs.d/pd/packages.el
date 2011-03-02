@@ -1,5 +1,6 @@
 ; boot elpa
-(when (load (expand-file-name "~/.emacs.d/elpa/package.el"))
+(when (or (find-library-name "package")
+          (load (expand-file-name "~/.emacs.d/elpa/package.el")))
   (package-initialize))
 
 ; but elpa doesn't have it all
