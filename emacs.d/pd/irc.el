@@ -12,7 +12,8 @@
      (add-hook 'erc-insert-post-hook 'erc-save-buffer-in-logs)
 
      ; only notify about activity for actual conversation
-     (setq erc-track-exclude-types '("JOIN" "PART" "QUIT" "NICK" "MODE"))
+     (setq erc-track-exclude-types '("JOIN" "PART" "QUIT" "NICK" "MODE"
+                                     "324" "329" "332" "333" "353" "477"))
      (setq erc-autojoin-channels-alist pd/erc-secrets-autojoins)))
 
 (defun pd/irc ()
