@@ -1,7 +1,3 @@
-; save my buffers.
-; losing 78 buffers cuz my laptop ran out of battery == sad pd.
-(turn-on-save-visited-files-mode)
-
 ; how to open urls
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program (cond ((pd/macosx-p) "open")

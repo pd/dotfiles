@@ -18,14 +18,13 @@
                                      "324" "329" "332" "333" "353" "477"))
      (setq erc-autojoin-channels-alist pd/erc-secrets-autojoins)))
 
-(defun pd/irc-hilited ()
+(defun pd/irc-hilited (msg-type who msg)
   (pd/x-urgency-hint (selected-frame) t))
 
 (defun pd/irc ()
   "Connect to IRC, maybe."
   (interactive)
   (when (y-or-n-p "IRC? ")
-    (turn-off-save-visited-files-mode)
     (dolist (srv pd/erc-secrets-servers)
       (when (y-or-n-p (concat (cadr srv) "? "))
         (apply 'erc srv)))))
