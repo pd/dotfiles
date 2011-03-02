@@ -35,7 +35,7 @@ myLogHook h = dynamicLogWithPP $ defaultPP
    , ppHiddenNoWindows  = dzenColor "#444" "#000"
    , ppUrgent = dzenColor "#000" "red" . wrap "*" "*"
    , ppLayout = map toLower
-   , ppTitle  = shorten 50
+   , ppTitle  = shorten 80
    , ppExtras = [ logCmd "sh -c 'echo `whoami`@`uname -n`'" ]
    , ppWsSep  = " "
    , ppSep    = dzenColor "steel blue" "#000" " :: "
@@ -100,9 +100,9 @@ myAdditionalMouseBindings =
     ]
 
 -- Bars
-myDzenCommand = "dzen2 -bg black -fg grey -fn '-*-dina-medium-r-*-*-*-*-*-*-*-*-*-*'"
-myXmonadBar   = myDzenCommand ++ " -ta l -w 750"
-myStatusBar   = "conky | " ++ myDzenCommand ++ " -ta r -x 750"
+myDzenCommand = "dzen2 -bg black -fg grey -fn 'Droid Sans Mono-10'"
+myXmonadBar   = myDzenCommand ++ " -ta l -w 850"
+myStatusBar   = "conky | " ++ myDzenCommand ++ " -ta r -x 850"
 
 -- Float things that should be
 myManageHook = composeAll
@@ -116,7 +116,7 @@ myConfig xmonadBar = defaultConfig
     , focusFollowsMouse  = False
     , terminal           = "urxvt"
     , borderWidth        = 1
-    , normalBorderColor  = "#555753"
+    , normalBorderColor  = "#444"
     , focusedBorderColor = "steel blue"
     , logHook            = myLogHook xmonadBar
     , manageHook         = myManageHook
