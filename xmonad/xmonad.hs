@@ -43,7 +43,7 @@ myLogHook h = dynamicLogWithPP $ defaultPP
    }
 
 -- Workspaces
-myWorkspaces = ["web", "sauce", "music", "4", "5", "6", "7", "8", "irc"]
+myWorkspaces = ["web", "sauce", "irc", "misc"]
 
 -- Layouts
 myLayout = avoidStruts
