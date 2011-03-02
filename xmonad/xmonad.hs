@@ -15,6 +15,7 @@ import XMonad.Layout.ResizableTile
 
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.UrgencyHook
 
 import XMonad.Actions.Volume
 
@@ -122,7 +123,8 @@ myConfig xmonadBar = defaultConfig
 main = do
     xmonadBar <- spawnPipe myXmonadBar
     statusBar <- spawnPipe myStatusBar
-    xmonad $ myConfig xmonadBar
+    xmonad $ withUrgencyHook NoUrgencyHook
+           $ myConfig xmonadBar
         `additionalKeysP` myAdditionalKeys
         `removeKeysP` myRemovedKeys
         `additionalMouseBindings` myAdditionalMouseBindings
