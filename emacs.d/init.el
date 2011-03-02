@@ -21,5 +21,5 @@
 (require 'pd/js)
 (require 'pd/haskell)
 (require 'pd/irc)
-(require 'pd/smex)
 (require 'pd/misc)
+(require 'pd/smex)
