@@ -1,4 +1,5 @@
 ; boot elpa
+(require 'find-func)
 (when (or (find-library-name "package")
           (load (expand-file-name "~/.emacs.d/elpa/package.el")))
   (package-initialize))
