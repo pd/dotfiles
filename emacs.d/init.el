@@ -15,7 +15,6 @@
 (require 'pd/shell)
 (require 'pd/tramp)
 (require 'pd/magit)
-(require 'pd/chrome)
 (require 'pd/lisps)
 (require 'pd/ruby)
 (require 'pd/js)
