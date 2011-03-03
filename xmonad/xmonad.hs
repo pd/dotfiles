@@ -27,20 +27,28 @@ import Data.Ratio ((%))
 -- bound in xinitrc to alt_r
 myModMask = mod3Mask
 
--- Log hook
-myLogHook h = dynamicLogWithPP $ defaultPP
-   { ppOutput           = \s -> hPutStrLn h (" " ++ s)
-   , ppCurrent          = dzenColor "#000" "steel blue" . wrap " " " "
-   , ppHidden           = dzenColor "grey" "#000"
-   , ppHiddenNoWindows  = dzenColor "#666" "#000"
-   , ppUrgent = dzenColor "#000" "red" . wrap "*" "*"
-   , ppLayout = map toLower
-   , ppTitle  = shorten 80
-   , ppExtras = [ logCmd "sh -c 'echo `whoami`@`uname -n`'" ]
-   , ppWsSep  = " "
-   , ppSep    = dzenColor "steel blue" "#000" " :: "
-   , ppOrder  = \(ws:l:t:exs) -> exs++[ws,l,t]
-   }
+-- Main
+main = do
+    xmonadBar <- spawnPipe myXmonadBar
+    statusBar <- spawnPipe myStatusBar
+    xmonad $ withUrgencyHook NoUrgencyHook
+           $ myConfig xmonadBar
+        `additionalKeysP` myAdditionalKeys
+        `removeKeysP` myRemovedKeys
+        `additionalMouseBindings` myAdditionalMouseBindings
+
+myConfig xmonadBar = defaultConfig
+    { modMask            = myModMask
+    , workspaces         = myWorkspaces
+    , focusFollowsMouse  = False
+    , terminal           = "urxvt"
+    , borderWidth        = 1
+    , normalBorderColor  = "#444"
+    , focusedBorderColor = "steel blue"
+    , logHook            = myLogHook xmonadBar
+    , manageHook         = myManageHook
+    , layoutHook         = myLayout
+    }
 
 -- Workspaces
 myWorkspaces = ["web", "sauce", "irc", "misc"]
@@ -51,6 +59,10 @@ myLayout = avoidStruts
            $ Full ||| tiled ||| Circle
   where tiled    = named "tile" $ hinted (ResizableTall 1 (3/100) (3/5) [])
         hinted l = layoutHints l
+
+myManageHook = composeAll
+    [ title     =? "Downloads" --> doFloat
+    , manageDocks ] <+> manageHook defaultConfig
 
 -- Key bindings
 spawnOnWs ws command = (windows $ W.greedyView ws) >> spawn command
@@ -95,35 +107,22 @@ myAdditionalMouseBindings =
                                            >> windows W.shiftMaster))
     ]
 
+-- Log hook
+myLogHook h = dynamicLogWithPP $ defaultPP
+   { ppOutput           = \s -> hPutStrLn h (" " ++ s)
+   , ppCurrent          = dzenColor "#000" "steel blue" . wrap " " " "
+   , ppHidden           = dzenColor "grey" "#000"
+   , ppHiddenNoWindows  = dzenColor "#666" "#000"
+   , ppUrgent = dzenColor "#000" "red" . wrap "*" "*"
+   , ppLayout = map toLower
+   , ppTitle  = shorten 80
+   , ppExtras = [ logCmd "sh -c 'echo `whoami`@`uname -n`'" ]
+   , ppWsSep  = " "
+   , ppSep    = dzenColor "steel blue" "#000" " :: "
+   , ppOrder  = \(ws:l:t:exs) -> exs++[ws,l,t]
+   }
+
 -- Bars
 myDzenCommand = "dzen2 -bg black -fg grey -fn 'Droid Sans Mono-10'"
 myXmonadBar   = myDzenCommand ++ " -ta l -w 850"
 myStatusBar   = "conky | " ++ myDzenCommand ++ " -ta r -x 850"
-
--- Float things that should be
-myManageHook = composeAll
-    [ title     =? "Downloads" --> doFloat
-    , manageDocks ] <+> manageHook defaultConfig
-
--- XConfig
-myConfig xmonadBar = defaultConfig
-    { modMask            = myModMask
-    , workspaces         = myWorkspaces
-    , focusFollowsMouse  = False
-    , terminal           = "urxvt"
-    , borderWidth        = 1
-    , normalBorderColor  = "#444"
-    , focusedBorderColor = "steel blue"
-    , logHook            = myLogHook xmonadBar
-    , manageHook         = myManageHook
-    , layoutHook         = myLayout
-    }
-
-main = do
-    xmonadBar <- spawnPipe myXmonadBar
-    statusBar <- spawnPipe myStatusBar
-    xmonad $ withUrgencyHook NoUrgencyHook
-           $ myConfig xmonadBar
-        `additionalKeysP` myAdditionalKeys
-        `removeKeysP` myRemovedKeys
-        `additionalMouseBindings` myAdditionalMouseBindings
