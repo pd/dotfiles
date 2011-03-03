@@ -12,6 +12,7 @@
      (add-hook 'erc-insert-post-hook 'erc-save-buffer-in-logs)
 
      (add-hook 'erc-text-matched-hook 'pd/irc-hilited)
+     (add-hook 'erc-mode-hook 'pd/turn-off-show-trailing-whitespace)
 
      ; only notify about activity for actual conversation
      (setq erc-track-exclude-types '("JOIN" "PART" "QUIT" "NICK" "MODE"
