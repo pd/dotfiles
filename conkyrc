@@ -4,7 +4,7 @@ out_to_x no
 short_units yes
 
 TEXT
-^fg(steel blue)^i(/home/pd/.dzen/xbm/cpu.xbm) ^fg()${cpu cpu0}% \
+^fg(steel blue)^i(/home/pd/.dzen/xbm/cpu.xbm) ^fg()0:${cpu cpu0}% 1:${cpu cpu1}% \
 ^fg(steel blue)^i(/home/pd/.dzen/xbm/mem.xbm) ^fg()${memperc}% \
 ^fg(steel blue)^i(/home/pd/.dzen/xbm/bat_full_01.xbm) ${if_match ${battery_percent BAT1} <= 25}^bg(orange red)^fg(black)${else}^fg()${endif}${battery_short BAT1} ${battery_time BAT1}^bg()\
 ${if_up eth0}^fg(steel blue)^i(/home/pd/.dzen/xbm/net_wired.xbm) ^fg()eth0: ^fg(steel blue)^i(/home/pd/.dzen/xbm/net_up_03.xbm) ^fg()${upspeed eth0} ^fg(steel blue)^i(/home/pd/.dzen/xbm/net_down_03.xbm) ^fg()${downspeed eth0}${endif} \
