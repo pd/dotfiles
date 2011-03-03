@@ -15,6 +15,7 @@ import XMonad.Layout.ResizableTile
 
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.UrgencyHook
 
 import XMonad.Actions.Volume
@@ -54,19 +55,19 @@ main = do
 myWorkspaces = ["web", "sauce", "irc", "misc"]
 
 -- Layouts
-myLayout = avoidStruts
-           $ smartBorders
+myLayout = avoidStruts $ smartBorders
            $ Full ||| tiled ||| Circle
-  where tiled    = named "tile" $ hinted (ResizableTall 1 (3/100) (3/5) [])
-        hinted l = layoutHints l
+    where tiled    = named "tile" $ hinted (ResizableTall 1 (3/100) (3/5) [])
+          hinted l = layoutHints l
 
-myManageHook = composeAll
-    [ title     =? "Downloads" --> doFloat
-    , manageDocks ] <+> manageHook defaultConfig
+myManageHook = mainManageHook <+> manageDocks
+    where mainManageHook = composeAll $ concat
+              [ [ title =? c --> doCenterFloat | c <- myCenterFloats ]
+              , [ isDialog   --> doCenterFloat ]
+              ]
+          myCenterFloats = ["Downloads"]
 
 -- Key bindings
-spawnOnWs ws command = (windows $ W.greedyView ws) >> spawn command
-
 myAdditionalKeys =
     [ -- run anything
       ("M-S-x", spawn "exe=`dmenu_path | dmenu` && eval \"exec $exe\"")
@@ -97,6 +98,7 @@ myAdditionalKeys =
     , ("M-q", spawn "killall dzen2; killall conky" >> restart "xmonad" True)
     , ("M-S-<F12>", io (exitWith ExitSuccess))
     ]
+
 myRemovedKeys = ["M-S-q", "M-p"]
 
 -- mod3 (alt_r) is my mouse hand, so allow mod1 for resizing float windows
@@ -138,3 +140,6 @@ myLogHook h = dynamicLogWithPP $ defaultPP
    , ppSep    = dzenColor "steel blue" "#000" " :: "
    , ppOrder  = \(ws:l:t:exs) -> exs++[ws,l,t]
    }
+
+-- Handy helpers
+spawnOnWs ws command = (windows $ W.greedyView ws) >> spawn command
