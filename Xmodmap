@@ -1,0 +1,22 @@
+! caps lock -> control
+remove lock = Caps_Lock
+add control = Caps_Lock
+
+! from left to right, remap the apple keyboard modifiers:
+keycode 37 = Control_L
+keycode 64 = Super_L Hyper_L
+keycode 133 = Alt_L Meta_L
+keycode 134 = Alt_R Meta_R
+keycode 105 = Control_R
+
+! remove additional keycodes that aren't actually generated
+keycode 204 =
+keycode 206 =
+
+clear mod1
+clear mod3
+clear mod4
+
+add mod1 = Alt_L
+add mod3 = Alt_R
+add mod4 = Super_L
