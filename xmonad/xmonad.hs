@@ -24,31 +24,31 @@ import System.IO
 import Data.Char (toLower)
 import Data.Ratio ((%))
 
+-- From ~/.xmonad/lib, ty pbrisbin
+import Dzen
+
 -- bound in xinitrc to alt_r
 myModMask = mod3Mask
 
 -- Main
 main = do
-    xmonadBar <- spawnPipe myXmonadBar
-    statusBar <- spawnPipe myStatusBar
-    xmonad $ withUrgencyHook NoUrgencyHook
-           $ myConfig xmonadBar
-        `additionalKeysP` myAdditionalKeys
-        `removeKeysP` myRemovedKeys
-        `additionalMouseBindings` myAdditionalMouseBindings
+    xmonadBar <- spawnDzen myLeftBar
+    statusBar <- spawnToDzen "conky" myRightBar
 
-myConfig xmonadBar = defaultConfig
-    { modMask            = myModMask
-    , workspaces         = myWorkspaces
-    , focusFollowsMouse  = False
-    , terminal           = "urxvt"
-    , borderWidth        = 1
-    , normalBorderColor  = "#444"
-    , focusedBorderColor = "steel blue"
-    , logHook            = myLogHook xmonadBar
-    , manageHook         = myManageHook
-    , layoutHook         = myLayout
-    }
+    xmonad $ withUrgencyHook NoUrgencyHook $ defaultConfig
+       { modMask            = myModMask
+       , workspaces         = myWorkspaces
+       , focusFollowsMouse  = False
+       , terminal           = "urxvt"
+       , borderWidth        = 1
+       , normalBorderColor  = "#444"
+       , focusedBorderColor = "steel blue"
+       , logHook            = myLogHook xmonadBar
+       , manageHook         = myManageHook
+       , layoutHook         = myLayout
+       } `additionalKeysP` myAdditionalKeys
+         `removeKeysP` myRemovedKeys
+         `additionalMouseBindings` myAdditionalMouseBindings
 
 -- Workspaces
 myWorkspaces = ["web", "sauce", "irc", "misc"]
@@ -107,6 +107,23 @@ myAdditionalMouseBindings =
                                            >> windows W.shiftMaster))
     ]
 
+-- dzen bars
+myLeftBar :: DzenConf
+myLeftBar = defaultDzen
+    { width    = Just $ Percent 45
+    , font     = Just "Droid Sans Mono-10"
+    , fg_color = Just "grey"
+    , bg_color = Just "black"
+    , exec     = []
+    }
+
+myRightBar :: DzenConf
+myRightBar = myLeftBar
+    { alignment  = Just RightAlign
+    , x_position = Just $ Percent 45
+    , width      = Just $ Percent 55
+    }
+
 -- Log hook
 myLogHook h = dynamicLogWithPP $ defaultPP
    { ppOutput           = \s -> hPutStrLn h (" " ++ s)
@@ -121,8 +138,3 @@ myLogHook h = dynamicLogWithPP $ defaultPP
    , ppSep    = dzenColor "steel blue" "#000" " :: "
    , ppOrder  = \(ws:l:t:exs) -> exs++[ws,l,t]
    }
-
--- Bars
-myDzenCommand = "dzen2 -bg black -fg grey -fn 'Droid Sans Mono-10'"
-myXmonadBar   = myDzenCommand ++ " -ta l -w 850"
-myStatusBar   = "conky | " ++ myDzenCommand ++ " -ta r -x 850"
