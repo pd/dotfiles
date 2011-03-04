@@ -1,24 +1,35 @@
 (autoload 'erc "erc" "Emacs IRC Client" t)
 (load "~/.erc-secrets.el" 'noerror 'nomessage) ; passwords, autojoin lists, etc
 
+(defun pd/configure-erc ()
+  (setq erc-nick "pd"
+        erc-nick-uniquifier "_"
+        erc-full-name "pd"
+        erc-email-userid "philo"
+        erc-max-buffer-size 5000
+        erc-join-buffer 'window-noselect
+        erc-log-channels-directory "~/.erc/logs"
+        erc-track-exclude-types '("JOIN" "PART" "QUIT" "NICK" "MODE"
+                                     "324" "329" "332" "333" "353" "477")
+        erc-autojoin-channels-alist pd/erc-secrets-autojoins)
+
+  (add-hook 'erc-insert-post-hook 'erc-save-buffer-in-logs)
+  (add-hook 'erc-mode-hook 'pd/turn-off-show-trailing-whitespace)
+  (add-hook 'erc-text-matched-hook 'pd/irc-hilited)
+  (add-hook 'erc-server-PRIVMSG-functions 'pd/hilite-on-pm))
+
 (eval-after-load 'erc
-  '(progn
-     (setq erc-nick "pd"
-           erc-nick-uniquifier "_"
-           erc-full-name "pd"
-           erc-email-userid "philo"
-           erc-max-buffer-size 5000
-           erc-join-buffer 'window-noselect)
-     (setq erc-log-channels-directory "~/.erc/logs")
-     (add-hook 'erc-insert-post-hook 'erc-save-buffer-in-logs)
+  '(progn (pd/configure-erc)))
 
-     (add-hook 'erc-text-matched-hook 'pd/irc-hilited)
-     (add-hook 'erc-mode-hook 'pd/turn-off-show-trailing-whitespace)
-
-     ; only notify about activity for actual conversation
-     (setq erc-track-exclude-types '("JOIN" "PART" "QUIT" "NICK" "MODE"
-                                     "324" "329" "332" "333" "353" "477"))
-     (setq erc-autojoin-channels-alist pd/erc-secrets-autojoins)))
+; simplified version of http://www.emacswiki.org/emacs/ErcPageMe
+(defun pd/hilite-on-pm (proc parsed)
+  (let ((nick (car (erc-parse-user (erc-response.sender parsed))))
+        (target (car (erc-response.command-args parsed)))
+        (msg (erc-response.contents parsed)))
+    (when (and (erc-current-nick-p target)
+               (not (erc-is-message-ctcp-and-not-action-p msg)))
+      (pd/irc-hilited "pm" nick msg)
+      nil)))
 
 (defun pd/irc-hilited (msg-type who msg)
   (pd/x-urgency-hint (selected-frame) t))
