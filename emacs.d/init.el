@@ -10,6 +10,7 @@
 (require 'pd/ido)
 (require 'pd/theme)
 (require 'pd/coding)
+(require 'pd/yasnippet)
 
 ; focused
 (require 'pd/shell)
