@@ -6,6 +6,7 @@
      (setq erc-nick "pd"
            erc-nick-uniquifier "_"
            erc-full-name "pd"
+           erc-email-userid "philo"
            erc-max-buffer-size 5000
            erc-join-buffer 'window-noselect)
      (setq erc-log-channels-directory "~/.erc/logs")
