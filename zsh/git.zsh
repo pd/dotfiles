@@ -14,6 +14,7 @@ alias gpl='git pull'
 alias gps='git push'
 alias gf='git fetch'
 alias gru='git remote update'
+alias gcp='git cherry-pick'
 
 alias gsh='git show'
 alias gd='git diff'
