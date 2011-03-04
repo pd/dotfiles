@@ -70,12 +70,12 @@ This is run from a hook that isn't called for the first frame,
 but since I use emacsd 99% of the time that's not much of an issue"
   (let ((color-theme-is-global nil))
     (select-frame frame)
-    (when window-system
+    (when (display-graphic-p)
       (color-theme-despot))))
 
 (add-hook 'after-make-frame-functions 'pd/set-color-theme)
 
-(when (or window-system (daemonp))
+(when (or (display-graphic-p) (daemonp))
   (color-theme-despot))
 
 (provide 'pd/theme)
