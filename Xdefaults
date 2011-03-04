@@ -6,6 +6,10 @@ urxvt*font: xft:Droid Sans Mono:size=10
 urxvt*fading: 35
 
 Emacs.font: Droid Sans Mono-10
+Emacs.fontBackend: xft
+Emacs.menuBar: off
+Emacs.toolBar: -1
+Emacs.verticalScrollBars: off
 
 Xft.dpi:        96
 Xft.antialias:  true
