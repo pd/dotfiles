@@ -8,6 +8,7 @@ import XMonad.Util.Loggers
 
 import XMonad.Layout.Circle
 import XMonad.Layout.Grid
+import XMonad.Layout.IM
 import XMonad.Layout.Magnifier as Mag
 import XMonad.Layout.Named
 import XMonad.Layout.NoBorders
@@ -53,11 +54,12 @@ main = do
          `additionalMouseBindings` myAdditionalMouseBindings
 
 -- Workspaces
-myWorkspaces = ["web", "sauce", "irc", "misc"]
+myWorkspaces = ["web", "sauce", "irc", "im", "misc"]
 
 -- Layouts
 myLayout = avoidStruts $ smartBorders $
            onWorkspace "web" (webSplit ||| webWide ||| Full) $
+           onWorkspace "im"  im $
                              (fullFirst)
     where
       -- default web layout, magnifies non-master windows a bit. nice when
@@ -66,6 +68,9 @@ myLayout = avoidStruts $ smartBorders $
 
       -- handy for webdev, browser atop a small shell/emacs frame:
       webWide  = named "wwide" $ Mirror $ ResizableTall 1 (3/100) (80/100) []
+
+      -- pidgin ws
+      im = gridIM (1%5) (Title "Buddy List")
 
       -- the generic layout order for less picky workspaces
       fullFirst = Full ||| Grid ||| tiled
