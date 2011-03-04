@@ -7,6 +7,7 @@ import XMonad.Util.Themes
 import XMonad.Util.Loggers
 
 import XMonad.Layout.Circle
+import XMonad.Layout.Grid
 import XMonad.Layout.LayoutHints
 import XMonad.Layout.Named
 import XMonad.Layout.NoBorders
@@ -56,7 +57,7 @@ myWorkspaces = ["web", "sauce", "irc", "misc"]
 
 -- Layouts
 myLayout = avoidStruts $ smartBorders
-           $ Full ||| tiled ||| Circle
+           $ Full ||| Grid ||| tiled ||| Circle
     where tiled    = named "tile" $ hinted (ResizableTall 1 (3/100) (3/5) [])
           hinted l = layoutHints l
 
