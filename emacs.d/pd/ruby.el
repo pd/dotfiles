@@ -4,8 +4,8 @@
 (add-hook 'ruby-mode-hook 'pd/run-coding-hook)
 (add-hook 'ruby-mode-hook 'pd/add-ruby-keybindings)
 
-(setq auto-mode-alist (cons '("\\.rake\\'" . ruby-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("Gemfile\\'" . ruby-mode) auto-mode-alist))
+(add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Gemfile\\'" . ruby-mode))
 
 (require 'inf-ruby-bond)
 
