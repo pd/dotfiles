@@ -8,7 +8,7 @@ import XMonad.Util.Loggers
 
 import XMonad.Layout.Circle
 import XMonad.Layout.Grid
-import XMonad.Layout.LayoutHints
+import XMonad.Layout.Magnifier as Mag
 import XMonad.Layout.Named
 import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
@@ -56,10 +56,20 @@ main = do
 myWorkspaces = ["web", "sauce", "irc", "misc"]
 
 -- Layouts
-myLayout = avoidStruts $ smartBorders
-           $ Full ||| Grid ||| tiled ||| Circle
-    where tiled    = named "tile" $ hinted (ResizableTall 1 (3/100) (3/5) [])
-          hinted l = layoutHints l
+myLayout = avoidStruts $ smartBorders $
+           onWorkspace "web" (webSplit ||| webWide ||| Full) $
+                             (fullFirst)
+    where
+      -- default web layout, magnifies non-master windows a bit. nice when
+      -- you pull an emacs frame to type something out while referencing the interwebs
+      webSplit = named "wsplit" $ Mag.magnifiercz' 1.2 $ ResizableTall 1 (3/100) (60/100) []
+
+      -- handy for webdev, browser atop a small shell/emacs frame:
+      webWide  = named "wwide" $ Mirror $ ResizableTall 1 (3/100) (80/100) []
+
+      -- the generic layout order for less picky workspaces
+      fullFirst = Full ||| Grid ||| tiled
+      tiled     = named "tile" $ ResizableTall 1 (3/100) (3/5) []
 
 myManageHook = mainManageHook <+> manageDocks
     where mainManageHook = composeAll $ concat
@@ -91,7 +101,7 @@ myAdditionalKeys =
     , ("<XF86AudioRaiseVolume>", raiseVolume 5 >> return ())
     , ("<XF86AudioLowerVolume>", lowerVolume 5 >> return ())
 
-      -- window management
+      -- window sizing
     , ("M-S-h", sendMessage MirrorShrink)
     , ("M-S-l", sendMessage MirrorExpand)
 
