@@ -62,6 +62,6 @@
 
 ; better buffer menu
 (require 'ibuffer)
-(setq ibuffer-default-sorting-mode 'major-mode)
+(setq ibuffer-default-sorting-mode 'filename/process)
 
 (provide 'pd/core)
