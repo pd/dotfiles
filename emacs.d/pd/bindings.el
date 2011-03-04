@@ -1,7 +1,6 @@
 ; i hit the menu key aiming for left arrow all the time;
 ; and hit M-` while trying to move around in xmonad
 (global-unset-key (kbd "<menu>"))
-(global-unset-key (kbd "M-`"))
 
 ; remove a few unnecessary text movement aliases,
 ; some habits i want to break
