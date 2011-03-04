@@ -6,10 +6,3 @@ elif [ -d ~/gems ]; then
   export GEM_HOME=~/gems
   path=(~/gems/bin $path)
 fi
-
-## rip
-if [ -d ~/.rip ]; then
-  export RIPDIR=~/.rip
-  export RUBYLIB=$RIPDIR/active/lib
-  path=(~/.rip/active/bin $path)
-fi
