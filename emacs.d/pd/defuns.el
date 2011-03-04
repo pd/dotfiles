@@ -8,6 +8,21 @@
   (dolist (file (directory-files path 'full "\\.el\\'"))
     (load file noerror nomessage)))
 
+; superior mark handling
+; stolen from http://www.masteringemacs.org/articles/2010/12/22/fixing-mark-commands-transient-mark-mode/
+(defun pd/push-mark ()
+  "Pushes `point' to `mark-ring' and does not activate the region
+Equivalent to \\[set-mark-command] when \\[transient-mark-mode] is disabled"
+  (interactive)
+  (push-mark (point) t nil)
+  (message "Pushed mark to ring"))
+
+(defun pd/jump-to-mark ()
+  "Jumps to the local mark, respecting the `mark-ring' order.
+This is the same as using \\[set-mark-command] with the prefix argument."
+  (interactive)
+  (set-mark-command 1))
+
 ; vi's o and O
 (defun pd/insert-newline ()
   (funcall (or (local-key-binding (kbd "<return>"))

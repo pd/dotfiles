@@ -13,6 +13,8 @@
 ; text navigation
 (global-set-key (kbd "M-p") 'backward-paragraph)
 (global-set-key (kbd "M-n") 'forward-paragraph)
+(global-set-key (kbd "C-`") 'pd/push-mark)
+(global-set-key (kbd "M-`") 'pd/jump-to-mark)
 
 ; C-x C-b: ibuffer
 ; C-c C-b ...: misc buffer ops
