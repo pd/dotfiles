@@ -30,7 +30,8 @@
 (global-set-key (kbd "M-S-<down>") 'shrink-window)
 (global-set-key (kbd "M-S-<right>") 'enlarge-window-horizontally)
 
-; recent files
+; find files
+(global-set-key (kbd "C-x M-f") 'ffap)
 (global-set-key (kbd "C-x f") 'pd/recentf-ido-find-file)
 
 ; text editing
