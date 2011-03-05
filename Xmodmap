@@ -1,3 +1,7 @@
 ! caps lock -> control
 remove lock = Caps_Lock
 add control = Caps_Lock
+
+! alt_r = mod3 for xmonad
+remove mod1 = Alt_R
+add mod3 = Alt_R
