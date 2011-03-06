@@ -78,9 +78,12 @@ myLayout = avoidStruts $ smartBorders $
 
 myManageHook = mainManageHook <+> manageDocks
     where mainManageHook = composeAll $ concat
-              [ [ title =? c --> doCenterFloat | c <- myCenterFloats ]
-              , [ isDialog   --> doCenterFloat ]
+              [ [ title =? c     --> doCenterFloat | c <- myCenterFloats ]
+              , [ className =? c --> doShift "im" | c <- myIMs ]
+              , [ isDialog       --> doCenterFloat ]
+              , [ isFullscreen   --> doFullFloat ]
               ]
+          myIMs = ["Pidgin"]
           myCenterFloats = ["Downloads"]
 
 -- Key bindings
