@@ -14,9 +14,11 @@
 (labels ((add-path (p)
                    (add-to-list 'load-path p)))
   (add-path "~/.emacs.d/vendor")
+  (add-path "~/.emacs.d/vendor/ensime/elisp")
   (add-path "~/dotfiles/vendor/magit")
   (add-path "~/dotfiles/vendor/smex")
   (add-path "~/dotfiles/vendor/inf-ruby-bond")
-  (add-path "~/dotfiles/vendor/erc"))
+  (add-path "~/dotfiles/vendor/erc")
+  (add-path "~/dotfiles/vendor/scala-mode"))
 
 (provide 'pd/packages)

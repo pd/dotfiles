@@ -20,6 +20,7 @@
 (require 'pd/ruby)
 (require 'pd/js)
 (require 'pd/haskell)
+(require 'pd/scala)
 (require 'pd/irc)
 (require 'pd/misc)
 (require 'pd/smex)

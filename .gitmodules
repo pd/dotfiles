@@ -10,3 +10,6 @@
 [submodule "vendor/erc"]
 	path = vendor/erc
 	url = git://git.sv.gnu.org/erc.git
+[submodule "vendor/scala-mode"]
+	path = vendor/scala-mode
+	url = git://github.com/ananthakumaran/scala-mode.git
