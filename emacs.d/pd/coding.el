@@ -40,6 +40,10 @@
 (defun pd/enable-newline-and-indent (map)
   (define-key map (kbd "<return>") 'newline-and-indent))
 
+(defun pd/restore-paragraph-movement (map)
+  (define-key map (kbd "M-p") 'backward-paragraph)
+  (define-key map (kbd "M-n") 'forward-paragraph))
+
 (defun pd/turn-on-hl-watchwords ()
   (font-lock-add-keywords
    nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|XXX\\|REFACTOR\\)"

@@ -15,11 +15,11 @@
 (add-hook 'clojure-mode-hook 'pd/run-lisp-hook)
 (add-hook 'slime-repl-mode-hook 'pd/run-lisp-hook)
 
-; slime-mode overrides these for slime-next-note, slime-previous-note
-; i don't know what that is so please give me my pararaph nav back
-(defun pd/restore-paragraph-movement ()
-  (define-key slime-mode-map (kbd "M-p") 'backward-paragraph)
-  (define-key slime-mode-map (kbd "M-n") 'forward-paragraph))
+; slime-mode steals M-p and M-n to navigate compilation error
+; notes. i don't care about those. please give me paragraph
+; movement back.
+(defun pd/slime-mode-paragraph-movement ()
+  (pd/restore-paragraph-movement slime-mode-map))
 
 (add-hook 'slime-mode-hook 'pd/restore-paragraph-movement)
 
