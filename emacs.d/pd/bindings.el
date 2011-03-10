@@ -20,6 +20,7 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-c b b") 'bury-buffer)
 (global-set-key (kbd "C-c b r") 'rename-buffer)
+(global-set-key (kbd "C-c b z") 'reload-buffer)
 
 ; super-[left/up/down/right]: window navigation
 (windmove-default-keybindings 'super)

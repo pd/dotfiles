@@ -8,6 +8,16 @@
   (dolist (file (directory-files path 'full "\\.el\\'"))
     (load file noerror nomessage)))
 
+; kill this buffer, then immediately reopen it where i was.
+; useful for when mode hooks have been updated and i want them rerun.
+; from xale@#emacs
+(defun reload-buffer ()
+  (interactive)
+  (let ((path (buffer-file-name)) (point (point)))
+    (kill-buffer)
+    (find-file path)
+    (goto-char point)))
+
 ; superior mark handling
 ; stolen from http://www.masteringemacs.org/articles/2010/12/22/fixing-mark-commands-transient-mark-mode/
 (defun pd/push-mark ()
