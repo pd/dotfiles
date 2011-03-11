@@ -70,4 +70,9 @@
 (require 'ibuffer)
 (setq ibuffer-default-sorting-mode 'filename/process)
 
+; winner-mode: undo/redo window state changes
+; holy christ how have i not been using this forever?
+(require 'winner-mode)
+(winner-mode 1)
+
 (provide 'pd/core)
