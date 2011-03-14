@@ -1,6 +1,7 @@
 *.swp
 *.elc
 
+emacs.d/.crap
 emacs.d/auto-save-list
 emacs.d/emacs-visited-files
 emacs.d/backups

@@ -9,7 +9,7 @@
 (global-set-key (kbd "C-c M-x") 'smex-update-and-run)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
-(setq smex-save-file "~/.emacs.d/smex.save")
+(setq smex-save-file "~/.emacs.d/.crap/smex.save")
 (smex-auto-update 120) ; auto update after 2 minutes idle
 
 (provide 'pd/smex)

@@ -9,10 +9,12 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ; and pile your junk somewhere else.
-(setq backup-directory-alist '(("." . "~/.emacs.d/backups"))
-      tramp-backup-directory-alist '(("." . "~/.emacs.d/backups"))
-      save-place-file "~/.emacs.d/places"
-      custom-file "~/.emacs.d/custom.el"
+(setq backup-directory-alist '(("." . "~/.emacs.d/.crap/backups"))
+      tramp-backup-directory-alist '(("." . "~/.emacs.d/.crap/backups"))
+      save-place-file "~/.emacs.d/.crap/places"
+      custom-file "~/.emacs.d/.crap/custom.el"
+      ac-comphist-file "~/.emacs.d/.crap/ac-comphist.dat"
+      save-visited-files-location "~/.emacs.d/.crap/emacs-visited-files"
       auto-save-default nil)
 
 ; religion:
