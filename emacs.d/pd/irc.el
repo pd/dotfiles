@@ -11,7 +11,8 @@
         erc-log-channels-directory "~/.erc/logs"
         erc-track-exclude-types '("JOIN" "PART" "QUIT" "NICK" "MODE"
                                      "324" "329" "332" "333" "353" "477")
-        erc-autojoin-channels-alist pd/erc-secrets-autojoins)
+        erc-autojoin-channels-alist pd/erc-secrets-autojoins
+        erc-ignore-list pd/erc-secrets-ignores)
 
   (add-hook 'erc-insert-post-hook 'erc-save-buffer-in-logs)
   (add-hook 'erc-mode-hook 'pd/turn-off-show-trailing-whitespace)
