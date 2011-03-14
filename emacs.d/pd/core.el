@@ -72,7 +72,7 @@
 
 ; winner-mode: undo/redo window state changes
 ; holy christ how have i not been using this forever?
-(require 'winner-mode)
+(require 'winner)
 (winner-mode 1)
 
 (provide 'pd/core)
