@@ -41,10 +41,9 @@
                     "/bin" "/sbin" "/usr/bin" "/usr/sbin")))
 
 ; useful frame titles
-(when (display-graphic-p)
-  (setq frame-title-format '(("" invocation-name ":")
-                             (:eval (if buffer-file-name (pd/tildify buffer-file-name)
-                                        (buffer-name))))))
+(setq frame-title-format '(("" invocation-name ":")
+                           (:eval (if buffer-file-name (pd/tildify buffer-file-name)
+                                    (buffer-name)))))
 
 ; everyone loves clisp
 (require 'cl)
