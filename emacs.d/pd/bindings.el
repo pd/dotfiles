@@ -35,6 +35,7 @@
 ; find files
 (global-set-key (kbd "C-x M-f") 'ffap)
 (global-set-key (kbd "C-x f") 'pd/recentf-ido-find-file)
+(global-set-key (kbd "C-x C-d") 'dired) ; i never, ever want list-directory
 
 ; text editing
 (global-set-key (kbd "M-/") 'hippie-expand)
