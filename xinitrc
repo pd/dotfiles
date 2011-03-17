@@ -9,6 +9,9 @@ xset fp rehash
 # restore sound settings
 alsactl restore
 
+# stfu system beep!
+xset -b
+
 # I constantly switch emacs buffer by accidentally palming the
 # touchpad. I rarely click using the touchpad. Disable it.
 if [ -x /usr/bin/synclient ]; then
