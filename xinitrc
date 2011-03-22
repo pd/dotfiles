@@ -4,6 +4,7 @@ xsetroot -cursor_name left_ptr
 
 # add to x's font path
 xset fp+ /usr/share/fonts/local
+xset fp+ /usr/share/fonts/TTF
 xset fp rehash
 
 # restore sound settings
@@ -22,6 +23,5 @@ fi
 export _JAVA_AWT_VM_NONREPARENTING=1
 
 # do it
-emacs --daemon=main --eval "(turn-on-save-visited-files-mode)" &
-emacs --daemon=irc &
-exec xmonad
+#emacs --daemon=main --eval "(turn-on-save-visited-files-mode)" &
+exec openbox

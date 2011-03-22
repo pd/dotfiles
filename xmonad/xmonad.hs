@@ -20,7 +20,7 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.UrgencyHook
 
-import XMonad.Actions.Volume
+-- import XMonad.Actions.Volume
 import XMonad.Actions.CycleWS
 
 import System.Exit
@@ -37,7 +37,6 @@ myModMask = mod3Mask
 -- Main
 main = do
     xmonadBar <- spawnDzen myLeftBar
-    statusBar <- spawnToDzen "conky" myRightBar
 
     xmonad $ withUrgencyHook NoUrgencyHook $ defaultConfig
        { modMask            = myModMask
@@ -106,11 +105,6 @@ myAdditionalKeys =
     , ("M-u M-x e", spawn "emacsclient -s main -c")
     , ("M-u M-x w", spawn "chromium-dev")
     , ("M-u M-x M-w", spawn "chromium")
-
-      -- volume control
-    , ("<XF86AudioMute>",        toggleMute >> return ())
-    , ("<XF86AudioRaiseVolume>", raiseVolume 5 >> return ())
-    , ("<XF86AudioLowerVolume>", lowerVolume 5 >> return ())
 
       -- window sizing
     , ("M-S-h", sendMessage MirrorShrink)
