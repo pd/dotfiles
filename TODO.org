@@ -1,0 +1,4 @@
+* sudo bauerbill -S --aur dzen2-xft-xpm-xinerama-svn
+* fixes xmonad's hang until dzen2 works again:
+** cat /etc/proc/`pgrep xmonad`/fd/4
+** see http://www.haskell.org/haskellwiki/Xmonad/Frequently_asked_questions#XMonad_is_frozen.21
