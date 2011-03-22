@@ -1,8 +1,3 @@
-; /home/pd/foo => ~/foo
-(defun pd/tildify (path)
-  (when path
-    (replace-regexp-in-string (concat "\\`" (expand-file-name "~")) "~" path)))
-
 ; load all .el files in a directory. this does not descend.
 (defun pd/load-directory (path &optional noerror nomessage)
   (dolist (file (directory-files path 'full "\\.el\\'"))
