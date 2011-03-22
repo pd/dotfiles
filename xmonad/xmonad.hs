@@ -121,6 +121,7 @@ myAdditionalKeys =
 
       -- gtfo
     , ("M-q", spawn "killall dzen2; killall conky" >> restart "xmonad" True)
+    , ("M-S-<F8>", spawn "xlock -mode blank")
     , ("M-S-<F12>", io (exitWith ExitSuccess))
     ]
     ++
