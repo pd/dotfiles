@@ -21,6 +21,7 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.UrgencyHook
 
 import XMonad.Actions.Volume
+import XMonad.Actions.CycleWS
 
 import System.Exit
 import System.IO
@@ -115,9 +116,23 @@ myAdditionalKeys =
     , ("M-S-h", sendMessage MirrorShrink)
     , ("M-S-l", sendMessage MirrorExpand)
 
+      -- workspace/screen maneuvering
+    , ("M-<D>",   nextWS)
+    , ("M-<U>",   prevWS)
+    , ("M-<R>",   nextScreen)
+    , ("M-<L>",   prevScreen)
+    , ("M-S-<R>", shiftNextScreen)
+    , ("M-S-<L>", shiftPrevScreen)
+
       -- gtfo
     , ("M-q", spawn "killall dzen2; killall conky" >> restart "xmonad" True)
     , ("M-S-<F12>", io (exitWith ExitSuccess))
+    ]
+    ++
+    [ (otherModMasks ++ "M-" ++ [key], action tag)
+        | (tag, key) <- zip myWorkspaces "123456789"
+        , (otherModMasks, action) <- [ ("", windows . W.view)
+                                     , ("S-", windows . W.shift) ]
     ]
 
 myRemovedKeys = ["M-S-q", "M-p"]

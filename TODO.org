@@ -1,3 +1,6 @@
+* verify changes to workspace switching
+** see http://www.haskell.org/haskellwiki/Xmonad/Frequently_asked_questions#Multi_head_and_workspaces_.28desktops.29
+* verify M-<u/d/l/r> changes for CycleWS
 * sudo bauerbill -S --aur dzen2-xft-xpm-xinerama-svn
 * fixes xmonad's hang until dzen2 works again:
 ** cat /etc/proc/`pgrep xmonad`/fd/4
