@@ -1,9 +1,6 @@
 ; how to open urls
 (setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program (cond ((pd/macosx-p) "open")
-                                       ((executable-find "chromium-dev") "chromium-dev")
-                                       ((executable-find "chromium") "chromium")
-                                       t "firefox"))
+      browse-url-generic-program "chromium-browser")
 
 ; why does woman open its own frame by default?
 (setq woman-use-own-frame nil)
