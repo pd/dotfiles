@@ -37,6 +37,7 @@ myModMask = mod3Mask
 -- Main
 main = do
     xmonadBar <- spawnDzen myLeftBar
+    conkyBar  <- spawnToDzen "conky" myRightBar
 
     xmonad $ withUrgencyHook NoUrgencyHook $ defaultConfig
        { modMask            = myModMask
