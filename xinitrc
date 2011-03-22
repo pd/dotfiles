@@ -23,5 +23,5 @@ fi
 export _JAVA_AWT_VM_NONREPARENTING=1
 
 # do it
-#emacs --daemon=main --eval "(turn-on-save-visited-files-mode)" &
+emacs --daemon=main --eval "(turn-on-save-visited-files-mode)" &
 exec xmonad
