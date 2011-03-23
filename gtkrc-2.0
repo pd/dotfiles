@@ -1,14 +1,8 @@
-# -- THEME AUTO-WRITTEN DO NOT EDIT
-include "/usr/share/themes/MurrinaBlue/gtk-2.0/gtkrc"
+# Auto-written by gtk2_prefs. Do not edit.
 
-style "user-font" {
-	font_name = "Sans 8"
+gtk-theme-name = "Clearlooks"
+style "user-font"
+{
+	font_name="Droid Sans 10"
 }
-
 widget_class "*" style "user-font"
-
-gtk-font-name="Sans 8"
-
-include "/home/pd/.gtkrc.mine"
-
-# -- THEME AUTO-WRITTEN DO NOT EDIT
