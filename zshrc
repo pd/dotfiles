@@ -51,3 +51,6 @@ if [[ `uname -s` -eq "Linux" ]]; then
 else
   source ~/.zsh/osx.zsh
 fi
+
+# p4
+export P4CONFIG=~/.p4config
