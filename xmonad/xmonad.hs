@@ -55,7 +55,7 @@ main = do
          `additionalMouseBindings` myAdditionalMouseBindings
 
 -- Workspaces
-myWorkspaces = ["web", "sauce", "irc", "im", "misc"]
+myWorkspaces = ["web", "sauce", "irc", "im", "misc", "vm"]
 
 -- Layouts
 myLayout = avoidStruts $ smartBorders $
@@ -83,11 +83,14 @@ myManageHook = mainManageHook <+> manageDocks
               , [ className =? c --> doShift "web" | c <- myWebs ]
               , [ className =? c --> doShift "im"  | c <- myIMs ]
               , [ isDialog       --> doCenterFloat ]
+              , [ className =? c --> doShift "vm"  | c <- myVM ]
+              , [ className =? c --> doFloat       | c <- myVM ]
               , [ isFullscreen   --> doFullFloat ]
               ]
           myWebs = ["Chromium", "Firefox"]
           myIMs = ["Pidgin"]
           myCenterFloats = ["Downloads"]
+          myVM = ["VirtualBox"]
 
 -- Key bindings
 myAdditionalKeys =
