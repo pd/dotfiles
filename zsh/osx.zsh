@@ -1,10 +1,3 @@
-## quarantine is lame
-clear-xattr () {
-  for a in `xattr $1`; do
-    xattr -d $a $1
-  done
-}
-
 # emacs from terminal should not launch homebrew's funky version
 alias emacs='open /Applications/Emacs.app'
 
