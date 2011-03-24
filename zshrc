@@ -1,14 +1,5 @@
 # -*- mode: sh -*-
 
-path=(
-  ~/bin
-  ~/.cabal/bin
-  /opt/java/bin
-  /opt/local/bin /opt/local/sbin
-  /usr/local/bin /usr/local/sbin
-  /bin /sbin /usr/bin /usr/sbin
-  .
-)
 fpath=(~/.zsh/functions $fpath)
 
 ## emacs^[dd
@@ -31,26 +22,27 @@ setopt autocd     ## if i type '../somedir', just cd there.
 setopt cdablevars ## 'cd foo' can be 'cd $foo' if 'foo' doesn't exist
 
 ## history
-export HISTSIZE=500
 export SAVEHIST=1000
 export HISTFILE=~/.history.zsh
 setopt histverify
 
-## eh
-export EDITOR=vim
-export DISPLAY=:0.0
-export LC_CTYPE=en_US.UTF-8
+## prompt
+# expand %m, %*; expand '$(echo hi)', '${foovar}'
+setopt prompt_percent prompt_subst
 
-## hey look "modularity"
-for mod in prompt cli ruby git node ; do
-  source ~/.zsh/$mod.zsh
-done
+# emacs shell == "dumb"
+# disable zsh line editing and let emacs do it
+[[ $TERM = "dumb" ]] && unsetopt zle
 
-if [[ `uname -s` -eq "Linux" ]]; then
-  source ~/.zsh/arch.zsh
+# if this is over ssh, display the hostname to save my brain the effort
+if [[ -n $SSH_CONNECTION ]]; then
+  export PS1='%~ @ %m » '
 else
-  source ~/.zsh/osx.zsh
+  export PS1='%~ » '
 fi
 
-# p4
-export P4CONFIG=~/.p4config
+## generic shell profile setup
+source ~/dotfiles/shell_profile/*.sh
+if [ -d ~/dotfiles/shell_profile/`uname -s` ]; then
+  source ~/dotfiles/shell_profile/`uname -s`/*.sh
+fi
