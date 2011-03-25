@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ "$1" = "-u" ]; then
+  fusermount -u ~/vm
+else
+  sshfs vm:/ ~/vm
+fi
