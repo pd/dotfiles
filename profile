@@ -6,9 +6,14 @@ export PS1='\w $ '
 set -o emacs
 
 # generic shell profile setup
-source ~/dotfiles/shell_profile/*.sh
+for f in ~/dotfiles/shell_profile/*.sh; do
+  source $f
+done
+
 if [ -d ~/dotfiles/shell_profile/`uname -s` ]; then
-  source ~/dotfiles/shell_profile/`uname -s`/*.sh
+  for f in ~/dotfiles/shell_profile/`uname -s`/*.sh; do
+    source $f
+  done
 fi
 
 # load global bash completion
