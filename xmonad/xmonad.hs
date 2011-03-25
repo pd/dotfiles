@@ -101,13 +101,13 @@ myAdditionalKeys =
     , ("M-x e",   spawnOnWs "sauce" "emacsclient -s main -c")
     , ("M-x M-e", spawnOnWs "sauce" "emacsclient -s main -c")
     , ("M-x S-e", spawnOnWs "sauce" "emacs")
-    , ("M-x w",   spawnOnWs "web"   "chromium-dev")
+    , ("M-x w",   spawnOnWs "web"   "chromium")
     , ("M-x M-w", spawnOnWs "web"   "chromium")
     , ("M-x i",   spawnOnWs "irc"   "emacsclient -s irc -c --eval '(irc)'")
 
       -- don't move
     , ("M-u M-x e", spawn "emacsclient -s main -c")
-    , ("M-u M-x w", spawn "chromium-dev")
+    , ("M-u M-x w", spawn "chromium")
     , ("M-u M-x M-w", spawn "chromium")
 
       -- window sizing

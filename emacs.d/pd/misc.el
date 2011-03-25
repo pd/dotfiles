@@ -1,6 +1,6 @@
 ; how to open urls
 (setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "chromium-browser")
+      browse-url-generic-program "chromium")
 
 ; why does woman open its own frame by default?
 (setq woman-use-own-frame nil)
