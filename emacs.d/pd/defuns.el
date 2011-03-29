@@ -3,6 +3,14 @@
   (dolist (file (directory-files path 'full "\\.el\\'"))
     (load file noerror nomessage)))
 
+; is my private emacs.d available?
+(defun pd/has-private-emacsd-p ()
+  (file-exists-p "~/dotfiles/private/emacs.d/init.el"))
+
+(defun pd/load-private-emacsd ()
+  (add-to-list 'load-path "~/dotfiles/private/emacs.d")
+  (load "~/dotfiles/private/emacs.d/init.el"))
+
 ; kill this buffer, then immediately reopen it where i was.
 ; useful for when mode hooks have been updated and i want them rerun.
 ; from xale@#emacs

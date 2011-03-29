@@ -13,3 +13,9 @@
 [submodule "vendor/scala-mode"]
 	path = vendor/scala-mode
 	url = git://github.com/ananthakumaran/scala-mode.git
+[submodule "vendor/p4el"]
+	path = vendor/p4el
+	url = git://github.com/fujii/p4el.git
+[submodule "private"]
+	path = private
+	url = git@github.com:pd/dotfiles.private.git
