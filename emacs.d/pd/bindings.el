@@ -23,7 +23,12 @@
 (global-set-key (kbd "C-c b z") 'reload-buffer)
 
 ; super-[left/up/down/right]: window navigation
+; super-[hjkl]: even better.
 (windmove-default-keybindings 'super)
+(global-set-key (kbd "s-h") 'windmove-left)
+(global-set-key (kbd "s-j") 'windmove-down)
+(global-set-key (kbd "s-k") 'windmove-up)
+(global-set-key (kbd "s-l") 'windmove-right)
 
 ; M-S-[left/up/down/right]: window resizing
 ; the directions unfortunately don't always make sense in context
