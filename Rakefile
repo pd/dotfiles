@@ -37,16 +37,19 @@ end
 def binlink(bindir)
   bindir = File.expand_path bindir
   bin = File.expand_path "~/bin"
-  if File.exist?(bin) && !File.directory?(bin)
-    puts "!! Path #{bin} already exists, but is not a directory. Wtfmate."
-    return
-  end
-
-  FileUtils.mkdir_p bin unless File.exist? bin
+  ensure_bin bin
 
   Dir[File.join bindir, '*'].each do |src|
     name = File.basename src
     dest = File.join bin, name
     link src, dest
+  end
+end
+
+def ensure_bin(dir)
+  FileUtils.mkdir_p dir unless File.exist? dir
+  unless File.directory? dir
+    puts "!! Path #{bin} already exists, but is not a directory. Wtfmate."
+    raise RuntimeError
   end
 end
