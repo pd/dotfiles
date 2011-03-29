@@ -1,0 +1,52 @@
+desc "Install core, bin and desktop"
+task :install => ['install:core', 'install:bin', 'install:desktop']
+
+desc "Install zsh, emacs, git, etc"
+task 'install:core' do
+  files = %w[zshrc emacs.d gitconfig gitignore vim vimrc vim-tmp]
+  files.each { |f| dotlink f }
+end
+
+desc "Install ~/bin"
+task 'install:bin' do
+  bins = %w[bin private/bin]
+  bins.map { |bin| File.join Dir.pwd, bin }.each { |bin| binlink bin }
+end
+
+desc "Install xmonad, gtk, X configs, etc"
+task 'install:desktop' do
+  files = %w[conkyrc dzen gtkrc-2.0 Xdefaults Xmodmap xmonad]
+  files.each { |f| dotlink f }
+end
+
+def link(src, dest)
+  if File.exist? dest
+    puts "## File #{dest} exists, skipping."
+  else
+    puts ">> #{src} -> #{dest}"
+    FileUtils.ln_s src, dest
+  end
+end
+
+def dotlink(name)
+  src  = File.join Dir.pwd, name
+  dest = File.expand_path "~/.#{name}"
+  link src, dest
+end
+
+def binlink(bindir)
+  bindir = File.expand_path bindir
+  bin = File.expand_path "~/bin"
+  if File.exist?(bin) && !File.directory?(bin)
+    puts "!! Path #{bin} already exists, but is not a directory. Wtfmate."
+    return
+  end
+
+  FileUtils.mkdir_p bin unless File.exist? bin
+
+  Dir[File.join bindir, '*'].each do |src|
+    name = File.basename src
+    dest = File.join bin, name
+    link src, dest
+  end
+end
