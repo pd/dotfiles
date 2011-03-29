@@ -19,6 +19,7 @@
   (add-path "~/dotfiles/vendor/smex")
   (add-path "~/dotfiles/vendor/inf-ruby-bond")
   (add-path "~/dotfiles/vendor/erc")
-  (add-path "~/dotfiles/vendor/scala-mode"))
+  (add-path "~/dotfiles/vendor/scala-mode")
+  (add-path "~/dotfiles/vendor/p4el"))
 
 (provide 'pd/packages)
