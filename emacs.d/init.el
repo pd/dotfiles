@@ -25,3 +25,7 @@
 (require 'pd/irc)
 (require 'pd/misc)
 (require 'pd/smex)
+
+; private
+(when (pd/has-private-emacsd-p)
+  (pd/load-private-emacsd))
