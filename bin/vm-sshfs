@@ -3,5 +3,5 @@
 if [ "$1" = "-u" ]; then
   fusermount -u ~/vm
 else
-  sshfs vm:/ ~/vm
+  sshfs vm:/export ~/vm
 fi
