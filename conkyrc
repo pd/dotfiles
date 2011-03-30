@@ -9,5 +9,6 @@ TEXT
 ^fg(steel blue)^i(/home/pd/.dzen/xbm/bat_full_01.xbm) ${if_match ${battery_percent} <= 25}^bg(orange red)^fg(black)${else}^fg()${endif}${battery_short} ${battery_time}^bg()\
 ${if_up eth0}^fg(steel blue)^i(/home/pd/.dzen/xbm/net_wired.xbm) ^fg()eth0: ^fg(steel blue)^i(/home/pd/.dzen/xbm/net_up_03.xbm) ^fg()${upspeed eth0} ^fg(steel blue)^i(/home/pd/.dzen/xbm/net_down_03.xbm) ^fg()${downspeed eth0}${endif} \
 ${if_up wlan0}^fg(steel blue)^i(/home/pd/.dzen/xbm/wifi_02.xbm) ^fg()wlan0: ^fg(steel blue)^i(/home/pd/.dzen/xbm/net_up_03.xbm) ^fg()${upspeed wlan0} ^fg(steel blue)^i(/home/pd/.dzen/xbm/net_down_03.xbm) ^fg()${downspeed wlan0}${endif} \
+^fg(steel blue)^i(/home/pd/.dzen/xbm/phones.xbm) ^fg()${exec conky-volume} \
 ^fg(steel blue)^i(/home/pd/.dzen/xbm/clock.xbm) ^fg()${time %a %F %k:%M}\
 ^fg(steel blue)^bg() ^i(/home/pd/.dzen/xbm/shroom.xbm) 
