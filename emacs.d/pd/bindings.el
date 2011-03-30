@@ -63,7 +63,8 @@
 (global-set-key (kbd "C-c x m") 'run-mozilla)
 
 ; misc
-(global-set-key (kbd "C-c s") 'shell)
+(global-set-key (kbd "C-c s") 'pd/term)
+(global-set-key (kbd "C-c C-c s") 'shell)
 (global-set-key (kbd "<f6>") 'linum-mode)
 (global-set-key (kbd "C-h a") 'apropos) ; defaults to command-apropos
 (global-set-key (kbd "C-c m") 'woman)
