@@ -1,5 +1,4 @@
 (autoload 'erc "erc" "Emacs IRC Client" t)
-(load "~/.erc-secrets.el" 'noerror 'nomessage) ; passwords, autojoin lists, etc
 
 (defun pd/configure-erc ()
   (setq erc-nick "pd"
