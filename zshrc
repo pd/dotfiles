@@ -42,7 +42,15 @@ else
 fi
 
 ## generic shell profile setup
-source ~/dotfiles/shell_profile/*.sh
-if [ -d ~/dotfiles/shell_profile/`uname -s` ]; then
-  source ~/dotfiles/shell_profile/`uname -s`/*.sh
-fi
+function sourcedir () {
+  if [ -d "$1" ]; then
+    for f in "$1"/*.sh; do source $f; done
+  fi
+}
+
+sourcedir ~/dotfiles/shell_profile
+sourcedir ~/dotfiles/shell_profile/`uname -s`
+sourcedir ~/dotfiles/private/shell_profile
+sourcedir ~/dotfiles/private/shell_profile/`uname -s`
+
+unfunction sourcedir
