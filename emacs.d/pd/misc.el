@@ -5,6 +5,29 @@
 ; why does woman open its own frame by default?
 (setq woman-use-own-frame nil)
 
+; ibuffer grouping!
+(setq ibuffer-saved-filter-groups
+      '(("pd"
+         ("cnu" (or (filename . "/export/TAGS")
+                    (filename . "/export/comp")))
+         ("emacs.d" (filename . "emacs.d"))
+         ("dotfiles" (filename . "dotfiles"))
+         ("magit" (name . "\*magit"))
+         ("erc" (mode . erc-mode))
+         ("system" (or (name . "\*Help\*")
+                       (name . "\*Apropos\*")
+                       (name . "\*info\*")
+                       (name . "\*Backtrace\*")
+                       (name . "\*Completions\*")
+                       (name . "\*Messages\*")
+                       (name . "\*scratch\*"))))))
+
+(setq ibuffer-show-empty-filter-groups nil)
+(add-hook 'ibuffer-mode-hook
+          '(lambda ()
+             (ibuffer-auto-mode 1)
+             (ibuffer-switch-to-saved-filter-groups "pd")))
+
 ; run-ruby etc should put the buffer in my current window,
 ; not a seemingly random different one ...
 (nconc same-window-buffer-names '("*ruby*" "*js*"))
