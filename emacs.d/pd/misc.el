@@ -15,6 +15,8 @@
                     (filename . "/export/comp")))
          ("emacs.d" (filename . "emacs.d"))
          ("dotfiles" (filename . "dotfiles"))
+         ("terms" (or (mode . term-mode)
+                      (mode . shell-mode)))
          ("magit" (name . "\*magit"))
          ("erc" (mode . erc-mode))
          ("system" (or (name . "\*Help\*")
