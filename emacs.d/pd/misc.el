@@ -12,7 +12,8 @@
 (setq ibuffer-saved-filter-groups
       '(("pd"
          ("cnu" (or (filename . "/export/TAGS")
-                    (filename . "/export/comp")))
+                    (filename . "/export/comp")
+                    (filename . "/export/qa")))
          ("emacs.d" (filename . "emacs.d"))
          ("dotfiles" (filename . "dotfiles"))
          ("terms" (or (mode . term-mode)
