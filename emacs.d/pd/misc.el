@@ -11,6 +11,9 @@
 ; ibuffer grouping!
 (setq ibuffer-saved-filter-groups
       '(("pd"
+         ("zabxuq" (filename . "zabxuq"))
+         ("bzork" (filename . "bzork"))
+         ("sauce" (filename . "sauce"))
          ("emacs.d" (filename . "emacs.d"))
          ("dotfiles" (filename . "dotfiles"))
          ("terms" (or (mode . term-mode)
