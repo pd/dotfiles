@@ -11,9 +11,6 @@
 ; ibuffer grouping!
 (setq ibuffer-saved-filter-groups
       '(("pd"
-         ("cnu" (or (filename . "/export/TAGS")
-                    (filename . "/export/comp")
-                    (filename . "/export/qa")))
          ("emacs.d" (filename . "emacs.d"))
          ("dotfiles" (filename . "dotfiles"))
          ("terms" (or (mode . term-mode)
@@ -29,10 +26,11 @@
                        (name . "\*scratch\*"))))))
 
 (setq ibuffer-show-empty-filter-groups nil)
+(defvar pd/default-ibuffer-filter-group "pd")
 (add-hook 'ibuffer-mode-hook
           '(lambda ()
              (ibuffer-auto-mode 1)
-             (ibuffer-switch-to-saved-filter-groups "pd")))
+             (ibuffer-switch-to-saved-filter-groups pd/default-ibuffer-filter-group)))
 
 ; run-ruby etc should put the buffer in my current window,
 ; not a seemingly random different one ...
