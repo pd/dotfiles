@@ -28,7 +28,7 @@
 (defun pd/term (create-new)
   (interactive "P")
   (let ((current-term (pd/term-buffer-name)))
-    (if (and (current-term) (not create-new))
+    (if (and current-term (not create-new))
         (switch-to-buffer current-term)
       (ansi-term (or (getenv "SHELL") "/bin/zsh")))))
 
