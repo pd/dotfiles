@@ -6,9 +6,12 @@ alias l='ls'
 alias h='history'
 alias p='ps axww'
 alias scp='scp -C'
+alias cls='clear'
+alias sudo='command sudo '
+
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
-alias cls='clear'
-alias sudo='command sudo '
+
+up () { for ((c=1; c <= $1; c++)); do cd ..; done }
