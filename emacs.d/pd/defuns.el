@@ -83,4 +83,10 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 	      (logand flags #xFFFFFEFF)))
     (x-change-window-property "WM_HINTS" wm-hints frame "WM_HINTS" 32 t)))
 
+; psql in a comint buffer
+(defun pd/psql (host port db user)
+  (switch-to-buffer
+   (make-comint (format "PSQL %s@%s" db host)
+                "psql" nil "-U" user "-h" host "-p" port "--pset" "pager=off" db)))
+
 (provide 'pd/defuns)
