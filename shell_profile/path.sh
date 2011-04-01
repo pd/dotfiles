@@ -8,6 +8,7 @@ add_if /opt/local/bin
 add_if /opt/local/sbin
 add_if /usr/bin/perlbin/core
 add_if /usr/bin/perlbin/vendor
+add_if /usr/bin/core_perl
 add_if /usr/lib/perl5/vendor_perl/bin
 add_if /usr/share/java/apache-ant/bin
 add_if /opt/java/bin
