@@ -20,6 +20,7 @@
   (add-path "~/dotfiles/vendor/inf-ruby-bond")
   (add-path "~/dotfiles/vendor/erc")
   (add-path "~/dotfiles/vendor/scala-mode")
-  (add-path "~/dotfiles/vendor/p4el"))
+  (add-path "~/dotfiles/vendor/p4el")
+  (add-path "~/dotfiles/vendor/workgroups"))
 
 (provide 'pd/packages)
