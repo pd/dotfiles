@@ -23,13 +23,16 @@ import XMonad.Hooks.UrgencyHook
 import XMonad.Actions.Volume
 import XMonad.Actions.CycleWS
 
+import qualified XMonad.Prompt as P
+import XMonad.Prompt.Shell
+
 import System.Exit
 import System.IO
 import Data.Char (toLower)
 import Data.Ratio ((%))
 
 -- From ~/.xmonad/lib, ty pbrisbin
-import Dzen
+import Dzen as Dz
 
 -- bound in xinitrc to alt_r
 myModMask = mod3Mask
@@ -38,6 +41,8 @@ myModMask = mod3Mask
 main = do
     xmonadBar <- spawnDzen myLeftBar
     statusBar <- spawnToDzen "conky" myRightBar
+    xmonadBar <- Dz.spawnDzen myLeftBar
+    conkyBar  <- Dz.spawnToDzen "conky" myRightBar
 
     xmonad $ withUrgencyHook NoUrgencyHook $ defaultConfig
        { modMask            = myModMask
@@ -92,7 +97,8 @@ myManageHook = mainManageHook <+> manageDocks
 -- Key bindings
 myAdditionalKeys =
     [ -- run anything
-      ("M-S-x", spawn "exe=`dmenu_path | dmenu` && eval \"exec $exe\"")
+      ("M-S-x", shellPrompt P.defaultXPConfig)
+      -- ("M-S-x", spawn "exe=`dmenu_path | dmenu` && eval \"exec $exe\"")
 
       -- predetermined locations
     , ("M-x e",   spawnOnWs "sauce" "emacsclient -s main -c")
@@ -147,8 +153,8 @@ myAdditionalMouseBindings =
     ]
 
 -- dzen bars
-myLeftBar :: DzenConf
-myLeftBar = defaultDzen
+myLeftBar :: Dz.DzenConf
+myLeftBar = Dz.defaultDzen
     { width    = Just $ Percent 45
     , font     = Just "Droid Sans Mono-10"
     , fg_color = Just "grey"
@@ -156,7 +162,7 @@ myLeftBar = defaultDzen
     , exec     = []
     }
 
-myRightBar :: DzenConf
+myRightBar :: Dz.DzenConf
 myRightBar = myLeftBar
     { alignment  = Just RightAlign
     , x_position = Just $ Percent 45
