@@ -173,6 +173,7 @@ myRightBar = myLeftBar
 myXPConfig :: P.XPConfig
 myXPConfig = P.defaultXPConfig
     { P.position    = P.Bottom
+    , P.font        = "xft:Droid Sans Mono-8"
     , P.bgColor     = "#000"
     , P.fgColor     = "grey"
     , P.fgHLight    = "steel blue"
