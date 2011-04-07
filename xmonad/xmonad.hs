@@ -25,6 +25,7 @@ import XMonad.Actions.CycleWS
 
 import qualified XMonad.Prompt as P
 import XMonad.Prompt.Shell
+import XMonad.Prompt.Ssh
 
 import System.Exit
 import System.IO
@@ -98,7 +99,6 @@ myManageHook = mainManageHook <+> manageDocks
 myAdditionalKeys =
     [ -- run anything
       ("M-S-x", shellPrompt P.defaultXPConfig)
-      -- ("M-S-x", spawn "exe=`dmenu_path | dmenu` && eval \"exec $exe\"")
 
       -- predetermined locations
     , ("M-x e",   spawnOnWs "sauce" "emacsclient -s main -c")
