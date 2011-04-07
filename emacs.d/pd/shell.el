@@ -14,4 +14,7 @@
 (add-hook 'term-mode-hook 'ansi-color-for-comint-mode-on)
 (add-hook 'term-mode-hook 'pd/turn-off-show-trailing-whitespace)
 
+; dunno where else to put this really.
+(add-hook 'comint-mode-hook 'pd/turn-off-show-trailing-whitespace)
+
 (provide 'pd/shell)
