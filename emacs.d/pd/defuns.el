@@ -104,6 +104,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 
 ; ssh in an ansi-term
 (defun pd/ssh (user host)
+  (interactive "MUser: \nMHost: ")
   (let* ((dest (concat user "@" host))
          (buf (apply 'make-term (generate-new-buffer-name dest) "ssh" nil (list dest))))
     (switch-to-buffer buf)))
