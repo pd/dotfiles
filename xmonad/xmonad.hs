@@ -98,7 +98,7 @@ myManageHook = mainManageHook <+> manageDocks
 -- Key bindings
 myAdditionalKeys =
     [ -- run anything
-      ("M-S-x", shellPrompt P.defaultXPConfig)
+      ("M-S-x", shellPrompt myXPConfig)
 
       -- predetermined locations
     , ("M-x e",   spawnOnWs "sauce" "emacsclient -s main -c")
@@ -167,6 +167,17 @@ myRightBar = myLeftBar
     { alignment  = Just RightAlign
     , x_position = Just $ Percent 45
     , width      = Just $ Percent 55
+    }
+
+-- xprompt pretties
+myXPConfig :: P.XPConfig
+myXPConfig = P.defaultXPConfig
+    { P.position    = P.Bottom
+    , P.bgColor     = "#000"
+    , P.fgColor     = "grey"
+    , P.fgHLight    = "steel blue"
+    , P.bgHLight    = "#000"
+    , P.borderColor = "steel blue"
     }
 
 -- Log hook
