@@ -31,6 +31,7 @@ import System.Exit
 import System.IO
 import Data.Char (toLower)
 import Data.Ratio ((%))
+import qualified Data.Map as M
 
 -- From ~/.xmonad/lib, ty pbrisbin
 import Dzen as Dz
@@ -179,6 +180,9 @@ myXPConfig = P.defaultXPConfig
     , P.fgHLight    = "steel blue"
     , P.bgHLight    = "#000"
     , P.borderColor = "steel blue"
+    , P.promptKeymap = M.fromList
+                       ((M.toList P.defaultXPKeymap) ++
+                        [ ((controlMask, xK_g), P.quit) ])
     }
 
 -- Log hook
