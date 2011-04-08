@@ -83,6 +83,31 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 	      (logand flags #xFFFFFEFF)))
     (x-change-window-property "WM_HINTS" wm-hints frame "WM_HINTS" 32 t)))
 
+; ansi-term creation
+(defun pd/term-buffer-name ()
+  (find-if (lambda (b)
+             (save-excursion
+               (set-buffer b)
+               (string= "term-mode" (symbol-name major-mode))))
+           (buffer-list)))
+
+(defun pd/term-buffer-exists ()
+  (not (eq ()
+           (pd/term-buffer-name))))
+
+(defun pd/term (create-new)
+  (interactive "P")
+  (let ((current-term (pd/term-buffer-name)))
+    (if (and current-term (not create-new))
+        (switch-to-buffer current-term)
+      (ansi-term (or (getenv "SHELL") "/bin/zsh")))))
+
+; ssh in an ansi-term
+(defun pd/ssh (user host)
+  (let* ((dest (concat user "@" host))
+         (buf (apply 'make-term (generate-new-buffer-name dest) "ssh" nil (list dest))))
+    (switch-to-buffer buf)))
+
 ; psql in a comint buffer
 (defun pd/psql (host port db user)
   (switch-to-buffer
