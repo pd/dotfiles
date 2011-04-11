@@ -18,6 +18,7 @@ xmonad/xmonad.hi
 xmonad/xmonad.o
 xmonad/xmonad-i386-linux
 xmonad/xmonad-x86_64-linux
+xmonad/history
 xmonad/*/*.o
 xmonad/*/*.hi
 
