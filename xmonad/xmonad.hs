@@ -114,6 +114,7 @@ myAdditionalKeys =
     , ("M-u M-x e", spawn "emacsclient -s main -c")
     , ("M-u M-x w", spawn "chromium")
     , ("M-u M-x M-w", spawn "chromium")
+    , ("M-x s", sshPrompt myXPConfig)
 
       -- window sizing
     , ("M-S-h", sendMessage MirrorShrink)
