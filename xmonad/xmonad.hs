@@ -113,6 +113,7 @@ myAdditionalKeys =
     , ("M-u M-x e", spawn "emacsclient -s main -c")
     , ("M-u M-x w", spawn "chromium-dev")
     , ("M-u M-x M-w", spawn "chromium")
+    , ("M-x s", sshPrompt myXPConfig)
 
       -- volume control
     , ("<XF86AudioMute>",        toggleMute >> return ())
