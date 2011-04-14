@@ -1,6 +1,6 @@
 [submodule "vendor/magit"]
 	path = vendor/magit
-	url = git://gitorious.org/magit/mainline.git
+	url = git://github.com/philjackson/magit.git
 [submodule "vendor/smex"]
 	path = vendor/smex
 	url = git://github.com/nonsequitur/smex.git
