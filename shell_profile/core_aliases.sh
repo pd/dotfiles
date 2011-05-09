@@ -8,6 +8,7 @@ alias p='ps axww'
 alias scp='scp -C'
 alias cls='clear'
 alias sudo='command sudo '
+alias less='less -r'
 
 alias ..='cd ..'
 alias ...='cd ../..'
