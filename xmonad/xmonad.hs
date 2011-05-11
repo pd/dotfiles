@@ -110,6 +110,9 @@ myAdditionalKeys =
     , ("M-x M-w", spawnOnWs "web"   "chromium")
     , ("M-x i",   spawnOnWs "irc"   "emacsclient -s irc -c --eval '(irc)'")
 
+      -- remote emacs ... uhh would be nice to store elsewhere
+    , ("M-x r e", spawnOnWs "sauce" "ssh -Y pm emacs")
+
       -- don't move
     , ("M-u M-x e", spawn "emacsclient -s main -c")
     , ("M-u M-x w", spawn "chromium")
