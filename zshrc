@@ -10,6 +10,9 @@ bindkey -e
 # but in terminal.app, vi mode is still the easiest:
 [[ $TERM_PROGRAM = "Apple_Terminal" ]] && bindkey -v
 
+# and when i've ssh'd into something, stick with vi mode
+[[ ! -z $SSH_CLIENT ]] && bindkey -v
+
 ## turn on expanded tabcomplete
 autoload -U compinit
 compinit
