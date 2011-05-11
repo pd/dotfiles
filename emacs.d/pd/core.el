@@ -43,10 +43,14 @@
                     "/bin" "/sbin" "/usr/bin" "/usr/sbin")))
 
 ; useful frame titles
-(setq frame-title-format '(("" invocation-name ": ")
+(setq frame-title-format '(("" invocation-name "@" system-name ": ")
                            (:eval (if buffer-file-name
                                       (abbreviate-file-name buffer-file-name)
                                     "%b"))))
+
+; and i use emacs over x11 forwarding, so show the hostname in the modeline
+(let ((pos (memq 'mode-line-modes mode-line-format)))
+  (setcdr pos (cons 'system-name (cdr pos))))
 
 ; everyone loves clisp
 (require 'cl)
