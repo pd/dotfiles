@@ -3,7 +3,7 @@
       browse-url-generic-program (cond ((pd/macosx-p) "open")
                                        ((executable-find "chromium") "chromium")
                                        ((executable-find "chromium-dev") "chromium-dev")
-                                       t "firefox"))
+                                       (t "firefox")))
 
 ; why does woman open its own frame by default?
 (setq woman-use-own-frame nil)
