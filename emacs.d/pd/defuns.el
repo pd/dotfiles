@@ -18,12 +18,9 @@
 
 (defvar pd/run-once-frame-hook-run nil)
 (defun pd/run-once-maybe-save-visited-files ()
-  (message "inside pd/run-once-maybe-save-visited-files")
   (when (not pd/run-once-frame-hook-run)
-    (message "not set")
     (setq pd/run-once-frame-hook-run t)
     (when (pd/should-save-visited-files-p)
-      (message "turn-on")
       (turn-on-save-visited-files-mode))))
 
 ; kill this buffer, then immediately reopen it where i was.

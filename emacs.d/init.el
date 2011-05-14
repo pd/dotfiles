@@ -11,7 +11,6 @@
 (require 'pd/theme)
 (require 'pd/coding)
 (require 'pd/yasnippet)
-(require 'pd/workgroups)
 
 ; focused
 (require 'pd/shell)
@@ -22,10 +21,7 @@
 (require 'pd/js)
 (require 'pd/haskell)
 (require 'pd/scala)
-(require 'pd/yaml)
 (require 'pd/irc)
-
-; finally
 (require 'pd/misc)
 (require 'pd/smex)
 
