@@ -1,0 +1,4 @@
+#!/bin/sh
+
+xrandr --output VGA-1 --size 1600x1200 --auto
+xrandr --output VGA-1 --right-of LVDS-1
