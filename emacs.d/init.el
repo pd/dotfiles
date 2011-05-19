@@ -32,3 +32,7 @@
 ; private
 (when (pd/has-private-emacsd-p)
   (pd/load-private-emacsd))
+
+; hack. start save-visited-files-mode for non-daemon processes, and
+; any daemon that isn't irc.
+(add-hook 'before-make-frame-hook 'pd/run-once-maybe-save-visited-files)
