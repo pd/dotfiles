@@ -8,7 +8,7 @@
 
 (defun pd/enable-dirtrack ()
   (dirtrack-mode 1)
-  (setq dirtrack-list '("^\\([^ ]+\\)" 1)))
+  (setq dirtrack-list '("^\\([^ ]+\\)\\( @ .+\\) »" 1)))
 
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 (add-hook 'shell-mode-hook 'pd/turn-off-show-trailing-whitespace)
