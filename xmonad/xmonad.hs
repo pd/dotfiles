@@ -110,7 +110,8 @@ myAdditionalKeys =
     , ("M-x i",   spawnOnWs "irc"   "emacsclient -s irc -c --eval '(irc)'")
 
       -- remote emacs ... uhh would be nice to store elsewhere
-    , ("M-x r e", spawnOnWs "sauce" "ssh -Y pm env ALTERNATE_EDITOR='' emacsclient -n -c")
+    , ("M-x r a", spawnOnWs "sauce" "ssh -Y avone env ALTERNATE_EDITOR='' emacsclient -n -c")
+    , ("M-x r p", spawnOnWs "sauce" "ssh -Y pm env ALTERNATE_EDITOR='' emacsclient -n -c")
 
       -- don't move
     , ("M-u M-x e", spawn "emacsclient -s main -c")
