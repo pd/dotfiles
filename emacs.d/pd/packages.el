@@ -21,6 +21,7 @@
   (add-path "~/dotfiles/vendor/erc")
   (add-path "~/dotfiles/vendor/scala-mode")
   (add-path "~/dotfiles/vendor/p4el")
-  (add-path "~/dotfiles/vendor/workgroups"))
+  (add-path "~/dotfiles/vendor/workgroups")
+  (add-path "~/dotfiles/vendor/cucumber.el"))
 
 (provide 'pd/packages)
