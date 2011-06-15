@@ -342,7 +342,7 @@ This can be used in `ack-root-directory-functions'."
 
 (defun ack-arguments-from-options (regexp)
   (let ((arguments (list "--color"
-                         (ack-option "smart-case" (eq ack-ignore-case 'smart))
+;                         (ack-option "smart-case" (eq ack-ignore-case 'smart))
                          (ack-option "heading" ack-heading)
                          (ack-option "env" ack-use-environment))))
     (unless ack-ignore-case
@@ -351,6 +351,7 @@ This can be used in `ack-root-directory-functions'."
       (push "--literal" arguments))
     (push (format "--context=%d" ack-context) arguments)
     arguments))
+
 
 (defun ack-run (directory regexp &rest arguments)
   "Run ack in DIRECTORY with ARGUMENTS."
