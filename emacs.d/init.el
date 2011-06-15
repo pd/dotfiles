@@ -22,9 +22,13 @@
 (require 'pd/js)
 (require 'pd/haskell)
 (require 'pd/scala)
+(require 'pd/yaml)
 (require 'pd/irc)
-(require 'pd/misc)
 (require 'pd/smex)
+
+; wasn't it silly to have pd/misc in the "focused" section?
+; this is an artificial comment to put an end to such madness.
+(require 'pd/misc)
 
 ; private
 (when (pd/has-private-emacsd-p)
