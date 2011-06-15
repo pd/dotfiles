@@ -95,6 +95,22 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 	      (logand flags #xFFFFFEFF)))
     (x-change-window-property "WM_HINTS" wm-hints frame "WM_HINTS" 32 t)))
 
+; much slower than font scaling (see C-x C-0), but changes font size globally
+; so that the status bar etc are also resized
+(defun pd/modify-font-size (amount)
+  (set-face-attribute 'default nil
+                      :height
+                      (+ (face-attribute 'default :height)
+                         amount)))
+
+(defun pd/increase-font-size ()
+  (interactive)
+  (pd/modify-font-size 20))
+
+(defun pd/decrease-font-size ()
+  (interactive)
+  (pd/modify-font-size -20))
+
 ; ansi-term creation
 (defun pd/term-buffer-name ()
   (find-if (lambda (b)
