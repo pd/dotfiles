@@ -2,6 +2,8 @@
 (eval-after-load 'full-ack
   '(progn
      (setq ack-ignore-case t
-           ack-arguments (list "-a"))))
+           ack-arguments '("-a")
+           ack-executable (or (executable-find "ack")
+                              (executable-find "ack-grep")))))
 
 (provide 'pd/ack)
