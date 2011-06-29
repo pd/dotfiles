@@ -62,7 +62,7 @@ main = do
          `additionalMouseBindings` myAdditionalMouseBindings
 
 -- Workspaces
-myWorkspaces = ["web", "sauce", "irc", "im", "misc"]
+myWorkspaces = ["web", "sauce", "irc", "im", "vm", "misc"]
 
 -- Layouts
 myLayout = avoidStruts $ smartBorders $
@@ -88,11 +88,13 @@ myManageHook = mainManageHook <+> manageDocks
     where mainManageHook = composeAll $ concat
               [ [ title =? c     --> doCenterFloat | c <- myCenterFloats ]
               , [ className =? c --> doShift "web" | c <- myWebs ]
+              , [ className =? c --> doShift "vm"  | c <- mySeleniumBrowsers ]
               , [ className =? c --> doShift "im"  | c <- myIMs ]
               , [ isDialog       --> doCenterFloat ]
               , [ isFullscreen   --> doFullFloat ]
               ]
-          myWebs = ["Chromium", "Firefox"]
+          myWebs = ["Chromium"]
+          mySeleniumBrowsers = ["Firefox"]
           myIMs = ["Pidgin"]
           myCenterFloats = ["Downloads"]
 
