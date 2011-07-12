@@ -60,7 +60,7 @@ main = do
          `additionalMouseBindings` myAdditionalMouseBindings
 
 -- Workspaces
-myWorkspaces = ["web", "sauce", "irc", "im", "misc", "vm"]
+myWorkspaces = ["web", "sauce", "irc", "im", "vm", "misc"]
 
 -- Layouts
 myLayout = avoidStruts $ smartBorders $
@@ -86,13 +86,15 @@ myManageHook = mainManageHook <+> manageDocks
     where mainManageHook = composeAll $ concat
               [ [ title =? c     --> doCenterFloat | c <- myCenterFloats ]
               , [ className =? c --> doShift "web" | c <- myWebs ]
+              , [ className =? c --> doShift "vm"  | c <- mySeleniumBrowsers ]
               , [ className =? c --> doShift "im"  | c <- myIMs ]
               , [ isDialog       --> doCenterFloat ]
               , [ className =? c --> doShift "vm"  | c <- myVM ]
               , [ className =? c --> doFloat       | c <- myVM ]
               , [ isFullscreen   --> doFullFloat ]
               ]
-          myWebs = ["Chromium", "Firefox"]
+          myWebs = ["Chromium"]
+          mySeleniumBrowsers = ["Firefox"]
           myIMs = ["Pidgin"]
           myCenterFloats = ["Downloads"]
           myVM = ["VirtualBox"]
@@ -111,7 +113,8 @@ myAdditionalKeys =
     , ("M-x i",   spawnOnWs "irc"   "emacsclient -s irc -c --eval '(irc)'")
 
       -- remote emacs ... uhh would be nice to store elsewhere
-    , ("M-x r e", spawnOnWs "sauce" "ssh -Y pm env ALTERNATE_EDITOR='' emacsclient -n -c")
+    , ("M-x r a", spawnOnWs "sauce" "ssh -Y avone env ALTERNATE_EDITOR='' emacsclient -n -c")
+    , ("M-x r p", spawnOnWs "sauce" "ssh -Y pm env ALTERNATE_EDITOR='' emacsclient -n -c")
 
       -- don't move
     , ("M-u M-x e", spawn "emacsclient -s main -c")

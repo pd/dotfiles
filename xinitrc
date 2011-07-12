@@ -28,5 +28,5 @@ if xrandr -q | grep "DP-1 connected"; then
 fi
 
 # do it
-emacs --daemon=main --eval "(turn-on-save-visited-files-mode)" &
+emacs --daemon=main &
 exec xmonad
