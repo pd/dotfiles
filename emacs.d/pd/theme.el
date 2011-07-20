@@ -78,4 +78,12 @@ but since I use emacsd 99% of the time that's not much of an issue"
 (when (or (display-graphic-p) (daemonp))
   (color-theme-despot))
 
+; Since I often have a local emacs and one forwarded from pm, override
+; some modeline attributes so I know at a quick glance which is which.
+(when (string-match-p "^pm." (system-name))
+  (set-face-background 'modeline "DeepSkyBlue4")
+  (set-face-foreground 'modeline "#b9b9b9")
+  (set-face-foreground 'modeline-inactive "mint cream")
+  (set-face-attribute  'modeline-inactive nil :weight 'normal))
+
 (provide 'pd/theme)
