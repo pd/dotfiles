@@ -75,7 +75,6 @@ but since I use emacsd 99% of the time that's not much of an issue"
 
 (defun pd/decorate-exported-frames (&optional frame)
   "Alter the modeline so I can recognize remote emacs sessions more readily"
-  (message "runnin ...")
   (when (string-match-p "^pm." (system-name))
     (select-frame frame)
     (set-face-background 'modeline "DeepSkyBlue4" frame)
