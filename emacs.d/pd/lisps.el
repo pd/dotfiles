@@ -23,4 +23,6 @@
 
 (add-hook 'slime-mode-hook 'pd/restore-paragraph-movement)
 
+(add-hook 'slime-repl-mode-hook 'clojure-mode-font-lock-setup)
+
 (provide 'pd/lisps)
