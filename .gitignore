@@ -11,6 +11,7 @@ emacs.d/smex.save
 emacs.d/tramp
 emacs.d/elpa/archives
 emacs.d/url
+emacs.d/el-get
 
 bin/xmonad
 xmonad/xmonad.errors
