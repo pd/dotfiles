@@ -46,7 +46,11 @@
                 coffee-mode
                 scala-mode ensime
                 clojure-mode paredit elein
-                eredis)
+                eredis
+                color-theme-zenburn color-theme-zen-and-art color-theme-tomorrow
+                color-theme-twilight color-theme-solarized color-theme-subdued
+                color-theme-almost-monokai color-theme-sanityinc color-theme-tango color-theme-tango-2
+                color-theme-chocolate-rain color-theme-desert color-theme-railscasts)
        (mapcar 'el-get-source-name el-get-sources)))
 
 (el-get 'sync pd/el-get-packages)

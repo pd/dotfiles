@@ -8,8 +8,11 @@
 (require 'pd/defuns)
 (require 'pd/bindings)
 (require 'pd/ido)
-(require 'pd/theme)
 (require 'pd/coding)
+; (require 'pd/theme)
+
+(load "~/.emacs.d/el-get/color-theme-sanityinc/color-theme-sanityinc.el")
+(color-theme-sanityinc-dark)
 
 ; focused
 (require 'pd/shell)
