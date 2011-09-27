@@ -1,4 +1,3 @@
-(autoload 'magit-status "magit" "Major mode for git interaction" t)
 (global-set-key (kbd "C-M-g") 'magit-status)
 
 (setq magit-save-some-buffers nil
