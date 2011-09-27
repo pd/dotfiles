@@ -1,11 +1,18 @@
 ; el-get, the new hotness
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+
+(defun pd/eval-url (url)
+  (let ((buffer (url-retrieve-synchronously url)))
+    (save-excursion
+      (set-buffer buffer)
+      (goto-char (point-min))
+      (re-search-forward "^$" nil 'move)
+      (eval-region (point) (point-max))
+      (kill-buffer (current-buffer)))))
+
 (unless (require 'el-get nil t)
-  (url-retrieve
-   "https://raw.github.com/dimitri/el-get/master/el-get-install.el"
-   (lambda (s)
-     (end-of-buffer)
-     (eval-print-last-sexp))))
+  (pd/eval-url
+   "https://raw.github.com/dimitri/el-get/master/el-get-install.el"))
 
 (setq el-get-sources
       '((:name package24
