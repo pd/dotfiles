@@ -30,6 +30,9 @@
                         (autoload 'turn-on-save-visited-files-mode "save-visited-files" "meh" t)
                         (turn-on-save-visited-files-mode)))
 
+        (:name rspec-mode
+               :url "https://github.com/earakaki/rspec-mode.git")
+
         (:name buffer-move
                :after (lambda ()
                         (global-set-key (kbd "C-x w k") 'buf-move-up)
@@ -40,18 +43,15 @@
 (setq pd/el-get-packages
       (append
        '(el-get package24
-                magit smex color-theme org-mode buffer-move
+                magit smex org-mode buffer-move
                 full-ack sudo-save tail cheat
-                ruby-mode rvm inf-ruby yari yaml-mode
+                ruby-mode rvm inf-ruby rspec-mode yari yaml-mode
                 haml-mode sass-mode
                 coffee-mode
                 scala-mode ensime
                 clojure-mode paredit elein
                 eredis
-                color-theme-zenburn color-theme-zen-and-art color-theme-tomorrow color-theme-ir-black
-                color-theme-twilight color-theme-solarized color-theme-subdued
-                color-theme-almost-monokai color-theme-sanityinc color-theme-tango color-theme-tango-2
-                color-theme-chocolate-rain color-theme-desert color-theme-railscasts)
+                color-theme color-theme-sanityinc)
        (mapcar 'el-get-source-name el-get-sources)))
 
 (el-get 'sync pd/el-get-packages)
