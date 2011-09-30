@@ -1,4 +1,4 @@
-(require 'cl-seq)
+(require 'cl)
 
 ; filter a list. but i never remember the remove-if-not name,
 ; so name it something i don't forget
