@@ -2,9 +2,10 @@
 
 (add-to-list 'load-path "~/.emacs.d")
 
-; generic
 (require 'pd/core)
+(require 'pd/magit)
 (require 'pd/packages)
+
 (require 'pd/defuns)
 (require 'pd/bindings)
 (require 'pd/ido)
@@ -17,7 +18,6 @@
 ; focused
 (require 'pd/shell)
 (require 'pd/tramp)
-(require 'pd/magit)
 (require 'pd/p4)
 (require 'pd/lisps)
 (require 'pd/ruby)

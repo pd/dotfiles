@@ -1,4 +1,4 @@
-; el-get, the new hotness
+; el-get, the new hotness (that is only a little bit hot...)
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
 (defun pd/eval-url (url)
@@ -26,6 +26,11 @@
                               '(("ELPA" . "http://tromey.com/elpa/")
                                 ("gnu" . "http://elpa.gnu.org/packages/")
                                 ("marmalade" . "http://marmalade-repo.org/packages/")))))
+
+        (:name magit
+               :after (lambda ()
+                        (global-set-key (kbd "C-M-g") 'magit-status)
+                        (pd/magit-setup)))
 
         (:name save-visited-files
                :type git
