@@ -14,14 +14,18 @@
   (pd/eval-url
    "https://raw.github.com/dimitri/el-get/master/el-get-install.el"))
 
+(setq el-get-verbose t)
+
 (setq el-get-sources
-      '((:name package24
+      '((:name el-get
+               :branch "master")
+
+        (:name package
                :after (lambda ()
                         (setq package-archives
                               '(("ELPA" . "http://tromey.com/elpa/")
                                 ("gnu" . "http://elpa.gnu.org/packages/")
-                                ("marmalade" . "http://marmalade-repo.org/packages/")
-                                ("technomancy" . "http://repo.technomancy.us/emacs/")))))
+                                ("marmalade" . "http://marmalade-repo.org/packages/")))))
 
         (:name save-visited-files
                :type git
@@ -42,13 +46,13 @@
 
 (setq pd/el-get-packages
       (append
-       '(el-get package24
+       '(el-get package
                 magit smex org-mode buffer-move
                 full-ack sudo-save tail cheat
                 ruby-mode rvm inf-ruby rinari rspec-mode yari yaml-mode
                 haml-mode sass-mode
                 coffee-mode
-                scala-mode ensime
+                scala-mode ;ensime
                 clojure-mode paredit elein
                 eredis
                 color-theme color-theme-sanityinc)
