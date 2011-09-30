@@ -45,7 +45,7 @@
        '(el-get package24
                 magit smex org-mode buffer-move
                 full-ack sudo-save tail cheat
-                ruby-mode rvm inf-ruby rspec-mode yari yaml-mode
+                ruby-mode rvm inf-ruby rinari rspec-mode yari yaml-mode
                 haml-mode sass-mode
                 coffee-mode
                 scala-mode ensime
