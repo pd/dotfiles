@@ -36,12 +36,6 @@
   (setq ns-command-modifier   'meta
         ns-alternate-modifier 'super))
 
-; explicit exec-path for cocoa emacs, which doesn't inherit $PATH from
-; the shell if you launch from the dock, as there is no shell involved
-(when (pd/macosx-p)
-  (setq exec-path '("~/bin" "/usr/local/bin" "/usr/local/sbin"
-                    "/bin" "/sbin" "/usr/bin" "/usr/sbin")))
-
 ; useful frame titles
 (setq frame-title-format '(("" invocation-name "@" system-name ": ")
                            (:eval (if buffer-file-name
