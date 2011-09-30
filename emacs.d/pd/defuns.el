@@ -1,3 +1,10 @@
+(require 'cl-seq)
+
+; filter a list. but i never remember the remove-if-not name,
+; so name it something i don't forget
+(defalias 'pd/filter 'remove-if-not)
+(defalias 'pd/reject 'remove-if)
+
 ; load all .el files in a directory. this does not descend.
 (defun pd/load-directory (path &optional noerror nomessage)
   (dolist (file (directory-files path 'full "\\.el\\'"))
