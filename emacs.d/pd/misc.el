@@ -8,6 +8,9 @@
 ; why does woman open its own frame by default?
 (setq woman-use-own-frame nil)
 
+; help shouldn't ever steal focus
+(setq help-window-select nil)
+
 ; ibuffer grouping!
 (setq ibuffer-saved-filter-groups
       '(("pd"
@@ -65,6 +68,5 @@ Dmitriy Igrishin's patched version of comint.el."
     (if (not unread-command-events)
         ;; comint's "Type space to flush" swallows space. put it back in.
         (setq unread-command-events (listify-key-sequence " "))))
-
 
 (provide 'pd/misc)
