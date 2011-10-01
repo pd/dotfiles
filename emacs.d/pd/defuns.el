@@ -10,6 +10,14 @@
   (dolist (file (directory-files path 'full "\\.el\\'"))
     (load file noerror nomessage)))
 
+; use a login shell to get $PATH
+; useful for OS X, where launching from the dock/quicksilver means you
+; don't inherit your shell's environment
+(defun pd/login-shell-path ()
+  (let* ((result (shell-command-to-string "$SHELL -l -c 'echo $PATH'"))
+         (trimmed (replace-regexp-in-string "[[:space:]\n]*$" "" result)))
+    (split-string trimmed path-separator)))
+
 ; is my private emacs.d available?
 (defun pd/has-private-emacsd-p ()
   (file-exists-p "~/dotfiles/private/emacs.d/init.el"))

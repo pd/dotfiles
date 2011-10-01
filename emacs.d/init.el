@@ -2,11 +2,11 @@
 
 (add-to-list 'load-path "~/.emacs.d")
 
+(require 'pd/defuns)
 (require 'pd/core)
 (require 'pd/magit)
 (require 'pd/packages)
 
-(require 'pd/defuns)
 (require 'pd/bindings)
 (require 'pd/ido)
 (require 'pd/coding)
