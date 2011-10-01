@@ -42,6 +42,10 @@
         (:name rspec-mode
                :url "https://github.com/earakaki/rspec-mode.git")
 
+        (:name haml-mode
+               :url "git://github.com/pd/haml-mode.git"
+               :branch "wip")
+
         (:name buffer-move
                :after (lambda ()
                         (global-set-key (kbd "C-x w k") 'buf-move-up)
