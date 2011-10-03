@@ -11,8 +11,9 @@
       (kill-buffer (current-buffer)))))
 
 (unless (require 'el-get nil t)
-  (pd/eval-url
-   "https://raw.github.com/dimitri/el-get/master/el-get-install.el"))
+  (let (el-get-master-branch)
+    (pd/eval-url
+     "https://raw.github.com/dimitri/el-get/master/el-get-install.el")))
 
 (setq el-get-verbose t)
 
