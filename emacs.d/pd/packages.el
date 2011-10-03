@@ -57,9 +57,11 @@
 (setq pd/el-get-packages
       (append
        '(el-get package
-                magit smex org-mode buffer-move
+                magit smex buffer-move
                 full-ack sudo-save tail cheat
-                ruby-mode rvm inf-ruby rinari rspec-mode yari yaml-mode
+                ; ruby-mode inf-ruby
+                rvm
+                rinari rspec-mode yari yaml-mode
                 haml-mode sass-mode
                 coffee-mode
                 scala-mode ;ensime
