@@ -9,6 +9,10 @@
 (global-unset-key (kbd "M-}"))
 (global-unset-key (kbd "M-{"))
 
+; suspend-frame is terribly annoying
+(global-unset-key (kbd "C-x C-z"))
+(global-unset-key (kbd "C-z"))
+
 ; text navigation
 (global-set-key (kbd "M-p") 'backward-paragraph)
 (global-set-key (kbd "M-n") 'forward-paragraph)
