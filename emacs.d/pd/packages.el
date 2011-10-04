@@ -23,13 +23,11 @@
 
         (:name package
                :after (lambda ()
-                        (setq package-archives
-                              '(("ELPA" . "http://tromey.com/elpa/")
-                                ("gnu" . "http://elpa.gnu.org/packages/")
-                                ("marmalade" . "http://marmalade-repo.org/packages/")))))
+                        (package-initialize)))
 
         (:name magit
                :after (lambda ()
+                        (require 'magit) ; force load, autoload is fucked TODO
                         (global-set-key (kbd "C-M-g") 'magit-status)
                         (pd/magit-setup)))
 
@@ -59,9 +57,8 @@
        '(el-get package
                 magit smex buffer-move
                 full-ack sudo-save tail cheat
-                ; ruby-mode inf-ruby
-                rvm
-                rinari rspec-mode yari yaml-mode
+                ruby-mode inf-ruby
+                rvm rinari rspec-mode yari yaml-mode
                 haml-mode sass-mode
                 coffee-mode
                 scala-mode ;ensime
