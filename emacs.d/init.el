@@ -24,7 +24,6 @@
 (require 'pd/js)
 (require 'pd/haskell)
 (require 'pd/scala)
-(require 'pd/yaml)
 (require 'pd/irc)
 (require 'pd/smex)
 
