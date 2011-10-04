@@ -5,11 +5,11 @@
 (require 'pd/defuns)
 (require 'pd/core)
 (require 'pd/magit)
-(require 'pd/packages)
-
+(require 'pd/coding)
 (require 'pd/bindings)
 (require 'pd/ido)
-(require 'pd/coding)
+(require 'pd/packages)
+
 ; (require 'pd/theme)
 
 (load "~/.emacs.d/el-get/color-theme-sanityinc/color-theme-sanityinc.el")
