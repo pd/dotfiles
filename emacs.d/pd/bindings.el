@@ -75,6 +75,9 @@
 
 ; mac only
 (when (pd/macosx-p)
-  (global-set-key (kbd "s-S-<return>") 'ns-toggle-fullscreen))
+  (global-set-key (kbd "s-S-<return>") 'ns-toggle-fullscreen)
+  (if (eq ns-alternate-modifier 'meta)
+      (global-unset-key (kbd "M-p")) ; stop asking me to print please
+    (global-unset-key (kbd "s-p"))))
 
 (provide 'pd/bindings)
