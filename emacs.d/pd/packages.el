@@ -55,7 +55,7 @@
 (setq pd/el-get-packages
       (append
        '(el-get package
-                magit smex buffer-move
+                magit smex buffer-move notify
                 full-ack sudo-save tail cheat
                 ruby-mode inf-ruby
                 rvm rinari rspec-mode yari yaml-mode
