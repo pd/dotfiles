@@ -9,6 +9,7 @@
 (require 'pd/bindings)
 (require 'pd/ido)
 (require 'pd/packages)
+(require 'pd/org)
 
 ; (require 'pd/theme)
 
