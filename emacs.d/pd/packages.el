@@ -41,9 +41,18 @@
         (:name rspec-mode
                :url "https://github.com/earakaki/rspec-mode.git")
 
+        (:name rvm
+               :after (lambda ()
+                        (defadvice cd (after rvm-on-cd last activate)
+                          (rvm-activate-corresponding-ruby))))
+
         (:name haml-mode
                :url "git://github.com/pd/haml-mode.git"
                :branch "wip")
+
+        (:name inf-ruby-bond
+               :type git
+               :url "git://github.com/pd/inf-ruby-bond.git")
 
         (:name buffer-move
                :after (lambda ()
