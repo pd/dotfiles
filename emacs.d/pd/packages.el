@@ -43,7 +43,7 @@
 
         (:name rvm
                :after (lambda ()
-                        (defadvice cd (after rvm-on-cd last activate)
+                        (defadvice shell-dirstack-message (after rvm-on-shell-dirstack-message last activate)
                           (rvm-activate-corresponding-ruby))))
 
         (:name haml-mode
