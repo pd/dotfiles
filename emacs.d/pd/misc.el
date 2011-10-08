@@ -42,6 +42,10 @@
 ; not a seemingly random different one ...
 (nconc same-window-buffer-names '("*ruby*" "*js*"))
 
+; boot emacschrome if we can
+(when (require 'edit-server nil t)
+  (edit-server-start))
+
 ; http://snarfed.org/automatically_close_completions_in_emacs_shell_comint_mode
 (defun comint-close-completions ()
   "Close the comint completions buffer.

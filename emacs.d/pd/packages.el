@@ -71,16 +71,17 @@
 (setq pd/el-get-packages
       (append
        '(el-get package
+                color-theme color-theme-sanityinc
                 magit smex buffer-move notify
                 full-ack sudo-save tail cheat
                 ruby-mode inf-ruby
-                rvm rinari rspec-mode yari yaml-mode
+                rvm rinari rspec-mode yari yaml-mode feature-mode
                 haml-mode sass-mode
                 coffee-mode
                 scala-mode ;ensime
                 clojure-mode paredit elein
                 eredis
-                color-theme color-theme-sanityinc)
+                emacschrome)
        (mapcar 'el-get-source-name el-get-sources)))
 
 (el-get 'sync pd/el-get-packages)
