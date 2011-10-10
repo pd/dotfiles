@@ -158,4 +158,14 @@ This is the same as using \\[set-mark-command] with the prefix argument."
    (make-comint (format "PSQL %s@%s" db host)
                 "psql" nil "-U" user "-h" host "-p" port "--pset" "pager=off" db)))
 
+; adds a '-*- mode: ... -*-' comment to the top of the file
+(defun pd/add-mode-to-first-line ()
+  (interactive)
+  (let ((mode-name (replace-regexp-in-string "-mode\\'" "" (symbol-name major-mode))))
+    (save-excursion
+      (beginning-of-buffer)
+      (pd/prepend-and-move-to-new-line)
+      (insert (concat "-*- mode: " mode-name " -*-"))
+      (comment-region (point-min) (point)))))
+
 (provide 'pd/defuns)
