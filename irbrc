@@ -24,3 +24,9 @@ end
     puts "Failed to load #{lib}"
   end
 end
+
+if ENV['EMACS'] || ENV['INSIDE_EMACS']
+  if defined?(Pry)
+    Pry.config.pager = false
+  end
+end
