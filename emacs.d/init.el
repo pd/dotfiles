@@ -36,4 +36,9 @@
 (when (pd/has-private-emacsd-p)
   (pd/load-private-emacsd))
 
+; boot the emacs server if it's not available yet
+(require 'server)
+(unless (or (server-running-p) (daemonp))
+  (server-start))
+
 (turn-on-save-visited-files-mode)
