@@ -110,8 +110,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 	      (logand flags #xFFFFFEFF)))
     (x-change-window-property "WM_HINTS" wm-hints frame "WM_HINTS" 32 t)))
 
-<<<<<<< HEAD
-=======
 ; much slower than font scaling (see C-x C-0), but changes font size globally
 ; so that the status bar etc are also resized
 (defun pd/modify-font-size (amount)
@@ -128,7 +126,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (interactive)
   (pd/modify-font-size -20))
 
->>>>>>> elget
 ; ansi-term creation
 (defun pd/term-buffer-name ()
   (find-if (lambda (b)
@@ -161,8 +158,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
    (make-comint (format "PSQL %s@%s" db host)
                 "psql" nil "-U" user "-h" host "-p" port "--pset" "pager=off" db)))
 
-<<<<<<< HEAD
-=======
 ; adds a '-*- mode: ... -*-' comment to the top of the file
 (defun pd/add-mode-to-first-line ()
   (interactive)
@@ -173,5 +168,4 @@ This is the same as using \\[set-mark-command] with the prefix argument."
       (insert (concat "-*- mode: " mode-name " -*-"))
       (comment-region (point-min) (point)))))
 
->>>>>>> elget
 (provide 'pd/defuns)
