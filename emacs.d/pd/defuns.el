@@ -26,18 +26,6 @@
   (add-to-list 'load-path "~/dotfiles/private/emacs.d")
   (load "~/dotfiles/private/emacs.d/init.el"))
 
-; i want save-visited-files-mode in most environments but not all
-(defun pd/should-save-visited-files-p ()
-  (or (not (daemonp))
-      (not (string-equal "irc" server-name))))
-
-(defvar pd/run-once-frame-hook-run nil)
-(defun pd/run-once-maybe-save-visited-files ()
-  (when (not pd/run-once-frame-hook-run)
-    (setq pd/run-once-frame-hook-run t)
-    (when (pd/should-save-visited-files-p)
-      (turn-on-save-visited-files-mode))))
-
 ; kill this buffer, then immediately reopen it where i was.
 ; useful for when mode hooks have been updated and i want them rerun.
 ; from xale@#emacs

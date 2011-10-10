@@ -35,24 +35,20 @@
                :type git
                :url "https://github.com/nflath/save-visited-files.git"
                :after (lambda ()
-                        (autoload 'turn-on-save-visited-files-mode "save-visited-files" "meh" t)
-                        (turn-on-save-visited-files-mode)))
+                        (autoload 'turn-on-save-visited-files-mode "save-visited-files" "meh" t)))
 
         (:name rspec-mode
                :url "https://github.com/earakaki/rspec-mode.git")
 
         (:name rvm
                :after (lambda ()
+                        (rvm-autodetect-ruby)
                         (defadvice shell-dirstack-message (after rvm-on-shell-dirstack-message last activate)
                           (rvm-activate-corresponding-ruby))))
 
         (:name haml-mode
                :url "git://github.com/pd/haml-mode.git"
                :branch "wip")
-
-        (:name inf-ruby-bond
-               :type git
-               :url "git://github.com/pd/inf-ruby-bond.git")
 
         (:name buffer-move
                :after (lambda ()
@@ -74,7 +70,7 @@
                 color-theme color-theme-sanityinc
                 magit smex buffer-move notify
                 full-ack sudo-save tail cheat
-                ruby-mode inf-ruby
+                ruby-mode inf-ruby inf-ruby-bond
                 rvm rinari rspec-mode yari yaml-mode feature-mode
                 haml-mode sass-mode
                 coffee-mode
