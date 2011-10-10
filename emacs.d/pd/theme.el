@@ -73,6 +73,16 @@ but since I use emacsd 99% of the time that's not much of an issue"
     (when (display-graphic-p)
       (color-theme-despot))))
 
+(defun pd/decorate-exported-frames (&optional frame)
+  "Alter the modeline so I can recognize remote emacs sessions more readily"
+  (when (string-match-p "^pm." (system-name))
+    (select-frame frame)
+    (set-face-background 'modeline "DeepSkyBlue4" frame)
+    (set-face-foreground 'modeline "#b9b9b9" frame)
+    (set-face-foreground 'modeline-inactive "mint cream" frame)
+    (set-face-attribute  'modeline-inactive frame :weight 'normal)))
+
+(add-hook 'after-make-frame-functions 'pd/decorate-exported-frames)
 (add-hook 'after-make-frame-functions 'pd/set-color-theme)
 
 (when (or (display-graphic-p) (daemonp))

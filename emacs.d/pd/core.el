@@ -36,11 +36,12 @@
   (setq ns-command-modifier   'meta
         ns-alternate-modifier 'super))
 
-; explicit exec-path for cocoa emacs, which doesn't inherit $PATH from
-; the shell if you launch from the dock, as there is no shell involved
+; gank the $PATH from a login shell, in case I launched from the dock
+; http://stackoverflow.com/questions/2266905/emacs-is-ignoring-my-path-when-it-runs-a-compile-command
 (when (pd/macosx-p)
-  (setq exec-path '("~/bin" "/usr/local/bin" "/usr/local/sbin"
-                    "/bin" "/sbin" "/usr/bin" "/usr/sbin")))
+  (let ((path (pd/login-shell-path)))
+    (setenv "PATH" (mapconcat 'identity path path-separator))
+    (setq exec-path path)))
 
 ; useful frame titles
 (setq frame-title-format '(("" invocation-name "@" system-name ": ")

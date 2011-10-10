@@ -9,6 +9,10 @@
 (global-unset-key (kbd "M-}"))
 (global-unset-key (kbd "M-{"))
 
+; suspend-frame is terribly annoying
+(global-unset-key (kbd "C-x C-z"))
+(global-unset-key (kbd "C-z"))
+
 ; text navigation
 (global-set-key (kbd "M-p") 'backward-paragraph)
 (global-set-key (kbd "M-n") 'forward-paragraph)
@@ -63,15 +67,21 @@
 (global-set-key (kbd "C-c x m") 'run-mozilla)
 
 ; misc
+(global-set-key (kbd "M-+") 'pd/increase-font-size)
+(global-set-key (kbd "M-_") 'pd/decrease-font-size)
+(global-set-key (kbd "C-c f") 'ffap)
 (global-set-key (kbd "C-c s") 'shell)
 (global-set-key (kbd "C-c t") 'pd/term)
 (global-set-key (kbd "<f6>") 'linum-mode)
-(global-set-key (kbd "C-h a") 'apropos) ; defaults to command-apropos
 (global-set-key (kbd "C-c m") 'woman)
 (global-set-key (kbd "C-c y") 'x-clipboard-yank)
+(global-set-key (kbd "C-h a") 'apropos) ; defaults to command-apropos
 
 ; mac only
 (when (pd/macosx-p)
-  (global-set-key (kbd "s-S-<return>") 'ns-toggle-fullscreen))
+  (global-set-key (kbd "s-S-<return>") 'ns-toggle-fullscreen)
+  (if (eq ns-alternate-modifier 'meta)
+      (global-unset-key (kbd "M-p")) ; stop asking me to print please
+    (global-unset-key (kbd "s-p"))))
 
 (provide 'pd/bindings)

@@ -20,7 +20,7 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.UrgencyHook
 
-import XMonad.Actions.Volume
+-- import XMonad.Actions.Volume
 import XMonad.Actions.CycleWS
 
 import qualified XMonad.Prompt as P
@@ -41,8 +41,6 @@ myModMask = mod3Mask
 
 -- Main
 main = do
-    xmonadBar <- spawnDzen myLeftBar
-    statusBar <- spawnToDzen "conky" myRightBar
     xmonadBar <- Dz.spawnDzen myLeftBar
     conkyBar  <- Dz.spawnToDzen "conky" myRightBar
 
@@ -91,12 +89,15 @@ myManageHook = mainManageHook <+> manageDocks
               , [ className =? c --> doShift "vm"  | c <- mySeleniumBrowsers ]
               , [ className =? c --> doShift "im"  | c <- myIMs ]
               , [ isDialog       --> doCenterFloat ]
+              , [ className =? c --> doShift "vm"  | c <- myVM ]
+              , [ className =? c --> doFloat       | c <- myVM ]
               , [ isFullscreen   --> doFullFloat ]
               ]
           myWebs = ["Chromium"]
           mySeleniumBrowsers = ["Firefox"]
           myIMs = ["Pidgin"]
           myCenterFloats = ["Downloads"]
+          myVM = ["VirtualBox"]
 
 -- Key bindings
 myAdditionalKeys =
@@ -107,7 +108,7 @@ myAdditionalKeys =
     , ("M-x e",   spawnOnWs "sauce" "emacsclient -s main -c")
     , ("M-x M-e", spawnOnWs "sauce" "emacsclient -s main -c")
     , ("M-x S-e", spawnOnWs "sauce" "emacs")
-    , ("M-x w",   spawnOnWs "web"   "chromium-dev")
+    , ("M-x w",   spawnOnWs "web"   "chromium")
     , ("M-x M-w", spawnOnWs "web"   "chromium")
     , ("M-x i",   spawnOnWs "irc"   "emacsclient -s irc -c --eval '(irc)'")
 
@@ -117,7 +118,7 @@ myAdditionalKeys =
 
       -- don't move
     , ("M-u M-x e", spawn "emacsclient -s main -c")
-    , ("M-u M-x w", spawn "chromium-dev")
+    , ("M-u M-x w", spawn "chromium")
     , ("M-u M-x M-w", spawn "chromium")
     , ("M-x s", sshPrompt myXPConfig)
 

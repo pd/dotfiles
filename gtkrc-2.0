@@ -1,8 +1,6 @@
-# Auto-written by gtk2_prefs. Do not edit.
+# -- THEME AUTO-WRITTEN DO NOT EDIT
+include "/usr/share/themes/NOX/gtk-2.0/gtkrc"
 
-gtk-theme-name = "Clearlooks"
-style "user-font"
-{
-	font_name="Droid Sans 10"
-}
-widget_class "*" style "user-font"
+include "/home/pd/.gtkrc.mine"
+
+# -- THEME AUTO-WRITTEN DO NOT EDIT

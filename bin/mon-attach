@@ -1,0 +1,4 @@
+#!/bin/sh
+
+xrandr --output DP-1 --auto
+xrandr --output DP-1 --right-of LVDS-1

@@ -32,7 +32,8 @@
       nil)))
 
 (defun pd/irc-hilited (msg-type who msg)
-  (pd/x-urgency-hint (selected-frame) t))
+  (when (eq 'x window-system)
+    (pd/x-urgency-hint (selected-frame) t)))
 
 (defun pd/irc ()
   "Connect to IRC, maybe."

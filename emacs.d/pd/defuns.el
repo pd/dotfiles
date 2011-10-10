@@ -1,7 +1,22 @@
+(require 'cl)
+
+; filter a list. but i never remember the remove-if-not name,
+; so name it something i don't forget
+(defalias 'pd/filter 'remove-if-not)
+(defalias 'pd/reject 'remove-if)
+
 ; load all .el files in a directory. this does not descend.
 (defun pd/load-directory (path &optional noerror nomessage)
   (dolist (file (directory-files path 'full "\\.el\\'"))
     (load file noerror nomessage)))
+
+; use a login shell to get $PATH
+; useful for OS X, where launching from the dock/quicksilver means you
+; don't inherit your shell's environment
+(defun pd/login-shell-path ()
+  (let* ((result (shell-command-to-string "$SHELL -l -c 'echo $PATH'"))
+         (trimmed (replace-regexp-in-string "[[:space:]\n]*$" "" result)))
+    (split-string trimmed path-separator)))
 
 ; is my private emacs.d available?
 (defun pd/has-private-emacsd-p ()
@@ -18,12 +33,9 @@
 
 (defvar pd/run-once-frame-hook-run nil)
 (defun pd/run-once-maybe-save-visited-files ()
-  (message "inside pd/run-once-maybe-save-visited-files")
   (when (not pd/run-once-frame-hook-run)
-    (message "not set")
     (setq pd/run-once-frame-hook-run t)
     (when (pd/should-save-visited-files-p)
-      (message "turn-on")
       (turn-on-save-visited-files-mode))))
 
 ; kill this buffer, then immediately reopen it where i was.
@@ -98,6 +110,25 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 	      (logand flags #xFFFFFEFF)))
     (x-change-window-property "WM_HINTS" wm-hints frame "WM_HINTS" 32 t)))
 
+<<<<<<< HEAD
+=======
+; much slower than font scaling (see C-x C-0), but changes font size globally
+; so that the status bar etc are also resized
+(defun pd/modify-font-size (amount)
+  (set-face-attribute 'default nil
+                      :height
+                      (+ (face-attribute 'default :height)
+                         amount)))
+
+(defun pd/increase-font-size ()
+  (interactive)
+  (pd/modify-font-size 20))
+
+(defun pd/decrease-font-size ()
+  (interactive)
+  (pd/modify-font-size -20))
+
+>>>>>>> elget
 ; ansi-term creation
 (defun pd/term-buffer-name ()
   (find-if (lambda (b)
@@ -130,4 +161,17 @@ This is the same as using \\[set-mark-command] with the prefix argument."
    (make-comint (format "PSQL %s@%s" db host)
                 "psql" nil "-U" user "-h" host "-p" port "--pset" "pager=off" db)))
 
+<<<<<<< HEAD
+=======
+; adds a '-*- mode: ... -*-' comment to the top of the file
+(defun pd/add-mode-to-first-line ()
+  (interactive)
+  (let ((mode-name (replace-regexp-in-string "-mode\\'" "" (symbol-name major-mode))))
+    (save-excursion
+      (beginning-of-buffer)
+      (pd/prepend-and-move-to-new-line)
+      (insert (concat "-*- mode: " mode-name " -*-"))
+      (comment-region (point-min) (point)))))
+
+>>>>>>> elget
 (provide 'pd/defuns)
