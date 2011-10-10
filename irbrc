@@ -16,3 +16,11 @@ begin
 rescue LoadError
   require 'irb/completion'
 end
+
+%w[pry awesome_print looksee].each do |lib|
+  begin
+    require lib
+  rescue LoadError
+    puts "Failed to load #{lib}"
+  end
+end
