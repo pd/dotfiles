@@ -1,0 +1,4 @@
+# -*- mode: ruby -*-
+AwesomePrint.defaults = {
+  :indent => 2
+}

@@ -1,3 +1,4 @@
+# -*- mode: ruby -*-
 require 'pp'
 require 'readline'
 
