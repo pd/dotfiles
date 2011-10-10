@@ -1,27 +1,3 @@
-[submodule "vendor/magit"]
-	path = vendor/magit
-	url = git://github.com/philjackson/magit.git
-[submodule "vendor/smex"]
-	path = vendor/smex
-	url = git://github.com/nonsequitur/smex.git
-[submodule "vendor/inf-ruby-bond"]
-	path = vendor/inf-ruby-bond
-	url = git://github.com/pd/inf-ruby-bond
-[submodule "vendor/erc"]
-	path = vendor/erc
-	url = git://git.sv.gnu.org/erc.git
-[submodule "vendor/scala-mode"]
-	path = vendor/scala-mode
-	url = git://github.com/ananthakumaran/scala-mode.git
-[submodule "vendor/p4el"]
-	path = vendor/p4el
-	url = git://github.com/fujii/p4el.git
 [submodule "private"]
 	path = private
 	url = git@github.com:pd/dotfiles.private.git
-[submodule "vendor/workgroups"]
-	path = vendor/workgroups
-	url = git://github.com/tlh/workgroups.el.git
-[submodule "vendor/cucumber.el"]
-	path = vendor/cucumber.el
-	url = git://github.com/michaelklishin/cucumber.el.git
