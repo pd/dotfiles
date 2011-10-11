@@ -10,10 +10,8 @@
   (dolist (file (directory-files path 'full "\\.el\\'"))
     (load file noerror nomessage)))
 
-; use a login shell to get $PATH
-; useful for OS X, where launching from the dock/quicksilver means you
-; don't inherit your shell's environment
 (defun pd/login-shell-path ()
+  "Launch a login shell and return its $PATH as a list"
   (let* ((result (shell-command-to-string "$SHELL -l -c 'echo $PATH'"))
          (trimmed (replace-regexp-in-string "[[:space:]\n]*$" "" result)))
     (split-string trimmed path-separator)))
@@ -28,18 +26,19 @@
       (eval-region (point) (point-max))
       (kill-buffer (current-buffer)))))
 
-; is my private emacs.d available?
 (defun pd/has-private-emacsd-p ()
+  "t if my private dotfiles init.el is available"
   (file-exists-p "~/dotfiles/private/emacs.d/init.el"))
 
 (defun pd/load-private-emacsd ()
+  "add private emacs.d to load-path and load the init.el"
   (add-to-list 'load-path "~/dotfiles/private/emacs.d")
   (load "~/dotfiles/private/emacs.d/init.el"))
 
-; kill this buffer, then immediately reopen it where i was.
-; useful for when mode hooks have been updated and i want them rerun.
 ; from xale@#emacs
 (defun reload-buffer ()
+  "Kill the current buffer and immediately reload it without moving point.
+Useful for rerunning mode hooks."
   (interactive)
   (let ((path (buffer-file-name)) (point (point)))
     (kill-buffer)
@@ -91,9 +90,9 @@ This is the same as using \\[set-mark-command] with the prefix argument."
     (when file
       (find-file file))))
 
-; urgency hints for x11
-; stolen from http://www.emacswiki.org/emacs/JabberEl#toc16
 (defun pd/x-urgency-hint (frame arg &optional source)
+  "Signal an X11 urgency hint for this frame.
+http://www.emacswiki.org/emacs/JabberEl#toc16"
   (let* ((wm-hints (append (x-window-property
 			    "WM_HINTS" frame "WM_HINTS"
 			    (if source
@@ -108,24 +107,26 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 	      (logand flags #xFFFFFEFF)))
     (x-change-window-property "WM_HINTS" wm-hints frame "WM_HINTS" 32 t)))
 
-; much slower than font scaling (see C-x C-0), but changes font size globally
-; so that the status bar etc are also resized
 (defun pd/modify-font-size (amount)
+  "Increase/decrease the font size by amount"
   (set-face-attribute 'default nil
                       :height
                       (+ (face-attribute 'default :height)
                          amount)))
 
 (defun pd/increase-font-size ()
+  "Increase the font size by 20 (whatever the fuck that is)"
   (interactive)
   (pd/modify-font-size 20))
 
 (defun pd/decrease-font-size ()
+  "Decrease the font size by 20 (whatever the fuck that is)"
   (interactive)
   (pd/modify-font-size -20))
 
-; ansi-term creation
+;; ansi-term creation
 (defun pd/term-buffer-name ()
+  "Return the name of the first buffer in term-mode"
   (find-if (lambda (b)
              (save-excursion
                (set-buffer b)
@@ -133,31 +134,32 @@ This is the same as using \\[set-mark-command] with the prefix argument."
            (buffer-list)))
 
 (defun pd/term-buffer-exists ()
-  (not (eq ()
-           (pd/term-buffer-name))))
+  "t if a term-mode buffer exists"
+  (not (eq nil (pd/term-buffer-name))))
 
 (defun pd/term (create-new)
+  "Open an ansi-term running $SHELL (or /bin/zsh if undefined)"
   (interactive "P")
   (let ((current-term (pd/term-buffer-name)))
     (if (and current-term (not create-new))
         (switch-to-buffer current-term)
       (ansi-term (or (getenv "SHELL") "/bin/zsh")))))
 
-; ssh in an ansi-term
 (defun pd/ssh (user host)
+  "Open a terminal buffer ssh'd to user@host"
   (interactive "MUser: \nMHost: ")
   (let* ((dest (concat user "@" host))
          (buf (apply 'make-term (generate-new-buffer-name dest) "ssh" nil (list dest))))
     (switch-to-buffer buf)))
 
-; psql in a comint buffer
 (defun pd/psql (host port db user)
+  "Open a comint buffer running psql"
   (switch-to-buffer
    (make-comint (format "PSQL %s@%s" db host)
                 "psql" nil "-U" user "-h" host "-p" port "--pset" "pager=off" db)))
 
-; adds a '-*- mode: ... -*-' comment to the top of the file
 (defun pd/add-mode-to-first-line ()
+  "Add the -*- mode: foo -*- line to the beginning of the current buffer"
   (interactive)
   (let ((mode-name (replace-regexp-in-string "-mode\\'" "" (symbol-name major-mode))))
     (save-excursion

@@ -29,6 +29,7 @@
 (set-keyboard-coding-system 'utf-8)
 
 (defun pd/macosx-p ()
+  "t if on a darwin system"
   (string-equal "darwin" system-type))
 
 ; on mac, cmd=meta, option=super

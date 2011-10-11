@@ -38,9 +38,11 @@
   (paredit-mode t))
 
 (defun pd/enable-newline-and-indent (map)
+  "Make return indent on the next line in map"
   (define-key map (kbd "<return>") 'newline-and-indent))
 
 (defun pd/restore-paragraph-movement (map)
+  "Ensure M-p and M-n are forward/backward-paragraph in map"
   (define-key map (kbd "M-p") 'backward-paragraph)
   (define-key map (kbd "M-n") 'forward-paragraph))
 

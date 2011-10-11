@@ -23,6 +23,7 @@
 
 ; simplified version of http://www.emacswiki.org/emacs/ErcPageMe
 (defun pd/hilite-on-pm (proc parsed)
+  "Highlight me when I get an ERC message"
   (let ((nick (car (erc-parse-user (erc-response.sender parsed))))
         (target (car (erc-response.command-args parsed)))
         (msg (erc-response.contents parsed)))

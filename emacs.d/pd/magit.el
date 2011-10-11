@@ -6,6 +6,7 @@
   (add-hook 'magit-log-edit-mode-hook 'pd/add-magit-commit-keybindings))
 
 (defun pd/magit-insert-submodule-summary ()
+  "Insert the contents of `git submodule summary` into the current buffer"
   (interactive)
   (save-excursion
     (goto-char (point-max))

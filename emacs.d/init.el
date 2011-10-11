@@ -11,8 +11,6 @@
 (require 'pd/packages)
 (require 'pd/org)
 
-; (require 'pd/theme)
-
 (load "~/.emacs.d/el-get/color-theme-sanityinc/color-theme-sanityinc.el")
 (color-theme-sanityinc-dark)
 
