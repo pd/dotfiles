@@ -5,8 +5,8 @@
 (defalias 'pd/filter 'remove-if-not)
 (defalias 'pd/reject 'remove-if)
 
-; load all .el files in a directory. this does not descend.
 (defun pd/load-directory (path &optional noerror nomessage)
+  "Load all .el files in the given directory. Non-recursive."
   (dolist (file (directory-files path 'full "\\.el\\'"))
     (load file noerror nomessage)))
 
@@ -17,6 +17,16 @@
   (let* ((result (shell-command-to-string "$SHELL -l -c 'echo $PATH'"))
          (trimmed (replace-regexp-in-string "[[:space:]\n]*$" "" result)))
     (split-string trimmed path-separator)))
+
+(defun pd/eval-url (url)
+  "Load url and eval its contents as an Emacs Lisp script"
+  (let ((buffer (url-retrieve-synchronously url)))
+    (save-excursion
+      (set-buffer buffer)
+      (goto-char (point-min))
+      (re-search-forward "^$" nil 'move)
+      (eval-region (point) (point-max))
+      (kill-buffer (current-buffer)))))
 
 ; is my private emacs.d available?
 (defun pd/has-private-emacsd-p ()

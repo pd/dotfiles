@@ -1,15 +1,6 @@
 ; el-get, the new hotness (that is only a little bit hot...)
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
-(defun pd/eval-url (url)
-  (let ((buffer (url-retrieve-synchronously url)))
-    (save-excursion
-      (set-buffer buffer)
-      (goto-char (point-min))
-      (re-search-forward "^$" nil 'move)
-      (eval-region (point) (point-max))
-      (kill-buffer (current-buffer)))))
-
 (unless (require 'el-get nil t)
   (let (el-get-master-branch)
     (pd/eval-url
