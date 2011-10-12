@@ -40,7 +40,7 @@
                :url "git://github.com/pd/haml-mode.git"
                :branch "wip")
 
-        (:after feature-mode
+        (:name feature-mode
                 :after (lambda ()
                          (setq org-table-number-fraction 2))) ; impossible, thus never right-align.
 
