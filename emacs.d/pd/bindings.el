@@ -13,6 +13,9 @@
 (global-unset-key (kbd "C-x C-z"))
 (global-unset-key (kbd "C-z"))
 
+; i don't want to compose emails
+(global-unset-key (kbd "C-x m"))
+
 ; text navigation
 (global-set-key (kbd "M-p") 'backward-paragraph)
 (global-set-key (kbd "M-n") 'forward-paragraph)
