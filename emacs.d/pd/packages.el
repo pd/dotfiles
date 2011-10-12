@@ -63,7 +63,7 @@
        '(el-get package
                 color-theme color-theme-sanityinc
                 smex buffer-move notify
-                magit git-emacs git-blame git-modeline
+                magit git-blame
                 full-ack sudo-save tail cheat
                 ruby-mode inf-ruby inf-ruby-bond
                 rvm rinari rspec-mode yari yaml-mode feature-mode
