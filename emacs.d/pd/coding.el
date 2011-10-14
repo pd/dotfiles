@@ -51,6 +51,9 @@
    nil '(("\\<\\(FIXME\\|FIX\\|TODO\\|HACK\\|XXX\\|REFACTOR\\)"
           1 font-lock-warning-face t))))
 
+(defun pd/set-tab-width-2 ()
+  (setq tab-width 2))
+
 (add-hook 'pd/coding-hook 'pd/turn-on-hl-line-mode)
 (add-hook 'pd/coding-hook 'pd/turn-on-hl-watchwords)
 
