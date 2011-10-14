@@ -7,10 +7,8 @@
 (setq inf-ruby-first-prompt-pattern "^.*[0-9:]+ *[>*\"'] *"
       inf-ruby-prompt-pattern "\\(^\\(irb(.*)[0-9:]+[>*\"'] *\\)+\\)\\|\\(^.*:[0-9]+.*> *\\)")
 
-(add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Rakefile\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Gemfile\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.gemspec\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.?irbrc\\'" . ruby-mode))
+(dolist (regexp '("\\.rake$" "Rakefile$" "Guardfile$"
+                  "Gemfile$" "\\.gemspec$" "\\.?irbrc$"))
+  (add-to-list 'auto-mode-alist (cons regexp 'ruby-mode)))
 
 (provide 'pd/ruby)
