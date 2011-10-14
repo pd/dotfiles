@@ -48,7 +48,7 @@
 
 (defun pd/turn-on-hl-watchwords ()
   (font-lock-add-keywords
-   nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|XXX\\|REFACTOR\\)"
+   nil '(("\\<\\(FIXME\\|FIX\\|TODO\\|HACK\\|XXX\\|REFACTOR\\)"
           1 font-lock-warning-face t))))
 
 (add-hook 'pd/coding-hook 'pd/turn-on-hl-line-mode)
