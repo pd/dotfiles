@@ -5,6 +5,13 @@
 (defalias 'pd/filter 'remove-if-not)
 (defalias 'pd/reject 'remove-if)
 
+(defun pd/uniq (list)
+  "Remove duplicate elements from a list"
+  (let ((list list))
+    (while list
+      (setq list (setcdr list (delete (car list) (cdr list))))))
+  list)
+
 (defun pd/load-directory (path &optional noerror nomessage)
   "Load all .el files in the given directory. Non-recursive."
   (dolist (file (directory-files path 'full "\\.el\\'"))
