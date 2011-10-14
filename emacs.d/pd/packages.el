@@ -15,6 +15,18 @@
                :after (lambda ()
                         (package-initialize)))
 
+        (:name color-theme
+               :after (lambda ()
+                        (setq color-theme-is-cumulative t
+                              color-theme-history-max-length 20)))
+
+        (:name color-theme-sanityinc
+               :after (lambda ()
+                        (let ((color-theme-is-cumulative t))
+                          (color-theme-sanityinc-dark)
+                          (require 'pd/theme-mods)
+                          (pd/color-theme-mods))))
+
         (:name magit
                :after (lambda ()
                         (require 'magit) ; force load, autoload is fucked TODO
