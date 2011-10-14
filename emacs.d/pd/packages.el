@@ -72,6 +72,14 @@
                         (global-set-key (kbd "C-x w h") 'buf-move-left)
                         (global-set-key (kbd "C-x w l") 'buf-move-right)))
 
+        (:name dired-single
+               :after (lambda ()
+                        (define-key dired-mode-map [return] 'joc-dired-single-buffer)
+                        (define-key dired-mode-map "^"
+                          (function (lambda ()
+                                      (interactive)
+                                      (joc-dired-single-buffer ".."))))))
+
         (:name full-ack
                :after (lambda ()
                         (setq ack-ignore-case t
