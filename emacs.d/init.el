@@ -4,7 +4,6 @@
 
 (require 'pd/defuns)
 (require 'pd/core)
-(require 'pd/magit)
 (require 'pd/coding)
 (require 'pd/bindings)
 (require 'pd/ido)
