@@ -17,6 +17,8 @@
          ("zabxuq" (filename . "zabxuq"))
          ("bzork" (filename . "bzork"))
          ("sauce" (filename . "sauce"))
+         ("el-get/recipes" (filename . "el-get/recipes"))
+         ("el-get" (filename . "el-get"))
          ("emacs.d" (filename . "emacs.d"))
          ("dotfiles" (filename . "dotfiles"))
          ("terms" (or (mode . term-mode)
