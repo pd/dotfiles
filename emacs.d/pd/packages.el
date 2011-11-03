@@ -41,7 +41,8 @@
                 scala-mode ;ensime
                 clojure-mode paredit elein
                 eredis
-                emacschrome)
+                emacschrome
+                evil)
        (mapcar 'el-get-source-name el-get-sources)))
 
 (el-get 'sync pd/el-get-packages)
