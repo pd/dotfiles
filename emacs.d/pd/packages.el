@@ -31,7 +31,7 @@
       (append
        '(el-get package
                 color-theme color-theme-sanityinc
-                smex buffer-move notify
+                evil smex buffer-move notify
                 magit git-blame
                 full-ack sudo-save tail cheat
                 Enhanced-Ruby-Mode inf-ruby inf-ruby-bond
@@ -40,9 +40,7 @@
                 coffee-mode
                 scala-mode ;ensime
                 clojure-mode paredit elein
-                eredis
-                emacschrome
-                evil)
+                eredis emacschrome)
        (mapcar 'el-get-source-name el-get-sources)))
 
 (el-get 'sync pd/el-get-packages)
