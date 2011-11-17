@@ -5,7 +5,7 @@
     (pd/eval-url
      "https://raw.github.com/dimitri/el-get/master/el-get-install.el")))
 
-(setq el-get-verbose t
+(setq el-get-verbose nil ; t = message for every little thing. useful.
       el-get-user-package-directory (concat user-emacs-directory "package-inits"))
 
 (setq el-get-sources
