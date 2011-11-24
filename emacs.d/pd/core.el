@@ -6,6 +6,7 @@
 (scroll-bar-mode -1)
 (blink-cursor-mode -1)
 (setq visible-bell t)
+(setq messages-buffer-max-lines 1000)
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ; and pile your junk somewhere else.
