@@ -175,4 +175,8 @@ http://www.emacswiki.org/emacs/JabberEl#toc16"
       (insert (concat "-*- mode: " mode-name " -*-"))
       (comment-region (point-min) (point)))))
 
+(defun pd/macosx-p ()
+  "t if on a darwin system"
+  (string-equal "darwin" system-type))
+
 (provide 'pd/defuns)
