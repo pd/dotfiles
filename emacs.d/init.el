@@ -4,13 +4,15 @@
 
 (require 'pd/defuns)
 (require 'pd/core)
+(when (pd/macosx-p)
+  (require 'pd/osx))
+
 (require 'pd/coding)
 (require 'pd/bindings)
 (require 'pd/ido)
 (require 'pd/packages)
 (require 'pd/org)
 
-; focused
 (require 'pd/shell)
 (require 'pd/tramp)
 (require 'pd/p4)

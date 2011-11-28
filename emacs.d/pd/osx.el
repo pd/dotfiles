@@ -7,4 +7,9 @@
   (setenv "PATH" (mapconcat 'identity path path-separator))
   (setq exec-path path))
 
+; I launch emacs client using an applescript, which sets cwd to /
+; Rather than learn applescript, I fix it here.
+(when (string= default-directory "/")
+  (cd (getenv "HOME")))
+
 (provide 'pd/osx)
