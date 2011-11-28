@@ -21,6 +21,7 @@
          ("el-get" (filename . "el-get"))
          ("emacs.d" (filename . "emacs.d"))
          ("dotfiles" (filename . "dotfiles"))
+         ("gems" (filename . ".rvm/gems"))
          ("terms" (or (mode . term-mode)
                       (mode . shell-mode)))
          ("magit" (name . "\*magit"))
