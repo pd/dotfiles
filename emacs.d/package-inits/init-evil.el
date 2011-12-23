@@ -25,3 +25,5 @@
 
 (setq evil-ex-commands
       (remove-if 'pd/evil-quit-command-p evil-ex-commands))
+
+(set-default 'evil-shift-width 2)
