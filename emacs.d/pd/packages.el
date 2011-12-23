@@ -34,7 +34,8 @@
                 evil smex buffer-move notify
                 magit git-blame
                 full-ack sudo-save tail cheat
-                Enhanced-Ruby-Mode inf-ruby inf-ruby-bond
+                ;Enhanced-Ruby-Mode
+                inf-ruby inf-ruby-bond
                 rvm rinari rspec-mode yari yaml-mode feature-mode
                 haml-mode sass-mode
                 coffee-mode
