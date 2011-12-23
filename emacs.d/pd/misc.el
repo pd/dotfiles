@@ -11,6 +11,10 @@
 ; help shouldn't ever steal focus
 (setq help-window-select nil)
 
+; stop prompting me every time i open a gemspec
+(setq safe-local-variable-values
+      (append '((encoding . utf-8)) safe-local-variable-values))
+
 ; ibuffer grouping!
 (setq ibuffer-saved-filter-groups
       '(("pd"
