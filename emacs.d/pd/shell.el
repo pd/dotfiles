@@ -4,7 +4,8 @@
 (setq shell-prompt-pattern "^[^\n]*[#$%>»] *")
 
 (defun pd/enable-shell-mode-bindings ()
-  (define-key shell-mode-map (kbd "C-c d") 'dirs))
+  (define-key shell-mode-map (kbd "C-c d") 'dirs)
+  (define-key shell-mode-map (kbd "C-c s") 'pd/new-shell))
 
 (defun pd/enable-dirtrack ()
   (dirtrack-mode 1)

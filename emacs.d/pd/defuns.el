@@ -131,6 +131,13 @@ http://www.emacswiki.org/emacs/JabberEl#toc16"
   (interactive)
   (pd/modify-font-size -20))
 
+;; smarter shell creation
+(defun pd/new-shell ()
+  "Always create a new shell. Essentially C-u M-x shell without needing to think about it."
+  (interactive)
+  (let ((buf (generate-new-buffer-name "*shell*")))
+    (shell buf)))
+
 ;; ansi-term creation
 (defun pd/term-buffer-name ()
   "Return the name of the first buffer in term-mode"
