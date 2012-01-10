@@ -39,26 +39,27 @@
 
 ; M-S-[left/up/down/right]: window resizing
 ; the directions unfortunately don't always make sense in context
-(global-set-key (kbd "M-S-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "M-S-<up>") 'enlarge-window)
-(global-set-key (kbd "M-S-<down>") 'shrink-window)
+(global-set-key (kbd "M-S-<left>")  'shrink-window-horizontally)
+(global-set-key (kbd "M-S-<up>")    'enlarge-window)
+(global-set-key (kbd "M-S-<down>")  'shrink-window)
 (global-set-key (kbd "M-S-<right>") 'enlarge-window-horizontally)
 
 ; find files
 (global-set-key (kbd "C-x M-f") 'ffap)
-(global-set-key (kbd "C-x f") 'pd/recentf-ido-find-file)
+(global-set-key (kbd "C-x f")   'pd/recentf-ido-find-file)
 (global-set-key (kbd "C-x C-d") 'dired) ; i never, ever want list-directory
 
 ; text editing
-(global-set-key (kbd "M-/") 'hippie-expand)
-(global-set-key (kbd "C-S-k") 'kill-whole-line)
-(global-set-key (kbd "C-c w") 'delete-trailing-whitespace)
-(global-set-key (kbd "M-<return>") 'pd/append-and-move-to-new-line)
+(global-set-key (kbd "M-/")          'hippie-expand)
+(global-set-key (kbd "C-S-k")        'kill-whole-line)
+(global-set-key (kbd "C-c w")        'delete-trailing-whitespace)
+(global-set-key (kbd "M-<return>")   'pd/append-and-move-to-new-line)
 (global-set-key (kbd "M-S-<return>") 'pd/prepend-and-move-to-new-line)
-(global-set-key (kbd "C-c C-;") 'comment-or-uncomment-region)
-(global-set-key (kbd "C-c r") 'revert-buffer)
-(global-set-key (kbd "C-c C-s") 'replace-string)
-(global-set-key (kbd "C-c M-s") 'replace-regexp)
+(global-set-key (kbd "C-c C-;")      'comment-or-uncomment-region)
+(global-set-key (kbd "C-c r")        'revert-buffer)
+(global-set-key (kbd "C-c C-s")      'replace-string)
+(global-set-key (kbd "C-c M-s")      'replace-regexp)
+(global-set-key (kbd "C-c =")        'align-regexp)
 
 ; C-c x: launch various repls
 (global-set-key (kbd "C-c x e") 'ielm)
@@ -70,12 +71,12 @@
 (global-set-key (kbd "C-c x m") 'run-mozilla)
 
 ; misc
-(global-set-key (kbd "M-+") 'pd/increase-font-size)
-(global-set-key (kbd "M-_") 'pd/decrease-font-size)
+(global-set-key (kbd "M-+")   'pd/increase-font-size)
+(global-set-key (kbd "M-_")   'pd/decrease-font-size)
 (global-set-key (kbd "C-c f") 'ffap)
 (global-set-key (kbd "C-c s") 'shell)
 (global-set-key (kbd "C-c t") 'pd/term)
-(global-set-key (kbd "<f6>") 'linum-mode)
+(global-set-key (kbd "<f6>")  'linum-mode)
 (global-set-key (kbd "C-c m") 'woman)
 (global-set-key (kbd "C-c y") 'x-clipboard-yank)
 (global-set-key (kbd "C-h a") 'apropos) ; defaults to command-apropos
