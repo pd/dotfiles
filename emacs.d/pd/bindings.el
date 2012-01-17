@@ -77,7 +77,7 @@
 (global-set-key (kbd "C-c s") 'shell)
 (global-set-key (kbd "C-c t") 'pd/term)
 (global-set-key (kbd "<f6>")  'linum-mode)
-(global-set-key (kbd "C-c m") 'woman)
+(global-set-key (kbd "C-c m") 'man)
 (global-set-key (kbd "C-c y") 'x-clipboard-yank)
 (global-set-key (kbd "C-h a") 'apropos) ; defaults to command-apropos
 
