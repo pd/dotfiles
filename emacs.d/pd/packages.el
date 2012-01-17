@@ -32,7 +32,7 @@
        '(el-get package
                 color-theme color-theme-sanityinc
                 evil smex buffer-move notify
-                magit git-blame
+                magit git-blame pcmpl-git
                 full-ack sudo-save tail cheat
                 ;Enhanced-Ruby-Mode
                 inf-ruby inf-ruby-bond
