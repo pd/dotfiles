@@ -26,3 +26,22 @@
 [github]
 	user = pd
 	token = 4b7c4bde82b4040e469cbd07a463c5bc
+[alias]
+        b   = branch
+        br  = branch
+        ba  = branch -a
+        bav = branch -av
+        ci  = commit
+        co  = checkout
+        cp  = cherry-pick
+        d   = diff
+        ds  = diff --cached
+        dhd = diff HEAD
+        f   = fetch
+        l   = log
+        m   = merge
+        ru  = remote update
+        rup = remote update --prune
+        s   = status
+        sh  = show
+        sm  = submodule
