@@ -1,3 +1,7 @@
+if [ -f /usr/local/etc/bash_completion.d/git_completion.bash ]; then
+  source /usr/local/etc/bash_completion.d/git_completion.bash
+fi
+
 alias gst='git status'
 alias gba='git branch -a'
 alias gbav='gba -v'
@@ -23,7 +27,3 @@ alias gdhd='git diff HEAD'
 alias gdst='git diff --stat'
 
 alias gsm='git submodule'
-
-# GUIs i never actually use
-alias qg='detach qgit --all'
-alias gx='gitx --all'
