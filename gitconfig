@@ -43,5 +43,6 @@
         ru  = remote update
         rup = remote update --prune
         s   = status
+        st  = status
         sh  = show
         sm  = submodule
