@@ -33,6 +33,7 @@
         bav = branch -av
         ci  = commit
         co  = checkout
+        cot = checkout -t
         cp  = cherry-pick
         d   = diff
         ds  = diff --cached
@@ -40,6 +41,9 @@
         f   = fetch
         l   = log
         m   = merge
+        rb  = rebase
+        re  = reset
+        reh = reset --hard
         ru  = remote update
         rup = remote update --prune
         s   = status
