@@ -34,12 +34,12 @@
                 evil smex buffer-move notify
                 magit git-blame pcmpl-git
                 full-ack sudo-save tail cheat
-                ;Enhanced-Ruby-Mode
+                Enhanced-Ruby-Mode
                 inf-ruby inf-ruby-bond
                 rvm rinari rspec-mode yari yaml-mode feature-mode
                 haml-mode sass-mode
                 coffee-mode
-                scala-mode ;ensime
+                scala-mode
                 clojure-mode paredit elein
                 eredis)
        (mapcar 'el-get-source-name el-get-sources)))
