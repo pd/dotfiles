@@ -29,6 +29,7 @@
          (diff-file-header ((t (:foreground ,aluminium :background nil :weight normal))))
          (diff-hunk-header ((t (:foreground ,dark-aluminium :background nil :weight normal))))
          (diff-added ((t (:foreground ,medium-chameleon :background ,background-black :weight normal))))
-         (diff-removed ((t (:foreground ,scarlet :background ,background-black :weight normal))))))))
+         (diff-removed ((t (:foreground ,scarlet :background ,background-black :weight normal))))
+         (diff-refine-change ((t (:background ,dark-grey :weight normal))))))))
 
 (provide 'pd/theme-mods)
