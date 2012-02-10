@@ -71,8 +71,8 @@
 (global-set-key (kbd "C-c x m") 'run-mozilla)
 
 ; misc
-(global-set-key (kbd "M-+")   'pd/increase-font-size)
-(global-set-key (kbd "M-_")   'pd/decrease-font-size)
+(global-set-key (kbd "s-+")   'pd/increase-font-size)
+(global-set-key (kbd "s-_")   'pd/decrease-font-size)
 (global-set-key (kbd "C-c f") 'ffap)
 (global-set-key (kbd "C-c s") 'shell)
 (global-set-key (kbd "C-c t") 'pd/term)
