@@ -23,6 +23,7 @@
 (require 'pd/scala)
 (require 'pd/irc)
 (require 'pd/smex)
+(require 'pd/pcmpl-powify)
 
 ; wasn't it silly to have pd/misc in the "focused" section?
 ; this is an artificial comment to put an end to such madness.
