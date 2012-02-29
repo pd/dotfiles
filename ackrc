@@ -1,0 +1,6 @@
+--type-set=haml=.haml
+--type-set=erb=.erb
+--type-set=rackup=.ru
+--type-set=coffee=.coffee
+--type-set=scss=.scss
+--all-types
