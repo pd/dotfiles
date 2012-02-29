@@ -38,6 +38,7 @@
                 inf-ruby inf-ruby-bond
                 rvm rinari rspec-mode yari yaml-mode feature-mode
                 haml-mode sass-mode
+                go-mode
                 coffee-mode
                 scala-mode
                 clojure-mode paredit elein
