@@ -55,10 +55,10 @@
 (global-set-key (kbd "C-c w")        'delete-trailing-whitespace)
 (global-set-key (kbd "M-<return>")   'pd/append-and-move-to-new-line)
 (global-set-key (kbd "M-S-<return>") 'pd/prepend-and-move-to-new-line)
-(global-set-key (kbd "C-c C-;")      'comment-or-uncomment-region)
+(global-set-key (kbd "C-c #")        'comment-or-uncomment-region)
 (global-set-key (kbd "C-c r")        'revert-buffer)
-(global-set-key (kbd "C-c C-s")      'replace-string)
-(global-set-key (kbd "C-c M-s")      'replace-regexp)
+(global-set-key (kbd "C-c / s")      'replace-string)
+(global-set-key (kbd "C-c / r")      'replace-regexp)
 (global-set-key (kbd "C-c =")        'align-regexp)
 
 ; C-c x: launch various repls
