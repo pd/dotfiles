@@ -17,6 +17,12 @@
   (interactive)
   (shell-command
    (format "open -a /Applications/Marked.app %s"
-       (shell-quote-argument (buffer-file-name)))))
+           (shell-quote-argument (buffer-file-name)))))
+
+(defun terminal.app ()
+  (interactive)
+  (shell-command
+   (format "open -a /Applications/Utilities/Terminal.app %s"
+           (shell-quote-argument default-directory))))
 
 (provide 'pd/osx)
