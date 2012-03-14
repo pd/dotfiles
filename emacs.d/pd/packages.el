@@ -31,10 +31,11 @@
       (append
        '(el-get package
                 color-theme color-theme-sanityinc
-                evil smex buffer-move notify
+                smex buffer-move notify
                 magit git-blame pcmpl-git
                 full-ack sudo-save tail cheat
-                ;Enhanced-Ruby-Mode
+                ;; evil
+                ;; Enhanced-Ruby-Mode
                 inf-ruby inf-ruby-bond
                 rvm rinari rspec-mode yari yaml-mode feature-mode
                 haml-mode sass-mode
