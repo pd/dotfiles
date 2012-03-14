@@ -43,7 +43,7 @@
                 coffee-mode
                 scala-mode
                 clojure-mode paredit elein
-                eredis)
+                eredis levenshtein)
        (mapcar 'el-get-source-name el-get-sources)))
 
 (el-get 'sync pd/el-get-packages)
