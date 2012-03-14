@@ -143,10 +143,12 @@ according to pd/nearest-shell."
   (let ((nearest-shell   (pd/nearest-shell))
         (next-shell-name (generate-new-buffer-name "*shell*"))
         (in-shell-buffer (eq 'shell-mode major-mode))
-        (process-alive-p (eq nil (get-buffer-process (current-buffer)))))
+        (process-alive-p (eq nil (get-buffer-process (current-buffer))))
+        (wants-new-shell (not (eq nil current-prefix-arg))))
     (if in-shell-buffer
         (if process-alive-p (shell) (shell next-shell-name))
-      (switch-to-buffer (or nearest-shell (shell next-shell-name))))))
+      (switch-to-buffer (if wants-new-shell (shell next-shell-name)
+                          (or nearest-shell (shell next-shell-name)))))))
 
 (defun pd/shell-buffer-list ()
   "Returns a list of all shell buffers"
