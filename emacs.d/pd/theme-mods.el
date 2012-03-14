@@ -21,7 +21,8 @@
          (light-grey       "#2e3436")
          (very-light-grey  "#eeeeec"))
        `(pd/color-theme-mods
-         nil
+         ((cursor-color . ,light-sky-blue))
+
          (magit-item-highlight ((t (:background ,very-dark-grey))))
          (magit-section-title ((t (:background ,very-dark-grey))))
          (magit-branch ((t (:foreground ,plum :background ,background-black))))
@@ -30,6 +31,12 @@
          (diff-hunk-header ((t (:foreground ,dark-aluminium :background nil :weight normal))))
          (diff-added ((t (:foreground ,medium-chameleon :background ,background-black :weight normal))))
          (diff-removed ((t (:foreground ,scarlet :background ,background-black :weight normal))))
-         (diff-refine-change ((t (:background ,dark-grey :weight normal))))))))
+         (diff-refine-change ((t (:background ,dark-grey :weight normal))))
+
+         (ack-file  ((t (:foreground ,plum))))
+         (ack-match ((t (:foreground ,light-sky-blue :background ,background-black :slant normal))))
+         (ack-line  ((t (:foreground ,foreground-white))))
+
+         ))))
 
 (provide 'pd/theme-mods)
