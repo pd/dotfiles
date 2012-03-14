@@ -11,6 +11,11 @@
   (dirtrack-mode 1)
   (setq dirtrack-list '("^\\([^\n ]+\\)\\( @ .+\\) »" 1)))
 
+(defadvice shell-dirstack-message (after pd/shell-mode-buffer-name first activate)
+  (let* ((cwd (directory-file-name (abbreviate-file-name default-directory)))
+         (new-name (concat "*shell: " cwd "*")))
+    (rename-buffer new-name t)))
+
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 (add-hook 'shell-mode-hook 'pd/turn-off-show-trailing-whitespace)
 (add-hook 'shell-mode-hook 'pd/enable-shell-mode-bindings)
