@@ -134,13 +134,35 @@ http://www.emacswiki.org/emacs/JabberEl#toc16"
 ;; smarter shell creation
 (defun pd/smart-shell ()
   "If currently in a shell-mode buffer, restart the shell if it has exited.
-Otherwise, start a new shell."
+Otherwise, start a new shell.
+
+If not in shell-mode and one shell-mode buffer exists, switch to it.
+If more than one shell-mode buffer exists, switch to the nearest one,
+according to pd/nearest-shell."
   (interactive)
-  (when (eq major-mode 'shell-mode)
-    (if (eq nil (get-buffer-process (current-buffer)))
-        (shell)
-      (let ((buf (generate-new-buffer-name "*shell*")))
-        (shell buf)))))
+  (let ((nearest-shell   (pd/nearest-shell))
+        (next-shell-name (generate-new-buffer-name "*shell*"))
+        (in-shell-buffer (eq 'shell-mode major-mode))
+        (process-alive-p (eq nil (get-buffer-process (current-buffer)))))
+    (if in-shell-buffer
+        (if process-alive-p (shell) (shell next-shell-name))
+      (switch-to-buffer (or nearest-shell (shell next-shell-name))))))
+
+(defun pd/shell-buffer-list ()
+  "Returns a list of all shell buffers"
+  (remove-if-not (lambda (buf)
+                   (eq 'shell-mode (with-current-buffer buf major-mode)))
+                 (buffer-list)))
+
+(defun pd/distance-to-buffer (buffer)
+  "Returns the levenshtein distance between BUFFER's directory and this buffer's directory"
+  (levenshtein-distance (with-current-buffer buffer default-directory)
+                        default-directory))
+
+(defun pd/nearest-shell ()
+  "Returns the shell buffer whose default-directory is closest
+to the default-directory of the current buffer."
+  (car (sort* (pd/shell-buffer-list) '< :key 'pd/distance-to-buffer)))
 
 ;; ansi-term creation
 (defun pd/term-buffer-name ()
