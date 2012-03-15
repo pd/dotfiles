@@ -140,15 +140,14 @@ If not in shell-mode and one shell-mode buffer exists, switch to it.
 If more than one shell-mode buffer exists, switch to the nearest one,
 according to pd/nearest-shell."
   (interactive)
-  (let ((nearest-shell   (pd/nearest-shell))
-        (next-shell-name (generate-new-buffer-name "*shell*"))
+  (let ((next-shell-name (generate-new-buffer-name "*shell*"))
         (in-shell-buffer (eq 'shell-mode major-mode))
         (process-alive-p (eq nil (get-buffer-process (current-buffer))))
         (wants-new-shell (not (eq nil current-prefix-arg))))
     (if in-shell-buffer
         (if process-alive-p (shell) (shell next-shell-name))
       (switch-to-buffer (if wants-new-shell (shell next-shell-name)
-                          (or nearest-shell (shell next-shell-name)))))))
+                          (or (pd/nearest-shell) (shell next-shell-name)))))))
 
 (defun pd/shell-buffer-list ()
   "Returns a list of all shell buffers"
@@ -166,13 +165,17 @@ according to pd/nearest-shell."
 to the default-directory of the current buffer."
   (car (sort* (pd/shell-buffer-list) '< :key 'pd/distance-to-buffer)))
 
+(defun pd/ido-switch-shell ()
+  "Handy wrapper around ido-switch-buffer which only lists shell-mode buffers."
+  (interactive)
+  (let* ((shell-names (mapcar 'buffer-name (pd/shell-buffer-list)))
+         (buffer-name (ido-completing-read "Buffer: " shell-names)))
+    (when buffer-name (switch-to-buffer buffer-name))))
+
 ;; ansi-term creation
 (defun pd/term-buffer-name ()
   "Return the name of the first buffer in term-mode"
-  (find-if (lambda (b)
-             (save-excursion
-               (set-buffer b)
-               (string= "term-mode" (symbol-name major-mode))))
+  (find-if (lambda (buf) (with-current-buffer buf (eq 'term-mode major-mode)))
            (buffer-list)))
 
 (defun pd/term-buffer-exists ()
