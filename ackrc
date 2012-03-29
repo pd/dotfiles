@@ -3,4 +3,4 @@
 --type-set=rackup=.ru
 --type-set=coffee=.coffee
 --type-set=scss=.scss
---all-types
+--type-set=feature=.feature
