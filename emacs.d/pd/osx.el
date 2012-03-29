@@ -12,6 +12,10 @@
 (when (string= default-directory "/")
   (cd (getenv "HOME")))
 
+; battery power in my modeline. yay.
+(display-battery-mode 1)
+(setq battery-mode-line-format " [%b%p %t]")
+
 (defun markdown-preview-file ()
   "run Marked on the current file and revert the buffer"
   (interactive)
