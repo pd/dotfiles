@@ -13,12 +13,15 @@
                :branch "master")
 
         (:name package
-               :after (lambda ()
-                        (package-initialize)))
+               :after (progn (package-initialize)))
 
         (:name save-visited-files
                :type git
                :url "https://github.com/nflath/save-visited-files.git")
+
+        (:name ruby-tools
+               :type git
+               :url "https://github.com/rejeep/ruby-tools.git")
 
         (:name rspec-mode
                :url "https://github.com/earakaki/rspec-mode.git")
@@ -37,6 +40,7 @@
                 ;; evil
                 ;; Enhanced-Ruby-Mode
                 inf-ruby inf-ruby-bond
+                ruby-tools
                 rvm rinari rspec-mode yari yaml-mode feature-mode
                 haml-mode sass-mode
                 go-mode
