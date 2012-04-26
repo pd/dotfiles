@@ -35,6 +35,7 @@
        '(el-get package
                 color-theme color-theme-sanityinc
                 smex buffer-move notify
+                browse-kill-ring vkill
                 magit git-blame pcmpl-git
                 full-ack sudo-save tail cheat
                 ;; evil
