@@ -172,6 +172,11 @@ to the default-directory of the current buffer."
          (buffer-name (ido-completing-read "Buffer: " shell-names)))
     (when buffer-name (switch-to-buffer buffer-name))))
 
+(defun pd/clear-shell ()
+  "Clear the contents of a buffer without bothering with the kill-ring."
+  (interactive)
+  (delete-region (point-min) (point-max)))
+
 ;; ansi-term creation
 (defun pd/term-buffer-name ()
   "Return the name of the first buffer in term-mode"
