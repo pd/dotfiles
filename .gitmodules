@@ -1,3 +1,6 @@
 [submodule "private"]
 	path = private
 	url = git@github.com:pd/dotfiles.private.git
+[submodule "emacs.d/ecukes"]
+	path = emacs.d/ecukes
+	url = git://github.com/rejeep/ecukes.git
