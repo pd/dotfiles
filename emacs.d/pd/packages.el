@@ -34,21 +34,20 @@
       (append
        '(el-get package
                 color-theme color-theme-sanityinc
+                levenshtein
                 smex buffer-move notify
                 browse-kill-ring vkill
                 magit git-blame pcmpl-git
-                full-ack sudo-save tail cheat
+                full-ack sudo-save
                 ;; evil
                 ;; Enhanced-Ruby-Mode
-                inf-ruby inf-ruby-bond
+                ;; inf-ruby inf-ruby-bond
                 ruby-tools
                 rvm rinari rspec-mode yari yaml-mode feature-mode
                 haml-mode sass-mode
-                go-mode
                 coffee-mode
-                scala-mode
-                clojure-mode paredit elein
-                eredis levenshtein)
+                paredit
+                )
        (mapcar 'el-get-source-name el-get-sources)))
 
 (el-get 'sync pd/el-get-packages)

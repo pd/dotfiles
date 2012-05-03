@@ -15,18 +15,16 @@
 
 (require 'pd/shell)
 (require 'pd/tramp)
-(require 'pd/p4)
+; (require 'pd/p4)
 (require 'pd/lisps)
 (require 'pd/ruby)
 (require 'pd/js)
-(require 'pd/haskell)
-(require 'pd/scala)
-(require 'pd/irc)
+; (require 'pd/haskell)
+; (require 'pd/scala)
+; (require 'pd/irc)
 (require 'pd/smex)
 (require 'pd/pcmpl-powify)
 
-; wasn't it silly to have pd/misc in the "focused" section?
-; this is an artificial comment to put an end to such madness.
 (require 'pd/misc)
 
 ; private
