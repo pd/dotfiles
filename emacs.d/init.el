@@ -21,7 +21,7 @@
 (require 'pd/js)
 ; (require 'pd/haskell)
 ; (require 'pd/scala)
-; (require 'pd/irc)
+(require 'pd/irc)
 (require 'pd/smex)
 (require 'pd/pcmpl-powify)
 
