@@ -8,7 +8,7 @@ fpath=(~/.zsh/functions $fpath)
 bindkey -e
 
 # but in terminal.app, vi mode is still the easiest:
-[[ $TERM_PROGRAM = "Apple_Terminal" ]] && bindkey -v
+[ $TERM_PROGRAM = "Apple_Terminal" -o $TERM_PROGRAM = "iTerm.app" ] && bindkey -v
 
 # and when i've ssh'd into something, stick with vi mode
 [[ ! -z $SSH_CLIENT ]] && bindkey -v
