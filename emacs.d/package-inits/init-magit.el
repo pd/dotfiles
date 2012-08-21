@@ -1,4 +1,5 @@
 (global-set-key (kbd "C-M-g") 'magit-status)
+(require 'magit-blame)
 
 (setq magit-save-some-buffers nil
         magit-completing-read 'ido-completing-read
