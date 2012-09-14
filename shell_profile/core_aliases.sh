@@ -9,6 +9,7 @@ alias scp='scp -C'
 alias cls='clear'
 alias sudo='command sudo '
 alias less='less -r'
+alias g='git'
 
 alias ..='cd ..'
 alias ...='cd ../..'
