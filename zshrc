@@ -37,13 +37,6 @@ setopt prompt_percent prompt_subst
 # disable zsh line editing and let emacs do it
 [[ $TERM = "dumb" ]] && unsetopt zle
 
-# if this is over ssh, display the hostname to save my brain the effort
-if [[ -n $SSH_CONNECTION ]]; then
-  export PS1='%~ @ %m » '
-else
-  export PS1='%~ » '
-fi
-
 ## generic shell profile setup
 function sourcedir () {
   if [ -d "$1" ]; then
@@ -57,3 +50,21 @@ sourcedir ~/dotfiles/private/shell_profile
 sourcedir ~/dotfiles/private/shell_profile/`uname -s`
 
 unfunction sourcedir
+
+# simplistic git status in prompt
+pd-git-prompt () {
+  local ref=$(git symbolic-ref HEAD 2>/dev/null) || return
+  if [[ -n $(git status -s 2>/dev/null) ]]; then
+    local dirty=" δ"
+  else
+    local dirty=""
+  fi
+  echo " (${ref#refs/heads/}${dirty})"
+}
+
+# if this is over ssh, display the hostname to save my brain the effort
+if [[ -n $SSH_CONNECTION ]]; then
+  export PS1='%~ @ %m » '
+else
+  export PS1='%~$(pd-git-prompt) » '
+fi
