@@ -53,7 +53,8 @@ unfunction sourcedir
 
 # simplistic git status in prompt
 pd-git-prompt () {
-  local ref=$(git symbolic-ref HEAD 2>/dev/null) || return
+  local ref=$(git symbolic-ref HEAD 2>/dev/null)
+  if [ -z $ref ]; then return; fi
   if [[ -n $(git status -s 2>/dev/null) ]]; then
     local dirty=" δ"
   else
