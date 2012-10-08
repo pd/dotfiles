@@ -1,0 +1,2 @@
+#!/bin/sh
+grep '^Host' ~/.ssh/config | awk '{print $2}' | sort
