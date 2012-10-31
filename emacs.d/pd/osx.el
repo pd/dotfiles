@@ -29,4 +29,10 @@
    (format "open -a /Applications/Utilities/Terminal.app %s"
            (shell-quote-argument default-directory))))
 
+(defun iterm ()
+  (interactive)
+  (shell-command
+   (format "open -a /Applications/iTerm.app %s"
+           (shell-quote-argument default-directory))))
+
 (provide 'pd/osx)
