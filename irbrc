@@ -17,7 +17,7 @@ rescue LoadError
   require 'irb/completion'
 end
 
-%w[pry awesome_print looksee].each do |lib|
+%w[pry awesome_print looksee pasteboard pbcopy].each do |lib|
   begin
     require lib
   rescue LoadError
