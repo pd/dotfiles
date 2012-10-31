@@ -2,3 +2,5 @@
 *.swp
 .#*
 #*#
+dump-sandbox-dbs.sh
+*~
