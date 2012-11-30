@@ -53,6 +53,10 @@
 (when (require 'edit-server nil t)
   (edit-server-start))
 
+; only fontify given some idle time;
+; speeds up spitting out tons of cucumber scenarios etc. into a shell-mode buffer
+(setq jit-lock-defer-time 0.05)
+
 ; http://snarfed.org/automatically_close_completions_in_emacs_shell_comint_mode
 (defun comint-close-completions ()
   "Close the comint completions buffer.
