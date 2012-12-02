@@ -82,30 +82,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
       (previous-line)
       (pd/append-and-move-to-new-line))))
 
-; ido support for recentf; stolen from emacs-starter-kit
-(defun pd/recentf-ido-find-file ()
-  (interactive)
-  (let ((file (ido-completing-read "Find recent: " recentf-list nil t)))
-    (when file
-      (find-file file))))
-
-(defun pd/x-urgency-hint (frame arg &optional source)
-  "Signal an X11 urgency hint for this frame.
-http://www.emacswiki.org/emacs/JabberEl#toc16"
-  (let* ((wm-hints (append (x-window-property
-			    "WM_HINTS" frame "WM_HINTS"
-			    (if source
-				source
-			      (string-to-number
-			       (frame-parameter frame 'outer-window-id)))
-			    nil t) nil))
-	 (flags (car wm-hints)))
-    (setcar wm-hints
-	    (if arg
-		(logior flags #x00000100)
-	      (logand flags #xFFFFFEFF)))
-    (x-change-window-property "WM_HINTS" wm-hints frame "WM_HINTS" 32 t)))
-
 (defun pd/modify-font-size (amount)
   "Increase/decrease the font size by amount"
   (set-face-attribute 'default nil

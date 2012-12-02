@@ -1,6 +1,6 @@
 ;; -*- mode: Emacs-Lisp -*-
 
-(add-to-list 'load-path "~/.emacs.d")
+(add-to-list 'load-path user-emacs-directory)
 
 ; ELPA.
 (require 'package)
@@ -10,6 +10,8 @@
 (require 'cl)
 (require 's)
 (require 'magit)
+(require 'rvm)
+(require 'buffer-move)
 
 ; Core.
 (require 'pd/defuns)

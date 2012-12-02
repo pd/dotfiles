@@ -39,9 +39,6 @@
 (let ((pos (memq 'mode-line-modes mode-line-format)))
   (setcdr pos (cons 'system-name (cdr pos))))
 
-; everyone loves clisp
-(require 'cl)
-
 ; ido is what it all revolves around, really
 (require 'ido)
 (ido-mode t)
