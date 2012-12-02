@@ -37,5 +37,3 @@
 (defun pd/magit-authors-and-committers-in-repo ()
   (let ((output (magit-git-string "log" "--pretty=format:%an <%ae>%n%cn <%ce>")))
     (pd/uniq (split-string output "[\r\n]+"))))
-
-(provide 'pd/magit)
