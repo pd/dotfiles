@@ -1,0 +1,26 @@
+(source "melpa" "http://melpa.milkbox.net/packages/")
+(source "marmalade" "http://marmalade-repo.org/packages/")
+
+; core
+(depends-on "buffer-move")
+(depends-on "cyberpunk-theme")
+(depends-on "magit")
+(depends-on "smex")
+
+; dev
+(depends-on "coffee-mode")
+(depends-on "feature-mode")
+(depends-on "haml-mode")
+(depends-on "paredit")
+(depends-on "markdown-mode")
+(depends-on "rvm")
+(depends-on "ruby-tools")
+(depends-on "rspec-mode")
+(depends-on "sass-mode")
+(depends-on "scss-mode")
+(depends-on "yaml-mode")
+
+; util
+(depends-on "ecukes")
+(depends-on "levenshtein")
+(depends-on "pcmpl-args")

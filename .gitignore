@@ -3,13 +3,13 @@
 
 emacs.d/.crap
 emacs.d/auto-save-list
+emacs.d/elpa
 emacs.d/emacs-visited-files
 emacs.d/backups
 emacs.d/places
 emacs.d/erc-super-secret.el
 emacs.d/smex.save
 emacs.d/tramp
-emacs.d/elpa/archives
 emacs.d/url
 
 bin/xmonad

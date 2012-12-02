@@ -11,7 +11,10 @@
 (require 'pd/bindings)
 (require 'pd/ido)
 
-; (require 'pd/packages)
+; boot ELPA
+(require 'package)
+(package-initialize)
+
 ; (require 'pd/org)
 ; 
 ; (require 'pd/shell)
