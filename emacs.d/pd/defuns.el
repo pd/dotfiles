@@ -123,6 +123,7 @@ according to pd/nearest-shell."
                    (eq 'shell-mode (with-current-buffer buf major-mode)))
                  (buffer-list)))
 
+(require 'levenshtein)
 (defun pd/distance-to-buffer (buffer)
   "Returns the levenshtein distance between BUFFER's directory and this buffer's directory"
   (levenshtein-distance (with-current-buffer buffer default-directory)

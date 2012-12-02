@@ -1,8 +1,7 @@
-(add-to-list 'load-path "~/dotfiles/vendor/espuds")
-(require 'espuds)
+(require 'package)
+(package-initialize)
 
-(add-to-list 'load-path "~/dotfiles/emacs.d/el-get/levenshtein")
-(require 'levenshtein)
+(require 'espuds)
 
 (add-to-list 'load-path "~/dotfiles/emacs.d")
 (require 'pd/defuns)

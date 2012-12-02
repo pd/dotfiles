@@ -10,6 +10,7 @@
 ; util
 (depends-on "ack-and-a-half")
 (depends-on "ecukes")
+(depends-on "espuds")
 (depends-on "exec-path-from-shell")
 (depends-on "levenshtein")
 
