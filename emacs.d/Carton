@@ -8,9 +8,10 @@
 (depends-on "smex")
 
 ; util
+(depends-on "ack-and-a-half")
 (depends-on "ecukes")
-(depends-on "levenshtein")
 (depends-on "exec-path-from-shell")
+(depends-on "levenshtein")
 
 ; themes
 (depends-on "molokai-theme") ; +1

@@ -4,6 +4,10 @@
 
 ; ELPA.
 (require 'package)
+(setq package-archives
+      '(("gnu" . "http://elpa.gnu.org/packages/")
+        ("melpa" . "http://melpa.milkbox.net/packages/")
+        ("marmalade" . "http://marmalade-repo.org/packages/")))
 (package-initialize)
 
 ; Packages I will pretty much always want.
