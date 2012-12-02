@@ -1,5 +1,3 @@
-(add-to-list 'auto-mode-alist '("\\.json\\'" . js-mode))
-
 (defun pd/add-js-bindings ()
   (pd/enable-newline-and-indent js-mode-map))
 
