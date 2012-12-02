@@ -49,10 +49,6 @@
 ; not a seemingly random different one ...
 (nconc same-window-buffer-names '("*ruby*" "*js*"))
 
-; boot emacschrome if we can
-(when (require 'edit-server nil t)
-  (edit-server-start))
-
 ; only fontify given some idle time;
 ; speeds up spitting out tons of cucumber scenarios etc. into a shell-mode buffer
 (setq jit-lock-defer-time 0.05)
