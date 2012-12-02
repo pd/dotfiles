@@ -20,15 +20,12 @@
 ; Core.
 (require 'pd/defuns)
 (require 'pd/core)
+(require 'pd/bindings)
+(require 'pd/theme)
+(require 'pd/coding)
+(require 'pd/ido)
 (when (pd/macosx-p)
   (require 'pd/osx))
-
-(require 'pd/coding)
-(require 'pd/bindings)
-(require 'pd/ido)
-
-; Set the theme now that it's loaded.
-(load-theme 'molokai t)
 
 ; Everything else.
 (require 'pd/org)
