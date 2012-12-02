@@ -72,7 +72,9 @@ fi
 
 # In iTerm, set the tab title
 precmd () {
-  local tab_label="`print -P %m: %3~`"
-  echo -ne "\e]2;${tab_label}\a" # set window title to full string
-  echo -ne "\e]1;${tab_label}\a" # set tab title to rightmost 24 characters
+  if [ -z "$INSIDE_EMACS" ]; then
+    local tab_label="`print -P %m: %3~`"
+    echo -ne "\e]2;${tab_label}\a" # set window title to full string
+    echo -ne "\e]1;${tab_label}\a" # set tab title to rightmost 24 characters
+  fi
 }
