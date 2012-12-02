@@ -10,6 +10,7 @@
 ; util
 (depends-on "ecukes")
 (depends-on "levenshtein")
+(depends-on "exec-path-from-shell")
 
 ; themes
 (depends-on "molokai-theme") ; +1

@@ -15,12 +15,6 @@
   (dolist (file (directory-files path 'full "\\.el\\'"))
     (load file noerror nomessage)))
 
-(defun pd/login-shell-path ()
-  "Launch a login shell and return its $PATH as a list"
-  (let* ((result (shell-command-to-string "$SHELL -l -c 'echo $PATH'"))
-         (trimmed (replace-regexp-in-string "[[:space:]\n]*$" "" result)))
-    (split-string trimmed path-separator)))
-
 (defun pd/eval-url (url)
   "Load url and eval its contents as an Emacs Lisp script"
   (let ((buffer (url-retrieve-synchronously url)))
