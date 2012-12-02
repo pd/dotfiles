@@ -19,6 +19,10 @@
 ; Set the theme now that it's loaded.
 (load-theme 'molokai t)
 
+(eval-after-load 'magit
+  '(progn
+     (require 'pd/magit)))
+
 ; Everything else.
 (require 'pd/org)
 (require 'pd/shell)

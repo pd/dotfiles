@@ -1,5 +1,4 @@
 (global-set-key (kbd "C-M-g") 'magit-status)
-(require 'magit-blame)
 
 (setq magit-save-some-buffers nil
         magit-completing-read 'ido-completing-read
@@ -38,3 +37,5 @@
 (defun pd/magit-authors-and-committers-in-repo ()
   (let ((output (magit-git-string "log" "--pretty=format:%an <%ae>%n%cn <%ce>")))
     (pd/uniq (split-string output "[\r\n]+"))))
+
+(provide 'pd/magit)
