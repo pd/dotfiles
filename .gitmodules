@@ -7,3 +7,6 @@
 [submodule "vendor/espuds"]
 	path = vendor/espuds
 	url = git://github.com/rejeep/espuds.git
+[submodule "emacs.d/carton"]
+	path = emacs.d/carton
+	url = git://github.com/rejeep/carton.git
