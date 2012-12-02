@@ -55,11 +55,6 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 
-; reopen that file you just accidentally killed
-(require 'recentf)
-(recentf-mode t)
-(setq recentf-max-saved-items 50)
-
 ; better buffer menu
 (require 'ibuffer)
 (setq ibuffer-default-sorting-mode 'filename/process)
