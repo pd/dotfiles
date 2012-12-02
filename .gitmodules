@@ -4,3 +4,12 @@
 [submodule "vendor/espuds"]
 	path = vendor/espuds
 	url = git://github.com/rejeep/espuds.git
+[submodule "ecukes"]
+	path = ecukes
+	url = git://github.com/rejeep/ecukes.git
+[submodule "vendor/ecukes"]
+	path = vendor/ecukes
+	url = git://github.com/rejeep/ecukes.git
+[submodule "vendor/carton"]
+	path = vendor/carton
+	url = git://github.com/rejeep/carton.git
