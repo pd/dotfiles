@@ -16,6 +16,7 @@
 (require 'magit)
 (require 'rvm)
 (require 'buffer-move)
+(require 'ack-and-a-half)
 
 ; Core.
 (require 'pd/defuns)
