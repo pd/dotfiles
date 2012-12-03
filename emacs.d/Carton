@@ -4,6 +4,7 @@
 
 ; core
 (depends-on "buffer-move")
+(depends-on "expand-region")
 (depends-on "magit")
 (depends-on "smex")
 

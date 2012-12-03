@@ -24,8 +24,8 @@
    ("M-p" backward-paragraph)
    ("M-n" forward-paragraph)
    ("C-a" pd/back-to-indentation-or-beginning-of-line)
-   ("C-`" 'pd/push-mark)
-   ("M-`" 'pd/jump-to-mark)
+   ("C-`" pd/push-mark)
+   ("M-`" pd/jump-to-mark)
 
    ; C-x C-b: ibuffer
    ; C-c C-b ...: misc buffer ops
@@ -63,6 +63,7 @@
    ("C-c / s" replace-string)
    ("C-c / r" replace-regexp)
    ("C-c =" align-regexp)
+   ("C-=" er/expand-region)
 
    ; C-c x: launch various repls
    ("C-c x e" ielm)
