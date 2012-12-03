@@ -1,5 +1,6 @@
 (setq ns-command-modifier   'meta
-      ns-alternate-modifier 'super)
+      ns-alternate-modifier 'super
+      ns-function-modifier 'hyper)
 
 ; gank the $PATH from a login shell, in case I launched from the dock
 (exec-path-from-shell-initialize)

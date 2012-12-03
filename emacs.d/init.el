@@ -21,12 +21,12 @@
 ; Core.
 (require 'pd/defuns)
 (require 'pd/core)
-(require 'pd/bindings)
-(require 'pd/theme)
-(require 'pd/coding)
-(require 'pd/ido)
 (when (pd/macosx-p)
   (require 'pd/osx))
+(require 'pd/coding)
+(require 'pd/bindings)
+(require 'pd/theme)
+(require 'pd/ido)
 
 ; Everything else.
 (require 'pd/org)
