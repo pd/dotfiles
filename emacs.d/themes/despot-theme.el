@@ -1,13 +1,15 @@
 (deftheme despot "pd's modifications")
 
-(let ((background "#1b1d1e")
-      (background-darker "#161718")
-      (background-lighter "#202324"))
+(let ((background          "#161718")
+      (background-lighter  "#1b1d1e")
+      (background-lightest "#202324"))
 
   (custom-theme-set-faces
    'despot
 
-   `(magit-item-highlight ((t (:background ,background-darker :inverse-video nil))))
+   `(default ((t (:background ,background))))
+
+   `(magit-item-highlight ((t (:background ,background-lighter :inverse-video nil))))
    `(magit-section-title ((t (:inherit font-lock-type-face))))
    `(magit-branch ((t (:inherit font-lock-type-face))))
 
