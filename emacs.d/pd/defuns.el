@@ -82,6 +82,16 @@ This is the same as using \\[set-mark-command] with the prefix argument."
       (previous-line)
       (pd/append-and-move-to-new-line))))
 
+; from https://github.com/rejeep/emacs
+(defun pd/back-to-indentation-or-beginning-of-line ()
+  "Moves point back to indentation if there is any
+non blank characters to the left of the cursor.
+Otherwise point moves to beginning of line."
+  (interactive)
+  (if (= (point) (save-excursion (back-to-indentation) (point)))
+      (beginning-of-line)
+    (back-to-indentation)))
+
 (defun pd/modify-font-size (amount)
   "Increase/decrease the font size by amount"
   (set-face-attribute 'default nil

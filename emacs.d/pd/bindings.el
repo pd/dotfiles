@@ -23,6 +23,7 @@
  '(; text navigation
    ("M-p" backward-paragraph)
    ("M-n" forward-paragraph)
+   ("C-a" pd/back-to-indentation-or-beginning-of-line)
    ("C-`" 'pd/push-mark)
    ("M-`" 'pd/jump-to-mark)
 
