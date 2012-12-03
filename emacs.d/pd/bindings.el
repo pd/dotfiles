@@ -1,85 +1,93 @@
-; i hit the menu key aiming for left arrow all the time;
-; and hit M-` while trying to move around in xmonad
-(global-unset-key (kbd "<menu>"))
+(defun global-set-keys (bindings)
+  (dolist (binding bindings)
+    (let ((key (car binding)) (command (cadr binding)))
+      (global-set-key (read-kbd-macro key) command))))
 
-; remove a few unnecessary text movement aliases,
-; some habits i want to break
-(global-unset-key (kbd "M-<left>"))
-(global-unset-key (kbd "M-<right>"))
-(global-unset-key (kbd "M-}"))
-(global-unset-key (kbd "M-{"))
+(defun global-unset-keys (keys)
+  (dolist (key keys)
+    (global-unset-key (read-kbd-macro key))))
 
-; suspend-frame is terribly annoying
-(global-unset-key (kbd "C-x C-z"))
-(global-unset-key (kbd "C-z"))
+(global-unset-keys
+ '("<menu>"
 
-; i don't want to compose emails
-(global-unset-key (kbd "C-x m"))
+   ; Habits I want to break
+   "M-<left>" "M-<right>" "M-}" "M-{"
 
-; text navigation
-(global-set-key (kbd "M-p") 'backward-paragraph)
-(global-set-key (kbd "M-n") 'forward-paragraph)
-(global-set-key (kbd "C-`") 'pd/push-mark)
-(global-set-key (kbd "M-`") 'pd/jump-to-mark)
+   ; suspend-frame is annoying
+   "C-x C-z" "C-z"
 
-; C-x C-b: ibuffer
-; C-c C-b ...: misc buffer ops
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-(global-set-key (kbd "C-c b b") 'bury-buffer)
-(global-set-key (kbd "C-c b r") 'rename-buffer)
-(global-set-key (kbd "C-c b z") 'reload-buffer)
+   ; no, i don't want to compose an email
+   "C-x m"))
 
-; super-[left/up/down/right]: window navigation
-; super-[hjkl]: even better.
+(global-set-keys
+ '(; text navigation
+   ("M-p" backward-paragraph)
+   ("M-n" forward-paragraph)
+   ("C-`" 'pd/push-mark)
+   ("M-`" 'pd/jump-to-mark)
+
+   ; C-x C-b: ibuffer
+   ; C-c C-b ...: misc buffer ops
+   ("C-x C-b" ibuffer)
+   ("C-c b b" bury-buffer)
+   ("C-c b r" rename-buffer)
+   ("C-c b z" reload-buffer)
+
+   ; super-[left/up/down/right]: window navigation
+   ; super-[hjkl]: even better.
+   ("s-h" windmove-left)
+   ("s-j" windmove-down)
+   ("s-k" windmove-up)
+   ("s-l" windmove-right)
+
+   ; M-S-[left/up/down/right]: window resizing
+   ; the directions unfortunately don't always make sense in context
+   ("M-S-<left>" shrink-window-horizontally)
+   ("M-S-<up>" enlarge-window)
+   ("M-S-<down>" shrink-window)
+   ("M-S-<right>" enlarge-window-horizontally)
+
+   ; find files
+   ("C-x M-f" ffap)
+   ("C-x C-d" dired) ; i never, ever want list-directory
+
+   ; text editing
+   ("M-/" hippie-expand)
+   ("C-S-k" kill-whole-line)
+   ("C-c w" delete-trailing-whitespace)
+   ("M-<return>" pd/append-and-move-to-new-line)
+   ("M-S-<return>" pd/prepend-and-move-to-new-line)
+   ("C-c #" comment-or-uncomment-region)
+   ("C-c r" revert-buffer)
+   ("C-c / s" replace-string)
+   ("C-c / r" replace-regexp)
+   ("C-c =" align-regexp)
+
+   ; C-c x: launch various repls
+   ("C-c x e" ielm)
+   ("C-c x l" slime) ; how this defaults to clojure i dunno
+   ("C-c x r" run-ruby)
+   ("C-c x p" run-python)
+   ("C-c x h" run-haskell)
+   ("C-c x j" run-js)
+   ("C-c x m" run-mozilla)
+
+   ; misc
+   ("s-+" pd/increase-font-size)
+   ("s-_" pd/decrease-font-size)
+   ("C-c f" ffap)
+   ("C-c s" pd/smart-shell)
+   ("C-c M-s" pd/ido-switch-shell)
+   ("C-c t" pd/term)
+   ("<f6>" linum-mode)
+   ("C-c m" man)
+   ("C-c y" x-clipboard-yank)
+   ("C-h a" apropos) ; defaults to command-apropos
+
+   ))
+
+; Also add the default super-{left,right,up,down} bindings
 (windmove-default-keybindings 'super)
-(global-set-key (kbd "s-h") 'windmove-left)
-(global-set-key (kbd "s-j") 'windmove-down)
-(global-set-key (kbd "s-k") 'windmove-up)
-(global-set-key (kbd "s-l") 'windmove-right)
-
-; M-S-[left/up/down/right]: window resizing
-; the directions unfortunately don't always make sense in context
-(global-set-key (kbd "M-S-<left>")  'shrink-window-horizontally)
-(global-set-key (kbd "M-S-<up>")    'enlarge-window)
-(global-set-key (kbd "M-S-<down>")  'shrink-window)
-(global-set-key (kbd "M-S-<right>") 'enlarge-window-horizontally)
-
-; find files
-(global-set-key (kbd "C-x M-f") 'ffap)
-(global-set-key (kbd "C-x C-d") 'dired) ; i never, ever want list-directory
-
-; text editing
-(global-set-key (kbd "M-/")          'hippie-expand)
-(global-set-key (kbd "C-S-k")        'kill-whole-line)
-(global-set-key (kbd "C-c w")        'delete-trailing-whitespace)
-(global-set-key (kbd "M-<return>")   'pd/append-and-move-to-new-line)
-(global-set-key (kbd "M-S-<return>") 'pd/prepend-and-move-to-new-line)
-(global-set-key (kbd "C-c #")        'comment-or-uncomment-region)
-(global-set-key (kbd "C-c r")        'revert-buffer)
-(global-set-key (kbd "C-c / s")      'replace-string)
-(global-set-key (kbd "C-c / r")      'replace-regexp)
-(global-set-key (kbd "C-c =")        'align-regexp)
-
-; C-c x: launch various repls
-(global-set-key (kbd "C-c x e") 'ielm)
-(global-set-key (kbd "C-c x l") 'slime) ; how this defaults to clojure i dunno
-(global-set-key (kbd "C-c x r") 'run-ruby)
-(global-set-key (kbd "C-c x p") 'run-python)
-(global-set-key (kbd "C-c x h") 'run-haskell)
-(global-set-key (kbd "C-c x j") 'run-js)
-(global-set-key (kbd "C-c x m") 'run-mozilla)
-
-; misc
-(global-set-key (kbd "s-+")     'pd/increase-font-size)
-(global-set-key (kbd "s-_")     'pd/decrease-font-size)
-(global-set-key (kbd "C-c f")   'ffap)
-(global-set-key (kbd "C-c s")   'pd/smart-shell)
-(global-set-key (kbd "C-c M-s") 'pd/ido-switch-shell)
-(global-set-key (kbd "C-c t")   'pd/term)
-(global-set-key (kbd "<f6>")    'linum-mode)
-(global-set-key (kbd "C-c m")   'man)
-(global-set-key (kbd "C-c y")   'x-clipboard-yank)
-(global-set-key (kbd "C-h a")   'apropos) ; defaults to command-apropos
 
 ; mac only
 (when (pd/macosx-p)
