@@ -8,6 +8,7 @@
    'despot
 
    `(default ((t (:background ,background))))
+   `(font-lock-comment-face ((t (:foreground "#656F72"))))
 
    `(magit-item-highlight ((t (:background ,background-lighter :inverse-video nil))))
    `(magit-section-title ((t (:inherit font-lock-type-face))))
