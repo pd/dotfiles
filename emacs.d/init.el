@@ -39,6 +39,10 @@
 (require 'pd/pcmpl-powify)
 (require 'pd/misc)
 
+(require 'server)
+(unless server-process
+  (server-start))
+
 ; Private parts.
 (when (pd/has-private-emacsd-p)
   (pd/load-private-emacsd))
