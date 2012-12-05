@@ -23,6 +23,7 @@
 (require 'pd/core)
 (when (pd/macosx-p)
   (require 'pd/osx))
+(require 'pd/auto-mode)
 (require 'pd/coding)
 (require 'pd/bindings)
 (require 'pd/theme)
