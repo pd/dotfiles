@@ -2,9 +2,7 @@
 	name = Kyle Hargraves
 	email = pd@krh.me
 [color]
-	branch = auto
-	diff = auto
-	status = auto
+	ui = auto
 [color "branch"]
 	current = green
 	local = yellow
