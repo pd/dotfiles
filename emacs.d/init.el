@@ -17,6 +17,7 @@
 (require 'rvm)
 (require 'buffer-move)
 (require 'ack-and-a-half)
+(require 'pcmpl-git) ; from a local melpa package build atm. TODO: get it into ELPA
 
 ; Core.
 (require 'pd/defuns)
