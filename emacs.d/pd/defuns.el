@@ -201,6 +201,14 @@ to the default-directory of the current buffer."
   "t if on a darwin system"
   (string-equal "darwin" system-type))
 
+; http://stackoverflow.com/questions/1242352/get-font-face-under-cursor-in-emacs
+(defun what-face (pos)
+  (interactive "d")
+  (let ((face (or (get-char-property (point) 'read-face-name)
+                  (get-char-property (point) 'face))))
+    (if face (message "Face: %s" face) (message "No face at %d" pos))))
+
+;; zsh directory alias support
 (defun pd/zsh-dir-aliases ()
   "Return list of zsh's dir aliases as (alias . expansion); or NIL if none."
   (let* ((aliases  nil)
@@ -213,11 +221,27 @@ to the default-directory of the current buffer."
         (setq zshlines (cddr zshlines)))
       aliases)))
 
-; http://stackoverflow.com/questions/1242352/get-font-face-under-cursor-in-emacs
-(defun what-face (pos)
-  (interactive "d")
-  (let ((face (or (get-char-property (point) 'read-face-name)
-                  (get-char-property (point) 'face))))
-    (if face (message "Face: %s" face) (message "No face at %d" pos))))
+(defvar pd/zsh-dir-aliases-cache (pd/zsh-dir-aliases)
+  "A local cache of zsh's hash table for use in `pd/abbreviate-file-name'
+and `pd/expand-file-name'. See also `pd/zsh-dir-aliases'.")
+
+(defvar pd/directory-abbrev-alist
+        (mapcar (lambda (alias) (cons (cdr alias) (car alias)))
+                (pd/zsh-dir-aliases))
+        "Reordering of `pd/zsh-dir-aliases' for use with `pd/abbreviate-file-name'.")
+
+(defun pd/abbreviate-file-name (filename)
+  "A version of `abbreviate-file-name' which replaces the
+`directory-abbrev-alist' with my `pd/directory-abbrev-alist'."
+  (let ((directory-abbrev-alist pd/directory-abbrev-alist))
+    (abbreviate-file-name filename)))
+
+(defun pd/expand-file-name (filename)
+  "Like `expand-file-name', but expands directory names based
+on `pd/zsh-dir-aliases-cache'."
+  (reduce (lambda (str alias)
+            (s-replace (car alias) (cdr alias) str))
+          pd/zsh-dir-aliases-cache
+          :initial-value path))
 
 (provide 'pd/defuns)

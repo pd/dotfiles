@@ -9,25 +9,8 @@
   (define-key shell-mode-map (kbd "C-c M-s") 'pd/ido-switch-shell)
   (define-key shell-mode-map (kbd "C-c DEL") 'pd/clear-shell))
 
-(setq pd/zsh-dir-aliases-cache (pd/zsh-dir-aliases))
-
-;; Adding this directly to directory-abbrev-alist just drives
-;; emacs insane; so instead, I'm using a custom variable along
-;; with the pd/abbreviate-file-name defun to do my special
-;; reductions that handle my zsh-dir-aliases.
-(setq pd/directory-abbrev-alist
-      (mapcar (lambda (alias) (cons (cdr alias) (car alias)))
-              (pd/zsh-dir-aliases)))
-
-(defun pd/abbreviate-file-name (filename)
-  (let ((directory-abbrev-alist pd/directory-abbrev-alist))
-    (abbreviate-file-name filename)))
-
 (defun pd/dirtrack-directory-function (path)
-  (reduce (lambda (str alias)
-            (s-replace (car alias) (cdr alias) str))
-          pd/zsh-dir-aliases-cache
-          :initial-value path))
+  (pd/expand-file-name path))
 
 (defun pd/dirtrack-directory-change-hook ()
   (let* ((cwd (directory-file-name (pd/abbreviate-file-name default-directory)))
