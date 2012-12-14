@@ -208,7 +208,7 @@ to the default-directory of the current buffer."
          (zshlines (if (s-blank? zshout) nil (s-lines zshout))))
     (when (= 0 (% (length zshlines) 2))
       (while (> (length zshlines) 0)
-        (push (cons (car zshlines) (cadr zshlines))
+        (push (cons (concat "~" (car zshlines)) (cadr zshlines))
               aliases)
         (setq zshlines (cddr zshlines)))
       aliases)))
