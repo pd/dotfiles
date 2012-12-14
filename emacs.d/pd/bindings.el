@@ -33,6 +33,9 @@
    ("C-c b b" bury-buffer)
    ("C-c b r" rename-buffer)
    ("C-c b z" reload-buffer)
+   ("C-c b n" (lambda ()
+                (interactive)
+                (message "%s" buffer-file-name)))
 
    ; super-[left/up/down/right]: window navigation
    ; super-[hjkl]: even better.
