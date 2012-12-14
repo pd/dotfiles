@@ -201,6 +201,18 @@ to the default-directory of the current buffer."
   "t if on a darwin system"
   (string-equal "darwin" system-type))
 
+(defun pd/zsh-dir-aliases ()
+  "Return list of zsh's dir aliases as (alias . expansion); or NIL if none."
+  (let* ((aliases  nil)
+         (zshout   (shell-command-to-string "zsh -i -c 'print -l -n ${(kv)nameddirs}'"))
+         (zshlines (if (s-blank? zshout) nil (s-lines zshout))))
+    (when (= 0 (% (length zshlines) 2))
+      (while (> (length zshlines) 0)
+        (push (cons (car zshlines) (cadr zshlines))
+              aliases)
+        (setq zshlines (cddr zshlines)))
+      aliases)))
+
 ; http://stackoverflow.com/questions/1242352/get-font-face-under-cursor-in-emacs
 (defun what-face (pos)
   (interactive "d")
