@@ -15,7 +15,8 @@
 (depends-on "exec-path-from-shell")
 (depends-on "levenshtein")
 
-; themes
+; pretty
+(depends-on "powerline")
 (depends-on "molokai-theme") ; +1
 (depends-on "occidental-theme") ; +1
 (depends-on "pastels-on-dark-theme") ; +.5
