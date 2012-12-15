@@ -36,6 +36,8 @@
 (add-hook 'shell-mode-hook 'pd/enable-shell-mode-bindings)
 (add-hook 'shell-mode-hook 'pd/enable-dirtrack)
 (add-hook 'shell-mode-hook 'pcomplete-shell-setup)
+(add-hook 'shell-mode-hook (lambda ()
+                             (setq comint-process-echoes t)))
 
 ; dunno where else to put this really.
 (add-hook 'comint-mode-hook 'pd/turn-off-show-trailing-whitespace)
