@@ -12,7 +12,6 @@
          (entries  (directory-files pow-home nil)))
     (remove-if (lambda (s) (string-match "^\\." s))
                entries)))
-(pcmpl-powify-server-names)
 
 (defun pcomplete/powify ()
   "Completion rules for the `powify' command."
