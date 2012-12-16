@@ -76,7 +76,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (if (= 1 (line-number-at-pos))
       (progn
         (beginning-of-buffer)
-        (pd/insert-newline)
+        (open-line 1)
         (beginning-of-buffer))
     (progn
       (previous-line)
