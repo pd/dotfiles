@@ -8,6 +8,10 @@
   (define-key ido-file-dir-completion-map (kbd "~") 'pd/ido-move-to-home))
 
 (add-hook 'ido-setup-hook 'pd/add-ido-keybindings)
-(setq ido-rewrite-file-prompt-rules pd/directory-abbrev-alist)
+
+(defun pd/ido-file-prompt-abbreviate-file-name ()
+  (setq dirname (pd/abbreviate-file-name dirname)))
+
+(setq ido-rewrite-file-prompt-functions '(pd/ido-file-prompt-abbreviate-file-name))
 
 (provide 'pd/ido)

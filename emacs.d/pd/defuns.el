@@ -234,7 +234,7 @@ and `pd/expand-file-name'. See also `pd/zsh-dir-aliases'.")
   "A version of `abbreviate-file-name' which replaces the
 `directory-abbrev-alist' with my `pd/directory-abbrev-alist'."
   (let ((directory-abbrev-alist pd/directory-abbrev-alist))
-    (abbreviate-file-name filename)))
+    (abbreviate-file-name (expand-file-name filename))))
 
 (defun pd/expand-file-name (filename)
   "Like `expand-file-name', but expands directory names based
