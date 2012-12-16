@@ -31,6 +31,8 @@
    ; C-c C-b ...: misc buffer ops
    ("C-x C-b" ibuffer)
    ("C-c b b" bury-buffer)
+   ("C-c C-b" previous-buffer)
+   ("C-c C-f" next-buffer)
    ("C-c b r" rename-buffer)
    ("C-c b z" reload-buffer)
    ("C-c b n" (lambda ()
