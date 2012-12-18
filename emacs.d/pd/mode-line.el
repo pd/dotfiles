@@ -3,7 +3,7 @@
 (setq display-time-24hr-format t
       display-time-interval 30
       display-time-default-load-average nil
-      battery-mode-line-format " battery: %b%p%%%% (%t)") ; absurd % quantity due to powerline
+      battery-mode-line-format "%b%p%%%%") ; absurd % quantity due to powerline
 
 (display-time-mode)
 (display-battery-mode)
