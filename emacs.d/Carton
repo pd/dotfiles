@@ -10,6 +10,7 @@
 
 ; util
 (depends-on "ack-and-a-half")
+(depends-on "deft")
 (depends-on "ecukes")
 (depends-on "espuds")
 (depends-on "exec-path-from-shell")
@@ -26,6 +27,7 @@
 (depends-on "coffee-mode")
 (depends-on "feature-mode")
 (depends-on "haml-mode")
+(depends-on "inf-ruby")
 (depends-on "paredit")
 (depends-on "markdown-mode")
 (depends-on "rainbow-mode")
