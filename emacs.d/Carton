@@ -26,6 +26,7 @@
 
 ; dev
 (depends-on "coffee-mode")
+(depends-on "elisp-slime-nav")
 (depends-on "feature-mode")
 (depends-on "haml-mode")
 (depends-on "inf-ruby")
