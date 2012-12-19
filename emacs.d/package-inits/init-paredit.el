@@ -1,0 +1,1 @@
+(diminish 'paredit-mode)

@@ -8,9 +8,10 @@
 (depends-on "magit")
 (depends-on "smex")
 
-; util
+; handy
 (depends-on "ack-and-a-half")
 (depends-on "deft")
+(depends-on "diminish")
 (depends-on "ecukes")
 (depends-on "espuds")
 (depends-on "exec-path-from-shell")
