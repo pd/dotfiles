@@ -41,12 +41,6 @@
 
 ; ido is what it all revolves around, really
 (require 'ido)
-(ido-mode t)
-(ido-everywhere t)
-(setq ido-enable-flex-matching t
-      ido-default-file-method 'selected-window
-      ido-default-buffer-method 'selected-window
-      ido-use-virtual-buffers t)
 
 ; a/b, c/b; not b<2>
 (require 'uniquify)
