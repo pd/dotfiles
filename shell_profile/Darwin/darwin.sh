@@ -1,2 +1,2 @@
-alias emacs="open /Applications/Emacs.app"
+alias emacs="emacsclient -c -n --alternate-editor=''"
 alias finder="open -a finder ."
