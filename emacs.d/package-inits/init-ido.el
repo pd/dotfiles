@@ -4,3 +4,5 @@
       ido-default-file-method 'selected-window
       ido-default-buffer-method 'selected-window
       ido-use-virtual-buffers t)
+
+(require 'ido-other-window)
