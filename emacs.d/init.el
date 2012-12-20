@@ -53,6 +53,10 @@
 (when (pd/has-private-emacsd-p)
   (pd/load-private-emacsd))
 
+; Emacs C source location
+(when (file-exists-p (expand-file-name "~/vendor/emacs-24.2"))
+  (setq source-directory (expand-file-name "~/vendor/emacs-24.2")))
+
 ; Add magical eval-after-load for everything in package-inits/*.el
 (setq pd/package-init-directory (file-name-as-directory (concat user-emacs-directory "package-inits")))
 (dolist (file (directory-files pd/package-init-directory))
