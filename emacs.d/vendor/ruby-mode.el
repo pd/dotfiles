@@ -102,6 +102,10 @@
   '"\\(def\\|class\\|module\\)"
   "Regexp to match the beginning of a defun, in the general sense.")
 
+(defconst ruby-singleton-class-re
+  "class\\s *<<"
+  "Regexp to match the beginning of a singleton class context.")
+
 (eval-and-compile
   (defconst ruby-here-doc-beg-re
   "\\(<\\)<\\(-\\)?\\(\\([a-zA-Z0-9_]+\\)\\|[\"]\\([^\"]+\\)[\"]\\|[']\\([^']+\\)[']\\)"
@@ -384,7 +388,7 @@ and `\\' when preceded by `?'."
     (when pos (goto-char pos))
     (forward-word -1)
     (and (or (bolp) (not (eq (char-before (point)) ?_)))
-         (looking-at "class\\s *<<"))))
+         (looking-at ruby-singleton-class-re))))
 
 (defun ruby-expr-beg (&optional option)
   "Check if point is possibly at the beginning of an expression.
@@ -1057,35 +1061,32 @@ For example:
 See `add-log-current-defun-function'."
   (condition-case nil
       (save-excursion
-        (let (mname mlist (indent 0))
+        (let ((indent 0) mname mlist
+              (start (point))
+              (definition-re
+                (concat "^[ \t]*" ruby-defun-beg-re "[ \t]+"
+                        "\\("
+                        ;; \\. and :: for class methods
+                        "\\([A-Za-z_]" ruby-symbol-re "*\\|\\.\\|::" "\\)"
+                        "+\\)")))
           ;; Get the current method definition (or class/module).
-          (if (re-search-backward
-               (concat "^[ \t]*" ruby-defun-beg-re "[ \t]+"
-                       "\\("
-                       ;; \\. and :: for class methods
-                       "\\([A-Za-z_]" ruby-symbol-re "*\\|\\.\\|::" "\\)"
-                       "+\\)")
-               nil t)
-              (progn
-                (setq mname (match-string 2))
-                (unless (string-equal "def" (match-string 1))
-                  (setq mlist (list mname) mname nil))
-                (goto-char (match-beginning 1))
-                (setq indent (current-column))
-                (beginning-of-line)))
+          (when (re-search-backward definition-re nil t)
+            (goto-char (match-beginning 1))
+            (when (ruby-block-contains-point start)
+              ;; We're inside the method, class or module.
+              (setq mname (match-string 2))
+              (unless (string-equal "def" (match-string 1))
+                (setq mlist (list mname) mname nil)))
+            (setq indent (current-column))
+            (beginning-of-line))
           ;; Walk up the class/module nesting.
           (while (and (> indent 0)
-                      (re-search-backward
-                       (concat
-                        "^[ \t]*\\(class\\|module\\)[ \t]+"
-                        "\\([A-Z]" ruby-symbol-re "*\\)")
-                       nil t))
+                      (re-search-backward definition-re nil t))
             (goto-char (match-beginning 1))
-            (if (< (current-column) indent)
-                (progn
-                  (setq mlist (cons (match-string 2) mlist))
-                  (setq indent (current-column))
-                  (beginning-of-line))))
+            (when (ruby-block-contains-point start)
+              (setq mlist (cons (match-string 2) mlist))
+              (setq indent (current-column))
+              (beginning-of-line)))
           ;; Process the method name.
           (when mname
             (let ((mn (split-string mname "\\.\\|::")))
@@ -1104,13 +1105,26 @@ See `add-log-current-defun-function'."
                           (setcdr (last mlist) (butlast mn))
                         (setq mlist (butlast mn))))
                     (setq mname (concat "." (car (last mn)))))
-                (setq mname (concat "#" mname)))))
+                ;; See if the method is in singleton class context.
+                (let ((in-singleton-class
+                       (when (re-search-forward ruby-singleton-class-re start t)
+                         (goto-char (match-beginning 0))
+                         (ruby-block-contains-point start))))
+                  (setq mname (concat
+                               (if in-singleton-class "." "#")
+                               mname))))))
           ;; Generate the string.
           (if (consp mlist)
               (setq mlist (mapconcat (function identity) mlist "::")))
           (if mname
               (if mlist (concat mlist mname) mname)
             mlist)))))
+
+(defun ruby-block-contains-point (pt)
+  (save-excursion
+    (save-match-data
+      (ruby-forward-sexp)
+      (> (point) pt))))
 
 (defun ruby-brace-to-do-end (orig end)
   (let (beg-marker end-marker)
@@ -1253,18 +1267,7 @@ It will be properly highlighted even when the call omits parens."))
           ((concat "\\(?:^\\|[[ \t\n<+(,=]\\)" ruby-percent-literal-beg-re)
            (1 (prog1 "|" (ruby-syntax-propertize-percent-literal end)))))
          (point) end)
-        (remove-text-properties start end '(ruby-expansion-match-data))
-        (goto-char start)
-        ;; Find all expression expansions and
-        ;; - set the syntax of all text inside to whitespace,
-        ;; - save the match data to a text property, for font-locking later.
-        (while (re-search-forward ruby-expression-expansion-re end 'move)
-          (when (ruby-in-ppss-context-p 'string)
-            (put-text-property (match-beginning 2) (match-end 2)
-                               'syntax-table (string-to-syntax "-"))
-            (put-text-property (match-beginning 2) (1+ (match-beginning 2))
-                               'ruby-expansion-match-data
-                               (match-data)))))
+        (ruby-syntax-propertize-expansions start end))
 
       (defun ruby-syntax-propertize-heredoc (limit)
         (let ((ppss (syntax-ppss))
@@ -1331,6 +1334,23 @@ It will be properly highlighted even when the call omits parens."))
                                      (string-to-syntax "|")))
               ;; Unclosed literal, leave the following text unpropertized.
               ((scan-error search-failed) (goto-char limit))))))
+
+      (defun ruby-syntax-propertize-expansions (start end)
+        (remove-text-properties start end '(ruby-expansion-match-data))
+        (goto-char start)
+        ;; Find all expression expansions and
+        ;; - save the match data to a text property, for font-locking later,
+        ;; - set the syntax of all double quotes and backticks to punctuation.
+        (while (re-search-forward ruby-expression-expansion-re end 'move)
+          (let ((beg (match-beginning 2))
+                (end (match-end 2)))
+            (when (and beg (save-excursion (nth 3 (syntax-ppss beg))))
+              (put-text-property beg (1+ beg) 'ruby-expansion-match-data
+                                 (match-data))
+              (goto-char beg)
+              (while (re-search-forward "[\"`]" end 'move)
+                (put-text-property (match-beginning 0) (match-end 0)
+                                   'syntax-table (string-to-syntax ".")))))))
       )
 
   ;; For Emacsen where syntax-propertize-rules is not (yet) available,
@@ -1605,10 +1625,10 @@ See `font-lock-syntax-table'.")
   "Additional expressions to highlight in Ruby mode.")
 
 (defun ruby-match-expression-expansion (limit)
-  (let ((prop 'ruby-expansion-match-data) pos value)
-    (when (and (setq pos (next-single-char-property-change (point) prop
-                                                           nil limit))
-               (> pos (point)))
+  (let* ((prop 'ruby-expansion-match-data)
+         (pos (next-single-char-property-change (point) prop nil limit))
+         value)
+    (when (and pos (> pos (point)))
       (goto-char pos)
       (or (and (setq value (get-text-property pos prop))
                (progn (set-match-data value) t))
