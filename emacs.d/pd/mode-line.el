@@ -16,6 +16,9 @@
                           (face2 (if active 'powerline-active2 'powerline-inactive2))
                           (lhs (list
                                 (powerline-raw "%*" nil 'l)
+                                (powerline-raw (if (server-running-p)
+                                                   (propertize " S" 'help-echo "Connected to emacsd")
+                                                 (propertize " D" 'help-echo "No server running")) 'r)
                                 (powerline-buffer-size nil 'l)
                                 (powerline-buffer-id nil 'l)
 
@@ -40,7 +43,7 @@
 
                           (rhs (list
                                 (powerline-arrow-left face2 nil)
-                                (powerline-raw battery-mode-line-string nil 'r)
+                                (powerline-raw (concat " " battery-mode-line-string) nil 'r)
 
                                 (powerline-arrow-left nil face1)
                                 (powerline-raw display-time-string face1 'l)
