@@ -16,7 +16,7 @@
                           (face2 (if active 'powerline-active2 'powerline-inactive2))
                           (lhs (list
                                 (powerline-raw "%*" nil 'l)
-                                (powerline-raw (if (server-running-p)
+                                (powerline-raw (if server-process
                                                    (propertize " S" 'help-echo "Connected to emacsd")
                                                  (propertize " D" 'help-echo "No server running")) 'r)
                                 (powerline-buffer-size nil 'l)
