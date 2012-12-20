@@ -1,6 +1,6 @@
 # -*- mode: sh -*-
 
-fpath=(~/.zsh/functions $fpath)
+fpath=(~/.zsh/functions /usr/local/share/zsh-completions $fpath)
 
 ## emacs^[dd
 # bindkey -v
