@@ -18,7 +18,7 @@
                                 (powerline-raw "%*" nil 'l)
                                 (powerline-raw (if server-process
                                                    (propertize " S" 'help-echo "Connected to emacsd")
-                                                 (propertize " D" 'help-echo "No server running")) 'r)
+                                                 (propertize " D" 'help-echo "No server running")) nil 'r)
                                 (powerline-buffer-size nil 'l)
                                 (powerline-buffer-id nil 'l)
 
