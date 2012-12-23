@@ -16,6 +16,10 @@
 (add-hook 'clojure-mode-hook 'pd/run-lisp-hook)
 (add-hook 'slime-repl-mode-hook 'pd/run-lisp-hook)
 
+; M-. and M-, for jumping to elisp defuns and back
+(when (require 'elisp-slime-nav nil 'noerror)
+  (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode))
+
 ; slime-mode steals M-p and M-n to navigate compilation error
 ; notes. i don't care about those. please give me paragraph
 ; movement back.
