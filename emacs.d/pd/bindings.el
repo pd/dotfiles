@@ -20,7 +20,13 @@
    "C-x m"))
 
 (global-set-keys
- '(; text navigation
+ '(; smex
+   ("M-x" smex)
+   ("M-X" smex-major-mode-commands)
+   ("C-c M-x" smex-update-and-run)
+   ("C-c C-c M-x" execute-extended-command)
+
+   ; text navigation
    ("M-p" backward-paragraph)
    ("M-n" forward-paragraph)
    ("C-a" pd/back-to-indentation-or-beginning-of-line)
@@ -89,6 +95,7 @@
    ("<f6>" linum-mode)
    ("C-c m" man)
    ("C-c y" x-clipboard-yank)
+   ("C-c a" org-agenda)
    ("C-h a" apropos) ; defaults to command-apropos
 
    ))

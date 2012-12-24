@@ -36,12 +36,8 @@
 (require 'pd/ido)
 
 ; Everything else.
-(require 'pd/org)
-(require 'pd/shell)
-(require 'pd/tramp)
 (require 'pd/lisps)
 (require 'pd/ruby)
-(require 'pd/js)
 (require 'pd/pcmpl-powify)
 (require 'pd/misc)
 
@@ -61,4 +57,4 @@
 (require 'easy-after-load)
 (easy-after-load)
 
-(require 'pd/smex)
+(require 'smex)

@@ -60,15 +60,15 @@
     result))
 
 (defadvice ido-init-completion-maps (after ido-init-completion-maps-with-other-window-keys activate)
-  (mapcar (lambda (map)
-            (define-key map (kbd "C-o") 'ido-invoke-in-other-window)
-            (define-key map (kbd "C-2") 'ido-invoke-in-vertical-split)
-            (define-key map (kbd "C-3") 'ido-invoke-in-horizontal-split)
-            (define-key map (kbd "C-4") 'ido-invoke-in-other-window)
-            (define-key map (kbd "C-5") 'ido-invoke-in-new-frame))
-          (list ido-buffer-completion-map
-                ido-common-completion-map
-                ido-file-completion-map
-                ido-file-dir-completion-map)))
+  (mapc (lambda (map)
+          (define-key map (kbd "C-o") 'ido-invoke-in-other-window)
+          (define-key map (kbd "C-2") 'ido-invoke-in-vertical-split)
+          (define-key map (kbd "C-3") 'ido-invoke-in-horizontal-split)
+          (define-key map (kbd "C-4") 'ido-invoke-in-other-window)
+          (define-key map (kbd "C-5") 'ido-invoke-in-new-frame))
+        (list ido-buffer-completion-map
+              ido-common-completion-map
+              ido-file-completion-map
+              ido-file-dir-completion-map)))
 
 (provide 'ido-other-window)
