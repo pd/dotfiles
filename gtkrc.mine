@@ -1,5 +1,0 @@
-style "user-font"
-{
-        font_name="Droid Sans 10"
-}
-widget_class "*" style "user-font"
