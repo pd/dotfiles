@@ -39,7 +39,6 @@
 (require 'pd/theme)
 (require 'pd/ido)
 (require 'pd/lisps)
-(require 'pd/ruby)
 (require 'pd/misc)
 
 ; Boot a server, in case I somehow ended up without one.

@@ -255,4 +255,10 @@ on `pd/zsh-dir-aliases-cache'."
          (buffer-substring (region-beginning) (region-end))
        (read-string "Google: "))))))
 
+(defun xmpfilter ()
+  (interactive)
+  (let ((beg (if (region-active-p) (region-beginning) (point-min)))
+        (end (if (region-active-p) (region-end) (point-max))))
+    (shell-command-on-region beg end "xmpfilter" nil 'replace)))
+
 (provide 'pd/defuns)
