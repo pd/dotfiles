@@ -32,7 +32,6 @@
 (require 'pd/defuns)
 (when (pd/macosx-p)
   (require 'pd/osx))
-(require 'pd/auto-mode)
 (require 'pd/coding)
 (require 'pd/bindings)
 (require 'pd/mode-line)
@@ -57,5 +56,11 @@
 
 ;; .emacs.d/after-loads/*.el
 (easy-after-load)
+
+;; Easier mode detection
+(easy-auto-mode
+  '((ruby-mode "\\.rake$" "Rakefile$" "Guardfile$" "Gemfile$"
+               "\\.gemspec$" "\\.?irbrc$" "\\.rabl$" "\\.ru$")
+    (markdown-mode "\\.md$" "\\.markdown$")))
 
 (require 'smex)
