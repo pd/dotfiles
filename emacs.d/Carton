@@ -4,6 +4,7 @@
 
 ; core
 (depends-on "buffer-move")
+(depends-on "easy-after-load")
 (depends-on "expand-region")
 (depends-on "magit")
 (depends-on "smex")
@@ -39,3 +40,4 @@
 (depends-on "sass-mode")
 (depends-on "scss-mode")
 (depends-on "yaml-mode")
+(depends-on "yard-mode")

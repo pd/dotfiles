@@ -4,7 +4,7 @@
 
 ; I grabbed ruby-mode from emacs HEAD, as I don't really feel like waiting
 ; for that to build. This should be in 24.3 when it's released.
-(add-to-list 'load-path (file-name-as-directory (concat user-emacs-directory "vendor")))
+(add-to-list 'load-path (expand-file-name "vendor/" user-emacs-directory))
 
 ; ELPA.
 (require 'package)
@@ -57,11 +57,8 @@
 (when (file-exists-p (expand-file-name "~/vendor/emacs-24.2"))
   (setq source-directory (expand-file-name "~/vendor/emacs-24.2")))
 
-; Add magical eval-after-load for everything in package-inits/*.el
-(setq pd/package-init-directory (file-name-as-directory (concat user-emacs-directory "package-inits")))
-(dolist (file (directory-files pd/package-init-directory))
-  (let ((lib (s-with file (s-chop-prefix "init-") (s-chop-suffix ".el"))))
-    (eval-after-load (intern lib)
-      `(load ,(concat pd/package-init-directory file)))))
+;; .emacs.d/after-loads/*.el
+(require 'easy-after-load)
+(easy-after-load)
 
 (require 'pd/smex)
