@@ -9,8 +9,7 @@
 (add-hook 'shell-mode-hook 'pd/enable-shell-mode-bindings)
 (add-hook 'shell-mode-hook 'pd/enable-dirtrack)
 (add-hook 'shell-mode-hook 'pcomplete-shell-setup)
-(add-hook 'shell-mode-hook (lambda ()
-                             (setq comint-process-echoes t)))
+(add-hook 'shell-mode-hook 'pd/turn-off-comint-echo)
 
 ; to test why the fuck your prompt doesn't match:
 ; dirtrack-debug-mode

@@ -261,4 +261,7 @@ on `pd/zsh-dir-aliases-cache'."
         (end (if (region-active-p) (region-end) (point-max))))
     (shell-command-on-region beg end "xmpfilter" nil 'replace)))
 
+(defun pd/turn-off-comint-echo ()
+  (setq comint-process-echoes t))
+
 (provide 'pd/defuns)
