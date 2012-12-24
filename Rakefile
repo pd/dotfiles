@@ -13,12 +13,6 @@ task 'install:bin' do
   bins.map { |bin| File.join Dir.pwd, bin }.each { |bin| binlink bin }
 end
 
-desc "Install xmonad, gtk, X configs, etc"
-task 'install:desktop' do
-  files = %w[conkyrc dzen gtkrc-2.0 gtkrc.mine Xdefaults Xmodmap xmonad]
-  files.each { |f| dotlink f }
-end
-
 def link(src, dest)
   if File.exist? dest
     puts "## File #{dest} exists, skipping."
