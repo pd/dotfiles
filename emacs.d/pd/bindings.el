@@ -45,6 +45,12 @@
                 (interactive)
                 (message "%s" buffer-file-name)))
 
+   ; buffer-move
+   ("C-x w k" buf-move-up)
+   ("C-x w j" buf-move-down)
+   ("C-x w h" buf-move-left)
+   ("C-x w l" buf-move-right)
+
    ; super-[left/up/down/right]: window navigation
    ; super-[hjkl]: even better.
    ("s-h" windmove-left)

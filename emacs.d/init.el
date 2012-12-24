@@ -25,7 +25,6 @@
 (require 's)
 (require 'magit)
 (require 'rvm)
-(require 'buffer-move)
 (require 'ack-and-a-half)
 
 ; Mine.
