@@ -6,6 +6,9 @@
 ; for that to build. This should be in 24.3 when it's released.
 (add-to-list 'load-path (expand-file-name "vendor/" user-emacs-directory))
 
+; Immediately load the basics.
+(require 'pd/core)
+
 ; ELPA.
 (require 'package)
 (setq package-archives
@@ -14,18 +17,19 @@
         ("marmalade" . "http://marmalade-repo.org/packages/")))
 (package-initialize)
 
-; Packages I will pretty much always want.
+; Packages I always want.
 (require 'cl)
+(require 'ido)
+(require 'uniquify)
+(require 'winner)
 (require 's)
 (require 'magit)
 (require 'rvm)
 (require 'buffer-move)
 (require 'ack-and-a-half)
-(require 'pcmpl-git) ; from a local melpa package build atm. TODO: get it into ELPA
 
-; Core.
+; Mine.
 (require 'pd/defuns)
-(require 'pd/core)
 (when (pd/macosx-p)
   (require 'pd/osx))
 (require 'pd/auto-mode)
@@ -34,13 +38,12 @@
 (require 'pd/mode-line)
 (require 'pd/theme)
 (require 'pd/ido)
-
-; Everything else.
 (require 'pd/lisps)
 (require 'pd/ruby)
-(require 'pd/pcmpl-powify)
 (require 'pd/misc)
 
+; Boot a server, in case I somehow ended up without one.
+; This allows emacsclient to seamlessly work everywhere.
 (require 'server)
 (unless server-process
   (server-start))
@@ -54,7 +57,6 @@
   (setq source-directory (expand-file-name "~/vendor/emacs-24.2")))
 
 ;; .emacs.d/after-loads/*.el
-(require 'easy-after-load)
 (easy-after-load)
 
 (require 'smex)

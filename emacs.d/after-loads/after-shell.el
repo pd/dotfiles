@@ -1,6 +1,8 @@
 (require 'ansi-color)
 (require 'dirtrack)
+(require 'pcmpl-git)
 (require 'pd/shell)
+(require 'pd/pcmpl-powify)
 
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 (add-hook 'shell-mode-hook 'pd/turn-off-show-trailing-whitespace)

@@ -39,20 +39,4 @@
 (let ((pos (memq 'mode-line-modes mode-line-format)))
   (setcdr pos (cons 'system-name (cdr pos))))
 
-; ido is what it all revolves around, really
-(require 'ido)
-
-; a/b, c/b; not b<2>
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
-
-; better buffer menu
-(require 'ibuffer)
-(setq ibuffer-default-sorting-mode 'filename/process)
-
-; winner-mode: undo/redo window state changes
-; holy christ how have i not been using this forever?
-(require 'winner)
-(winner-mode 1)
-
 (provide 'pd/core)

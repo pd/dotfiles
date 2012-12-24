@@ -1,18 +1,16 @@
 ; ibuffer grouping!
+(setq ibuffer-default-sorting-mode 'filename/process
+      ibuffer-show-empty-filter-groups nil)
+
 (setq ibuffer-saved-filter-groups
       '(("pd"
-         ("zabxuq" (filename . "zabxuq"))
-         ("bzork" (filename . "bzork"))
-         ("sauce" (filename . "sauce"))
-         ("el-get/recipes" (filename . "el-get/recipes"))
-         ("el-get" (filename . "el-get"))
          ("emacs.d" (filename . "emacs.d"))
          ("dotfiles" (filename . "dotfiles"))
-         ("gems" (filename . ".rvm/gems"))
+         ("sauce" (filename . "sauce"))
          ("terms" (or (mode . term-mode)
                       (mode . shell-mode)))
          ("magit" (name . "\*magit"))
-         ("erc" (mode . erc-mode))
+         ("gems" (filename . ".rvm/gems"))
          ("system" (or (name . "\*Help\*")
                        (name . "\*Apropos\*")
                        (name . "\*info\*")
@@ -21,9 +19,10 @@
                        (name . "\*Messages\*")
                        (name . "\*scratch\*"))))))
 
-(setq ibuffer-show-empty-filter-groups nil)
 (defvar pd/default-ibuffer-filter-group "pd")
-(add-hook 'ibuffer-mode-hook
-          '(lambda ()
-             (ibuffer-auto-mode 1)
-             (ibuffer-switch-to-saved-filter-groups pd/default-ibuffer-filter-group)))
+
+(defun pd/prepare-ibuffer ()
+  (ibuffer-auto-mode 1)
+  (ibuffer-switch-to-saved-filter-groups pd/default-ibuffer-filter-group))
+
+(add-hook 'ibuffer-mode-hook 'pd/prepare-ibuffer)
