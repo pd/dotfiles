@@ -1,32 +1,20 @@
-(defvar pd/lisp-hook nil)
+;; Common to all lisps
+(define-minor-mode pd/lisp-mode
+  "Easy way to add common hooks / keys to all Lispy modes."
+  :lighter "pdl "
+  :keymap (ignore))
 
-(defun pd/add-lisp-shared-keybindings ()
-  (pd/enable-newline-and-indent lisp-mode-shared-map))
+(add-hook 'pd/lisp-mode-hook 'pd/run-prog-mode-hooks)
+(add-hook 'pd/lisp-mode-hook 'paredit-mode)
+(add-hook 'pd/lisp-mode-hook 'show-paren-mode)
+(add-hook 'pd/lisp-mode-hook 'pd/local-newline-and-indent)
 
-(add-hook 'pd/lisp-hook 'pd/run-coding-hook)
-(add-hook 'pd/lisp-hook 'paredit-mode)
-(add-hook 'pd/lisp-hook 'show-paren-mode)
-(add-hook 'pd/lisp-hook 'pd/add-lisp-shared-keybindings)
-
-(defun pd/run-lisp-hook ()
-  (run-hooks 'pd/lisp-hook))
-
-(add-hook 'emacs-lisp-mode-hook 'pd/run-lisp-hook)
-(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-(add-hook 'clojure-mode-hook 'pd/run-lisp-hook)
-(add-hook 'slime-repl-mode-hook 'pd/run-lisp-hook)
+;; Emacs Lisp
+(add-hook 'emacs-lisp-mode-hook 'pd/lisp-mode)
+(add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
 
 ; M-. and M-, for jumping to elisp defuns and back
 (when (require 'elisp-slime-nav nil 'noerror)
   (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode))
-
-; slime-mode steals M-p and M-n to navigate compilation error
-; notes. i don't care about those. please give me paragraph
-; movement back.
-(defun pd/slime-mode-paragraph-movement ()
-  (pd/restore-paragraph-movement slime-mode-map))
-
-(add-hook 'slime-mode-hook 'pd/restore-paragraph-movement)
-(add-hook 'slime-repl-mode-hook 'clojure-mode-font-lock-setup)
 
 (provide 'pd/lisps)
