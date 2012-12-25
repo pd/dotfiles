@@ -1,12 +1,16 @@
 ;; -*- mode: Emacs-Lisp -*-
 
+; Dir names useful everywhere else
+(setq user-vendor-emacs-directory  (expand-file-name "vendor/" user-emacs-directory)
+      user-private-emacs-directory (expand-file-name "../private/emacs.d/" user-emacs-directory)
+      source-directory (expand-file-name "~/vendor/emacs-24.2"))
+
+; Core load path
 (add-to-list 'load-path user-emacs-directory)
+(add-to-list 'load-path user-vendor-emacs-directory)
+(add-to-list 'load-path user-private-emacs-directory)
 
-; I grabbed ruby-mode from emacs HEAD, as I don't really feel like waiting
-; for that to build. This should be in 24.3 when it's released.
-(add-to-list 'load-path (expand-file-name "vendor/" user-emacs-directory))
-
-; Immediately load the basics.
+; Boot.
 (require 'pd/core)
 
 ; ELPA.
@@ -39,6 +43,10 @@
 (require 'pd/lisps)
 (require 'pd/misc)
 
+; Libraries some day.
+(require 'pd/smart-shell)
+(require 'pd/zsh-dir-aliases)
+
 ; Boot a server, in case I somehow ended up without one.
 ; This allows emacsclient to seamlessly work everywhere.
 (require 'server)
@@ -46,8 +54,8 @@
   (server-start))
 
 ; Private parts.
-(when (pd/has-private-emacsd-p)
-  (pd/load-private-emacsd))
+(when (file-exists-p (expand-file-name "init.el" user-private-emacs-directory))
+  (load (expand-file-name "init.el" user-private-emacs-directory)))
 
 ; Emacs C source location
 (when (file-exists-p (expand-file-name "~/vendor/emacs-24.2"))
