@@ -32,6 +32,11 @@
    ("C-a" pd/back-to-indentation-or-beginning-of-line)
    ("C-`" pd/push-mark)
    ("M-`" pd/jump-to-mark)
+   ("C-c SPC" (lambda ()
+                (interactive)
+                (if selective-display
+                    (set-selective-display nil)
+                  (set-selective-display (current-column)))))
 
    ; C-x C-b: ibuffer
    ; C-c C-b ...: misc buffer ops
