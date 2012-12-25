@@ -82,14 +82,9 @@
    ("C-c =" align-regexp)
    ("C-=" er/expand-region)
 
-   ; C-c x: launch various repls
+   ; C-c x: repls
    ("C-c x e" ielm)
-   ("C-c x l" slime) ; how this defaults to clojure i dunno
    ("C-c x r" run-ruby)
-   ("C-c x p" run-python)
-   ("C-c x h" run-haskell)
-   ("C-c x j" run-js)
-   ("C-c x m" run-mozilla)
 
    ; misc
    ("s-+" pd/increase-font-size)
@@ -105,9 +100,6 @@
    ("C-h a" apropos) ; defaults to command-apropos
 
    ))
-
-; Also add the default super-{left,right,up,down} bindings
-(windmove-default-keybindings 'super)
 
 ; mac only
 (when (pd/macosx-p)
