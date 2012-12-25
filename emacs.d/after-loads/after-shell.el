@@ -29,12 +29,9 @@
   (setq dirtrack-list '("\\`%?[\r\n ]*\\([^\n ]+\\) .*» \\'" 1))
   (setq dirtrack-directory-function 'pd/dirtrack-directory-function))
 
-(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
-(add-hook 'shell-mode-hook 'pd/turn-off-show-trailing-whitespace)
 (add-hook 'shell-mode-hook 'pd/enable-shell-mode-bindings)
 (add-hook 'shell-mode-hook 'pd/enable-dirtrack)
 (add-hook 'shell-mode-hook 'pcomplete-shell-setup)
-(add-hook 'shell-mode-hook 'pd/turn-off-comint-echo)
 
 ; to test why the fuck your prompt doesn't match:
 ; dirtrack-debug-mode
