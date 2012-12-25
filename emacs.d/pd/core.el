@@ -21,8 +21,10 @@
 ; religion:
 ;   1. spaces not tabs
 ;   2. no excess whitespace
+;   3. files end with newlines
 (setq-default indent-tabs-mode nil
-              show-trailing-whitespace t)
+              show-trailing-whitespace t
+              require-final-newline t)
 
 ; utf-8 seems the least wrong
 (prefer-coding-system 'utf-8)
