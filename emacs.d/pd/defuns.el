@@ -2,16 +2,15 @@
 (defun pd/turn-off-show-trailing-whitespace ()
   (setq show-trailing-whitespace nil))
 
-(defun pd/local-newline-and-indent ()
-  (local-set-key (kbd "<return>") 'newline-and-indent))
-
 (defun pd/turn-on-hl-watchwords ()
   (font-lock-add-keywords
    nil '(("\\<\\(FIXME\\|FIX\\|TODO\\|HACK\\|XXX\\|REFACTOR\\)"
           1 font-lock-warning-face t))))
 
-(defun pd/turn-off-comint-echo ()
-  (setq comint-process-echoes t))
+(defun pd/define-newline-and-indent (map)
+  "Be sure foo-mode-map is already defined (aka `easy-after-load')"
+  (define-key map (kbd "RET") 'newline-and-indent)
+  (define-key map (kbd "<return>") 'newline-and-indent))
 
 
 ;; superior mark handling

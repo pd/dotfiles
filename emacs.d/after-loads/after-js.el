@@ -8,5 +8,3 @@
 
 (setq js-indent-level 2
       js-auto-indent-flag nil)
-
-(add-hook 'js-mode-hook 'pd/local-newline-and-indent)
