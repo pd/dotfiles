@@ -29,6 +29,7 @@
   (setq dirtrack-list '("\\`%?[\r\n ]*\\([^\n ]+\\) .*» \\'" 1))
   (setq dirtrack-directory-function 'pd/dirtrack-directory-function))
 
+(add-hook 'shell-mode-hook 'pd/turn-off-comint-echo)
 (add-hook 'shell-mode-hook 'pd/enable-shell-mode-bindings)
 (add-hook 'shell-mode-hook 'pd/enable-dirtrack)
 (add-hook 'shell-mode-hook 'pcomplete-shell-setup)

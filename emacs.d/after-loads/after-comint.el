@@ -1,9 +1,5 @@
-(defun pd/turn-off-comint-echo ()
-  (setq comint-process-echoes t))
-
 (add-hook 'comint-mode-hook 'ansi-color-for-comint-mode-on)
 (add-hook 'comint-mode-hook 'pd/turn-off-show-trailing-whitespace)
-(add-hook 'comint-mode-hook 'pd/turn-off-comint-echo)
 
 ; http://snarfed.org/automatically_close_completions_in_emacs_shell_comint_mode
 (defun comint-close-completions ()

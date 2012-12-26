@@ -7,6 +7,9 @@
    nil '(("\\<\\(FIXME\\|FIX\\|TODO\\|HACK\\|XXX\\|REFACTOR\\)"
           1 font-lock-warning-face t))))
 
+(defun pd/turn-off-comint-echo ()
+  (setq comint-process-echoes t))
+
 (defun pd/define-newline-and-indent (map)
   "Be sure foo-mode-map is already defined (aka `easy-after-load')"
   (define-key map (kbd "RET") 'newline-and-indent)
