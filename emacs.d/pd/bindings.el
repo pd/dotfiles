@@ -93,7 +93,6 @@
    ; misc
    ("s-+" pd/increase-font-size)
    ("s-_" pd/decrease-font-size)
-   ("C-c f" ffap)
    ("C-c s" pd/smart-shell)
    ("C-c M-s" pd/ido-switch-shell)
    ("<f6>" linum-mode)
