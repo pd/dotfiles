@@ -74,6 +74,7 @@
    ("C-x C-d" dired) ; i never, ever want list-directory
 
    ; text editing
+   ("C-c p" fill-paragraph)
    ("M-/" hippie-expand)
    ("C-S-k" kill-whole-line)
    ("C-c w" delete-trailing-whitespace)
