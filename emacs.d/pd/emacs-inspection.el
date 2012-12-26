@@ -17,11 +17,6 @@
 (defun pd/minor-modes ()
   (--filter (member it minor-mode-list) (pd/all-modes)))
 
-(defun pd/derived-from-p (mode parent)
-  (let* ((plist (symbol-plist mode))
-         (real-parent (plist-get plist 'derived-mode-parent)))
-    (equal real-parent parent)))
-
 (defun pd/autoload-p (sym)
   "t if SYM refers to an autoload function (ie, not yet loaded)"
   (let ((fun (symbol-function sym)))
