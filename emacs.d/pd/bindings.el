@@ -97,10 +97,8 @@
    ("C-c f" ffap)
    ("C-c s" pd/smart-shell)
    ("C-c M-s" pd/ido-switch-shell)
-   ("C-c t" pd/term)
    ("<f6>" linum-mode)
    ("C-c m" man)
-   ("C-c y" x-clipboard-yank)
    ("C-c a" org-agenda)
    ("C-h a" apropos) ; defaults to command-apropos
 
