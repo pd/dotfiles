@@ -98,6 +98,7 @@
    ("C-c x r" run-ruby)
 
    ; misc
+   ("C-M-g" magit-status)
    ("s-+" pd/increase-font-size)
    ("s-_" pd/decrease-font-size)
    ("C-c s" pd/smart-shell)
