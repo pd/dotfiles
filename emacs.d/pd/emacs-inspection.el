@@ -2,7 +2,7 @@
   "Returns all elements from `obarray' matching PRED."
   (let (matches)
     (do-symbols (sym)
-      (when (funcall fn sym)
+      (when (funcall pred sym)
         (!cons sym matches)))
     matches))
 
@@ -14,8 +14,8 @@
 (defun pd/major-modes ()
   (--reject (member it minor-mode-list) (pd/all-modes)))
 
-(defun pd/minor-modes ()
-  (--filter (member it minor-mode-list) (pd/all-modes)))
+(defun pd/active-minor-modes ()
+  (--filter (and (boundp it) (symbolp it) (symbol-value it)) minor-mode-list))
 
 (defun pd/autoload-p (sym)
   "t if SYM refers to an autoload function (ie, not yet loaded)"
