@@ -3,3 +3,4 @@
 (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
 
 (define-key lisp-mode-shared-map (kbd "C-c e") 'eval-print-last-sexp)
+(define-key lisp-mode-shared-map (kbd "C-c d") 'pd/run-echo-defun)

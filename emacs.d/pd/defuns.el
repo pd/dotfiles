@@ -90,6 +90,25 @@ Otherwise point moves to beginning of line."
       (beginning-of-line)
     (back-to-indentation)))
 
+(defun pd/run-echo-defun ()
+  "Calls the defun-at-point, displays its return value with `message'."
+  (interactive)
+  (save-match-data
+    (let* ((thing (thing-at-point 'defun))
+           (match (and (s-match "^(defun \\([^ ]+\\)" thing)))
+           (defun-at-pt (and match (substring-no-properties (cadr match)))))
+      (message "%s" (funcall (intern defun-at-pt))))))
+
+(defun pd/add-mode-to-first-line ()
+  "Add the -*- mode: foo -*- line to the beginning of the current buffer"
+  (interactive)
+  (let ((mode-name (replace-regexp-in-string "-mode\\'" "" (symbol-name major-mode))))
+    (save-excursion
+      (beginning-of-buffer)
+      (pd/prepend-and-move-to-new-line)
+      (insert (concat "-*- mode: " mode-name " -*-"))
+      (comment-region (point-min) (point)))))
+
 (defun xmpfilter ()
   (interactive)
   (let ((beg (if (region-active-p) (region-beginning) (point-min)))
