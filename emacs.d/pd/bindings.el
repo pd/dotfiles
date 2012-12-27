@@ -87,6 +87,12 @@
    ("C-c =" align-regexp)
    ("C-=" er/expand-region)
 
+   ; jump!
+   ("C-c j f" find-function)
+   ("C-c j l" find-library)
+   ("C-c j k" find-function-on-key)
+   ("C-c j v" find-variable)
+
    ; C-c x: repls
    ("C-c x e" ielm)
    ("C-c x r" run-ruby)
