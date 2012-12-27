@@ -1,0 +1,27 @@
+;; -*- mode: emacs-lisp -*-
+(("paredit-mode"
+  ("M-r" . "paredit-raise-sexp")
+  ("M-s" . "paredit-slice-sexp"))
+ ("ruby-mode"
+  ("C-c C-z" . "ruby-switch-to-inf")
+  ("C-x C-r" . "ruby-send-region")
+  ("C-x C-e" . "ruby-send-last-sexp")
+  ("C-c C-s" . "inf-ruby"))
+ ("help-mode"
+  ("C-c C-b" . "help-go-back")
+  ("C-c C-f" . "help-go-forward"))
+ ("Info-mode"
+  ("l" . "backward")
+  ("r" . "forward")
+  ("n" . "next")
+  ("p" . "previous")
+  ("^" . "up"))
+ ("kbd-macros"
+  ("C-x (" . "start macro")
+  ("C-x )" . "end macro")
+  ("C-x e" . "replay macro"))
+ ("magit-log-edit-mode"
+  ("C-x m" . "leader")
+  ("- a" . "insert author")
+  ("- s" . "insert signoff")
+  ("- S" . "insert submodule summary")))
