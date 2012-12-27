@@ -18,6 +18,7 @@
 (depends-on "espuds")
 (depends-on "exec-path-from-shell")
 (depends-on "levenshtein")
+(depends-on "quickref")
 (depends-on "s")
 
 ; pretty

@@ -1,7 +1,9 @@
 ;; -*- mode: emacs-lisp -*-
 (("paredit-mode"
   ("M-r" . "paredit-raise-sexp")
-  ("M-s" . "paredit-slice-sexp"))
+  ("M-s" . "paredit-slice-sexp")
+  ("C-M-{" . "(foo |bar) -> foo (bar)")
+  ("C-M-}" . "(foo |bar) -> (foo) bar"))
  ("ruby-mode"
   ("C-c C-z" . "ruby-switch-to-inf")
   ("C-x C-r" . "ruby-send-region")

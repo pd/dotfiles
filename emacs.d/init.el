@@ -30,6 +30,7 @@
 (require 'magit)
 (require 'rvm)
 (require 'ack-and-a-half)
+(require 'quickref)
 
 ; Mine.
 (require 'pd/defuns)
@@ -47,8 +48,6 @@
 (require 'pd/smart-shell)
 (require 'pd/zsh-dir-aliases)
 (require 'pd/emacs-inspection)
-(add-to-list 'load-path (expand-file-name "~/sauce/quickref.el/"))
-(require 'quickref)
 
 ; Boot a server, in case I somehow ended up without one.
 ; This allows emacsclient to seamlessly work everywhere.
