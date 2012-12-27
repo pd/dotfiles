@@ -11,12 +11,14 @@
 
 ; handy
 (depends-on "ack-and-a-half")
+(depends-on "dash")
 (depends-on "deft")
 (depends-on "diminish")
 (depends-on "ecukes")
 (depends-on "espuds")
 (depends-on "exec-path-from-shell")
 (depends-on "levenshtein")
+(depends-on "s")
 
 ; pretty
 (depends-on "powerline")
