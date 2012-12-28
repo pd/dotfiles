@@ -3,17 +3,15 @@
 (require 'pcmpl-git)
 (require 'pd/pcmpl-powify)
 
-(defun pd/enable-shell-mode-bindings ()
-  (define-key shell-mode-map (kbd "C-c d")   'dirs)
-  (define-key shell-mode-map (kbd "C-c s")   'pd/smart-shell)
-  (define-key shell-mode-map (kbd "C-c M-s") 'pd/ido-switch-shell)
-  (define-key shell-mode-map (kbd "C-c DEL") 'pd/clear-shell))
+(keydef (shell "C-c d")   dirs)
+(keydef (shell "C-c s")   pd/smart-shell)
+(keydef (shell "C-c M-s") pd/ido-switch-shell)
+(keydef (shell "C-c DEL") pd/truncate-shell-buffer)
 
-; TODO: why isn't this just erase-buffer?
-(defun pd/clear-shell ()
-  "Clear the contents of a buffer without bothering with the kill-ring."
+(defun pd/truncate-shell-buffer ()
   (interactive)
-  (delete-region (point-min) (point-max)))
+  (let ((comint-buffer-maximum-size 0))
+    (comint-truncate-buffer)))
 
 (defun pd/dirtrack-directory-function (path)
   (pd/expand-file-name path))
@@ -30,7 +28,6 @@
   (setq dirtrack-directory-function 'pd/dirtrack-directory-function))
 
 (add-hook 'shell-mode-hook 'pd/turn-off-comint-echo)
-(add-hook 'shell-mode-hook 'pd/enable-shell-mode-bindings)
 (add-hook 'shell-mode-hook 'pd/enable-dirtrack)
 (add-hook 'shell-mode-hook 'pcomplete-shell-setup)
 
