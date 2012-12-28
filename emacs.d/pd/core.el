@@ -37,8 +37,4 @@
                                       (abbreviate-file-name buffer-file-name)
                                     "%b"))))
 
-; and i use emacs over x11 forwarding, so show the hostname in the modeline
-(let ((pos (memq 'mode-line-modes mode-line-format)))
-  (setcdr pos (cons 'system-name (cdr pos))))
-
 (provide 'pd/core)
