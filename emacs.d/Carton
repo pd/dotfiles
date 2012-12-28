@@ -8,6 +8,7 @@
 (depends-on "expand-region")
 (depends-on "keydef")
 (depends-on "magit")
+(depends-on "smart-tab")
 (depends-on "smex")
 
 ; handy

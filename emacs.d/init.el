@@ -26,12 +26,9 @@
 (require 'ido)
 (require 'uniquify)
 (require 'winner)
-(require 's)
-(require 'magit)
 (require 'rvm)
-(require 'ack-and-a-half)
-(require 'quickref)
 (require 'keydef)
+(require 'smart-tab)
 
 ; Mine.
 (require 'pd/defuns)
