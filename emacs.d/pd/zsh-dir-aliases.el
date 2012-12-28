@@ -1,3 +1,5 @@
+(require 's)
+
 ;; zsh directory alias support
 (defun pd/zsh-dir-aliases ()
   "Return list of zsh's dir aliases as (alias . expansion); or NIL if none."
