@@ -11,7 +11,7 @@
  '("<menu>"
 
    ; Habits I want to break
-   "M-<left>" "M-<right>" "M-}" "M-{"
+   "M-<left>" "M-<right>"
 
    ; suspend-frame is annoying
    "C-x C-z" "C-z"
@@ -27,8 +27,6 @@
    ("C-c C-c M-x" execute-extended-command)
 
    ; text navigation
-   ("M-p" backward-paragraph)
-   ("M-n" forward-paragraph)
    ("C-a" pd/back-to-indentation-or-beginning-of-line)
    ("C-`" pd/push-mark)
    ("M-`" pd/jump-to-mark)

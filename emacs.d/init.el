@@ -2,7 +2,7 @@
 
 ; Dir names useful everywhere else
 (setq user-vendor-emacs-directory  (expand-file-name "vendor/" user-emacs-directory)
-      user-private-emacs-directory (expand-file-name "../private/emacs.d/" user-emacs-directory)
+      user-private-emacs-directory (expand-file-name "~/dotfiles/private/emacs.d/")
       source-directory (expand-file-name "~/vendor/emacs-24.2"))
 
 ; Core load path
