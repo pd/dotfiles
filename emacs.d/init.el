@@ -31,11 +31,10 @@
 (require 'rvm)
 (require 'ack-and-a-half)
 (require 'quickref)
+(require 'keydef)
 
 ; Mine.
 (require 'pd/defuns)
-(when (pd/macosx-p)
-  (require 'pd/osx))
 (require 'pd/coding)
 (require 'pd/bindings)
 (require 'pd/mode-line)
@@ -43,6 +42,8 @@
 (require 'pd/ido)
 (require 'pd/lisps)
 (require 'pd/misc)
+(when (pd/macosx-p)
+  (require 'pd/osx))
 
 ; Libraries some day.
 (require 'pd/smart-shell)

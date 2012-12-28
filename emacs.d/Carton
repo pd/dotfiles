@@ -6,6 +6,7 @@
 (depends-on "buffer-move")
 (depends-on "easy-after-load")
 (depends-on "expand-region")
+(depends-on "keydef")
 (depends-on "magit")
 (depends-on "smex")
 

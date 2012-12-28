@@ -31,6 +31,12 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (interactive)
   (set-mark-command 1))
 
+;; cheap folding
+(defun pd/toggle-selective-display ()
+  "Toggle selective display, set to the current column."
+  (interactive)
+  (set-selective-display (if selective-display nil (current-column))))
+
 ;; vi's o and O
 (defun pd/insert-newline ()
   (funcall (or (local-key-binding (kbd "<return>"))

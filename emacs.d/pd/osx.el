@@ -1,19 +1,23 @@
+;; Modifiers!
 (setq ns-command-modifier   'meta
       ns-alternate-modifier 'super
-      ns-function-modifier 'hyper)
+      ns-function-modifier  'hyper)
 
-; gank the $PATH from a login shell, in case I launched from the dock
+;; I'm gonna miss this guy when I'm stuck with 24.3 =\
+(keydef "s-S-<return>" ns-toggle-fullscreen)
+
+;; Stop asking me to print.
+(keydef "s-p")
+
+;; gank the $PATH from a login shell, in case I launched from the dock
 (exec-path-from-shell-initialize)
 
-; I launch emacs client using an applescript, which sets cwd to /
-; Rather than learn applescript, I fix it here.
+;; I launch emacs client using an applescript, which sets cwd to /
+;; Rather than learn applescript, I fix it here.
 (when (string= default-directory "/")
   (cd (getenv "HOME")))
 
-; battery power in my modeline. yay.
-(display-battery-mode 1)
-(setq battery-mode-line-format " [%b%p %t]")
-
+;; Couple commands that only work on OSX
 (defun markdown-preview-file ()
   "run Marked on the current file and revert the buffer"
   (interactive)

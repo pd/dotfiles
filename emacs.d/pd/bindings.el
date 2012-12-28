@@ -1,118 +1,94 @@
-(defun global-set-keys (bindings)
-  (dolist (binding bindings)
-    (let ((key (car binding)) (command (cadr binding)))
-      (global-set-key (read-kbd-macro key) command))))
+;; smex
+(keydef "M-x" smex)
+(keydef "M-X" smex-major-mode-commands)
 
-(defun global-unset-keys (keys)
-  (dolist (key keys)
-    (global-unset-key (read-kbd-macro key))))
+;; text navigation
+(keydef "C-a" pd/back-to-indentation-or-beginning-of-line)
+(keydef "C-`" pd/push-mark)
+(keydef "M-`" pd/jump-to-mark)
+(keydef "C-c SPC" pd/toggle-selective-display)
 
-(global-unset-keys
- '("<menu>"
+;; M-{, M-} are a bit more awkward on my pinky
+(keydef "M-C-[" backward-paragraph)
+(keydef "M-C-]" forward-paragraph)
 
-   ; Habits I want to break
-   "M-<left>" "M-<right>"
+;; buffer manipulation
+(keydef "C-x C-b" ibuffer)
+(keydef "C-c b r" rename-buffer)
+(keydef "C-c b z" reload-buffer)
+(keydef "C-c b b" previous-buffer)
+(keydef "C-c b f" next-buffer)
+(keydef "C-c b n" (message "%s" buffer-file-name))
 
-   ; suspend-frame is annoying
-   "C-x C-z" "C-z"
+;; buffer-move: move current buffer to another window
+(keydef "C-x w k" buf-move-up)
+(keydef "C-x w j" buf-move-down)
+(keydef "C-x w h" buf-move-left)
+(keydef "C-x w l" buf-move-right)
 
-   ; no, i don't want to compose an email
-   "C-x m"))
+;; super-[hjkl]: move cursor to another window
+(keydef "s-h" windmove-left)
+(keydef "s-j" windmove-down)
+(keydef "s-k" windmove-up)
+(keydef "s-l" windmove-right)
 
-(global-set-keys
- '(; smex
-   ("M-x" smex)
-   ("M-X" smex-major-mode-commands)
-   ("C-c M-x" smex-update-and-run)
-   ("C-c C-c M-x" execute-extended-command)
+;; M-S-[left/up/down/right]: window resizing
+;; the directions unfortunately don't always make sense in context
+(keydef "M-S-<left>" shrink-window-horizontally)
+(keydef "M-S-<up>" enlarge-window)
+(keydef "M-S-<down>" shrink-window)
+(keydef "M-S-<right>" enlarge-window-horizontally)
 
-   ; text navigation
-   ("C-a" pd/back-to-indentation-or-beginning-of-line)
-   ("C-`" pd/push-mark)
-   ("M-`" pd/jump-to-mark)
-   ("C-c SPC" (lambda ()
-                (interactive)
-                (if selective-display
-                    (set-selective-display nil)
-                  (set-selective-display (current-column)))))
+;; find files
+(keydef "C-x f" ffap)
+; (keydef "C-x M-f" find-file-in-project) ; TODO
+(keydef "C-x C-d" dired) ; i never, ever want list-directory
 
-   ; C-x C-b: ibuffer
-   ; C-c C-b ...: misc buffer ops
-   ("C-x C-b" ibuffer)
-   ("C-c b r" rename-buffer)
-   ("C-c b z" reload-buffer)
-   ("C-c b b" previous-buffer)
-   ("C-c b f" next-buffer)
-   ("C-c b n" (lambda ()
-                (interactive)
-                (message "%s" buffer-file-name)))
+;; text editing
+(keydef "C-c p" fill-paragraph)
+(keydef "M-/" hippie-expand)
+(keydef "C-S-k" kill-whole-line)
+(keydef "C-c w" delete-trailing-whitespace)
+(keydef "M-<return>" pd/append-and-move-to-new-line)
+(keydef "M-S-<return>" pd/prepend-and-move-to-new-line)
+(keydef "C-c #" comment-or-uncomment-region)
+(keydef "C-c r" revert-buffer)
+(keydef "C-c / s" replace-string)
+(keydef "C-c / r" replace-regexp)
+(keydef "C-c =" align-regexp)
+(keydef "C-=" er/expand-region)
 
-   ; buffer-move
-   ("C-x w k" buf-move-up)
-   ("C-x w j" buf-move-down)
-   ("C-x w h" buf-move-left)
-   ("C-x w l" buf-move-right)
+;; jump!
+(keydef "C-c j f" find-function)
+(keydef "C-c j l" find-library)
+(keydef "C-c j k" find-function-on-key)
+(keydef "C-c j v" find-variable)
 
-   ; super-[left/up/down/right]: window navigation
-   ; super-[hjkl]: even better.
-   ("s-h" windmove-left)
-   ("s-j" windmove-down)
-   ("s-k" windmove-up)
-   ("s-l" windmove-right)
+;; shells
+(keydef "C-c s" pd/smart-shell)
+(keydef "C-c M-s" pd/ido-switch-shell)
 
-   ; M-S-[left/up/down/right]: window resizing
-   ; the directions unfortunately don't always make sense in context
-   ("M-S-<left>" shrink-window-horizontally)
-   ("M-S-<up>" enlarge-window)
-   ("M-S-<down>" shrink-window)
-   ("M-S-<right>" enlarge-window-horizontally)
+;; C-c x: repls
+(keydef "C-c x e" ielm)
+(keydef "C-c x r" run-ruby)
 
-   ; find files
-   ("C-x M-f" ffap)
-   ("C-x C-d" dired) ; i never, ever want list-directory
+;; misc
+(keydef "C-M-g" magit-status)
+(keydef "s-+" pd/increase-font-size)
+(keydef "s-_" pd/decrease-font-size)
+(keydef "<f6>" linum-mode)
+(keydef "C-c m" man)
+(keydef "C-c a" org-agenda)
+(keydef "C-h a" apropos) ; defaults to command-apropos
 
-   ; text editing
-   ("C-c p" fill-paragraph)
-   ("M-/" hippie-expand)
-   ("C-S-k" kill-whole-line)
-   ("C-c w" delete-trailing-whitespace)
-   ("M-<return>" pd/append-and-move-to-new-line)
-   ("M-S-<return>" pd/prepend-and-move-to-new-line)
-   ("C-c #" comment-or-uncomment-region)
-   ("C-c r" revert-buffer)
-   ("C-c / s" replace-string)
-   ("C-c / r" replace-regexp)
-   ("C-c =" align-regexp)
-   ("C-=" er/expand-region)
+;; Annoyances
+(keydef "<menu>")
+(keydef "C-x C-z")
+(keydef "C-z")
+(keydef "C-x m")
 
-   ; jump!
-   ("C-c j f" find-function)
-   ("C-c j l" find-library)
-   ("C-c j k" find-function-on-key)
-   ("C-c j v" find-variable)
-
-   ; C-c x: repls
-   ("C-c x e" ielm)
-   ("C-c x r" run-ruby)
-
-   ; misc
-   ("C-M-g" magit-status)
-   ("s-+" pd/increase-font-size)
-   ("s-_" pd/decrease-font-size)
-   ("C-c s" pd/smart-shell)
-   ("C-c M-s" pd/ido-switch-shell)
-   ("<f6>" linum-mode)
-   ("C-c m" man)
-   ("C-c a" org-agenda)
-   ("C-h a" apropos) ; defaults to command-apropos
-
-   ))
-
-; mac only
-(when (pd/macosx-p)
-  (global-set-key (kbd "s-S-<return>") 'ns-toggle-fullscreen)
-  (if (eq ns-alternate-modifier 'meta)
-      (global-unset-key (kbd "M-p")) ; stop asking me to print please
-    (global-unset-key (kbd "s-p"))))
+;; Habits to be broken
+(keydef "M-<left>")
+(keydef "M-<right>")
 
 (provide 'pd/bindings)
