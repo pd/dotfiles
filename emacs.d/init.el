@@ -39,7 +39,6 @@
 (require 'pd/bindings)
 (require 'pd/mode-line)
 (require 'pd/theme)
-(require 'pd/ido)
 (require 'pd/lisps)
 (require 'pd/misc)
 (when (pd/macosx-p)
