@@ -1,6 +1,6 @@
 (setq magit-save-some-buffers nil
       magit-completing-read 'ido-completing-read
-      magit-omit-untracked-dir-contents t) ; show unstaged dir, but not its contents
+      magit-omit-untracked-dir-contents nil)
 
 (add-hook 'magit-mode-hook 'pd/turn-off-show-trailing-whitespace)
 
