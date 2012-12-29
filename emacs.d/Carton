@@ -39,7 +39,6 @@
 (depends-on "paredit")
 (depends-on "markdown-mode")
 (depends-on "rainbow-mode")
-(depends-on "rvm")
 (depends-on "ruby-tools")
 (depends-on "rspec-mode")
 (depends-on "sass-mode")

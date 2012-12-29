@@ -26,7 +26,6 @@
 (require 'ido)
 (require 'uniquify)
 (require 'winner)
-(require 'rvm)
 (require 'keydef)
 (require 'smart-tab)
 
