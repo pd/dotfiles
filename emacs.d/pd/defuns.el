@@ -121,6 +121,15 @@ Otherwise point moves to beginning of line."
         (end (if (region-active-p) (region-end) (point-max))))
     (shell-command-on-region beg end "xmpfilter" nil 'replace)))
 
+;; scan gem paths to open a gem
+(defun open-gem ()
+  (interactive)
+  (let* ((paths  (split-string (s-chomp (shell-command-to-string "gem env gempath")) ":" t))
+         (gems   (-flatten (mapcar (lambda (path) (directory-files (concat (expand-file-name path) "/gems/") 'full)) paths)))
+         (choice (ido-completing-read "Open gem: " (mapcar #'file-name-nondirectory gems))))
+    (when choice
+      (dired (--first (string= (file-name-nondirectory it) choice) gems)))))
+
 ;; figure out what's missing from my Carton
 (defun pd/carton-dependencies (&optional carton)
   "Return the list of declared dependencies in your Carton file."
