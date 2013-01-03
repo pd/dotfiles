@@ -23,4 +23,7 @@
 ; speeds up spitting out tons of cucumber scenarios etc. into a shell-mode buffer
 (setq jit-lock-defer-time 0.05)
 
+; rectangle selection without cua-mode's madness
+(cua-selection-mode 1)
+
 (provide 'pd/misc)
