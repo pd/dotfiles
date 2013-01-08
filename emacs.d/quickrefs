@@ -44,4 +44,7 @@
   ("%B" . "Dec"))
  ("cua-rectangle"
   ("M-n" . "seq")
-  ("M-R" . "reverse lines")))
+  ("M-R" . "reverse lines"))
+ ("org-mode"
+  ("C-c C-b" . "backward-same-level")
+  ("C-c C-f" . "forward-same-level")))
