@@ -4,6 +4,13 @@
   ("M-s" . "paredit-slice-sexp")
   ("C-M-{" . "(foo |bar) -> foo (bar)")
   ("C-M-}" . "(foo |bar) -> (foo) bar"))
+ ("dired-mode"
+  ("% m" . "mark by name")
+  ("% g" . "mark by content")
+  ("Q" . "query-replace-regexp")
+  ("B" . "byte-compile")
+  ("$" . "hide-subdir")
+  ("i" . "insert-subdir"))
  ("ruby-mode"
   ("C-c C-z" . "ruby-switch-to-inf")
   ("C-x C-r" . "ruby-send-region")
@@ -26,4 +33,15 @@
   ("C-x m" . "leader")
   ("- a" . "insert author")
   ("- s" . "insert signoff")
-  ("- S" . "insert submodule summary")))
+  ("- S" . "insert submodule summary"))
+ ("strftime"
+  ("%F" . "2012-12-21")
+  ("%Y" . "2012")
+  ("%m" . "12")
+  ("%d" . "21")
+  ("%A" . "Friday")
+  ("%a" . "December")
+  ("%B" . "Dec"))
+ ("cua-rectangle"
+  ("M-n" . "seq")
+  ("M-R" . "reverse lines")))
