@@ -28,6 +28,7 @@
 (require 'winner)
 (require 'keydef)
 (require 'smart-tab)
+(require 'quickref)
 
 ; Mine.
 (require 'pd/defuns)
