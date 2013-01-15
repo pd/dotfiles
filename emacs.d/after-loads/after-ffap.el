@@ -4,7 +4,7 @@
 It is very unlikely that this works for all the crap ffap can do. I don't care, I don't
 use any of that."
   (let* ((sap    (ffap-string-at-point))
-         (match  (s-match ":\\([0-9]+\\)$" sap))
+         (match  (s-match ":\\([0-9]+\\)\\(:in\\)?$" sap))
          (lineno (and match (cadr match))))
     ad-do-it
     (when lineno
