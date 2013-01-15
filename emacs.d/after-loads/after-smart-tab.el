@@ -2,4 +2,4 @@
 (diminish 'smart-tab-mode)
 
 (setq smart-tab-using-hippie-expand t
-      smart-tab-disabled-major-modes '(org-mode term-mode shell-mode))
+      smart-tab-disabled-major-modes '(org-mode term-mode shell-mode ruby-mode))
