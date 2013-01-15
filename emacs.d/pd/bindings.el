@@ -15,7 +15,8 @@
 ;; buffer manipulation
 (keydef "C-x C-b" ibuffer)
 (keydef "C-c b r" rename-buffer)
-(keydef "C-c b z" reload-buffer)
+(keydef "C-c b z" reload-buffer) ; rerun hooks
+(keydef "C-c b Z" revert-buffer) ; actually reload the file
 (keydef "C-c b b" previous-buffer)
 (keydef "C-c b f" next-buffer)
 (keydef "C-c b n" (message "%s" buffer-file-name))
@@ -52,7 +53,6 @@
 (keydef "M-<return>" pd/append-and-move-to-new-line)
 (keydef "M-S-<return>" pd/prepend-and-move-to-new-line)
 (keydef "C-c #" comment-or-uncomment-region)
-(keydef "C-c r" revert-buffer)
 (keydef "C-c / s" replace-string)
 (keydef "C-c / r" replace-regexp)
 (keydef "C-c =" align-regexp)
