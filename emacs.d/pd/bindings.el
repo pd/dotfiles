@@ -15,6 +15,7 @@
 ;; buffer manipulation
 (keydef "C-x C-b" ibuffer)
 (keydef "C-c b r" rename-buffer)
+(keydef "C-c b R" pd/rename-buffer-and-file)
 (keydef "C-c b z" reload-buffer) ; rerun hooks
 (keydef "C-c b Z" revert-buffer) ; actually reload the file
 (keydef "C-c b b" previous-buffer)

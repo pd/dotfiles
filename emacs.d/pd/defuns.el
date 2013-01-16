@@ -115,20 +115,25 @@ Otherwise point moves to beginning of line."
       (insert (concat "-*- mode: " mode-name " -*-"))
       (comment-region (point-min) (point)))))
 
+(defun pd/rename-buffer-and-file ()
+  "Renames current buffer and its file."
+  (interactive)
+  (let ((name (buffer-name))
+        (file (buffer-file-name)))
+    (cond
+     ((not file) (error "Buffer '%s' is not visiting a file." name))
+     ((not (file-exists-p file)) (error "File '%s' does not exist." file))
+     (t (let ((new-name (ido-read-file-name "Rename to: " nil file)))
+          (rename-file file new-name t)
+          (rename-buffer new-name)
+          (set-visited-file-name new-name)
+          (set-buffer-modified-p nil))))))
+
 (defun xmpfilter ()
   (interactive)
   (let ((beg (if (region-active-p) (region-beginning) (point-min)))
         (end (if (region-active-p) (region-end) (point-max))))
     (shell-command-on-region beg end "xmpfilter" nil 'replace)))
-
-;; scan gem paths to open a gem
-(defun open-gem ()
-  (interactive)
-  (let* ((paths  (split-string (s-chomp (shell-command-to-string "gem env gempath")) ":" t))
-         (gems   (-flatten (mapcar (lambda (path) (directory-files (concat (expand-file-name path) "/gems/") 'full)) paths)))
-         (choice (ido-completing-read "Open gem: " (mapcar #'file-name-nondirectory gems))))
-    (when choice
-      (dired (--first (string= (file-name-nondirectory it) choice) gems)))))
 
 ;; figure out what's missing from my Carton
 (defun pd/carton-dependencies (&optional carton)
