@@ -15,6 +15,7 @@
 (depends-on "ack-and-a-half")
 (depends-on "dash")
 (depends-on "deft")
+(depends-on "dired-details")
 (depends-on "diminish")
 (depends-on "ecukes")
 (depends-on "espuds")
