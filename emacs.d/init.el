@@ -66,7 +66,8 @@
 ;; Easier mode detection
 (easy-auto-mode
   '((ruby-mode "\\.rake$" "Rakefile$" "Guardfile$" "Gemfile$"
-               "\\.gemspec$" "\\.?irbrc$" "\\.rabl$" "\\.ru$")
+               "\\.gemspec$" "\\.?irbrc$" "\\.rabl$" "\\.ru$"
+               "\\.simplecov$")
     (markdown-mode "\\.md$" "\\.markdown$")))
 
 (require 'smex)
