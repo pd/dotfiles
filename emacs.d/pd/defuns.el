@@ -135,40 +135,6 @@ Otherwise point moves to beginning of line."
         (end (if (region-active-p) (region-end) (point-max))))
     (shell-command-on-region beg end "xmpfilter" nil 'replace)))
 
-;; figure out what's missing from my Carton
-(defun pd/carton-dependencies (&optional carton)
-  "Return the list of declared dependencies in your Carton file."
-  (let (deps
-        (carton (or carton (expand-file-name "Carton" user-emacs-directory))))
-    (flet ((source (&rest args) nil)
-           (depends-on (dep &optional version)
-                       (setq deps (nconc deps (list dep)))))
-      (with-temp-buffer
-        (insert-file-contents carton)
-        (eval-buffer))
-      (nreverse deps))))
-
-(defun pd/packages-not-in-carton ()
-  (let ((carton-deps (mapcar 'intern (pd/carton-dependencies)))
-        (installed   (mapcar 'car package-alist)))
-    (--reject (member it carton-deps) installed)))
-
-(defun pd/packages-with-dependencies ()
-  (--reject (= 1 (length it))
-            (--map (cons (car it) (package-desc-reqs (cdr it)))
-                   package-archive-contents)))
-
-(defun pd/packages-depending-on (package)
-  (mapcar 'car
-          (-select (lambda (p-and-dep-list)
-                     (--any? (equal package (car it))
-                             (cdr p-and-dep-list)))
-                   (pd/packages-with-dependencies))))
-
-;; (let ((eval-expression-print-length nil)
-;;       (eval-expression-print-level nil))
-;;   (pd/packages-not-in-carton)) ; eval-print-last-sexp
-
 ; from: http://stackoverflow.com/questions/1242352/get-font-face-under-cursor-in-emacs
 (defun what-face (pos)
   (interactive "d")
