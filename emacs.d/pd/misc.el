@@ -17,7 +17,7 @@
 
 ; run-ruby etc should put the buffer in my current window,
 ; not a seemingly random different one ...
-(nconc same-window-buffer-names '("*ruby*" "*js*"))
+(setq same-window-buffer-names '("*ruby*" "*js*"))
 
 ; only fontify given some idle time;
 ; speeds up spitting out tons of cucumber scenarios etc. into a shell-mode buffer
