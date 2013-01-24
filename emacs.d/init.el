@@ -67,7 +67,7 @@
 (easy-auto-mode
   '((ruby-mode "\\.rake$" "Rakefile$" "Guardfile$" "Gemfile$"
                "\\.gemspec$" "\\.?irbrc$" "\\.rabl$" "\\.ru$"
-               "\\.simplecov$")
+               "\\.simplecov$" "\\.erb$")
     (markdown-mode "\\.md$" "\\.markdown$")))
 
 (require 'smex)
