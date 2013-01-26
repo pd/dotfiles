@@ -29,6 +29,7 @@
 (require 'keydef)
 (require 'smart-tab)
 (require 'quickref)
+(require 'ack-and-a-half)
 
 ; Mine.
 (require 'pd/defuns)
