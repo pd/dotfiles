@@ -58,6 +58,7 @@
 (keydef "C-c / r" replace-regexp)
 (keydef "C-c =" align-regexp)
 (keydef "C-=" er/expand-region)
+(keydef "M-j" (join-line 1))
 
 ;; jump!
 (keydef "C-c j f" find-function)
