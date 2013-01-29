@@ -23,7 +23,6 @@
 	relativePaths = false
 [github]
 	user = pd
-	token = 4b7c4bde82b4040e469cbd07a463c5bc
 [alias]
 	b   = branch
 	br  = branch
