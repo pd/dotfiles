@@ -27,9 +27,6 @@
 ; pretty
 (depends-on "powerline")
 (depends-on "molokai-theme") ; +1
-(depends-on "occidental-theme") ; +1
-(depends-on "pastels-on-dark-theme") ; +.5
-(depends-on "tango-2-theme") ; not bad
 
 ; dev
 (depends-on "coffee-mode")
