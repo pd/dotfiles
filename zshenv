@@ -5,4 +5,4 @@
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 
 # Boot rbenv.
-if [ $(command -v rbenv 2>&1) ]; then eval "$(rbenv init - --no-rehash)"; fi
+if [ $(command -v rbenv 2>&1) ]; then eval "$(rbenv init -)"; fi
