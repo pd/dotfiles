@@ -129,11 +129,13 @@ Otherwise point moves to beginning of line."
           (set-visited-file-name new-name)
           (set-buffer-modified-p nil))))))
 
-(defun xmpfilter ()
+(defun seeing-is-believing ()
+  "Replace the current region (or the whole buffer, if none) with the output
+of seeing_is_believing."
   (interactive)
   (let ((beg (if (region-active-p) (region-beginning) (point-min)))
         (end (if (region-active-p) (region-end) (point-max))))
-    (shell-command-on-region beg end "xmpfilter" nil 'replace)))
+    (shell-command-on-region beg end "seeing_is_believing" nil 'replace)))
 
 ; from: http://stackoverflow.com/questions/1242352/get-font-face-under-cursor-in-emacs
 (defun what-face (pos)
