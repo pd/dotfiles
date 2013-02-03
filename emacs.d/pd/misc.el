@@ -24,7 +24,6 @@
 (setq jit-lock-defer-time 0.05)
 
 ; rectangle selection without cua-mode's madness
-(require 'iedit)
-(require 'iedit-rect)
+(cua-selection-mode 1)
 
 (provide 'pd/misc)
