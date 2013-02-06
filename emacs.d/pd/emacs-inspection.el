@@ -60,4 +60,10 @@
                              (cdr p-and-dep-list)))
                    (pd/packages-with-dependencies))))
 
+;; "12 packages can be upgraded". Well, that's nice. Which ones?
+(defun pd/name-package-upgrades ()
+  (interactive)
+  (let ((upgrades (package-menu--find-upgrades)))
+    (when upgrades (message "Outdated: %s" (s-join ", " (mapcar 'symbol-name (mapcar 'car upgrades)))))))
+
 (provide 'pd/emacs-inspection)
