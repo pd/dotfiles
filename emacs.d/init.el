@@ -69,6 +69,8 @@
   '((ruby-mode "\\.rake$" "Rakefile$" "Guardfile$" "Gemfile$"
                "\\.gemspec$" "\\.?irbrc$" "\\.rabl$" "\\.ru$"
                "\\.simplecov$" "\\.erb$")
-    (markdown-mode "\\.md$" "\\.markdown$")))
+    (markdown-mode "\\.md$" "\\.markdown$")
+    (gitconfig-mode "gitconfig$")
+    (gitignore-mode "gitignore$")))
 
 (require 'smex)
