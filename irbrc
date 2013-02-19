@@ -5,7 +5,7 @@ require 'readline'
 IRB.conf[:AUTO_INDENT] = true
 
 if defined?(::Bundler)
-  if global_gems_path = Gem.path.find { |p| p =~ /@global/ }
+  if global_gems_path = Gem.path.find { |p| p =~ %r{/gemsets/global} }
     $LOAD_PATH.concat Dir.glob("#{global_gems_path}/gems/*/lib")
   end
 end
