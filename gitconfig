@@ -51,3 +51,5 @@
 	stash-unstaged = stash --keep-index
 [push]
 	default = upstream
+[init]
+	templatedir = ~/.git-templates
