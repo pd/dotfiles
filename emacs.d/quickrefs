@@ -47,4 +47,8 @@
   ("M-R" . "reverse lines"))
  ("org-mode"
   ("C-c C-b" . "backward-same-level")
-  ("C-c C-f" . "forward-same-level")))
+  ("C-c C-f" . "forward-same-level"))
+ ("shell-expansions"
+  ("${MISSING:-$EXISTS}" . "$EXISTS")
+  ("${MISSING:=value}" . "$MISSING ||= \"value\"")
+  ("val=2 ; $(($val + 1)" . "3")))
