@@ -43,10 +43,12 @@
         (eval-buffer))
       (nreverse deps))))
 
+(defun pd/packages-installed ()
+  (mapcar 'car package-alist))
+
 (defun pd/packages-not-in-carton ()
-  (let ((carton-deps (mapcar 'intern (pd/carton-dependencies)))
-        (installed   (mapcar 'car package-alist)))
-    (--reject (member it carton-deps) installed)))
+  (let ((carton-deps (mapcar 'intern (pd/carton-dependencies))))
+    (--reject (member it carton-deps) (pd/packages-installed))))
 
 (defun pd/packages-with-dependencies ()
   (--reject (= 1 (length it))
@@ -59,6 +61,17 @@
                      (--any? (equal package (car it))
                              (cdr p-and-dep-list)))
                    (pd/packages-with-dependencies))))
+
+(defun pd/package-desc (package)
+  (cdr (assq package package-archive-contents)))
+
+(defun pd/package-desc-archive (desc)
+  (if desc (aref desc (- (length desc) 1))
+    "unknown"))
+
+(defun pd/packages-by-archive ()
+  (-group-by (lambda (name) (pd/package-desc-archive (pd/package-desc name)))
+             (pd/packages-installed)))
 
 ;; "12 packages can be upgraded". Well, that's nice. Which ones?
 (defun pd/name-package-upgrades ()
