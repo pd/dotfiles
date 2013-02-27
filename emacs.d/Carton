@@ -21,6 +21,7 @@
 (depends-on "espuds")
 (depends-on "exec-path-from-shell")
 (depends-on "levenshtein")
+(depends-on "multiple-cursors")
 (depends-on "quickref")
 (depends-on "s")
 

@@ -60,6 +60,12 @@
 (keydef "C-=" er/expand-region)
 (keydef "M-j" (join-line 1))
 
+;; multi-cursor
+(keydef "C-c C-S-c" 'mc/edit-lines)
+(keydef "C->"       'mc/mark-next-like-this)
+(keydef "C-<"       'mc/mark-previous-like-this)
+(keydef "C-%"       'mc/mark-all-like-this)
+
 ;; jump!
 (keydef "C-c j f" find-function)
 (keydef "C-c j l" find-library)
