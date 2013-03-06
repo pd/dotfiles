@@ -40,6 +40,7 @@
 (depends-on "inf-ruby")
 (depends-on "paredit")
 (depends-on "markdown-mode")
+(depends-on "pcre2el")
 (depends-on "rainbow-mode")
 (depends-on "ruby-tools")
 (depends-on "rspec-mode")
