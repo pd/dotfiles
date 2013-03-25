@@ -60,7 +60,8 @@
 (keydef "C-=" er/expand-region)
 (keydef "M-j" (join-line 1))
 
-;; multi-cursor
+;; multiple-cursors.el
+(keydef "H-SPC"     'set-rectangular-region-anchor)
 (keydef "C-c C-S-c" 'mc/edit-lines)
 (keydef "C->"       'mc/mark-next-like-this)
 (keydef "C-<"       'mc/mark-previous-like-this)
