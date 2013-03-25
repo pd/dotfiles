@@ -45,6 +45,7 @@
 (depends-on "ruby-tools")
 (depends-on "rspec-mode")
 (depends-on "sass-mode")
+(depends-on "scala-mode2")
 (depends-on "scss-mode")
 (depends-on "yaml-mode")
 (depends-on "yard-mode")
