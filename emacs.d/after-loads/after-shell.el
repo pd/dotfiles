@@ -2,16 +2,17 @@
 (require 'dirtrack)
 (require 'pcmpl-git)
 (require 'pd/pcmpl-powify)
-
-(keydef (shell "C-c d")   dirs)
-(keydef (shell "C-c s")   pd/smart-shell)
-(keydef (shell "C-c M-s") pd/ido-switch-shell)
-(keydef (shell "C-c DEL") pd/truncate-shell-buffer)
+(require 'pd/smart-shell)
 
 (defun pd/truncate-shell-buffer ()
   (interactive)
   (let ((comint-buffer-maximum-size 0))
     (comint-truncate-buffer)))
+
+(keydef (shell "C-c d")   dirs)
+(keydef (shell "C-c s")   pd/smart-shell)
+(keydef (shell "C-c M-s") pd/ido-switch-shell)
+(keydef (shell "C-c DEL") pd/truncate-shell-buffer)
 
 (defun pd/dirtrack-directory-function (path)
   (pd/expand-file-name path))

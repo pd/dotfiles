@@ -30,6 +30,7 @@
 (depends-on "molokai-theme") ; +1
 
 ; dev
+(depends-on "clojure-mode")
 (depends-on "coffee-mode")
 (depends-on "elisp-slime-nav")
 (depends-on "feature-mode")
@@ -38,8 +39,9 @@
 (depends-on "gitignore-mode")
 (depends-on "haml-mode")
 (depends-on "inf-ruby")
-(depends-on "paredit")
 (depends-on "markdown-mode")
+(depends-on "nrepl")
+(depends-on "paredit")
 (depends-on "pcre2el")
 (depends-on "rainbow-mode")
 (depends-on "ruby-tools")

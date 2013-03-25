@@ -7,5 +7,6 @@
 
 (add-hook 'pd/lisp-mode-hook 'paredit-mode)
 (add-hook 'pd/lisp-mode-hook 'show-paren-mode)
+(add-hook 'pd/lisp-mode-hook 'subword-mode)
 
 (provide 'pd/lisps)
