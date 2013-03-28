@@ -3,8 +3,9 @@
       ns-alternate-modifier 'super
       ns-function-modifier  'hyper)
 
-;; I'm gonna miss this guy when I'm stuck with 24.3 =\
-(keydef "s-S-<return>" ns-toggle-fullscreen)
+;; 24.3 + OSX = pitiful fullscreen experience.
+;; I will never forget you, ns-toggle-fullscreen ...
+(keydef "s-S-<return>" toggle-frame-fullscreen)
 
 ;; Stop asking me to print.
 (keydef "s-p")
