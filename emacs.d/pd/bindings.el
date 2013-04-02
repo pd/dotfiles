@@ -43,7 +43,7 @@
 
 ;; find files
 (keydef "C-x f" ffap)
-; (keydef "C-x M-f" find-file-in-project) ; TODO
+(keydef "C-x M-f" find-file-in-repository)
 (keydef "C-x C-d" dired) ; i never, ever want list-directory
 
 ;; text editing
