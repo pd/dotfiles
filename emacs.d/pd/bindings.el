@@ -83,7 +83,7 @@
 (keydef "C-c x r" run-ruby)
 
 ;; misc
-(keydef "C-M-g" magit-status)
+(keydef "C-x g" magit-status)
 (keydef "s-+" pd/increase-font-size)
 (keydef "s-_" pd/decrease-font-size)
 (keydef "<f6>" linum-mode)
