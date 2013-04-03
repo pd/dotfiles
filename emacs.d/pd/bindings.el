@@ -20,7 +20,7 @@
 (keydef "C-c b Z" revert-buffer) ; actually reload the file
 (keydef "C-c b b" previous-buffer)
 (keydef "C-c b f" next-buffer)
-(keydef "C-c b n" (message "%s" buffer-file-name))
+(keydef "C-c b n" (message "%s" (pd/kill-file-name)))
 
 ;; buffer-move: move current buffer to another window
 (keydef "C-x w k" buf-move-up)

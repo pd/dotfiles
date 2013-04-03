@@ -129,6 +129,18 @@ Otherwise point moves to beginning of line."
           (set-visited-file-name new-name)
           (set-buffer-modified-p nil))))))
 
+(defun pd/kill-file-name ()
+  "Put the current filename's expanded path into the kill-ring and clipboard.
+Returns the filename."
+  (interactive)
+  (let* ((filename (buffer-file-name))
+         (path     (when filename (expand-file-name filename))))
+    (when path
+      (with-temp-buffer
+        (insert (expand-file-name filename))
+        (kill-region (point-min) (point-max)))
+      path)))
+
 (defun seeing-is-believing ()
   "Replace the current region (or the whole buffer, if none) with the output
 of seeing_is_believing."
