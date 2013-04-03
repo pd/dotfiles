@@ -61,6 +61,11 @@
 (when (file-exists-p (expand-file-name "~/vendor/emacs-24.2"))
   (setq source-directory (expand-file-name "~/vendor/emacs-24.2")))
 
+;; Some auto-saved configuration files should live in ~/.emacs.d/store
+(let ((store (expand-file-name "store/" user-emacs-directory)))
+  (setq mc/list-file       (expand-file-name "mc-lists.el" store)
+        quickref-save-file (expand-file-name "quickrefs.el" store)))
+
 ;; .emacs.d/after-loads/*.el
 (easy-after-load)
 
