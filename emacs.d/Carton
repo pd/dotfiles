@@ -21,34 +21,52 @@
 (depends-on "espuds")
 (depends-on "exec-path-from-shell")
 (depends-on "levenshtein")
+(depends-on "melpa")
 (depends-on "multiple-cursors")
+(depends-on "pcre2el")
 (depends-on "quickref")
 (depends-on "s")
 
 ; pretty
+(depends-on "molokai-theme")
 (depends-on "powerline")
-(depends-on "molokai-theme") ; +1
 
-; dev
-(depends-on "clojure-mode")
-(depends-on "coffee-mode")
-(depends-on "elisp-slime-nav")
-(depends-on "feature-mode")
+; general dev
+(depends-on "csv-mode")
+(depends-on "csv-nav")
 (depends-on "git-commit-mode")
 (depends-on "gitconfig-mode")
 (depends-on "gitignore-mode")
-(depends-on "haml-mode")
-(depends-on "inf-ruby")
-(depends-on "markdown-mode")
+(depends-on "slime")
+(depends-on "slime-repl")
+(depends-on "yaml-mode")
+
+; lisps
+(depends-on "align-cljlet")
+(depends-on "cljdoc")
+(depends-on "clojure-mode")
+(depends-on "elisp-slime-nav")
+(depends-on "lein")
 (depends-on "nrepl")
 (depends-on "paredit")
-(depends-on "pcre2el")
-(depends-on "rainbow-mode")
+
+; ruby et al.
+(depends-on "feature-mode")
+(depends-on "haml-mode")
+(depends-on "inf-ruby")
 (depends-on "ruby-tools")
 (depends-on "rspec-mode")
 (depends-on "sass-mode")
-(depends-on "scala-mode2")
-(depends-on "scss-mode")
-(depends-on "yaml-mode")
 (depends-on "yard-mode")
-(depends-on "zencoding")
+
+; scala
+(depends-on "scala-mode2")
+
+; js / html / css
+(depends-on "coffee-mode")
+(depends-on "js2-mode")
+(depends-on "markdown-mode")
+(depends-on "rainbow-mode")
+(depends-on "scss-mode")
+(depends-on "zencoding-mode")
+(depends-on "slime-js")
