@@ -51,6 +51,7 @@
 (keydef "M-/" hippie-expand)
 (keydef "C-S-k" kill-whole-line)
 (keydef "C-c w" delete-trailing-whitespace)
+(keydef "H-\\"  delete-horizontal-space)
 (keydef "M-<return>" pd/append-and-move-to-new-line)
 (keydef "M-S-<return>" pd/prepend-and-move-to-new-line)
 (keydef "C-c #" comment-or-uncomment-region)
