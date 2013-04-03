@@ -51,3 +51,4 @@
 (depends-on "scss-mode")
 (depends-on "yaml-mode")
 (depends-on "yard-mode")
+(depends-on "zencoding")
