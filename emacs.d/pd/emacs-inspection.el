@@ -48,7 +48,7 @@
 
 (defun pd/packages-not-in-carton ()
   (let ((carton-deps (mapcar 'intern (pd/carton-dependencies))))
-    (--reject (member it carton-deps) (pd/packages-installed))))
+    (nreverse (--reject (member it carton-deps) (pd/packages-installed)))))
 
 (defun pd/packages-with-dependencies ()
   (--reject (= 1 (length it))
