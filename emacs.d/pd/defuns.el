@@ -133,7 +133,7 @@ Otherwise point moves to beginning of line."
   "Put the current filename's expanded path into the kill-ring and clipboard.
 Returns the filename."
   (interactive)
-  (let* ((filename (buffer-file-name))
+  (let* ((filename (or (buffer-file-name) dired-directory))
          (path     (when filename (expand-file-name filename))))
     (when path
       (with-temp-buffer
