@@ -68,5 +68,6 @@
 (depends-on "markdown-mode")
 (depends-on "rainbow-mode")
 (depends-on "scss-mode")
-(depends-on "zencoding-mode")
 (depends-on "slime-js")
+(depends-on "tagedit")
+(depends-on "zencoding-mode")
