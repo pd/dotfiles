@@ -15,12 +15,14 @@
 (keydef (shell "C-c DEL") pd/truncate-shell-buffer)
 
 (defun pd/dirtrack-directory-function (path)
+  "See `dirtrack-directory-function'."
   (pd/expand-file-name path))
 
 (defun pd/dirtrack-directory-change-hook ()
-  (let* ((cwd (directory-file-name (pd/abbreviate-file-name default-directory)))
-         (new-name (concat "*shell: " cwd "*")))
-    (rename-buffer new-name t)))
+  "Updates smart shell buffer names to reflect their current working directory."
+  (when (pd/smart-shell-p (current-buffer))
+    (let* ((cwd (directory-file-name (pd/abbreviate-file-name default-directory))))
+      (rename-buffer (concat "*shell: " cwd "*") t))))
 
 (defun pd/enable-dirtrack ()
   (dirtrack-mode 1)

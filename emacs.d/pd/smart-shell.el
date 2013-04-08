@@ -8,19 +8,18 @@ If more than one shell-mode buffer exists, switch to the nearest one,
 according to pd/nearest-shell."
   (interactive)
   (let ((next-shell-name (generate-new-buffer-name "*shell*"))
-        (in-shell-buffer (eq 'shell-mode major-mode))
-        (process-alive-p (eq nil (get-buffer-process (current-buffer))))
-        (wants-new-shell (not (eq nil current-prefix-arg))))
-    (if in-shell-buffer
+        (process-alive-p (null (get-buffer-process (current-buffer))))
+        (wants-new-shell (when current-prefix-arg t)))
+    (if (pd/smart-shell-p (current-buffer))
         (if process-alive-p (shell) (shell next-shell-name))
-      (switch-to-buffer (if wants-new-shell (shell next-shell-name)
-                          (or (pd/nearest-shell) (shell next-shell-name)))))))
+      (switch-to-buffer
+       (if wants-new-shell
+           (shell next-shell-name)
+         (or (pd/nearest-shell) (shell next-shell-name)))))))
 
 (defun pd/shell-buffer-list ()
   "Returns a list of all shell buffers"
-  (remove-if-not (lambda (buf)
-                   (eq 'shell-mode (with-current-buffer buf major-mode)))
-                 (buffer-list)))
+  (remove-if-not 'pd/smart-shell-p (buffer-list)))
 
 (defun pd/distance-to-buffer (buffer)
   "Returns the levenshtein distance between BUFFER's directory and this buffer's directory"
@@ -39,5 +38,10 @@ to the default-directory of the current buffer."
   (let* ((shell-names (mapcar 'buffer-name (pd/shell-buffer-list)))
          (buffer-name (ido-completing-read "Buffer: " shell-names)))
     (when buffer-name (switch-to-buffer buffer-name))))
+
+(defun pd/smart-shell-p (buf)
+  "Returns whether the given buffer is considered an active shell-mode buffer."
+  (and (eq 'shell-mode (with-current-buffer buf major-mode))
+       (string-match-p "^\*shell" (buffer-name buf))))
 
 (provide 'pd/smart-shell)
