@@ -1,29 +1,22 @@
-; ibuffer grouping!
+(require 'ibuffer-vc)
+
 (setq ibuffer-default-sorting-mode 'filename/process
-      ibuffer-show-empty-filter-groups nil)
-
-(setq ibuffer-saved-filter-groups
-      '(("pd"
-         ("emacs.d" (filename . "emacs.d"))
-         ("dotfiles" (filename . "dotfiles"))
-         ("sauce" (filename . "sauce"))
-         ("terms" (or (mode . term-mode)
-                      (mode . shell-mode)))
-         ("magit" (name . "\*magit"))
-         ("gems" (or (filename . ".rvm/gems")
-                     (filename . "/.rbenv/")))
-         ("system" (or (name . "\*Help\*")
-                       (name . "\*Apropos\*")
-                       (name . "\*info\*")
-                       (name . "\*Backtrace\*")
-                       (name . "\*Completions\*")
-                       (name . "\*Messages\*")
-                       (name . "\*scratch\*"))))))
-
-(defvar pd/default-ibuffer-filter-group "pd")
+      ibuffer-show-empty-filter-groups nil
+      ibuffer-formats '((mark modified read-only vc-status-mini " "
+                              (name 18 18 :left :elide)
+                              " "
+                              (size 9 -1 :right)
+                              " "
+                              (mode 16 16 :left :elide)
+                              " "
+                              (vc-status 16 16 :left)
+                              " "
+                              filename-and-process)))
 
 (defun pd/prepare-ibuffer ()
   (ibuffer-auto-mode 1)
-  (ibuffer-switch-to-saved-filter-groups pd/default-ibuffer-filter-group))
+  (ibuffer-vc-set-filter-groups-by-vc-root)
+  (unless (eq ibuffer-sorting-mode 'alphabetic)
+    (ibuffer-do-sort-by-alphabetic)))
 
 (add-hook 'ibuffer-mode-hook 'pd/prepare-ibuffer)

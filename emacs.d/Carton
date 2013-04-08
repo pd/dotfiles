@@ -20,6 +20,7 @@
 (depends-on "ecukes")
 (depends-on "espuds")
 (depends-on "exec-path-from-shell")
+(depends-on "ibuffer-vc")
 (depends-on "levenshtein")
 (depends-on "melpa")
 (depends-on "multiple-cursors")
