@@ -38,8 +38,8 @@
 	co  = checkout
 	cot = checkout -t
 	cp  = cherry-pick
-	d   = diff
-	ds  = diff --cached
+	d   = diff --patience
+	ds  = diff --cached --patience
 	dhd = diff HEAD
 	f   = fetch
 	m   = merge
