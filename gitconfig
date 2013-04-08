@@ -23,6 +23,12 @@
 	relativePaths = false
 [github]
 	user = pd
+[push]
+	default = upstream
+[init]
+	templatedir = ~/.git-templates
+[merge]
+	conflictstyle = diff3
 [alias]
 	b   = branch
 	br  = branch
@@ -49,7 +55,3 @@
 	l   = log --date=short --pretty=format:'%C(bold magenta)%h %Creset%C(green)%cd%Creset %C(white)%aN%Creset %s %C(yellow)%d'
 	lg  = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 	stash-unstaged = stash --keep-index
-[push]
-	default = upstream
-[init]
-	templatedir = ~/.git-templates
