@@ -5,12 +5,15 @@
       '(
         kill-region
         org-self-insert-command
+        sgml-slash
+        smart-tab
         yaml-electric-dash-and-dot
         ))
 
 (setq mc/cmds-to-run-once
       '(
         beginning-of-buffer
+        coffee-dedent-line-backspace
         end-of-buffer
         pd/back-to-indentation-or-beginning-of-line
         smex
