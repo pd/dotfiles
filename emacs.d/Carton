@@ -23,6 +23,7 @@
 (depends-on "levenshtein")
 (depends-on "melpa")
 (depends-on "multiple-cursors")
+(depends-on "pcmpl-git")
 (depends-on "pcre2el")
 (depends-on "quickref")
 (depends-on "s")
