@@ -12,3 +12,5 @@ add_to_path_if_exists ~/dotfiles/vendor/ecukes
 add_to_path_if_exists /usr/local/share/npm/bin
 add_to_path_if_exists ~/local/bin
 add_to_path_if_exists ~/bin
+
+export PATH="./node_modules/.bin/:$PATH"
