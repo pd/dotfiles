@@ -58,8 +58,9 @@
   (load (expand-file-name "init.el" user-private-emacs-directory)))
 
 ; Emacs C source location
-(when (file-exists-p (expand-file-name "~/vendor/emacs-24.2"))
-  (setq source-directory (expand-file-name "~/vendor/emacs-24.2")))
+(let ((brew-source (expand-file-name "~/Library/Caches/Homebrew/emacs--git")))
+  (when (file-exists-p brew-source)
+    (setq source-directory brew-source)))
 
 ;; Some auto-saved configuration files should live in ~/.emacs.d/store
 (let ((store (expand-file-name "store/" user-emacs-directory)))

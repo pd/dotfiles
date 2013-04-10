@@ -3,8 +3,8 @@
       ns-alternate-modifier 'super
       ns-function-modifier  'hyper)
 
-;; 24.3 + OSX = pitiful fullscreen experience.
-;; I will never forget you, ns-toggle-fullscreen ...
+;; full screen that doesn't suck
+(setq ns-use-native-fullscreen nil)
 (keydef "s-S-<return>" toggle-frame-fullscreen)
 
 ;; Stop asking me to print.
