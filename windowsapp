@@ -9,79 +9,14 @@ var mash = ["CMD", "ALT", "CTRL"];
     [App reloadConfig];
 }];
 
-// maximize
-[Keys bind:"M" modifiers:mash fn: function() {
+// mash-F: fill screen
+[Keys bind:"F" modifiers:mash fn: function() {
     var win = [Win focusedWindow];
     var frame = [[win screen] frameInWindowCoordinates];
     [win setFrame: frame];
 }];
 
-// snap this window to grid
-[Keys bind:"." modifiers:mash fn: function() {
-    var win = [Win focusedWindow];
-    var r = gridProps(win);
-    moveToGridProps(win, r);
-}];
-
-// snap all windows to grid
-[Keys bind:"," modifiers:mash fn: function() {
-    _.each([Win visibleWindows], function(win) {
-        var r = gridProps(win);
-        moveToGridProps(win, r);
-    });
-}];
-
-// move left
-[Keys bind:"H" modifiers:mash fn: function() {
-    var win = [Win focusedWindow];
-    var r = gridProps(win);
-    r.origin.x = Math.max(r.origin.x - 1, 0);
-    moveToGridProps(win, r);
-}];
-
-// move right
-[Keys bind:"L" modifiers:mash fn: function() {
-    var win = [Win focusedWindow];
-    var r = gridProps(win);
-    r.origin.x = Math.min(r.origin.x + 1, 3 - r.size.width);
-    moveToGridProps(win, r);
-}];
-
-// grow to right
-[Keys bind:"O" modifiers:mash fn: function() {
-    var win = [Win focusedWindow];
-    var r = gridProps(win);
-    r.size.width = Math.min(r.size.width + 1, 3 - r.origin.x);
-    moveToGridProps(win, r);
-}];
-
-// shrink from right
-[Keys bind:"I" modifiers:mash fn: function() {
-    var win = [Win focusedWindow];
-    var r = gridProps(win);
-    r.size.width = Math.max(r.size.width - 1, 1);
-    moveToGridProps(win, r);
-}];
-
-// move to upper row
-[Keys bind:"K" modifiers:mash fn: function() {
-    var win = [Win focusedWindow];
-    var r = gridProps(win);
-    r.origin.y = 0;
-    r.size.height = 1;
-    moveToGridProps(win, r);
-}];
-
-// move to lower row
-[Keys bind:"J" modifiers:mash fn: function() {
-    var win = [Win focusedWindow];
-    var r = gridProps(win);
-    r.origin.y = 1;
-    r.size.height = 1;
-    moveToGridProps(win, r);
-}];
-
-// fill whole vertical column
+// mash-U: fill column
 [Keys bind:"U" modifiers:mash fn: function() {
     var win = [Win focusedWindow];
     var r = gridProps(win);
@@ -90,6 +25,76 @@ var mash = ["CMD", "ALT", "CTRL"];
     moveToGridProps(win, r);
 }];
 
+// mash-[HJKL]: move
+[Keys bind:"H" modifiers:mash fn: function() {
+    var win = [Win focusedWindow];
+    var r = gridProps(win);
+    r.origin.x = Math.max(r.origin.x - 1, 0);
+    moveToGridProps(win, r);
+}];
+
+[Keys bind:"J" modifiers:mash fn: function() {
+    var win = [Win focusedWindow];
+    var r = gridProps(win);
+    r.origin.y = 1;
+    r.size.height = 1;
+    moveToGridProps(win, r);
+}];
+
+[Keys bind:"K" modifiers:mash fn: function() {
+    var win = [Win focusedWindow];
+    var r = gridProps(win);
+    r.origin.y = 0;
+    r.size.height = 1;
+    moveToGridProps(win, r);
+}];
+
+[Keys bind:"L" modifiers:mash fn: function() {
+    var win = [Win focusedWindow];
+    var r = gridProps(win);
+    r.origin.x = Math.min(r.origin.x + 1, 3 - r.size.width);
+    moveToGridProps(win, r);
+}];
+
+// mash-[IO]: shrink from right, grow from right
+[Keys bind:"I" modifiers:mash fn: function() {
+    var win = [Win focusedWindow];
+    var r = gridProps(win);
+    r.size.width = Math.max(r.size.width - 1, 1);
+    moveToGridProps(win, r);
+}];
+
+[Keys bind:"O" modifiers:mash fn: function() {
+    var win = [Win focusedWindow];
+    var r = gridProps(win);
+    r.size.width = Math.min(r.size.width + 1, 3 - r.origin.x);
+    moveToGridProps(win, r);
+}];
+
+// mash-[NM,.]: focus window in direction (a la hjkl)
+[Keys bind:"N" modifiers:mash fn: function() {
+    var win = [Win focusedWindow];
+    if (!win) return;
+    [win focusWindowLeft];
+}];
+
+[Keys bind:"M" modifiers:mash fn: function() {
+    var win = [Win focusedWindow];
+    if (!win) return;
+    [win focusWindowDown];
+}];
+
+[Keys bind:"," modifiers:mash fn: function() {
+    var win = [Win focusedWindow];
+    if (!win) return;
+    [win focusWindowUp];
+}];
+
+[Keys bind:"." modifiers:mash fn: function() {
+    var win = [Win focusedWindow];
+    if (!win) return;
+    [win focusWindowRight];
+}];
 
 // mash-[12]: prev/next screen
 [Keys bind:"1" modifiers:mash fn: function() {
@@ -126,32 +131,8 @@ var mash = ["CMD", "ALT", "CTRL"];
     moveToGridPropsOnScreen(win, nextScreen, gridProps(win));
 }];
 
-// next/prev win, sorta kinda working
-[Keys bind:"p" modifiers:mash fn: function() {
-    var win = nextWindow(-1);
-    if (win) [win focusWindow];
-}];
-
-[Keys bind:"n" modifiers:mash fn: function() {
-    var win = nextWindow(1);
-    if (win) [win focusWindow];
-}];
 
 // helper functions
-
-var nextWindow = function(n) {
-  var current = Win.focusedWindow;
-  var windows = current.otherWindowsOnSameScreen;
-  var pos     = [windows indexOfObject:current];
-
-  if (pos === -1) return; // possible?
-
-  if (n === -1) {
-    return windows[pos - 1] || windows[windows.length - 1];
-  } else if (n === 1) {
-    return windows[pos + 1] || windows[0];
-  }
-};
 
 var gridProps = function(win) {
     var winFrame = [win frame];
