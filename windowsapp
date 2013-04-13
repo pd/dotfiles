@@ -90,16 +90,68 @@ var mash = ["CMD", "ALT", "CTRL"];
     moveToGridProps(win, r);
 }];
 
-// mash-[pn]: prev/next screen
-[Keys bind:"P" modifiers:mash fn: function() {
-    [[Win focusedWindow] moveToPreviousScreen];
+
+// mash-[12]: prev/next screen
+[Keys bind:"1" modifiers:mash fn: function() {
+    var win = [Win focusedWindow];
+
+    var screens = [NSScreen screens];
+    var currentScreen = [win screen];
+
+    var idx = [screens indexOfObject:currentScreen];
+
+    idx += 1;
+    if (idx == [screens count])
+        idx = 0;
+
+    var nextScreen = screens[idx];
+
+    moveToGridPropsOnScreen(win, nextScreen, gridProps(win));
 }];
 
-[Keys bind:"N" modifiers:mash fn: function() {
-    [[Win focusedWindow] moveToNextScreen];
+[Keys bind:"2" modifiers:mash fn: function() {
+    var win = [Win focusedWindow];
+
+    var screens = [NSScreen screens];
+    var currentScreen = [win screen];
+
+    var idx = [screens indexOfObject:currentScreen];
+
+    idx -= 1;
+    if (idx == -1)
+        idx = [screens count] - 1;
+
+    var nextScreen = screens[idx];
+
+    moveToGridPropsOnScreen(win, nextScreen, gridProps(win));
+}];
+
+// next/prev win, sorta kinda working
+[Keys bind:"p" modifiers:mash fn: function() {
+    var win = nextWindow(-1);
+    if (win) [win focusWindow];
+}];
+
+[Keys bind:"n" modifiers:mash fn: function() {
+    var win = nextWindow(1);
+    if (win) [win focusWindow];
 }];
 
 // helper functions
+
+var nextWindow = function(n) {
+  var current = Win.focusedWindow;
+  var windows = current.otherWindowsOnSameScreen;
+  var pos     = [windows indexOfObject:current];
+
+  if (pos === -1) return; // possible?
+
+  if (n === -1) {
+    return windows[pos - 1] || windows[windows.length - 1];
+  } else if (n === 1) {
+    return windows[pos + 1] || windows[0];
+  }
+};
 
 var gridProps = function(win) {
     var winFrame = [win frame];
@@ -115,7 +167,11 @@ var gridProps = function(win) {
 };
 
 var moveToGridProps = function(win, gridProps) {
-    var screenRect = [[win screen] frameInWindowCoordinates];
+  moveToGridPropsOnScreen(win, [win screen], gridProps);
+};
+
+var moveToGridPropsOnScreen = function(win, screen, gridProps) {
+    var screenRect = [screen frameInWindowCoordinates];
 
     var thirdScrenWidth = screenRect.size.width / 3.0;
     var halfScreenHeight = screenRect.size.height / 2.0;
@@ -125,7 +181,7 @@ var moveToGridProps = function(win, gridProps) {
                               gridProps.size.width * thirdScrenWidth,
                               gridProps.size.height * halfScreenHeight);
 
-    newFrame = NSInsetRect(newFrame, 1, 1); // acts as a little margin between windows, to give shadows some breathing room
+    newFrame = NSInsetRect(newFrame, 5, 5); // acts as a little margin between windows, to give shadows some breathing room
     newFrame = NSIntegralRect(newFrame);
 
     [win setFrame: newFrame];
