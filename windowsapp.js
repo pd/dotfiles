@@ -1,108 +1,103 @@
 // bindings for https://github.com/sdegutis/Windows
 
-var mash  = ["CMD", "ALT", "CTRL"];
+var combos = {
+  mash:  ["CTRL", "ALT", "CMD"],
+  cmdFn: ["CMD", "FN"],
+  cmdFnStandIn: ["CTRL", "ALT"]
+};
 
-// mash-R reloads this config for testing
-[Keys bind:"R" modifiers:mash fn: function() {
-    [App reloadConfig];
-}];
+// Prettier syntax
+var bind = function(modifiers, key, callback) {
+  [Keys bind:key modifiers:modifiers fn:callback];
+};
 
-// mash-F: fill screen
-[Keys bind:"F" modifiers:mash fn: function() {
-    [[Win focusedWindow] maximize];
-}];
+// Most of my bindings operate on a single modifier combination.
+var bindings = function(modifiers, keys) {
+  _.each(keys, function(callback, key) {
+    bind(modifiers, key, callback);
+  });
+};
 
-// mash-U: fill column
-[Keys bind:"U" modifiers:mash fn: function() {
+// If there is currently a window focused, call callback with:
+// * The window
+// * The result of gridProps(window)
+// * The window's screen
+var focused = function(callback) {
+  return function() {
     var win = [Win focusedWindow];
-    var r = gridProps(win);
-    r.origin.y = 0;
-    r.size.height = 2;
-    moveToGridProps(win, r);
-}];
+    if (typeof win !== 'undefined')
+      callback.apply(this, [win, gridProps(win), [win screen]]);
+  };
+};
 
-// mash-[HJKL]: move
-[Keys bind:"H" modifiers:mash fn: function() {
-    var win = [Win focusedWindow];
-    var r = gridProps(win);
-    r.origin.x = Math.max(r.origin.x - 1, 0);
-    moveToGridProps(win, r);
-}];
+// Wrap a call to focus that passes the window's gridProps to
+// the given callback, which should modify the grid object to
+// specify the window's desired new location.
+var moveTo = function(modifyGrid) {
+  return focused(function(win, grid, screen) {
+    modifyGrid.call(this, grid);
+    moveToGridProps(win, grid);
+  });
+};
 
-[Keys bind:"J" modifiers:mash fn: function() {
-    var win = [Win focusedWindow];
-    var r = gridProps(win);
-    r.origin.y = 1;
-    r.size.height = 1;
-    moveToGridProps(win, r);
-}];
+bindings(combos.mash, {
+  // Reload
+  'R': function() { [App reloadConfig]; },
 
-[Keys bind:"K" modifiers:mash fn: function() {
-    var win = [Win focusedWindow];
-    var r = gridProps(win);
-    r.origin.y = 0;
-    r.size.height = 1;
-    moveToGridProps(win, r);
-}];
+  // Maximize
+  'F': focused(function(win) { [win maximize]; });
 
-[Keys bind:"L" modifiers:mash fn: function() {
-    var win = [Win focusedWindow];
-    var r = gridProps(win);
-    r.origin.x = Math.min(r.origin.x + 1, 3 - r.size.width);
-    moveToGridProps(win, r);
-}];
+  // Fill column
+  'U': moveTo(function(grid) {
+    grid.origin.y = 0;
+    grid.size.height = 2;
+  }),
 
-// mash-[IO]: shrink from right, grow from right
-[Keys bind:"I" modifiers:mash fn: function() {
-    var win = [Win focusedWindow];
-    var r = gridProps(win);
-    r.size.width = Math.max(r.size.width - 1, 1);
-    moveToGridProps(win, r);
-}];
+  // Move window in grid
+  'H': moveTo(function(grid) {
+    grid.origin.x = Math.max(grid.origin.x - 1, 0);
+  }),
 
-[Keys bind:"O" modifiers:mash fn: function() {
-    var win = [Win focusedWindow];
-    var r = gridProps(win);
-    r.size.width = Math.min(r.size.width + 1, 3 - r.origin.x);
-    moveToGridProps(win, r);
-}];
+  'J': moveTo(function(grid) {
+    grid.origin.y = 1;
+    grid.size.height = 1;
+  }),
 
-// cmd-fn-[HJKL]: focus window in direction
-[Keys bind:"H" modifiers:cmdFn fn: function() {
-    var win = [Win focusedWindow];
-    if (!win) return;
-    [win focusWindowLeft];
-}];
+  'K': moveTo(function(grid) {
+    grid.origin.y = 0;
+    grid.size.height = 1;
+  }),
 
-[Keys bind:"J" modifiers:cmdFn fn: function() {
-    var win = [Win focusedWindow];
-    if (!win) return;
-    [win focusWindowDown];
-}];
+  'L': moveTo(function(grid) {
+    grid.origin.x = Math.min(grid.origin.x + 1, 3 - grid.size.width);
+  }),
 
-[Keys bind:"K" modifiers:cmdFn fn: function() {
-    var win = [Win focusedWindow];
-    if (!win) return;
-    [win focusWindowUp];
-}];
+  // Grow/shrink column width
+  'I': moveTo(function(grid) {
+    grid.size.width = Math.max(grid.size.width - 1, 1);
+  }),
 
-[Keys bind:"L" modifiers:cmdFn fn: function() {
-    var win = [Win focusedWindow];
-    if (!win) return;
-    [win focusWindowRight];
-}];
+  'O': moveTo(function(grid) {
+    grid.size.width = Math.min(grid.size.width + 1, 3 - grid.origin.x);
+  }),
 
-// mash-[12]: prev/next screen
-[Keys bind:"1" modifiers:mash fn: function() {
-    var win = [Win focusedWindow];
-    moveToGridPropsOnScreen(win, [[win screen] previousScreen], gridProps(win));
-}];
+  // previous / next screen
+  '1': focused(function(win, grid, screen) {
+    moveToGridPropsOnScreen(win, [screen previousScreen], grid);
+  }),
 
-[Keys bind:"2" modifiers:mash fn: function() {
-    var win = [Win focusedWindow];
-    moveToGridPropsOnScreen(win, [[win screen] nextScreen], gridProps(win));
-}];
+  '2': focused(function(win, grid, screen) {
+    moveToGridPropsOnScreen(win, [screen nextScreen], grid);
+  })
+});
 
+// bindings(combos.cmdFn, { // TODO binding to FN currently swallows FN-less key presses
+bindings(combos.cmdFnStandIn, {
+  'H': focused(function(win) { [win focusWindowLeft]; }),
+  'J': focused(function(win) { [win focusWindowDown]; }),
+  'K': focused(function(win) { [win focusWindowUp]; }),
+  'L': focused(function(win) { [win focusWindowRight]; })
+});
 
 // helper functions
 var gridProps = function(win) {
