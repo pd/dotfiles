@@ -1,6 +1,6 @@
 // bindings for https://github.com/sdegutis/Windows
 
-var mash = ["CMD", "ALT", "CTRL"];
+var mash  = ["CMD", "ALT", "CTRL"];
 
 // mash-R reloads this config for testing
 [Keys bind:"R" modifiers:mash fn: function() {
@@ -9,9 +9,7 @@ var mash = ["CMD", "ALT", "CTRL"];
 
 // mash-F: fill screen
 [Keys bind:"F" modifiers:mash fn: function() {
-    var win = [Win focusedWindow];
-    var frame = [[win screen] frameInWindowCoordinates];
-    [win setFrame: frame];
+    [[Win focusedWindow] maximize];
 }];
 
 // mash-U: fill column
@@ -69,26 +67,26 @@ var mash = ["CMD", "ALT", "CTRL"];
     moveToGridProps(win, r);
 }];
 
-// mash-[NM,.]: focus window in direction (a la hjkl)
-[Keys bind:"N" modifiers:mash fn: function() {
+// cmd-fn-[HJKL]: focus window in direction
+[Keys bind:"H" modifiers:cmdFn fn: function() {
     var win = [Win focusedWindow];
     if (!win) return;
     [win focusWindowLeft];
 }];
 
-[Keys bind:"M" modifiers:mash fn: function() {
+[Keys bind:"J" modifiers:cmdFn fn: function() {
     var win = [Win focusedWindow];
     if (!win) return;
     [win focusWindowDown];
 }];
 
-[Keys bind:"," modifiers:mash fn: function() {
+[Keys bind:"K" modifiers:cmdFn fn: function() {
     var win = [Win focusedWindow];
     if (!win) return;
     [win focusWindowUp];
 }];
 
-[Keys bind:"." modifiers:mash fn: function() {
+[Keys bind:"L" modifiers:cmdFn fn: function() {
     var win = [Win focusedWindow];
     if (!win) return;
     [win focusWindowRight];
@@ -97,44 +95,19 @@ var mash = ["CMD", "ALT", "CTRL"];
 // mash-[12]: prev/next screen
 [Keys bind:"1" modifiers:mash fn: function() {
     var win = [Win focusedWindow];
-
-    var screens = [NSScreen screens];
-    var currentScreen = [win screen];
-
-    var idx = [screens indexOfObject:currentScreen];
-
-    idx += 1;
-    if (idx == [screens count])
-        idx = 0;
-
-    var nextScreen = screens[idx];
-
-    moveToGridPropsOnScreen(win, nextScreen, gridProps(win));
+    moveToGridPropsOnScreen(win, [[win screen] previousScreen], gridProps(win));
 }];
 
 [Keys bind:"2" modifiers:mash fn: function() {
     var win = [Win focusedWindow];
-
-    var screens = [NSScreen screens];
-    var currentScreen = [win screen];
-
-    var idx = [screens indexOfObject:currentScreen];
-
-    idx -= 1;
-    if (idx == -1)
-        idx = [screens count] - 1;
-
-    var nextScreen = screens[idx];
-
-    moveToGridPropsOnScreen(win, nextScreen, gridProps(win));
+    moveToGridPropsOnScreen(win, [[win screen] nextScreen], gridProps(win));
 }];
 
 
 // helper functions
-
 var gridProps = function(win) {
     var winFrame = [win frame];
-    var screenRect = [[win screen] frameInWindowCoordinates];
+    var screenRect = [[win screen] frameWithoutDockOrMenu];
 
     var thirdScrenWidth = screenRect.size.width / 3.0;
     var halfScreenHeight = screenRect.size.height / 2.0;
@@ -147,10 +120,10 @@ var gridProps = function(win) {
 
 var moveToGridProps = function(win, gridProps) {
   moveToGridPropsOnScreen(win, [win screen], gridProps);
-};
+}
 
 var moveToGridPropsOnScreen = function(win, screen, gridProps) {
-    var screenRect = [screen frameInWindowCoordinates];
+    var screenRect = [screen frameWithoutDockOrMenu];
 
     var thirdScrenWidth = screenRect.size.width / 3.0;
     var halfScreenHeight = screenRect.size.height / 2.0;
