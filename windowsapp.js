@@ -14,11 +14,11 @@ var Grid = function(columns, rows, margin, screen) {
     this.margin = parseInt(margin);
 
   if (typeof screen === 'undefined')
-    this.screen = [Screen mainScreen];
+    this.screen = Screen.mainScreen;
   else
     this.screen = screen;
 
-  var screenRect = [this.screen frameWithoutDockOrMenu];
+  var screenRect = this.screen.frameWithoutDockOrMenu;
   this.minX = NSMinX(screenRect);
   this.minY = NSMinY(screenRect);
   this.cellWidth  = screenRect.size.width / this.columns;
@@ -30,7 +30,7 @@ Grid.prototype.onScreen = function(screen) {
 };
 
 Grid.prototype.locate = function(win) {
-  var frame = [win frame];
+  var frame = win.frame;
   return new Grid.Location(this,
                            Math.round((frame.origin.x - this.minX) / this.cellWidth),
                            Math.round((frame.origin.y - this.minY) / this.cellHeight),
@@ -52,7 +52,7 @@ Grid.prototype.place = function(win, location) {
     rect = NSInsetRect(rect, this.margin, this.margin);
 
   rect = NSIntegralRect(rect);
-  [win setFrame: rect];
+  win.setFrame(rect);
 };
 
 // The position of a window inside that grid
@@ -129,7 +129,7 @@ var bindings = function(modifiers, keys) {
 // Calls callback with the focused window, if there is one.
 var focused = function(callback) {
   return function() {
-    var win = [Win focusedWindow];
+    var win = Win.focusedWindow;
     if (typeof win !== 'undefined')
       callback.call(this, win);
   };
@@ -141,7 +141,7 @@ var onGrid = function(grid, callback) {
   var _grid = grid;
 
   return focused(function(win) {
-    var screen = [win screen],
+    var screen = win.screen,
         grid   = _grid.onScreen(screen);
     callback.call(this, grid, win, grid.locate(win), screen);
   });
@@ -171,10 +171,10 @@ var combos = {
 
 bindings(combos.mash, {
   // Reload
-  'R': function() { [App reloadConfig]; },
+  'R': function() { App.reloadConfig },
 
   // Maximize
-  'F': focused(function(win) { [win maximize]; }),
+  'F': focused(function(win) { win.maximize }),
 
   // Fill column
   'U': relocate(function(loc) { return loc.fillColumn(); }),
@@ -202,8 +202,8 @@ bindings(combos.mash, {
 
 // bindings(combos.cmdFn, { // TODO binding to FN currently swallows FN-less key presses
 bindings(combos.cmdFnStandIn, {
-  'H': focused(function(win) { [win focusWindowLeft]; }),
-  'J': focused(function(win) { [win focusWindowDown]; }),
-  'K': focused(function(win) { [win focusWindowUp]; }),
-  'L': focused(function(win) { [win focusWindowRight]; })
+  'H': focused(function(win) { win.focusWindowLeft }),
+  'J': focused(function(win) { win.focusWindowDown }),
+  'K': focused(function(win) { win.focusWindowUp }),
+  'L': focused(function(win) { win.focusWindowRight })
 });
