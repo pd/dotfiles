@@ -1,10 +1,118 @@
 // bindings for https://github.com/sdegutis/Windows
 
-var combos = {
-  mash:  ["CTRL", "ALT", "CMD"],
-  cmdFn: ["CMD", "FN"],
-  cmdFnStandIn: ["CTRL", "ALT"]
+// TODO Find a way to move Grid / Grid.Location elsewhere
+// TODO Sucks to have 'defaultGrid' below. Hrmph.
+
+// A screen split into a WxH grid
+var Grid = function(columns, rows, margin, screen) {
+  this.columns = parseFloat(columns);
+  this.rows    = parseFloat(rows);
+
+  if (typeof margin === 'undefined')
+    this.margin = 5;
+  else
+    this.margin = parseInt(margin);
+
+  if (typeof screen === 'undefined')
+    this.screen = [Screen mainScreen];
+  else
+    this.screen = screen;
+
+  var screenRect = [this.screen frameWithoutDockOrMenu];
+  this.minX = NSMinX(screenRect);
+  this.minY = NSMinY(screenRect);
+  this.cellWidth  = screenRect.size.width / this.columns;
+  this.cellHeight = screenRect.size.height / this.rows;
 };
+
+Grid.prototype.onScreen = function(screen) {
+  return new Grid(this.columns, this.rows, this.margin, screen);
+};
+
+Grid.prototype.locate = function(win) {
+  var frame = [win frame];
+  return new Grid.Location(this,
+                           Math.round((frame.origin.x - this.minX) / this.cellWidth),
+                           Math.round((frame.origin.y - this.minY) / this.cellHeight),
+                           Math.max(Math.round(frame.size.width / this.cellWidth), 1),
+                           Math.max(Math.round(frame.size.height / this.cellHeight), 1));
+};
+
+Grid.prototype.rect = function(location) {
+  return CGRectMake(location.column * this.cellWidth + this.minX,
+                    location.row * this.cellHeight + this.minY,
+                    location.width * this.cellWidth,
+                    location.height * this.cellHeight);
+};
+
+Grid.prototype.place = function(win, location) {
+  var rect = this.rect(location);
+
+  if (this.margin !== 0)
+    rect = NSInsetRect(rect, this.margin, this.margin);
+
+  rect = NSIntegralRect(rect);
+  [win setFrame: rect];
+};
+
+// The position of a window inside that grid
+Grid.Location = function(grid, column, row, width, height) {
+  this.grid   = grid;
+  this.column = column;
+  this.row    = row;
+  this.width  = width;
+  this.height = height;
+};
+
+Grid.Location.prototype.fillColumn = function() {
+  var result = _.clone(this);
+  result.row = 0;
+  result.height = this.grid.rows;
+  return result;
+};
+
+Grid.Location.prototype.inc = function(widthOrHeight, n) {
+  var result = _.clone(this);
+  if (widthOrHeight === 'width') {
+    result.width = Math.min(this.grid.columns - this.column, Math.max(this.width + n, 1));
+  } else if (widthOrHeight === 'height') {
+    result.height = Math.min(this.grid.rows - this.row, Math.max(this.height + n, 1));
+  }
+
+  return result;
+};
+
+Grid.Location.prototype.move = function(columnOrRow, n) {
+  var result = _.clone(this),
+      grid   = this.grid;
+
+  if (columnOrRow === 'column') {
+    result.column = Math.min(grid.columns - 1, Math.max(result.column + n, 0));
+  } else if (columnOrRow === 'row') {
+    result.row = Math.min(grid.rows - 1, Math.max(result.row + n, 0));
+  }
+
+  return result.constrainToScreen();
+};
+
+Grid.Location.prototype.constrainToScreen = function() {
+  var result = _.clone(this),
+      grid   = this.grid;
+
+  if (result.column + result.width > grid.columns)
+    result.width = grid.columns - result.column;
+
+  if (result.row + result.height > grid.rows)
+    result.height = grid.rows - result.row;
+
+  return result;
+};
+
+Grid.Location.prototype.toString = function() {
+  var s = "[loc (" + this.column + "," + this.row + ") [" + this.width + "x" + this.height + "]]";
+  return s;
+};
+
 
 // Prettier syntax
 var bind = function(modifiers, key, callback) {
@@ -18,26 +126,47 @@ var bindings = function(modifiers, keys) {
   });
 };
 
-// If there is currently a window focused, call callback with:
-// * The window
-// * The result of gridProps(window)
-// * The window's screen
+// Calls callback with the focused window, if there is one.
 var focused = function(callback) {
   return function() {
     var win = [Win focusedWindow];
     if (typeof win !== 'undefined')
-      callback.apply(this, [win, gridProps(win), [win screen]]);
+      callback.call(this, win);
   };
 };
 
-// Wrap a call to focus that passes the window's gridProps to
-// the given callback, which should modify the grid object to
-// specify the window's desired new location.
-var moveTo = function(modifyGrid) {
-  return focused(function(win, grid, screen) {
-    modifyGrid.call(this, grid);
-    moveToGridProps(win, grid);
+// If a window is focused, calls callback with the window's
+// location within the given grid.
+var onGrid = function(grid, callback) {
+  var _grid = grid;
+
+  return focused(function(win) {
+    var screen = [win screen],
+        grid   = _grid.onScreen(screen);
+    callback.call(this, grid, win, grid.locate(win), screen);
   });
+};
+
+// Wrapper around onGrid that expects the callback to return a new
+// grid location at which the focused window should be placed.
+var relocate = function(grid, callback) {
+  if (typeof callback === 'undefined') {
+    callback = grid;
+    grid = defaultGrid;
+  }
+
+  return onGrid(grid, function(grid, win, location, screen) {
+    var destination = callback.call(this, location);
+    grid.place(win, destination);
+  });
+};
+
+// Actual config begins here ...
+var defaultGrid = new Grid(3, 2, 1);
+var combos = {
+  mash:  ["CTRL", "ALT", "CMD"],
+  cmdFn: ["CMD", "FN"],
+  cmdFnStandIn: ["CTRL", "ALT"]
 };
 
 bindings(combos.mash, {
@@ -45,50 +174,30 @@ bindings(combos.mash, {
   'R': function() { [App reloadConfig]; },
 
   // Maximize
-  'F': focused(function(win) { [win maximize]; });
+  'F': focused(function(win) { [win maximize]; }),
 
   // Fill column
-  'U': moveTo(function(grid) {
-    grid.origin.y = 0;
-    grid.size.height = 2;
-  }),
+  'U': relocate(function(loc) { return loc.fillColumn(); }),
 
   // Move window in grid
-  'H': moveTo(function(grid) {
-    grid.origin.x = Math.max(grid.origin.x - 1, 0);
-  }),
-
-  'J': moveTo(function(grid) {
-    grid.origin.y = 1;
-    grid.size.height = 1;
-  }),
-
-  'K': moveTo(function(grid) {
-    grid.origin.y = 0;
-    grid.size.height = 1;
-  }),
-
-  'L': moveTo(function(grid) {
-    grid.origin.x = Math.min(grid.origin.x + 1, 3 - grid.size.width);
-  }),
+  'H': relocate(function(loc) { return loc.move('column', -1); }),
+  'J': relocate(function(loc) { return loc.move('row', 1); }),
+  'K': relocate(function(loc) { return loc.move('row', -1); }),
+  'L': relocate(function(loc) { return loc.move('column', 1); }),
 
   // Grow/shrink column width
-  'I': moveTo(function(grid) {
-    grid.size.width = Math.max(grid.size.width - 1, 1);
-  }),
-
-  'O': moveTo(function(grid) {
-    grid.size.width = Math.min(grid.size.width + 1, 3 - grid.origin.x);
-  }),
+  'I': relocate(function(loc) { return loc.inc('width', -1); }),
+  'O': relocate(function(loc) { return loc.inc('width', 1); })
 
   // previous / next screen
-  '1': focused(function(win, grid, screen) {
-    moveToGridPropsOnScreen(win, [screen previousScreen], grid);
-  }),
+  // TODO restore these when I get home; only one monitor atm.
+  // '1': focused(function(win, grid, screen) {
+  //   moveToGridPropsOnScreen(win, [screen previousScreen], grid);
+  // }),
 
-  '2': focused(function(win, grid, screen) {
-    moveToGridPropsOnScreen(win, [screen nextScreen], grid);
-  })
+  // '2': focused(function(win, grid, screen) {
+  //   moveToGridPropsOnScreen(win, [screen nextScreen], grid);
+  // })
 });
 
 // bindings(combos.cmdFn, { // TODO binding to FN currently swallows FN-less key presses
@@ -98,38 +207,3 @@ bindings(combos.cmdFnStandIn, {
   'K': focused(function(win) { [win focusWindowUp]; }),
   'L': focused(function(win) { [win focusWindowRight]; })
 });
-
-// helper functions
-var gridProps = function(win) {
-    var winFrame = [win frame];
-    var screenRect = [[win screen] frameWithoutDockOrMenu];
-
-    var thirdScrenWidth = screenRect.size.width / 3.0;
-    var halfScreenHeight = screenRect.size.height / 2.0;
-
-    return CGRectMake(Math.round((winFrame.origin.x - NSMinX(screenRect)) / thirdScrenWidth),
-                      Math.round((winFrame.origin.y - NSMinY(screenRect)) / halfScreenHeight),
-                      Math.max(Math.round(winFrame.size.width / thirdScrenWidth), 1),
-                      Math.max(Math.round(winFrame.size.height / halfScreenHeight), 1));
-};
-
-var moveToGridProps = function(win, gridProps) {
-  moveToGridPropsOnScreen(win, [win screen], gridProps);
-}
-
-var moveToGridPropsOnScreen = function(win, screen, gridProps) {
-    var screenRect = [screen frameWithoutDockOrMenu];
-
-    var thirdScrenWidth = screenRect.size.width / 3.0;
-    var halfScreenHeight = screenRect.size.height / 2.0;
-
-    var newFrame = CGRectMake((gridProps.origin.x * thirdScrenWidth) + NSMinX(screenRect),
-                              (gridProps.origin.y * halfScreenHeight) + NSMinY(screenRect),
-                              gridProps.size.width * thirdScrenWidth,
-                              gridProps.size.height * halfScreenHeight);
-
-    newFrame = NSInsetRect(newFrame, 5, 5); // acts as a little margin between windows, to give shadows some breathing room
-    newFrame = NSIntegralRect(newFrame);
-
-    [win setFrame: newFrame];
-};
