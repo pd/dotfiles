@@ -187,17 +187,18 @@ bindings(combos.mash, {
 
   // Grow/shrink column width
   'I': relocate(function(loc) { return loc.inc('width', -1); }),
-  'O': relocate(function(loc) { return loc.inc('width', 1); })
+  'O': relocate(function(loc) { return loc.inc('width', 1); }),
 
   // previous / next screen
-  // TODO restore these when I get home; only one monitor atm.
-  // '1': focused(function(win, grid, screen) {
-  //   moveToGridPropsOnScreen(win, [screen previousScreen], grid);
-  // }),
+  '1': onGrid(defaultGrid, function(grid, win, location, screen) {
+    var target = grid.onScreen(screen.previousScreen);
+    target.place(win, _.extend(_.clone(location), { grid: target }));
+  }),
 
-  // '2': focused(function(win, grid, screen) {
-  //   moveToGridPropsOnScreen(win, [screen nextScreen], grid);
-  // })
+  '2': onGrid(defaultGrid, function(grid, win, location, screen) {
+    var target = grid.onScreen(screen.nextScreen);
+    target.place(win, _.extend(_.clone(location), { grid: target }));
+  })
 });
 
 // bindings(combos.cmdFn, { // TODO binding to FN currently swallows FN-less key presses
