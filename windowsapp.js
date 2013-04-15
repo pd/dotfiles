@@ -1,5 +1,3 @@
-// -*- mode: objc -*-
-
 // bindings for https://github.com/sdegutis/Windows
 
 var mash = ["CMD", "ALT", "CTRL"];
