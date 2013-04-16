@@ -4,9 +4,9 @@ class Grid
     @columns = parseFloat(columns)
     @rows    = parseFloat(rows)
     @margin  = if margin? then parseInt(margin) else 5
-    @screen  = if screen? then screen else Screen.mainScreen
+    @screen  = if screen? then screen else api.mainScreen()
 
-    rect = @screen.frameWithoutDockOrMenu
+    rect = @screen.frameWithoutDockOrMenu()
     @minX = NSMinX(rect)
     @minY = NSMinY(rect)
     @cellWidth = rect.size.width / @columns
@@ -15,7 +15,7 @@ class Grid
   onScreen: (screen) -> new Grid(@columns, @rows, @margin, screen)
 
   locate: (win) ->
-    frame = win.frame
+    frame = win.frame()
     new Grid.Location(this,
                       Math.round((frame.origin.x - @minX) / @cellWidth),
                       Math.round((frame.origin.y - @minY) / @cellHeight),

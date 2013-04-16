@@ -1,16 +1,6 @@
-expandPath = (path) ->
-  NSString.stringWithString(path).stringByStandardizingPath
+require "~/dotfiles/windowsapp/grid.coffee"
 
-readFile = (file) ->
-  path = expandPath file
-  NSString.stringWithContentsOfFile_encoding_error(path, NSUTF8StringEncoding, null)
-
-compile = (file) ->
-  CoffeeScript.compile readFile(file), bare: true
-
-eval compile "~/dotfiles/windowsapp/grid.coffee"
-
-PopupSettings.disappearDelay = 3.0
+api.settings().disappearDelay = 3.0
 defaultGrid = new Grid(3, 2, 2)
 
 bindings = (modifiers, keys) ->
@@ -19,16 +9,17 @@ bindings = (modifiers, keys) ->
 # Yields the currently focused window, if any.
 focused = (callback) ->
   () ->
-    win = Win.focusedWindow
+    win = api.focusedWindow()
     callback(win) if win?
 
 # Yields the given grid, currently focused window,
 # its grid location, and the screen it belongs to.
 onGrid = (target, callback) ->
   focused (win) ->
-    grid = target.onScreen win.screen
-    loc  = grid.locate win
-    callback.call(this, grid, win, grid.locate(win), win.screen)
+    screen = win.screen()
+    grid   = target.onScreen screen
+    loc    = grid.locate win
+    callback.call(this, grid, win, grid.locate(win), screen)
 
 # Yields the location of the currently focused window.
 # The window will be place at the location returned by the
@@ -47,14 +38,14 @@ tossScreen = (callback) ->
     target.place(win, loc)
 
 bindings ["CTRL", "ALT"],
-  'H': focused (win) -> win.focusWindowLeft
-  'J': focused (win) -> win.focusWindowDown
-  'K': focused (win) -> win.focusWindowUp
-  'L': focused (win) -> win.focusWindowRight
+  'H': focused (win) -> win.focusWindowLeft()
+  'J': focused (win) -> win.focusWindowDown()
+  'K': focused (win) -> win.focusWindowUp()
+  'L': focused (win) -> win.focusWindowRight()
 
 bindings ["CTRL", "ALT", "CMD"],
-  'R': -> App.reloadConfig
-  'F': focused (win) -> win.maximize
+  'R': -> api.reloadConfig()
+  'F': focused (win) -> win.maximize()
 
   'U': relocate (loc) -> loc.fillColumn()
 
@@ -66,7 +57,4 @@ bindings ["CTRL", "ALT", "CMD"],
   'I': relocate (loc) -> loc.inc('width', -1)
   'O': relocate (loc) -> loc.inc('width', 1)
 
-  '\\': tossScreen (screen) -> screen.nextScreen
-
-  'D': focused (win) ->
-    alert(defaultGrid.onScreen(win.screen).locate(win).toString())
+  '\\': tossScreen (screen) -> screen.nextScreen()
