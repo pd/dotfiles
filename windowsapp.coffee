@@ -1,6 +1,7 @@
 require "~/dotfiles/windowsapp/grid.coffee"
+require "~/dotfiles/windowsapp/repl.coffee"
 
-api.settings.disappearDelay = 3.0
+api.settings.alertDisappearDelay = 3.0
 defaultGrid = new Grid(3, 2, 2)
 
 bindings = (modifiers, keys) ->
@@ -46,6 +47,7 @@ bindings ["CTRL", "ALT"],
 bindings ["CTRL", "ALT", "CMD"],
   'R': -> api.reloadConfig
   'F': focused (win) -> win.maximize
+  'E': -> alert evalCoffee(clipboardContents())
 
   'U': relocate (loc) -> loc.fillColumn()
 
