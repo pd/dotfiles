@@ -3,6 +3,7 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        coffee-dedent-line-backspace
         kill-region
         org-self-insert-command
         sgml-slash
@@ -13,7 +14,6 @@
 (setq mc/cmds-to-run-once
       '(
         beginning-of-buffer
-        coffee-dedent-line-backspace
         end-of-buffer
         pd/back-to-indentation-or-beginning-of-line
         smex
