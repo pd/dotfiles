@@ -1,6 +1,6 @@
 require "~/dotfiles/windowsapp/grid.coffee"
 
-api.settings().disappearDelay = 3.0
+api.settings.disappearDelay = 3.0
 defaultGrid = new Grid(3, 2, 2)
 
 bindings = (modifiers, keys) ->
@@ -9,14 +9,14 @@ bindings = (modifiers, keys) ->
 # Yields the currently focused window, if any.
 focused = (callback) ->
   () ->
-    win = api.focusedWindow()
+    win = api.focusedWindow
     callback(win) if win?
 
 # Yields the given grid, currently focused window,
 # its grid location, and the screen it belongs to.
 onGrid = (target, callback) ->
   focused (win) ->
-    screen = win.screen()
+    screen = win.screen
     grid   = target.onScreen screen
     loc    = grid.locate win
     callback.call(this, grid, win, grid.locate(win), screen)
@@ -38,14 +38,14 @@ tossScreen = (callback) ->
     target.place(win, loc)
 
 bindings ["CTRL", "ALT"],
-  'H': focused (win) -> win.focusWindowLeft()
-  'J': focused (win) -> win.focusWindowDown()
-  'K': focused (win) -> win.focusWindowUp()
-  'L': focused (win) -> win.focusWindowRight()
+  'H': focused (win) -> win.focusWindowLeft
+  'J': focused (win) -> win.focusWindowDown
+  'K': focused (win) -> win.focusWindowUp
+  'L': focused (win) -> win.focusWindowRight
 
 bindings ["CTRL", "ALT", "CMD"],
-  'R': -> api.reloadConfig()
-  'F': focused (win) -> win.maximize()
+  'R': -> api.reloadConfig
+  'F': focused (win) -> win.maximize
 
   'U': relocate (loc) -> loc.fillColumn()
 
@@ -57,4 +57,4 @@ bindings ["CTRL", "ALT", "CMD"],
   'I': relocate (loc) -> loc.inc('width', -1)
   'O': relocate (loc) -> loc.inc('width', 1)
 
-  '\\': tossScreen (screen) -> screen.nextScreen()
+  '\\': tossScreen (screen) -> screen.nextScreen
