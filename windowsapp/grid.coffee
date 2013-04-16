@@ -37,7 +37,7 @@ class Grid.Location
   constructor: (@grid, @column, @row, @width, @height) ->
 
   _modify: (fn) ->
-    destination = _.clone this
+    destination = new Grid.Location(@grid, @column, @row, @width, @height)
     fn.call(destination, @grid)
     destination
 
