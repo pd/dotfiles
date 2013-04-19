@@ -75,7 +75,7 @@
   '((ruby-mode "\\.rake$" "Rakefile$" "Guardfile$" "Gemfile$"
                "\\.gemspec$" "\\.?irbrc$" "\\.rabl$" "\\.ru$"
                "\\.simplecov$" "\\.erb$")
-    (js3-mode "\\.js$")
+    (js2-mode "\\.js\\'")
     (markdown-mode "\\.md$" "\\.markdown$")
     (gitconfig-mode "gitconfig$")
     (gitignore-mode "gitignore$")))

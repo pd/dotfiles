@@ -177,4 +177,14 @@ Useful for rerunning mode hooks."
          (buffer-substring (region-beginning) (region-end))
        (read-string "Google: "))))))
 
+(defun pd/browse-npm ()
+  "View a package on npmjs.org"
+  (interactive)
+  (browse-url
+   (concat
+    "http://www.npmjs.org/package/"
+    (url-hexify-string (if mark-active
+         (buffer-substring (region-beginning) (region-end))
+       (read-string "Package: "))))))
+
 (provide 'pd/defuns)

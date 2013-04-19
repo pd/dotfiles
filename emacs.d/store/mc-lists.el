@@ -4,6 +4,7 @@
 (setq mc/cmds-to-run-for-all
       '(
         coffee-dedent-line-backspace
+        forward-sexp
         kill-region
         org-self-insert-command
         sgml-slash
