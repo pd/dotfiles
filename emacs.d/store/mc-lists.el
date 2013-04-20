@@ -7,6 +7,7 @@
         forward-sexp
         kill-region
         org-self-insert-command
+        paredit-forward-delete
         sgml-slash
         smart-tab
         yaml-electric-dash-and-dot
