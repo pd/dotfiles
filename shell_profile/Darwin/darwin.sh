@@ -5,3 +5,8 @@ alias finder="open -a finder ."
 dash () {
   open dash://"$@"
 }
+
+# I'm running ztools a lot lately
+infodump () {
+  wine ~/vendor/ztools/infodump.exe "$@"
+}
