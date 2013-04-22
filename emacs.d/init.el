@@ -38,6 +38,7 @@
 (require 'pd/mode-line)
 (require 'pd/theme)
 (require 'pd/lisps)
+(require 'pd/melpa)
 (require 'pd/misc)
 (when (pd/macosx-p)
   (require 'pd/osx))
