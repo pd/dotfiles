@@ -14,4 +14,4 @@
      ((eq 'github fetcher) (browse-url (format "https://github.com/%s" repo)))
      (t (message "Only supports github for right now.")))))
 
-; (add-hook 'package-menu-mode-hook)
+(provide 'pd/melpa)
