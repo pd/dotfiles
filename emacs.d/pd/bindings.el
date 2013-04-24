@@ -34,16 +34,8 @@
 (keydef "s-k" windmove-up)
 (keydef "s-l" windmove-right)
 
-;; M-S-[left/up/down/right]: window resizing
-;; the directions unfortunately don't always make sense in context
-(keydef "M-S-<left>" shrink-window-horizontally)
-(keydef "M-S-<up>" enlarge-window)
-(keydef "M-S-<down>" shrink-window)
-(keydef "M-S-<right>" enlarge-window-horizontally)
-
 ;; find files
 (keydef "C-x f" ffap)
-; (keydef "C-x M-f" find-file-in-project) ; TODO
 (keydef "C-x C-d" dired) ; i never, ever want list-directory
 
 ;; text editing
