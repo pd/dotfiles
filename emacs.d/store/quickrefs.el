@@ -53,4 +53,9 @@
   ("${MISSING:=value}" . "$MISSING ||= \"value\"")
   ("val=2 ; $(($val + 1)" . "3"))
  ("comint-mode"
-  ("M-r" . "history search")))
+  ("M-r" . "history search"))
+ ("js2-mode"
+  ("C-c C-r" . "js2-refactor")
+  ("ag" . "add /*global annotation")
+  ("ip" . "introduce param")
+  ("ef" . "extract func")))

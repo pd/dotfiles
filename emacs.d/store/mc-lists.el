@@ -5,11 +5,13 @@
       '(
         coffee-dedent-line-backspace
         forward-sexp
+        js2r-extract-var
         kill-region
         org-self-insert-command
         paredit-forward-delete
         sgml-slash
         smart-tab
+        yaml-electric-backspace
         yaml-electric-dash-and-dot
         ))
 
