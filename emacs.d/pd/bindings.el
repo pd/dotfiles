@@ -60,6 +60,13 @@
 (keydef "C-<"       'mc/mark-previous-like-this)
 (keydef "C-%"       'mc/mark-all-like-this)
 
+;; tranpositions
+(keydef "M-t")
+(keydef "M-t c" transpose-chars)
+(keydef "M-t w" transpose-words)
+(keydef "M-t l" transpose-lines)
+(keydef "M-t s" transpose-sexps)
+
 ;; jump!
 (keydef "C-c j f" find-function)
 (keydef "C-c j l" find-library)
