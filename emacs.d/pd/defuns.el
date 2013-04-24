@@ -96,15 +96,6 @@ Otherwise point moves to beginning of line."
       (beginning-of-line)
     (back-to-indentation)))
 
-(defun pd/run-echo-defun ()
-  "Calls the defun-at-point, displays its return value with `message'."
-  (interactive)
-  (save-match-data
-    (let* ((thing (thing-at-point 'defun))
-           (match (and (s-match "^(defun \\([^ ]+\\)" thing)))
-           (defun-at-pt (and match (substring-no-properties (cadr match)))))
-      (message "%s" (funcall (intern defun-at-pt))))))
-
 (defun pd/add-mode-to-first-line ()
   "Add the -*- mode: foo -*- line to the beginning of the current buffer"
   (interactive)
