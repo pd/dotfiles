@@ -9,12 +9,7 @@ alias scp='scp -C'
 alias cls='clear'
 alias sudo='command sudo '
 alias g='git'
-
-if [ -f /usr/share/vim/vim73/macros/less.sh ]; then
-  alias less='sh /usr/share/vim/vim73/macros/less.sh'
-else
-  alias less='less -R'
-fi
+alias less='less -R'
 
 alias ..='cd ..'
 alias ...='cd ../..'
