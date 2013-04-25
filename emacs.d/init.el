@@ -30,6 +30,7 @@
 (require 'smart-tab)
 (require 'quickref)
 (require 'ack-and-a-half)
+(require 'auto-complete)
 
 ; Mine.
 (require 'pd/defuns)

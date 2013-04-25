@@ -37,8 +37,10 @@
 (depends-on "powerline")
 
 ; general dev
+(depends-on "auto-complete")
 (depends-on "csv-mode")
 (depends-on "csv-nav")
+(depends-on "fuzzy")
 (depends-on "git-commit-mode")
 (depends-on "gitconfig-mode")
 (depends-on "gitignore-mode")
