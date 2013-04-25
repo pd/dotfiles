@@ -2,16 +2,6 @@
 (keydef "M-x" smex)
 (keydef "M-X" smex-major-mode-commands)
 
-;; text navigation
-(keydef "C-a" pd/back-to-indentation-or-beginning-of-line)
-(keydef "C-`" pd/push-mark)
-(keydef "M-`" pd/jump-to-mark)
-(keydef "C-c SPC" pd/toggle-selective-display)
-
-;; M-{, M-} are a bit more awkward on my pinky
-(keydef "M-C-[" backward-paragraph)
-(keydef "M-C-]" forward-paragraph)
-
 ;; buffer manipulation
 (keydef "C-x C-b" ibuffer)
 (keydef "C-c b r" rename-buffer)
@@ -39,20 +29,27 @@
 (keydef "C-c f"   pd/find-file-in-repository-vertically)
 (keydef "C-c C-f" find-file-at-point)
 
+;; text navigation
+(keydef "C-a"   pd/back-to-indentation-or-beginning-of-line)
+(keydef "C-`"   pd/push-mark)
+(keydef "M-`"   pd/jump-to-mark)
+(keydef "M-C-[" backward-paragraph) ; M-{, but less awkward on my pinky
+(keydef "M-C-]" forward-paragraph)  ; M-}
+
 ;; text editing
-(keydef "C-c p" fill-paragraph)
-(keydef "M-/" hippie-expand)
-(keydef "C-S-k" kill-whole-line)
-(keydef "C-c w" delete-trailing-whitespace)
-(keydef "C-\\"  delete-horizontal-space)
-(keydef "M-<return>" pd/append-and-move-to-new-line)
-(keydef "M-S-<return>" pd/prepend-and-move-to-new-line)
-(keydef "C-c #" comment-or-uncomment-region)
+(keydef "C-c p"   fill-paragraph)
+(keydef "M-/"     hippie-expand)
+(keydef "C-S-k"   kill-whole-line)
+(keydef "C-c w"   delete-trailing-whitespace)
+(keydef "C-\\"    delete-horizontal-space)
+(keydef "C-c #"   comment-or-uncomment-region)
 (keydef "C-c / s" replace-string)
 (keydef "C-c / r" replace-regexp)
-(keydef "C-c =" align-regexp)
-(keydef "C-=" er/expand-region)
-(keydef "M-j" (join-line 1))
+(keydef "C-c ="   align-regexp)
+(keydef "C-="     er/expand-region)
+(keydef "M-j"     (join-line 1))
+(keydef "M-<return>"   pd/append-and-move-to-new-line)
+(keydef "M-S-<return>" pd/prepend-and-move-to-new-line)
 
 ;; multiple-cursors.el
 (keydef "C-c m")
