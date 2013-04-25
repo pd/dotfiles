@@ -178,4 +178,15 @@ Useful for rerunning mode hooks."
          (buffer-substring (region-beginning) (region-end))
        (read-string "Package: "))))))
 
+(defun pd/find-file-in-repository-vertically ()
+  "Temporarily enable ido-vertical-mode, then ffir."
+  (interactive)
+  (unwind-protect
+      (progn
+        (require 'ido-ubiquitous)
+        (require 'ido-vertical-mode)
+        (ido-vertical-mode +1)
+        (find-file-in-repository))
+    (ido-vertical-mode -1)))
+
 (provide 'pd/defuns)

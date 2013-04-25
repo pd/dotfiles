@@ -35,8 +35,9 @@
 (keydef "s-l" windmove-right)
 
 ;; find files
-(keydef "C-x f" ffap)
 (keydef "C-x C-d" dired) ; i never, ever want list-directory
+(keydef "C-c f"   pd/find-file-in-repository-vertically)
+(keydef "C-c C-f" find-file-at-point)
 
 ;; text editing
 (keydef "C-c p" fill-paragraph)
