@@ -4,9 +4,11 @@
 (setq mc/cmds-to-run-for-all
       '(
         coffee-dedent-line-backspace
+        delete-horizontal-space
         forward-sexp
         js2r-extract-var
         kill-region
+        kill-sentence
         org-self-insert-command
         paredit-forward-delete
         sgml-slash

@@ -54,8 +54,13 @@
 (keydef "M-j" (join-line 1))
 
 ;; multiple-cursors.el
+(keydef "C-c m")
 (keydef "H-SPC"     'set-rectangular-region-anchor)
-(keydef "C-c C-S-c" 'mc/edit-lines)
+(keydef "C-c m SPC" 'set-rectangular-region-anchor)
+(keydef "C-c m e"   'mc/edit-lines)
+(keydef "C-c m C-a" 'mc/edit-beginnings-of-lines)
+(keydef "C-c m C-e" 'mc/edit-ends-of-lines)
+(keydef "C-c m y"   'yank-rectangle) ; C-x r y, but i think of it in terms of mc/...
 (keydef "C->"       'mc/mark-next-like-this)
 (keydef "C-<"       'mc/mark-previous-like-this)
 (keydef "C-%"       'mc/mark-all-like-this)
@@ -86,7 +91,6 @@
 (keydef "s-+" pd/increase-font-size)
 (keydef "s-_" pd/decrease-font-size)
 (keydef "<f6>" linum-mode)
-(keydef "C-c m" man)
 (keydef "C-c a" org-agenda)
 (keydef "C-h a" apropos) ; defaults to command-apropos
 
