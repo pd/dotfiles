@@ -11,6 +11,7 @@
 (add-to-list 'load-path user-private-emacs-directory)
 
 ; Boot.
+(require 'pd/benchmark)
 (require 'pd/core)
 
 ; ELPA.
