@@ -26,6 +26,11 @@
 (keydef (js2 "C-c x j") pd/slime-js-node)
 (keydef (js2 "M-j")     (join-line 1))
 
+; mnemonic: 'insert inspect' ... ?
+(keydef (js2 "C-c i i") (progn
+                          (insert "process.stderr.write(\"\\n\" + require('util').inspect(FOO, { depth: null }));")
+                          (search-backward "FOO")))
+
 (js2r-add-keybindings-with-prefix "C-c C-r")
 (js2r-add-keybindings-with-prefix "C-c r")
 
