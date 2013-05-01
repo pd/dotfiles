@@ -25,6 +25,14 @@
 (js2r-add-keybindings-with-prefix "C-c C-r")
 (js2r-add-keybindings-with-prefix "C-c r")
 
+(defun pd/declare-common-js2-globals ()
+  ; TODO when buffer matches /*global (\w+)*/ add $1
+  ; see https://github.com/dgoodlad/emacs.d/blob/ed5188/conf/init-js2-mode.el#L3
+  (when (string-match-p "_test\\.js" (buffer-file-name))
+    (setq js2-additional-externs '("describe" "context" "it"))))
+
+(add-hook 'js2-mode-hook 'pd/declare-common-js2-globals)
+
 
 ; Reserved words have changed over time; see Section 7.6.1 of
 ; http://www.ecma-international.org/ecma-262/5.1/Ecma-262.pdf
