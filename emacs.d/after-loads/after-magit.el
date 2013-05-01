@@ -34,3 +34,11 @@
 (defun pd/magit-authors-and-committers-in-repo ()
   (let ((output (magit-git-string "log" "--pretty=format:%an <%ae>%n%cn <%ce>")))
     (-uniq (split-string output "[\r\n]+"))))
+
+(magit-key-mode-insert-action
+ 'logging "p" "Paths" 'pd/magit-log-for-paths)
+
+(defun pd/magit-log-for-paths ()
+  (interactive)
+  (let ((paths (read-string "Files or directories: ")))
+    (apply 'magit-log nil "--" (split-string paths))))
