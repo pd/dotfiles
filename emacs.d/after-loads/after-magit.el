@@ -5,10 +5,6 @@
 
 (add-hook 'magit-mode-hook 'pd/turn-off-show-trailing-whitespace)
 
-(keydef (magit-log-edit "C-x m S") pd/magit-insert-submodule-summary)
-(keydef (magit-log-edit "C-x m s") pd/magit-insert-signoff)
-(keydef (magit-log-edit "C-x m a") pd/magit-insert-author)
-
 (defun pd/magit-insert-submodule-summary ()
   "Insert the contents of `git submodule summary` into the current buffer"
   (interactive)
@@ -35,10 +31,6 @@
   (let ((output (magit-git-string "log" "--pretty=format:%an <%ae>%n%cn <%ce>")))
     (-uniq (split-string output "[\r\n]+"))))
 
-(magit-key-mode-insert-action
- 'logging "p" "Paths" 'pd/magit-log-for-paths)
-
-(defun pd/magit-log-for-paths ()
-  (interactive)
-  (let ((paths (read-string "Files or directories: ")))
-    (apply 'magit-log nil "--" (split-string paths))))
+(keydef (magit-log-edit "C-x m S") pd/magit-insert-submodule-summary)
+(keydef (magit-log-edit "C-x m s") pd/magit-insert-signoff)
+(keydef (magit-log-edit "C-x m a") pd/magit-insert-author)
