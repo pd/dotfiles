@@ -1,6 +1,7 @@
 (setq magit-save-some-buffers nil
-      magit-completing-read 'ido-completing-read
-      magit-omit-untracked-dir-contents nil)
+      magit-completing-read 'magit-ido-completing-read
+      magit-omit-untracked-dir-contents nil
+      magit-process-popup-time 10)
 
 (add-hook 'magit-mode-hook 'pd/turn-off-show-trailing-whitespace)
 
