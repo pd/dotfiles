@@ -12,7 +12,7 @@
 (keydef (shell "C-c d")   dirs)
 (keydef (shell "C-c s")   pd/smart-shell)
 (keydef (shell "C-c M-s") pd/ido-switch-shell)
-(keydef (shell "C-c DEL") pd/truncate-shell-buffer)
+(keydef (shell "C-c M-o") pd/truncate-shell-buffer)
 
 (defun pd/dirtrack-directory-function (path)
   "See `dirtrack-directory-function'."
