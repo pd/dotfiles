@@ -1,3 +1,4 @@
+(shell-switcher-mode)
 (setq shell-switcher-new-shell-function 'shell-switcher-make-shell)
 (add-hook 'shell-mode-hook 'shell-switcher-manually-register-shell)
 

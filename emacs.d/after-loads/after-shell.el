@@ -1,6 +1,5 @@
 (require 'ansi-color)
 (require 'dirtrack)
-(require 'shell-switcher)
 (require 'pcmpl-git)
 (require 'pd/pcmpl-powify)
 
@@ -18,7 +17,8 @@
 
 (defun pd/dirtrack-directory-change-hook ()
   "Updates smart shell buffer names to reflect their current working directory."
-  (when (pd/smart-shell-p (current-buffer))
+  (when (and (eq 'shell-mode (current-buffer))
+             (string-match-p "^\*shell" (buffer-name (current-buffer))))
     (let* ((cwd (directory-file-name (pd/abbreviate-file-name default-directory))))
       (rename-buffer (concat "*shell: " cwd "*") t))))
 

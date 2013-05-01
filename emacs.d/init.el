@@ -25,6 +25,7 @@
 ; Packages I always want.
 (require 'cl)
 (require 'ido)
+(require 'smex)
 (require 'uniquify)
 (require 'winner)
 (require 'keydef)
@@ -32,7 +33,7 @@
 (require 'quickref)
 (require 'ack-and-a-half)
 (require 'auto-complete)
-(require 'smex)
+(require 'shell-switcher)
 
 ; Mine.
 (require 'pd/defuns)
