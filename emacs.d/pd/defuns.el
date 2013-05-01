@@ -126,6 +126,17 @@ Returns the filename."
         (kill-region (point-min) (point-max)))
       path)))
 
+(defun pd/shell-buffer-list ()
+  "Returns a list of all shell buffers"
+  (remove-if-not 'pd/smart-shell-p (buffer-list)))
+
+(defun pd/ido-switch-shell ()
+  "Handy wrapper around ido-switch-buffer which only lists shell-mode buffers."
+  (interactive)
+  (let* ((shell-names (mapcar 'buffer-name (pd/shell-buffer-list)))
+         (buffer-name (ido-completing-read "Buffer: " shell-names)))
+    (when buffer-name (switch-to-buffer buffer-name))))
+
 (defun seeing-is-believing ()
   "Replace the current region (or the whole buffer, if none) with the output
 of seeing_is_believing."

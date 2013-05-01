@@ -1,8 +1,8 @@
 (require 'ansi-color)
 (require 'dirtrack)
+(require 'shell-switcher)
 (require 'pcmpl-git)
 (require 'pd/pcmpl-powify)
-(require 'pd/smart-shell)
 
 (defun pd/truncate-shell-buffer ()
   (interactive)
@@ -10,8 +10,6 @@
     (comint-truncate-buffer)))
 
 (keydef (shell "C-c d")   dirs)
-(keydef (shell "C-c s")   pd/smart-shell)
-(keydef (shell "C-c M-s") pd/ido-switch-shell)
 (keydef (shell "C-c M-o") pd/truncate-shell-buffer)
 
 (defun pd/dirtrack-directory-function (path)

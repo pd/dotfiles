@@ -13,6 +13,7 @@
         paredit-forward-delete
         sgml-slash
         smart-tab
+        tagedit-insert-equal
         yaml-electric-backspace
         yaml-electric-dash-and-dot
         ))

@@ -79,8 +79,7 @@
 (keydef "C-c j v" find-variable)
 
 ;; shells
-(keydef "C-c s" pd/smart-shell)
-(keydef "C-c M-s" pd/ido-switch-shell)
+(keydef "C-c M-'" pd/ido-switch-shell)
 
 ;; C-c x: repls
 (keydef "C-c x e" ielm)

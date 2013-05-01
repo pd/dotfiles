@@ -45,7 +45,6 @@
   (require 'pd/osx))
 
 ; Libraries some day.
-(require 'pd/smart-shell)
 (require 'pd/zsh-dir-aliases)
 (require 'pd/emacs-inspection)
 
