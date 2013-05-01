@@ -32,6 +32,7 @@
 (require 'quickref)
 (require 'ack-and-a-half)
 (require 'auto-complete)
+(require 'smex)
 
 ; Mine.
 (require 'pd/defuns)
@@ -81,5 +82,3 @@
     (markdown-mode "\\.md$" "\\.markdown$")
     (gitconfig-mode "gitconfig$")
     (gitignore-mode "gitignore$")))
-
-(require 'smex)
