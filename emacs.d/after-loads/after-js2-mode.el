@@ -14,7 +14,8 @@
               js2-bounce-indent-p nil
               js2-missing-semi-one-line-override t
               js2-include-node-externs t
-              js2-include-browser-externs nil)
+              js2-include-browser-externs nil
+              js2-idle-timer-delay 0.5)
 
 (add-hook 'js2-mode-hook 'slime-js-minor-mode)
 
