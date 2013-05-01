@@ -8,10 +8,7 @@ fpath=(~/.zsh/functions /usr/local/share/zsh-completions $fpath)
 ## vim<C-S-k>
 bindkey -e
 
-# but in terminal.app, vi mode is still the easiest:
-[[ $TERM_PROGRAM = "Apple_Terminal" || $TERM_PROGRAM = "iTerm.app" ]] && bindkey -v
-
-# and when i've ssh'd into something, stick with vi mode
+# when i've ssh'd into something, stick with vi mode
 [[ ! -z $SSH_CLIENT ]] && bindkey -v
 
 ## turn on expanded tabcomplete
