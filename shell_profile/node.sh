@@ -7,4 +7,4 @@ if [ -d /usr/local/share/npm/lib/node_modules ]; then
 fi
 
 alias node='rlwrap node'
-alias tracegl='node ~/vendor/tracegl/tracegl.js -nolib'
+alias tracegl='node ~/vendor/tracegl/tracegl.js -nolib -no:repl.js'
