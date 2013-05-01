@@ -10,6 +10,7 @@
         kill-region
         kill-sentence
         org-self-insert-command
+        paredit-backslash
         paredit-forward-delete
         sgml-slash
         smart-tab

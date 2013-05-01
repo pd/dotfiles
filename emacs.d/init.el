@@ -76,12 +76,13 @@
 
 ;; Easier mode detection
 (easy-auto-mode
-  '((ruby-mode "\\.rake$" "Rakefile$" "Guardfile$" "Gemfile$"
-               "\\.gemspec$" "\\.?irbrc$" "\\.rabl$" "\\.ru$"
-               "\\.simplecov$" "\\.erb$")
+  '((ruby-mode "\\.rake\\'" "Rakefile\\'" "Guardfile\\'" "Gemfile\\'"
+               "\\.gemspec\\'" "\\.?irbrc\\'" "\\.rabl\\'" "\\.ru\\'"
+               "\\.simplecov\\'" "\\.erb\\'")
+    (js-mode "\\.json\\'")
     (js2-mode "\\.js\\'")
-    (markdown-mode "\\.md$" "\\.markdown$")
-    (gitconfig-mode "gitconfig$")
-    (gitignore-mode "gitignore$")))
+    (markdown-mode "\\.md\\'" "\\.markdown\\'")
+    (gitconfig-mode "gitconfig\\'")
+    (gitignore-mode "gitignore\\'")))
 
 (add-to-list 'interpreter-mode-alist '("node" . js2-mode))
