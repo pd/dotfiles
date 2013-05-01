@@ -83,3 +83,5 @@
     (markdown-mode "\\.md$" "\\.markdown$")
     (gitconfig-mode "gitconfig$")
     (gitignore-mode "gitignore$")))
+
+(add-to-list 'interpreter-mode-alist '("node" . js2-mode))

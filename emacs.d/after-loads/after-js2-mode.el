@@ -15,7 +15,8 @@
               js2-missing-semi-one-line-override t
               js2-include-node-externs t
               js2-include-browser-externs nil
-              js2-idle-timer-delay 0.5)
+              js2-idle-timer-delay 0.5
+              js2-skip-preprocessor-directives t) ; aka, ignore #!env node
 
 (add-hook 'js2-mode-hook 'slime-js-minor-mode)
 
