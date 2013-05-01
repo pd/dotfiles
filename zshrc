@@ -15,6 +15,10 @@ bindkey -e
 autoload -U compinit
 compinit
 
+# `ls /foo/bar<C-w>` only kills 'bar'
+autoload -U select-word-style
+select-word-style bash
+
 ## allows $fg[white], $bg[red], $terminfo[bold]
 autoload colors zsh/terminfo
 colors
