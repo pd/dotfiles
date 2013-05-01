@@ -24,3 +24,31 @@
 
 (js2r-add-keybindings-with-prefix "C-c C-r")
 (js2r-add-keybindings-with-prefix "C-c r")
+
+
+; Reserved words have changed over time; see Section 7.6.1 of
+; http://www.ecma-international.org/ecma-262/5.1/Ecma-262.pdf
+(setq js2-reserved-words
+      ; some are already in js2-keywords
+      '(class
+        ; const
+        enum
+        export
+        extends
+        import
+        super
+        implements
+        interface
+        package
+        private
+        protected
+        public
+        static)
+
+      ; ugh, rebuild a cache ...
+      js2-reserved-word-names
+      (let ((table (make-hash-table :test 'equal)))
+        (loop for k in js2-reserved-words
+              do
+              (puthash (symbol-name k) 'js2-RESERVED table))
+        table))
