@@ -19,7 +19,10 @@
 
 (add-hook 'js2-mode-hook 'slime-js-minor-mode)
 
-(keydef (js2 "C-c x j") 'pd/slime-js-node)
+(keydef (js2 "RET")      js2-line-break)
+(keydef (js2 "<return>") js2-line-break)
+
+(keydef (js2 "C-c x j") pd/slime-js-node)
 (keydef (js2 "M-j")     (join-line 1))
 
 (js2r-add-keybindings-with-prefix "C-c C-r")
