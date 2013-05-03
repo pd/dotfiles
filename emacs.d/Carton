@@ -31,6 +31,7 @@
 (depends-on "phi-search")
 (depends-on "quickref")
 (depends-on "s")
+(depends-on "yasnippet")
 
 ; pretty
 (depends-on "molokai-theme")

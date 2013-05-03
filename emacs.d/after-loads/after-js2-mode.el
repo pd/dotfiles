@@ -40,7 +40,11 @@
   (when (string-match-p "_test\\.js" (buffer-file-name))
     (setq js2-additional-externs '("describe" "context" "it"))))
 
+(defun pd/js-snippets ()
+  (set (make-local-variable 'yas-extra-modes) 'js-mode))
+
 (add-hook 'js2-mode-hook 'pd/declare-common-js2-globals)
+(add-hook 'js2-mode-hook 'pd/js-snippets)
 
 
 ; Reserved words have changed over time; see Section 7.6.1 of
