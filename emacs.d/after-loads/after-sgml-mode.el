@@ -2,6 +2,8 @@
 (require 'tagedit)
 
 (tagedit-add-paredit-like-keybindings)
+(tagedit-add-experimental-features)
+
 (keydef (tagedit "s-k") windmove-up)
 (keydef (tagedit "s-K") tagedit-kill-attribute)
 

@@ -71,6 +71,7 @@
 (depends-on "scala-mode2")
 
 ; js / html / css
+(depends-on "ac-slime")
 (depends-on "coffee-mode")
 (depends-on "js2-mode")
 (depends-on "json-mode")
