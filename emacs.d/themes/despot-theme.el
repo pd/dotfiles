@@ -21,4 +21,6 @@
    `(diff-removed ((t (:foreground "#e62020" :background ,background))))
    `(diff-refine-change ((t (:background ,background))))
 
+   `(font-lock-fic-face ((t (:foreground "#e62020" :background ,background))))
+
    ))

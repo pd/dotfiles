@@ -8,6 +8,11 @@
   "A list of (FEATURE . LOAD-DURATION).
 LOAD-DURATION is the time taken in milliseconds to load FEATURE.")
 
+(defun pd/slowest-require-times ()
+  "Return `pd/require-times' sorted by descending length."
+  (let ((times (copy-sequence pd/require-times)))
+    (sort times (lambda (a b) (> (cdr a) (cdr b))))))
+
 (defadvice require
   (around build-require-times (feature &optional filename noerror) activate)
   "Note in `pd/require-times' the time taken to require each feature."

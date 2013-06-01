@@ -1,40 +1,90 @@
-; shush.
-(setq inhibit-startup-screen t
-      inhibit-startup-echo-area-message t)
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(blink-cursor-mode -1)
-(setq visible-bell t)
-(setq messages-buffer-max-lines 1000)
-(defalias 'yes-or-no-p 'y-or-n-p)
+(electric-indent-mode +1)
+(winner-mode +1)
+(ido-mode +1)
+(quickref-global-mode +1)
+(toggle-save-place-globally)
+(setq auto-save-default nil)
 
-; and pile your junk somewhere else.
-(setq backup-directory-alist '(("." . "~/.emacs.d/.crap/backups"))
-      tramp-backup-directory-alist '(("." . "~/.emacs.d/.crap/backups"))
-      save-place-file "~/.emacs.d/.crap/places"
-      custom-file "~/.emacs.d/.crap/custom.el"
-      ac-comphist-file "~/.emacs.d/.crap/ac-comphist.dat"
-      save-visited-files-location "~/.emacs.d/.crap/emacs-visited-files"
-      auto-save-default nil)
+(after 'auto-complete
+  (require 'auto-complete-config)
+  (require 'fuzzy)
 
-; religion:
-;   1. spaces not tabs
-;   2. no excess whitespace
-;   3. files end with newlines
-(setq-default indent-tabs-mode nil
-              show-trailing-whitespace t
-              require-final-newline t)
+  (ac-config-default)
+  (setq ac-auto-start 3
+        ac-auto-show-menu 0.5
+        ac-comphist-file "~/.emacs.d/.crap/ac-comphist.dat")
 
-; utf-8 seems the least wrong
-(prefer-coding-system 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
+  (bind-key "C-n" 'ac-next ac-complete-mode-map)
+  (bind-key "C-p" 'ac-previous ac-complete-mode-map)
+  (bind-key "C-l" 'ac-expand-common ac-complete-mode-map))
 
-; useful frame titles
-(setq frame-title-format '(("" invocation-name "@" system-name ": ")
-                           (:eval (if buffer-file-name
-                                      (abbreviate-file-name buffer-file-name)
-                                    "%b"))))
+(after 'bookmark
+  (setq bookmark-default-file (expand-file-name ".crap/bookmarks" user-emacs-directory)))
+
+(after 'dired
+  (require 'dired-details+)
+  (setq-default dired-details-hidden-string "--- ")
+  (dired-details-install))
+
+(after 'ffap
+  (pd/load-ext 'ffap))
+
+(after 'ibuffer
+  (require 'ibuffer-vc)
+  (setq ibuffer-default-sorting-mode 'filename/process
+        ibuffer-show-empty-filter-groups nil
+        ibuffer-formats '((mark modified read-only vc-status-mini " "
+                                (name 18 18 :left :elide)
+                                " "
+                                (size 9 -1 :right)
+                                " "
+                                (mode 16 16 :left :elide)
+                                " "
+                                (vc-status 16 16 :left)
+                                " "
+                                filename-and-process)))
+
+  (defun pd/prepare-ibuffer ()
+    (ibuffer-auto-mode 1)
+    (ibuffer-vc-set-filter-groups-by-vc-root)
+    (unless (eq ibuffer-sorting-mode 'alphabetic)
+      (ibuffer-do-sort-by-alphabetic)))
+
+  (add-hook 'ibuffer-mode-hook 'pd/prepare-ibuffer))
+
+(after 'ido
+  (ido-everywhere t)
+  (setq ido-enable-flex-matching t
+        ido-default-file-method 'selected-window
+        ido-default-buffer-method 'selected-window
+        ido-use-virtual-buffers t))
+
+(after 'multiple-cursors
+  (setq mc/list-file (expand-file-name "store/mc-lists.el" user-emacs-directory)))
+
+(after 'package
+  (require 'package-build)
+  (pd/load-ext 'package))
+
+(after 'quickref
+  (quickref-global-mode +1)
+  (setq quickref-save-file (expand-file-name "store/quickrefs.el" user-emacs-directory)))
+
+(after 'saveplace
+  (setq-default save-place t)
+  (setq save-place-file "~/.emacs.d/.crap/saveplace.dat"))
+
+(after 'smex
+  (smex-initialize)
+  (setq smex-save-file "~/.emacs.d/.crap/smex.save")
+  (smex-auto-update 120))
+
+(after 'uniquify
+  (setq uniquify-buffer-name-style 'forward))
+
+(after 'yasnippet
+  (bind-key   "C-M-," 'yas-expand yas-minor-mode-map)
+  (unbind-key "TAB"   yas-minor-mode-map)
+  (unbind-key "<tab>" yas-minor-mode-map))
 
 (provide 'pd/core)
