@@ -76,6 +76,7 @@
 (depends-on "js2-mode")
 (depends-on "json-mode")
 (depends-on "markdown-mode")
+(depends-on "nodejs-repl")
 (depends-on "rainbow-mode")
 (depends-on "scss-mode")
 (depends-on "slime-js")

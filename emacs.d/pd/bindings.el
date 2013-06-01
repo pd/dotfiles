@@ -84,6 +84,7 @@
 ;; C-c x: repls
 (keydef "C-c x e" ielm)
 (keydef "C-c x r" run-ruby)
+(keydef "C-c x j" nodejs-repl)
 
 ;; misc
 (keydef "C-x g" magit-status)
