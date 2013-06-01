@@ -2,6 +2,8 @@
 (setq shell-switcher-new-shell-function 'shell-switcher-make-shell)
 (add-hook 'shell-mode-hook 'shell-switcher-manually-register-shell)
 
+(keydef (shell-switcher "C-c '") shell-switcher-switch-buffer)
+
 ; meh, prolly some way to do it with advice, but I'm lazy.
 ; I don't need you to prompt me if there are no shells available;
 ; just make one.
