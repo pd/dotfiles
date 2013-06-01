@@ -1,6 +1,14 @@
+(defun pd/align-js2-assignment ()
+  (interactive)
+  (let* ((declaration (or (js2r--closest #'js2-var-decl-node-p)
+                          (error "No var declaration at point.")))
+         (stmt (js2-node-parent-stmt declaration)))
+    (align-regexp (js2-node-abs-pos stmt) (js2-node-abs-end stmt) "\\(\\s-*\\)=" 1 1 nil)))
+
 (keydef (js2 "RET")      js2-line-break)
 (keydef (js2 "<return>") js2-line-break)
 (keydef (js2 "M-j")      (join-line 1))
+(keydef (js2 "M-C-=")    pd/align-js2-assignment)
 
 (js2r-add-keybindings-with-prefix "C-c C-r")
 (js2r-add-keybindings-with-prefix "C-c r")
