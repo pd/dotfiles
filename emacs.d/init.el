@@ -28,28 +28,29 @@
 (require 'smex)
 (require 'uniquify)
 (require 'winner)
-(require 'keydef)
-(require 'smart-tab)
 (require 'quickref)
-(require 'ack-and-a-half)
-(require 'auto-complete)
+(require 'keydef)
+; (require 'smart-tab)
+; (require 'ack-and-a-half)
+; (require 'auto-complete)
 (require 'shell-switcher)
 
 ; Mine.
-(require 'pd/defuns)
-(require 'pd/coding)
-(require 'pd/bindings)
-(require 'pd/mode-line)
-(require 'pd/theme)
-(require 'pd/lisps)
-(require 'pd/melpa)
-(require 'pd/misc)
-(when (pd/macosx-p)
+;(require 'pd/defuns)
+;(require 'pd/coding)
+;(require 'pd/bindings)
+;(require 'pd/mode-line)
+;(require 'pd/theme)
+;(require 'pd/lisps)
+;(require 'pd/melpa)
+;(require 'pd/misc)
+
+(when (string-equal "darwin" system-type)
   (require 'pd/osx))
 
 ; Libraries some day.
-(require 'pd/zsh-dir-aliases)
-(require 'pd/emacs-inspection)
+;(require 'pd/zsh-dir-aliases)
+;(require 'pd/emacs-inspection)
 
 ; Boot a server, in case I somehow ended up without one.
 ; This allows emacsclient to seamlessly work everywhere.
@@ -58,8 +59,8 @@
   (server-start))
 
 ; Private parts.
-(when (file-exists-p (expand-file-name "init.el" user-private-emacs-directory))
-  (load (expand-file-name "init.el" user-private-emacs-directory)))
+;(when (file-exists-p (expand-file-name "init.el" user-private-emacs-directory))
+;  (load (expand-file-name "init.el" user-private-emacs-directory)))
 
 ; Emacs C source location
 (let ((brew-source (expand-file-name "~/Library/Caches/Homebrew/emacs--git")))
@@ -72,18 +73,19 @@
         quickref-save-file (expand-file-name "quickrefs.el" store)))
 
 ;; .emacs.d/after-loads/*.el
-(easy-after-load)
+;(easy-after-load)
 
 ;; Easier mode detection
 (easy-auto-mode
-  '((ruby-mode "\\.rake\\'" "Rakefile\\'" "Guardfile\\'" "Gemfile\\'"
-               "\\.gemspec\\'" "\\.?irbrc\\'" "\\.rabl\\'" "\\.ru\\'"
-               "\\.simplecov\\'" "\\.erb\\'")
-    (js-mode "\\.json\\'")
-    (js2-mode "\\.js\\'")
-    (slim-mode "\\.emblem\\'") ; good enough
+  '(;(ruby-mode "\\.rake\\'" "Rakefile\\'" "Guardfile\\'" "Gemfile\\'"
+    ;           "\\.gemspec\\'" "\\.?irbrc\\'" "\\.rabl\\'" "\\.ru\\'"
+    ;           "\\.simplecov\\'" "\\.erb\\'")
+    ;(js-mode "\\.json\\'")
+    ;(js2-mode "\\.js\\'")
+    ;(slim-mode "\\.emblem\\'") ; good enough
     (markdown-mode "\\.md\\'" "\\.markdown\\'")
-    (gitconfig-mode "gitconfig\\'")
-    (gitignore-mode "gitignore\\'")))
+    ;(gitconfig-mode "gitconfig\\'")
+    ;(gitignore-mode "gitignore\\'")
+  ))
 
-(add-to-list 'interpreter-mode-alist '("node" . js2-mode))
+;(add-to-list 'interpreter-mode-alist '("node" . js2-mode))
