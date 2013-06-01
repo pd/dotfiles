@@ -3,18 +3,22 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        align-regexp
         coffee-dedent-line-backspace
         delete-horizontal-space
         forward-sexp
         js2r-extract-var
         kill-region
         kill-sentence
+        kill-sexp
         org-self-insert-command
         paredit-backslash
         paredit-forward-delete
+        set-rectangular-region-anchor
         sgml-slash
         smart-tab
         tagedit-insert-equal
+        tagedit-insert-lt
         yaml-electric-backspace
         yaml-electric-dash-and-dot
         ))

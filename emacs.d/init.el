@@ -81,6 +81,7 @@
                "\\.simplecov\\'" "\\.erb\\'")
     (js-mode "\\.json\\'")
     (js2-mode "\\.js\\'")
+    (slim-mode "\\.emblem\\'") ; good enough
     (markdown-mode "\\.md\\'" "\\.markdown\\'")
     (gitconfig-mode "gitconfig\\'")
     (gitignore-mode "gitignore\\'")))
