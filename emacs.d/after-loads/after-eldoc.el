@@ -1,1 +1,0 @@
-(diminish 'eldoc-mode)

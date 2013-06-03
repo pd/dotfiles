@@ -1,84 +1,73 @@
 ;; -*- mode: emacs-lisp -*-
 (source "melpa" "http://melpa.milkbox.net/packages/")
-(source "marmalade" "http://marmalade-repo.org/packages/")
 
 ; core
+(depends-on "auto-complete")
+(depends-on "bind-key")
 (depends-on "buffer-move")
+(depends-on "diminish")
 (depends-on "easy-after-load")
+(depends-on "exec-path-from-shell")
 (depends-on "expand-region")
-(depends-on "keydef")
-(depends-on "magit")
-(depends-on "smart-tab")
+(depends-on "fuzzy")
+(depends-on "ibuffer-vc")
+(depends-on "multiple-cursors")
+(depends-on "phi-search")
+(depends-on "quickref")
+(depends-on "shell-switcher")
 (depends-on "smex")
 
 ; handy
-(depends-on "ack-and-a-half")
+(depends-on "ag")
 (depends-on "dash")
-(depends-on "deft")
+(depends-on "dash-at-point")
 (depends-on "dired-details")
-(depends-on "diminish")
-(depends-on "ecukes")
-(depends-on "espuds")
-(depends-on "exec-path-from-shell")
-(depends-on "find-file-in-repository")
-(depends-on "ibuffer-vc")
-(depends-on "ido-vertical-mode")
-(depends-on "levenshtein")
-(depends-on "melpa")
-(depends-on "multiple-cursors")
+(depends-on "dired-details+")
+(depends-on "melpa-upstream-visit")
+(depends-on "package-build")
 (depends-on "pcmpl-git")
-(depends-on "pcre2el")
-(depends-on "phi-search")
-(depends-on "quickref")
 (depends-on "s")
 (depends-on "yasnippet")
+(depends-on "zoom-frm")
 
 ; pretty
 (depends-on "molokai-theme")
-(depends-on "powerline")
 
-; general dev
-(depends-on "auto-complete")
+; misc dev
 (depends-on "csv-mode")
 (depends-on "csv-nav")
-(depends-on "fuzzy")
 (depends-on "git-commit-mode")
 (depends-on "gitconfig-mode")
 (depends-on "gitignore-mode")
-(depends-on "slime")
-(depends-on "slime-repl")
+(depends-on "magit")
 (depends-on "yaml-mode")
 
-; lisps
-(depends-on "align-cljlet")
-(depends-on "cljdoc")
-(depends-on "clojure-mode")
+; the world as lisp
 (depends-on "elisp-slime-nav")
-(depends-on "lein")
-(depends-on "nrepl")
 (depends-on "paredit")
 
 ; ruby et al.
 (depends-on "feature-mode")
-(depends-on "haml-mode")
 (depends-on "inf-ruby")
-(depends-on "ruby-tools")
+(depends-on "rinari")
 (depends-on "rspec-mode")
-(depends-on "sass-mode")
+(depends-on "ruby-tools")
 (depends-on "yard-mode")
 
-; scala
-(depends-on "scala-mode2")
-
-; js / html / css
-(depends-on "ac-slime")
+; js
+(depends-on "ac-js2")
 (depends-on "coffee-mode")
 (depends-on "js2-mode")
-(depends-on "json-mode")
-(depends-on "markdown-mode")
+(depends-on "js2-refactor")
 (depends-on "nodejs-repl")
-(depends-on "rainbow-mode")
-(depends-on "scss-mode")
-(depends-on "slime-js")
+
+; html (and things that compile to it)
+(depends-on "haml-mode")
+(depends-on "markdown-mode")
 (depends-on "tagedit")
 (depends-on "zencoding-mode")
+
+; css (and things that compile to it)
+(depends-on "rainbow-mode")
+(depends-on "sass-mode")
+(depends-on "scss-mode")
