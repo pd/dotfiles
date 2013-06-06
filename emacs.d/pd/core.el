@@ -64,7 +64,9 @@
 
 (after 'package
   (require 'package-build)
-  (pd/load-ext 'package))
+  (pd/load-ext 'package)
+  (require 'melpa-upstream-visit)
+  (setq muv:button-location 'package-name))
 
 (after 'quickref
   (quickref-global-mode +1)
