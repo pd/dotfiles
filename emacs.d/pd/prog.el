@@ -46,4 +46,13 @@
         magit-omit-untracked-dir-contents nil
         magit-process-popup-time 10))
 
+(after 'repl-toggle
+  (unbind-key "C-c C-z" repl-toggle-mode-map)
+  (bind-key "C-c x x" 'rtog/toggle-repl repl-toggle-mode-map)
+
+  (setq rtog/mode-repl-alist
+        '((emacs-lisp-mode . ielm)
+          (ruby-mode       . run-ruby)
+          (js2-mode        . nodejs-repl))))
+
 (provide 'pd/prog)

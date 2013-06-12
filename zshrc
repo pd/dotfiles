@@ -56,9 +56,6 @@ source ~/dotfiles/shell_profile/bundler-exec.zsh
 
 unfunction sourcedir
 
-# handy dir aliases
-hash -d df=~/dotfiles
-
 # simplistic git status in prompt
 pd-git-prompt () {
   local ref=$(git symbolic-ref HEAD 2>/dev/null)
