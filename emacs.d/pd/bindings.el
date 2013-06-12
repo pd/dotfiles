@@ -32,6 +32,7 @@
 (bind-key "C-c s"   'ag)
 
 ;; text navigation
+(bind-key "C-a"   'smarter-move-beginning-of-line)
 (bind-key "C-="   'er/expand-region)
 (bind-key "M-i"   'imenu)
 (bind-key "M-C-[" 'backward-paragraph)
@@ -39,7 +40,7 @@
 
 ;; text editing
 (bind-key "M-/"        'hippie-expand)
-(bind-key "C-c #"      'comment-or-uncomment-region)
+(bind-key "M-;"        'pd/comment-dwim)
 (bind-key "C-S-k"      'kill-whole-line)
 (bind-key "C-c w"      'delete-trailing-whitespace)
 (bind-key "C-\\"       'delete-horizontal-space)
