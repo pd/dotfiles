@@ -19,4 +19,13 @@
 (after 'subword
   (diminish 'subword-mode))
 
+(after 'wrap-region
+  (diminish 'wrap-region-mode))
+
+(after 'auto-complete
+  (diminish 'auto-complete-mode))
+
+(after 'fic-ext-mode
+  (diminish 'fic-ext-mode))
+
 (provide 'pd/diminish)
