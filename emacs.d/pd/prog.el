@@ -23,6 +23,7 @@
 (add-hook 'prog-mode-hook 'fic-ext-mode)
 (add-hook 'prog-mode-hook 'pd/show-trailing-whitespace-mode)
 (add-hook 'prog-mode-hook 'pd/require-final-newline-mode)
+(add-hook 'prog-mode-hook 'turn-on-wrap-region-mode)
 
 (after 'feature-mode
   (add-hook 'feature-mode-hook 'pd/electric-indent-incompatible-mode)

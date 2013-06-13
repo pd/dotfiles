@@ -27,6 +27,7 @@
 (depends-on "package-build")
 (depends-on "pcmpl-git")
 (depends-on "s")
+(depends-on "wrap-region")
 (depends-on "yasnippet")
 (depends-on "zoom-frm")
 
