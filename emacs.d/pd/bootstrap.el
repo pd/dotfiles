@@ -18,7 +18,8 @@
 ;; and pile your junk somewhere else.
 (setq backup-directory-alist '(("." . "~/.emacs.d/.crap/backups"))
       tramp-backup-directory-alist '(("." . "~/.emacs.d/.crap/backups"))
-      custom-file "~/.emacs.d/.crap/custom.el")
+      custom-file "~/.emacs.d/.crap/custom.el"
+      mc/list-file (expand-file-name "store/mc-lists.el" user-emacs-directory))
 
 ;; religion
 ; 1. utf-8
