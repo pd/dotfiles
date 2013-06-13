@@ -115,4 +115,11 @@ uncomment the current line."
         (end-of-line)
         (comment-or-uncomment-region beg (point))))))
 
+(defun pd/dirtrack-directory-changed ()
+  "Updates shell-mode buffer names to reflect their current directory."
+  (when (and (eq 'shell-mode major-mode)
+             (string-match-p "^\*shell" (buffer-name)))
+    (let ((cwd (directory-file-name (abbreviate-file-name default-directory))))
+      (rename-buffer (format "*shell: %s*" cwd) t))))
+
 (provide 'pd/defuns)
