@@ -13,10 +13,14 @@
         kill-sexp
         org-self-insert-command
         paredit-backslash
+        paredit-doublequote
         paredit-forward-delete
+        paredit-forward-kill-word
+        paredit-forward-slurp-sexp
         set-rectangular-region-anchor
         sgml-slash
         smart-tab
+        smarter-move-beginning-of-line
         tagedit-insert-equal
         tagedit-insert-lt
         yaml-electric-backspace
