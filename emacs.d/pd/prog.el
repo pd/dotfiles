@@ -26,6 +26,9 @@
 (add-hook 'prog-mode-hook 'turn-on-wrap-region-mode)
 
 (after 'feature-mode
+  (add-hook 'feature-mode-hook 'hl-line-mode)
+  (add-hook 'feature-mode-hook 'pd/show-trailing-whitespace-mode)
+  (add-hook 'feature-mode-hook 'pd/require-final-newline-mode)
   (add-hook 'feature-mode-hook 'pd/electric-indent-incompatible-mode)
   (bind-key "RET" 'newline-and-indent feature-mode-map))
 
