@@ -53,6 +53,7 @@
     (js2-mode "\\.js\\'")
     (slim-mode "\\.emblem\\'") ; good enough
     (markdown-mode "\\.md\\'" "\\.markdown\\'")
+    (sgml-mode "\\.hbs\\'") ; handlebars-sgml-mode > handlebars-mode
     (gitconfig-mode "gitconfig\\'")
     (gitignore-mode "gitignore\\'")))
 

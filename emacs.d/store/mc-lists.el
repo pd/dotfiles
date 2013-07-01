@@ -7,10 +7,13 @@
         coffee-dedent-line-backspace
         delete-horizontal-space
         forward-sexp
+        indent-for-tab-command
+        indent-new-comment-line
         js2r-extract-var
         kill-region
         kill-sentence
         kill-sexp
+        org-delete-char
         org-self-insert-command
         paredit-backslash
         paredit-doublequote
@@ -25,12 +28,14 @@
         tagedit-insert-lt
         yaml-electric-backspace
         yaml-electric-dash-and-dot
+        zencoding-expand-line
         ))
 
 (setq mc/cmds-to-run-once
       '(
         beginning-of-buffer
         end-of-buffer
+        orgtbl-self-insert-command
         pd/back-to-indentation-or-beginning-of-line
         smex
         ))
