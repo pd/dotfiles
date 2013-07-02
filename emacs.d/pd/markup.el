@@ -11,16 +11,22 @@
   (add-hook 'slim-mode-hook 'pd/require-final-newline-mode))
 
 (after 'sgml-mode
-  (require 'tagedit)
   (defun pd/maybe-tagedit-mode ()
     (unless (string-match-p "\\.erb\\'" (buffer-file-name))
+      (require 'tagedit)
       (tagedit-mode +1)))
+
+  (defun pd/maybe-handlebars-sgml-mode ()
+    (when (string-match-p "\\.hbs\\'" (buffer-file-name))
+      (require 'handlebars-sgml-mode)
+      (handlebars-sgml-minor-mode +1)))
+
   (add-hook 'sgml-mode-hook 'zencoding-mode)
-  (add-hook 'html-mode-hook 'pd/maybe-tagedit-mode))
+  (add-hook 'html-mode-hook 'pd/maybe-tagedit-mode)
+  (add-hook 'html-mode-hook 'pd/maybe-handlebars-sgml-mode))
 
 (after 'tagedit
   (tagedit-add-paredit-like-keybindings)
-  (tagedit-add-experimental-features)
   (bind-key "s-k" 'windmove-up tagedit-mode-map)
   (bind-key "s-K" 'tagedit-kill-attribute tagedit-mode-map))
 
