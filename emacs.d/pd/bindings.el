@@ -30,6 +30,7 @@
 (bind-key "C-c s"     'ag)
 (bind-key "C-x C-d"   'dired)
 (bind-key "C-c f SPC" 'ffap)
+(bind-key "C-c f p"   'ffap)
 (bind-key "C-c f r"   'find-file-in-repository)
 (bind-key "C-c f l"   'pd/kill-tracker-find-last)
 
