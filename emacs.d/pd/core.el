@@ -2,6 +2,7 @@
 (winner-mode +1)
 (ido-mode +1)
 (quickref-global-mode +1)
+(recentf-mode +1)
 (toggle-save-place-globally)
 (setq auto-save-default nil)
 
@@ -71,6 +72,10 @@
 (after 'quickref
   (quickref-global-mode +1)
   (setq quickref-save-file (expand-file-name "store/quickrefs.el" user-emacs-directory)))
+
+(after 'recentf
+  (setq recentf-save-file (expand-file-name ".crap/recentf" user-emacs-directory)
+        recentf-max-menu-items 10))
 
 (after 'saveplace
   (setq-default save-place t)

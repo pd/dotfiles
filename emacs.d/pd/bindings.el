@@ -1,4 +1,5 @@
 (require 'bind-key)
+(require 'pd/kill-tracker)
 
 ;; M-x
 (bind-key "M-x" 'smex)
@@ -26,10 +27,11 @@
 (bind-key "M-C--" 'zoom-frm-out)
 
 ;; files
-(bind-key "C-x C-d" 'dired)
-(bind-key "C-c C-f" 'ffap)
-(bind-key "C-x f"   'ffap)
-(bind-key "C-c s"   'ag)
+(bind-key "C-c s"     'ag)
+(bind-key "C-x C-d"   'dired)
+(bind-key "C-c f SPC" 'ffap)
+(bind-key "C-c f r"   'find-file-in-repository)
+(bind-key "C-c f l"   'pd/kill-tracker-find-last)
 
 ;; text navigation
 (bind-key "C-a"   'smarter-move-beginning-of-line)
