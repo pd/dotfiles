@@ -23,4 +23,11 @@
 (after 'robe
   (push 'ac-source-robe ac-sources))
 
+; I never really got this thing working well enough to publish it.
+; Maybe some day.
+(autoload 'find-gem "~/sauce/find-gem.el/find-gem.el"
+  "Open a gem from your current rbenv / rvm / ruby gemset"
+  'interactive)
+(bind-key "C-c j g" 'find-gem)
+
 (provide 'pd/ruby)
