@@ -20,6 +20,7 @@
         paredit-forward-delete
         paredit-forward-kill-word
         paredit-forward-slurp-sexp
+        pd/join-next-line
         set-rectangular-region-anchor
         sgml-slash
         smart-tab
