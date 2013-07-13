@@ -20,7 +20,6 @@
 
 (add-hook 'prog-mode-hook 'show-paren-mode)
 (add-hook 'prog-mode-hook 'hl-line-mode)
-(add-hook 'prog-mode-hook 'fic-ext-mode)
 (add-hook 'prog-mode-hook 'pd/show-trailing-whitespace-mode)
 (add-hook 'prog-mode-hook 'pd/require-final-newline-mode)
 (add-hook 'prog-mode-hook 'turn-on-wrap-region-mode)
