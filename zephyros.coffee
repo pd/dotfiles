@@ -1,7 +1,7 @@
 # See https://github.com/jasonrudolph/keyboard
 # and http://stevelosh.com/blog/2012/10/a-modern-space-cadet
-# for converting Option_R to 'Hyper' in the form of MASH+SHIFT
-hyper = ["cmd", "alt", "ctrl", "shift"]
+# for converting Control_L to 'Hyper' in the form of MASH+SHIFT
+hyper = ['cmd', 'alt', 'ctrl', 'shift']
 
 grid_width = 3
 grid_height = 2
@@ -24,18 +24,18 @@ focus = (dir) ->
   win?["focusWindow#{dir}"]()
 
 # throw to next screen
-bind "/", hyper, ->
+bind '/', hyper, ->
   win = api.focusedWindow()
   screen = win.screen()
   win.shiftAnchorPoint(0, 0, screen.nextScreen())
 
-bind "g", hyper, -> api.focusedWindow().maximize()
-bind "r", hyper, -> reloadConfig()
+bind 'm', hyper, -> api.focusedWindow()?.maximize()
+bind 'r', hyper, -> reloadConfig()
 
-bind "h", hyper, -> shift -1,  0
-bind "l", hyper, -> shift  1,  0
-bind "k", hyper, -> shift  0, -1
-bind "j", hyper, -> shift  0,  1
+bind 'h', hyper, -> shift -1,  0
+bind 'l', hyper, -> shift  1,  0
+bind 'k', hyper, -> shift  0, -1
+bind 'j', hyper, -> shift  0,  1
 
 bind 'a', hyper, -> focus 'Left'
 bind 's', hyper, -> focus 'Down'
