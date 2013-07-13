@@ -9,6 +9,7 @@
 (depends-on "easy-after-load")
 (depends-on "exec-path-from-shell")
 (depends-on "expand-region")
+(depends-on "find-file-in-repository")
 (depends-on "fuzzy")
 (depends-on "ibuffer-vc")
 (depends-on "multiple-cursors")
