@@ -32,15 +32,15 @@ bind '/', hyper, ->
 bind 'm', hyper, -> api.focusedWindow()?.maximize()
 bind 'r', hyper, -> reloadConfig()
 
-bind 'h', hyper, -> shift -1,  0
-bind 'l', hyper, -> shift  1,  0
-bind 'k', hyper, -> shift  0, -1
-bind 'j', hyper, -> shift  0,  1
+bind 'h', hyper, -> focus 'Left'
+bind 'j', hyper, -> focus 'Down'
+bind 'k', hyper, -> focus 'Up'
+bind 'l', hyper, -> focus 'Right'
 
-bind 'a', hyper, -> focus 'Left'
-bind 's', hyper, -> focus 'Down'
-bind 'd', hyper, -> focus 'Up'
-bind 'f', hyper, -> focus 'Right'
+bind 'a', hyper, -> shift -1,  0
+bind 's', hyper, -> shift  0,  1
+bind 'd', hyper, -> shift  0, -1
+bind 'f', hyper, -> shift  1,  0
 
 bind 'left',  hyper, -> scale 'west'
 bind 'right', hyper, -> scale 'east'
