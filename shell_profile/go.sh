@@ -1,1 +1,2 @@
-export GOROOT=/usr/local/Cellar/go/r60.3/
+export GOPATH=~/go
+export PATH=$PATH:$GOPATH/bin

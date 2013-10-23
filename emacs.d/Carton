@@ -71,6 +71,7 @@
 (depends-on "zencoding-mode")
 
 ; css (and things that compile to it)
+(depends-on "less-css-mode")
 (depends-on "rainbow-mode")
 (depends-on "sass-mode")
 (depends-on "scss-mode")

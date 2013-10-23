@@ -5,7 +5,10 @@
       '(
         align-regexp
         coffee-dedent-line-backspace
+        coffee-indent-shift-left
+        coffee-newline-and-indent
         delete-horizontal-space
+        delete-trailing-whitespace
         forward-sexp
         indent-for-tab-command
         indent-new-comment-line
@@ -21,6 +24,8 @@
         paredit-forward-kill-word
         paredit-forward-slurp-sexp
         pd/join-next-line
+        pd/open-line-before
+        replace-string
         set-rectangular-region-anchor
         sgml-slash
         smart-tab
@@ -29,6 +34,7 @@
         tagedit-insert-lt
         yaml-electric-backspace
         yaml-electric-dash-and-dot
+        yank-rectangle
         zencoding-expand-line
         ))
 
