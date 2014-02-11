@@ -17,6 +17,10 @@
 
   (require 'js2-refactor)
   (js2r-add-keybindings-with-prefix "C-c C-r")
-  (js2r-add-keybindings-with-prefix "C-c r"))
+  (js2r-add-keybindings-with-prefix "C-c r")
+
+  (after 'auto-complete
+    (require 'ac-js2)
+    (add-hook 'js2-mode-hook 'ac-js2-mode)))
 
 (provide 'pd/js)
