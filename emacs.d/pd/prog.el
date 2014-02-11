@@ -41,9 +41,9 @@
 
 (after 'magit
   (pd/load-ext 'magit)
-  (bind-key "C-x m S" 'pd/magit-insert-submodule-summary magit-log-edit-mode-map)
-  (bind-key "C-x m s" 'pd/magit-insert-signoff magit-log-edit-mode-map)
-  (bind-key "C-x m a" 'pd/magit-insert-author  magit-log-edit-mode-map)
+  (bind-key "C-x m S" 'pd/magit-insert-submodule-summary git-commit-mode-map)
+  (bind-key "C-x m s" 'pd/magit-insert-signoff git-commit-mode-map)
+  (bind-key "C-x m a" 'pd/magit-insert-author  git-commit-mode-map)
   (setq magit-save-some-buffers nil
         magit-completing-read 'magit-ido-completing-read
         magit-omit-untracked-dir-contents nil
