@@ -4,18 +4,21 @@
 (setq mc/cmds-to-run-for-all
       '(
         align-regexp
+        backward-sexp
         coffee-dedent-line-backspace
         coffee-indent-shift-left
         coffee-newline-and-indent
         delete-horizontal-space
         delete-trailing-whitespace
         forward-sexp
+        go-mode-insert-and-indent
         indent-for-tab-command
         indent-new-comment-line
         js2r-extract-var
         kill-region
         kill-sentence
         kill-sexp
+        my-increment-number-at-point
         org-delete-char
         org-self-insert-command
         paredit-backslash
@@ -32,6 +35,8 @@
         smarter-move-beginning-of-line
         tagedit-insert-equal
         tagedit-insert-lt
+        tagedit-insert-quote
+        transpose-words
         yaml-electric-backspace
         yaml-electric-dash-and-dot
         yank-rectangle
@@ -42,7 +47,10 @@
       '(
         beginning-of-buffer
         end-of-buffer
+        ielm
+        js2-mode-show-node
         orgtbl-self-insert-command
         pd/back-to-indentation-or-beginning-of-line
         smex
+        where-is
         ))

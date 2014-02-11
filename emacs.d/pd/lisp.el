@@ -32,4 +32,17 @@
   (after 'auto-complete
     (add-to-list 'ac-modes 'slime-repl-mode)))
 
+(after 'cider
+  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+  (add-hook 'cider-repl-mode-hook 'pd/lisp-mode)
+  (add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
+  (add-hook 'cider-mode-hook 'ac-nrepl-setup)
+  (setq nrepl-hide-special-buffers t)
+
+  (after 'auto-complete
+    (add-to-list 'ac-modes 'cider-repl-mode)))
+
+(after 'clojure-mode
+  (add-hook 'clojure-mode-hook 'pd/lisp-mode))
+
 (provide 'pd/lisp)

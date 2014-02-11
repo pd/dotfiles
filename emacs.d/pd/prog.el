@@ -35,6 +35,13 @@
   (add-hook 'coffee-mode-hook 'pd/electric-indent-incompatible-mode)
   (bind-key "RET" 'newline-and-indent coffee-mode-map))
 
+(after 'go-mode
+  (require 'go-autocomplete)
+  (add-hook 'go-mode-hook 'go-eldoc-setup)
+  (add-hook 'go-mode-hook
+            (lambda () (setq tab-width 4)))
+  (add-hook 'before-save-hook 'gofmt-before-save))
+
 (after 'slim-mode
   (add-hook 'slim-mode-hook 'pd/electric-indent-incompatible-mode)
   (bind-key "RET" 'newline-and-indent slim-mode-map))
