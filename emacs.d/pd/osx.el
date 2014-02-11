@@ -10,6 +10,9 @@
   (setq ns-use-native-fullscreen nil)
   (bind-key "s-S-<return>" 'toggle-frame-fullscreen)
 
+  ;; I am assured that sRGB is the Right Thing To Do(tm)
+  (setq ns-use-srgb-colorspace t)
+
   ;; Stop asking me to print.
   (unbind-key "s-p")
 
