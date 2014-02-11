@@ -1,6 +1,7 @@
 *.swp
 *.elc
 
+emacs.d/.cask
 emacs.d/.crap
 emacs.d/auto-save-list
 emacs.d/elpa

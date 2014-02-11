@@ -1,9 +1,9 @@
-;; Prep package.el
-(require 'package)
-(setq package-archives
-      '(("melpa" . "http://melpa.milkbox.net/packages/")
-        ("gnu" . "http://elpa.gnu.org/packages/")))
-(package-initialize)
+;; boot cask, which will handle setting up package.el
+; ideally, i'd hunt down cask.el more intelligently.
+; realistically, i'm always gonna `brew install cask`
+; and this will work perfectly fine.
+(require 'cask "/usr/local/opt/cask/cask.el")
+(cask-initialize)
 
 ;; shush.
 (setq inhibit-startup-screen t

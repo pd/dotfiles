@@ -1,5 +1,8 @@
 ;; -*- mode: emacs-lisp -*-
-(source "melpa" "http://melpa.milkbox.net/packages/")
+(source gnu)
+(source melpa)
+
+(depends-on "cask")
 
 ; core
 (depends-on "auto-complete")
