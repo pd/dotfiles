@@ -4,6 +4,9 @@
 (setq user-vendor-emacs-directory  (expand-file-name "vendor/" user-emacs-directory)
       user-private-emacs-directory (expand-file-name "~/dotfiles/private/emacs.d/"))
 
+(when (file-directory-p (expand-file-name "~/vendor/emacs/src/"))
+  (setq source-directory (expand-file-name "~/vendor/emacs/src/")))
+
 (add-to-list 'load-path user-emacs-directory)
 (add-to-list 'load-path user-vendor-emacs-directory)
 (add-to-list 'load-path user-private-emacs-directory)
