@@ -3,7 +3,7 @@ task :install => ['install:core', 'install:bin', 'install:desktop']
 
 desc "Install zsh, emacs, git, etc"
 task 'install:core' do
-  files = %w[zshrc emacs.d gitconfig gitignore]
+  files = %w[zshrc emacs.d gitconfig gitignore pryrc irbrc sqliterc psqlrc]
   files.each { |f| dotlink f }
 end
 
