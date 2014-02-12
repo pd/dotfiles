@@ -30,6 +30,6 @@ cmap %% <C-R>=expand("%")<CR>
 
 " colors
 if &t_Co > 2 || has("gui_running")
-  set bg=dark
+  set background=dark
   colorscheme hemisu
 endif
