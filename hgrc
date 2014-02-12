@@ -1,9 +1,0 @@
-[ui]
-username = Kyle Hargraves <philodespotos@gmail.com>
-
-[extensions]
-hgext.mq=
-hgk=
-
-[hgk]
-path=/opt/local/share/mercurial/contrib/hgk

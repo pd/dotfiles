@@ -1,6 +1,0 @@
-startup_message off
-shell -zsh
-defutf8 on
-defscrollback 10000
-
-hardstatus alwayslastline "%{Wk}%H %{Gk}: %{W}%-Lw%20>%{Gk}%n %t%{Wk}%+Lw"
