@@ -55,7 +55,8 @@
 
 (after 'ido
   (ido-everywhere t)
-  (setq ido-enable-flex-matching t
+  (setq ido-save-directory-list-file "~/.emacs.d/.crap/ido.last"
+        ido-enable-flex-matching t
         ido-default-file-method 'selected-window
         ido-default-buffer-method 'selected-window
         ido-use-virtual-buffers t))
