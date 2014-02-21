@@ -1,10 +1,11 @@
 install git
 install ag
+install tree
 install emacs --cocoa --HEAD --use-git-head --srgb
 install cask
 install rbenv
 install ruby-build
-install tree
+install node --enable-debug
 
 tap phinze/cask
 cask install google-chrome
