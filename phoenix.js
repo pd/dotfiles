@@ -1,79 +1,88 @@
+/*global Window, api */
+
 var mash = ['ctrl', 'cmd', 'shift'],
     malt = ['ctrl', 'alt', 'shift'];
 
+function withFocused(cb) {
+  var win    = Window.focusedWindow(),
+      frame  = win.frame(),
+      screen = win.screen();
+
+  return cb(Window.focusedWindow(), frame, screen);
+}
+
 function focus(dir) {
   return function() {
-    var win = Window.focusedWindow();
-    win['focusWindow' + dir]();
+    withFocused(function(win) { win['focusWindow' + dir](); });
   };
 }
 
 function push(dir) {
   return function() {
-    var win = Window.focusedWindow(),
-        winFrame    = win.frame(),
-        screenFrame = win.screen().frameWithoutDockOrMenu();
+    withFocused(function(win, frame, screen) {
+      var screenFrame = screen.frameWithoutDockOrMenu();
 
-    if (dir === 'Left')
-      win.setTopLeft({ x: screenFrame.x, y: winFrame.y });
-    else if (dir === 'Right')
-      win.setTopLeft({ x: screenFrame.x + Math.round(screenFrame.width / 2), y: winFrame.y });
-    else if (dir === 'Up')
-      win.setTopLeft({ x: winFrame.x, y: screenFrame.y });
-    else if (dir === 'Down')
-      win.setTopLeft({ x: winFrame.x, y: screenFrame.y + Math.round(screenFrame.width / 2) });
+      if (dir === 'Left')
+        win.setTopLeft({ x: screenFrame.x, y: frame.y });
+      else if (dir === 'Right')
+        win.setTopLeft({ x: screenFrame.x + Math.round(screenFrame.width / 2), y: frame.y });
+      else if (dir === 'Up')
+        win.setTopLeft({ x: frame.x, y: screenFrame.y });
+      else if (dir === 'Down')
+        win.setTopLeft({ x: frame.x, y: screenFrame.y + Math.round(screenFrame.width / 2) });
+    });
   };
 }
 
 function screen(which) {
   return function() {
-    var win    = Window.focusedWindow(),
-        frame  = win.frame(),
-        screen = win.screen()[which + 'Screen']();
+    return withFocused(function(win, frame, screen) {
+      var oldScreenRect = screen.frameWithoutDockOrMenu(),
+          target        = screen[which + 'Screen'](),
+          newScreenRect = target.frameWithoutDockOrMenu();
 
-    var oldScreenRect = win.screen().frameWithoutDockOrMenu();
-    var newScreenRect = screen.frameWithoutDockOrMenu();
+      var xRatio = newScreenRect.width / oldScreenRect.width,
+          yRatio = newScreenRect.height / oldScreenRect.height;
 
-    var xRatio = newScreenRect.width / oldScreenRect.width;
-    var yRatio = newScreenRect.height / oldScreenRect.height;
-
-    win.setFrame({
-      x: (Math.round(frame.x - oldScreenRect.x) * xRatio) + newScreenRect.x,
-      y: (Math.round(frame.y - oldScreenRect.y) * yRatio) + newScreenRect.y,
-      width: Math.round(frame.width * xRatio),
-      height: Math.round(frame.height * yRatio)
+      win.setFrame({
+        x: (Math.round(frame.x - oldScreenRect.x) * xRatio) + newScreenRect.x,
+        y: (Math.round(frame.y - oldScreenRect.y) * yRatio) + newScreenRect.y,
+        width: Math.round(frame.width * xRatio),
+        height: Math.round(frame.height * yRatio)
+      });
     });
   };
 }
 
 function fullscreen() {
-  var win = Window.focusedWindow();
-  win.setFrame(win.screen().frameWithoutDockOrMenu());
+  withFocused(function(win, frame, screen) {
+    win.setFrame(screen.frameWithoutDockOrMenu());
+  });
 }
 
 function halfwidth() {
-  var win = Window.focusedWindow(),
-      winFrame    = win.frame(),
-      screenFrame = win.screen().frameWithoutDockOrMenu();
+  withFocused(function(win, frame, screen) {
+    var screenFrame = screen.frameWithoutDockOrMenu();
 
-  win.setFrame({
-    x: winFrame.x,
-    y: winFrame.y,
-    width: Math.round(screenFrame.width / 2),
-    height: winFrame.height
+    win.setFrame({
+      x: frame.x,
+      y: frame.y,
+      width: Math.round(screenFrame.width / 2),
+      height: frame.height
+    });
   });
 }
 
 function halfheight() {
-  var win = Window.focusedWindow(),
-      winFrame    = win.frame(),
-      screenFrame = win.screen().frameWithoutDockOrMenu();
+  withFocused(function(win, frame, screen) {
+    var screenFrame = screen.frameWithoutDockOrMenu();
 
-  win.setFrame({
-    x: winFrame.x,
-    y: winFrame.y,
-    width: winFrame.height,
-    height: Math.round(screenFrame.height / 2),
+    win.setFrame({
+      x: frame.x,
+      y: frame.y,
+      width: frame.width,
+      height: Math.round(screenFrame.height / 2)
+    });
   });
 }
 
