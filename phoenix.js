@@ -4,16 +4,21 @@ var mash = ['ctrl', 'cmd', 'shift'],
     malt = ['ctrl', 'alt', 'shift'];
 
 function withFocused(cb) {
-  var win    = Window.focusedWindow(),
-      frame  = win.frame(),
-      screen = win.screen();
+  var win = Window.focusedWindow();
 
-  return cb(Window.focusedWindow(), frame, screen);
+  if (!win)
+    return undefined;
+
+  return cb(win, win.frame(), win.screen());
 }
 
 function focus(dir) {
   return function() {
-    withFocused(function(win) { win['focusWindow' + dir](); });
+    var win = Window.focusedWindow();
+    if (win)
+      win['focusWindow' + dir]();
+    else
+      Window.visibleWindowsMostRecentFirst()[0].focusWindow();
   };
 }
 
@@ -54,36 +59,12 @@ function screen(which) {
   };
 }
 
-function fullscreen() {
-  withFocused(function(win, frame, screen) {
-    win.setFrame(screen.frameWithoutDockOrMenu());
-  });
-}
-
-function halfwidth() {
-  withFocused(function(win, frame, screen) {
-    var screenFrame = screen.frameWithoutDockOrMenu();
-
-    win.setFrame({
-      x: frame.x,
-      y: frame.y,
-      width: Math.round(screenFrame.width / 2),
-      height: frame.height
+function toGrid(x, y, width, height) {
+  return function() {
+    withFocused(function(win) {
+      win.toGrid(x, y, width, height);
     });
-  });
-}
-
-function halfheight() {
-  withFocused(function(win, frame, screen) {
-    var screenFrame = screen.frameWithoutDockOrMenu();
-
-    win.setFrame({
-      x: frame.x,
-      y: frame.y,
-      width: frame.width,
-      height: Math.round(screenFrame.height / 2)
-    });
-  });
+  };
 }
 
 api.bind('h', mash, focus('Left'));
@@ -99,6 +80,41 @@ api.bind('l', malt, push('Right'));
 api.bind('b', mash, screen('previous'));
 api.bind('n', mash, screen('next'));
 
-api.bind('m', mash, fullscreen);
-api.bind('/', mash, halfwidth);
-api.bind('.', mash, halfheight);
+api.bind('m',     mash, toGrid(  0,   0,   1,   1));
+api.bind('left',  mash, toGrid(  0,   0, 0.5,   1));
+api.bind('right', mash, toGrid(0.5,   0, 0.5,   1));
+api.bind('up',    mash, toGrid(  0,   0,   1, 0.5));
+api.bind('down',  mash, toGrid(  0, 0.5,   1, 0.5));
+
+/**
+ * Ganked from https://github.com/carlo/bash-it/blob/master/dotfiles/.phoenix.js
+ * <3
+ */
+
+// #### Window#toGrid()
+//
+// This method can be used to push a window to a certain position and size on
+// the screen by using four floats instead of pixel sizes.  Examples:
+//
+//     // Window position: top-left; width: 25%, height: 50%
+//     someWindow.toGrid( 0, 0, 0.25, 0.5 );
+//
+//     // Window position: 30% top, 20% left; width: 50%, height: 35%
+//     someWindow.toGrid( 0.3, 0.2, 0.5, 0.35 );
+//
+// The window will be automatically focussed.  Returns the window instance.
+Window.prototype.toGrid = function( x, y, width, height ) {
+  var screen = this.screen().frameWithoutDockOrMenu(),
+      padding = 2;
+
+  this.setFrame({
+    x: Math.round( x * screen.width ) + padding + screen.x,
+    y: Math.round( y * screen.height ) + padding + screen.y,
+    width: Math.round( width * screen.width ) - ( 2 * padding ),
+    height: Math.round( height * screen.height ) - ( 2 * padding )
+  });
+
+  this.focusWindow();
+
+  return this;
+};
