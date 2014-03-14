@@ -68,11 +68,18 @@ pd-git-prompt () {
   echo " (${ref#refs/heads/}${dirty})"
 }
 
+# current ruby
+pd-chruby-prompt () {
+  if [ -n "$RUBY_ROOT" ]; then
+    echo " [chruby:$(basename $RUBY_ROOT)]"
+  fi
+}
+
 # if this is over ssh, display the hostname to save my brain the effort
 if [[ -n $SSH_CONNECTION ]]; then
   export PS1='%~ @ %m » '
 else
-  export PS1='%~$(pd-git-prompt) » '
+  export PS1='%~$(pd-chruby-prompt)$(pd-git-prompt) » '
 fi
 
 # In iTerm, set the tab title
