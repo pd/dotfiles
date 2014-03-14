@@ -81,7 +81,7 @@
 (bind-key "C-c C-j b" 'bookmark-set)
 
 ;; C-c x: repls
-(bind-key "C-c x '" 'shell-switcher-switch-buffer)
+(bind-key "C-c x '" 'pd/shell-switcher-switch-or-new-buffer)
 (bind-key "C-c x e" 'ielm)
 (bind-key "C-c x j" 'nodejs-repl)
 (bind-key "C-c x r" 'run-ruby)

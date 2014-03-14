@@ -122,4 +122,11 @@ uncomment the current line."
     (let ((cwd (directory-file-name (abbreviate-file-name default-directory))))
       (rename-buffer (format "*shell: %s*" cwd) t))))
 
+(defun pd/shell-switcher-switch-or-new-buffer (prefix)
+  "C-u to unconditionally make a new buffer."
+  (interactive "P")
+  (if prefix
+      (shell-switcher-new-shell)
+    (shell-switcher-switch-buffer)))
+
 (provide 'pd/defuns)
