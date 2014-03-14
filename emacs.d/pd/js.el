@@ -21,6 +21,11 @@
 
   (after 'auto-complete
     (require 'ac-js2)
-    (add-hook 'js2-mode-hook 'ac-js2-mode)))
+    (add-hook 'js2-mode-hook 'ac-js2-mode))
+
+  (when (require 'skewer-mode nil 'noerror)
+    (add-hook 'js2-mode-hook 'skewer-mode)
+    (add-hook 'css-mode-hook 'skewer-css-mode)
+    (add-hook 'html-mode-hook 'skewer-html-mode)))
 
 (provide 'pd/js)
