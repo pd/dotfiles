@@ -3,7 +3,6 @@
   (add-hook 'ruby-mode-hook 'subword-mode)
   (add-hook 'ruby-mode-hook 'yard-mode)
   (add-hook 'ruby-mode-hook 'eldoc-mode)
-  (add-hook 'ruby-mode-hook 'robe-mode)
   (add-hook 'ruby-mode-hook 'repl-toggle-mode)
   (add-hook 'ruby-mode-hook 'inf-ruby-minor-mode)
 
@@ -14,14 +13,15 @@
 
 (after 'inf-ruby
   (add-hook 'inf-ruby-mode-hook 'pd/comint-disable-echo)
+
+  (after 'auto-complete
+    (add-to-list 'ac-modes 'inf-ruby-mode))
+
   (bind-key "C-c e b" 'ruby-send-file inf-ruby-minor-mode-map)
   (bind-key "C-c e s" 'ruby-send-last-sexp inf-ruby-minor-mode-map)
   (bind-key "C-c e d" 'ruby-send-definition inf-ruby-minor-mode-map)
   (bind-key "C-c e R" 'ruby-send-region-and-go inf-ruby-minor-mode-map)
   (bind-key "C-c e D" 'ruby-send-definition-and-go inf-ruby-minor-mode-map))
-
-(after 'robe
-  (push 'ac-source-robe ac-sources))
 
 ; I never really got this thing working well enough to publish it.
 ; Maybe some day.

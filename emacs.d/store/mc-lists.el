@@ -26,9 +26,11 @@
         paredit-forward-delete
         paredit-forward-kill-word
         paredit-forward-slurp-sexp
+        paredit-semicolon
         pd/join-next-line
         pd/open-line-before
         replace-string
+        ruby-tools-interpolate
         set-rectangular-region-anchor
         sgml-slash
         smart-tab
@@ -47,6 +49,7 @@
       '(
         beginning-of-buffer
         end-of-buffer
+        ido-switch-buffer
         ielm
         js2-mode-show-node
         orgtbl-self-insert-command
