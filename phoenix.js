@@ -1,4 +1,4 @@
-/*global Window, api */
+/*global Window, api, App, _ */
 
 var mash = ['ctrl', 'cmd', 'shift'],
     malt = ['ctrl', 'alt', 'shift'];
@@ -67,6 +67,17 @@ function toGrid(x, y, width, height) {
   };
 }
 
+function chatLayout() {
+  var adium = App.findByTitle('Adium'),
+      slack = App.findByTitle('Slack');
+
+  if (slack)
+    slack.allWindows()[0].toGrid(0, 0, 0.8, 1);
+
+  if (adium)
+    adium.allWindows()[0].toGrid(0.8, 0, .2, 1);
+}
+
 api.bind('h', mash, focus('Left'));
 api.bind('j', mash, focus('Down'));
 api.bind('k', mash, focus('Up'));
@@ -85,6 +96,8 @@ api.bind('left',  mash, toGrid(  0,   0, 0.5,   1));
 api.bind('right', mash, toGrid(0.5,   0, 0.5,   1));
 api.bind('up',    mash, toGrid(  0,   0,   1, 0.5));
 api.bind('down',  mash, toGrid(  0, 0.5,   1, 0.5));
+
+api.bind('1', malt, chatLayout);
 
 /**
  * Ganked from https://github.com/carlo/bash-it/blob/master/dotfiles/.phoenix.js
@@ -117,4 +130,20 @@ Window.prototype.toGrid = function( x, y, width, height ) {
   this.focusWindow();
 
   return this;
+};
+
+// ### Helper methods `App`
+//
+// #### App.findByTitle()
+//
+// Finds the window with a certain title.  Expects a string, returns a window
+// instance or `undefined`.  If there are several windows with the same title,
+// the first found instance is returned.
+App.findByTitle = function( title ) {
+  return _( this.runningApps() ).find( function( app ) {
+    if ( app.title() === title ) {
+      app.show();
+      return true;
+    }
+  });
 };
