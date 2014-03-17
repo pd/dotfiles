@@ -70,8 +70,10 @@ pd-git-prompt () {
 
 # current ruby
 pd-chruby-prompt () {
-  if [ -n "$RUBY_ROOT" ]; then
-    echo " [chruby:$(basename $RUBY_ROOT)]"
+  if [ -n "$RUBY_ENGINE" -a -n "$RUBY_VERSION" ]; then
+    echo -n ' [chruby:'
+    [[ "$RUBY_ENGINE" != "ruby" ]] && echo -n "${RUBY_ENGINE}-"
+    echo "${RUBY_VERSION}]"
   fi
 }
 

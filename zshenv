@@ -10,7 +10,6 @@ export PATH="$HOME/bin:$HOME/.rbenv/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:
 # Boot chruby, actually.
 if [ -f /usr/local/opt/chruby/share/chruby/chruby.sh ]; then
   source /usr/local/opt/chruby/share/chruby/chruby.sh
-  RUBIES=($HOME/.rbenv/versions/*)
   source /usr/local/opt/chruby/share/chruby/auto.sh
 
   [ -f ~/.ruby-version ] && chruby $(cat ~/.ruby-version)
