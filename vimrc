@@ -12,7 +12,8 @@ set number
 set nowrap
 set lazyredraw
 set hidden
-set title mouse=a
+set title
+set mouse=
 
 " fkn .swp
 set backupdir=~/dotfiles/vim-tmp
