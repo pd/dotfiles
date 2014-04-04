@@ -54,6 +54,7 @@
         js2-mode-show-node
         orgtbl-self-insert-command
         pd/back-to-indentation-or-beginning-of-line
+        pd/shell-switcher-switch-or-new-buffer
         smex
         where-is
         ))

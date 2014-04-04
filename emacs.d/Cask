@@ -58,6 +58,7 @@
 (depends-on "rinari")
 (depends-on "rspec-mode")
 (depends-on "ruby-tools")
+(depends-on "pow")
 (depends-on "yard-mode")
 
 ; js
