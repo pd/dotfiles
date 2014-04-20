@@ -8,8 +8,14 @@
    'despot
 
    `(default ((t (:background ,background))))
-   `(cursor ((t (:background "#FD971F"))))
-   `(font-lock-comment-face ((t (:foreground "#656F72"))))
+   `(cursor ((t (:background "#fd971f"))))
+
+   `(font-lock-builtin-face ((t (:foreground "#f92672"))))
+   `(font-lock-comment-face ((t (:foreground "#656f72"))))
+   `(font-lock-function-name-face ((t (:foreground "#a25e25"))))
+   `(font-lock-keyword-face ((t (:foreground "#3591a2"))))
+   `(font-lock-variable-name-face ((t (:foreground "#efa566"))))
+   `(font-lock-type-face ((t (:foreground "#66d9ef"))))
 
    `(magit-item-highlight ((t (:background ,background-lighter :inverse-video nil))))
    `(magit-section-title ((t (:inherit font-lock-type-face))))
