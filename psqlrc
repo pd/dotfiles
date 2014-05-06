@@ -1,2 +1,8 @@
-\pset pager
+-- obvious NULL
+\pset null ¤
+
+-- always display query timing
 \timing
+
+-- pager just gets in my way
+\pset pager off
