@@ -1,10 +1,12 @@
+install zsh
+install zsh-completions
 install git
 install ag
 install tree
 install emacs --cocoa --HEAD --use-git-head --srgb
 install cask
-install rbenv
-install ruby-build
+install chruby
+install ruby-install
 install node --enable-debug
 
 tap phinze/cask
