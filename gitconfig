@@ -41,6 +41,7 @@
 	dhd = diff HEAD
 	f   = fetch
 	m   = merge
+	r   = remote
 	rb  = rebase
 	re  = reset
 	reh = reset --hard
