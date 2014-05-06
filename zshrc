@@ -81,6 +81,7 @@ if [[ -n $SSH_CONNECTION ]]; then
   export PS1='%~ @ %m » '
 else
   export PS1='%~$(pd-chruby-prompt)$(pd-git-prompt) » '
+  export RPROMPT='%(?.. %{$fg[red]%}[! %?]%{$fg[white]%})'
 fi
 
 # In iTerm, set the tab title
