@@ -1,6 +1,6 @@
 # The following is based on https://github.com/gma/bundler-exec
 
-bundled_commands=(annotate cap capify cucumber foreman guard middleman nanoc pry rackup rails rainbows rake rakep rspec ruby shotgun spec spork thin thor unicorn unicorn_rails puma)
+bundled_commands=(annotate cap capify cucumber foreman guard middleman nanoc pry rackup rails rainbows rake rakep rspec ruby shotgun spec spork spring thin thor unicorn unicorn_rails puma)
 
 ## Functions
 
