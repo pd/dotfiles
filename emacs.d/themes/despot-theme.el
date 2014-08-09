@@ -16,6 +16,7 @@
    `(font-lock-keyword-face ((t (:foreground "#3591a2"))))
    `(font-lock-variable-name-face ((t (:foreground "#efa566"))))
    `(font-lock-type-face ((t (:foreground "#66d9ef"))))
+   `(font-lock-fic-face ((t (:foreground "#e62020" :background ,background))))
 
    `(magit-item-highlight ((t (:background ,background-lighter :inverse-video nil))))
    `(magit-section-title ((t (:inherit font-lock-type-face))))
@@ -28,6 +29,6 @@
    `(diff-removed ((t (:foreground "#e62020" :background ,background))))
    `(diff-refine-change ((t (:background ,background))))
 
-   `(font-lock-fic-face ((t (:foreground "#e62020" :background ,background))))
+   `(enh-ruby-op-face ((t (:foreground "#efa566"))))
 
    ))

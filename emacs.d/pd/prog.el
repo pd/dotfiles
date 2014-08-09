@@ -62,6 +62,7 @@
 
   (setq rtog/mode-repl-alist
         '((emacs-lisp-mode . ielm)
+          (enh-ruby-mode   . run-ruby)
           (ruby-mode       . run-ruby)
           (js2-mode        . nodejs-repl))))
 

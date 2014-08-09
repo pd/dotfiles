@@ -49,7 +49,7 @@
 
 ;;;; Mode detection.
 (easy-auto-mode
-  '((ruby-mode "\\.rake\\'" "Rakefile\\'" "Guardfile\\'" "Gemfile\\'"
+  '((enh-ruby-mode "\\.rake\\'" "Rakefile\\'" "Guardfile\\'" "Gemfile\\'"
                "\\.gemspec\\'" "\\.?irbrc\\'" "\\.rabl\\'" "\\.ru\\'"
                "\\.simplecov\\'")
     (js-mode "\\.json\\'")
