@@ -18,6 +18,7 @@
         kill-region
         kill-sentence
         kill-sexp
+        markdown-exdent-or-delete
         my-increment-number-at-point
         org-delete-char
         org-self-insert-command
@@ -26,11 +27,13 @@
         paredit-forward-delete
         paredit-forward-kill-word
         paredit-forward-slurp-sexp
+        paredit-kill
         paredit-semicolon
         pd/join-next-line
         pd/open-line-before
         replace-string
         ruby-tools-interpolate
+        ruby-tools-to-symbol
         set-rectangular-region-anchor
         sgml-slash
         smart-tab
@@ -48,6 +51,7 @@
 (setq mc/cmds-to-run-once
       '(
         beginning-of-buffer
+        delete-window
         end-of-buffer
         ido-switch-buffer
         ielm
