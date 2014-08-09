@@ -1,6 +1,9 @@
 (after 'css-mode
   (setq css-indent-offset 2))
 
+(after 'markdown-mode
+  (require 'markdown-toc nil 'noerror))
+
 (after 'scss-mode
   (setq scss-compile-at-save nil))
 
