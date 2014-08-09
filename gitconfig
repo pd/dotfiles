@@ -40,7 +40,11 @@
 	ds  = diff --cached --patience
 	dhd = diff HEAD
 	f   = fetch
+	l   = log --date=short --pretty=format:'%C(bold magenta)%h %Creset%C(green)%cd%Creset %C(white)%aN%Creset %s %C(yellow)%d'
+	lg  = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 	m   = merge
+	pr  = "!f() { remote=${2:-$(git remote|head -1)}; git fetch -fu $remote refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
+	pr-clean = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
 	r   = remote
 	rb  = rebase
 	re  = reset
@@ -50,7 +54,7 @@
 	s   = status
 	st  = status
 	sh  = show
+	show-file-at-rev = !$HOME/bin/git-show-file-at-rev
 	sm  = submodule
-	l   = log --date=short --pretty=format:'%C(bold magenta)%h %Creset%C(green)%cd%Creset %C(white)%aN%Creset %s %C(yellow)%d'
-	lg  = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 	stash-unstaged = stash --keep-index
+	wtf = !$HOME/bin/git-wtf
