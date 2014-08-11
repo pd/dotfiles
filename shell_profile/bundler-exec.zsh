@@ -17,9 +17,22 @@ _within-bundled-project() {
   false
 }
 
+_has-binstub-installed() {
+  local check_dir=$PWD
+  while [ $check_dir != "/" ]; do
+    [ -f "$check_dir/Gemfile" -a -x "$check_dir/bin/$1" ] && return
+    check_dir="$(dirname $check_dir)"
+  done
+  false
+}
+
 _run-with-bundler() {
   if _bundler-installed && _within-bundled-project; then
-    bundle exec $@
+    if _has-binstub-installed "$1"; then
+      bin/"$1" "${@[2,-1]}"
+    else
+      bundle exec $@
+    fi
   else
     $@
   fi
