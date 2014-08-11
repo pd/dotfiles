@@ -1,4 +1,8 @@
 (after 'enh-ruby-mode
+  (setq enh-ruby-deep-arglist nil
+        enh-ruby-deep-indent-paren nil
+        enh-ruby-deep-indent-paren-style nil)
+
   (add-hook 'enh-ruby-mode-hook 'ruby-tools-mode)
   (add-hook 'enh-ruby-mode-hook 'subword-mode)
   (add-hook 'enh-ruby-mode-hook 'yard-mode)
