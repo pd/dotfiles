@@ -32,4 +32,7 @@
   (handlebars-use-mode 'minor)
   (diminish 'handlebars-sgml-minor-mode " hbs"))
 
+(after 'rinari-mode
+  (diminish 'rinari-mode " Rin"))
+
 (provide 'pd/diminish)
