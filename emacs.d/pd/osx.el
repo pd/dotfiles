@@ -32,11 +32,4 @@
   (after 'dired
     (setq dired-use-ls-dired nil)))
 
-;; TODO move elsewhere or better yet rm entirely and find a better replacement
-(defun iterm ()
-  (interactive)
-  (shell-command
-   (format "open -a /Applications/iTerm.app %s"
-           (shell-quote-argument default-directory))))
-
 (provide 'pd/osx)
