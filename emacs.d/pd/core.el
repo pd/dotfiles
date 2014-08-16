@@ -59,7 +59,10 @@
         ido-enable-flex-matching t
         ido-default-file-method 'selected-window
         ido-default-buffer-method 'selected-window
-        ido-use-virtual-buffers t))
+        ido-use-virtual-buffers t)
+
+  (require 'flx-ido)
+  (flx-ido-mode +1))
 
 (after 'multiple-cursors
   (setq mc/list-file (expand-file-name "store/mc-lists.el" user-emacs-directory)))

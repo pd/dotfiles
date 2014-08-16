@@ -13,10 +13,12 @@
 (depends-on "exec-path-from-shell")
 (depends-on "expand-region")
 (depends-on "find-file-in-repository")
+(depends-on "flx-ido")
 (depends-on "fuzzy")
 (depends-on "ibuffer-vc")
 (depends-on "multiple-cursors")
 (depends-on "phi-search")
+(depends-on "projectile")
 (depends-on "quickref")
 (depends-on "shell-switcher")
 (depends-on "smex")
@@ -63,6 +65,7 @@
 (depends-on "rspec-mode")
 (depends-on "ruby-tools")
 (depends-on "pow")
+(depends-on "projectile-rails")
 (depends-on "yard-mode")
 
 ; js

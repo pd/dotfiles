@@ -43,4 +43,7 @@
                    (abbreviate-file-name buffer-file-name)
                  "%b"))))
 
+;; i have an absurdly nice computer, feel free to consume RAM rabidly.
+(setq gc-cons-threshold 20000000)
+
 (provide 'pd/bootstrap)
