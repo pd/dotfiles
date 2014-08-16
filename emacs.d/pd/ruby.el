@@ -30,7 +30,6 @@
 (after 'projectile-rails
   (bind-key "s-m" 'projectile-rails-find-model projectile-rails-mode-map)
   (bind-key "s-c" 'projectile-rails-find-controller projectile-rails-mode-map)
-  (bind-key "s-l" 'projectile-rails-find-lib projectile-rails-mode-map)
   (bind-key "s-s" 'projectile-rails-find-spec projectile-rails-mode-map)
   (bind-key "s-r" 'projectile-rails-goto-routes projectile-rails-mode-map)
   (bind-key "s-t" 'projectile-rails-goto-spec-helper projectile-rails-mode-map))
