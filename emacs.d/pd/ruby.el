@@ -8,7 +8,8 @@
   (add-hook 'enh-ruby-mode-hook 'yard-mode)
   (add-hook 'enh-ruby-mode-hook 'eldoc-mode)
   (add-hook 'enh-ruby-mode-hook 'repl-toggle-mode)
-  (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode))
+  (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode)
+  (bind-key "RET" 'newline-and-indent enh-ruby-mode-map))
 
 (after 'inf-ruby
   (add-hook 'inf-ruby-mode-hook 'pd/comint-disable-echo)
