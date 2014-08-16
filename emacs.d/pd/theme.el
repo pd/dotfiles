@@ -3,4 +3,7 @@
 (load-theme 'molokai t)
 (load-theme 'despot t)
 
+(require 'powerline)
+(powerline-center-theme)
+
 (provide 'pd/theme)
