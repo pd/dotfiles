@@ -1,4 +1,7 @@
 (after 'enh-ruby-mode
+  (require 'chruby)
+  (require 'bundler)
+
   (setq enh-ruby-deep-arglist nil
         enh-ruby-deep-indent-paren nil
         enh-ruby-deep-indent-paren-style nil)

@@ -58,6 +58,8 @@
 (depends-on "paredit")
 
 ; ruby et al.
+(depends-on "bundler")
+(depends-on "chruby")
 (depends-on "enh-ruby-mode")
 (depends-on "feature-mode")
 (depends-on "inf-ruby")
