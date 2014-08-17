@@ -31,4 +31,10 @@
 
    `(enh-ruby-op-face ((t (:foreground "#efa566"))))
 
+   `(powerline-active1 ((t (:foreground "#f92672" :background "grey22"))))
+   `(powerline-active2 ((t (:foreground "#66d9ef" :background "grey22"))))
+
+   `(powerline-inactive1 ((t (:background "#000"))))
+   `(powerline-inactive2 ((t (:background "#000"))))
+
    ))
