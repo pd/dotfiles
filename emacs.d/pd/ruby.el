@@ -14,7 +14,9 @@
   (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode)
   (add-hook 'enh-ruby-mode-hook 'projectile-mode)
 
-  (bind-key "RET" 'newline-and-indent enh-ruby-mode-map))
+  ; reclaim some bindings enh-ruby-mode clobbers
+  (bind-key "RET" 'newline-and-indent enh-ruby-mode-map)
+  (unbind-key "C-c /" enh-ruby-mode-map))
 
 (after 'inf-ruby
   (add-hook 'inf-ruby-mode-hook 'pd/comint-disable-echo)
