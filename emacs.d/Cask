@@ -70,6 +70,10 @@
 (depends-on "projectile-rails")
 (depends-on "yard-mode")
 
+; elixir
+(depends-on "elixir-mix")
+(depends-on "elixir-mode")
+
 ; js
 (depends-on "ac-js2")
 (depends-on "coffee-mode")

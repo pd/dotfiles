@@ -85,6 +85,7 @@
 (bind-key "C-c x e" 'ielm)
 (bind-key "C-c x j" 'nodejs-repl)
 (bind-key "C-c x r" 'run-ruby)
+(bind-key "C-c x l" 'elixir-mode-iex)
 
 ;; misc
 (bind-key "C-x g" 'magit-status)

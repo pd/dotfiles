@@ -64,6 +64,7 @@
         '((emacs-lisp-mode . ielm)
           (enh-ruby-mode   . run-ruby)
           (ruby-mode       . run-ruby)
+          (elixir-mode     . elixir-mode-iex)
           (js2-mode        . nodejs-repl))))
 
 (provide 'pd/prog)
