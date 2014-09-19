@@ -10,6 +10,7 @@
         coffee-newline-and-indent
         delete-horizontal-space
         delete-trailing-whitespace
+        enh-ruby-forward-sexp
         forward-sexp
         go-mode-insert-and-indent
         indent-for-tab-command

@@ -42,6 +42,9 @@
             (lambda () (setq tab-width 4)))
   (add-hook 'before-save-hook 'gofmt-before-save))
 
+(after 'elixir-mode
+  (add-hook 'elixir-mode-hook 'pd/electric-indent-incompatible-mode))
+
 (after 'slim-mode
   (add-hook 'slim-mode-hook 'pd/electric-indent-incompatible-mode)
   (bind-key "RET" 'newline-and-indent slim-mode-map))
@@ -66,5 +69,8 @@
           (ruby-mode       . run-ruby)
           (elixir-mode     . elixir-mode-iex)
           (js2-mode        . nodejs-repl))))
+
+(after 'rust-mode
+  (add-hook 'rust-mode-hook 'subword-mode))
 
 (provide 'pd/prog)
