@@ -93,9 +93,4 @@
 (after 'uniquify
   (setq uniquify-buffer-name-style 'forward))
 
-(after 'yasnippet
-  (bind-key   "C-M-," 'yas-expand yas-minor-mode-map)
-  (unbind-key "TAB"   yas-minor-mode-map)
-  (unbind-key "<tab>" yas-minor-mode-map))
-
 (provide 'pd/core)
