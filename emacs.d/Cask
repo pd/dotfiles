@@ -29,7 +29,6 @@
 (depends-on "dash-at-point")
 (depends-on "dired-details")
 (depends-on "dired-details+")
-(depends-on "melpa-upstream-visit")
 (depends-on "package-build")
 (depends-on "pcmpl-git")
 (depends-on "s")
@@ -79,6 +78,7 @@
 (depends-on "js2-mode")
 (depends-on "js2-refactor")
 (depends-on "nodejs-repl")
+(depends-on "web-mode")
 
 ; html (and things that compile to it)
 (depends-on "haml-mode")
@@ -91,3 +91,7 @@
 (depends-on "rainbow-mode")
 (depends-on "sass-mode")
 (depends-on "scss-mode")
+
+; the others
+(depends-on "lua-mode")
+(depends-on "rust-mode")

@@ -15,9 +15,9 @@
                 js2-skip-preprocessor-directives t) ; aka, ignore #!env node
   (add-hook 'js2-mode-hook 'js2-imenu-extras-mode)
 
-  (require 'js2-refactor)
-  (js2r-add-keybindings-with-prefix "C-c C-r")
-  (js2r-add-keybindings-with-prefix "C-c r")
+  ;; (require 'js2-refactor)
+  ;; (js2r-add-keybindings-with-prefix "C-c C-r")
+  ;; (js2r-add-keybindings-with-prefix "C-c r")
 
   (after 'auto-complete
     (require 'ac-js2)

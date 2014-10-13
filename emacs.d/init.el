@@ -54,6 +54,7 @@
                "\\.simplecov\\'")
     (js-mode "\\.json\\'")
     (js2-mode "\\.js\\'")
+    (web-mode "\\.jsx\\'" "\\.html\\'")
     (slim-mode "\\.emblem\\'") ; good enough
     (markdown-mode "\\.md\\'" "\\.markdown\\'")
     (sgml-mode "\\.hbs\\'") ; handlebars-sgml-mode > handlebars-mode

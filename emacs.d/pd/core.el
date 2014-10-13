@@ -69,9 +69,7 @@
 
 (after 'package
   (require 'package-build)
-  (pd/load-ext 'package)
-  (require 'melpa-upstream-visit)
-  (setq muv:button-location 'package-name))
+  (pd/load-ext 'package))
 
 (after 'quickref
   (quickref-global-mode +1)
@@ -80,6 +78,9 @@
 (after 'recentf
   (setq recentf-save-file (expand-file-name ".crap/recentf" user-emacs-directory)
         recentf-max-menu-items 10))
+
+(after 're-builder
+  (setq reb-re-syntax 'string))
 
 (after 'saveplace
   (setq-default save-place t)
