@@ -27,9 +27,13 @@ setopt autocd     ## if i type '../somedir', just cd there.
 setopt cdablevars ## 'cd foo' can be 'cd $foo' if 'foo' doesn't exist
 
 ## history
-export SAVEHIST=1000
+export SAVEHIST=5000
+export HISTSIZE=1000
 export HISTFILE=~/.history.zsh
 setopt histverify
+setopt inc_append_history
+setopt share_history
+setopt hist_ignore_dups
 
 ## prompt
 # expand %m, %*; expand '$(echo hi)', '${foovar}'
@@ -92,3 +96,6 @@ precmd () {
     echo -ne "\e]1;${tab_label}\a" # set tab title to rightmost 24 characters
   fi
 }
+
+# added by travis gem
+[ -f /Users/khargraves/.travis/travis.sh ] && source /Users/khargraves/.travis/travis.sh
