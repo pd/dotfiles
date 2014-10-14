@@ -19,6 +19,7 @@
         kill-region
         kill-sentence
         kill-sexp
+        lua-electric-match
         markdown-exdent-or-delete
         my-increment-number-at-point
         org-delete-char
