@@ -16,14 +16,14 @@
   (ac-config-default)
   (setq ac-auto-start 3
         ac-auto-show-menu 0.5
-        ac-comphist-file "~/.emacs.d/.crap/ac-comphist.dat")
+        ac-comphist-file (locate-user-emacs-file ".crap/ac-comphist.dat"))
 
   (bind-key "C-n" 'ac-next ac-complete-mode-map)
   (bind-key "C-p" 'ac-previous ac-complete-mode-map)
   (bind-key "C-l" 'ac-expand-common ac-complete-mode-map))
 
 (after 'bookmark
-  (setq bookmark-default-file (expand-file-name ".crap/bookmarks" user-emacs-directory)))
+  (setq bookmark-default-file (locate-user-emacs-file ".crap/bookmarks")))
 
 (after 'dired
   (require 'dired-details+)
@@ -58,7 +58,7 @@
 
 (after 'ido
   (ido-everywhere t)
-  (setq ido-save-directory-list-file "~/.emacs.d/.crap/ido.last"
+  (setq ido-save-directory-list-file (locate-user-emacs-file ".crap/ido.last")
         ido-enable-flex-matching t
         ido-default-file-method 'selected-window
         ido-default-buffer-method 'selected-window
@@ -68,18 +68,21 @@
   (flx-ido-mode +1))
 
 (after 'multiple-cursors
-  (setq mc/list-file (expand-file-name "store/mc-lists.el" user-emacs-directory)))
+  (setq mc/list-file (locate-user-emacs-file "store/mc-lists.el")))
 
 (after 'package
   (require 'package-build)
   (pd/load-ext 'package))
 
+(after 'projectile
+  (setq projectile-known-projects-file (locate-user-emacs-file "store/projectile-bookmarks.eld")))
+
 (after 'quickref
   (quickref-global-mode +1)
-  (setq quickref-save-file (expand-file-name "store/quickrefs.el" user-emacs-directory)))
+  (setq quickref-save-file (locate-user-emacs-file "store/quickrefs.el")))
 
 (after 'recentf
-  (setq recentf-save-file (expand-file-name ".crap/recentf" user-emacs-directory)
+  (setq recentf-save-file (locate-user-emacs-file ".crap/recentf")
         recentf-max-menu-items 10))
 
 (after 're-builder
@@ -87,11 +90,11 @@
 
 (after 'saveplace
   (setq-default save-place t)
-  (setq save-place-file "~/.emacs.d/.crap/saveplace.dat"))
+  (setq save-place-file (locate-user-emacs-file ".crap/saveplace.dat")))
 
 (after 'smex
   (smex-initialize)
-  (setq smex-save-file "~/.emacs.d/.crap/smex.save")
+  (setq smex-save-file (locate-user-emacs-file  ".crap/smex.save"))
   (smex-auto-update 120))
 
 (after 'uniquify
