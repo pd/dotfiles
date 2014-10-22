@@ -6,6 +6,9 @@
 (toggle-save-place-globally)
 (setq auto-save-default nil)
 
+;; eval-expression (M-:) shows eldoc in the modeline
+(add-hook 'eval-expression-minibuffer-setup-hook #'eldoc-mode)
+
 (after 'auto-complete
   (require 'auto-complete-config)
   (require 'fuzzy)

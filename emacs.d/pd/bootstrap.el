@@ -22,6 +22,9 @@
       custom-file "~/.emacs.d/.crap/custom.el"
       mc/list-file (expand-file-name "store/mc-lists.el" user-emacs-directory))
 
+;; favor a new .el over an old .elc
+(setq load-prefer-newer t)
+
 ;; religion
 ; 1. utf-8
 ; 2. spaces not tabs
