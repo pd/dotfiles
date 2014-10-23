@@ -6,3 +6,10 @@
 
 -- pager just gets in my way
 \pset pager off
+
+-- per-db history, and lots of it
+\set HISTFILE ~/.psql/history- :DBNAME
+\set HISTSIZE 5000
+
+-- spam ^D to quit; else just use \q
+\set IGNOREEOF 5
