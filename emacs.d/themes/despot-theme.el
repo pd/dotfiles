@@ -31,6 +31,12 @@
 
    `(enh-ruby-op-face ((t (:foreground "#efa566"))))
 
+   `(helm-bookmark-directory ((t (:inherit font-lock-function-name-face))))
+   `(helm-buffer-directory ((t (:inherit font-lock-function-name-face))))
+   `(helm-ff-directory ((t (:inherit font-lock-function-name-face))))
+   `(helm-source-header ((t (:foreground "#66d9ef" :weight bold))))
+   `(helm-selection ((t (:background "grey22"))))
+
    `(powerline-active1 ((t (:foreground "#f92672" :background "grey22"))))
    `(powerline-active2 ((t (:foreground "#66d9ef" :background "grey22"))))
 
