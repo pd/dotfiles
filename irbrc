@@ -1,28 +1,10 @@
 # -*- mode: ruby -*-
 require 'pp'
-require 'readline'
-
-IRB.conf[:AUTO_INDENT] = true
-
-if defined?(::Bundler)
-  if global_gems_path = Gem.path.find { |p| p =~ %r{/gemsets/global} }
-    $LOAD_PATH.concat Dir.glob("#{global_gems_path}/gems/*/lib")
-  end
-end
+require 'irb/completion'
 
 begin
-  require 'bond'
-  Bond.start
+  require 'pry'
 rescue LoadError
-  require 'irb/completion'
-end
-
-%w[pry pasteboard pbcopy].each do |lib|
-  begin
-    require lib
-  rescue LoadError
-    puts "Failed to load #{lib}"
-  end
 end
 
 if ENV['EMACS'] || ENV['INSIDE_EMACS']
