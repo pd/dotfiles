@@ -129,4 +129,10 @@ uncomment the current line."
       (shell-switcher-new-shell)
     (shell-switcher-switch-buffer)))
 
+(defun pd/reboot-theme ()
+  (interactive)
+  (let ((themes (reverse custom-enabled-themes)))
+    (--each custom-enabled-themes (disable-theme it))
+    (--each themes (enable-theme it))))
+
 (provide 'pd/defuns)
