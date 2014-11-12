@@ -6,7 +6,12 @@ dash () {
   open dash://"$@"
 }
 
-# I'm running ztools a lot lately
-infodump () {
-  wine ~/vendor/ztools/infodump.exe "$@"
+iterm () {
+  local dir=$(pwd)
+
+  if [ $# > 0 ]; then
+    dir="$1"
+  fi
+
+  open -a iTerm "${dir}"
 }
