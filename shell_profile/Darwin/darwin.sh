@@ -9,7 +9,7 @@ dash () {
 iterm () {
   local dir=$(pwd)
 
-  if [ $# > 0 ]; then
+  if [ $# -gt 0 ]; then
     dir="$1"
   fi
 
