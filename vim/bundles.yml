@@ -15,3 +15,4 @@
 - "git://github.com/tpope/vim-sensible.git"
 - "git://github.com/tpope/vim-surround.git"
 - "git://github.com/wting/rust.vim.git"
+- "git://github.com/fatih/vim-go.git"
