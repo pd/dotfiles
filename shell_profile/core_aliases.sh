@@ -10,6 +10,7 @@ alias cls='clear'
 alias sudo='command sudo '
 alias g='git'
 alias less='less -R'
+alias pg='pgrep -fli'
 
 alias ..='cd ..'
 alias ...='cd ../..'
