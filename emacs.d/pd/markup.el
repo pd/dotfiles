@@ -38,6 +38,9 @@
         zencoding-indentation 2)
 
   (after 'sgml-mode
-    (bind-key "C-c e" 'zencoding-expand-line sgml-mode-map)))
+    (bind-key "C-c e" 'zencoding-expand-line sgml-mode-map))
+
+  (after 'web-mode
+    (bind-key "C-c e" 'zencoding-expand-line web-mode-map)))
 
 (provide 'pd/markup)
