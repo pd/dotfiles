@@ -58,3 +58,5 @@
 	sm  = submodule
 	stash-unstaged = stash --keep-index
 	wtf = !$HOME/bin/git-wtf
+[rerere]
+	enabled = true
