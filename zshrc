@@ -26,6 +26,11 @@ colors
 setopt autocd     ## if i type '../somedir', just cd there.
 setopt cdablevars ## 'cd foo' can be 'cd $foo' if 'foo' doesn't exist
 
+## rake foo[bar] without the hassle
+# an alternative may be `alias rake='noglob rake'`, if nomatch ends
+# up being frustrating
+unsetopt nomatch
+
 ## history
 export SAVEHIST=5000
 export HISTSIZE=1000
