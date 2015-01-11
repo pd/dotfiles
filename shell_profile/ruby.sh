@@ -8,3 +8,10 @@ alias bco='bundle console'
 
 alias rfo="rubocop --format offenses"
 alias ro="rubocop --display-cop-names --format simple --only"
+
+alias zs='zeus start'
+alias zt='zeus test'
+alias zco='zeus console'
+alias zr='zeus rake'
+
+alias rtags='ctags -R -f .tags --languages=ruby app lib'
