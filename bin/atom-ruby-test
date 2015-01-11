@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -eu
+
+_root_dir=$PWD
+
+if [[ -x "${_root_dir}/bin/rails" ]]; then
+  _ruby_project_type=rails
+else
+  _ruby_project_type=lib
+fi
+
+if [[ -f "${_root_dir}/.ruby-version" ]]; then
+  _ruby_version=$(cat ${_root_dir}/.ruby-version)
+else
+  _ruby_version="2.1"
+fi
+
+if [[ -f "${_root_dir}/.use-zeus" ]]; then
+  _ruby_version="2.1"
+  _zeus="zeus"
+else
+  _zeus=""
+fi
+
+set -x
+exec chruby-exec ${_ruby_version} -- ${_zeus} rspec \
+  --format progress \
+  --no-profile \
+  --tty \
+  "$@"
