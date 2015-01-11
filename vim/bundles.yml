@@ -1,4 +1,5 @@
 - "git://github.com/noahfrederick/Hemisu.git"
+- "git://github.com/kien/ctrlp.vim.git"
 - "git://github.com/scrooloose/nerdtree.git"
 - "git://github.com/scrooloose/nerdcommenter.git"
 - "git://github.com/ervandew/supertab.git"
@@ -18,3 +19,4 @@
 - "git://github.com/wting/rust.vim.git"
 - "git://github.com/fatih/vim-go.git"
 - "git://github.com/mxw/vim-jsx.git"
+- "git://github.com/rking/ag.vim.git"

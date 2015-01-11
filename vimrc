@@ -29,6 +29,12 @@ map <silent> <Leader>n :set number!<CR>
 cmap %/ <C-R>=expand("%:p:h")."/"<CR>
 cmap %% <C-R>=expand("%")<CR>
 
+noremap <leader>t :CtrlP<CR>
+noremap <leader>b :CtrlPBuffer<CR>
+noremap <leader>d :NERDTreeToggle<CR>
+noremap <leader>f :NERDTreeFind<CR>
+noremap <leader>a :Ag<space>
+
 " colors
 if &t_Co > 2 || has("gui_running")
   colorscheme hemisu
