@@ -23,6 +23,11 @@
 (depends-on "shell-switcher")
 (depends-on "smex")
 
+; give in and use helm?
+(depends-on "helm")
+(depends-on "helm-bind-key")
+(depends-on "helm-mode-manager")
+
 ; handy
 (depends-on "ag")
 (depends-on "dash")
@@ -69,7 +74,7 @@
 (depends-on "yard-mode")
 
 ; elixir
-(depends-on "elixir-mix")
+;(depends-on "elixir-mix")
 (depends-on "elixir-mode")
 
 ; js

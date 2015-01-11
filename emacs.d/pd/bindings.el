@@ -5,6 +5,10 @@
 (bind-key "M-x" 'smex)
 (bind-key "M-X" 'smex-major-mode-commands)
 
+;; helm?
+(bind-key "M-x" 'helm-M-x)
+(bind-key "C-x b" 'helm-mini)
+
 ;; buffers
 (bind-key "C-x C-b" 'ibuffer)
 (bind-key "C-c b n" 'pd/message-file-name)

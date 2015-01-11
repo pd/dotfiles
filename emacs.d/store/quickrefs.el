@@ -58,4 +58,6 @@
   ("C-c C-r" . "js2-refactor")
   ("ag" . "add /*global annotation")
   ("ip" . "introduce param")
-  ("ef" . "extract func")))
+  ("ef" . "extract func"))
+ ("flamegraph"
+  ("pipe-to-perl" . "~/vendor/flamegraph/flamegraph.pl --countname=ms --width=728 > example.svg")))
