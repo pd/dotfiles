@@ -7,9 +7,15 @@
 -- pager just gets in my way
 \pset pager off
 
+-- pretty
+\pset linestyle unicode
+
 -- per-db history, and lots of it
 \set HISTFILE ~/.psql/history- :DBNAME
 \set HISTSIZE 5000
+
+-- tab-complete keywords in UPPER CASE
+\set COMP_KEYWORD_CASE upper
 
 -- spam ^D to quit; else just use \q
 \set IGNOREEOF 5
