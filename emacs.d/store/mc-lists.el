@@ -16,6 +16,7 @@
         go-mode-insert-and-indent
         indent-for-tab-command
         indent-new-comment-line
+        indent-region
         js2r-extract-var
         kill-region
         kill-sentence
