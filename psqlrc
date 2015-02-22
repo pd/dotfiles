@@ -4,6 +4,9 @@
 -- always display query timing
 \timing
 
+-- also show current time in prompt
+\set PROMPT1 '[%`date +%H:%M:%S`]%/%R%# '
+
 -- pager just gets in my way
 \pset pager off
 
