@@ -49,7 +49,7 @@
 
 ;;;; Mode detection.
 (easy-auto-mode
-  '((enh-ruby-mode "\\.rake\\'" "Rakefile\\'" "Guardfile\\'" "Gemfile\\'"
+  '((enh-ruby-mode "\\.rb\\'" "\\.rake\\'" "Rakefile\\'" "Guardfile\\'" "Gemfile\\'"
                "\\.gemspec\\'" "\\.?irbrc\\'" "\\.rabl\\'" "\\.ru\\'"
                "\\.simplecov\\'")
     (js-mode "\\.json\\'")
@@ -66,7 +66,7 @@
 ;;;; Start triggering the after-loads.
 (require 'uniquify)
 (require 'multiple-cursors)
-;; (require 'auto-complete)
+(require 'company)
 
 ;;;; Show me what takes too long.
 (save-current-buffer
