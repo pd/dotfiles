@@ -26,21 +26,24 @@
   (setq slime-protocol-version 'ignore
         slime-net-coding-system 'utf-8-unix
         slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
-  (add-hook 'slime-mode-hook 'set-up-slime-ac)
-  (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
 
-  (after 'auto-complete
-    (add-to-list 'ac-modes 'slime-repl-mode)))
+  ;; (add-hook 'slime-mode-hook 'set-up-slime-ac)
+  ;; (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
+
+  ;; (after 'auto-complete
+  ;;   (add-to-list 'ac-modes 'slime-repl-mode))
+  )
 
 (after 'cider
   (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
   (add-hook 'cider-repl-mode-hook 'pd/lisp-mode)
-  (add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
-  (add-hook 'cider-mode-hook 'ac-nrepl-setup)
+  ;; (add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
+  ;; (add-hook 'cider-mode-hook 'ac-nrepl-setup)
   (setq nrepl-hide-special-buffers t)
 
-  (after 'auto-complete
-    (add-to-list 'ac-modes 'cider-repl-mode)))
+  ;; (after 'auto-complete
+  ;;   (add-to-list 'ac-modes 'cider-repl-mode))
+  )
 
 (after 'clojure-mode
   (add-hook 'clojure-mode-hook 'pd/lisp-mode))

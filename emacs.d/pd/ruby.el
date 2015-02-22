@@ -21,8 +21,8 @@
 (after 'inf-ruby
   (add-hook 'inf-ruby-mode-hook 'pd/comint-disable-echo)
 
-  (after 'auto-complete
-    (add-to-list 'ac-modes 'inf-ruby-mode))
+  ;; (after 'auto-complete
+  ;;   (add-to-list 'ac-modes 'inf-ruby-mode))
 
   (bind-key "C-c e s" 'ruby-send-last-sexp inf-ruby-minor-mode-map)
   (bind-key "C-c e d" 'ruby-send-definition inf-ruby-minor-mode-map)

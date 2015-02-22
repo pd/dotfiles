@@ -5,7 +5,7 @@
 (depends-on "cask")
 
 ; core
-(depends-on "auto-complete")
+;;; (depends-on "auto-complete")
 (depends-on "bind-key")
 (depends-on "buffer-move")
 (depends-on "diminish")
@@ -78,7 +78,7 @@
 (depends-on "elixir-mode")
 
 ; js
-(depends-on "ac-js2")
+;;; (depends-on "ac-js2")
 (depends-on "coffee-mode")
 (depends-on "js2-mode")
 (depends-on "js2-refactor")

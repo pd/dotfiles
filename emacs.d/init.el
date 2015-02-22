@@ -66,7 +66,7 @@
 ;;;; Start triggering the after-loads.
 (require 'uniquify)
 (require 'multiple-cursors)
-(require 'auto-complete)
+;; (require 'auto-complete)
 
 ;;;; Show me what takes too long.
 (save-current-buffer

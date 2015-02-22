@@ -9,18 +9,18 @@
 ;; eval-expression (M-:) shows eldoc in the modeline
 (add-hook 'eval-expression-minibuffer-setup-hook #'eldoc-mode)
 
-(after 'auto-complete
-  (require 'auto-complete-config)
-  (require 'fuzzy)
+;; (after 'auto-complete
+;;   (require 'auto-complete-config)
+;;   (require 'fuzzy)
 
-  (ac-config-default)
-  (setq ac-auto-start 3
-        ac-auto-show-menu 0.5
-        ac-comphist-file (locate-user-emacs-file ".crap/ac-comphist.dat"))
+;;   (ac-config-default)
+;;   (setq ac-auto-start 3
+;;         ac-auto-show-menu 0.5
+;;         ac-comphist-file (locate-user-emacs-file ".crap/ac-comphist.dat"))
 
-  (bind-key "C-n" 'ac-next ac-complete-mode-map)
-  (bind-key "C-p" 'ac-previous ac-complete-mode-map)
-  (bind-key "C-l" 'ac-expand-common ac-complete-mode-map))
+;;   (bind-key "C-n" 'ac-next ac-complete-mode-map)
+;;   (bind-key "C-p" 'ac-previous ac-complete-mode-map)
+;;   (bind-key "C-l" 'ac-expand-common ac-complete-mode-map))
 
 (after 'bookmark
   (setq bookmark-default-file (locate-user-emacs-file ".crap/bookmarks")))
