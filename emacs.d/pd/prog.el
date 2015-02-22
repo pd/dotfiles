@@ -65,8 +65,6 @@
 
 (after 'repl-toggle
   (unbind-key "C-c C-z" repl-toggle-mode-map)
-  (bind-key "C-c x x" 'rtog/toggle-repl repl-toggle-mode-map)
-
   (setq rtog/mode-repl-alist
         '((emacs-lisp-mode . ielm)
           (enh-ruby-mode   . run-ruby)

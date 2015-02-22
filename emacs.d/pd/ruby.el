@@ -13,6 +13,7 @@
   (add-hook 'enh-ruby-mode-hook 'repl-toggle-mode)
   (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode)
   (add-hook 'enh-ruby-mode-hook 'projectile-mode)
+  (add-hook 'enh-ruby-mode-hook 'robe-mode)
 
   ; reclaim some bindings enh-ruby-mode clobbers
   (bind-key "RET" 'newline-and-indent enh-ruby-mode-map)
@@ -20,9 +21,6 @@
 
 (after 'inf-ruby
   (add-hook 'inf-ruby-mode-hook 'pd/comint-disable-echo)
-
-  ;; (after 'auto-complete
-  ;;   (add-to-list 'ac-modes 'inf-ruby-mode))
 
   (bind-key "C-c e s" 'ruby-send-last-sexp inf-ruby-minor-mode-map)
   (bind-key "C-c e d" 'ruby-send-definition inf-ruby-minor-mode-map)
@@ -33,6 +31,9 @@
   (add-hook 'projectile-mode-hook 'projectile-rails-on))
 
 (after 'projectile-rails
+  ; I do not want skeleton classes expanded for me.
+  (setq projectile-rails-expand-snippet nil)
+
   (bind-key "s-m" 'projectile-rails-find-model projectile-rails-mode-map)
   (bind-key "s-c" 'projectile-rails-find-controller projectile-rails-mode-map)
   (bind-key "s-s" 'projectile-rails-find-spec projectile-rails-mode-map)

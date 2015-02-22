@@ -5,10 +5,10 @@
 (depends-on "cask")
 
 ; core
-;;; (depends-on "auto-complete")
 (depends-on "bind-key")
 (depends-on "buffer-move")
 (depends-on "diminish")
+(depends-on "discover")
 (depends-on "easy-after-load")
 (depends-on "exec-path-from-shell")
 (depends-on "expand-region")

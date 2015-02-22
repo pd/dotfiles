@@ -25,6 +25,9 @@
 (after 'bookmark
   (setq bookmark-default-file (locate-user-emacs-file ".crap/bookmarks")))
 
+(after 'company
+  (add-hook 'after-init-hook 'global-company-mode))
+
 (after 'dired
   (require 'dired-details+)
   (setq-default dired-details-hidden-string "--- ")

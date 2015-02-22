@@ -1,5 +1,7 @@
-(require 'bind-key)
 (require 'pd/kill-tracker)
+(require 'bind-key)
+(require 'discover)
+(discover-mode +1)
 
 ;; M-x
 (bind-key "M-x" 'smex)
@@ -11,13 +13,19 @@
 
 ;; buffers
 (bind-key "C-x C-b" 'ibuffer)
-(bind-key "C-c b n" 'pd/message-file-name)
-(bind-key "C-c b r" 'rename-buffer)
-(bind-key "C-c b R" 'pd/rename-buffer-and-file)
-(bind-key "C-c b z" 'pd/reload-buffer) ; rerun hooks
-(bind-key "C-c b Z" 'revert-buffer)    ; actually reload the file
-(bind-key "C-c b b" 'previous-buffer)
-(bind-key "C-c b f" 'next-buffer)
+(discover-add-context-menu
+ :context-menu '(buffers
+                 (description "C-c b: buffer manipulation")
+                 (actions
+                  ("Buffers"
+                   ("n" "kill+show file name" pd/message-file-name)
+                   ("r" "rename buffer" rename-buffer)
+                   ("R" "rename file" pd/rename-buffer-and-file)
+                   ("z" "rerun hooks" pd/reload-buffer)
+                   ("Z" "reload file" revert-buffer)
+                   ("b" "previous buffer" previous-buffer)
+                   ("f" "next buffer" next-buffer))))
+ :bind "C-c b")
 
 ;; windows
 (bind-key "s-h" 'windmove-left)
@@ -76,21 +84,32 @@
 (bind-key "M-t s" 'transpose-sexps)
 
 ;; C-c j: jump
-(bind-key "C-c j b"   'bookmark-jump)
-(bind-key "C-c j f"   'find-function)
-(bind-key "C-c j i"   'pd/find-init.el)
-(bind-key "C-c j l"   'find-library)
-(bind-key "C-c j k"   'find-function-on-key)
-(bind-key "C-c j v"   'find-variable)
-(bind-key "C-c C-j b" 'bookmark-set)
+(discover-add-context-menu
+ :context-menu '(jumps
+                 (description "C-c j: jump to something")
+                 (actions
+                  ("Jump"
+                   ("b" "bookmark" bookmark-jump)
+                   ("B" "bookmark-set" bookmark-set)
+                   ("f" "elisp function" find-function)
+                   ("i" "init.el" pd/find-init.el)
+                   ("l" "elisp library" find-library)
+                   ("k" "elisp function-on-key" find-function-on-key)
+                   ("v" "elisp variable" find-variable))))
+ :bind "C-c j")
 
 ;; C-c x: repls
-(bind-key "C-c x '" 'pd/shell-switcher-switch-or-new-buffer)
-(bind-key "C-c x d" 'edbi:open-db-viewer)
-(bind-key "C-c x e" 'ielm)
-(bind-key "C-c x j" 'nodejs-repl)
-(bind-key "C-c x r" 'run-ruby)
-(bind-key "C-c x l" 'elixir-mode-iex)
+(discover-add-context-menu
+ :context-menu '(repls
+                 (description "C-c x: repls")
+                 (actions
+                  ("REPLs"
+                   ("'" "shell-mode" pd/shell-switcher-switch-or-new-buffer)
+                   ("d" "edbi" edbi:open-db-viewer)
+                   ("e" "ielm" ielm)
+                   ("j" "js" nodejs-repl)
+                   ("r" "ruby" run-ruby))))
+ :bind "C-c x")
 
 ;; misc
 (bind-key "C-x g" 'magit-status)
