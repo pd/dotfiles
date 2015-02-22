@@ -12,3 +12,7 @@ fi
 
 alias tracegl='node ~/vendor/tracegl/tracegl.js -nolib -no:repl.js'
 alias nt="npm test"
+
+function bower-search () {
+  bower search --color "$@" | sed 's,git://github.com,https://github.com,'
+}
