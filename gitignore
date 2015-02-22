@@ -8,3 +8,4 @@ dump-sandbox-dbs.sh
 *.gem
 .tags
 .use-zeus
+.use-bundle-exec

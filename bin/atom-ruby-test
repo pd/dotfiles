@@ -16,14 +16,20 @@ else
 fi
 
 if [[ -f "${_root_dir}/.use-zeus" ]]; then
-  _ruby_version="2.1"
+  _ruby_version="2.2"
   _zeus="zeus"
 else
   _zeus=""
 fi
 
+if [[ -f "${_root_dir}/.use-bundle-exec" ]]; then
+  _bundle_exec="bundle exec"
+else
+  _bundle_exec=""
+fi
+
 set -x
-exec chruby-exec ${_ruby_version} -- ${_zeus} rspec \
+exec chruby-exec ${_ruby_version} -- ${_zeus} ${_bundle_exec} rspec \
   --format progress \
   --no-profile \
   --tty \
