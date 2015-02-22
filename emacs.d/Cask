@@ -47,6 +47,7 @@
 ; misc dev
 (depends-on "csv-mode")
 (depends-on "csv-nav")
+(depends-on "edbi")
 (depends-on "git-commit-mode")
 (depends-on "git-rebase-mode")
 (depends-on "gitconfig-mode")

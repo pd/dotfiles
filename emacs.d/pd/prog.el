@@ -24,6 +24,10 @@
 (add-hook 'prog-mode-hook 'pd/require-final-newline-mode)
 (add-hook 'prog-mode-hook 'turn-on-wrap-region-mode)
 
+(after 'edbi
+  (setq edbi:ds-history-file (locate-user-emacs-file ".crap/edbi-history")
+        edbi:ds-history-list-num 50))
+
 (after 'feature-mode
   (add-hook 'feature-mode-hook 'hl-line-mode)
   (add-hook 'feature-mode-hook 'pd/show-trailing-whitespace-mode)
