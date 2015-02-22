@@ -81,7 +81,7 @@ pd-git-prompt () {
 pd-chruby-prompt () {
   if [ -n "$RUBY_ROOT" ]; then
     local rubyver=$(basename $RUBY_ROOT | sed 's/^ruby-//')
-    echo " [chruby:$rubyver]"
+    echo " [rb:$rubyver]"
   fi
 }
 
