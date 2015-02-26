@@ -1,7 +1,6 @@
 (require 'pd/kill-tracker)
 (require 'bind-key)
 (require 'discover)
-(discover-mode +1)
 
 ;; M-x
 (bind-key "M-x" 'smex)
@@ -108,7 +107,8 @@
                    ("d" "edbi" edbi:open-db-viewer)
                    ("e" "ielm" ielm)
                    ("j" "js" nodejs-repl)
-                   ("r" "ruby" run-ruby))))
+                   ("r" "ruby" run-ruby)
+                   ("x" "repl-toggle" rtog/toggle-repl))))
  :bind "C-c x")
 
 ;; misc

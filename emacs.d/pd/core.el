@@ -1,6 +1,7 @@
 (electric-indent-mode +1)
 (winner-mode +1)
 (ido-mode +1)
+(global-discover-mode +1)
 (quickref-global-mode +1)
 (recentf-mode +1)
 (toggle-save-place-globally)
