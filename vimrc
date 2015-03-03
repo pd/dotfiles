@@ -2,9 +2,6 @@ execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
-" what? in the old vimrc, seems important ...
-" autocmd BufEnter * :syntax sync fromstart
-
 set noerrorbells visualbell
 set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 set smartindent smarttab smartcase
@@ -34,6 +31,12 @@ noremap <leader>b :CtrlPBuffer<CR>
 noremap <leader>d :NERDTreeToggle<CR>
 noremap <leader>f :NERDTreeFind<CR>
 noremap <leader>a :Ag<space>
+
+" powerline fonts suck.
+let g:airline_left_sep=''
+let g:airline_left_alt_sep=''
+let g:airline_right_sep=''
+let g:airline_right_alt_sep=''
 
 " colors
 if &t_Co > 2 || has("gui_running")
