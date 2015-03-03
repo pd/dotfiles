@@ -60,3 +60,5 @@
 	wtf = !$HOME/bin/git-wtf
 [rerere]
 	enabled = true
+[hub]
+	host = git.enova.com
