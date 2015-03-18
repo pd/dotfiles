@@ -76,7 +76,12 @@
 
 (after 'package
   (require 'package-build)
+  (require 'paradox)
   (pd/load-ext 'package))
+
+(after 'paradox
+  ; Stop asking me if I want to star/unstar shit on github ffs.
+  (setq paradox-github-token t))
 
 (after 'projectile
   (setq projectile-known-projects-file (locate-user-emacs-file "store/projectile-bookmarks.eld")))
