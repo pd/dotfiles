@@ -72,6 +72,13 @@
           (js2-mode        . nodejs-repl))))
 
 (after 'rust-mode
-  (add-hook 'rust-mode-hook 'subword-mode))
+  (add-hook 'rust-mode-hook 'subword-mode)
+
+  (ignore (let ((racer-dir (f-expand "~/vendor/racer/editors")))
+            (when (and (f-file? (f-join racer-dir "racer.el"))
+                       (f-executable? (f-join racer-dir "target/release/racer")))
+              (add-to-list 'load-path racer-dir)
+              (require 'racer)
+              (setq racer-cmd (f-join racer-dir "target/release/racer"))))))
 
 (provide 'pd/prog)
