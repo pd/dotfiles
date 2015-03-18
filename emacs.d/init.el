@@ -37,6 +37,7 @@
 (require 'pd/ruby)
 (require 'pd/js)
 (require 'pd/markup)
+(require 'pd/db)
 
 ;;;; Some things don't deserve homes.
 (after 'dash-at-point
