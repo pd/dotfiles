@@ -17,6 +17,8 @@
   (unbind-key "s-p")
 
   ;; gank the $PATH from a login shell, in case I launched from the dock
+  (require 'exec-path-from-shell)
+  (add-to-list 'exec-path-from-shell-variables "GOPATH")
   (exec-path-from-shell-initialize)
 
   ;; Dunno a better way to do this. Sets the font to (roughly) Monaco 10pt.
