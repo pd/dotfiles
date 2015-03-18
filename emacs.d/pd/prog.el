@@ -25,6 +25,8 @@
 (add-hook 'prog-mode-hook 'turn-on-wrap-region-mode)
 
 (after 'edbi
+  (when (require 'company-edbi nil 'noerror)
+    (add-to-list 'company-backends 'company-edbi))
   (setq edbi:ds-history-file (locate-user-emacs-file ".crap/edbi-history")
         edbi:ds-history-list-num 50))
 
