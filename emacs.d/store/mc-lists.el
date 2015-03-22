@@ -33,6 +33,7 @@
         paredit-forward-slurp-sexp
         paredit-kill
         paredit-semicolon
+        paredit-splice-sexp-killing-backward
         pd/join-next-line
         pd/open-line-before
         replace-string

@@ -30,7 +30,6 @@
 
 (after 'tagedit
   (tagedit-add-paredit-like-keybindings)
-  (bind-key "s-k" 'windmove-up tagedit-mode-map)
   (bind-key "s-K" 'tagedit-kill-attribute tagedit-mode-map))
 
 (after 'zencoding-mode

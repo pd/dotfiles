@@ -29,60 +29,27 @@
   (add-hook 'feature-mode-hook 'pd/show-trailing-whitespace-mode)
   (add-hook 'feature-mode-hook 'pd/require-final-newline-mode)
   (add-hook 'feature-mode-hook 'pd/electric-indent-incompatible-mode)
-  (bind-key "RET" 'newline-and-indent feature-mode-map))
+  (pd/enable-newline-and-indent feature-mode-map))
 
 (after 'coffee-mode
   (add-hook 'coffee-mode-hook 'pd/electric-indent-incompatible-mode)
-  (bind-key "RET" 'newline-and-indent coffee-mode-map))
-
-(after 'go-mode
-  (require 'company-go)
-  (add-hook 'go-mode-hook 'go-eldoc-setup)
-  (add-hook 'go-mode-hook
-            (lambda () (setq tab-width 4)))
-  (add-hook 'before-save-hook 'gofmt-before-save)
-
-  (bind-key "M-." 'godef-jump)
-  (bind-key "C-c t ." 'go-test-current-test go-mode-map)
-  (bind-key "C-c t f" 'go-test-current-file go-mode-map)
-  (bind-key "C-c t p" 'go-test-current-project go-mode-map)
-
-  ;; dunno why, but godoc refuses to function despite being in my path:
-  ;;    godoc: zsh:1: command not found: godoc
-  ;; sadly, go-mode does not expose an option to change the command,
-  ;; so i'll just hack that in myself.
-  (defun godoc (query)
-    "Show Go documentation for QUERY, much like M-x man."
-    (interactive (list (godoc--read-query)))
-    (unless (string= query "")
-      (set-process-sentinel
-       (start-process-shell-command "godoc" (godoc--get-buffer query)
-                                    (concat (executable-find "godoc") " " query))
-       'godoc--buffer-sentinel)
-      nil))
-
-  ;; ugh why is this not in melpa or such
-  (let* ((gopath (or (getenv "GOPATH") "/does-not-exist/most-likely"))
-         (oracle-el (f-join gopath "src/golang.org/x/tools/cmd/oracle/oracle.el")))
-    (when (and (f-exists? oracle-el)
-               (executable-find "oracle"))
-      (add-to-list 'load-path (f-parent oracle-el))
-      (require 'go-oracle oracle-el)
-      (setq go-oracle-command (executable-find "oracle"))
-      (add-hook 'go-mode-hook 'go-oracle-mode))))
+  (pd/enable-newline-and-indent feature-mode-map))
 
 (after 'elixir-mode
   (add-hook 'elixir-mode-hook 'pd/electric-indent-incompatible-mode))
 
 (after 'slim-mode
   (add-hook 'slim-mode-hook 'pd/electric-indent-incompatible-mode)
-  (bind-key "RET" 'newline-and-indent slim-mode-map))
+  (pd/enable-newline-and-indent feature-mode-map))
 
 (after 'magit
   (pd/load-ext 'magit)
-  (bind-key "C-x m S" 'pd/magit-insert-submodule-summary git-commit-mode-map)
-  (bind-key "C-x m s" 'pd/magit-insert-signoff git-commit-mode-map)
-  (bind-key "C-x m a" 'pd/magit-insert-author  git-commit-mode-map)
+
+  (bind-keys :map git-commit-mode-map
+             ("C-x m S" . pd/magit-insert-submodule-summary)
+             ("C-x m s" . pd/magit-insert-signoff)
+             ("C-x m a" . pd/magit-insert-author))
+
   (setq magit-save-some-buffers nil
         magit-completing-read 'magit-ido-completing-read
         magit-omit-untracked-dir-contents nil

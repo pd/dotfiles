@@ -13,6 +13,10 @@
          (file (concat name ".el")))
     (load (expand-file-name file dir))))
 
+(defun pd/enable-newline-and-indent (map)
+  "Bind RET to `newline-and-indent' in MAP."
+  (bind-key "RET" 'newline-and-indent map))
+
 (defun pd/open-line-after ()
   "Insert an empty line after the current line.
 Position the cursor at its beginning, according to the current mode."

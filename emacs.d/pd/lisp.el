@@ -11,11 +11,12 @@
   (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
   (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
 
-  (bind-key "C-c e b"   'eval-buffer          lisp-mode-shared-map)
-  (bind-key "C-c e d"   'eval-defun           lisp-mode-shared-map)
-  (bind-key "C-c e r"   'eval-region          lisp-mode-shared-map)
-  (bind-key "C-c e s"   'eval-last-sexp       lisp-mode-shared-map)
-  (bind-key "C-c e M-s" 'eval-print-last-sexp lisp-mode-shared-map))
+  (bind-keys :map lisp-mode-shared-map
+             ("C-c e b"   . eval-buffer)
+             ("C-c e d"   . eval-defun)
+             ("C-c e r"   . eval-region)
+             ("C-c e s"   . eval-last-sexp)
+             ("C-c e M-s" . eval-print-last-sexp)))
 
 (after 'ielm
   (add-hook 'ielm-mode-hook 'pd/lisp-mode)
@@ -25,25 +26,12 @@
 (after 'slime
   (setq slime-protocol-version 'ignore
         slime-net-coding-system 'utf-8-unix
-        slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
-
-  ;; (add-hook 'slime-mode-hook 'set-up-slime-ac)
-  ;; (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
-
-  ;; (after 'auto-complete
-  ;;   (add-to-list 'ac-modes 'slime-repl-mode))
-  )
+        slime-complete-symbol-function 'slime-fuzzy-complete-symbol))
 
 (after 'cider
   (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
   (add-hook 'cider-repl-mode-hook 'pd/lisp-mode)
-  ;; (add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
-  ;; (add-hook 'cider-mode-hook 'ac-nrepl-setup)
-  (setq nrepl-hide-special-buffers t)
-
-  ;; (after 'auto-complete
-  ;;   (add-to-list 'ac-modes 'cider-repl-mode))
-  )
+  (setq nrepl-hide-special-buffers t))
 
 (after 'clojure-mode
   (add-hook 'clojure-mode-hook 'pd/lisp-mode))

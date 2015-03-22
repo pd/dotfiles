@@ -3,8 +3,9 @@
 (require 'discover)
 
 ;; M-x
-(bind-key "M-x" 'smex)
-(bind-key "M-X" 'smex-major-mode-commands)
+(bind-keys*
+ ("M-x" . smex)
+ ("M-X" . smex-major-mode-commands))
 
 ;; helm?
 ;(bind-key "M-x" 'helm-M-x)
@@ -27,60 +28,67 @@
  :bind "C-c b")
 
 ;; windows
-(bind-key "s-h" 'windmove-left)
-(bind-key "s-j" 'windmove-down)
-(bind-key "s-k" 'windmove-up)
-(bind-key "s-l" 'windmove-right)
+(bind-keys*
+ ("s-h" . windmove-left)
+ ("s-j" . windmove-down)
+ ("s-k" . windmove-up)
+ ("s-l" . windmove-right))
 
 ;; frames
-(bind-key "M-C-+" 'zoom-frm-in)
-(bind-key "M-C-_" 'zoom-frm-out)
-(bind-key "M-C--" 'zoom-frm-out)
+(bind-keys*
+ ("M-C-+" . zoom-frm-in)
+ ("M-C-_" . zoom-frm-out)
+ ("M-C--" . zoom-frm-out))
 
 ;; files
-(bind-key "C-c s"   'ag)
-(bind-key "C-x C-d" 'dired)
-(bind-key "C-c f f" 'ffap)
-(bind-key "C-c f p" 'find-file-in-repository)
-(bind-key "C-c f l" 'pd/kill-tracker-find-last)
+(bind-keys*
+ ("C-c s"   . ag)
+ ("C-x C-d" . dired)
+ ("C-c f f" . ffap)
+ ("C-c f p" . find-file-in-repository)
+ ("C-c f l" . pd/kill-tracker-find-last))
 
 ;; text navigation
-(bind-key "C-a"   'smarter-move-beginning-of-line)
-(bind-key "C-="   'er/expand-region)
-(bind-key "M-i"   'imenu)
-(bind-key "M-C-[" 'backward-paragraph)
-(bind-key "M-C-]" 'forward-paragraph)
+(bind-keys*
+ ("C-a"   . smarter-move-beginning-of-line)
+ ("C-="   . er/expand-region)
+ ("M-i"   . imenu)
+ ("M-C-[" . backward-paragraph)
+ ("M-C-]" . forward-paragraph))
 
 ;; text editing
-(bind-key "M-/"        'hippie-expand)
-(bind-key "M-;"        'pd/comment-dwim)
-(bind-key "C-S-k"      'kill-whole-line)
-(bind-key "C-c w"      'delete-trailing-whitespace)
-(bind-key "C-\\"       'delete-horizontal-space)
-(bind-key "C-c / s"    'replace-string)
-(bind-key "C-c / r"    'replace-regexp)
-(bind-key "C-c ="      'align-regexp)
-(bind-key "C-^"        'pd/join-next-line)
-(bind-key "M-RET"      'pd/open-line-before)
-(bind-key "<C-return>" 'pd/open-line-after)
+(bind-keys*
+ ("M-/"        . hippie-expand)
+ ("M-;"        . pd/comment-dwim)
+ ("C-S-k"      . kill-whole-line)
+ ("C-c w"      . delete-trailing-whitespace)
+ ("C-\\"       . delete-horizontal-space)
+ ("C-c / s"    . replace-string)
+ ("C-c / r"    . replace-regexp)
+ ("C-c ="      . align-regexp)
+ ("C-^"        . pd/join-next-line)
+ ("M-RET"      . pd/open-line-before)
+ ("<C-return>" . pd/open-line-after))
 
 ;; multiple-cursors
-(bind-key "H-SPC"     'set-rectangular-region-anchor)
-(bind-key "C-c m SPC" 'set-rectangular-region-anchor)
-(bind-key "C->"       'mc/mark-next-like-this)
-(bind-key "C-<"       'mc/mark-previous-like-this)
-(bind-key "C-%"       'mc/mark-all-like-this)
-(bind-key "C-c m e"   'mc/edit-lines)
-(bind-key "C-c m C-a" 'mc/edit-beginnings-of-lines)
-(bind-key "C-c m C-e" 'mc/edit-ends-of-lines)
-(bind-key "C-c m y"   'yank-rectangle) ; C-x r y, but i think of it in terms of mc/...
+(bind-keys*
+ ("H-SPC"     . set-rectangular-region-anchor)
+ ("C-c m SPC" . set-rectangular-region-anchor)
+ ("C->"       . mc/mark-next-like-this)
+ ("C-<"       . mc/mark-previous-like-this)
+ ("C-%"       . mc/mark-all-like-this)
+ ("C-c m e"   . mc/edit-lines)
+ ("C-c m C-a" . mc/edit-beginnings-of-lines)
+ ("C-c m C-e" . mc/edit-ends-of-lines)
+ ("C-c m y"   . yank-rectangle)) ; C-x r y, but i think of it in terms of mc/...
 
 ;; M-t: transpositions
 (unbind-key "M-t")
-(bind-key "M-t c" 'transpose-chars)
-(bind-key "M-t w" 'transpose-words)
-(bind-key "M-t l" 'transpose-lines)
-(bind-key "M-t s" 'transpose-sexps)
+(bind-keys*
+ ("M-t c" . transpose-chars)
+ ("M-t w" . transpose-words)
+ ("M-t l" . transpose-lines)
+ ("M-t s" . transpose-sexps))
 
 ;; C-c j: jump
 (discover-add-context-menu
