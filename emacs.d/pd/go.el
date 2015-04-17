@@ -1,4 +1,5 @@
 (require 'f)
+(require 'dash)
 
 (defun pd/enable-go-completion ()
   (require 'company-go)
@@ -7,15 +8,14 @@
 (defun pd/enable-go-oracle ()
   "If $GOPATH is set, and oracle.el is available in it, add `go-oracle-mode'
 to the `go-mode-hook'."
-  ;; ugh why is this not in melpa or such
-  (let* ((gopath (or (getenv "GOPATH") "/does-not-exist/most-likely"))
-         (oracle-el (f-join gopath "src/golang.org/x/tools/cmd/oracle/oracle.el"))
-         (oracle-exec (executable-find "oracle")))
-    (when (and (f-exists? oracle-el) oracle-exec)
-      (add-to-list 'load-path (f-parent oracle-el))
-      (require 'go-oracle oracle-el)
-      (setq go-oracle-command oracle-exec)
-      (add-hook 'go-mode-hook 'go-oracle-mode))))
+  (-if-let* ((gopath (getenv "GOPATH"))
+             (oracle-el (f-join gopath "src/golang.org/x/tools/cmd/oracle/oracle.el"))
+             (oracle-exec (executable-find "oracle")))
+      (when (f-exists? oracle-el)
+        (add-to-list 'load-path (f-parent oracle-el))
+        (require 'go-oracle oracle-el)
+        (setq go-oracle-command oracle-exec)
+        (add-hook 'go-mode-hook 'go-oracle-mode))))
 
 (after 'go-mode
   (pd/enable-go-completion)
@@ -25,6 +25,9 @@ to the `go-mode-hook'."
   (add-hook 'go-mode-hook 'go-eldoc-setup)
   (add-hook 'go-mode-hook
             (lambda () (setq tab-width 4)))
+
+  (-if-let (goimports (executable-find "goimports"))
+      (setq gofmt-command goimports))
 
   (bind-keys :map go-mode-map
              ("M-."     . godef-jump)

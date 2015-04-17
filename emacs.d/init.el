@@ -35,6 +35,7 @@
 (require 'pd/prog)
 (require 'pd/lisp)
 (require 'pd/ruby)
+(require 'pd/go)
 (require 'pd/js)
 (require 'pd/markup)
 (require 'pd/db)
