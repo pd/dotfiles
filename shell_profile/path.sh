@@ -5,7 +5,7 @@ add_to_path_if_exists () {
 add_to_path_if_exists /usr/local/sbin
 add_to_path_if_exists /usr/local/bin
 add_to_path_if_exists /usr/local/texlive/2011/bin/x86_64-darwin
-add_to_path_if_exists /usr/local/opt/postgresql-9.1/bin
+add_to_path_if_exists /usr/local/opt/postgresql-9.3/bin
 add_to_path_if_exists /usr/local/opt/sqlite/bin
 add_to_path_if_exists /usr/local/heroku/bin
 add_to_path_if_exists /usr/local/share/npm/bin
