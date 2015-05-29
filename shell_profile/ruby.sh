@@ -15,3 +15,7 @@ alias zco='zeus console'
 alias zr='zeus rake'
 
 alias rtags='ctags -R -f .tags --languages=ruby app lib'
+
+rerubies () {
+  RUBIES=(~/.rubies/*)
+}
