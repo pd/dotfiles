@@ -22,6 +22,7 @@
         kill-sentence
         kill-sexp
         lua-electric-match
+        markdown-enter-key
         markdown-exdent-or-delete
         my-increment-number-at-point
         org-delete-char
@@ -61,6 +62,7 @@
         ido-switch-buffer
         ielm
         js2-mode-show-node
+        makey-key-mode-popup-repls
         orgtbl-self-insert-command
         pd/back-to-indentation-or-beginning-of-line
         pd/shell-switcher-switch-or-new-buffer
