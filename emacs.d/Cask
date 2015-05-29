@@ -16,6 +16,7 @@
 (depends-on "find-file-in-repository")
 (depends-on "flx-ido")
 (depends-on "fuzzy")
+(depends-on "guide-key")
 (depends-on "ibuffer-vc")
 (depends-on "multiple-cursors")
 (depends-on "phi-search")
@@ -96,6 +97,7 @@
 
 ; go
 (depends-on "company-go")
+(depends-on "go-direx")
 (depends-on "go-eldoc")
 (depends-on "go-mode")
 (depends-on "gotest")

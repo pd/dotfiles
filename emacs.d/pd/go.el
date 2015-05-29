@@ -18,6 +18,7 @@ to the `go-mode-hook'."
         (add-hook 'go-mode-hook 'go-oracle-mode))))
 
 (after 'go-mode
+  (require 'go-direx)
   (pd/enable-go-completion)
   (pd/enable-go-oracle)
 
@@ -31,6 +32,8 @@ to the `go-mode-hook'."
 
   (bind-keys :map go-mode-map
              ("M-."     . godef-jump)
+             ("C-c d"   . go-direx)
+             ("C-c h"   . godoc-at-point)
              ("C-c t ." . go-test-current-test)
              ("C-c t t" . go-test-current-file)
              ("C-c t f" . go-test-current-file)
