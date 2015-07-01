@@ -33,7 +33,19 @@ local function flushright()
    grid.set(win, { x = 1, y = 0, w = 1, h = 2 }, win:screen())
 end
 
+local function flushup()
+   local win = window.focusedwindow()
+   grid.set(win, { x = 0, y = 0, w = 2, h = 1 }, win:screen())
+end
+
+local function flushdown()
+   local win = window.focusedwindow()
+   grid.set(win, { x = 0, y = 1, w = 2, h = 1 }, win:screen())
+end
+
 hotkey.bind(malt, "m", grid.maximize_window)
 hotkey.bind(malt, "n", grid.pushwindow_nextscreen)
 hotkey.bind(malt, "h", flushleft)
 hotkey.bind(malt, "l", flushright)
+hotkey.bind(malt, "j", flushdown)
+hotkey.bind(malt, "k", flushup)
