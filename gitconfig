@@ -28,6 +28,7 @@
 [merge]
 	conflictstyle = diff3
 [alias]
+	append = commit --amend -C HEAD
 	b   = branch
 	br  = branch
 	ba  = branch -a
