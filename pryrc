@@ -13,6 +13,21 @@ if defined?(PryByebug) || defined?(PryDebugger)
   Pry.commands.alias_command 'f', 'finish'
 end
 
+require 'date'
+require 'bigdecimal'
+
+class Date
+  def inspect
+    "#<Date: #{self}>"
+  end
+end
+
+class BigDecimal
+  def inspect
+    "#{to_s('F')}bd"
+  end
+end
+
 # cuz instance_variable_get() et al are too fkn long
 class Object
   def ivs
