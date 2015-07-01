@@ -24,6 +24,7 @@ to the `go-mode-hook'."
 
   (add-hook 'before-save-hook 'gofmt-before-save)
   (add-hook 'go-mode-hook 'go-eldoc-setup)
+  (add-hook 'go-mode-hook 'subword-mode)
   (add-hook 'go-mode-hook
             (lambda () (setq tab-width 4)))
 
