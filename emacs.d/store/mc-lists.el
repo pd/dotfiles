@@ -12,6 +12,7 @@
         delete-trailing-whitespace
         enh-ruby-electric-brace
         enh-ruby-forward-sexp
+        fill-paragraph
         forward-sexp
         go-mode-insert-and-indent
         indent-for-tab-command
@@ -35,6 +36,7 @@
         paredit-kill
         paredit-semicolon
         paredit-splice-sexp-killing-backward
+        pd/comment-dwim
         pd/join-next-line
         pd/open-line-before
         replace-string
