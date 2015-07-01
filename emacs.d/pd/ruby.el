@@ -4,7 +4,8 @@
 
   (setq enh-ruby-deep-arglist nil
         enh-ruby-deep-indent-paren nil
-        enh-ruby-deep-indent-paren-style nil)
+        enh-ruby-deep-indent-paren-style nil
+        enh-ruby-add-encoding-comment-on-save nil)
 
   (add-hook 'enh-ruby-mode-hook 'ruby-tools-mode)
   (add-hook 'enh-ruby-mode-hook 'subword-mode)
@@ -13,7 +14,6 @@
   (add-hook 'enh-ruby-mode-hook 'repl-toggle-mode)
   (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode)
   (add-hook 'enh-ruby-mode-hook 'projectile-mode)
-  (add-hook 'enh-ruby-mode-hook 'robe-mode)
 
   ; reclaim some bindings enh-ruby-mode clobbers
   (pd/enable-newline-and-indent enh-ruby-mode-map)
