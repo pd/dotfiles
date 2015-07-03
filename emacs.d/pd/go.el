@@ -14,8 +14,7 @@ to the `go-mode-hook'."
       (when (f-exists? oracle-el)
         (add-to-list 'load-path (f-parent oracle-el))
         (require 'go-oracle oracle-el)
-        (setq go-oracle-command oracle-exec)
-        (add-hook 'go-mode-hook 'go-oracle-mode))))
+        (setq go-oracle-command oracle-exec))))
 
 (after 'go-mode
   (require 'go-direx)
