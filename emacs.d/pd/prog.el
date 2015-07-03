@@ -42,6 +42,8 @@
   (add-hook 'slim-mode-hook 'pd/electric-indent-incompatible-mode)
   (pd/enable-newline-and-indent feature-mode-map))
 
+; okay magit thanks for the warning now stfu
+(setq magit-last-seen-setup-instructions "1.4.0")
 (after 'magit
   (pd/load-ext 'magit)
 
@@ -53,10 +55,7 @@
   (setq magit-save-some-buffers nil
         magit-completing-read 'magit-ido-completing-read
         magit-omit-untracked-dir-contents nil
-        magit-process-popup-time 10)
-
-  ; okay magit thanks for the warning now stfu
-  (setq magit-last-seen-setup-instructions "1.4.0"))
+        magit-process-popup-time 10))
 
 (after 'repl-toggle
   (unbind-key "C-c C-z" repl-toggle-mode-map)
