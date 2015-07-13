@@ -1,0 +1,2 @@
+#!/bin/sh
+git show-file-at-rev "$1" "$2" > "$1"

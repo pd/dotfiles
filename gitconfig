@@ -55,10 +55,8 @@
 	s   = status
 	st  = status
 	sh  = show
-	show-file-at-rev = !$HOME/bin/git-show-file-at-rev
 	sm  = submodule
 	stash-unstaged = stash --keep-index
-	wtf = !$HOME/bin/git-wtf
 [rerere]
 	enabled = true
 [hub]
