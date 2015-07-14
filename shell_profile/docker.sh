@@ -1,5 +1,5 @@
-if which boot2docker 2>&1 >/dev/null; then
-  if [[ $(boot2docker status) == "running" ]]; then
-    eval $(boot2docker shellinit 2>/dev/null)
-  fi
+if which boot2docker >/dev/null 2>&1; then
+  export DOCKER_HOST=127.0.0.1:2376
+  export DOCKER_CERT_PATH=$HOME/.boot2docker/certs/boot2docker-vm
+  export DOCKER_TLS_VERIFY=1
 fi

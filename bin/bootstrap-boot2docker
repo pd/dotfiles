@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+set -eu
+
+# Cisco AnyConnect is the god damned devil.
+# This sets up boot2docker, telling Virtualbox to forward 127.0.0.1:2376
+# on to the boot2docker-vm, so that you can set DOCKER_HOST to the
+# local port and things Finally Fucking Work :tm:.
+
+# You only need this for a new boot2docker-vm instance. I am keeping it
+# here so I don't have to google this shit every time.
+
+# https://github.com/boot2docker/boot2docker/issues/392#issuecomment-68563869
+# thank you much @bortels <3
+
+if ! which boot2docker >/dev/null 2>&1; then
+  echo "boot2docker not in PATH. wtf were you thinking."
+  exit 1
+fi
+
+if ! which vboxmanage >/dev/null 2>&1; then
+  echo "vboxmanage not in PATH."
+  exit 1
+fi
+
+if vboxmanage list vms | grep boot2docker-vm >/dev/null; then
+  echo "The boot2docker-vm already exists."
+  exit 1
+fi
+
+boot2docker init
+vboxmanage modifyvm 'boot2docker-vm' --natpf1 'docker,tcp,127.0.0.1,2376,,2376'
+boot2docker up
+
+echo "!!! NB: The _actual_ DOCKER_HOST you want is '127.0.0.1:2376' -- <3 pd"
