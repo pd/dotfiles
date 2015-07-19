@@ -32,7 +32,7 @@ to the `go-mode-hook'."
 
   (bind-keys :map go-mode-map
              ("M-."     . godef-jump)
-             ("C-c d"   . go-direx)
+             ("C-c d"   . go-direx-pop-to-buffer)
              ("C-c h"   . godoc-at-point)
              ("C-c t ." . go-test-current-test)
              ("C-c t t" . go-test-current-file)
