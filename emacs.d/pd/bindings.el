@@ -1,31 +1,22 @@
 (require 'pd/kill-tracker)
 (require 'bind-key)
-(require 'discover)
 
 ;; M-x
 (bind-keys*
  ("M-x" . smex)
  ("M-X" . smex-major-mode-commands))
 
-;; helm?
-;(bind-key "M-x" 'helm-M-x)
-;(bind-key "C-x b" 'helm-mini)
-
 ;; buffers
 (bind-key "C-x C-b" 'ibuffer)
-(discover-add-context-menu
- :context-menu '(buffers
-                 (description "C-c b: buffer manipulation")
-                 (actions
-                  ("Buffers"
-                   ("n" "kill+show file name" pd/message-file-name)
-                   ("r" "rename buffer" rename-buffer)
-                   ("R" "rename file" pd/rename-buffer-and-file)
-                   ("z" "rerun hooks" pd/reload-buffer)
-                   ("Z" "reload file" revert-buffer)
-                   ("b" "previous buffer" previous-buffer)
-                   ("f" "next buffer" next-buffer))))
- :bind "C-c b")
+
+(bind-keys*
+ ("C-c b n" . pd/message-file-name)
+ ("C-c b r" . rename-buffer)
+ ("C-c b R" . pd/rename-buffer-and-file)
+ ("C-c b z" . pd/reload-buffer)
+ ("C-c b Z" . revert-buffer)
+ ("C-c b b" . previous-buffer)
+ ("C-c b f" . next-buffer))
 
 ;; windows
 (bind-keys*
@@ -91,33 +82,23 @@
  ("M-t s" . transpose-sexps))
 
 ;; C-c j: jump
-(discover-add-context-menu
- :context-menu '(jumps
-                 (description "C-c j: jump to something")
-                 (actions
-                  ("Jump"
-                   ("b" "bookmark" bookmark-jump)
-                   ("B" "bookmark-set" bookmark-set)
-                   ("f" "elisp function" find-function)
-                   ("i" "init.el" pd/find-init.el)
-                   ("l" "elisp library" find-library)
-                   ("k" "elisp function-on-key" find-function-on-key)
-                   ("v" "elisp variable" find-variable))))
- :bind "C-c j")
+(bind-keys*
+ ("C-c j b" . bookmark-jump)
+ ("C-c j B" . bookmark-set)
+ ("C-c j f" . find-function)
+ ("C-c j i" . pd/find-init.el)
+ ("C-c j l" . find-library)
+ ("C-c j k" . find-function-on-key)
+ ("C-c j v" . find-variable))
 
 ;; C-c x: repls
-(discover-add-context-menu
- :context-menu '(repls
-                 (description "C-c x: repls")
-                 (actions
-                  ("REPLs"
-                   ("'" "shell-mode" pd/shell-switcher-switch-or-new-buffer)
-                   ("d" "edbi" edbi:open-db-viewer)
-                   ("e" "ielm" ielm)
-                   ("j" "js" nodejs-repl)
-                   ("r" "ruby" run-ruby)
-                   ("x" "repl-toggle" rtog/toggle-repl))))
- :bind "C-c x")
+(bind-keys*
+ ("C-c x '" . pd/shell-switcher-switch-or-new-buffer)
+ ("C-c x d" . edbi:open-db-viewer)
+ ("C-c x e" . ielm)
+ ("C-c x j" . nodejs-repl)
+ ("C-c x r" . run-ruby)
+ ("C-c x x" . rtog/toggle-repl))
 
 ;; misc
 (bind-key "C-x g" 'magit-status)
