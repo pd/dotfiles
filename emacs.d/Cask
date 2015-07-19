@@ -71,7 +71,6 @@
 (depends-on "rspec-mode")
 (depends-on "ruby-hash-syntax")
 (depends-on "ruby-tools")
-(depends-on "projectile-rails")
 (depends-on "yard-mode")
 
 ; js
