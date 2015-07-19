@@ -33,11 +33,18 @@
 
 ;; files
 (bind-keys*
- ("C-c s"   . ag)
  ("C-x C-d" . dired)
- ("C-c f f" . ffap)
- ("C-c f p" . find-file-in-repository)
- ("C-c f l" . pd/kill-tracker-find-last))
+ ("C-c f f" . find-file-at-point)
+ ("C-c f ." . find-file-at-point)
+ ("H-l"     . pd/kill-tracker-find-last))
+
+;; find things via helm
+(bind-key "s-a" 'helm-ag)
+(bind-key "s-f" 'helm-ls-git-ls)
+(bind-key "s-g" 'helm-rubygems-local)
+(bind-key "s-p" 'helm-projectile-switch-project)
+(bind-key "s-;" 'helm-imenu)
+;; (bind-key "H-;" 'helm-)
 
 ;; text navigation
 (bind-keys*

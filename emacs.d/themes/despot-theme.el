@@ -18,9 +18,12 @@
    `(font-lock-type-face ((t (:foreground "#66d9ef"))))
    `(font-lock-fic-face ((t (:foreground "#e62020" :background ,background))))
 
-   `(magit-item-highlight ((t (:background ,background-lighter :inverse-video nil))))
-   `(magit-section-title ((t (:inherit font-lock-type-face))))
-   `(magit-branch ((t (:inherit font-lock-type-face))))
+   `(magit-diff-file-heading ((t (:inherit font-lock-keyword-face :weight bold))))
+   `(magit-diff-hunk-heading ((t (:inherit font-lock-variable-name-face :weight bold))))
+   `(magit-diff-hunk-heading-highlight ((t (:inherit magit-diff-hunk-heading :background ,background-lightest))))
+   ;; `(magit-item-highlight ((t (:background ,background-lighter :inverse-video nil))))
+   ;; `(magit-section-title ((t (:inherit font-lock-type-face))))
+   ;; `(magit-branch ((t (:inherit font-lock-type-face))))
 
    `(diff-file-header ((t (:inherit font-lock-delimiter-face :background ,background))))
    `(diff-hunk-header ((t (:inherit font-lock-type-face :background ,background))))
@@ -44,3 +47,9 @@
    `(powerline-inactive2 ((t (:background "#000"))))
 
    ))
+
+;; Local Variables:
+;; eval: (when (fboundp 'rainbow-mode) (rainbow-mode +1))
+;; eval: (when (fboundp 'hl-line-mode) (hl-line-mode -1))
+;; no-byte-compile: t
+;; End:
