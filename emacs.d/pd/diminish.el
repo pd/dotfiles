@@ -44,6 +44,9 @@
 (after 'subword
   (diminish 'subword-mode))
 
+(after 'which-key
+  (diminish 'which-key-mode))
+
 (after 'wrap-region
   (diminish 'wrap-region-mode))
 
