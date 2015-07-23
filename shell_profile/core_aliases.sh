@@ -18,3 +18,11 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
 up () { for ((c=1; c <= $1; c++)); do cd ..; done }
+
+if ! which realpath >/dev/null 2>&1; then
+  if which greadlink >/dev/null 2>&1; then
+    alias realpath='greadlink -m'
+  else
+    alias realpath='readlink -m'
+  fi
+fi
