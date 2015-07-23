@@ -28,19 +28,19 @@
    `(diff-removed ((t (:foreground ,diff-removed :background ,background :weight bold))))
    `(diff-context ((t (:foreground ,diff-context :background ,background))))
 
-   `(magit-diff-added   ((t (:inherit diff-added-face))))
-   `(magit-diff-removed ((t (:inherit diff-removed-face))))
-   `(magit-diff-context ((t (:inherit diff-context-face))))
+   `(magit-diff-added   ((t (:inherit diff-added))))
+   `(magit-diff-removed ((t (:inherit diff-removed))))
+   `(magit-diff-context ((t (:inherit diff-context))))
 
-   `(magit-diff-added-highlight   ((t (:inherit magit-diff-added-face   :background ,magit-hilite :weight bold))))
-   `(magit-diff-removed-highlight ((t (:inherit magit-diff-removed-face :background ,magit-hilite :weight bold))))
-   `(magit-diff-context-highlight ((t (:inherit magit-diff-context-face :background ,magit-hilite))))
+   `(magit-diff-added-highlight   ((t (:inherit magit-diff-added   :background ,magit-hilite :weight bold))))
+   `(magit-diff-removed-highlight ((t (:inherit magit-diff-removed :background ,magit-hilite :weight bold))))
+   `(magit-diff-context-highlight ((t (:inherit magit-diff-context :background ,magit-hilite))))
 
    `(magit-diff-file-heading           ((t (:inherit font-lock-keyword-face))))
-   `(magit-diff-file-heading-highlight ((t (:inherit magit-diff-file-heading-face :background ,magit-hilite-lighter))))
+   `(magit-diff-file-heading-highlight ((t (:inherit magit-diff-file-heading :background ,magit-hilite-lighter))))
 
    `(magit-diff-hunk-heading           ((t (:inherit font-lock-variable-name-face))))
-   `(magit-diff-hunk-heading-highlight ((t (:inherit magit-diff-hunk-heading-face :background ,magit-hilite-lighter))))
+   `(magit-diff-hunk-heading-highlight ((t (:inherit magit-diff-hunk-heading :background ,magit-hilite-lighter))))
 
    `(enh-ruby-op-face ((t (:foreground "#efa566"))))
 
