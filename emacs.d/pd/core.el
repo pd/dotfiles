@@ -1,5 +1,6 @@
 (setq auto-save-default nil)
 
+(column-number-mode +1)
 (electric-indent-mode +1)
 (winner-mode +1)
 (ido-mode +1)

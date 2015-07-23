@@ -3,7 +3,8 @@
 (load-theme 'molokai t)
 (load-theme 'despot t)
 
-(require 'powerline)
-(powerline-center-theme)
+(require 'smart-mode-line)
+(setq sml/no-confirm-load-theme t)
+(sml/setup)
 
 (provide 'pd/theme)
