@@ -13,9 +13,6 @@
 (after 'elisp-slime-nav
   (diminish 'elisp-slime-nav-mode))
 
-(after 'fic-ext-mode
-  (diminish 'fic-ext-mode))
-
 (after 'handlebars-sgml-mode
   (handlebars-use-mode 'minor)
   (diminish 'handlebars-sgml-minor-mode " hbs"))
