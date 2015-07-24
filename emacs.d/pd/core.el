@@ -9,6 +9,9 @@
 (toggle-save-place-globally)
 (which-key-mode +1)
 
+(require 'popwin)
+(popwin-mode +1)
+
 ;; eval-expression (M-:) shows eldoc in the modeline
 (add-hook 'eval-expression-minibuffer-setup-hook #'eldoc-mode)
 

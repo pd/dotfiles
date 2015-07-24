@@ -36,6 +36,7 @@
 (depends-on "package-build")
 (depends-on "paradox")
 (depends-on "pcmpl-git")
+(depends-on "popwin")
 (depends-on "s")
 (depends-on "which-key")
 (depends-on "wrap-region")
