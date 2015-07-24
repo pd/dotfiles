@@ -18,8 +18,7 @@
 
 ;; and pile your junk somewhere else.
 (setq backup-directory-alist '(("." . "~/.emacs.d/.crap/backups"))
-      tramp-backup-directory-alist '(("." . "~/.emacs.d/.crap/backups"))
-      custom-file (locate-user-emacs-file ".crap/custom.el"))
+      tramp-backup-directory-alist '(("." . "~/.emacs.d/.crap/backups")))
 
 ;; favor a new .el over an old .elc
 (setq load-prefer-newer t)

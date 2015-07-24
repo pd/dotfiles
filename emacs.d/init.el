@@ -1,10 +1,10 @@
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
 (package-initialize)
 
-;; -*- mode: Emacs-Lisp -*-
+;; give in and let custom.el do its thing.
+; i still never actually use customize, but some libraries just
+; Really Friggin Insist on writing to it themselves. meh.
+(setq custom-file (locate-user-emacs-file "custom.el"))
+(load custom-file 'noerror)
 
 ;; Globally useful paths
 (setq user-vendor-emacs-directory  (expand-file-name "vendor/" user-emacs-directory)
