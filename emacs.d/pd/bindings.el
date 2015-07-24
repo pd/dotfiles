@@ -3,11 +3,11 @@
 
 ;; M-x
 (bind-keys*
- ("M-x" . smex)
- ("M-X" . smex-major-mode-commands))
+ ("M-x" . helm-M-x))
 
 ;; buffers
-(bind-key "C-x C-b" 'ibuffer)
+(bind-key "C-x b"   'helm-mini)
+(bind-key "C-x C-b" 'helm-buffers-list)
 
 (bind-keys*
  ("C-c b n" . pd/message-file-name)
@@ -43,14 +43,13 @@
 (bind-key "s-f" 'helm-ls-git-ls)
 (bind-key "s-g" 'helm-rubygems-local)
 (bind-key "s-p" 'helm-projectile-switch-project)
-(bind-key "s-;" 'helm-imenu)
-;; (bind-key "H-;" 'helm-)
+(bind-key "M-i" 'helm-imenu)
+(bind-key "s-y" 'helm-show-kill-ring)
 
 ;; text navigation
 (bind-keys*
  ("C-a"   . smarter-move-beginning-of-line)
  ("C-="   . er/expand-region)
- ("M-i"   . imenu)
  ("M-C-[" . backward-paragraph)
  ("M-C-]" . forward-paragraph))
 

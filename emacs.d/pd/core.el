@@ -31,6 +31,12 @@
   (setq-default dired-details-hidden-string "--- ")
   (dired-details-install))
 
+(after 'helm
+  (setq helm-M-x-fuzzy-match t
+        helm-recentf-fuzzy-match t
+        helm-buffers-fuzzy-matching t
+        helm-imenu-fuzzy-match t))
+
 (after 'ffap
   (pd/load-ext 'ffap))
 
