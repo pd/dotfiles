@@ -20,8 +20,10 @@
 
 (after 'company
   (add-hook 'after-init-hook 'global-company-mode)
+
   (bind-keys :map company-mode-map
              ("C-<tab>" . company-manual-begin))
+
   (bind-keys :map company-active-map
              ("C-n" . company-select-next)
              ("C-p" . company-select-previous)))
@@ -86,7 +88,9 @@
   (setq paradox-github-token t))
 
 (after 'projectile
-  (setq projectile-known-projects-file (locate-user-emacs-file "store/projectile-bookmarks.eld")))
+  (setq projectile-known-projects-file (locate-user-emacs-file "store/projectile-bookmarks.eld")
+        projectile-switch-project-action 'helm-projectile
+        projectile-enable-caching t))
 
 (after 'quickref
   (quickref-global-mode +1)
