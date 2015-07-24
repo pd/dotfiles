@@ -110,6 +110,7 @@
 ;; misc
 (bind-key "C-x g" 'magit-status)
 (bind-key "C-h a" 'apropos)
+(bind-key "C-c C-l" 'helm-minibuffer-history minibuffer-local-map)
 
 ;; rm -rf annoyances
 (unbind-key "<menu>")

@@ -17,6 +17,7 @@
 (after 'shell
   (setq shell-prompt-pattern "^[^\n]*[#$%>»] *")
   (bind-key "C-c d" 'dirs shell-mode-map)
+  (bind-key "C-c C-l" 'helm-comint-input-ring shell-mode-map)
 
   (add-hook 'shell-mode-hook 'pcomplete-shell-setup)
   (add-hook 'shell-mode-hook 'pd/comint-disable-echo)
