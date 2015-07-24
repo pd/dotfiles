@@ -68,17 +68,16 @@
  ("M-RET"      . pd/open-line-before)
  ("<C-return>" . pd/open-line-after))
 
-;; multiple-cursors
+;; Hyper: multiple-cursors
 (bind-keys*
- ("H-SPC"     . set-rectangular-region-anchor)
- ("C-c m SPC" . set-rectangular-region-anchor)
- ("C->"       . mc/mark-next-like-this)
- ("C-<"       . mc/mark-previous-like-this)
- ("C-%"       . mc/mark-all-like-this)
- ("C-c m e"   . mc/edit-lines)
- ("C-c m C-a" . mc/edit-beginnings-of-lines)
- ("C-c m C-e" . mc/edit-ends-of-lines)
- ("C-c m y"   . yank-rectangle)) ; C-x r y, but i think of it in terms of mc/...
+ ("H-SPC" . set-rectangular-region-anchor)
+ ("H->"   . mc/mark-next-like-this)
+ ("H-<"   . mc/mark-previous-like-this)
+ ("H-g"   . mc/mark-all-like-this)
+ ("H-."   . mc/edit-lines)
+ ("H-a"   . mc/edit-beginnings-of-lines)
+ ("H-e"   . mc/edit-ends-of-lines)
+ ("H-y"   . yank-rectangle)) ; C-x r y, but i think of it in terms of mc/...
 
 ;; M-t: transpositions
 (unbind-key "M-t")

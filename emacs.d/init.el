@@ -75,6 +75,7 @@
 (require 'uniquify)
 (require 'multiple-cursors)
 (require 'company)
+(require 'helm-config)
 
 ;;;; Show me what takes too long.
 (save-current-buffer
