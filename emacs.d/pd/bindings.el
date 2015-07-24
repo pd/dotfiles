@@ -1,6 +1,8 @@
 (require 'pd/kill-tracker)
 (require 'bind-key)
 
+(setq helm-command-prefix-key "C-c h")
+
 ;; M-x
 (bind-keys*
  ("M-x" . helm-M-x))
