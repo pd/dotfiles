@@ -70,8 +70,7 @@
 
 (after 'package
   (require 'package-build)
-  (require 'paradox)
-  (pd/load-ext 'package))
+  (require 'paradox))
 
 (after 'paradox
   ; Stop asking me if I want to star/unstar shit on github ffs.

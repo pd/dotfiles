@@ -42,16 +42,7 @@
   (add-hook 'slim-mode-hook 'pd/electric-indent-incompatible-mode)
   (pd/enable-newline-and-indent feature-mode-map))
 
-; okay magit thanks for the warning now stfu
-(setq magit-last-seen-setup-instructions "1.4.0")
 (after 'magit
-  (pd/load-ext 'magit)
-
-  (bind-keys :map git-commit-mode-map
-             ("C-x m S" . pd/magit-insert-submodule-summary)
-             ("C-x m s" . pd/magit-insert-signoff)
-             ("C-x m a" . pd/magit-insert-author))
-
   (setq magit-save-some-buffers nil
         magit-completing-read 'magit-ido-completing-read
         magit-omit-untracked-dir-contents nil
