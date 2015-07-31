@@ -27,6 +27,9 @@
              ("C-c e R" . ruby-send-region-and-go)
              ("C-c e D" . ruby-send-definition-and-go)))
 
+(after 'rspec-mode
+  (setq rspec-use-rake-when-possible nil))
+
 ; I never really got this thing working well enough to publish it.
 ; Maybe some day.
 (autoload 'find-gem "~/sauce/el/find-gem.el/find-gem.el"
