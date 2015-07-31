@@ -34,6 +34,7 @@
   (dired-details-install))
 
 (after 'helm
+  (require 'helm-projectile)
   (setq helm-M-x-fuzzy-match t
         helm-recentf-fuzzy-match t
         helm-buffers-fuzzy-matching t
