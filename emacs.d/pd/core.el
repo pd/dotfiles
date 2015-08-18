@@ -90,8 +90,11 @@
 
 (after 'projectile
   (setq projectile-known-projects-file (locate-user-emacs-file "store/projectile-bookmarks.eld")
+        projectile-cache-file (locate-user-emacs-file "store/projectile.cache")
         projectile-switch-project-action 'helm-projectile
-        projectile-enable-caching t))
+        projectile-enable-caching t)
+  ; Force it to reload after having change the value
+  (projectile-load-known-projects))
 
 (after 'quickref
   (quickref-global-mode +1)
