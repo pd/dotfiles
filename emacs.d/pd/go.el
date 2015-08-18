@@ -1,9 +1,9 @@
 (require 'f)
 (require 'dash)
 
-(defun pd/enable-go-completion ()
-  (require 'company-go)
-  (add-to-list 'company-backends 'company-go))
+(defun pd/configure-go-mode ()
+  (setq tab-width 4)
+  (set (make-local-variable 'company-backends) '(company-go)))
 
 (defun pd/enable-go-oracle ()
   "If $GOPATH is set, and oracle.el is available in it, add `go-oracle-mode'
@@ -17,15 +17,14 @@ to the `go-mode-hook'."
         (setq go-oracle-command oracle-exec))))
 
 (after 'go-mode
+  (require 'company-go)
   (require 'go-direx)
-  (pd/enable-go-completion)
   (pd/enable-go-oracle)
 
   (add-hook 'before-save-hook 'gofmt-before-save)
   (add-hook 'go-mode-hook 'go-eldoc-setup)
   (add-hook 'go-mode-hook 'subword-mode)
-  (add-hook 'go-mode-hook
-            (lambda () (setq tab-width 4)))
+  (add-hook 'go-mode-hook 'pd/configure-go-mode)
 
   (-if-let (goimports (executable-find "goimports"))
       (setq gofmt-command goimports))
