@@ -11,7 +11,5 @@ add_to_path_if_exists /usr/local/heroku/bin
 add_to_path_if_exists /usr/local/share/npm/bin
 add_to_path_if_exists ~/.cask/bin
 add_to_path_if_exists ~/local/bin
-add_to_path_if_exists ~/.rbenv/bin
+add_to_path_if_exists /opt/chefdk/bin
 add_to_path_if_exists ~/bin
-
-export PATH="./node_modules/.bin:$PATH"
