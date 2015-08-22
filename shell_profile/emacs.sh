@@ -3,8 +3,14 @@ if [ -n "$INSIDE_EMACS" ]; then
   export EDITOR='emacsclient'
 fi
 
-alias em='emacsclient -n'
-
+em () {
+  # If a frame exists, use it. Else create a new one.
+  if emacsclient -n -e "(if (> (length (frame-list)) 1) 't)" | grep t >/dev/null 2>&1; then
+    emacsclient --alternate-editor='' -n "$@"
+  else
+    emacsclient --alternate-editor='' -c -n "$@"
+  fi
+}
 
 # I like toying with spacemacs, but I'm not actually willing to
 # switch.
