@@ -13,6 +13,7 @@ emacs.d/smex.save
 emacs.d/tramp
 emacs.d/url
 emacs.d/store/projectile-bookmarks.eld
+emacs.d/store/projectile.cache
 
 bin/xmonad
 xmonad/xmonad.errors
