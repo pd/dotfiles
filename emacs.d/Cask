@@ -21,6 +21,7 @@
 (depends-on "quickref")
 (depends-on "shell-switcher")
 (depends-on "smex")
+(depends-on "use-package")
 
 ; give in and use helm?
 (depends-on "helm")
