@@ -77,9 +77,6 @@
   (require 'flx-ido)
   (flx-ido-mode +1))
 
-(after 'multiple-cursors
-  (setq mc/list-file (locate-user-emacs-file "store/mc-lists.el")))
-
 (after 'package
   (require 'package-build)
   (require 'paradox))
