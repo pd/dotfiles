@@ -77,6 +77,7 @@
 (require 'multiple-cursors)
 (require 'company)
 (require 'helm-config)
+(require 'helm-projectile)
 
 ;;;; Show me what takes too long.
 (save-current-buffer
