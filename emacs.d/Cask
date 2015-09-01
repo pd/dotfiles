@@ -23,10 +23,11 @@
 (depends-on "smex")
 (depends-on "use-package")
 
-; give in and use helm?
+; give in and use helm
 (depends-on "helm")
 (depends-on "helm-bind-key")
 (depends-on "helm-mode-manager")
+(depends-on "helm-mt")
 
 ; handy
 (depends-on "ag")

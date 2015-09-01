@@ -40,6 +40,9 @@
         helm-buffers-fuzzy-matching t
         helm-imenu-fuzzy-match t))
 
+(after 'helm-mt
+  (setq helm-mt/all-terminal-modes '(shell-mode term-mode)))
+
 (after 'ffap
   (pd/load-ext 'ffap))
 
