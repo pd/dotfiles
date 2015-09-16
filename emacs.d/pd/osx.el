@@ -23,7 +23,7 @@
 
   ;; Dunno a better way to do this. Sets the font to (roughly) Source Code Pro 11pt.
   ;; Default was 12pt.
-  (set-face-attribute 'default nil :height 110 :family "Source Code Pro")
+  (set-face-attribute 'default nil :height 110 :family "Menlo")
 
   ;; I launch emacs client using an applescript, which sets cwd to /
   ;; Rather than learn applescript, I fix it here.
