@@ -28,6 +28,7 @@
 (depends-on "helm-bind-key")
 (depends-on "helm-mode-manager")
 (depends-on "helm-mt")
+(depends-on "helm-projectile")
 
 ; handy
 (depends-on "ag")
