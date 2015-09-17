@@ -16,6 +16,11 @@
   ;; Stop asking me to print.
   (unbind-key "s-p")
 
+  ;; something keeps forcing my $SHELL to /bin/bash so just unfuck that manually
+  (when (file-executable-p "/usr/local/bin/zsh")
+    (setenv "SHELL" "/usr/local/bin/zsh")
+    (setq shell-file-name "/usr/local/bin/zsh"))
+
   ;; gank the $PATH from a login shell, in case I launched from the dock
   (require 'exec-path-from-shell)
   (add-to-list 'exec-path-from-shell-variables "GOPATH")
