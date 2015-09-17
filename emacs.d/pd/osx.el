@@ -21,9 +21,8 @@
   (add-to-list 'exec-path-from-shell-variables "GOPATH")
   (exec-path-from-shell-initialize)
 
-  ;; Dunno a better way to do this. Sets the font to (roughly) Source Code Pro 11pt.
-  ;; Default was 12pt.
-  (set-face-attribute 'default nil :height 110 :family "Menlo")
+  ;; brew tap caskroom/homebrew-fonts && brew install font-sauce-code-pro-for-powerline
+  (set-face-attribute 'default nil :height 120 :family "Source Code Pro for Powerline")
 
   ;; I launch emacs client using an applescript, which sets cwd to /
   ;; Rather than learn applescript, I fix it here.

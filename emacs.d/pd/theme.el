@@ -3,6 +3,7 @@
 (load-theme 'molokai t)
 (load-theme 'despot t)
 
+(setq sml/theme 'dark)
 (require 'smart-mode-line)
 (setq sml/no-confirm-load-theme t)
 (sml/setup)
