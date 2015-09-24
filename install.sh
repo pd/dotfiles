@@ -28,11 +28,8 @@ cautious_link_bin () {
   fi
 }
 
-clone_bundle () {
-  local repo="${1}"
-  local dir=$(echo $repo | sed 's,.*/,,; s,\.git$,,')
-
-  git clone --depth 1 -- "${repo}" "${DOTDIR}/vim/bundle/${dir}"
+install_vim_vundle () {
+  git clone git://github.com/VundleVim/VundleVim.vim.git ~/.vim/bundle/Vundle.vim
 }
 
 for f in zshrc zshenv emacs.d gitconfig vim vimrc vim-tmp pryrc irbrc sqliterc psqlrc; do
@@ -43,6 +40,4 @@ for x in ./bin/*; do
   cautious_link_bin "${x}"
 done
 
-cat ./vim/bundles.txt | while read b; do
-  clone_bundle "${b}"
-done
+install_vim_vundle

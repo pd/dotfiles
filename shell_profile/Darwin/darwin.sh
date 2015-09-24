@@ -1,6 +1,12 @@
 alias emacs="emacsclient -c -n --alternate-editor=''"
 alias finder="open -a finder ."
 
+if [[ -x "${HOME}/Applications/MacVim.app/Contents/MacOS/Vim" ]]; then
+  alias vim="${HOME}/Applications/MacVim.app/Contents/MacOS/Vim"
+elif [[ -x "/Applications/MacVim.app/Contents/MacOS/Vim" ]]; then
+  alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
+fi
+
 # Open dash docs from terminal
 dash () {
   open dash://"$@"
