@@ -25,6 +25,7 @@
 
 ; give in and use helm
 (depends-on "helm")
+(depends-on "helm-ag")
 (depends-on "helm-bind-key")
 (depends-on "helm-mode-manager")
 (depends-on "helm-mt")
