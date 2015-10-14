@@ -26,6 +26,8 @@ Plugin 'fatih/vim-go'
 Plugin 'mxw/vim-jsx'
 Plugin 'rking/ag.vim'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'majutsushi/tagbar'
+Plugin 'airblade/vim-gitgutter'
 call vundle#end()
 
 filetype plugin indent on
@@ -50,7 +52,7 @@ map K <Nop>
 map Y y$
 map <silent> <Leader>s :nohlsearch<CR>
 map <silent> <Leader>p :set paste!<CR>
-map <silent> <Leader>n :set number!<CR>
+map <silent> <Leader>n :set number!<CR>:GitGutterToggle<CR>
 cmap %/ <C-R>=expand("%:p:h")."/"<CR>
 cmap %% <C-R>=expand("%")<CR>
 
