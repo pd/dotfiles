@@ -71,3 +71,15 @@ let g:airline_right_alt_sep=''
 " colors
 colorscheme molokai
 set background=dark
+
+" all via https://github.com/fatih/vim-go
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+
+au FileType go nmap <leader>ds <Plug>(go-def-split)
+au FileType go nmap <leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <leader>gd <Plug>(go-doc)
+au FileType go nmap <leader>gb <Plug>(go-doc-browser)
+au FileType go nmap <leader>i <Plug>(go-implements)
+au FileType go nmap <leader>r <Plug>(go-rename)
