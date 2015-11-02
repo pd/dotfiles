@@ -25,9 +25,10 @@ Plugin 'wting/rust.vim'
 Plugin 'fatih/vim-go'
 Plugin 'mxw/vim-jsx'
 Plugin 'rking/ag.vim'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'majutsushi/tagbar'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'elixir-lang/vim-elixir'
+Plugin 'ntpeters/vim-better-whitespace'
 call vundle#end()
 
 filetype plugin indent on
@@ -83,3 +84,6 @@ au FileType go nmap <leader>gd <Plug>(go-doc)
 au FileType go nmap <leader>gb <Plug>(go-doc-browser)
 au FileType go nmap <leader>i <Plug>(go-implements)
 au FileType go nmap <leader>r <Plug>(go-rename)
+
+" tidy up
+autocmd BufWritePre * StripWhitespace
