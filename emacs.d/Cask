@@ -76,6 +76,7 @@
 (depends-on "rspec-mode")
 (depends-on "ruby-hash-syntax")
 (depends-on "ruby-tools")
+(depends-on "seeing-is-believing")
 (depends-on "yard-mode")
 
 ; js
@@ -102,12 +103,18 @@
 (depends-on "go-direx")
 (depends-on "go-eldoc")
 (depends-on "go-mode")
+(depends-on "go-playground")
 (depends-on "gotest")
+
+; rust
+(depends-on "cargo")
+(depends-on "company-racer")
+(depends-on "racer")
+(depends-on "rust-mode")
 
 ; the others
 (depends-on "elixir-mode")
 (depends-on "lua-mode")
-(depends-on "rust-mode")
 
 ; dbs
 (depends-on "company-edbi")
