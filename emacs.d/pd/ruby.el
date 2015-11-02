@@ -17,7 +17,13 @@
 
   ; reclaim some bindings enh-ruby-mode clobbers
   (pd/enable-newline-and-indent enh-ruby-mode-map)
-  (unbind-key "C-c /" enh-ruby-mode-map))
+  (unbind-key "C-c /" enh-ruby-mode-map)
+
+  (setq seeing-is-believing-prefix "C-c \\")
+  (require 'seeing-is-believing))
+
+(after 'seeing-is-believing
+  (add-hook 'enh-ruby-mode-hook 'seeing-is-believing))
 
 (after 'inf-ruby
   (add-hook 'inf-ruby-mode-hook 'pd/comint-disable-echo)

@@ -38,6 +38,9 @@
 (after 'projectile-rails
   (diminish 'projectile-rails-mode))
 
+(after 'seeing-is-believing
+  (diminish 'seeing-is-believing " SIB"))
+
 (after 'subword
   (diminish 'subword-mode))
 
