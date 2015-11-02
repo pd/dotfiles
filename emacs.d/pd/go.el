@@ -52,4 +52,8 @@ to the `go-mode-hook'."
        'godoc--buffer-sentinel)
       nil)))
 
+(after 'go-playground
+  (bind-key "C-c C-c" 'go-playground-save-and-run go-playground-mode-map)
+  (bind-key "C-c C-k" 'go-playground-remove-current-snippet go-playground-mode-map))
+
 (provide 'pd/go)
