@@ -12,4 +12,6 @@ add_to_path_if_exists /usr/local/share/npm/bin
 add_to_path_if_exists ~/.cask/bin
 add_to_path_if_exists ~/local/bin
 add_to_path_if_exists /opt/chefdk/bin
+add_to_path_if_exists ~/anaconda/bin
+add_to_path_if_exists ~/.multirust/bin
 add_to_path_if_exists ~/bin
