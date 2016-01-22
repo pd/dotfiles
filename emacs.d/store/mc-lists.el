@@ -39,6 +39,7 @@
         pd/comment-dwim
         pd/join-next-line
         pd/open-line-before
+        replace-regexp
         replace-string
         ruby-tools-interpolate
         ruby-tools-to-symbol
@@ -64,10 +65,13 @@
         ido-switch-buffer
         ielm
         js2-mode-show-node
+        kmacro-end-macro
+        magit-status
         makey-key-mode-popup-repls
         orgtbl-self-insert-command
         pd/back-to-indentation-or-beginning-of-line
         pd/shell-switcher-switch-or-new-buffer
+        phi-search
         smex
         where-is
         ))
