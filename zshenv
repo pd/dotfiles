@@ -2,7 +2,10 @@
 
 # OSX's path_helper sucks. The /etc files for it seem to be overwritten
 # god-knows-when. Just undo everything it decided to do and fkn start over.
-export PATH="$HOME/bin:$HOME/.rbenv/bin:/usr/local/opt/postgresql-9.1/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="/usr/bin:/bin:/usr/sbin:/sbin"
+if [ -f ~/dotfiles/shell_profile/path.sh ]; then
+  source ~/dotfiles/shell_profile/path.sh
+fi
 
 # chruby
 if [ -f /usr/local/share/chruby/chruby.sh ]; then
