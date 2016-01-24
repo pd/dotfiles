@@ -60,6 +60,7 @@ cmap %% <C-R>=expand("%")<CR>
 
 noremap <leader>t :CtrlP<CR>
 noremap <leader>b :CtrlPBuffer<CR>
+noremap <Leader>c :TagbarToggle<CR>
 noremap <leader>d :NERDTreeToggle<CR>
 noremap <leader>f :NERDTreeFind<CR>
 noremap <leader>a :Ag<space>
