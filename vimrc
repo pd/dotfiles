@@ -79,7 +79,7 @@ set background=dark
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
-let g:go_fmt_command = "goimports"
+let g:go_fmt_command = "~/go/bin/goimports"
 
 au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>ds <Plug>(go-def-split)
