@@ -1,6 +1,5 @@
--- local application = require "mjolnir.application"
--- local fnutils = require "mjolnir.fnutils"
--- local screen = require "mjolnir.screen"
+-- for next time i have to reinstall lua:
+-- luarocks install mjolnir.{hotkey, application, fnutils, geometry, screen, keycodes, sd.grid}
 
 local window = require "mjolnir.window"
 local hotkey = require "mjolnir.hotkey"
