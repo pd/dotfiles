@@ -14,4 +14,8 @@ add_to_path_if_exists ~/local/bin
 add_to_path_if_exists /opt/chefdk/bin
 add_to_path_if_exists ~/anaconda/bin
 add_to_path_if_exists ~/.multirust/bin
+add_to_path_if_exists ~/.multirust/toolchains/nightly/cargo/bin
+add_to_path_if_exists ~/.multirust/toolchains/1.6.0/cargo/bin
+add_to_path_if_exists /usr/local/opt/go/libexec/bin
+add_to_path_if_exists $GOPATH/bin
 add_to_path_if_exists ~/bin
