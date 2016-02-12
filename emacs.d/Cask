@@ -53,8 +53,7 @@
 ; misc dev
 (depends-on "csv-mode")
 (depends-on "csv-nav")
-(depends-on "git-commit-mode")
-(depends-on "git-rebase-mode")
+(depends-on "git-commit")
 (depends-on "gitconfig-mode")
 (depends-on "gitignore-mode")
 (depends-on "git-timemachine")
