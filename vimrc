@@ -22,7 +22,8 @@ Plugin 'bling/vim-airline'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
-Plugin 'wting/rust.vim'
+Plugin 'rust-lang/rust.vim'
+Plugin 'racer-rust/vim-racer'
 Plugin 'fatih/vim-go'
 Plugin 'mxw/vim-jsx'
 Plugin 'rking/ag.vim'
@@ -88,6 +89,18 @@ au FileType go nmap <leader>gd <Plug>(go-doc)
 au FileType go nmap <leader>gv <Plug>(go-doc-vertical)
 au FileType go nmap <leader>gb <Plug>(go-doc-browser)
 au FileType go nmap <leader>i <Plug>(go-implements)
+
+" eventually i'll actually learn modern rust
+set hidden
+let g:racer_cmd = $HOME."/.multirust/toolchains/1.6.0/cargo/bin/racer"
+let g:ycm_rust_src_path = $HOME."/vendor/rust/src"
+let g:rustfmt_autosave = 1
+let $RUST_SRC_PATH = $HOME."/vendor/rust/src"
+
+" despite https://github.com/rust-lang/rust.vim/issues/46
+" and https://github.com/rust-lang/rust.vim/blob/9924277/README.md#using-vundle
+" filetype detection simply doesn't work. i dunno. who cares. set it manually.
+autocmd BufNewFile,BufRead *.rs set filetype=rust
 
 " tidy up
 autocmd BufWritePre * StripWhitespace
