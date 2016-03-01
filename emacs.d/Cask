@@ -103,6 +103,14 @@
 (depends-on "racer")
 (depends-on "rust-mode")
 
+; cljs{0,1}
+(depends-on "align-cljlet")
+(depends-on "cider")
+(depends-on "clojure-mode")
+(depends-on "clojure-mode-extra-font-locking")
+(depends-on "cljr-helm")
+(depends-on "helm-clojuredocs")
+
 ; the others
 (depends-on "elixir-mode")
 (depends-on "lua-mode")

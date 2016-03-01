@@ -34,6 +34,13 @@
   (setq nrepl-hide-special-buffers t))
 
 (after 'clojure-mode
-  (add-hook 'clojure-mode-hook 'pd/lisp-mode))
+  (require 'clojure-mode-extra-font-locking)
+  (require 'clj-refactor)
+
+  (add-hook 'clojure-mode-hook 'pd/lisp-mode)
+  (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+
+  (bind-keys :map clojure-mode-map
+             ("C-c r" . cljr-helm)))
 
 (provide 'pd/lisp)

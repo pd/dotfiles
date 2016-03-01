@@ -57,18 +57,17 @@
 
 ;;;; Mode detection.
 (easy-auto-mode
- '((enh-ruby-mode "\\.rb\\'" "\\.rake\\'"
+ '((clojure-mode "build.boot\\'")
+   (enh-ruby-mode "\\.rb\\'" "\\.rake\\'"
                   "Rakefile\\'" "Guardfile\\'" "Gemfile\\'" "Appraisals\\'"
                   "\\.gemspec\\'" "\\.?irbrc\\'" "\\.rabl\\'" "\\.ru\\'"
                   "\\.simplecov\\'")
-    (js-mode "\\.json\\'")
-    (js2-mode "\\.js\\'")
-    (web-mode "\\.jsx\\'" "\\.html\\'")
-    (slim-mode "\\.emblem\\'") ; good enough
-    (markdown-mode "\\.md\\'" "\\.markdown\\'")
-    (sgml-mode "\\.hbs\\'") ; handlebars-sgml-mode > handlebars-mode
-    (gitconfig-mode "gitconfig\\'")
-    (gitignore-mode "gitignore\\'")))
+   (js-mode "\\.json\\'")
+   (js2-mode "\\.js\\'")
+   (web-mode "\\.jsx\\'" "\\.html\\'")
+   (markdown-mode "\\.md\\'" "\\.markdown\\'")
+   (gitconfig-mode "gitconfig\\'")
+   (gitignore-mode "gitignore\\'")))
 
 (add-to-list 'interpreter-mode-alist '("node" . js2-mode))
 
