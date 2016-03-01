@@ -27,6 +27,8 @@
 	default = upstream
 [merge]
 	conflictstyle = diff3
+[diff]
+	algorithm = patience
 [alias]
 	append = commit --amend -C HEAD
 	b   = branch
