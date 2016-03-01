@@ -13,10 +13,6 @@
 (after 'elisp-slime-nav
   (diminish 'elisp-slime-nav-mode))
 
-(after 'handlebars-sgml-mode
-  (handlebars-use-mode 'minor)
-  (diminish 'handlebars-sgml-minor-mode " hbs"))
-
 (after 'js2-mode
   (add-hook 'js2-mode-hook 'pd/js2-mode-name))
 

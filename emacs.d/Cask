@@ -60,6 +60,8 @@
 (depends-on "gitignore-mode")
 (depends-on "git-timemachine")
 (depends-on "magit")
+(depends-on "markdown-mode")
+(depends-on "rainbow-mode")
 (depends-on "repl-toggle")
 (depends-on "yaml-mode")
 
@@ -81,23 +83,11 @@
 (depends-on "yard-mode")
 
 ; js
-(depends-on "coffee-mode")
 (depends-on "js2-mode")
-(depends-on "js2-refactor")
-(depends-on "nodejs-repl")
 (depends-on "web-mode")
 
-; html (and things that compile to it)
-(depends-on "haml-mode")
-(depends-on "markdown-mode")
-(depends-on "tagedit")
-(depends-on "zencoding-mode")
-
-; css (and things that compile to it)
-(depends-on "less-css-mode")
-(depends-on "rainbow-mode")
-(depends-on "sass-mode")
-(depends-on "scss-mode")
+; html-ish
+(depends-on "emmet-mode")
 
 ; go
 (depends-on "company-go")
