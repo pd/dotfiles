@@ -44,3 +44,18 @@ class Object
     instance_variable_set(name, val)
   end
 end
+
+def sizeof(target, seen = nil)
+  require 'objspace'
+  require 'set'
+
+  seen    ||= Set.new
+  reachable = ObjectSpace.reachable_objects_from(target)
+
+  reachable.reduce(ObjectSpace.memsize_of(target)) do |sum, obj|
+    next sum if obj.is_a?(Module)
+    next sum if seen.member?(obj.object_id)
+    seen.add(obj.object_id)
+    sum += sizeof(obj, seen)
+  end
+end
