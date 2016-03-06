@@ -31,6 +31,7 @@
 (require 'pd/benchmark) ; record time of each require
 (require 'pd/bootstrap) ; package.el, turn off noise, favor utf8, etc.
 (require 'pd/osx)       ; remap cmd->meta etc as soon as is reasonable
+(require 'pd/linux)     ; at least get a working $PATH and decent font
 (require 'pd/defuns)    ; generic pd/foo defuns et al
 (require 'pd/theme)     ; if anything bombs later, at least emacs'll still be pretty
 (require 'pd/bindings)  ; globally interesting bindings

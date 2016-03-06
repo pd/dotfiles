@@ -1,8 +1,7 @@
 ;; boot cask, which will handle setting up package.el
-; ideally, i'd hunt down cask.el more intelligently.
-; realistically, i'm always gonna `brew install cask`
-; and this will work perfectly fine.
-(require 'cask "/usr/local/opt/cask/cask.el")
+(when (file-directory-p "/usr/local/opt/cask")
+  (add-to-list 'load-path "/usr/local/opt/cask"))
+(require 'cask)
 (cask-initialize)
 
 ;; shush.
