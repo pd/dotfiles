@@ -29,7 +29,7 @@ cautious_link_bin () {
 }
 
 install_vim_vundle () {
-  git clone git://github.com/VundleVim/VundleVim.vim.git ~/.vim/bundle/Vundle.vim
+  git clone git://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 }
 
 for f in zshrc zshenv emacs.d gitconfig vim vimrc vim-tmp pryrc irbrc sqliterc psqlrc; do
