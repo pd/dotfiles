@@ -62,6 +62,7 @@
         beginning-of-buffer
         delete-window
         end-of-buffer
+        helm-M-x
         ido-switch-buffer
         ielm
         js2-mode-show-node
