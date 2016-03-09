@@ -1,3 +1,4 @@
+# -*- mode: sh -*-
 # zshenv: run for all zsh shells
 
 # OSX's path_helper sucks. The /etc files for it seem to be overwritten
@@ -12,8 +13,11 @@ for s in "/usr/local/share/chruby" "/usr/share/chruby"; do
   if [ -f "${s}/chruby.sh" ]; then
     source "${s}/chruby.sh"
 
-    [ -f ~/.ruby-version ] && chruby $(cat ~/.ruby-version)
-    [ -f ./.ruby-version ] && chruby $(cat ./.ruby-version)
+    if [ -f ./.ruby-version ]; then
+      chruby $(cat ./.ruby-version)
+    elif [ -f ~/.ruby-version ]; then
+      chruby $(cat ~/.ruby-version)
+    fi
   fi
 done
 
