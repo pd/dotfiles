@@ -8,12 +8,14 @@ if [ -f ~/dotfiles/shell_profile/path.sh ]; then
 fi
 
 # chruby
-if [ -f /usr/local/share/chruby/chruby.sh ]; then
-  source /usr/local/share/chruby/chruby.sh
+for s in "/usr/local/share/chruby" "/usr/share/chruby"; do
+  if [ -f "${s}/chruby.sh" ]; then
+    source "${s}/chruby.sh"
 
-  [ -f ~/.ruby-version ] && chruby $(cat ~/.ruby-version)
-  [ -f ./.ruby-version ] && chruby $(cat ./.ruby-version)
-fi
+    [ -f ~/.ruby-version ] && chruby $(cat ~/.ruby-version)
+    [ -f ./.ruby-version ] && chruby $(cat ./.ruby-version)
+  fi
+done
 
 if [ $(command -v direnv 2>&1) ]; then
   eval "$(direnv hook zsh)"
