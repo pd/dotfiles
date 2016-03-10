@@ -7,6 +7,7 @@
   (add-to-list 'exec-path-from-shell-variables "GOPATH")
   (exec-path-from-shell-initialize)
 
-  (set-face-attribute 'default nil :height 80 :family "Source Code Pro Medium"))
+  ;; pacaur -S ttf-roboto-mono
+  (set-face-attribute 'default nil :height 80 :family "Roboto Mono"))
 
 (provide 'pd/linux)
