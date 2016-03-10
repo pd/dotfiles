@@ -8,6 +8,7 @@
 (recentf-mode +1)
 (toggle-save-place-globally)
 (which-key-mode +1)
+(global-linum-mode +1)
 
 (require 'popwin)
 (popwin-mode +1)
