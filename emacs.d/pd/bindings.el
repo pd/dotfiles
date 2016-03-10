@@ -115,6 +115,11 @@
  ("C-c x r" . run-ruby)
  ("C-c x x" . rtog/toggle-repl))
 
+;; find bindings
+(bind-keys*
+ ("C-h C-b" . discover-my-major)
+ ("C-h M-b" . discover-my-mode))
+
 ;; misc
 (bind-key "C-x g" 'magit-status)
 (bind-key "C-h a" 'apropos)
