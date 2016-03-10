@@ -87,7 +87,8 @@
 
 (after 'paradox
   ; Stop asking me if I want to star/unstar shit on github ffs.
-  (setq paradox-github-token t))
+  (setq paradox-github-token t
+        paradox-execute-asynchronously t))
 
 (after 'projectile
   (setq projectile-known-projects-file (locate-user-emacs-file "store/projectile-bookmarks.eld")
