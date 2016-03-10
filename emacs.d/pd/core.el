@@ -82,6 +82,9 @@
   (require 'flx-ido)
   (flx-ido-mode +1))
 
+(after 'linum
+  (require 'linum-off))
+
 (after 'package
   (require 'package-build)
   (require 'paradox))

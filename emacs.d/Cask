@@ -40,6 +40,7 @@
 (depends-on "dired-details")
 (depends-on "dired-details+")
 (depends-on "discover-my-major")
+(depends-on "linum-off")
 (depends-on "package-build")
 (depends-on "paradox")
 (depends-on "pcmpl-git")
