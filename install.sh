@@ -32,7 +32,7 @@ install_vim_vundle () {
   git clone git://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 }
 
-for f in zshrc zshenv emacs.d gitconfig vim vimrc vim-tmp pryrc irbrc sqliterc psqlrc; do
+for f in zshrc zshenv emacs.d gitconfig vim vimrc vim-tmp pryrc irbrc sqliterc psqlrc Xmodmap xinitrc; do
   cautious_link "${HOME}/dotfiles/${f}" "${HOME}/.${f}"
 done
 
