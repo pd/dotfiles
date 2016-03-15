@@ -29,3 +29,7 @@ if [ -x /usr/local/bin/virtualenvwrapper.sh ]; then
   export WORKON_HOME=$HOME/.virtualenvs
   source /usr/local/bin/virtualenvwrapper.sh
 fi
+
+if [ -d "${HOME}/Library/Caskroom" ]; then
+  export HOMEBREW_CASK_OPTS="--caskroom=${HOME}/Library/Caskroom"
+fi
