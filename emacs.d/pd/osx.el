@@ -26,8 +26,8 @@
   (add-to-list 'exec-path-from-shell-variables "GOPATH")
   (exec-path-from-shell-initialize)
 
-  ;; brew tap caskroom/homebrew-fonts && brew install font-sauce-code-pro-for-powerline
-  (set-face-attribute 'default nil :height 120 :family "Source Code Pro for Powerline")
+  ;; brew tap caskroom/homebrew-fonts && brew install font-roboto-mono
+  (set-face-attribute 'default nil :height 120 :family "Roboto Mono")
 
   ;; I launch emacs client using an applescript, which sets cwd to /
   ;; Rather than learn applescript, I fix it here.
