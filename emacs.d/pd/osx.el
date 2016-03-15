@@ -29,6 +29,12 @@
   ;; brew tap caskroom/homebrew-fonts && brew install font-roboto-mono
   (set-face-attribute 'default nil :height 120 :family "Roboto Mono")
 
+  ;; current MBP spams a hideous warning exclamation point mid-screen
+  ;; as its visual bell. so disable that *and* get emacs to fuck off with
+  ;; its audio bell.
+  (setq visible-bell nil
+        ring-bell-function 'ignore)
+
   ;; I launch emacs client using an applescript, which sets cwd to /
   ;; Rather than learn applescript, I fix it here.
   (when (string= default-directory "/")
