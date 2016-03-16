@@ -62,12 +62,18 @@
 (after 'rust-mode
   (require 'racer)
   (require 'company-racer)
+  (require 'rustfmt)
+
   (add-hook 'rust-mode-hook 'subword-mode)
   (add-hook 'rust-mode-hook 'racer-mode)
+  (add-hook 'rust-mode-hook 'rustfmt-enable-on-save)
   (add-hook 'racer-mode-hook 'eldoc-mode)
+
   (setq racer-cmd (f-expand "~/.multirust/toolchains/stable/cargo/bin/racer")
         racer-rust-src-path (f-expand "~/vendor/rust/src")
-        company-racer-executable (f-expand "~/.multirust/toolchains/stable/cargo/bin/racer"))
+        company-racer-executable (f-expand "~/.multirust/toolchains/stable/cargo/bin/racer")
+        rustfmt-bin (f-expand "~/bin/multirustfmt"))
+
   (add-to-list 'company-backends 'company-racer))
 
 (provide 'pd/prog)
