@@ -93,7 +93,7 @@ au FileType go nmap <leader>i <Plug>(go-implements)
 
 " eventually i'll actually learn modern rust
 set hidden
-let g:racer_cmd = $HOME."/.multirust/toolchains/stable/cargo/bin/racer"
+let g:racer_cmd = $HOME."/bin/multirustracer"
 let g:ycm_rust_src_path = $HOME."/vendor/rust/src"
 let g:rustfmt_command = $HOME."/bin/multirustfmt"
 let g:rustfmt_autosave = 1
