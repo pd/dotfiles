@@ -118,6 +118,10 @@
 (depends-on "elixir-mode")
 (depends-on "lua-mode")
 
+; flycheck it all
+(depends-on "flycheck")
+(depends-on "flycheck-rust")
+
 ; dbs
 (depends-on "company-edbi")
 (depends-on "edbi")

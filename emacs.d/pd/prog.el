@@ -63,10 +63,15 @@
   (require 'racer)
   (require 'company-racer)
   (require 'rustfmt)
+  (require 'flycheck-rust)
+
+  (add-hook 'flycheck-mode-hook 'flycheck-rust-setup)
 
   (add-hook 'rust-mode-hook 'subword-mode)
   (add-hook 'rust-mode-hook 'racer-mode)
   (add-hook 'rust-mode-hook 'rustfmt-enable-on-save)
+  (add-hook 'rust-mode-hook 'flycheck-mode)
+
   (add-hook 'racer-mode-hook 'eldoc-mode)
 
   (setq rustfmt-bin              (f-expand "~/bin/multirustfmt")
