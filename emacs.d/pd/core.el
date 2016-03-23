@@ -1,4 +1,5 @@
-(setq auto-save-default nil)
+(setq auto-save-default nil
+      save-interprogram-paste-before-kill t)
 
 (column-number-mode +1)
 (electric-indent-mode +1)
