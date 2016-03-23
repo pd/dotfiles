@@ -83,7 +83,8 @@
   (flx-ido-mode +1))
 
 (after 'linum
-  (require 'linum-off))
+  (require 'linum-off)
+  (add-to-list 'linum-disabled-modes-list 'erc-mode))
 
 (after 'package
   (require 'package-build)

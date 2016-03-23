@@ -46,6 +46,7 @@
 (require 'pd/js)
 (require 'pd/markup)
 (require 'pd/db)
+(require 'pd/irc)
 
 ;;;; Some things don't deserve homes.
 (after 'dash-at-point
