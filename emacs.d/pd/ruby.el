@@ -7,6 +7,10 @@
         enh-ruby-deep-indent-paren-style nil
         enh-ruby-add-encoding-comment-on-save nil)
 
+  (defun pd/flycheck-disable-rubocop ()
+    "I really don't want generic rubocop warnings at all times."
+    (add-to-list 'flycheck-disabled-checkers 'ruby-rubocop))
+
   (add-hook 'enh-ruby-mode-hook 'ruby-tools-mode)
   (add-hook 'enh-ruby-mode-hook 'subword-mode)
   (add-hook 'enh-ruby-mode-hook 'yard-mode)
@@ -14,6 +18,7 @@
   (add-hook 'enh-ruby-mode-hook 'repl-toggle-mode)
   (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode)
   (add-hook 'enh-ruby-mode-hook 'projectile-mode)
+  (add-hook 'enh-ruby-mode-hook 'pd/flycheck-disable-rubocop)
 
   ; reclaim some bindings enh-ruby-mode clobbers
   (pd/enable-newline-and-indent enh-ruby-mode-map)
@@ -21,9 +26,6 @@
 
   (setq seeing-is-believing-prefix "C-c \\")
   (require 'seeing-is-believing))
-
-(after 'seeing-is-believing
-  (add-hook 'enh-ruby-mode-hook 'seeing-is-believing))
 
 (after 'inf-ruby
   (add-hook 'inf-ruby-mode-hook 'pd/comint-disable-echo)
@@ -35,6 +37,9 @@
 
 (after 'rspec-mode
   (setq rspec-use-rake-when-possible nil))
+
+(after 'seeing-is-believing
+  (add-hook 'enh-ruby-mode-hook 'seeing-is-believing))
 
 ; I never really got this thing working well enough to publish it.
 ; Maybe some day.

@@ -49,6 +49,11 @@
 (after 'ffap
   (pd/load-ext 'ffap))
 
+(after 'flycheck
+  (global-flycheck-mode +1)
+  (when (require 'flycheck-cask nil 'noerror)
+    (add-hook 'flycheck-mode-hook #'flycheck-cask-setup)))
+
 (after 'ibuffer
   (require 'ibuffer-vc)
   (setq ibuffer-default-sorting-mode 'filename/process

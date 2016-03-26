@@ -120,6 +120,7 @@
 
 ; flycheck it all
 (depends-on "flycheck")
+(depends-on "flycheck-package")
 (depends-on "flycheck-rust")
 
 ; dbs

@@ -79,6 +79,7 @@
 (require 'company)
 (require 'helm-config)
 (require 'helm-projectile)
+(require 'flycheck)
 
 ;;;; Show me what takes too long.
 (save-current-buffer
