@@ -3,15 +3,11 @@
   (interactive)
   (find-file (expand-file-name user-init-file)))
 
-(defun pd/emacs.d (&rest paths)
-  (expand-file-name (s-join "/" paths) user-emacs-directory))
-
 (defun pd/load-ext (name)
-  "Load extensions to a libary from `pd/ext/NAME.el'"
+  "Load extensions to a library from `pd/ext/NAME.el'."
   (let* ((name (if (symbolp name) (symbol-name name) name))
-         (dir  (expand-file-name "pd/ext/" user-emacs-directory))
-         (file (concat name ".el")))
-    (load (expand-file-name file dir))))
+         (path (locate-file (concat "pd/ext/" name ".el") load-path)))
+    (when path (load path))))
 
 (defun pd/enable-newline-and-indent (map)
   "Bind RET to `newline-and-indent' in MAP."
