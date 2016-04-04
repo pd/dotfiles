@@ -15,6 +15,7 @@ prepend_path ~/.cask/bin
 prepend_path ~/local/bin
 prepend_path /opt/chefdk/bin
 prepend_path ~/anaconda/bin
+prepend_path ~/.cargo/bin
 prepend_path ~/.multirust/bin
 prepend_path ~/.multirust/toolchains/nightly/cargo/bin
 prepend_path ~/.multirust/toolchains/stable/cargo/bin
