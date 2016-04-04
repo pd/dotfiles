@@ -1,6 +1,7 @@
 if command -v kitchen >/dev/null 2>&1; then
   alias kc='kitchen converge'
   alias kv='kitchen verify'
+  alias kl='kitchen login'
 
   # kitchen converge foo && kitchen verify foo
   kcv () {
