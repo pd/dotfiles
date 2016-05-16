@@ -101,10 +101,8 @@
 
 ; rust
 (depends-on "cargo")
-(depends-on "company-racer")
 (depends-on "racer")
 (depends-on "rust-mode")
-(depends-on "rustfmt")
 
 ; cljs{0,1}
 (depends-on "align-cljlet")

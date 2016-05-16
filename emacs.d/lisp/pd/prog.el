@@ -61,24 +61,21 @@
 
 (after 'rust-mode
   (require 'racer)
-  (require 'company-racer)
-  (require 'rustfmt)
   (require 'flycheck-rust)
 
   (add-hook 'flycheck-mode-hook 'flycheck-rust-setup)
 
   (add-hook 'rust-mode-hook 'subword-mode)
   (add-hook 'rust-mode-hook 'racer-mode)
-  (add-hook 'rust-mode-hook 'rustfmt-enable-on-save)
+  (add-hook 'rust-mode-hook 'rust-enable-format-on-save)
   (add-hook 'rust-mode-hook 'flycheck-mode)
+  (add-hook 'rust-mode-hook 'cargo-minor-mode)
 
   (add-hook 'racer-mode-hook 'eldoc-mode)
+  (add-hook 'racer-mode-hook 'company-mode)
 
-  (setq rustfmt-bin              (f-expand "~/bin/multirustfmt")
-        racer-cmd                (f-expand "~/bin/multirustracer")
-        company-racer-executable (f-expand "~/bin/multirustracer")
-        racer-rust-src-path      (f-expand "~/vendor/rust/src"))
-
-  (add-to-list 'company-backends 'company-racer))
+  (setq rust-rustfmt-bin         (f-expand "~/.cargo/bin/rustfmt")
+        racer-cmd                (f-expand "~/.cargo/bin/racer")
+        racer-rust-src-path      (f-expand "~/vendor/rust/src")))
 
 (provide 'pd/prog)
