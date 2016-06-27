@@ -17,6 +17,19 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
+genpass() {
+  LC_ALL=C tr -dc '0-9A-Za-z_@#%*,.:?!~$^&()[]' < /dev/urandom | head -c${1:-20}
+  echo
+}
+
+if ! which realpath >/dev/null 2>&1; then
+  if which greadlink >/dev/null 2>&1; then
+    alias realpath='greadlink -m'
+  else
+    alias realpath='readlink -m'
+  fi
+fi
+
 up() {
   local op=print
   [[ -t 1 ]] && op=cd
@@ -34,11 +47,3 @@ up() {
        fi
   esac
 }
-
-if ! which realpath >/dev/null 2>&1; then
-  if which greadlink >/dev/null 2>&1; then
-    alias realpath='greadlink -m'
-  else
-    alias realpath='readlink -m'
-  fi
-fi
