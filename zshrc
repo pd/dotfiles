@@ -40,6 +40,7 @@ setopt histverify
 setopt inc_append_history
 setopt share_history
 setopt hist_ignore_dups
+setopt extended_glob
 
 ## prompt
 # expand %m, %*; expand '$(echo hi)', '${foovar}'
