@@ -62,7 +62,6 @@
                   "Rakefile\\'" "Guardfile\\'" "Gemfile\\'" "Appraisals\\'"
                   "\\.gemspec\\'" "\\.?irbrc\\'" "\\.rabl\\'" "\\.ru\\'"
                   "\\.simplecov\\'")
-   (js-mode "\\.json\\'")
    (js2-mode "\\.js\\'")
    (web-mode "\\.jsx\\'" "\\.html\\'")
    (markdown-mode "\\.md\\'" "\\.markdown\\'")

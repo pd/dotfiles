@@ -61,6 +61,8 @@
 (depends-on "gitconfig-mode")
 (depends-on "gitignore-mode")
 (depends-on "git-timemachine")
+(depends-on "json-mode")
+(depends-on "json-snatcher")
 (depends-on "magit")
 (depends-on "markdown-mode")
 (depends-on "rainbow-mode")
