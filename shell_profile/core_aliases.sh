@@ -17,7 +17,23 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
-up () { for ((c=1; c <= $1; c++)); do cd ..; done }
+up() {
+  local op=print
+  [[ -t 1 ]] && op=cd
+  case "$1" in
+    '') up 1;;
+    -*|+*) $op ~$1;;
+    <->) $op $(printf '../%.0s' {1..$1});;
+    *) local -a seg; seg=(${(s:/:)PWD%/*})
+       local n=${(j:/:)seg[1,(I)$1*]}
+       if [[ -n $n ]]; then
+         $op /$n
+       else
+         print -u2 up: could not find prefix $1 in $PWD
+         return 1
+       fi
+  esac
+}
 
 if ! which realpath >/dev/null 2>&1; then
   if which greadlink >/dev/null 2>&1; then
