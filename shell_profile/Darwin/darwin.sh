@@ -7,6 +7,8 @@ elif [[ -x "/Applications/MacVim.app/Contents/MacOS/Vim" ]]; then
   alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
 fi
 
+export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
+
 # Open dash docs from terminal
 dash () {
   open dash://"$@"
