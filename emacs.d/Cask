@@ -117,6 +117,7 @@
 ; the others
 (depends-on "elixir-mode")
 (depends-on "lua-mode")
+(depends-on "terraform-mode")
 
 ; flycheck it all
 (depends-on "flycheck")

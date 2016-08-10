@@ -32,6 +32,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'hashivim/vim-terraform'
 call vundle#end()
 
 filetype plugin indent on
@@ -106,3 +107,4 @@ autocmd BufNewFile,BufRead *.rs set filetype=rust
 
 " tidy up
 autocmd BufWritePre * StripWhitespace
+let g:terraform_fmt_onsave = 1

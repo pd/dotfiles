@@ -78,4 +78,7 @@
         racer-cmd                (f-expand "~/.cargo/bin/racer")
         racer-rust-src-path      (f-expand "~/vendor/rust/src")))
 
+(after 'terraform-mode
+  (add-hook 'terraform-mode-hook 'terraform-format-on-save-mode))
+
 (provide 'pd/prog)
