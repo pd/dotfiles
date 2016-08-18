@@ -123,6 +123,7 @@
 ;; misc
 (bind-key "C-x g" 'magit-status)
 (bind-key "C-h a" 'apropos)
+(bind-key "C-h d" 'dash-at-point) ; I don't think I've ever run apropos-documentation ...
 (bind-key "C-c C-l" 'helm-minibuffer-history minibuffer-local-map)
 
 ;; rm -rf annoyances
