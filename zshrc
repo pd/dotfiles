@@ -95,6 +95,3 @@ precmd () {
     echo -ne "\e]1;${tab_label}\a" # set tab title to rightmost 24 characters
   fi
 }
-
-# added by travis gem
-[ -f /Users/khargraves/.travis/travis.sh ] && source /Users/khargraves/.travis/travis.sh
