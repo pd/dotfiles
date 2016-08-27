@@ -38,6 +38,8 @@
 
 (after 'helm
   (require 'helm-projectile)
+  (helm-descbinds-mode)
+
   (setq helm-M-x-fuzzy-match t
         helm-recentf-fuzzy-match t
         helm-buffers-fuzzy-matching t
