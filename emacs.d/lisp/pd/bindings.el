@@ -110,7 +110,7 @@
 ;; C-c x: repls
 (bind-keys*
  ("C-c x '" . pd/shell-switcher-switch-or-new-buffer)
- ("C-M-\""  . helm-mt)
+ ("C-c x ?" . helm-mt)
  ("C-c x d" . edbi:open-db-viewer)
  ("C-c x e" . ielm)
  ("C-c x j" . nodejs-repl)
