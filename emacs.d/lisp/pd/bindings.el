@@ -29,6 +29,8 @@
 
 ;; frames
 (bind-keys*
+ ("M-C-0" . zoom-frm-unzoom)
+ ("M-C-)" . zoom-frm-unzoom) ; aka M-C-S-0
  ("M-C-+" . zoom-frm-in)
  ("M-C-_" . zoom-frm-out)
  ("M-C--" . zoom-frm-out))
