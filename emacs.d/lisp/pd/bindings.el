@@ -126,6 +126,7 @@
 ;; misc
 (bind-key "C-x g" 'magit-status)
 (bind-key "C-c C-l" 'helm-minibuffer-history minibuffer-local-map)
+(bind-key "C-c h !" 'helm-flycheck)
 
 ;; rm -rf annoyances
 (unbind-key "<menu>")
