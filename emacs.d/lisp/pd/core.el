@@ -122,7 +122,8 @@
 
 (after 'recentf
   (setq recentf-save-file (locate-user-emacs-file ".crap/recentf")
-        recentf-max-menu-items 10))
+        recentf-max-saved-items 50)
+  (recentf-load-list))
 
 (after 're-builder
   (setq reb-re-syntax 'string))
