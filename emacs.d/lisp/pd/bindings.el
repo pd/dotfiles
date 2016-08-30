@@ -76,7 +76,9 @@
  ("C-c ="      . align-regexp)
  ("C-^"        . pd/join-next-line)
  ("M-RET"      . pd/open-line-before)
- ("<C-return>" . pd/open-line-after))
+ ("<C-return>" . pd/open-line-after)
+ ("s-i"        . ciel-ci)
+ ("s-o"        . ciel-co))
 
 ;; Hyper: multiple-cursors
 (bind-keys*

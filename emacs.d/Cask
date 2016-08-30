@@ -38,6 +38,7 @@
 
 ; handy
 (depends-on "ag")
+(depends-on "ciel")
 (depends-on "dash")
 (depends-on "dash-at-point")
 (depends-on "dired-details")
