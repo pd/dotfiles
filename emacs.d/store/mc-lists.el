@@ -5,6 +5,7 @@
       '(
         align-regexp
         backward-sexp
+        c-electric-delete-forward
         coffee-dedent-line-backspace
         coffee-indent-shift-left
         coffee-newline-and-indent

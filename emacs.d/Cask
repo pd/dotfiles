@@ -119,6 +119,7 @@
 (depends-on "helm-clojuredocs")
 
 ; the others
+(depends-on "hcl-mode")
 (depends-on "elixir-mode")
 (depends-on "lua-mode")
 (depends-on "terraform-mode")
