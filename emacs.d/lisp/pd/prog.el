@@ -74,6 +74,18 @@
   (add-hook 'racer-mode-hook 'eldoc-mode)
   (add-hook 'racer-mode-hook 'company-mode)
 
+  (defun pd/rust-insert-type-error ()
+    (interactive)
+    (let ((sym (symbol-at-point)))
+      (when sym
+        (pd/open-line-after)
+        (insert "let () = " (symbol-name sym) ";")
+        (beginning-of-line-text)
+        (forward-char 4)
+        (save-buffer))))
+
+  (bind-key "C-c i t" 'pd/rust-insert-type-error rust-mode-map)
+
   (setq rust-rustfmt-bin         (f-expand "~/.cargo/bin/rustfmt")
         racer-cmd                (f-expand "~/.cargo/bin/racer")
         racer-rust-src-path      (f-expand "~/vendor/rust/src")))
