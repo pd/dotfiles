@@ -73,6 +73,7 @@
 (depends-on "repl-toggle")
 (depends-on "toml-mode")
 (depends-on "yaml-mode")
+(depends-on "znc")
 
 ; the world as lisp
 (depends-on "elisp-slime-nav")
