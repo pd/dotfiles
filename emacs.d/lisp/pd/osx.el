@@ -23,6 +23,7 @@
 
   ;; gank the $PATH from a login shell, in case I launched from the dock
   (require 'exec-path-from-shell)
+  (setq exec-path-from-shell-check-startup-files nil)
   (add-to-list 'exec-path-from-shell-variables "GOPATH")
   (exec-path-from-shell-initialize)
 
