@@ -17,7 +17,6 @@
 (depends-on "ibuffer-vc")
 (depends-on "multiple-cursors")
 (depends-on "phi-search")
-(depends-on "projectile")
 (depends-on "quickref")
 (depends-on "shell-switcher")
 (depends-on "smex")
@@ -34,7 +33,6 @@
 (depends-on "helm-fuzzier")
 (depends-on "helm-mode-manager")
 (depends-on "helm-mt")
-(depends-on "helm-projectile")
 
 ; handy
 (depends-on "ag")

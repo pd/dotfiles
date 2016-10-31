@@ -37,14 +37,12 @@
   (dired-details-install))
 
 (after 'helm
-  (require 'helm-projectile)
   (helm-descbinds-mode +1)
   (helm-flx-mode +1)
   (helm-fuzzier-mode +1)
 
   (setq helm-M-x-fuzzy-match t
         helm-ag-fuzzy-match t
-        helm-projectile-fuzzy-match t
         helm-apropos-fuzzy-match t
         helm-recentf-fuzzy-match t
         helm-buffers-fuzzy-matching t
@@ -103,15 +101,6 @@
   ; Stop asking me if I want to star/unstar shit on github ffs.
   (setq paradox-github-token t
         paradox-execute-asynchronously t))
-
-(after 'projectile
-  (setq projectile-known-projects-file (locate-user-emacs-file "store/projectile-bookmarks.eld")
-        projectile-cache-file (locate-user-emacs-file "store/projectile.cache")
-        projectile-switch-project-action 'helm-projectile
-        projectile-enable-caching t)
-
-  ; Force it to reload after changing the value
-  (projectile-load-known-projects))
 
 (after 'quickref
   (quickref-global-mode +1)

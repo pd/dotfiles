@@ -42,17 +42,9 @@
  ("C-c f ." . find-file-at-point)
  ("H-l"     . pd/kill-tracker-find-last))
 
-;; projectile
-(bind-keys*
- ("C-c p a" . helm-projectile-ag)
- ("C-c p b" . helm-projectile-switch-to-buffer)
- ("C-c p f" . helm-projectile-find-file)
- ("C-c p p" . helm-projectile-switch-project))
-
-;; find via helm, sans projectile
+;; find via helm
 (bind-key "s-a" 'helm-ag)
 (bind-key "s-g" 'helm-rubygems-local)
-(bind-key "s-p" 'helm-projectile-switch-project)
 (bind-key "M-i" 'helm-imenu)
 (bind-key "s-y" 'helm-show-kill-ring)
 

@@ -28,12 +28,6 @@
 (after 'paredit
   (diminish 'paredit-mode))
 
-(after 'projectile
-  (setq projectile-mode-line '(:eval (format " prj[%s]" (projectile-project-name)))))
-
-(after 'projectile-rails
-  (diminish 'projectile-rails-mode))
-
 (after 'seeing-is-believing
   (diminish 'seeing-is-believing " SIB"))
 

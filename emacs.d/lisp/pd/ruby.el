@@ -17,7 +17,6 @@
   (add-hook 'enh-ruby-mode-hook 'eldoc-mode)
   (add-hook 'enh-ruby-mode-hook 'repl-toggle-mode)
   (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode)
-  (add-hook 'enh-ruby-mode-hook 'projectile-mode)
   (add-hook 'enh-ruby-mode-hook 'pd/flycheck-disable-rubocop)
 
   ; reclaim some bindings enh-ruby-mode clobbers
