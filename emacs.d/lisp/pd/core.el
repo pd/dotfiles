@@ -99,10 +99,6 @@
   (require 'linum-off)
   (add-to-list 'linum-disabled-modes-list 'erc-mode))
 
-(after 'package
-  (require 'package-build)
-  (require 'paradox))
-
 (after 'paradox
   ; Stop asking me if I want to star/unstar shit on github ffs.
   (setq paradox-github-token t
@@ -113,7 +109,8 @@
         projectile-cache-file (locate-user-emacs-file "store/projectile.cache")
         projectile-switch-project-action 'helm-projectile
         projectile-enable-caching t)
-  ; Force it to reload after having change the value
+
+  ; Force it to reload after changing the value
   (projectile-load-known-projects))
 
 (after 'quickref
