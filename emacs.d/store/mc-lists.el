@@ -29,6 +29,7 @@
         my-increment-number-at-point
         org-delete-char
         org-self-insert-command
+        org-shiftright
         paredit-backslash
         paredit-doublequote
         paredit-forward-delete
