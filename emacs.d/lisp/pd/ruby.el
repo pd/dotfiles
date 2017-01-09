@@ -24,7 +24,13 @@
   (unbind-key "C-c /" enh-ruby-mode-map)
 
   (setq seeing-is-believing-prefix "C-c \\")
-  (require 'seeing-is-believing))
+  (require 'seeing-is-believing)
+
+  (require 'f)
+  (when (f-exists-p (f-expand "~/.ruby-version"))
+    (let ((default-directory (f-expand "~")))
+      (chruby-use-corresponding)
+      (setq enh-ruby-program (executable-find "ruby")))))
 
 (after 'inf-ruby
   (add-hook 'inf-ruby-mode-hook 'pd/comint-disable-echo)
