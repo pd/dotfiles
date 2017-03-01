@@ -91,6 +91,11 @@
         racer-rust-src-path      (f-expand "~/vendor/rust/src")))
 
 (after 'terraform-mode
-  (add-hook 'terraform-mode-hook 'terraform-format-on-save-mode))
+  (defun pd/maybe-terraform-format-on-save ()
+    "Disable terraform-format-on-save-mode for tfvars files."
+    (unless (string-suffix-p "tfvars" buffer-file-name)
+      (terraform-format-on-save-mode)))
+
+  (add-hook 'terraform-mode-hook 'pd/maybe-terraform-format-on-save))
 
 (provide 'pd/prog)
