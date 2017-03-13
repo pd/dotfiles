@@ -23,6 +23,11 @@
 ;; favor a new .el over an old .elc
 (setq load-prefer-newer t)
 
+;; disable lockfiles
+; i use one big emacs, they're never actually helpful. and the stray files
+; constantly cause issues for tools that don't ignore dotfiles.
+(setq create-lockfiles nil)
+
 ;; religion
 ; 1. utf-8
 ; 2. spaces not tabs
