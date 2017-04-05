@@ -10,6 +10,7 @@
 (toggle-save-place-globally)
 (which-key-mode +1)
 (global-linum-mode +1)
+(direnv-mode +1)
 
 (require 'popwin)
 (popwin-mode +1)
@@ -35,6 +36,11 @@
   (require 'dired-details+)
   (setq-default dired-details-hidden-string "--- ")
   (dired-details-install))
+
+(after 'direnv
+  (setq direnv-always-show-summary t
+        direnv-show-paths-in-summary nil
+        direnv-use-faces-in-summary t))
 
 (after 'helm
   (helm-descbinds-mode +1)
