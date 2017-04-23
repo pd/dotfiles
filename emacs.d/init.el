@@ -1,3 +1,4 @@
+(setq package-user-dir (expand-file-name (locate-user-emacs-file (concat ".cask/" emacs-version "/elpa"))))
 (package-initialize)
 
 ;; give in and let custom.el do its thing.

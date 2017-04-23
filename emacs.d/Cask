@@ -9,6 +9,7 @@
 (depends-on "buffer-move")
 (depends-on "company")
 (depends-on "diminish")
+(depends-on "direnv-mode")
 (depends-on "easy-after-load")
 (depends-on "exec-path-from-shell")
 (depends-on "expand-region")
