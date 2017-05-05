@@ -67,7 +67,8 @@
    (web-mode "\\.jsx\\'" "\\.html\\'")
    (markdown-mode "\\.md\\'" "\\.markdown\\'")
    (gitconfig-mode "gitconfig\\'")
-   (gitignore-mode "gitignore\\'")))
+   (gitignore-mode "gitignore\\'")
+   (groovy-mode "Jenkinsfile\\'")))
 
 (add-to-list 'interpreter-mode-alist '("node" . js2-mode))
 

@@ -123,6 +123,7 @@
 ; the others
 (depends-on "hcl-mode")
 (depends-on "elixir-mode")
+(depends-on "groovy-mode")
 (depends-on "lua-mode")
 (depends-on "terraform-mode")
 
