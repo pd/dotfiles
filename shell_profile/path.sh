@@ -13,7 +13,6 @@ prepend_path /usr/local/heroku/bin
 prepend_path /usr/local/share/npm/bin
 prepend_path ~/.cask/bin
 prepend_path ~/local/bin
-prepend_path /opt/chefdk/bin
 prepend_path ~/anaconda/bin
 prepend_path ~/.cargo/bin
 prepend_path ~/.multirust/bin
