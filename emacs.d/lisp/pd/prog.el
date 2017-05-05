@@ -50,6 +50,11 @@
         magit-omit-untracked-dir-contents nil
         magit-process-popup-time 10))
 
+(after 'markdown-mode
+  (defun pd/markdown-fill-column ()
+    (setq fill-column 80))
+  (add-hook 'markdown-mode-hook 'pd/markdown-fill-column))
+
 (after 'repl-toggle
   (unbind-key "C-c C-z" repl-toggle-mode-map)
   (setq rtog/mode-repl-alist
