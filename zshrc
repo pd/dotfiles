@@ -15,6 +15,10 @@ bindkey -e
 autoload -U compinit
 compinit
 
+## and support some bash completion scripts too
+autoload -U bashcompinit
+bashcompinit
+
 # `ls /foo/bar<C-w>` only kills 'bar'
 autoload -U select-word-style
 select-word-style bash
