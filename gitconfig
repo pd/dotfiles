@@ -34,6 +34,7 @@
 	b   = branch
 	br  = branch
 	ba  = branch -a
+	bv  = branch -v
 	bav = branch -av
 	ci  = commit
 	co  = checkout
