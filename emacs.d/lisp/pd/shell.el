@@ -12,7 +12,7 @@
   "dirtrack > shell-dirtrack for serious"
   (shell-dirtrack-mode -1)
   (dirtrack-mode +1)
-  (setq dirtrack-list '("\\`%?[\r\n ]*\\([^\n ]+\\) .*» \\'" 1)))
+  (setq dirtrack-list '("\\`\\(direnv: .+[\r\n]*\\)*[\r\n ]*\\([^\n ]+\\) .*» \\'" 2)))
 
 (after 'shell
   (setq shell-prompt-pattern "^[^\n]*[#$%>»] *")
@@ -37,5 +37,38 @@
 (after 'sh-script
   (setq-default sh-basic-offset 2
                 sh-indentation 2))
+
+;; Support expanding my zsh `hash -d` directory aliases
+(defvar pd/zsh-directory-aliases nil)
+(defvar pd/zsh-directory-aliases-loaded nil)
+
+(defun pd/load-zsh-directory-aliases ()
+  (when (not pd/zsh-directory-aliases-loaded)
+    (setq pd/zsh-directory-aliases-loaded t)
+    (with-temp-buffer
+      (apply 'call-process "/usr/bin/env" nil t nil '("zsh" "-i" "-c" "hash -d"))
+      (let* ((output (buffer-substring-no-properties (point-min) (point-max)))
+             (lines  (--remove (s-blank? it) (s-lines output)))
+             (pairs  (--map (s-split-up-to "=" it 1) lines)))
+        (setq pd/zsh-directory-aliases pairs)))))
+
+(defun pd/expand-zsh-aliases (filename)
+  (pd/load-zsh-directory-aliases)
+  (--reduce-from (let ((prefix (concat "~" (car it))))
+                   (if (s-starts-with? prefix acc)
+                       (s-replace prefix (cadr it) acc)
+                     acc))
+                 filename
+                 pd/zsh-directory-aliases))
+
+(defun pd/expand-file-name--zsh-aliases (orig-fun &rest args)
+  (let ((expanded (pd/expand-zsh-aliases (car args))))
+    (apply orig-fun expanded (cdr args))))
+
+(defun pd/shell-prefixed-directory-name--zsh-aliases (orig-fun dirname)
+  (apply orig-fun (list (pd/expand-zsh-aliases dirname))))
+
+(advice-add 'shell-prefixed-directory-name :around #'pd/shell-prefixed-directory-name--zsh-aliases)
+(advice-add 'expand-file-name :around #'pd/expand-file-name--zsh-aliases)
 
 (provide 'pd/shell)
