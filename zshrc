@@ -65,7 +65,9 @@ sourcedir ~/dotfiles/shell_profile
 sourcedir ~/dotfiles/shell_profile/`uname -s`
 sourcedir ~/dotfiles/private/shell_profile
 sourcedir ~/dotfiles/private/shell_profile/`uname -s`
+
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+bindkey '^T' transpose-chars
 
 # one more, manually for now
 source ~/dotfiles/shell_profile/bundler-exec.zsh
