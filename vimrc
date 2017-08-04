@@ -78,6 +78,9 @@ let g:airline_right_alt_sep=''
 colorscheme molokai
 set background=dark
 
+" fzf4lyfe
+set runtimepath+=/usr/local/opt/fzf
+
 " all via https://github.com/fatih/vim-go
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
