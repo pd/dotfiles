@@ -27,8 +27,10 @@
   (add-hook 'shell-mode-hook 'pd/dirtrack-directory-changed))
 
 (after 'pcomplete
-  (require 'pd/pcmpl-powify)
   (defalias 'pcomplete/g 'pcomplete/git))
+
+(after 'pcmpl-git
+  (push "delete-merged-branches" pcmpl-git-commands))
 
 (after 'dirtrack
   (add-hook 'dirtrack-directory-change-hook 'pd/dirtrack-directory-changed))
