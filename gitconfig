@@ -35,7 +35,6 @@
 	br  = branch
 	ba  = branch -a
 	bv  = branch -v
-	bav = branch -av
 	ci  = commit
 	co  = checkout
 	cot = checkout -t
@@ -43,6 +42,7 @@
 	d   = diff --patience
 	ds  = diff --cached --patience
 	dhd = diff HEAD
+	dmb = delete-merged-branches
 	f   = fetch
 	krh = remote rename khargraves krh
 	l   = log --date=short --pretty=format:'%C(bold magenta)%h %Creset%C(green)%cd%Creset %C(white)%aN%Creset %s %C(yellow)%d'
@@ -63,5 +63,5 @@
 	stash-unstaged = stash --keep-index
 [rerere]
 	enabled = true
-[hub]
-	host = git.enova.com
+[url "ssh://git@git.uptake.com:7999/"]
+	insteadOf = https://git.uptake.com/scm/
