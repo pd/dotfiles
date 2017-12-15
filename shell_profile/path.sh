@@ -19,5 +19,5 @@ prepend_path ~/.multirust/bin
 prepend_path ~/.multirust/toolchains/nightly/cargo/bin
 prepend_path ~/.multirust/toolchains/stable/cargo/bin
 prepend_path /usr/local/opt/go/libexec/bin
-prepend_path $GOPATH/bin
+prepend_path ${GOPATH:-"$HOME/go"}/bin
 prepend_path ~/bin
