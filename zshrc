@@ -37,13 +37,17 @@ setopt histignorespace ## omit ' command' from history
 unsetopt nomatch
 
 ## history
-export SAVEHIST=5000
-export HISTSIZE=1000
+export SAVEHIST=50000
+export HISTSIZE=10000
 export HISTFILE=~/.history.zsh
 setopt histverify
 setopt inc_append_history
 setopt share_history
 setopt hist_ignore_dups
+setopt hist_ignore_all_dups
+setopt hist_expire_dups_first
+setopt hist_reduce_blanks
+setopt hist_save_no_dups
 setopt extended_glob
 
 ## prompt
