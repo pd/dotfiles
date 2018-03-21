@@ -1,4 +1,6 @@
 ;; boot cask, which will handle setting up package.el
+(when (file-directory-p (expand-file-name "~/.cask"))
+  (add-to-list 'load-path (expand-file-name "~/.cask")))
 (when (file-directory-p "/usr/local/opt/cask")
   (add-to-list 'load-path "/usr/local/opt/cask"))
 (require 'cask)

@@ -9,7 +9,7 @@
 (depends-on "buffer-move")
 (depends-on "company")
 (depends-on "diminish")
-(depends-on "direnv-mode")
+(depends-on "direnv")
 (depends-on "easy-after-load")
 (depends-on "exec-path-from-shell")
 (depends-on "expand-region")
@@ -40,8 +40,6 @@
 (depends-on "ciel")
 (depends-on "dash")
 (depends-on "dash-at-point")
-(depends-on "dired-details")
-(depends-on "dired-details+")
 (depends-on "linum-off")
 (depends-on "package-build")
 (depends-on "paradox")
@@ -50,7 +48,6 @@
 (depends-on "s")
 (depends-on "which-key")
 (depends-on "wrap-region")
-(depends-on "zoom-frm")
 
 ; pretty
 (depends-on "molokai-theme")
@@ -58,7 +55,6 @@
 
 ; misc dev
 (depends-on "csv-mode")
-(depends-on "csv-nav")
 (depends-on "dockerfile-mode")
 (depends-on "git-commit")
 (depends-on "gitconfig-mode")

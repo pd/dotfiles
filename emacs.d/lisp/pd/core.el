@@ -32,11 +32,6 @@
              ("C-n" . company-select-next)
              ("C-p" . company-select-previous)))
 
-(after 'dired
-  (require 'dired-details+)
-  (setq-default dired-details-hidden-string "--- ")
-  (dired-details-install))
-
 (after 'direnv
   (setq direnv-always-show-summary t
         direnv-show-paths-in-summary nil
