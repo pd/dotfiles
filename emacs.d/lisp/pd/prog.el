@@ -40,6 +40,31 @@
 (after 'elixir-mode
   (add-hook 'elixir-mode-hook 'pd/electric-indent-incompatible-mode))
 
+(after 'hcl-mode
+  (defun pd/hclfmt-on-save ()
+    "Enable hclfmt on save, if hclfmt is available on `exec-path'."
+    (let ((hclfmt (executable-find "hclfmt")))
+      (when hclfmt
+        (add-hook 'before-save-hook #'pd/hclfmt-buffer nil t))))
+
+  (defun pd/hclfmt-buffer ()
+    "Rewrite current buffer with results of hclfmt."
+    (interactive)
+    (if-let ((hclfmt (executable-find "hclfmt")))
+        (let ((buf (get-buffer-create "*hclfmt*")))
+          (if (zerop (call-process-region (point-min) (point-max)
+                                          "hclfmt" nil buf nil))
+              (let ((point (point))
+                    (window-start (window-start)))
+                (erase-buffer)
+                (insert-buffer-substring buf)
+                (goto-char point)
+                (set-window-start nil window-start))
+            (message "hclfmt: %s" (with-current-buffer buf (buffer-string))))
+          (kill-buffer buf))))
+
+  (add-hook 'hcl-mode-hook 'pd/hclfmt-on-save))
+
 (after 'slim-mode
   (add-hook 'slim-mode-hook 'pd/electric-indent-incompatible-mode)
   (pd/enable-newline-and-indent feature-mode-map))

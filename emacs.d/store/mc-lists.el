@@ -26,6 +26,7 @@
         lua-electric-match
         markdown-enter-key
         markdown-exdent-or-delete
+        markdown-outdent-or-delete
         my-increment-number-at-point
         org-delete-char
         org-self-insert-command
