@@ -72,6 +72,12 @@
 
 (add-to-list 'interpreter-mode-alist '("node" . js2-mode))
 
+;;;; Some things were dropped from melpa.
+(require 'quelpa)
+(quelpa '(frame-fns :fetcher github :repo "emacsmirror/frame-fns"))
+(quelpa '(frame-cmds :fetcher github :repo "emacsmirror/frame-cmds"))
+(quelpa '(zoom-frm :fetcher github :repo "emacsmirror/zoom-frm"))
+
 ;;;; Start triggering the after-loads.
 (require 'uniquify)
 (require 'multiple-cursors)

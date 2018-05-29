@@ -18,6 +18,7 @@
 (depends-on "ibuffer-vc")
 (depends-on "multiple-cursors")
 (depends-on "phi-search")
+(depends-on "quelpa")
 (depends-on "quickref")
 (depends-on "shell-switcher")
 (depends-on "smex")
