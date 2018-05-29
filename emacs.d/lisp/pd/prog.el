@@ -44,7 +44,7 @@
   (defun pd/hclfmt-on-save ()
     "Enable hclfmt on save, if hclfmt is available on `exec-path'."
     (let ((hclfmt (executable-find "hclfmt")))
-      (when hclfmt
+      (when (and hclfmt (not (eq major-mode 'terraform-mode)))
         (add-hook 'before-save-hook #'pd/hclfmt-buffer nil t))))
 
   (defun pd/hclfmt-buffer ()
