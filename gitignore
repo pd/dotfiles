@@ -9,3 +9,5 @@ dump-sandbox-dbs.sh
 .tags
 .use-zeus
 .use-bundle-exec
+.envrc
+.direnv
