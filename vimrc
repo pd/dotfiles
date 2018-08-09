@@ -4,7 +4,6 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
-" Plugin 'Valloric/YouCompleteMe'
 Plugin 'noahfrederick/Hemisu'
 Plugin 'fatih/molokai'
 Plugin 'kien/ctrlp.vim'
@@ -19,7 +18,6 @@ Plugin 'tpope/vim-haml'
 Plugin 'pangloss/vim-javascript'
 Plugin 'tpope/vim-markdown'
 Plugin 'cespare/vim-toml'
-Plugin 'bling/vim-airline'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
