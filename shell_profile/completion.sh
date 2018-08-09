@@ -6,3 +6,11 @@ fi
 if [[ -x /usr/local/bin/vault ]]; then
   complete -o nospace -C /usr/local/bin/vault vault
 fi
+
+if [[ -x /usr/local/bin/kubectl ]]; then
+  source <(kubectl completion zsh)
+fi
+
+if [[ -f /usr/local/etc/bash_completion.d/az ]]; then
+  source /usr/local/etc/bash_completion.d/az
+fi
