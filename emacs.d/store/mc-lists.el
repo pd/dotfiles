@@ -41,6 +41,7 @@
         paredit-splice-sexp-killing-backward
         pd/comment-dwim
         pd/join-next-line
+        pd/open-line-after
         pd/open-line-before
         replace-regexp
         replace-string
