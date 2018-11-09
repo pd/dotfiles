@@ -57,12 +57,6 @@ noremap <leader>d :NERDTreeToggle<CR>
 noremap <leader>f :NERDTreeFind<CR>
 noremap <leader>a :Ag<space>
 
-" powerline fonts suck.
-let g:airline_left_sep=''
-let g:airline_left_alt_sep=''
-let g:airline_right_sep=''
-let g:airline_right_alt_sep=''
-
 " colors
 colorscheme molokai
 set background=dark
