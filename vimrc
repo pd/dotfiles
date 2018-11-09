@@ -74,12 +74,11 @@ au FileType go nmap <leader>gv <Plug>(go-doc-vertical)
 au FileType go nmap <leader>gb <Plug>(go-doc-browser)
 au FileType go nmap <leader>i <Plug>(go-implements)
 
-" eventually i'll actually learn modern rust
 set hidden
-let g:racer_cmd = $HOME."/bin/multirustracer"
-let g:ycm_rust_src_path = $HOME."/vendor/rust/src"
-let g:rustfmt_command = $HOME."/bin/multirustfmt"
+let g:racer_cmd = $HOME."/.cargo/bin/racer"
+let g:rustfmt_command = $HOME."/.cargo/bin/rustfmt"
 let g:rustfmt_autosave = 1
+let g:rustfmt_fail_silently = 1
 let $RUST_SRC_PATH = $HOME."/vendor/rust/src"
 
 " despite https://github.com/rust-lang/rust.vim/issues/46
@@ -90,3 +89,9 @@ autocmd BufNewFile,BufRead *.rs set filetype=rust
 " tidy up
 autocmd BufWritePre * StripWhitespace
 let g:terraform_fmt_onsave = 1
+
+" direnv
+augroup InitVimDirenv
+  autocmd!
+  autocmd BufWritePost .envrc silent !direnv allow %
+augroup END
