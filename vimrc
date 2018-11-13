@@ -81,11 +81,6 @@ let g:rustfmt_autosave = 1
 let g:rustfmt_fail_silently = 1
 let $RUST_SRC_PATH = $HOME."/vendor/rust/src"
 
-" despite https://github.com/rust-lang/rust.vim/issues/46
-" and https://github.com/rust-lang/rust.vim/blob/9924277/README.md#using-vundle
-" filetype detection simply doesn't work. i dunno. who cares. set it manually.
-autocmd BufNewFile,BufRead *.rs set filetype=rust
-
 " tidy up
 autocmd BufWritePre * StripWhitespace
 let g:terraform_fmt_onsave = 1
