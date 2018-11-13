@@ -83,7 +83,7 @@ let $RUST_SRC_PATH = $HOME."/vendor/rust/src"
 
 " tidy up
 autocmd BufWritePre * StripWhitespace
-let g:terraform_fmt_onsave = 1
+let g:terraform_fmt_on_save = 1
 
 " direnv
 augroup InitVimDirenv
