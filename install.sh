@@ -33,10 +33,10 @@ install_vim_vundle () {
 }
 
 for f in zshrc zshenv emacs.d gitconfig vim vimrc vim-tmp pryrc irbrc sqliterc psqlrc Xmodmap xinitrc; do
-  cautious_link "${HOME}/dotfiles/${f}" "${HOME}/.${f}"
+  cautious_link "${DOTDIR}/${f}" "${HOME}/.${f}"
 done
 
-for x in ./bin/*; do
+for x in ${BINDIR}/*; do
   cautious_link_bin "${x}"
 done
 
