@@ -63,5 +63,3 @@
 	stash-unstaged = stash --keep-index
 [rerere]
 	enabled = true
-[url "ssh://git@git.uptake.com:7999/"]
-	insteadOf = https://git.uptake.com/scm/
