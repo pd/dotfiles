@@ -26,6 +26,7 @@
 (defun pd/helm-znc-connect-to-network ()
   "Connect to a defined ZNC network with ERC."
   (interactive)
+  (require 'znc)
   (helm :sources '((name . "ZNC Networks")
                    (candidates . pd/znc-network-slugs)
                    (action . znc-erc))
