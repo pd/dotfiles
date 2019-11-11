@@ -21,3 +21,7 @@ prepend_path ~/.multirust/toolchains/stable/cargo/bin
 prepend_path /usr/local/opt/go/libexec/bin
 prepend_path ${GOPATH:-"$HOME/go"}/bin
 prepend_path ~/bin
+
+if [[ -d "/usr/local/opt/asdf" ]]; then
+  source /usr/local/opt/asdf/asdf.sh
+fi
