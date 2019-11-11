@@ -63,3 +63,5 @@
 	stash-unstaged = stash --keep-index
 [rerere]
 	enabled = true
+[credential]
+	helper = osxkeychain

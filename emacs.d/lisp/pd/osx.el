@@ -28,7 +28,7 @@
   (exec-path-from-shell-initialize)
 
   ;; brew tap caskroom/homebrew-fonts && brew install font-roboto-mono
-  (set-face-attribute 'default nil :height 100 :family "Roboto Mono")
+  (set-face-attribute 'default nil :height 120 :family "Roboto Mono")
 
   ;; current MBP spams a hideous warning exclamation point mid-screen
   ;; as its visual bell. so disable that *and* get emacs to fuck off with
