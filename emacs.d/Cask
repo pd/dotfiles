@@ -57,6 +57,7 @@
 ; misc dev
 (depends-on "csv-mode")
 (depends-on "dockerfile-mode")
+(depends-on "editorconfig")
 (depends-on "git-commit")
 (depends-on "gitconfig-mode")
 (depends-on "gitignore-mode")
@@ -90,7 +91,13 @@
 (depends-on "yard-mode")
 
 ; js
+(depends-on "company-flow")
+(depends-on "flow-js2-mode")
+(depends-on "flow-minor-mode")
+(depends-on "flycheck-flow")
 (depends-on "js2-mode")
+(depends-on "tide")
+(depends-on "typescript-mode")
 (depends-on "web-mode")
 
 ; html-ish

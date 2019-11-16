@@ -7,6 +7,9 @@
 (after 'company
   (diminish 'company-mode))
 
+(after 'editorconfig
+  (diminish 'editorconfig-mode))
+
 (after 'eldoc
   (diminish 'eldoc-mode))
 

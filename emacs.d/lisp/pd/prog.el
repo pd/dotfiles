@@ -1,4 +1,7 @@
 (require 'f)
+(require 'editorconfig)
+
+(editorconfig-mode +1)
 
 (define-minor-mode pd/show-trailing-whitespace-mode
   "Enables `show-trailing-whitespace'."
