@@ -4,6 +4,13 @@ prepend_path () {
   fi
 }
 
+# OSX's path_helper is full on evil. It's run from /etc/zshrc, so every
+# interactive shell, and it aggressively pushes `/bin:/usr/bin` etc to the
+# front of $PATH which is THE EXACT WORST OPTION WHY WOULD YOU DO THAT FFS.
+# Just reset $PATH completely and build from scratch. Twice per shell,
+# because we _also_ have to do this from zshenv ...
+export PATH="/usr/bin:/bin:/usr/sbin:/sbin"
+
 prepend_path /usr/local/sbin
 prepend_path /usr/local/bin
 prepend_path /usr/local/texlive/2011/bin/x86_64-darwin
@@ -11,6 +18,7 @@ prepend_path /usr/local/opt/postgresql-9.3/bin
 prepend_path /usr/local/opt/sqlite/bin
 prepend_path /usr/local/heroku/bin
 prepend_path /usr/local/share/npm/bin
+prepend_path /usr/local/opt/openjdk@11/bin
 prepend_path ~/.cask/bin
 prepend_path ~/local/bin
 prepend_path ~/anaconda/bin
