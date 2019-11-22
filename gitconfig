@@ -65,3 +65,5 @@
 	enabled = true
 [credential]
 	helper = osxkeychain
+[diff "sopsdiffer"]
+	textconv = sops -d

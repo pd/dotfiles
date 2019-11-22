@@ -23,8 +23,10 @@
 
   ;; gank the $PATH from a login shell, in case I launched from the dock
   (require 'exec-path-from-shell)
+  (require 'dash)
   (setq exec-path-from-shell-check-startup-files nil)
-  (add-to-list 'exec-path-from-shell-variables "GOPATH")
+  (--each '("GOPATH" "GIT_COMMITTER_EMAIL" "GIT_AUTHOR_EMAIL")
+    (add-to-list 'exec-path-from-shell-variables it))
   (exec-path-from-shell-initialize)
 
   ;; brew tap caskroom/homebrew-fonts && brew install font-roboto-mono
