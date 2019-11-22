@@ -1,5 +1,6 @@
 *.swp
 *.elc
+.envrc
 
 emacs.d/.cask
 emacs.d/.crap
@@ -16,6 +17,7 @@ emacs.d/store/projectile-bookmarks.eld
 emacs.d/store/projectile.cache
 emacs.d/quelpa
 emacs.d/network-security.data
+emacs.d/transient
 
 bin/xmonad
 xmonad/xmonad.errors
