@@ -25,7 +25,11 @@ export GOPATH=~/go
 alias gt='go test'
 
 ## java
-if [ -x /usr/libexec/java_home ]; then
+if [ -d /usr/local/opt/openjdk@11 ]; then
+  export JAVA_HOME="/usr/local/opt/openjdk@11/libexec/openjdk.jdk/Contents/Home"
+elif [ -d /usr/local/opt/openjdk@13 ]; then
+  export JAVA_HOME="/usr/local/opt/openjdk@13/libexec/openjdk.jdk/Contents/Home"
+elif [ -x /usr/libexec/java_home ]; then
   export JAVA_HOME="$(/usr/libexec/java_home --version 1.8+)"
 fi
 

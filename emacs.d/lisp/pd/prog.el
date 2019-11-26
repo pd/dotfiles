@@ -68,9 +68,8 @@
 
   (add-hook 'hcl-mode-hook 'pd/hclfmt-on-save))
 
-(after 'slim-mode
-  (add-hook 'slim-mode-hook 'pd/electric-indent-incompatible-mode)
-  (pd/enable-newline-and-indent feature-mode-map))
+(after 'kotlin-mode
+  (add-hook 'kotlin-mode-hook #'lsp-deferred))
 
 (after 'magit
   (setq magit-save-some-buffers nil
@@ -114,6 +113,10 @@
   (setq rust-rustfmt-bin         (f-expand "~/.cargo/bin/rustfmt")
         racer-cmd                (f-expand "~/.cargo/bin/racer")
         racer-rust-src-path      (f-expand "~/vendor/rust/src")))
+
+(after 'slim-mode
+  (add-hook 'slim-mode-hook 'pd/electric-indent-incompatible-mode)
+  (pd/enable-newline-and-indent feature-mode-map))
 
 (after 'terraform-mode
   (defun pd/maybe-terraform-format-on-save ()

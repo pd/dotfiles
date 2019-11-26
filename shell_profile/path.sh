@@ -30,6 +30,7 @@ prepend_path /usr/local/opt/go/libexec/bin
 prepend_path ${GOPATH:-"$HOME/go"}/bin
 prepend_path ~/bin
 prepend_path "$HOME/Applications/Emacs.app/Contents/MacOS/bin"
+prepend_path "$HOME/sauce/vendor/kotlin-language-server/server/build/install/server/bin"
 
 if [[ -d "/usr/local/opt/asdf" ]]; then
   source /usr/local/opt/asdf/asdf.sh
