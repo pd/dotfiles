@@ -4,20 +4,22 @@
 
 emacs.d/.cask
 emacs.d/.crap
+emacs.d/.extension
+emacs.d/.lsp-session-v1
 emacs.d/auto-save-list
+emacs.d/backups
 emacs.d/elpa
 emacs.d/emacs-visited-files
-emacs.d/backups
-emacs.d/places
 emacs.d/erc-super-secret.el
-emacs.d/smex.save
-emacs.d/tramp
-emacs.d/url
-emacs.d/store/projectile-bookmarks.eld
-emacs.d/store/projectile.cache
+emacs.d/places
 emacs.d/quelpa
 emacs.d/network-security.data
+emacs.d/smex.save
+emacs.d/store/projectile-bookmarks.eld
+emacs.d/store/projectile.cache
+emacs.d/tramp
 emacs.d/transient
+emacs.d/url
 
 bin/xmonad
 xmonad/xmonad.errors
