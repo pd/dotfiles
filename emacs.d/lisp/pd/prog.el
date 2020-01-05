@@ -71,6 +71,10 @@
 (after 'kotlin-mode
   (add-hook 'kotlin-mode-hook #'lsp-deferred))
 
+(after 'lsp
+  (setq lsp-enable-snippet nil
+        lsp-prefer-flymake nil))
+
 (after 'magit
   (setq magit-save-some-buffers nil
         magit-completing-read 'magit-ido-completing-read
@@ -92,27 +96,10 @@
           (js2-mode        . nodejs-repl))))
 
 (after 'rust-mode
-  (require 'racer)
-  (add-hook 'rust-mode-hook 'subword-mode)
-  (add-hook 'rust-mode-hook 'racer-mode)
-  (add-hook 'rust-mode-hook 'rust-enable-format-on-save)
-  (add-hook 'racer-mode-hook 'eldoc-mode)
-
-  (defun pd/rust-insert-type-error ()
-    (interactive)
-    (let ((sym (symbol-at-point)))
-      (when sym
-        (pd/open-line-after)
-        (insert "let () = " (symbol-name sym) ";")
-        (beginning-of-line-text)
-        (forward-char 4)
-        (save-buffer))))
-
-  (bind-key "C-c i t" 'pd/rust-insert-type-error rust-mode-map)
-
-  (setq rust-rustfmt-bin         (f-expand "~/.cargo/bin/rustfmt")
-        racer-cmd                (f-expand "~/.cargo/bin/racer")
-        racer-rust-src-path      (f-expand "~/vendor/rust/src")))
+  (add-hook 'rust-mode-hook #'subword-mode)
+  (add-hook 'rust-mode-hook #'lsp-deferred)
+  (add-hook 'rust-mode-hook #'flycheck-rust-setup)
+  (add-hook 'rust-mode-hook #'rust-enable-format-on-save))
 
 (after 'slim-mode
   (add-hook 'slim-mode-hook 'pd/electric-indent-incompatible-mode)
