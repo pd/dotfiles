@@ -60,3 +60,9 @@ export RUST_SRC_PATH=$HOME/vendor/rust/src
 
 ## ops
 alias k=kubectl
+
+# given yaml stream eg `kustomize build . | kgrep ...`,
+# return docs of the given kind
+kgrep () {
+  yq read --doc '*' --tojson - | jq --arg kind "$1" '.[] | select(.kind == $kind)' | yq read -
+}
