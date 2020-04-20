@@ -29,7 +29,7 @@
     (add-to-list 'exec-path-from-shell-variables it))
   (exec-path-from-shell-initialize)
 
-  ;; brew tap caskroom/homebrew-fonts && brew install font-roboto-mono
+  ;; brew tap homebrew/cask-fonts && brew cask install font-roboto-mono
   (set-face-attribute 'default nil :height 120 :family "Roboto Mono")
 
   ;; current MBP spams a hideous warning exclamation point mid-screen
