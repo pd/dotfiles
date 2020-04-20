@@ -29,14 +29,18 @@ cautious_link_bin () {
 }
 
 install_vim_vundle () {
-  git clone git://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+  local vundledir="$HOME/.vim/bundle/Vundle.vim"
+  if [[ ! -d "$vundledir" ]]; then
+    git clone git://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+  fi
 }
 
 for f in zshrc zshenv emacs.d gitconfig vim vimrc vim-tmp pryrc irbrc sqliterc psqlrc Xmodmap xinitrc; do
   cautious_link "${DOTDIR}/${f}" "${HOME}/.${f}"
 done
 
-for x in ${BINDIR}/*; do
+mkdir -p "$BINDIR"
+for x in ${DOTDIR}/bin/*; do
   cautious_link_bin "${x}"
 done
 
