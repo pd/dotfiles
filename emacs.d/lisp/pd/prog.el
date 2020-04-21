@@ -72,8 +72,9 @@
   (add-hook 'kotlin-mode-hook #'lsp-deferred))
 
 (after 'lsp
-  (setq lsp-enable-snippet nil
-        lsp-prefer-flymake nil))
+  (setq lsp-enable-snippet   nil
+        lsp-prefer-flymake   nil
+        lsp-eldoc-render-all nil))
 
 (after 'magit
   (setq magit-save-some-buffers nil

@@ -3,14 +3,14 @@
 
 (defun pd/configure-go-mode ()
   (setq tab-width 4)
-  (set (make-local-variable 'company-backends) '(company-go)))
+  (add-hook 'before-save-hook #'lsp-format-buffer t t)
+  (add-hook 'before-save-hook #'lsp-organize-imports t t))
 
 (after 'go-mode
-  (require 'company-go)
+  (require 'lsp)
   (require 'go-direx)
 
-  (add-hook 'before-save-hook 'gofmt-before-save)
-  (add-hook 'go-mode-hook 'go-eldoc-setup)
+  (add-hook 'go-mode-hook 'lsp-deferred)
   (add-hook 'go-mode-hook 'subword-mode)
   (add-hook 'go-mode-hook 'pd/configure-go-mode)
 
@@ -18,9 +18,8 @@
       (setq gofmt-command goimports))
 
   (bind-keys :map go-mode-map
-             ("M-."     . godef-jump)
              ("C-c d"   . go-direx-pop-to-buffer)
-             ("C-c h"   . godoc-at-point)
+             ("C-c h"   . lsp-ui-doc-show)
              ("C-c t ." . go-test-current-test)
              ("C-c t t" . go-test-current-file)
              ("C-c t f" . go-test-current-file)
