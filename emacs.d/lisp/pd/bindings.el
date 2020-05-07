@@ -43,8 +43,6 @@
  ("H-l"     . pd/kill-tracker-find-last))
 
 ;; find via helm
-(bind-key "s-a" 'helm-ag)
-(bind-key "s-g" 'helm-rubygems-local)
 (bind-key "M-i" 'helm-imenu)
 (bind-key "s-y" 'helm-show-kill-ring)
 
@@ -121,6 +119,7 @@
 (bind-key "C-x g" 'magit-status)
 (bind-key "C-c C-l" 'helm-minibuffer-history minibuffer-local-map)
 (bind-key "C-c h !" 'helm-flycheck)
+(bind-key "s-g" 'deadgrep)
 
 ;; rm -rf annoyances
 (unbind-key "<menu>")

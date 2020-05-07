@@ -37,10 +37,10 @@
 (depends-on "helm-mt")
 
 ; handy
-(depends-on "ag")
 (depends-on "ciel")
 (depends-on "dash")
 (depends-on "dash-at-point")
+(depends-on "deadgrep")
 (depends-on "linum-off")
 (depends-on "package-build")
 (depends-on "paradox")

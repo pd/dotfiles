@@ -46,11 +46,4 @@
 (after 'seeing-is-believing
   (add-hook 'enh-ruby-mode-hook 'seeing-is-believing))
 
-; I never really got this thing working well enough to publish it.
-; Maybe some day.
-(autoload 'find-gem "~/sauce/el/find-gem.el/find-gem.el"
-  "Open a gem from your current rbenv / rvm / ruby gemset"
-  'interactive)
-(bind-key "C-c j g" 'find-gem)
-
 (provide 'pd/ruby)
