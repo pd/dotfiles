@@ -47,7 +47,7 @@
 
 ;; useful frame titles
 (setq frame-title-format
-      '(("" invocation-name "@" system-name ": ")
+      '((:eval (when (server-running-p) "[server] "))
         (:eval (if buffer-file-name
                    (abbreviate-file-name buffer-file-name)
                  "%b"))))
