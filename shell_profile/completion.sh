@@ -11,6 +11,10 @@ if [[ -x /usr/local/bin/kubectl ]]; then
   source <(kubectl completion zsh)
 fi
 
+if [[ -x /usr/local/bin/terraform-docs ]]; then
+  source <(terraform-docs completion zsh)
+fi
+
 if [[ -f /usr/local/etc/bash_completion.d/az ]]; then
   source /usr/local/etc/bash_completion.d/az
 fi
