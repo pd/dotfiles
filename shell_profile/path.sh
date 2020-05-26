@@ -15,6 +15,7 @@ prepend_path /usr/local/sbin
 prepend_path /usr/local/bin
 prepend_path /usr/local/texlive/2011/bin/x86_64-darwin
 prepend_path /usr/local/opt/postgresql-9.3/bin
+prepend_path /usr/local/opt/mysql-client@5.7/bin
 prepend_path /usr/local/opt/sqlite/bin
 prepend_path /usr/local/heroku/bin
 prepend_path /usr/local/share/npm/bin
