@@ -67,6 +67,7 @@
 (depends-on "magit")
 (depends-on "markdown-mode")
 (depends-on "rainbow-mode")
+(depends-on "rego-mode")
 (depends-on "repl-toggle")
 (depends-on "toml-mode")
 (depends-on "vimrc-mode")

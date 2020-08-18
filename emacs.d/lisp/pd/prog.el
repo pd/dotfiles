@@ -87,6 +87,11 @@
     (setq fill-column 80))
   (add-hook 'markdown-mode-hook 'pd/markdown-fill-column))
 
+(after 'rego-mode
+  (defun pd/rego-mode ()
+    (setq tab-width 2))
+  (add-hook 'rego-mode-hook 'pd/rego-mode))
+
 (after 'repl-toggle
   (unbind-key "C-c C-z" repl-toggle-mode-map)
   (setq rtog/mode-repl-alist
