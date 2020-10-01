@@ -29,8 +29,8 @@
     (add-to-list 'exec-path-from-shell-variables it))
   (exec-path-from-shell-initialize)
 
-  ;; brew tap homebrew/cask-fonts && brew cask install font-roboto-mono
-  (set-face-attribute 'default nil :height 120 :family "Roboto Mono")
+  ;; brew tap homebrew/cask-fonts && brew cask install font-fira-code-mono-nerd-font
+  (set-face-attribute 'default nil :height 120 :family "FiraCode Nerd Font Mono")
 
   ;; current MBP spams a hideous warning exclamation point mid-screen
   ;; as its visual bell. so disable that *and* get emacs to fuck off with
