@@ -90,11 +90,40 @@ pd-git-prompt () {
   echo " (${ref#refs/heads/}${dirty})"
 }
 
+# equally dumb aws/gcp/... contexts
+pd-cloud-contexts () {
+  declare -a contexts
+  local gcp k8s
+
+  if [[ -n "$AWS_PROFILE" ]]; then
+    out=($out "aws/${AWS_PROFILE}")
+  fi
+
+  if [[ -f ~/.config/gcloud/active_config ]]; then
+    gcp="$(cat ~/.config/gcloud/active_config)"
+    if [[ -f ~/.config/gcloud/configurations/"config_${gcp}" ]]; then
+      out=($out "gcp/${gcp}")
+    fi
+  fi
+
+  if [[ -f ~/.kube/config ]]; then
+    k8s="$(grep '^current-context' ~/.kube/config | cut -d' ' -f2)"
+    if [[ -n "$k8s" ]]; then
+      if echo "$k8s" | grep -q '^gke_' >/dev/null 2>&1; then
+        k8s="$(echo "$k8s" | cut -d_ -f4-)"
+      fi
+      out+=("k8s/${k8s/-cluster/}")
+    fi
+  fi
+
+  [[ -n "$out" ]] && echo "[$out] "
+}
+
 # if this is over ssh, display the hostname to save my brain the effort
 if [[ -n $SSH_CONNECTION ]]; then
   export PS1='%~ @ %m » '
 else
-  export PS1='%~$(pd-git-prompt) » '
+  export PS1='$(pd-cloud-contexts)%~$(pd-git-prompt) » '
   export RPROMPT='%(?.. %{$fg[red]%}[! %?]%{$fg[white]%})'
 fi
 

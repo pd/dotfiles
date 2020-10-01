@@ -11,6 +11,10 @@ if [[ -x /usr/local/bin/kubectl ]]; then
   source <(kubectl completion zsh)
 fi
 
+if [[ -f /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc ]]; then
+  source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+fi
+
 if [[ -x /usr/local/bin/terraform-docs ]]; then
   source <(terraform-docs completion zsh)
 fi
