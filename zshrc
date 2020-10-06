@@ -116,14 +116,14 @@ pd-cloud-contexts () {
     fi
   fi
 
-  [[ -n "$out" ]] && echo "[$out] "
+  [[ -n "$out" ]] && echo " [$out]"
 }
 
 # if this is over ssh, display the hostname to save my brain the effort
 if [[ -n $SSH_CONNECTION ]]; then
   export PS1='%~ @ %m » '
 else
-  export PS1='$(pd-cloud-contexts)%~$(pd-git-prompt) » '
+  export PS1='%~$(pd-git-prompt)$(pd-cloud-contexts) » '
   export RPROMPT='%(?.. %{$fg[red]%}[! %?]%{$fg[white]%})'
 fi
 

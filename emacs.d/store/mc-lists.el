@@ -9,6 +9,7 @@
         coffee-dedent-line-backspace
         coffee-indent-shift-left
         coffee-newline-and-indent
+        comint-delchar-or-maybe-eof
         delete-horizontal-space
         delete-trailing-whitespace
         enh-ruby-electric-brace
