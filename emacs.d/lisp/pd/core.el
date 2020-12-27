@@ -33,9 +33,11 @@
              ("C-p" . company-select-previous)))
 
 (after 'direnv
+  (require 'warnings)
   (setq direnv-always-show-summary t
         direnv-show-paths-in-summary nil
-        direnv-use-faces-in-summary t))
+        direnv-use-faces-in-summary t)
+  (add-to-list 'warning-suppress-types '(direnv)))
 
 (after 'helm
   (helm-descbinds-mode +1)
