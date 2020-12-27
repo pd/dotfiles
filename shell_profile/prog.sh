@@ -56,7 +56,7 @@ alias ct='cargo test'
 alias ctnc='cargo test -- --nocapture'
 alias cb='cargo build'
 alias cr='cargo run'
-export RUST_SRC_PATH=$HOME/vendor/rust/src
+alias cwtf='env RUST_BACKTRACE=1 cargo test --jobs 1 -- --nocapture'
 
 ## ops
 alias k=kubectl

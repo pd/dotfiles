@@ -72,9 +72,17 @@
   (add-hook 'kotlin-mode-hook #'lsp-deferred))
 
 (after 'lsp
+  (require 'helm-lsp)
   (setq lsp-enable-snippet   nil
         lsp-prefer-flymake   nil
-        lsp-eldoc-render-all nil))
+        lsp-eldoc-render-all nil
+        lsp-ui-doc-enable    nil
+        lsp-ui-sideline-show-hover nil
+        lsp-ui-sideline-code-actions-prefix "* ")
+  (bind-keys :map lsp-mode-map
+             ("s-x" . helm-lsp-code-actions)
+             ("s-a" . helm-lsp-workspace-symbol)
+             ("s-A" . helm-lsp-global-workspace-symbol)))
 
 (after 'magit
   (setq magit-save-some-buffers nil
@@ -105,7 +113,10 @@
   (add-hook 'rust-mode-hook #'subword-mode)
   (add-hook 'rust-mode-hook #'lsp-deferred)
   (add-hook 'rust-mode-hook #'flycheck-rust-setup)
-  (add-hook 'rust-mode-hook #'rust-enable-format-on-save))
+  (add-hook 'rust-mode-hook #'rust-enable-format-on-save)
+  (bind-keys :map rust-mode-map
+             ("C-^" . lsp-rust-analyzer-join-lines)
+             ("s-x" . lsp-execute-code-action)))
 
 (after 'slim-mode
   (add-hook 'slim-mode-hook 'pd/electric-indent-incompatible-mode)

@@ -33,6 +33,7 @@
 (depends-on "helm-flx")
 (depends-on "helm-flycheck")
 (depends-on "helm-fuzzier")
+(depends-on "helm-lsp")
 (depends-on "helm-mode-manager")
 (depends-on "helm-mt")
 
