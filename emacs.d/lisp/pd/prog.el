@@ -110,10 +110,15 @@
           (js2-mode        . nodejs-repl))))
 
 (after 'rust-mode
+  (defun pd/rust-mode ()
+    (setq lsp-enable-snippet nil
+          lsp-rust-analyzer-completion-add-call-argument-snippets nil))
+
   (add-hook 'rust-mode-hook #'subword-mode)
   (add-hook 'rust-mode-hook #'lsp-deferred)
   (add-hook 'rust-mode-hook #'flycheck-rust-setup)
   (add-hook 'rust-mode-hook #'rust-enable-format-on-save)
+  (add-hook 'rust-mode-hook #'pd/rust-mode)
   (bind-keys :map rust-mode-map
              ("C-^" . lsp-rust-analyzer-join-lines)
              ("s-x" . lsp-execute-code-action)))
