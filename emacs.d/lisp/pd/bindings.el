@@ -50,6 +50,8 @@
 (bind-keys*
  ("C-a"   . smarter-move-beginning-of-line)
  ("C-="   . er/expand-region)
+ ("M-["   . backward-paragraph)
+ ("M-]"   . forward-paragraph)
  ("M-C-[" . backward-paragraph)
  ("M-C-]" . forward-paragraph))
 
