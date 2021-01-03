@@ -57,6 +57,7 @@ alias ctnc='cargo test -- --nocapture'
 alias cb='cargo build'
 alias cr='cargo run'
 alias cwtf='env RUST_BACKTRACE=1 cargo test --jobs 1 -- --nocapture'
+alias cargocov='cargo +nightly cov clean && cargo +nightly cov test && cargo +nightly cov report --open'
 
 ## ops
 alias k=kubectl
