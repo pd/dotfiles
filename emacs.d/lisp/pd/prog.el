@@ -40,6 +40,9 @@
   (add-hook 'coffee-mode-hook 'pd/electric-indent-incompatible-mode)
   (pd/enable-newline-and-indent feature-mode-map))
 
+(after 'dap
+  (setq dap-breakpoints-file (expand-file-name "~/.emacs.d/.crap/dap-breakpoints")))
+
 (after 'elixir-mode
   (add-hook 'elixir-mode-hook 'pd/electric-indent-incompatible-mode))
 
@@ -122,6 +125,9 @@
   (bind-keys :map rust-mode-map
              ("C-^" . lsp-rust-analyzer-join-lines)
              ("s-x" . lsp-execute-code-action)))
+
+(after 'treemacs
+  (setq treemacs-persist-file (expand-file-name "~/.emacs.d/.crap/treemacs-persist-file")))
 
 (after 'slim-mode
   (add-hook 'slim-mode-hook 'pd/electric-indent-incompatible-mode)
