@@ -7,16 +7,8 @@ if [[ -x /usr/local/bin/vault ]]; then
   complete -o nospace -C /usr/local/bin/vault vault
 fi
 
-if [[ -x /usr/local/bin/kubectl ]]; then
-  source <(kubectl completion zsh)
-fi
-
 if [[ -f /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc ]]; then
   source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
-fi
-
-if [[ -x /usr/local/bin/terraform-docs ]]; then
-  source <(terraform-docs completion zsh)
 fi
 
 if [[ -f /usr/local/etc/bash_completion.d/az ]]; then
@@ -25,4 +17,12 @@ fi
 
 if [[ -f /usr/local/etc/bash_completion.d/asdf.bash ]]; then
   source /usr/local/etc/bash_completion.d/asdf.bash
+fi
+
+if which fly &>/dev/null; then
+  source <(fly completion --shell=zsh)
+fi
+
+if which kubectl &>/dev/null; then
+  source <(kubectl completion zsh)
 fi
