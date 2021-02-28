@@ -43,7 +43,7 @@ module "transmission_config" {
   key    = var.ssh_private_key
 
   files = {
-    "${path.module}/scripts/stage-for-kodi.sh" = {
+    "${path.module}/files/stage-for-kodi.sh" = {
       dest  = "/srv/transmission/stage-for-kodi.sh"
       chown = "transmission:transmission"
       chmod = "774"

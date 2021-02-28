@@ -41,6 +41,10 @@ resource "null_resource" "upload" {
   for_each   = var.files
   depends_on = [module.pre]
 
+  triggers = {
+    content = file(each.key)
+  }
+
   connection {
     type        = "ssh"
     user        = var.user
