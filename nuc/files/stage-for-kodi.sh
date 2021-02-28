@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 set -euo pipefail
+IFS=$'\n'
 
 COMPLETED_DIR=${COMPLETED_DIR:-"/srv/transmission/done"}
 KODI_ROOT=${KODI_ROOT:-"/srv/kodi"}
