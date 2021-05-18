@@ -59,6 +59,7 @@
 
 (after 'flycheck
   (global-flycheck-mode +1)
+  (setq flycheck-global-modes '(not yaml-mode))
   (when (require 'flycheck-cask nil 'noerror)
     (add-hook 'flycheck-mode-hook #'flycheck-cask-setup)))
 
