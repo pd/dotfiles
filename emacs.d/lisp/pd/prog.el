@@ -85,7 +85,11 @@
   (bind-keys :map lsp-mode-map
              ("s-x" . helm-lsp-code-actions)
              ("s-a" . helm-lsp-workspace-symbol)
-             ("s-A" . helm-lsp-global-workspace-symbol)))
+             ("s-A" . helm-lsp-global-workspace-symbol)
+             ("C-c l r" . lsp-rename)
+             ("C-c l m" . lsp-ui-imenu)
+             ("C-c l x" . lsp-find-references)
+             ("C-c l i" . lsp-find-implementation)))
 
 (after 'magit
   (setq magit-save-some-buffers nil
