@@ -21,7 +21,10 @@ tracker() {
 
 torrent_files() {
   local id="$1"
-  transmission-remote --torrent "$id" --files | awk '{print $7}' | grep -v '^$'
+  transmission-remote --torrent "$id" --files | \
+    sed -n '/[0-9]: /p' | \
+    awk '{for(i=7; i<=NF; i++) printf "%s ", $i; print ""}' | \
+    sed 's/ *$//'
 }
 
 stage_movie() {
