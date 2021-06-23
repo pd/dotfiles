@@ -40,7 +40,7 @@
   (add-hook 'coffee-mode-hook 'pd/electric-indent-incompatible-mode)
   (pd/enable-newline-and-indent feature-mode-map))
 
-(after 'dap
+(after 'dap-mode
   (setq dap-breakpoints-file (expand-file-name "~/.emacs.d/.crap/dap-breakpoints")))
 
 (after 'elixir-mode
