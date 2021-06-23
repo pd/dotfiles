@@ -87,6 +87,7 @@
              ("s-a" . helm-lsp-workspace-symbol)
              ("s-A" . helm-lsp-global-workspace-symbol)
              ("C-c l r" . lsp-rename)
+             ("C-c l R" . lsp-restart-workspace)
              ("C-c l m" . lsp-ui-imenu)
              ("C-c l x" . lsp-find-references)
              ("C-c l i" . lsp-find-implementation)))
