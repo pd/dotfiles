@@ -42,10 +42,6 @@ if [ -d /usr/local/share/npm/lib/node_modules ]; then
   NODE_PATH="/usr/local/share/npm/lib/node_modules:$NODE_PATH"
 fi
 
-if [ -z "$EMACS" ]; then
-  alias node='rlwrap node'
-fi
-
 ## ruby
 rerubies () {
   RUBIES=(~/.rubies/*)
