@@ -74,6 +74,7 @@
 
 ;;;; Some things were dropped from melpa.
 (require 'quelpa)
+(setq quelpa-update-melpa-p nil)
 (quelpa '(frame-fns :fetcher github :repo "emacsmirror/frame-fns"))
 (quelpa '(frame-cmds :fetcher github :repo "emacsmirror/frame-cmds"))
 (quelpa '(zoom-frm :fetcher github :repo "emacsmirror/zoom-frm"))
