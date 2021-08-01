@@ -57,6 +57,9 @@ alias cargocov='cargo +nightly cov clean && cargo +nightly cov test && cargo +ni
 
 ## ops
 alias k=kubectl
+if which dyff &>/dev/null; then
+  export KUBECTL_EXTERNAL_DIFF="dyff between --omit-header --set-exit-code"
+fi
 
 # given yaml stream eg `kustomize build . | kgrep ...`,
 # return docs of the given kind
