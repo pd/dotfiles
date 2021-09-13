@@ -29,6 +29,9 @@
 (add-hook 'prog-mode-hook 'pd/require-final-newline-mode)
 (add-hook 'prog-mode-hook 'turn-on-wrap-region-mode)
 
+(after 'cue-mode
+  (add-hook 'cue-mode-hook 'cue-format-on-save-mode))
+
 (after 'feature-mode
   (add-hook 'feature-mode-hook 'hl-line-mode)
   (add-hook 'feature-mode-hook 'pd/show-trailing-whitespace-mode)
@@ -141,4 +144,5 @@
 (after 'terraform-mode
   (add-hook 'terraform-mode-hook #'terraform-format-on-save-mode))
 
+(require 'cue-mode)
 (provide 'pd/prog)
