@@ -22,6 +22,7 @@ Plugin 'fatih/vim-go'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'hashivim/vim-terraform'
+Plugin 'jjo/vim-cue'
 call vundle#end()
 
 filetype plugin indent on
