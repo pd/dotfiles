@@ -1,4 +1,5 @@
 (require 'f)
+(require 'deadgrep)
 (require 'editorconfig)
 
 (editorconfig-mode +1)
@@ -45,6 +46,13 @@
 
 (after 'dap-mode
   (setq dap-breakpoints-file (expand-file-name "~/.emacs.d/.crap/dap-breakpoints")))
+
+; some mix of project.el + deadgrep + emacs26 etc causes issues
+; with deadgrep until I reload the buffer. no idea why:
+; deadgrep--project-root: Invalid function: (roots (project-roots project))
+(after 'deadgrep
+  (require 'find-func)
+  (load (find-library-name "deadgrep")))
 
 (after 'elixir-mode
   (add-hook 'elixir-mode-hook 'pd/electric-indent-incompatible-mode))
