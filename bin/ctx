@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+list_contexts() {
+  kubectl config get-contexts -o name
+}
+
+switch_context() {
+  local name="$1"
+  local matches="$(list_contexts | grep "$name")"
+
+  if [[ "$(echo "$matches" | wc -l)" -ne 1 ]]; then
+    echo "Non-unique context selector: $name"
+    list_contexts
+    exit 1
+  fi
+
+  kubectl config use-context "$matches"
+}
+
+if [[ "$#" -ne 1 ]]; then
+  list_contexts
+  exit 0
+fi
+
+switch_context "$@"
