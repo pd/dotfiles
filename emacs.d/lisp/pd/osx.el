@@ -45,6 +45,11 @@
 
   ;; osx does not offer ls --dired
   (after 'dired
-    (setq dired-use-ls-dired nil)))
+    (setq dired-use-ls-dired nil))
+
+  (defun iterm ()
+    "Open iTerm in the current directory."
+    (interactive)
+    (call-process "open" nil nil nil "-a" "iTerm" default-directory)))
 
 (provide 'pd/osx)
