@@ -44,7 +44,6 @@
 (depends-on "deadgrep")
 (depends-on "linum-off")
 (depends-on "package-build")
-(depends-on "paradox")
 (depends-on "pcmpl-git")
 (depends-on "popwin")
 (depends-on "s")

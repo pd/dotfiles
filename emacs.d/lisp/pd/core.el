@@ -101,11 +101,6 @@
   (require 'linum-off)
   (add-to-list 'linum-disabled-modes-list 'erc-mode))
 
-(after 'paradox
-  ; Stop asking me if I want to star/unstar shit on github ffs.
-  (setq paradox-github-token t
-        paradox-execute-asynchronously t))
-
 (after 'quickref
   (quickref-global-mode +1)
   (setq quickref-save-file (locate-user-emacs-file "store/quickrefs.el")))
