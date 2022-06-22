@@ -70,7 +70,11 @@
 (defun pd/shell-prefixed-directory-name--zsh-aliases (orig-fun dirname)
   (apply orig-fun (list (pd/expand-zsh-aliases dirname))))
 
+(defun pd/file-name-absolute-p--zsh-aliases (orig-fun fname)
+  (apply orig-fun (list (pd/expand-zsh-aliases fname))))
+
 (advice-add 'shell-prefixed-directory-name :around #'pd/shell-prefixed-directory-name--zsh-aliases)
 (advice-add 'expand-file-name :around #'pd/expand-file-name--zsh-aliases)
+(advice-add 'file-name-absolute-p :around #'pd/file-name-absolute-p--zsh-aliases)
 
 (provide 'pd/shell)

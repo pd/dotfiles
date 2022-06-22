@@ -24,7 +24,7 @@ LOAD-DURATION is the time taken in milliseconds to load FEATURE.")
         (add-to-list 'pd/require-times
                      (cons feature
                            (pd/time-subtract-millis (current-time)
-                                                           require-start-time))
+                                                    require-start-time))
                      t)))))
 
 (provide 'pd/benchmark)
