@@ -2,8 +2,6 @@
 (source gnu)
 (source melpa)
 
-(depends-on "cask")
-
 ; core
 (depends-on "bind-key")
 (depends-on "buffer-move")
@@ -42,7 +40,6 @@
 (depends-on "dash")
 (depends-on "dash-at-point")
 (depends-on "deadgrep")
-(depends-on "linum-off")
 (depends-on "package-build")
 (depends-on "pcmpl-git")
 (depends-on "popwin")
@@ -59,8 +56,6 @@
 (depends-on "dockerfile-mode")
 (depends-on "editorconfig")
 (depends-on "git-commit")
-(depends-on "gitconfig-mode")
-(depends-on "gitignore-mode")
 (depends-on "git-timemachine")
 (depends-on "json-mode")
 (depends-on "json-snatcher")
@@ -134,7 +129,6 @@
 (depends-on "terraform-mode")
 
 ; LSP will rule the world some day
-(depends-on "company-lsp")
 (depends-on "dap-mode")
 (depends-on "lsp-mode")
 (depends-on "lsp-ui")
@@ -143,8 +137,3 @@
 (depends-on "flycheck")
 (depends-on "flycheck-package")
 (depends-on "flycheck-rust")
-
-; dbs
-(depends-on "company-edbi")
-(depends-on "edbi")
-(depends-on "pg")

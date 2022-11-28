@@ -9,7 +9,7 @@
 (recentf-mode +1)
 (toggle-save-place-globally)
 (which-key-mode +1)
-(global-linum-mode +1)
+(global-display-line-numbers-mode +1)
 (direnv-mode +1)
 
 (require 'popwin)
@@ -96,10 +96,6 @@
 
   (require 'flx-ido)
   (flx-ido-mode +1))
-
-(after 'linum
-  (require 'linum-off)
-  (add-to-list 'linum-disabled-modes-list 'erc-mode))
 
 (after 'quickref
   (quickref-global-mode +1)

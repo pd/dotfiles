@@ -6,6 +6,7 @@ emacs.d/.cask
 emacs.d/.crap
 emacs.d/.extension
 emacs.d/.lsp-session-v1
+emacs.d/async-bytecomp.log
 emacs.d/auto-save-list
 emacs.d/backups
 emacs.d/eln-cache
