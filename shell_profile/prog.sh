@@ -48,6 +48,7 @@ rerubies () {
 }
 
 ## rust
+export CARGO_NET_GIT_FETCH_WITH_CLI=true
 alias ct='cargo test'
 alias ctnc='cargo test -- --nocapture'
 alias cb='cargo build'
@@ -60,9 +61,9 @@ alias k=kubectl
 if which dyff &>/dev/null; then
   export KUBECTL_EXTERNAL_DIFF="dyff between --omit-header --set-exit-code"
 fi
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
-# given yaml stream eg `kustomize build . | kgrep ...`,
-# return docs of the given kind
-kgrep () {
-  yq read --doc '*' --tojson - | jq --arg kind "$1" '.[] | select(.kind == $kind)' | yq read -
-}
+if [[ -f /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc ]]; then
+  source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
+  source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+fi
