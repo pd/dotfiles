@@ -68,6 +68,7 @@
         delete-window
         end-of-buffer
         helm-M-x
+        ido-find-file
         ido-switch-buffer
         ielm
         js2-mode-show-node

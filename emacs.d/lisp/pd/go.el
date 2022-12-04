@@ -8,7 +8,6 @@
 
 (after 'go-mode
   (require 'lsp)
-  (require 'go-direx)
 
   (add-hook 'go-mode-hook 'lsp-deferred)
   (add-hook 'go-mode-hook 'subword-mode)
@@ -18,7 +17,6 @@
       (setq gofmt-command goimports))
 
   (bind-keys :map go-mode-map
-             ("C-c d"   . go-direx-pop-to-buffer)
              ("C-c h"   . lsp-ui-doc-show)
              ("C-c t ." . go-test-current-test)
              ("C-c t t" . go-test-current-file)
