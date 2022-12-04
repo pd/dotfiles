@@ -82,6 +82,11 @@
 
   (add-hook 'hcl-mode-hook 'pd/hclfmt-on-save))
 
+(after 'jsonnet-mode
+  (defun pd/jsonnet-fmt-on-save ()
+    (add-hook 'before-save-hook 'jsonnet-reformat-buffer nil t))
+  (add-hook 'jsonnet-mode-hook 'pd/jsonnet-fmt-on-save))
+
 (after 'kotlin-mode
   (add-hook 'kotlin-mode-hook #'lsp-deferred))
 
