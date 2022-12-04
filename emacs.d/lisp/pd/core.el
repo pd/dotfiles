@@ -10,7 +10,7 @@
 (toggle-save-place-globally)
 (which-key-mode +1)
 (global-display-line-numbers-mode +1)
-(direnv-mode +1)
+(envrc-global-mode +1)
 
 (require 'popwin)
 (popwin-mode +1)
@@ -31,13 +31,6 @@
   (bind-keys :map company-active-map
              ("C-n" . company-select-next)
              ("C-p" . company-select-previous)))
-
-(after 'direnv
-  (require 'warnings)
-  (setq direnv-always-show-summary t
-        direnv-show-paths-in-summary nil
-        direnv-use-faces-in-summary t)
-  (add-to-list 'warning-suppress-types '(direnv)))
 
 (after 'helm
   (helm-descbinds-mode +1)

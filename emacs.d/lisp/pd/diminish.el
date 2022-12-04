@@ -16,6 +16,9 @@
 (after 'elisp-slime-nav
   (diminish 'elisp-slime-nav-mode))
 
+(after 'envrc
+  (diminish 'envrc-mode))
+
 (after 'js2-mode
   (add-hook 'js2-mode-hook 'pd/js2-mode-name))
 
