@@ -1,8 +1,5 @@
-## elixir
-alias iem='iex -S mix'
-
 ## emacs
-if [ -n "$INSIDE_EMACS" ]; then
+if [[ -n "$INSIDE_EMACS" && "$INSIDE_EMACS" != "vterm" ]]; then
   export PAGER=
   export EDITOR='emacsclient'
 fi

@@ -57,7 +57,14 @@
 ;; decent theme
 (use-package gruvbox-theme
   :config
-  (load-theme 'gruvbox-dark-hard))
+  (load-theme 'gruvbox-dark-hard)
+  (set-face-background 'default "#111")
+  (set-face-background 'region "#333"))
+
+(use-package hl-line
+  :ensure nil
+  :config
+  (set-face-background 'hl-line "#222"))
 
 (use-package simple-modeline
   :init (simple-modeline-mode))
@@ -107,11 +114,16 @@
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
 (use-package consult
-  :commands (consult-buffer consult-goto-line consult-ripgrep)
-  :bind (("C-x b" . consult-buffer)
-         ("M-g g" . consult-goto-line)
-         ("M-g i" . consult-imenu)
-         ("s-g"   . consult-ripgrep)))
+  :commands
+  (consult-buffer consult-focus-lines consult-goto-line consult-imenu consult-ripgrep)
+  :bind
+  (("C-x b" . consult-buffer)
+   ("s-g"   . consult-ripgrep)
+   ("<leader>cb" . consult-buffer)
+   ("<leader>cg" . consult-ripgrep)
+   ("<leader>cf" . consult-focus-lines)
+   ("<leader>ci" . consult-imenu)
+   ("<leader>cl" . consult-goto-line)))
 
 ;; vim
 (use-package undo-fu
@@ -124,18 +136,13 @@
 (use-package evil
   :demand t
   :bind
-  (("<escape>" . keyboard-escape-quit)
-   :map evil-insert-state-map
-   ("C-)" . sp-forward-slurp-sexp)
-   ("C-(" . sp-backward-slurp-sexp))
+  (("<escape>" . keyboard-escape-quit))
   :init
-  (evil-mode)
   (setq evil-want-keybinding nil
         evil-undo-system 'undo-fu)
+  (evil-mode)
   :config
-  (evil-set-leader nil (kbd "SPC"))
-
-  (evil-define-key*))
+  (evil-set-leader '(normal visual motion) (kbd "SPC")))
 
 (use-package evil-collection ;; https://github.com/emacs-evil/evil-collection
   :after evil
@@ -143,13 +150,25 @@
   (evil-collection-init)
   (diminish 'evil-collection-unimpaired-mode))
 
+(use-package evil-commentary
+  :after evil
+  :diminish
+  :init (evil-commentary-mode))
+
 (use-package evil-mc
   :after evil
   :diminish
   :init (global-evil-mc-mode))
 
-(use-package evil-smartparens
-  :after (evil smartparens-mode))
+(use-package evil-cleverparens
+  :after (evil smartparens)
+  :diminish
+  :hook
+  (lisp-mode . evil-cleverparens-mode)
+  :init
+  (setq evil-cleverparens-use-additional-movement-keys nil)
+  :config
+  (require 'evil-cleverparens-text-objects))
 
 ;; qol
 (use-package autorevert
@@ -209,23 +228,24 @@
 
 (use-package windmove
   :bind (("s-h" . windmove-left)
-	 ("s-j" . windmove-down)
-	 ("s-k" . windmove-up)
-	 ("s-l" . windmove-right)))
+         ("s-j" . windmove-down)
+         ("s-k" . windmove-up)
+         ("s-l" . windmove-right)))
 
 (use-package winner
   :ensure nil
   :init (winner-mode))
 
 ;; prog
-(use-package emacs
+(use-package prog-mode
   :ensure nil
   :config
-  (add-hook 'prog-mode-hook 'display-line-numbers-mode)
-  (add-hook 'prog-mode-hook 'column-number-mode)
-  (add-hook 'prog-mode-hook 'hl-line-mode)
-  (add-hook 'prog-mode-hook 'show-paren-mode)
-  (add-hook 'prog-mode-hook 'subword-mode))
+  (dolist (mode '(display-line-numbers-mode
+                  column-number-mode
+                  hl-line-mode
+                  show-paren-mode
+                  subword-mode))
+    (add-hook 'prog-mode-hook mode)))
 
 (use-package go-mode
   :config
@@ -250,7 +270,20 @@
   (add-hook 'lisp-mode-hook 'paredit-mode)
   (add-hook 'lisp-mode-hook 'turn-on-eldoc-mode))
 
+(use-package sh-script
+  :ensure nil
+  :config
+  (setq sh-basic-offset 2))
+
 (use-package terraform-mode)
+
+(use-package whitespace-cleanup-mode
+  :diminish
+  :hook prog-mode
+  :custom
+  (whitespace-cleanup-mode-only-if-initially-clean nil))
+
+(use-package yaml-mode)
 
 ;; ide
 (use-package lsp-mode
@@ -261,25 +294,34 @@
 
 (use-package lsp-ui
   :commands lsp-ui-mode)
-(use-package tree-sitter)
-(use-package tree-sitter-langs)
+
+(use-package tree-sitter
+  :hook
+  ((go-mode
+    ruby-mode
+    rust-mode
+    terraform-mode) . tree-sitter-mode))
+
+(use-package tree-sitter-langs
+  :after tree-sitter
+  :hook
+  (tree-sitter-after-on . tree-sitter-hl-mode))
 
 ;; shell
-; https://github.com/CeleritasCelery/emacs-native-shell-complete
-(use-package shell
-  :ensure nil
+(use-package vterm
+  :custom
+  (vterm-always-compile-module t)
+  (vterm-max-scrollback 50000)
+  :hook
+  (vterm-mode . evil-emacs-state)
+  :bind
+  ("C-'" . vterm)
+  ("C-M-'" . vterm-other-window)
   :config
-  (defun pd/setup-shell-mode ()
-    (shell-dirtrack-mode -1)
-    (dirtrack-mode +1))
-  
-  (add-hook 'shell-mode-hook #'pd/setup-shell-mode))
-
-(use-package dirtrack
-  :after shell
-  :ensure nil
-  :config
-  (setq dirtrack-list '("\\`\\(direnv: .+[\r\n]*\\)*[\r\n ]*\\([^\n ]+\\) .*» \\'" 2)))
+  (setq vterm-buffer-name-string "*vterm %s*")
+  (add-to-list 'vterm-eval-cmds
+               '("update-default-directory" (lambda (path)
+                                              (setq default-directory path)))))
 
 ;; junkdrawer
 (defun pd/reload-buffer ()
@@ -296,27 +338,34 @@
   (find-file (expand-file-name user-init-file)))
 
 (use-package emacs
+  :ensure nil
   :init
   (unbind-key "M-t")
   :bind
-  (("C-c b z"  . pd/reload-buffer)
+  (("<leader>bz" . "pd/reload-buffer")
+
+   ;; misc
    ("C-c d"    . dired)
    ("C-c w"    . delete-trailing-whitespace)
    ("C-c \\"   . delete-horizontal-whitespace)
    ("C-c ="    . align-regexp)
 
    ;; jumps
-   ("C-c j f" . find-function)
-   ("C-c j i" . pd/find-init.el)
-   ("C-c j l" . find-library)
-   ("C-c j k" . find-function-on-key)
-   ("C-c j v" . find-variable)
+   ("<leader>jf" . find-function)
+   ("<leader>ji" . pd/find-init.el)
+   ("<leader>jl" . find-library)
+   ("<leader>jk" . find-function-on-key)
+   ("<leader>jv" . find-variable)
+
+   ;; searchreplace
+   ("<leader>rr" . replace-regexp)
+   ("<leader>rs" . replace-string)
 
    ;; transpositions
-   ("M-t c" . transpose-chars)
-   ("M-t w" . transpose-words)
-   ("M-t l" . transpose-lines)
-   ("M-t s" . transpose-sexps)))
+   ("<leader>tc" . transpose-chars)
+   ("<leader>tw" . transpose-words)
+   ("<leader>tl" . transpose-lines)
+   ("<leader>ts" . transpose-sexps)))
 
 ;;; wip
 (use-package all-the-icons)
