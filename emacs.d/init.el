@@ -1,10 +1,9 @@
-; lsp
-; hcl?
 ; https://github.com/cyrus-and/zoom
 
 ;; ref:
 ;; https://github.com/milkypostman/dotemacs/blob/main/init.el
 ;; https://github.com/jjuliano/sensible.emacs.d/blob/main/config/01-packages.el
+;; https://github.com/jimeh/.emacs.d/tree/4e33f79c290706099cc498743e0e3c1ab1d9e210/modules
 
 (setq package-archives
       '(("melpa" . "https://melpa.org/packages/")
@@ -17,6 +16,7 @@
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
+
 (eval-when-compile
   (require 'use-package))
 
@@ -26,7 +26,7 @@
   (setq custom-file (expand-file-name "etc/custom.el" user-emacs-directory))
   (load custom-file)
   (setq auto-save-file-name-transforms
-	`((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
+        `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
 
 ;; simmer down
 (menu-bar-mode -1)
@@ -140,9 +140,11 @@
   :init
   (setq evil-want-keybinding nil
         evil-undo-system 'undo-fu)
+  (modify-syntax-entry ?_ "w")
   (evil-mode)
   :config
-  (evil-set-leader '(normal visual motion) (kbd "SPC")))
+  (evil-set-leader '(normal visual motion) (kbd "SPC"))
+  (evil-ex-define-cmd "q" 'kill-this-buffer))
 
 (use-package evil-collection ;; https://github.com/emacs-evil/evil-collection
   :after evil
@@ -171,6 +173,10 @@
   (require 'evil-cleverparens-text-objects))
 
 ;; qol
+; blindly install them all:
+; (all-the-icons-install-fonts)
+(use-package all-the-icons)
+
 (use-package autorevert
   :ensure nil
   :diminish auto-revert-mode)
@@ -196,12 +202,18 @@
   :diminish)
 
 (use-package expand-region
-  :bind (("C-=" . er/expand-region)
-         ("C-_" . er/contract-region)))
+  :bind
+  (("C-=" . er/expand-region)
+   ("C-_" . er/contract-region)))
 
 (use-package magit
-  :bind (("C-x g" . magit-status))
-  :config (setq magit-save-repository-buffers 'dontask))
+  :bind
+  (("C-x g" . magit-status))
+  :config
+  (setq magit-save-repository-buffers 'dontask)
+  (defun pd/setup-git-commit-mode ()
+    (evil-insert-state))
+  (add-hook 'git-commit-mode-hook #'pd/setup-git-commit-mode))
 
 (use-package recentf
   :init (recentf-mode)
@@ -264,9 +276,13 @@
   :ensure nil
   :diminish)
 
+(use-package enh-ruby-mode
+  :mode "\\.rb\\'")
+
 (use-package lisp-mode
   :ensure nil
   :config
+  (setq comment-column 0)
   (add-hook 'lisp-mode-hook 'paredit-mode)
   (add-hook 'lisp-mode-hook 'turn-on-eldoc-mode))
 
@@ -275,7 +291,9 @@
   :config
   (setq sh-basic-offset 2))
 
-(use-package terraform-mode)
+(use-package terraform-mode
+  :config
+  (add-hook 'terraform-mode-hook 'terraform-format-on-save-mode))
 
 (use-package whitespace-cleanup-mode
   :diminish
@@ -298,7 +316,7 @@
 (use-package tree-sitter
   :hook
   ((go-mode
-    ruby-mode
+    enh-ruby-mode
     rust-mode
     terraform-mode) . tree-sitter-mode))
 
@@ -368,4 +386,3 @@
    ("<leader>ts" . transpose-sexps)))
 
 ;;; wip
-(use-package all-the-icons)
