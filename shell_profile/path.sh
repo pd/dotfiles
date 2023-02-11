@@ -35,8 +35,8 @@ prepend_path "$HOME/sauce/vendor/kotlin-language-server/server/build/install/ser
 prepend_path "$HOME/.krew/bin"
 prepend_path "$HOME/.rd/bin" # rancher desktop
 
-if [[ -d "/usr/local/opt/asdf" ]]; then
-  source /usr/local/opt/asdf/asdf.sh
+if [[ -d "/usr/local/opt/asdf/libexec" ]]; then
+  source /usr/local/opt/asdf/libexec/asdf.sh
 fi
 
 if which fasd >/dev/null 2>&1; then
