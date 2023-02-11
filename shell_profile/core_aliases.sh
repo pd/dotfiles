@@ -5,13 +5,6 @@ alias less='less -R'
 
 alias ..='cd ..'
 alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
-
-genpass() {
-  LC_ALL=C tr -dc '0-9A-Za-z_@#%*,.:?!~$^&()[]' < /dev/urandom | head -c${1:-20}
-  echo
-}
 
 if ! which realpath >/dev/null 2>&1; then
   if which greadlink >/dev/null 2>&1; then
@@ -48,4 +41,9 @@ man() {
     LESS_TERMCAP_ue=$'\e[0m' \
     LESS_TERMCAP_us=$'\e[1;32m' \
       man "$@"
+}
+
+genpass() {
+  LC_ALL=C tr -dc '0-9A-Za-z_@#%*,.:?!~$^&()[]' < /dev/urandom | head -c${1:-20}
+  echo
 }
