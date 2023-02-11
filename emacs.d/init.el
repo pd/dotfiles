@@ -4,6 +4,7 @@
 ;; https://github.com/milkypostman/dotemacs/blob/main/init.el
 ;; https://github.com/jjuliano/sensible.emacs.d/blob/main/config/01-packages.el
 ;; https://github.com/jimeh/.emacs.d/tree/4e33f79c290706099cc498743e0e3c1ab1d9e210/modules
+;; https://github.com/meain/dotfiles/blob/master/emacs/.config/emacs/init.el
 
 (setq package-archives
       '(("melpa" . "https://melpa.org/packages/")
@@ -28,6 +29,9 @@
   (setq auto-save-file-name-transforms
         `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
 
+;; i've got plenty of ram
+(setq gc-cons-threshold (* 1024 1024 32))
+
 ;; simmer down
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -39,7 +43,8 @@
       visible-bell nil
       messages-buffer-max-lines 1000
       create-lockfiles nil
-      load-prefer-newer t)
+      load-prefer-newer t
+      ring-bell-function 'ignore)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (use-package diminish)
 
@@ -69,13 +74,15 @@
 (use-package simple-modeline
   :init (simple-modeline-mode))
 
-;; currently emacs 29 via the emacs-plus tap:
-;; https://github.com/d12frosted/homebrew-emacs-plus
+;; currently emacs-plus@28 via the emacs-plus tap:
+; https://github.com/d12frosted/homebrew-emacs-plus
 (when (string-equal "darwin" system-type)
   (setq ns-command-modifier      'meta
         ns-alternate-modifier    'super
         ns-function-modifier     'hyper
         ns-use-native-fullscreen nil)
+  (setq dired-use-ls-dired nil)
+
   ; no i do not want to print
   (unbind-key "s-p"))
 
@@ -109,6 +116,9 @@
   :init (marginalia-mode))
 
 (use-package orderless
+  :config
+  (setq orderless-matching-styles
+        '(orderless-literal orderless-regexp orderless-flex))
   :custom
   (completion-styles '(orderless basic))
   (completion-category-overrides '((file (styles basic partial-completion)))))
@@ -144,7 +154,8 @@
   (evil-mode)
   :config
   (evil-set-leader '(normal visual motion) (kbd "SPC"))
-  (evil-ex-define-cmd "q" 'kill-this-buffer))
+  (evil-ex-define-cmd "q" 'kill-this-buffer)
+  (evil-ex-define-cmd "wq" 'kill-this-buffer))
 
 (use-package evil-collection ;; https://github.com/emacs-evil/evil-collection
   :after evil
@@ -166,11 +177,19 @@
   :after (evil smartparens)
   :diminish
   :hook
-  (lisp-mode . evil-cleverparens-mode)
+  ((lisp-mode emacs-lisp-mode) . evil-cleverparens-mode)
   :init
   (setq evil-cleverparens-use-additional-movement-keys nil)
   :config
   (require 'evil-cleverparens-text-objects))
+
+(use-package evil-textobj-line)
+(use-package evil-textobj-syntax)
+
+(use-package evil-textobj-tree-sitter
+  :config
+  (define-key evil-outer-text-objects-map "f" (evil-textobj-tree-sitter-get-textobj "function.outer"))
+  (define-key evil-inner-text-objects-map "f" (evil-textobj-tree-sitter-get-textobj "function.inner")))
 
 ;; qol
 ; blindly install them all:
@@ -218,6 +237,7 @@
 (use-package recentf
   :init (recentf-mode)
   :config
+  (setq recentf-max-saved-items 250)
   (add-to-list 'recentf-exclude no-littering-var-directory)
   (add-to-list 'recentf-exclude no-littering-etc-directory))
 
@@ -257,12 +277,26 @@
                   hl-line-mode
                   show-paren-mode
                   subword-mode))
-    (add-hook 'prog-mode-hook mode)))
+    (add-hook 'prog-mode-hook mode)
+    (setq-local indent-tabs-mode nil)))
+
+(use-package cue-mode)
+
+(use-package dockerfile-mode)
+
+(use-package eldoc
+  :ensure nil
+  :diminish)
+
+(use-package enh-ruby-mode
+  :mode "\\.rb\\'")
 
 (use-package go-mode
   :config
   (setq gofmt-command "goimports")
   (defun pd/setup-go-mode ()
+    (setq tab-width 4)
+    (setq indent-tabs-mode nil)
     (add-hook 'before-save-hook 'gofmt-before-save nil t))
   (add-hook 'go-mode-hook #'pd/setup-go-mode))
 
@@ -272,19 +306,18 @@
     (add-hook 'before-save-hook 'jsonnet-reformat-buffer nil t))
   (add-hook 'jsonnet-mode-hook #'pd/setup-jsonnet-mode))
 
-(use-package eldoc
-  :ensure nil
-  :diminish)
-
-(use-package enh-ruby-mode
-  :mode "\\.rb\\'")
-
 (use-package lisp-mode
   :ensure nil
+  :hook turn-on-eldoc-mode
   :config
-  (setq comment-column 0)
-  (add-hook 'lisp-mode-hook 'paredit-mode)
-  (add-hook 'lisp-mode-hook 'turn-on-eldoc-mode))
+  (setq comment-column 0))
+
+; reliably annoying that this doesn't descend from lisp-mode
+(use-package emacs-lisp-mode
+  :ensure nil
+  :hook turn-on-eldoc-mode
+  :config
+  (setq comment-column 0))
 
 (use-package sh-script
   :ensure nil
@@ -306,9 +339,14 @@
 ;; ide
 (use-package lsp-mode
   :init
-  (setq lsp-keymap-prefix "C-c l")
+  (setq lsp-keymap-prefix "C-c l") ; so it at least doesn't steal s-l
   :commands (lsp lsp-deferred)
-  :hook ((go-mode . lsp-deferred)))
+  :hook ((go-mode . lsp-deferred))
+  :config
+  (setq read-process-output-max (* 1024 1024))
+  ; emulate <leader>l being the lsp-keymap-prefix
+  (evil-define-key '(normal visual) 'lsp-mode (kbd "SPC l") lsp-command-map)
+  (evil-normalize-keymaps))
 
 (use-package lsp-ui
   :commands lsp-ui-mode)
@@ -326,6 +364,10 @@
   (tree-sitter-after-on . tree-sitter-hl-mode))
 
 ;; shell
+; https://www.masteringemacs.org/article/running-shells-in-emacs-overview
+; comint-osc-process-output -- native dirtrack?
+; vterm is too close to uncanny valley: mostly works like a shell, then really
+; really doesn't and is all the more frustrating
 (use-package vterm
   :custom
   (vterm-always-compile-module t)
@@ -333,7 +375,7 @@
   :hook
   (vterm-mode . evil-emacs-state)
   :bind
-  ("C-'" . vterm)
+  ("C-'" . vterm) ; TODO pd/find-or-create-vterm
   ("C-M-'" . vterm-other-window)
   :config
   (setq vterm-buffer-name-string "*vterm %s*")
@@ -359,14 +401,18 @@
   :ensure nil
   :init
   (unbind-key "M-t")
+
   :bind
-  (("<leader>bz" . "pd/reload-buffer")
+  (("<leader>bz" . pd/reload-buffer)
 
    ;; misc
-   ("C-c d"    . dired)
-   ("C-c w"    . delete-trailing-whitespace)
-   ("C-c \\"   . delete-horizontal-whitespace)
-   ("C-c ="    . align-regexp)
+   ("C-x C-d" . dired)
+   ("C-x d"   . dired)
+   ("C-c w"   . delete-trailing-whitespace)
+   ("C-c \\"  . delete-horizontal-whitespace)
+   ("C-c ="   . align-regexp)
+   ("C-M-+"   . text-scale-increase)
+   ("C-M-_"   . text-scale-decrease)
 
    ;; jumps
    ("<leader>jf" . find-function)
@@ -384,5 +430,3 @@
    ("<leader>tw" . transpose-words)
    ("<leader>tl" . transpose-lines)
    ("<leader>ts" . transpose-sexps)))
-
-;;; wip
