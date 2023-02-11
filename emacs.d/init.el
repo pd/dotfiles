@@ -133,7 +133,11 @@
    ("<leader>cg" . consult-ripgrep)
    ("<leader>cf" . consult-focus-lines)
    ("<leader>ci" . consult-imenu)
-   ("<leader>cl" . consult-goto-line)))
+   ("<leader>cl" . consult-line)
+   ("<leader>cL" . consult-goto-line)
+   ("<leader>cm" . consult-flymake))
+  :config
+  (setq consult-narrow-key "<"))
 
 ;; vim
 (use-package undo-fu
@@ -364,24 +368,38 @@
   (tree-sitter-after-on . tree-sitter-hl-mode))
 
 ;; shell
-; https://www.masteringemacs.org/article/running-shells-in-emacs-overview
-; comint-osc-process-output -- native dirtrack?
-; vterm is too close to uncanny valley: mostly works like a shell, then really
-; really doesn't and is all the more frustrating
 (use-package vterm
   :custom
   (vterm-always-compile-module t)
   (vterm-max-scrollback 50000)
   :hook
   (vterm-mode . evil-emacs-state)
-  :bind
-  ("C-'" . vterm) ; TODO pd/find-or-create-vterm
-  ("C-M-'" . vterm-other-window)
   :config
   (setq vterm-buffer-name-string "*vterm %s*")
   (add-to-list 'vterm-eval-cmds
                '("update-default-directory" (lambda (path)
                                               (setq default-directory path)))))
+
+(defun pd/vterm-buffers ()
+  (--filter (with-current-buffer it (eq major-mode 'vterm-mode))
+            (buffer-list)))
+
+(defvar consult-vterm-buffer-source
+  `(:name "vterm"
+          :hidden   nil
+          :narrow   ?t
+          :category buffer
+          :state    ,#'consult--buffer-state
+          :items    ,(lambda () (mapcar #'buffer-name (pd/vterm-buffers)))))
+
+(defun pd/vterm-or-consult (&optional arg)
+  "Use consult to switch to a vterm.
+With no prefix arg, or if no vterms exist, create a new one in default-directory."
+  (interactive "P")
+  (let ((terms (pd/vterm-buffers)))
+    (if (or arg (eq (length terms) 0))
+        (vterm arg)
+      (consult--multi '(consult-vterm-buffer-source)))))
 
 ;; junkdrawer
 (defun pd/reload-buffer ()
@@ -415,6 +433,7 @@
    ("C-M-_"   . text-scale-decrease)
 
    ;; jumps
+   ("<leader>je" . consult-flymake) ; also cm, but i think of it as a "jump" often
    ("<leader>jf" . find-function)
    ("<leader>ji" . pd/find-init.el)
    ("<leader>jl" . find-library)
@@ -429,4 +448,8 @@
    ("<leader>tc" . transpose-chars)
    ("<leader>tw" . transpose-words)
    ("<leader>tl" . transpose-lines)
-   ("<leader>ts" . transpose-sexps)))
+   ("<leader>ts" . transpose-sexps)
+
+   ;; repls
+   ("<leader>xe" . ielm)
+   ("<leader>xs" . consult-vterm)))
