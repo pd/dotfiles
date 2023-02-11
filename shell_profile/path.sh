@@ -38,3 +38,7 @@ prepend_path "$HOME/.rd/bin" # rancher desktop
 if [[ -d "/usr/local/opt/asdf" ]]; then
   source /usr/local/opt/asdf/asdf.sh
 fi
+
+if which fasd >/dev/null 2>&1; then
+  eval "$(fasd --init auto)"
+fi

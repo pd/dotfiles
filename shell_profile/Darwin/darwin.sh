@@ -1,4 +1,4 @@
-alias emacs="emacsclient -c -n --alternate-editor=''"
+#alias emacs="emacsclient -c -n --alternate-editor=''"
 alias finder="open -a finder ."
 
 if [[ -x "${HOME}/Applications/MacVim.app/Contents/MacOS/Vim" ]]; then

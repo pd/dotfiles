@@ -1,10 +1,13 @@
-## elixir
-alias iem='iex -S mix'
+export LC_CTYPE=en_US.UTF-8
 
 ## emacs
-if [ -n "$INSIDE_EMACS" ]; then
-  export PAGER=
+if [[ -n "$INSIDE_EMACS" ]]; then
   export EDITOR='emacsclient'
+  if [[ "$INSIDE_EMACS" != "vterm" ]]; then
+    export PAGER=
+  fi
+elif [[ -z "$EDITOR" ]]; then
+  export EDITOR=vim
 fi
 
 em () {
@@ -15,10 +18,6 @@ em () {
     emacsclient --alternate-editor='' -c -n "$@"
   fi
 }
-
-# I like toying with spacemacs, but I'm not actually willing to
-# switch.
-alias spacemacs='/Applications/Emacs.app/Contents/MacOS/Emacs -Q -l ~/spacemacs.d/init.el'
 
 ## go
 export GOPATH=~/go
@@ -41,11 +40,6 @@ fi
 if [ -d /usr/local/share/npm/lib/node_modules ]; then
   NODE_PATH="/usr/local/share/npm/lib/node_modules:$NODE_PATH"
 fi
-
-## ruby
-rerubies () {
-  RUBIES=(~/.rubies/*)
-}
 
 ## rust
 export CARGO_NET_GIT_FETCH_WITH_CLI=true
