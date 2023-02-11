@@ -2,15 +2,7 @@
 
 set -e
 
-echo "mode: count" > cov.out
-
-for pkg in $(go list ./...); do
-  go test -covermode=count -coverprofile=./profile.tmp "$pkg"
-  if [[ -f ./profile.tmp ]]; then
-    tail -n +2 ./profile.tmp >> cov.out
-    rm ./profile.tmp
-  fi
-done
-
+pkg="${1:-./...}"
+go test -v -coverpkg="$pkg" -coverprofile=cov.out "$pkg"
 go tool cover -html=cov.out
 rm cov.out
