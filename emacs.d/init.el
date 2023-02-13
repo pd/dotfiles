@@ -394,10 +394,16 @@
   "Use consult to switch to a vterm.
 With no prefix arg, or if no vterms exist, create a new one in default-directory."
   (interactive "P")
-  (let ((terms (pd/vterm-buffers)))
-    (if (or arg (eq (length terms) 0))
-        (vterm arg)
-      (consult--multi '(consult-vterm-buffer-source)))))
+  (require 'consult)
+  (let* ((terms (pd/vterm-buffers))
+         (n (length terms)))
+    (cond
+     ((or arg (eq n 0))
+      (vterm arg))
+     ((eq n 1)
+      (switch-to-buffer (car terms)))
+     (t
+      (consult--multi '(consult-vterm-buffer-source))))))
 
 ;; junkdrawer
 (defun pd/reload-buffer ()
@@ -450,4 +456,4 @@ With no prefix arg, or if no vterms exist, create a new one in default-directory
 
    ;; repls
    ("<leader>xe" . ielm)
-   ("<leader>xs" . consult-vterm)))
+   ("<leader>xs" . pd/vterm-or-consult)))
