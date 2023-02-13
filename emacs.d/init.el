@@ -299,8 +299,6 @@
   :config
   (setq gofmt-command "goimports")
   (defun pd/setup-go-mode ()
-    (setq tab-width 4)
-    (setq indent-tabs-mode nil)
     (add-hook 'before-save-hook 'gofmt-before-save nil t))
   (add-hook 'go-mode-hook #'pd/setup-go-mode))
 
