@@ -420,6 +420,20 @@ With no prefix arg, or if no vterms exist, create a new one in default-directory
   (interactive)
   (find-file (expand-file-name user-init-file)))
 
+(defun pd/comment-dwim (arg)
+  "If the region is active (`mark-active') and `transient-mark-mode'
+is on, let's `comment-dwim' do its thing.
+If not, `comment-dwim' doesn't DWIM at all. Instead, comment or
+uncomment the current line."
+  (interactive "*P")
+  (if (and mark-active transient-mark-mode)
+      (comment-dwim arg)
+    (save-excursion
+      (back-to-indentation)
+      (let ((beg (point)))
+        (end-of-line)
+        (comment-or-uncomment-region beg (point))))))
+
 (use-package emacs
   :ensure nil
   :init
@@ -429,6 +443,7 @@ With no prefix arg, or if no vterms exist, create a new one in default-directory
   (("<leader>bz" . pd/reload-buffer)
 
    ;; misc
+   ("M-;"     . pd/comment-dwim)
    ("C-x C-d" . dired)
    ("C-x d"   . dired)
    ("C-c w"   . delete-trailing-whitespace)
