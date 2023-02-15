@@ -299,6 +299,7 @@
   :config
   (setq gofmt-command "goimports")
   (defun pd/setup-go-mode ()
+    (setq-local tab-width 4)
     (add-hook 'before-save-hook 'gofmt-before-save nil t))
   (add-hook 'go-mode-hook #'pd/setup-go-mode))
 
