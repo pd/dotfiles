@@ -340,6 +340,19 @@
 (use-package yaml-mode)
 
 ;; ide
+(use-package ibuffer
+  :ensure nil)
+
+(use-package ibuffer-vc
+  :after ibuffer
+  :config
+  (setq ibuffer-default-sorting-mode 'filename/process
+        ibuffer-show-empty-filter-groups nil)
+  (defun pd/prepare-ibuffer ()
+    (ibuffer-auto-mode +1)
+    (ibuffer-vc-set-filter-groups-by-vc-root))
+  (add-hook 'ibuffer-mode-hook 'pd/prepare-ibuffer))
+
 (use-package lsp-mode
   :init
   (setq lsp-keymap-prefix "C-c l") ; so it at least doesn't steal s-l
@@ -441,6 +454,7 @@ uncomment the current line."
 
   :bind
   (("<leader>bz" . pd/reload-buffer)
+   ("<leader>bb" . ibuffer)
 
    ;; misc
    ("M-;"     . pd/comment-dwim)
