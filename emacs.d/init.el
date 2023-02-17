@@ -1,11 +1,3 @@
-; https://github.com/cyrus-and/zoom
-
-;; ref:
-;; https://github.com/milkypostman/dotemacs/blob/main/init.el
-;; https://github.com/jjuliano/sensible.emacs.d/blob/main/config/01-packages.el
-;; https://github.com/jimeh/.emacs.d/tree/4e33f79c290706099cc498743e0e3c1ab1d9e210/modules
-;; https://github.com/meain/dotfiles/blob/master/emacs/.config/emacs/init.el
-
 (setq package-archives
       '(("melpa" . "https://melpa.org/packages/")
         ("elpa" . "https://elpa.gnu.org/packages/")))
@@ -159,7 +151,10 @@
   :config
   (evil-set-leader '(normal visual motion) (kbd "SPC"))
   (evil-ex-define-cmd "q" 'kill-this-buffer)
-  (evil-ex-define-cmd "wq" 'kill-this-buffer))
+  (evil-ex-define-cmd "wq" 'kill-this-buffer)
+
+  (evil-set-initial-state 'git-commit-mode 'insert)
+  (evil-set-initial-state 'inferior-emacs-lisp-mode 'emacs))
 
 (use-package evil-collection ;; https://github.com/emacs-evil/evil-collection
   :after evil
@@ -233,10 +228,7 @@
   :bind
   (("C-x g" . magit-status))
   :config
-  (setq magit-save-repository-buffers 'dontask)
-  (defun pd/setup-git-commit-mode ()
-    (evil-insert-state))
-  (add-hook 'git-commit-mode-hook #'pd/setup-git-commit-mode))
+  (setq magit-save-repository-buffers 'dontask))
 
 (use-package recentf
   :init (recentf-mode)
