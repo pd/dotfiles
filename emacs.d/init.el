@@ -467,6 +467,7 @@ uncomment the current line."
    ("<leader>ji" . pd/find-init.el)
    ("<leader>jl" . find-library)
    ("<leader>jk" . find-function-on-key)
+   ("<leader>jp" . project-find-file)
    ("<leader>jv" . find-variable)
 
    ;; searchreplace
