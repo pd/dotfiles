@@ -314,6 +314,8 @@
   :config
   (setq comment-column 0))
 
+(use-package markdown-mode)
+
 (use-package sh-script
   :ensure nil
   :config
@@ -325,7 +327,7 @@
 
 (use-package whitespace-cleanup-mode
   :diminish
-  :hook prog-mode
+  :hook (prog-mode markdown-mode)
   :custom
   (whitespace-cleanup-mode-only-if-initially-clean nil))
 
