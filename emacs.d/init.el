@@ -215,6 +215,8 @@
   (company-show-quick-access 'left)
   (company-tooltip-align-annotations t))
 
+(use-package deadgrep)
+
 (use-package envrc
   :init (envrc-global-mode)
   :diminish)
