@@ -452,6 +452,7 @@ uncomment the current line."
 
    ;; misc
    ("M-;"     . pd/comment-dwim)
+   ("M-'"     . pd/vterm-or-consult)
    ("C-x C-d" . dired)
    ("C-x d"   . dired)
    ("C-c w"   . delete-trailing-whitespace)
