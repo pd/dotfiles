@@ -83,3 +83,5 @@
 	required = true
 [init]
 	defaultBranch = main
+[trim]
+	bases = master,main
