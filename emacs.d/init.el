@@ -18,6 +18,8 @@
   :config
   (setq custom-file (expand-file-name "etc/custom.el" user-emacs-directory))
   (load custom-file)
+  (setq backup-directory-alist
+        `((".*" . ,(no-littering-expand-var-file-name "backup/"))))
   (setq auto-save-file-name-transforms
         `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
 
@@ -185,11 +187,6 @@
 (use-package evil-textobj-line)
 (use-package evil-textobj-syntax)
 
-(use-package evil-textobj-tree-sitter
-  :config
-  (define-key evil-outer-text-objects-map "f" (evil-textobj-tree-sitter-get-textobj "function.outer"))
-  (define-key evil-inner-text-objects-map "f" (evil-textobj-tree-sitter-get-textobj "function.inner")))
-
 ;; qol
 ; blindly install them all:
 ; (all-the-icons-install-fonts)
@@ -232,15 +229,15 @@
   :config
   (setq magit-save-repository-buffers 'dontask))
 
+(use-package popwin
+  :init (popwin-mode))
+
 (use-package recentf
   :init (recentf-mode)
   :config
   (setq recentf-max-saved-items 250)
   (add-to-list 'recentf-exclude no-littering-var-directory)
   (add-to-list 'recentf-exclude no-littering-etc-directory))
-
-(use-package popwin
-  :init (popwin-mode))
 
 (use-package smartparens
   :diminish
@@ -287,7 +284,9 @@
   :diminish)
 
 (use-package enh-ruby-mode
-  :mode "\\.rb\\'")
+  :mode "\\.rb\\'"
+  :config
+  (setq enh-ruby-preserve-indent-in-heredocs t))
 
 (use-package go-mode
   :config
@@ -303,6 +302,9 @@
     (add-hook 'before-save-hook 'jsonnet-reformat-buffer nil t))
   (add-hook 'jsonnet-mode-hook #'pd/setup-jsonnet-mode))
 
+;; (use-package jsonnet-ts-mode
+;;   :load-path ("~/.emacs.d/lisp"))
+
 (use-package lisp-mode
   :ensure nil
   :hook turn-on-eldoc-mode
@@ -317,6 +319,14 @@
   (setq comment-column 0))
 
 (use-package markdown-mode)
+
+(use-package rust-mode
+  :config
+  (setq rust-format-on-save t))
+
+(use-package rust-ts-mode
+  :config
+  (setq rust-format-on-save t))
 
 (use-package sh-script
   :ensure nil
@@ -353,7 +363,9 @@
   :init
   (setq lsp-keymap-prefix "C-c l") ; so it at least doesn't steal s-l
   :commands (lsp lsp-deferred)
-  :hook ((go-mode . lsp-deferred))
+  :hook ((go-mode . lsp-deferred)
+         (rust-mode . lsp-deferred)
+         (rust-ts-mode . lsp-deferred))
   :config
   (setq read-process-output-max (* 1024 1024))
   ; emulate <leader>l being the lsp-keymap-prefix
@@ -362,18 +374,6 @@
 
 (use-package lsp-ui
   :commands lsp-ui-mode)
-
-(use-package tree-sitter
-  :hook
-  ((go-mode
-    enh-ruby-mode
-    rust-mode
-    terraform-mode) . tree-sitter-mode))
-
-(use-package tree-sitter-langs
-  :after tree-sitter
-  :hook
-  (tree-sitter-after-on . tree-sitter-hl-mode))
 
 ;; shell
 (use-package vterm
@@ -443,6 +443,37 @@ uncomment the current line."
         (end-of-line)
         (comment-or-uncomment-region beg (point))))))
 
+
+;;; maybe
+(use-package treesit
+  :ensure nil
+  :preface
+  (defun pd/treesit-install-grammars ()
+    (interactive)
+    (dolist (grammar
+             '((css "https://github.com/tree-sitter/tree-sitter-css")
+               (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "master" "src"))
+               (json "https://github.com/tree-sitter/tree-sitter-json")
+               (ruby "https://github.com/tree-sitter/tree-sitter-ruby")
+               (rust "https://github.com/tree-sitter/tree-sitter-rust")
+               (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src"))
+               (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
+      (add-to-list 'treesit-language-source-alist grammar)
+      (unless (treesit-language-available-p (car grammar))
+        (treesit-install-language-grammar (car grammar)))))
+
+  (dolist (remap '((css-mode . css-ts-mode)
+                   (js-mode . js-ts-mode)
+                   (json-mode . json-ts-mode)
+                   (ruby-mode . ruby-ts-mode)
+                   (rust-mode . rust-ts-mode)
+                   (typescript-mode . tsx-ts-mode)
+                   (yaml-mode . yaml-ts-mode)))
+    (add-to-list 'major-mode-remap-alist remap))
+
+  :config
+  (pd/treesit-install-grammars))
+
 (use-package emacs
   :ensure nil
   :init
@@ -455,6 +486,7 @@ uncomment the current line."
    ;; misc
    ("M-;"     . pd/comment-dwim)
    ("M-'"     . pd/vterm-or-consult)
+   ("C-x C-b" . ibuffer)
    ("C-x C-d" . dired)
    ("C-x d"   . dired)
    ("C-c w"   . delete-trailing-whitespace)
