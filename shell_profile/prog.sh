@@ -41,6 +41,9 @@ if [ -d /usr/local/share/npm/lib/node_modules ]; then
   NODE_PATH="/usr/local/share/npm/lib/node_modules:$NODE_PATH"
 fi
 
+## ruby
+alias fspec='rspec -t focus'
+
 ## rust
 export CARGO_NET_GIT_FETCH_WITH_CLI=true
 alias ct='cargo test'

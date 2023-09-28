@@ -26,3 +26,8 @@ fi
 if which kubectl &>/dev/null; then
   source <(kubectl completion zsh)
 fi
+
+if [[ -f /usr/local/opt/fzf/shell/completion.zsh ]]; then
+  source /usr/local/opt/fzf/shell/completion.zsh
+  source /usr/local/opt/fzf/shell/key-bindings.zsh
+fi

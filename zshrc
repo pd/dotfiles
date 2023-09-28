@@ -70,9 +70,6 @@ sourcedir ~/dotfiles/shell_profile/`uname -s`
 sourcedir ~/dotfiles/private/shell_profile
 sourcedir ~/dotfiles/private/shell_profile/`uname -s`
 
-[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
-bindkey '^T' transpose-chars
-
 unfunction sourcedir
 
 # simplistic git status in prompt

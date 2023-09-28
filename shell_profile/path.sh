@@ -24,9 +24,7 @@ prepend_path ~/.cask/bin
 prepend_path ~/local/bin
 prepend_path ~/anaconda/bin
 prepend_path ~/.cargo/bin
-prepend_path ~/.multirust/bin
-prepend_path ~/.multirust/toolchains/nightly/cargo/bin
-prepend_path ~/.multirust/toolchains/stable/cargo/bin
+prepend_path ~/.rustup/toolchains/stable-x86_64-apple-darwin/bin
 prepend_path /usr/local/opt/go/libexec/bin
 prepend_path ${GOPATH:-"$HOME/go"}/bin
 prepend_path ~/bin
