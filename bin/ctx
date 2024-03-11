@@ -8,7 +8,13 @@ list_contexts() {
 
 switch_context() {
   local name="$1"
-  local matches="$(list_contexts | grep "$name")"
+  local matches
+
+  if echo "$name" | grep -q -- '-eu$'; then
+    matches="$(list_contexts | grep -- '-eu$' | grep "${name/-eu/}")"
+  else
+    matches="$(list_contexts | grep -v -- '-eu$' | grep "$name")"
+  fi
 
   if [[ "$(echo "$matches" | wc -l)" -ne 1 ]]; then
     echo "Non-unique context selector: $name"

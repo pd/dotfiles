@@ -105,6 +105,8 @@ pd-cloud-contexts () {
     if [[ -n "$k8s" ]]; then
       if echo "$k8s" | grep -q '^gke_' >/dev/null 2>&1; then
         k8s="$(echo "$k8s" | cut -d_ -f4-)"
+        k8s="${k8s/-cluster/}"
+        k8s="${k8s/-env/}"
       fi
       out+=("k8s/${k8s/-cluster/}")
     fi
