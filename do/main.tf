@@ -30,6 +30,9 @@ resource "b2_bucket" "tfstate" {
   }
 }
 
+data "digitalocean_ssh_keys" "ssh" {
+}
+
 resource "digitalocean_droplet" "do" {
   name   = "do.krh.me"
   region = "nyc3"
@@ -40,9 +43,6 @@ resource "digitalocean_droplet" "do" {
 data "digitalocean_image" "donix" {
   name   = "donix"
   source = "user"
-}
-
-data "digitalocean_ssh_keys" "ssh" {
 }
 
 resource "digitalocean_droplet" "donix" {
