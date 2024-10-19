@@ -1,0 +1,10 @@
+keys:
+- &pd age1qh726xrj4tzl778wajr40draeureqrly7c5m639tq5qhmr5sev9s7k5pd3
+- &donix age1936use526xyscgwvvwx86xcs4z25vdlxt758rhhzmskr2dr56v9qppakat
+
+creation_rules:
+- path_regex: donix/secrets.yaml$
+  key_groups:
+  - age:
+    - *pd
+    - *donix
