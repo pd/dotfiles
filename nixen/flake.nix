@@ -37,9 +37,7 @@
     sops-nix,
     home-manager,
     ...
-  }: let
-    system = "x86_64-linux";
-  in {
+  }: {
     nixpkgs.overlays = [
       (import self.inputs.emacs-overlay)
     ];

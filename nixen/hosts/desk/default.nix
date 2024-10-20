@@ -8,16 +8,10 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/base.nix
+    ../../modules/wg/client.nix
   ];
 
   system.stateVersion = "24.05";
-
-  sops.defaultSopsFile = ./secrets.yaml;
-  sops.secrets.wireguard-private-key = {
-    mode = "0440";
-    owner = config.users.users.root.name;
-    group = "wheel";
-  };
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -25,48 +19,8 @@
 
   networking.hostName = "desk";
   networking.networkmanager.enable = true;
-  networking.firewall = {
-    allowedTCPPorts = [ 22 ];
-    allowedUDPPorts = [ 51820 ];
-  };
-
-  networking.wireguard.interfaces = {
-    wg0 = {
-      listenPort = 51820;
-      ips = ["10.100.100.10/32"];
-      privateKeyFile = config.sops.secrets.wireguard-private-key.path;
-
-      peers = [
-        {
-          endpoint = "donix.krh.me:51820";
-          publicKey = "WZgf+DC6SBQeatqOgpC2j6tvIu5VxKi/WgdbIU/m7wg=";
-          allowedIPs = [ "10.100.100.0/24" ];
-          persistentKeepalive = 25;
-        }
-      ];
-    };
-  };
 
   time.timeZone = "America/Chicago";
-
-  # lol, for now
-  services.xserver = {
-    enable = true;
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
-
-    xkb = {
-      layout = "us";
-      variant = "";
-      options = "ctrl:nocaps";
-    };
-  };
-  services.displayManager.autoLogin = {
-    enable = true;
-    user = "pd";
-  };
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
 
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -75,12 +29,6 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
   services.interception-tools = {
@@ -102,7 +50,28 @@
     age
     interception-tools
     sops
+
+    # TODO figurin out wm
+    kitty
+    mako
+    wl-clipboard
   ];
+
+  security.polkit.enable = true;
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
+        user = config.users.users.pd.name;
+      };
+
+      initial_session = {
+        command = "sway";
+        user = config.users.users.pd.name;
+      };
+    };
+  };
 
   home-manager.users.pd = {
     home.stateVersion = "24.05";
@@ -193,6 +162,14 @@
 
       shellAliases = {
         g = "git";
+      };
+    };
+
+    wayland.windowManager.sway = {
+      enable = true;
+      config = rec {
+        modifier = "Mod4";
+        terminal = "kitty";
       };
     };
 

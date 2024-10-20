@@ -1,9 +1,10 @@
 # Things I'm guaranteed to want on every system.
 
-{ pkgs, ... }: let
+{ pkgs, config, ... }: let
   keys = import ./keys.nix;
 in {
   sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+  sops.defaultSopsFile = ../hosts/${config.networking.hostName}/secrets.yaml;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.settings.trusted-users = ["root" "@wheel"];
