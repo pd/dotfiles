@@ -50,7 +50,7 @@ in {
 
       peers = [
         { # desk
-          publicKey = "ZDClQs0BckHz0w3taM8W7tm2eQPmdlJnsM4G2Mlvz2M=";
+          publicKey = "CA7HMcgdgxixmpikVA15Bxydi7pFriBbR3A3W7mE2BU=";
           allowedIPs = ["10.100.100.10/32"];
         }
 
