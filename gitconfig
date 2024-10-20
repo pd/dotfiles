@@ -86,3 +86,5 @@
 [trim]
 	bases = master,main
 	confirm = false
+[log]
+	date = iso-strict-local
