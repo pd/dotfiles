@@ -64,6 +64,11 @@
       enable = true;
       autocd = true;
 
+      # Ensure tramp can parse the prompt
+      envExtra = ''
+        [[ $TERM = "dumb" ]] && unsetopt zle && PS1='$ '
+      '';
+
       shellAliases = {
         g = "git";
       };

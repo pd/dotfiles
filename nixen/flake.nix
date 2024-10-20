@@ -4,6 +4,16 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    emacs-overlay = {
+      url = "github:nix-community/emacs-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -14,15 +24,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
+    dotfiles = {
+      url = "github:pd/dotfiles";
+      flake = false;
     };
-
-    # dotfiles = {
-    #   url = "github:pd/dotfiles";
-    #   flake = false;
-    # };
   };
 
   outputs = inputs@{
@@ -35,6 +40,10 @@
   }: let
     system = "x86_64-linux";
   in {
+    nixpkgs.overlays = [
+      (import self.inputs.emacs-overlay)
+    ];
+
     nixosConfigurations = {
       donix = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -44,7 +53,6 @@
           home-manager.nixosModules.home-manager
           "${nixpkgs}/nixos/modules/virtualisation/digital-ocean-config.nix"
         ];
-        # specialArgs = { dotfiles = inputs.dotfiles; };
       };
 
       desk = nixpkgs.lib.nixosSystem {
@@ -52,7 +60,9 @@
         modules = [
           ./hosts/desk
           sops-nix.nixosModules.sops
+          home-manager.nixosModules.home-manager
         ];
+        specialArgs = { dotfiles = inputs.dotfiles; };
       };
     };
 
