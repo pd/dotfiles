@@ -60,7 +60,10 @@ if which dyff &>/dev/null; then
 fi
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
-if [[ -f /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc ]]; then
+if [[ -f ~/.local/share/mise/installs/gcloud/latest/path.zsh.inc ]]; then
+  source ~/.local/share/mise/installs/gcloud/latest/path.zsh.inc
+  source ~/.local/share/mise/installs/gcloud/latest/completion.zsh.inc
+elif [[ -f /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc ]]; then
   source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
   source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
 fi
