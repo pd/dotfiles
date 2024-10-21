@@ -32,6 +32,18 @@
     pulse.enable = true;
   };
 
+  # get at&ts DNS to fuck off:
+  # https://discourse.nixos.org/t/how-to-ignore-dns-servers-recommended-by-the-router/50171/4
+  # https://github.com/plmercereau/nicos/blob/e803f61a29f9f98c76ffc1b03d8ea4815e307d39/modules/vpn/client.nix#L15-L38
+  # https://github.com/foo-dogsquared/nixos-config/blob/560230645fbdb583289b5b4bc10aff2db31b89da/configs/nixos/ni/modules/networking/wireguard.nix#L62-L70
+  #
+  # remote atm so don't want to oopsie wifi out of existence
+  networking.nameservers = [
+    "1.1.1.1"
+    "2606:4700:4700::1111"
+    "8.8.8.8"
+  ];
+
   services.interception-tools = {
     enable = true;
     plugins = [ pkgs.interception-tools-plugins.caps2esc ];
