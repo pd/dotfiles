@@ -109,13 +109,19 @@
       userEmail = "pd@krh.me";
 
       aliases = {
-        b = "branch";
-        co = "checkout";
-        ci = "commit";
-        cp = "cherry-pick";
-        d  = "diff";
-        rb = "rebase";
-        st = "status";
+        append = "commit --amend -C HEAD";
+        b      = "branch";
+        bv     = "branch -v";
+        co     = "checkout";
+        ci     = "commit";
+        cp     = "cherry-pick";
+        d      = "diff";
+        l      = "log";
+        pp     = "pull --prune";
+        rb     = "rebase";
+        rup    = "remote update --prune";
+        sh     = "show";
+        st     = "status";
       };
 
       ignores = [
