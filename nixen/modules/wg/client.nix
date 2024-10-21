@@ -12,6 +12,13 @@ in {
     group = "wheel";
   };
 
+  sops.secrets.wireguard-preshared-key = {
+    mode = "0440";
+    owner = config.users.users.root.name;
+    group = "wheel";
+  };
+
+
   networking = {
     firewall.allowedUDPPorts = [net.port];
     wireguard.interfaces.wg0 = {
@@ -23,6 +30,7 @@ in {
         {
           endpoint = "${net.hostname}:${builtins.toString net.port}";
           publicKey = net.server.publicKey;
+          presharedKeyFile = config.sops.secrets.wireguard-preshared-key.path;
           allowedIPs = [net.cidr];
           persistentKeepalive = 25;
         }

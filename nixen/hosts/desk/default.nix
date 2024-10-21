@@ -151,6 +151,14 @@
 
     programs.go.enable = true;
 
+    programs.ssh = {
+      enable = true;
+      matchBlocks."donix" = {
+        hostname = "donix.krh.me";
+        port = 1222;
+      };
+    };
+
     programs.zsh = {
       enable = true;
       autocd = true;
