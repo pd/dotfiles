@@ -14,30 +14,48 @@ in
     ../../modules/base.nix
     ../../modules/wg/server.nix
     ./users/pd.nix
+    ./users/rhys.nix
   ];
 
   system.stateVersion = "24.05";
 
   networking.hostName = "donix";
   networking.firewall = {
-    allowedTCPPorts = [
-      80
-      443
-    ];
+    allowedTCPPorts = [ 53 80 443 ];
+    allowedUDPPorts = [ 53 ];
   };
 
   time.timeZone = "America/Chicago";
 
-  users.users = {
-    rhys = {
-      isNormalUser = true;
-      extraGroups = [
-        "networkmanager"
-        "wheel"
-        "keys"
-      ];
-      openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIOZGcHggrgVlMOSh2lG3i8Jp1vA2rz7NyuWSnlVYnUh"
+  services.unbound = {
+    enable = true;
+    settings = {
+      server = {
+        interface = [
+          "0.0.0.0"
+          "::1"
+        ];
+        access-control = [
+          "127.0.0.1/8 allow"
+          "10.100.100.0/24 allow"
+        ];
+
+        local-zone = [ "home. static" ];
+        local-data = [ # TODO: lift from network defn
+          ''"donix.home. IN A 10.100.100.1"''
+          ''"desk.home. IN A 10.100.100.10"''
+          ''"span.home. IN A 10.100.100.11"''
+        ];
+      };
+
+      forward-zone = [
+        {
+          name = ".";
+          forward-addr = [
+            "1.1.1.1"
+            "8.8.8.8"
+          ];
+        }
       ];
     };
   };
