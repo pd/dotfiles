@@ -117,6 +117,7 @@
         ci = "commit";
         cp = "cherry-pick";
         d = "diff";
+        ds = "diff --staged";
         l = "log";
         pp = "pull --prune";
         rb = "rebase";
