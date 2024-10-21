@@ -1,4 +1,4 @@
-{ ... } :
+{ ... }:
 {
   home-manager.users.pd = {
     home.stateVersion = "24.05";

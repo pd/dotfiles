@@ -1,7 +1,7 @@
 {
   hostname = "donix.krh.me";
-  port     = 51820;
-  cidr     = "10.100.100.0/24";
+  port = 51820;
+  cidr = "10.100.100.0/24";
 
   server = {
     publicKey = "WZgf+DC6SBQeatqOgpC2j6tvIu5VxKi/WgdbIU/m7wg=";

@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-} : let
+}:
+let
   net = import ./net.nix;
   externalInterface = "ens3"; # TODO: how to discover or parameterize ens3
   psks = lib.mapAttrs' (name: peer: {
@@ -14,7 +15,8 @@
       group = "wheel";
     };
   }) net.clients;
-in {
+in
+{
   sops.secrets = {
     wireguard-private-key = {
       mode = "0440";
@@ -24,16 +26,16 @@ in {
   } // psks;
 
   networking = {
-    firewall.allowedUDPPorts = [net.port];
+    firewall.allowedUDPPorts = [ net.port ];
     nat = {
       enable = true;
       externalInterface = externalInterface;
-      internalInterfaces = ["wg0"];
+      internalInterfaces = [ "wg0" ];
     };
 
     wireguard.interfaces.wg0 = {
       listenPort = net.port;
-      ips = [net.server.ip];
+      ips = [ net.server.ip ];
       privateKeyFile = config.sops.secrets.wireguard-private-key.path;
 
       postSetup = ''
@@ -44,14 +46,12 @@ in {
         ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s ${net.cidr} -o ${externalInterface} -j MASQUERADE
       '';
 
-      peers = lib.mapAttrsToList
-        (name: peer: {
-          inherit name;
-          allowedIPs = [peer.ip];
-          publicKey = peer.publicKey;
-          presharedKeyFile = config.sops.secrets."wireguard-preshared-key-${name}".path;
-        })
-        net.clients;
+      peers = lib.mapAttrsToList (name: peer: {
+        inherit name;
+        allowedIPs = [ peer.ip ];
+        publicKey = peer.publicKey;
+        presharedKeyFile = config.sops.secrets."wireguard-preshared-key-${name}".path;
+      }) net.clients;
     };
   };
 }

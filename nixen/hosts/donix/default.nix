@@ -2,12 +2,14 @@
   pkgs,
   config,
   ...
-}: let
-  internetsfamous = pkgs.runCommand "install-nginx-site" {} ''
+}:
+let
+  internetsfamous = pkgs.runCommand "install-nginx-site" { } ''
     install -Dm644 ${./internetsfamous/index.html} $out/www/index.html
   '';
 
-in {
+in
+{
   imports = [
     ../../modules/base.nix
     ../../modules/wg/server.nix
@@ -18,7 +20,10 @@ in {
 
   networking.hostName = "donix";
   networking.firewall = {
-    allowedTCPPorts = [ 80 443 ];
+    allowedTCPPorts = [
+      80
+      443
+    ];
   };
 
   time.timeZone = "America/Chicago";
@@ -26,7 +31,11 @@ in {
   users.users = {
     rhys = {
       isNormalUser = true;
-      extraGroups = ["networkmanager" "wheel" "keys"];
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+        "keys"
+      ];
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIOZGcHggrgVlMOSh2lG3i8Jp1vA2rz7NyuWSnlVYnUh"
       ];
@@ -52,5 +61,5 @@ in {
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "letsencrypt@krh.me";
 
-  environment.systemPackages = [internetsfamous];
+  environment.systemPackages = [ internetsfamous ];
 }

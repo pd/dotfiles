@@ -4,7 +4,8 @@
   config,
   dotfiles,
   ...
-} : {
+}:
+{
   imports = [
     ./hardware-configuration.nix
     ../../modules/base.nix
@@ -15,7 +16,7 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.supportedFilesystems = ["ntfs"];
+  boot.supportedFilesystems = [ "ntfs" ];
 
   networking.hostName = "desk";
   networking.networkmanager.enable = true;
@@ -33,7 +34,7 @@
 
   services.interception-tools = {
     enable = true;
-    plugins = [pkgs.interception-tools-plugins.caps2esc];
+    plugins = [ pkgs.interception-tools-plugins.caps2esc ];
     udevmonConfig = ''
       - JOB: "${pkgs.interception-tools}/bin/intercept -g $DEVNODE | ${pkgs.interception-tools-plugins.caps2esc}/bin/caps2esc -m 1 | ${pkgs.interception-tools}/bin/uinput -d $DEVNODE"
         DEVICE:
@@ -110,18 +111,18 @@
 
       aliases = {
         append = "commit --amend -C HEAD";
-        b      = "branch";
-        bv     = "branch -v";
-        co     = "checkout";
-        ci     = "commit";
-        cp     = "cherry-pick";
-        d      = "diff";
-        l      = "log";
-        pp     = "pull --prune";
-        rb     = "rebase";
-        rup    = "remote update --prune";
-        sh     = "show";
-        st     = "status";
+        b = "branch";
+        bv = "branch -v";
+        co = "checkout";
+        ci = "commit";
+        cp = "cherry-pick";
+        d = "diff";
+        l = "log";
+        pp = "pull --prune";
+        rb = "rebase";
+        rup = "remote update --prune";
+        sh = "show";
+        st = "status";
       };
 
       ignores = [

@@ -2,10 +2,12 @@
   lib,
   config,
   ...
-} : let
+}:
+let
   net = import ./net.nix;
   client = net.clients."${config.networking.hostName}";
-in {
+in
+{
   sops.secrets.wireguard-private-key = {
     mode = "0440";
     owner = config.users.users.root.name;
@@ -18,12 +20,11 @@ in {
     group = "wheel";
   };
 
-
   networking = {
-    firewall.allowedUDPPorts = [net.port];
+    firewall.allowedUDPPorts = [ net.port ];
     wireguard.interfaces.wg0 = {
       listenPort = net.port;
-      ips = [client.ip];
+      ips = [ client.ip ];
       privateKeyFile = config.sops.secrets.wireguard-private-key.path;
 
       peers = [
@@ -31,7 +32,7 @@ in {
           endpoint = "${net.hostname}:${builtins.toString net.port}";
           publicKey = net.server.publicKey;
           presharedKeyFile = config.sops.secrets.wireguard-preshared-key.path;
-          allowedIPs = [net.cidr];
+          allowedIPs = [ net.cidr ];
           persistentKeepalive = 25;
         }
       ];
