@@ -4,8 +4,11 @@
   ...
 }:
 let
-  net = import ./net.nix;
-  client = net.clients."${config.networking.hostName}";
+  port = 51820;
+  net = import ../net.nix;
+  wg  = net.nets.wg0;
+  srv = net.hosts."${wg.server}";
+  me  = net.hosts."${config.networking.hostName}";
 in
 {
   sops.secrets.wireguard-private-key = {
@@ -21,18 +24,18 @@ in
   };
 
   networking = {
-    firewall.allowedUDPPorts = [ net.port ];
+    firewall.allowedUDPPorts = [ port ];
     wireguard.interfaces.wg0 = {
-      listenPort = net.port;
-      ips = [ client.ip ];
+      listenPort = port; # TODO: port+N ?
+      ips = [ me.wg0.ip ];
       privateKeyFile = config.sops.secrets.wireguard-private-key.path;
 
       peers = [
         {
-          endpoint = "${net.hostname}:${builtins.toString net.port}";
-          publicKey = net.server.publicKey;
+          endpoint = wg.endpoint;
+          allowedIPs = [ wg.cidr ];
+          publicKey = srv.publicKey;
           presharedKeyFile = config.sops.secrets.wireguard-preshared-key.path;
-          allowedIPs = [ net.cidr ];
           persistentKeepalive = 25;
         }
       ];

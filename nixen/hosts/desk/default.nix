@@ -14,12 +14,15 @@
 
   system.stateVersion = "24.05";
 
+  sops.secrets.wifi = {
+    mode = "0440";
+    owner = "root";
+    group = "wheel";
+  };
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "ntfs" ];
-
-  networking.hostName = "desk";
-  networking.networkmanager.enable = true;
 
   time.timeZone = "America/Chicago";
 
@@ -32,18 +35,57 @@
     pulse.enable = true;
   };
 
-  # get at&ts DNS to fuck off:
-  # https://discourse.nixos.org/t/how-to-ignore-dns-servers-recommended-by-the-router/50171/4
-  # https://github.com/plmercereau/nicos/blob/e803f61a29f9f98c76ffc1b03d8ea4815e307d39/modules/vpn/client.nix#L15-L38
-  # https://github.com/foo-dogsquared/nixos-config/blob/560230645fbdb583289b5b4bc10aff2db31b89da/configs/nixos/ni/modules/networking/wireguard.nix#L62-L70
-  #
-  # remote atm so don't want to oopsie wifi out of existence
-  networking.nameservers = [
-    "1.1.1.1"
-    "2606:4700:4700::1111"
-    "8.8.8.8"
-  ];
+  networking = {
+    hostName = "desk";
 
+    nameservers = [
+      # htpc.lan.ip
+      "1.1.1.1"
+      "2606:4700:4700::1111"
+      "8.8.8.8"
+    ];
+    search = [ "home" ];
+
+    # prefer networkmanager because at&t router won't let me
+    # opt out of their bogus DNS responses
+    wireless.enable = false;
+    networkmanager = {
+      enable = true;
+      ensureProfiles.environmentFiles = [
+        config.sops.secrets.wifi.path
+      ];
+      ensureProfiles.profiles = {
+        wifi = {
+          connection = {
+            id = "$ssid";
+            autoconnect = "yes";
+            permissions = "";
+            type = "wifi";
+            interface-name = "wlp6s0";
+          };
+          ipv4 = {
+            method = "auto";
+            ignore-auto-dns = true;
+          };
+          ipv6 = {
+            method = "auto";
+            ignore-auto-dns = true;
+          };
+          wifi = {
+            mode = "infrastructure";
+            ssid = "bazqux";
+          };
+          wifi-security = {
+            auth-alg = "open";
+            key-mgmt = "wpa-psk";
+            psk = "$psk";
+          };
+        };
+      };
+    };
+  };
+
+  # caps -> ctrl/esc
   services.interception-tools = {
     enable = true;
     plugins = [ pkgs.interception-tools-plugins.caps2esc ];
@@ -62,6 +104,7 @@
   environment.systemPackages = with pkgs; [
     age
     interception-tools
+    screen
     sops
 
     # TODO figurin out wm
@@ -131,6 +174,7 @@
         d = "diff";
         ds = "diff --staged";
         l = "log";
+        m = "merge";
         pp = "pull --prune";
         rb = "rebase";
         rup = "remote update --prune";
