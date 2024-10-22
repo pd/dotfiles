@@ -6,9 +6,9 @@
 let
   port = 51820;
   net = import ../net.nix;
-  wg  = net.nets.wg0;
+  wg = net.nets.wg0;
   srv = net.hosts."${wg.server}";
-  me  = net.hosts."${config.networking.hostName}";
+  me = net.hosts."${config.networking.hostName}";
 in
 {
   sops.secrets.wireguard-private-key = {
@@ -34,7 +34,7 @@ in
         {
           endpoint = wg.endpoint;
           allowedIPs = [ wg.cidr ];
-          publicKey = srv.publicKey;
+          publicKey = srv.wg0.publicKey;
           presharedKeyFile = config.sops.secrets.wireguard-preshared-key.path;
           persistentKeepalive = 25;
         }

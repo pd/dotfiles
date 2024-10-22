@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   config,
   ...
@@ -7,6 +8,18 @@ let
   internetsfamous = pkgs.runCommand "install-nginx-site" { } ''
     install -Dm644 ${./internetsfamous/index.html} $out/www/index.html
   '';
+
+  cnames = host: host.cnames or [];
+
+  net = import ../../modules/net.nix;
+  wanHosts = lib.filterAttrs (_: peer: peer ? "wg0") net.hosts;
+  records = lib.flatten (
+    lib.mapAttrsToList (
+      name: host:
+      [ ''"${name}.home. IN A ${host.wg0.ip}"'' ]
+      ++ builtins.map (cname: ''"${cname}.home. IN CNAME ${name}.home."'') (cnames host)
+    ) wanHosts
+  );
 
 in
 {
@@ -21,7 +34,11 @@ in
 
   networking.hostName = "donix";
   networking.firewall = {
-    allowedTCPPorts = [ 53 80 443 ];
+    allowedTCPPorts = [
+      53
+      80
+      443
+    ];
     allowedUDPPorts = [ 53 ];
   };
 
@@ -41,11 +58,7 @@ in
         ];
 
         local-zone = [ "home. static" ];
-        local-data = [ # TODO: lift from network defn
-          ''"donix.home. IN A 10.100.100.1"''
-          ''"desk.home. IN A 10.100.100.10"''
-          ''"span.home. IN A 10.100.100.11"''
-        ];
+        local-data = records;
       };
 
       forward-zone = [
