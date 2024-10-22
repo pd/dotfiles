@@ -4,8 +4,8 @@ locals {
       { type = "NS", name = "@", value = "ns1.digitalocean.com." },
       { type = "NS", name = "@", value = "ns2.digitalocean.com." },
       { type = "NS", name = "@", value = "ns3.digitalocean.com." },
-      { type = "A", name = "@", value = digitalocean_droplet.do.ipv4_address },
-      { type = "A", name = "www", value = digitalocean_droplet.do.ipv4_address },
+      { type = "A", name = "@", value = digitalocean_droplet.donix.ipv4_address },
+      { type = "A", name = "www", value = digitalocean_droplet.donix.ipv4_address },
       { type = "CAA", name = "@", value = "letsencrypt.org." },
     ]
 
