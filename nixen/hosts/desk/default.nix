@@ -86,6 +86,7 @@
   };
 
   # caps -> ctrl/esc
+  # TODO probably simpler: https://wiki.nixos.org/wiki/Keyd
   services.interception-tools = {
     enable = true;
     plugins = [ pkgs.interception-tools-plugins.caps2esc ];
@@ -103,6 +104,7 @@
 
   environment.systemPackages = with pkgs; [
     age
+    cfssl
     interception-tools
     screen
     sops
@@ -151,6 +153,9 @@
       source = "${dotfiles}/emacs.d";
       recursive = true;
     };
+
+    programs.home-manager.enable = true;
+    home.packages = [ pkgs.home-manager ];
 
     programs.firefox.enable = true;
 
@@ -239,7 +244,7 @@
 
     wayland.windowManager.sway = {
       enable = true;
-      config = rec {
+      config = {
         modifier = "Mod4";
         terminal = "kitty";
       };

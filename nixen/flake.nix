@@ -30,6 +30,8 @@
     };
   };
 
+  # TODO modular + home-manager as both integrated and distinct output
+  # https://github.com/nmasur/dotfiles/blob/a6e4b3130d6f86303d9f80fdedbd38094d8427ac/flake.nix#L286-L307
   outputs =
     inputs@{
       self,
@@ -38,16 +40,21 @@
       sops-nix,
       home-manager,
       ...
-    }:
-    {
+    }: let
+      # without this, `nixpkgs.lib` is inexplicably not found as soon as i switch
+      # this to `rec`. wonky ass language. wat.
+      lib = nixpkgs.lib;
+    in rec {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
 
       nixpkgs.overlays = [
         (import self.inputs.emacs-overlay)
       ];
 
+      # TODO push `nixosSystem` down and declare as `import ./hosts/foo { inherit inputs; ... }`
       nixosConfigurations = {
-        donix = nixpkgs.lib.nixosSystem {
+        # nixos-rebuild switch --flake .#donix --target-host donix --build-host donix --use-remote-sudo
+        donix = lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
             ./hosts/donix
@@ -57,7 +64,8 @@
           ];
         };
 
-        desk = nixpkgs.lib.nixosSystem {
+        # nixos-rebuild switch --flake .#desk
+        desk = lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
             ./hosts/desk
@@ -68,6 +76,12 @@
             dotfiles = inputs.dotfiles;
           };
         };
+      };
+
+      homeConfigurations = {
+        # For just tweaking home without touching the whole system
+        # home-manager switch --flake .#desk
+        desk = nixosConfigurations.desk.config.home-manager.users.pd.desk;
       };
 
       images = {
