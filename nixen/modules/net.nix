@@ -86,6 +86,11 @@
       lan = {
         ip = "192.168.1.100";
       };
+
+      wg0 = {
+        ip = "10.100.100.100";
+        publicKey = "OgjpXp3AvhTRswErbC32X6zrnfEZeM3B/tjTPr87oig=";
+      };
     };
 
     tv = {
