@@ -227,6 +227,11 @@
         hostname = "donix.krh.me";
         port = 1222;
       };
+
+      matchBlocks."pi" = {
+        hostname = "192.168.1.13";
+        port = 1222;
+      };
     };
 
     programs.zsh = {

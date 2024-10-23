@@ -21,7 +21,7 @@
   nets = {
     wg0 = {
       server = "donix";
-      endpoint = "donix.krh.me:51820";
+      endpoint = "donix.krh.me:51820"; # TODO wg.krh
       cidr = "10.100.100.0/24";
     };
   };
@@ -77,9 +77,10 @@
         ip = "192.168.1.13";
       };
 
-      # wg0 = {
-      #   ip = "10.100.100.13";
-      # };
+      wg0 = {
+        ip = "10.100.100.13";
+        publicKey = "xDPPIIjA72BrCFC+5eqJn7IiC0xeI6Dof38Inj+tXwg=";
+      };
     };
 
     nas = {

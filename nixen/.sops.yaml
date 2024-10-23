@@ -3,6 +3,7 @@ keys:
 - &pd-span age1qh726xrj4tzl778wajr40draeureqrly7c5m639tq5qhmr5sev9s7k5pd3
 - &host-desk age1vqpwqc3kru8h24ek6kz5ekpztc7l6408xrexm4dcu6y5twrvnvasm3uxul
 - &host-donix age1936use526xyscgwvvwx86xcs4z25vdlxt758rhhzmskr2dr56v9qppakat
+- &host-pi age17602hsan7zthm9jwgqmffs0k5cg0l5rtmu9vpuk5ww4cgu6m4grq97dmq3
 
 creation_rules:
 - path_regex: hosts/desk/secrets.yaml$
@@ -17,3 +18,9 @@ creation_rules:
     - *pd-span
     - *pd-desk
     - *host-donix
+- path_regex: hosts/pi/secrets.yaml$
+  key_groups:
+  - age:
+    - *pd-span
+    - *pd-desk
+    - *host-pi

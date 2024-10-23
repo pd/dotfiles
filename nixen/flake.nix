@@ -76,6 +76,16 @@
             dotfiles = inputs.dotfiles;
           };
         };
+
+        # building the SD, from desk with aarch64 emu:
+        # nix run nixpkgs#nixos-generators -- -f sd-aarch64 --flake .#pi --system aarch64-linux -o ./pi.sd
+        pi = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          modules = [
+            ./hosts/pi
+            sops-nix.nixosModules.sops
+          ];
+        };
       };
 
       # homeConfigurations = {
