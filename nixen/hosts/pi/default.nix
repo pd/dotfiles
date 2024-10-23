@@ -1,8 +1,13 @@
 { lib, pkgs, ... } :
+let
+  net = import ../../modules/net.nix;
+in
 {
   imports = [
     ./hardware-configuration.nix
     ../../modules/base.nix
+    ../../modules/wg/client.nix
+    ./dns.nix
   ];
 
   system.stateVersion = "24.05";
@@ -10,17 +15,21 @@
   boot.loader.grub.enable = false;
   boot.loader.generic-extlinux-compatible.enable = true;
 
-  networking.hostName = "pi";
-  networking.interfaces.end0.ipv4.addresses = [{
-    address = "192.168.1.13";
-    prefixLength = 24;
-  }];
-  networking.defaultGateway = {
-    address = "192.168.1.254";
-    interface = "end0";
+  networking = {
+    hostName = "pi";
+    defaultGateway = {
+      interface = "end0";
+      address = net.nets.lan.gateway;
+    };
+
+    interfaces.end0.ipv4.addresses = [{
+      address = net.hosts.pi.lan.ip;
+      prefixLength = 24;
+    }];
+
+    nameservers = [
+      "1.1.1.1"
+      "8.8.8.8"
+    ];
   };
-  networking.nameservers = [
-    "1.1.1.1"
-    "8.8.8.8"
-  ];
 }

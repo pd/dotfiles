@@ -19,6 +19,11 @@
 #   hera:  .120
 {
   nets = {
+    lan = {
+      gateway = "192.168.1.254";
+      ssid    = "bazqux";
+    };
+
     wg0 = {
       server = "donix";
       endpoint = "donix.krh.me:51820"; # TODO wg.krh
