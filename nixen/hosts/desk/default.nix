@@ -5,6 +5,9 @@
   dotfiles,
   ...
 }:
+let
+  net = import ../../modules/net.nix;
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -40,7 +43,7 @@
     hostName = "desk";
 
     nameservers = [
-      # htpc.lan.ip
+      net.hosts.pi.lan.ip
       "1.1.1.1"
       "2606:4700:4700::1111"
       "8.8.8.8"
@@ -223,15 +226,28 @@
 
     programs.ssh = {
       enable = true;
-      matchBlocks."donix" = {
-        hostname = "donix.krh.me";
-        port = 1222;
-      };
 
-      matchBlocks."pi" = {
-        hostname = "192.168.1.13";
-        port = 1222;
-      };
+      matchBlocks = {
+        donix = {
+          hostname = "donix.krh.me";
+          port = 1222;
+        };
+
+        span = {
+          hostname = "span.home";
+          identitiesOnly = true;
+          identityFile = "~/.ssh/id_ed25519";
+        };
+
+      } // lib.mapAttrs' (name: host: {
+        inherit name;
+        value = {
+          hostname = "${name}.home";
+          port = 1222;
+          identitiesOnly = true;
+          identityFile = "~/.ssh/id_ed25519";
+        };
+      }) (lib.filterAttrs (name: _: builtins.elem name ["htpc" "pi" "nas"]) net.hosts);
     };
 
     programs.zsh = {
