@@ -13,6 +13,7 @@ in
     ./hardware-configuration.nix
     ../../modules/base.nix
     ../../modules/wg/client.nix
+    ./wm.nix
   ];
 
   system.stateVersion = "24.05";
@@ -89,19 +90,6 @@ in
     };
   };
 
-  # caps -> ctrl/esc
-  # TODO probably simpler: https://wiki.nixos.org/wiki/Keyd
-  services.interception-tools = {
-    enable = true;
-    plugins = [ pkgs.interception-tools-plugins.caps2esc ];
-    udevmonConfig = ''
-      - JOB: "${pkgs.interception-tools}/bin/intercept -g $DEVNODE | ${pkgs.interception-tools-plugins.caps2esc}/bin/caps2esc -m 1 | ${pkgs.interception-tools}/bin/uinput -d $DEVNODE"
-        DEVICE:
-          EVENTS:
-            EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
-    '';
-  };
-
   # TODO: can i turn this back on?
   # things want a password to log in after screenlock etc
   users.mutableUsers = lib.mkForce true;
@@ -112,28 +100,10 @@ in
     interception-tools
     screen
     sops
-
-    # TODO figurin out wm
-    kitty
-    mako
-    wl-clipboard
   ];
 
+  # TOD: do i still need this
   security.polkit.enable = true;
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
-        user = config.users.users.pd.name;
-      };
-
-      initial_session = {
-        command = "sway";
-        user = config.users.users.pd.name;
-      };
-    };
-  };
 
   home-manager.users.pd = {
     home.stateVersion = "24.05";
@@ -150,7 +120,7 @@ in
 
     services.emacs = {
       enable = true;
-      defaultEditor = true;
+      startWithUserSession = true;
     };
 
     home.file.".emacs.d" = {
@@ -159,7 +129,10 @@ in
     };
 
     programs.home-manager.enable = true;
-    home.packages = [ pkgs.home-manager ];
+    home.packages = [
+      pkgs.home-manager
+      pkgs.emacsPackages.vterm
+    ];
 
     programs.firefox.enable = true;
 
@@ -261,14 +234,6 @@ in
 
       shellAliases = {
         g = "git";
-      };
-    };
-
-    wayland.windowManager.sway = {
-      enable = true;
-      config = {
-        modifier = "Mod4";
-        terminal = "kitty";
       };
     };
 

@@ -1,6 +1,9 @@
 {
   description = "nixen";
 
+  # gh = repo: { url = "github:${repo}"; };
+  # ghFollows = repo: (gh repo) // { inputs.nixpkgs.follows = "nixpkgs"; };
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
@@ -24,6 +27,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     dotfiles = {
       url = "github:pd/dotfiles";
       flake = false;
@@ -37,8 +45,9 @@
       self,
       nixpkgs,
       nixos-generators,
-      sops-nix,
       home-manager,
+      sops-nix,
+      stylix,
       ...
     }: let
       # without this, `nixpkgs.lib` is inexplicably not found as soon as i switch
@@ -69,8 +78,9 @@
           system = "x86_64-linux";
           modules = [
             ./hosts/desk
-            sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
+            sops-nix.nixosModules.sops
+            stylix.nixosModules.stylix
           ];
           specialArgs = {
             dotfiles = inputs.dotfiles;
