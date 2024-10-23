@@ -44,7 +44,7 @@
       # without this, `nixpkgs.lib` is inexplicably not found as soon as i switch
       # this to `rec`. wonky ass language. wat.
       lib = nixpkgs.lib;
-    in rec {
+    in {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
 
       nixpkgs.overlays = [
@@ -78,11 +78,11 @@
         };
       };
 
-      homeConfigurations = {
-        # For just tweaking home without touching the whole system
-        # home-manager switch --flake .#desk
-        desk = nixosConfigurations.desk.config.home-manager.users.pd.desk;
-      };
+      # homeConfigurations = {
+      #   # For just tweaking home without touching the whole system
+      #   # home-manager switch --flake .#desk
+      #   desk = nixosConfigurations.desk.config.home-manager.users.pd.desk;
+      # };
 
       images = {
         donix = nixos-generators.nixosGenerate {
