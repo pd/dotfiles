@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  dotfiles,
   ...
 }:
 let
@@ -105,7 +104,7 @@ in
   # TOD: do i still need this
   security.polkit.enable = true;
 
-  home-manager.users.pd = {
+  home-manager.users.pd = {config, pkgs, ...}: {
     home.stateVersion = "24.05";
 
     programs.direnv = {
@@ -123,9 +122,12 @@ in
       startWithUserSession = true;
     };
 
-    home.file.".emacs.d" = {
-      source = "${dotfiles}/emacs.d";
-      recursive = true;
+    home.file = let
+      homeDir = "/home/pd";
+      dot = f: { source = config.lib.file.mkOutOfStoreSymlink "${homeDir}/dotfiles/${f}"; };
+    in
+    {
+      ".emacs.d" = dot "emacs.d";
     };
 
     programs.home-manager.enable = true;
