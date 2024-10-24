@@ -55,6 +55,10 @@ in
           value = host.lan.ip;
         }) lanHosts;
       };
+
+      caching = {
+        cacheTimeNegative = "30s";
+      };
     };
   };
 }

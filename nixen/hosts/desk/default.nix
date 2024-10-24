@@ -11,7 +11,6 @@ in
   imports = [
     ./hardware-configuration.nix
     ../../modules/base.nix
-    ../../modules/wg/client.nix
     ../../modules/network
     ./wm.nix
   ];
@@ -19,14 +18,12 @@ in
   system.stateVersion = "24.05";
 
   networking.hostName = "desk";
-  wifi.enable = true;
-  wifi.interface = "wlp6s0";
+  lan.ipv4 = net.hosts.desk.lan.ip; # TODO push into network module
+  lan.wifi.interface = "wlp6s0";
 
-  # TODO sth like:
-  # lan.enable = true;
-  # lan.wifi.interface = "wlp6s0";
-  # wg.enable = true;
-  # wg.role   = "client";
+  wan.enable = true;
+  wan.ipv4 = net.hosts.desk.wg0.ip;
+  wan.publicKey = net.hosts.desk.wg0.publicKey;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

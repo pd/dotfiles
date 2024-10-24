@@ -12,8 +12,11 @@ in
   system.stateVersion = "24.05";
 
   networking.hostName = "htpc";
-  wifi.enable = true;
-  wifi.interface = "wlp0s20f3";
+  lan.wifi.interface = "wlp0s20f3";
+
+  wan.enable = true;
+  wan.ipv4 = net.hosts.htpc.wg0.ip;
+  wan.publicKey = net.hosts.htpc.wg0.publicKey;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

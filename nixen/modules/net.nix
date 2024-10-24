@@ -26,7 +26,7 @@
 
     wg0 = {
       server = "donix";
-      endpoint = "donix.krh.me:51820"; # TODO wg.krh
+      endpoint = "wg.krh.me:51820";
       cidr = "10.100.100.0/24";
     };
   };
@@ -73,7 +73,7 @@
 
       wg0 = {
         ip = "10.100.100.12";
-        publicKey = "gd9CT0OuYZP/kaFTP26uiIkXa+D/uvkAL0Z98X68Jx4=";
+        publicKey = "sZql5WlnNt45LuiQUjow0y+Hc9LdWW7nnSUjOMHSsgw=";
       };
     };
 
