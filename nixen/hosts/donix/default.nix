@@ -6,8 +6,7 @@
 }:
 {
   imports = [
-    ../../modules/base.nix
-    ../../modules/network
+    ../../modules/core
     ./dns.nix
     ./www.nix
   ];

@@ -2,8 +2,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/base.nix
-    ../../modules/network
+    ../../modules/core
     ./dns.nix
   ];
 

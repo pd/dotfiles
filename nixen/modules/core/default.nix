@@ -2,11 +2,15 @@
 
 { pkgs, config, ... }:
 let
-  keys = import ./keys.nix;
+  keys = import ../keys.nix;
 in
 {
+  imports = [
+    ../network
+  ];
+
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-  sops.defaultSopsFile = ../hosts/${config.networking.hostName}/secrets.yaml;
+  sops.defaultSopsFile = ../../hosts/${config.networking.hostName}/secrets.yaml;
 
   nix.settings.experimental-features = [
     "nix-command"

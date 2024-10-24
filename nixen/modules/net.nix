@@ -33,6 +33,14 @@
 
   hosts = {
     donix = {
+      cnames = [
+        "wg"
+      ];
+
+      ssh = {
+        hostname = "donix.krh.me";
+      };
+
       wg0 = {
         ip = "10.100.100.1";
         publicKey = "WZgf+DC6SBQeatqOgpC2j6tvIu5VxKi/WgdbIU/m7wg=";
@@ -51,6 +59,10 @@
     };
 
     span = {
+      ssh = {
+        port = 22;
+      };
+
       lan = {
         ip = "192.168.1.11";
       };
@@ -100,12 +112,16 @@
     };
 
     tv = {
+      ssh = false;
+
       lan = {
         ip = "192.168.1.101";
       };
     };
 
     hera = {
+      ssh = false;
+
       lan = {
         ip = "192.168.1.120";
       };
