@@ -18,12 +18,7 @@ in
   system.stateVersion = "24.05";
 
   networking.hostName = "desk";
-  lan.ipv4 = net.hosts.desk.lan.ip; # TODO push into network module
   lan.wifi.interface = "wlp6s0";
-
-  wan.enable = true;
-  wan.ipv4 = net.hosts.desk.wg0.ip;
-  wan.publicKey = net.hosts.desk.wg0.publicKey;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
