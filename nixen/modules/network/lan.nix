@@ -46,10 +46,12 @@ in
     (mkIf (cfg.enable && cfg.wired.interface != null) {
       networking.defaultGateway.interface = cfg.wired.interface;
       networking.defaultGateway.address = cfg.gateway;
-      networking.interfaces."${cfg.wired.interface}".ipv4.addresses = [{
-        address = cfg.ipv4;
-        prefixLength = 24;
-      }];
+      networking.interfaces."${cfg.wired.interface}".ipv4.addresses = [
+        {
+          address = cfg.ipv4;
+          prefixLength = 24;
+        }
+      ];
     })
 
     (mkIf (cfg.enable && cfg.wifi.interface != null) {

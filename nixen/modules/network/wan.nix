@@ -1,4 +1,9 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.wan;
@@ -71,13 +76,15 @@ in
         group = "wheel";
       };
 
-      networking.wireguard.interfaces.wg0.peers = [{
-        endpoint = cfg.endpoint;
-        allowedIPs = [ cfg.cidr ];
-        publicKey = cfg.serverPublicKey;
-        presharedKeyFile = config.sops.secrets.wireguard-preshared-key.path;
-        persistentKeepalive = 25;
-      }];
+      networking.wireguard.interfaces.wg0.peers = [
+        {
+          endpoint = cfg.endpoint;
+          allowedIPs = [ cfg.cidr ];
+          publicKey = cfg.serverPublicKey;
+          presharedKeyFile = config.sops.secrets.wireguard-preshared-key.path;
+          persistentKeepalive = 25;
+        }
+      ];
     })
 
     (mkIf isServer (

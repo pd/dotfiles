@@ -49,11 +49,13 @@
       sops-nix,
       stylix,
       ...
-    }: let
+    }:
+    let
       # without this, `nixpkgs.lib` is inexplicably not found as soon as i switch
       # this to `rec`. wonky ass language. wat.
       lib = nixpkgs.lib;
-    in {
+    in
+    {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
 
       nixpkgs.overlays = [

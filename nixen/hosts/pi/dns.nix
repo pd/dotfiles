@@ -32,18 +32,23 @@ in
         "https://one.one.one.one/dns-query"
       ];
 
-      bootstrapDns = [{
-        upstream = "https://one.one.one.one/dns-query";
-        ips = [ "1.1.1.1" "1.0.0.1" ];
-      }];
+      bootstrapDns = [
+        {
+          upstream = "https://one.one.one.one/dns-query";
+          ips = [
+            "1.1.1.1"
+            "1.0.0.1"
+          ];
+        }
+      ];
 
       blocking = {
         denylists = {
-          ads = ["https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"];
+          ads = [ "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts" ];
         };
 
         clientGroupsBlock = {
-          default = ["ads"];
+          default = [ "ads" ];
         };
       };
 

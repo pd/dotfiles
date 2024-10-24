@@ -21,7 +21,7 @@
   nets = {
     lan = {
       gateway = "192.168.1.254";
-      ssid    = "bazqux";
+      ssid = "bazqux";
     };
 
     wg0 = {

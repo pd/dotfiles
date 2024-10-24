@@ -9,7 +9,7 @@ let
     lib.mapAttrsToList (
       name: host:
       [ ''"${name}.home. IN A ${host.wg0.ip}"'' ]
-      ++ builtins.map (cname: ''"${cname}.home. IN CNAME ${name}.home."'') (host.cnames or [])
+      ++ builtins.map (cname: ''"${cname}.home. IN CNAME ${name}.home."'') (host.cnames or [ ])
     ) wanHosts
   );
 in

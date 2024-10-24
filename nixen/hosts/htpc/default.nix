@@ -1,7 +1,4 @@
-{ pkgs, config, ... }:
-let
-  net = import ../../modules/net.nix;
-in
+{ pkgs, ... }:
 {
   imports = [
     ./hardware-configuration.nix

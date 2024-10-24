@@ -8,7 +8,10 @@ let
   '';
 in
 {
-  networking.firewall.allowedTCPPorts = [80 443];
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
 
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "letsencrypt@krh.me";

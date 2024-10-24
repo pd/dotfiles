@@ -99,10 +99,10 @@
           on-click = "activate";
 
           persistent-workspaces = {
-            "1" = [];
-            "2" = [];
-            "3" = [];
-            "4" = [];
+            "1" = [ ];
+            "2" = [ ];
+            "3" = [ ];
+            "4" = [ ];
           };
         };
 
@@ -129,7 +129,10 @@
         };
 
         clock = {
-          timezones = [ "America/Chicago" "UTC" ];
+          timezones = [
+            "America/Chicago"
+            "UTC"
+          ];
           format = " {:%Z|%F %H:%M}";
           tooltip-format = "<tt>{calendar}</tt>";
           calendar = {
