@@ -1,17 +1,17 @@
 { ... }:
 {
   imports = [
-    ./modules/base.nix
+    ./hardware-configuration.nix
+    ../../modules/base.nix
   ];
 
   system.stateVersion = "24.05";
 
-  networking.hostName = "nuc";
-  networking.firewall.allowedTCPPorts = [
-    53
-    80
-  ];
-  networking.firewall.allowedUDPPorts = [ 53 ];
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  networking.hostName = "htpc";
+  networking.networkmanager.enable = true;
 
   time.timeZone = "America/Chicago";
 }

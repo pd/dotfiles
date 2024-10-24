@@ -62,17 +62,6 @@
 
       # TODO push `nixosSystem` down and declare as `import ./hosts/foo { inherit inputs; ... }`
       nixosConfigurations = {
-        # nixos-rebuild switch --flake .#donix --target-host donix --build-host donix --use-remote-sudo
-        donix = lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./hosts/donix
-            sops-nix.nixosModules.sops
-            home-manager.nixosModules.home-manager
-            "${nixpkgs}/nixos/modules/virtualisation/digital-ocean-config.nix"
-          ];
-        };
-
         # nixos-rebuild switch --flake .#desk
         desk = lib.nixosSystem {
           system = "x86_64-linux";
@@ -87,13 +76,34 @@
           };
         };
 
-        # building the SD, from desk with aarch64 emu:
-        # nix run nixpkgs#nixos-generators -- -f sd-aarch64 --flake .#pi --system aarch64-linux -o ./pi.sd
-        #
-        # then deploying changes from desk:
-        # nixos-rebuild test  --flake .#pi --target-host pi --use-remote-sudo --fast
+        # nixos-rebuild switch --flake .#donix --target-host donix --build-host donix --use-remote-sudo
+        donix = lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/donix
+            sops-nix.nixosModules.sops
+            home-manager.nixosModules.home-manager
+            "${nixpkgs}/nixos/modules/virtualisation/digital-ocean-config.nix"
+          ];
+        };
+
+        # nixos-rebuild switch --flake .#htpc --target-host htpc --build-host htpc --use-remote-sudo
+        htpc = lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/htpc
+            home-manager.nixosModules.home-manager
+            sops-nix.nixosModules.sops
+          ];
+        };
+
+        # deploying changes from desk via qemu:
+        # nixos-rebuild test --flake .#pi --target-host pi --use-remote-sudo --fast
         #
         # why --fast is critical, I don't know, but it is
+        #
+        # building the SD, from desk with aarch64 emu:
+        # nix run nixpkgs#nixos-generators -- -f sd-aarch64 --flake .#pi --system aarch64-linux -o ./pi.sd
         pi = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
           modules = [
