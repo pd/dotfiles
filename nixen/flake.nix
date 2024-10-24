@@ -84,7 +84,6 @@
           modules = [
             ./hosts/donix
             sops-nix.nixosModules.sops
-            home-manager.nixosModules.home-manager
             "${nixpkgs}/nixos/modules/virtualisation/digital-ocean-config.nix"
           ];
         };
@@ -94,7 +93,6 @@
           system = "x86_64-linux";
           modules = [
             ./hosts/htpc
-            home-manager.nixosModules.home-manager
             sops-nix.nixosModules.sops
           ];
         };

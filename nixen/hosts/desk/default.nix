@@ -41,10 +41,6 @@ in
   users.mutableUsers = lib.mkForce true;
 
   environment.systemPackages = with pkgs; [
-    age
-    cfssl
-    interception-tools
-    screen
     sops
   ];
 
@@ -81,9 +77,13 @@ in
         };
 
       programs.home-manager.enable = true;
-      home.packages = [
-        pkgs.home-manager
-        pkgs.emacsPackages.vterm
+      home.packages = with pkgs; [
+        age
+        cfssl
+        emacsPackages.vterm
+        home-manager
+        just
+        screen
       ];
 
       programs.firefox.enable = true;
