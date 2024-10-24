@@ -78,7 +78,7 @@ in
           };
           wifi = {
             mode = "infrastructure";
-            ssid = "bazqux";
+            ssid = "$ssid";
           };
           wifi-security = {
             auth-alg = "open";
