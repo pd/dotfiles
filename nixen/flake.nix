@@ -5,10 +5,11 @@
   # ghFollows = repo: (gh repo) // { inputs.nixpkgs.follows = "nixpkgs"; };
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -28,13 +29,8 @@
     };
 
     stylix = {
-      url = "github:danth/stylix";
+      url = "github:danth/stylix/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    dotfiles = {
-      url = "github:pd/dotfiles";
-      flake = false;
     };
   };
 
@@ -44,17 +40,13 @@
     inputs@{
       self,
       nixpkgs,
+      nixpkgs-unstable,
       nixos-generators,
       home-manager,
       sops-nix,
       stylix,
       ...
     }:
-    let
-      # without this, `nixpkgs.lib` is inexplicably not found as soon as i switch
-      # this to `rec`. wonky ass language. wat.
-      lib = nixpkgs.lib;
-    in
     {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
 
@@ -62,38 +54,40 @@
         (import self.inputs.emacs-overlay)
       ];
 
-      # TODO push `nixosSystem` down and declare as `import ./hosts/foo { inherit inputs; ... }`
       nixosConfigurations = {
         # nixos-rebuild switch --flake .#desk
-        desk = lib.nixosSystem {
+        desk = nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
+          specialArgs = {
+            pkgs-unstable = import nixpkgs-unstable {
+              inherit system;
+              config.allowUnfree = true;
+            };
+          };
           modules = [
             ./hosts/desk
-            home-manager.nixosModules.home-manager
-            sops-nix.nixosModules.sops
-            stylix.nixosModules.stylix
+            inputs.home-manager.nixosModules.home-manager
+            inputs.sops-nix.nixosModules.sops
+            inputs.stylix.nixosModules.stylix
           ];
-          specialArgs = {
-            dotfiles = inputs.dotfiles;
-          };
         };
 
         # nixos-rebuild switch --flake .#donix --target-host donix --build-host donix --use-remote-sudo
-        donix = lib.nixosSystem {
+        donix = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
             ./hosts/donix
-            sops-nix.nixosModules.sops
-            "${nixpkgs}/nixos/modules/virtualisation/digital-ocean-config.nix"
+            inputs.sops-nix.nixosModules.sops
+            "${inputs.nixpkgs}/nixos/modules/virtualisation/digital-ocean-config.nix"
           ];
         };
 
         # nixos-rebuild switch --flake .#htpc --target-host htpc --build-host htpc --use-remote-sudo
-        htpc = lib.nixosSystem {
+        htpc = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
             ./hosts/htpc
-            sops-nix.nixosModules.sops
+            inputs.sops-nix.nixosModules.sops
           ];
         };
 
@@ -112,19 +106,13 @@
               nixpkgs.hostPlatform = "aarch64-linux";
             }
             ./hosts/pi
-            sops-nix.nixosModules.sops
+            inputs.sops-nix.nixosModules.sops
           ];
         };
       };
 
-      # homeConfigurations = {
-      #   # For just tweaking home without touching the whole system
-      #   # home-manager switch --flake .#desk
-      #   desk = nixosConfigurations.desk.config.home-manager.users.pd.desk;
-      # };
-
       images = {
-        donix = nixos-generators.nixosGenerate {
+        donix = inputs.nixos-generators.nixosGenerate {
           system = "x86_64-linux";
           format = "do";
           modules = [ ./hosts/donix ];

@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs-unstable, ... }:
 let
   homeDir = config.users.users.pd.home;
 in
@@ -16,7 +16,7 @@ in
 
       programs.emacs = {
         enable = true;
-        package = pkgs.emacs30-pgtk;
+        package = pkgs-unstable.emacs30-pgtk;
       };
 
       services.emacs = {
