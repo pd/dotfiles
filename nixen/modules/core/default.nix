@@ -12,14 +12,27 @@ in
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   sops.defaultSopsFile = ../../hosts/${config.networking.hostName}/secrets.yaml;
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-  nix.settings.trusted-users = [
-    "root"
-    "@wheel"
-  ];
+  nix = {
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
+    };
+
+    gc = {
+      automatic = true;
+      persistent = true;
+      dates = "weekly";
+      randomizedDelaySec = "30min";
+      options = "--delete-older-than 30d";
+    };
+  };
   security.sudo.wheelNeedsPassword = false;
 
   networking.firewall.enable = true;
@@ -30,7 +43,6 @@ in
   };
 
   nixpkgs.config.allowUnfree = true;
-
   environment.systemPackages = with pkgs; [
     curl
     dig
@@ -75,5 +87,4 @@ in
       openssh.authorizedKeys.keys = keys.desk.ssh ++ keys.span.ssh;
     };
   };
-
 }
