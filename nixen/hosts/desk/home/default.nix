@@ -20,6 +20,7 @@
       cfssl
       go
       just
+      pyrosimple
       screen
     ];
   };

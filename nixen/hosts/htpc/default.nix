@@ -1,4 +1,15 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
+let
+  directorrent = pkgs.buildGoModule {
+    name = "directorrent";
+    src = ./directorrent;
+    vendorHash = null;
+    CGO_ENABLED = 0;
+    meta = {
+      description = "Custom HTTP server to do some torrent juggling";
+    };
+  };
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -35,6 +46,8 @@
     jellyfin-web
     jellyfin-ffmpeg
     nfs-utils
+
+    directorrent
   ];
 
   fileSystems."/media" = {
@@ -47,8 +60,29 @@
 
   services.nginx = {
     enable = true;
-    virtualHosts."torrent.home".locations."/" = {
-      proxyPass = "http://nas.home:8080";
+    virtualHosts."torrent.home" = {
+      locations."~^/directorrent/(.*)$" = {
+        proxyPass = "http://127.0.0.1:12345/$1$is_args$args";
+      };
+
+      locations."/" = {
+        proxyPass = "http://nas.home:8080";
+      };
     };
+  };
+
+  systemd.units."directorrent.service" = {
+    enable = true;
+    wantedBy = ["multi-user.target"];
+    text = ''
+      [Unit]
+      Description=directorrent
+
+      [Service]
+      ExecStart=${directorrent}/bin/directorrent
+      Type=exec
+      Restart=always
+      KillMode=process
+    '';
   };
 }
