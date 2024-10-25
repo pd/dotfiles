@@ -25,6 +25,8 @@
 
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
+  security.polkit.enable = true; # TODO: do i still need this
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -39,7 +41,4 @@
   environment.systemPackages = with pkgs; [
     sops
   ];
-
-  # TOD: do i still need this
-  security.polkit.enable = true;
 }
