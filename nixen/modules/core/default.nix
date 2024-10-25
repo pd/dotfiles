@@ -44,7 +44,13 @@ in
     vim
   ];
 
-  programs.zsh.enable = true;
+  programs.zsh = {
+    enable = true;
+    interactiveShellInit = ''
+      autoload -U select-word-style
+      select-word-style bash
+    '';
+  };
 
   services.openssh = {
     enable = true;
