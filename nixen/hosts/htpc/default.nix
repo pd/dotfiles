@@ -1,15 +1,4 @@
 { pkgs, lib, ... }:
-let
-  directorrent = pkgs.buildGoModule {
-    name = "directorrent";
-    src = ./directorrent;
-    vendorHash = null;
-    CGO_ENABLED = 0;
-    meta = {
-      description = "Custom HTTP server to do some torrent juggling";
-    };
-  };
-in
 {
   imports = [
     ./hardware-configuration.nix
@@ -46,43 +35,47 @@ in
     jellyfin-web
     jellyfin-ffmpeg
     nfs-utils
-
-    directorrent
   ];
 
-  fileSystems."/media" = {
+  fileSystems."/nuc-bkup" = {
     fsType = "nfs";
     device = "nas.home:/volume1/nuc-bkup";
     options = [ "noatime" ];
   };
 
+  fileSystems."/media" = {
+    fsType = "nfs";
+    device = "nas.home:/volume1/media";
+    options = [ "noatime" ];
+  };
+
   networking.firewall.allowedTCPPorts = [ 80 ];
 
-  services.nginx = {
+  services.transmission = {
     enable = true;
-    virtualHosts."torrent.home" = {
-      locations."~^/directorrent/(.*)$" = {
-        proxyPass = "http://127.0.0.1:12345/$1$is_args$args";
-      };
+    openPeerPorts = true;
+    package = pkgs.transmission_4;
 
-      locations."/" = {
-        proxyPass = "http://nas.home:8080";
-      };
+    settings = {
+      rpc-whitelist-enabled = true;
+      rpc-whitelist = "127.0.0.*,192.168.*.*";
+
+      rpc-host-whitelist-enabled = false;
+      rpc-host-whitelist = "127.0.0.*,192.168.*.*";
+
+      watch-dir-enabled = true;
+
+      download-queue-enabled = false;
     };
   };
 
-  systemd.units."directorrent.service" = {
+  services.nginx = {
     enable = true;
-    wantedBy = ["multi-user.target"];
-    text = ''
-      [Unit]
-      Description=directorrent
 
-      [Service]
-      ExecStart=${directorrent}/bin/directorrent
-      Type=exec
-      Restart=always
-      KillMode=process
-    '';
+    virtualHosts."torrent.home" = {
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:9091";
+      };
+    };
   };
 }
