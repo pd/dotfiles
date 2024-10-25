@@ -91,20 +91,11 @@
           ];
         };
 
-        # deploying changes from desk via qemu:
-        # nixos-rebuild test --flake .#pi --target-host pi --use-remote-sudo --fast
-        #
-        # why --fast is critical, I don't know, but it is
-        #
         # building the SD, from desk with aarch64 emu:
         # nix run nixpkgs#nixos-generators -- -f sd-aarch64 --flake .#pi --system aarch64-linux -o ./pi.sd
         pi = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
           modules = [
-            {
-              nixpkgs.buildPlatform = "x86_64-linux";
-              nixpkgs.hostPlatform = "aarch64-linux";
-            }
             ./hosts/pi
             inputs.sops-nix.nixosModules.sops
           ];

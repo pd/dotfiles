@@ -51,7 +51,8 @@ in
       ];
 
       blocking = {
-        denylists = {
+        # TODO: becomes `denylists` in unstable
+        blackLists = {
           ads = [ "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts" ];
         };
 
