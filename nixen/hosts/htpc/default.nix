@@ -43,6 +43,12 @@
     options = [ "noatime" ];
   };
 
-  # rtorrent on nas ideally
-  # then nginx + https://github.com/jesec/flood
+  networking.firewall.allowedTCPPorts = [ 80 ];
+
+  services.nginx = {
+    enable = true;
+    virtualHosts."torrent.home".locations."/" = {
+      proxyPass = "http://nas.home:8080";
+    };
+  };
 }

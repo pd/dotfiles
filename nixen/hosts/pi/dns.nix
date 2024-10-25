@@ -4,7 +4,15 @@
 }:
 let
   net = import ../../modules/net.nix;
-  lanHosts = lib.filterAttrs (_: peer: peer ? "lan") net.hosts;
+
+  onLan = lib.filterAttrs (_: v: v ? "lan") net.hosts;
+  ips = lib.mapAttrsToList (k: v: {
+    ip = v.lan.ip;
+    names = [k] ++ (v.cnames or []);
+  }) onLan;
+
+  toRecord = ip: n: { name = "${n}.home"; value = ip; };
+  records = builtins.concatMap (rcd: lib.map (toRecord rcd.ip) rcd.names) ips;
 in
 {
   networking.firewall = {
@@ -55,10 +63,7 @@ in
       customDNS = {
         customTTL = "10m";
         filterUnmappedTypes = true;
-        mapping = lib.mapAttrs' (name: host: {
-          name = "${name}.home";
-          value = host.lan.ip;
-        }) lanHosts;
+        mapping = lib.listToAttrs records;
       };
 
       caching = {
