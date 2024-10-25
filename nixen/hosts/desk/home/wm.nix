@@ -186,13 +186,14 @@
           new_status = "master";
         };
 
-        # misc = {
-        #   disable_hyprland_logo = true;
-        # };
+        misc = {
+          disable_hyprland_logo = true;
+        };
 
         input = {
           kb_layout = "us";
-          follow_mouse = 0;
+          follow_mouse = 2;
+          sensitivity = -0.2;
         };
 
         "$mod" = "SUPER";
