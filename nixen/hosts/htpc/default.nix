@@ -1,4 +1,9 @@
 { pkgs, lib, ... }:
+let
+  transmission-done-script = pkgs.runCommand "install-script" { } ''
+    install -Dm774 ${./transmission/torrent-completed.sh} $out/torrent-completed.sh
+  '';
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -35,6 +40,8 @@
     jellyfin-web
     jellyfin-ffmpeg
     nfs-utils
+
+    transmission-done-script
   ];
 
   fileSystems."/nuc-bkup" = {
@@ -55,6 +62,7 @@
     enable = true;
     openPeerPorts = true;
     package = pkgs.transmission_4;
+    performanceNetParameters = true;
 
     settings = {
       rpc-whitelist-enabled = true;
@@ -63,9 +71,18 @@
       rpc-host-whitelist-enabled = false;
       rpc-host-whitelist = "127.0.0.*,192.168.*.*";
 
-      watch-dir-enabled = true;
+      download-dir = "/media/transmission/done";
+      incomplete-dir-enabled = true;
+      incomplete-dir = "/media/transmission/wip";
+      watch-dir-enabled = false;
+
+      script-torrent-done-filename = "${transmission-done-script}/torrent-completed.sh";
 
       download-queue-enabled = false;
+
+      # upnp is off so gotta pick something static
+      peer-port = 52102;
+      peer-limit-global = 500;
     };
   };
 

@@ -62,8 +62,13 @@ in
       };
 
       networking.wireless.enable = false;
+
       networking.networkmanager = {
         enable = true;
+
+        # I don't (currently) run nixos on anything with a battery,
+        # this just hurts wifi performance for no benefit.
+        wifi.powersave = false;
 
         ensureProfiles.environmentFiles = [
           config.sops.secrets.wifi.path
