@@ -103,10 +103,6 @@ in
           };
         };
       };
-
-      # https://github.com/NixOS/nixpkgs/issues/180175
-      # https://discourse.nixos.org/t/nixos-rebuild-switch-upgrade-networkmanager-wait-online-service-failure/30746
-      systemd.services.NetworkManager-wait-online.enable = false;
     })
   ];
 }

@@ -67,6 +67,8 @@ in
           privateKeyFile = config.sops.secrets.wireguard-private-key.path;
         };
       };
+
+      networking.networkmanager.unmanaged = [ "wg0" ];
     })
 
     (mkIf (!isServer) {
