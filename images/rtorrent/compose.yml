@@ -1,0 +1,43 @@
+name: rtorrent
+
+services:
+  rtorrent:
+    build: .
+    container_name: rtorrent
+    networks:
+      - rtorrent
+    expose:
+      - "6881/udp"
+      - "8000"
+      - "8080"
+      - "9000"
+      - "50000"
+    ports:
+      - target: 6881
+        published: 6881
+        protocol: udp
+      - target: 8080
+        published: 8080
+        protocol: tcp
+      - target: 9000
+        published: 9000
+        protocol: tcp
+      - target: 50000
+        published: 50000
+        protocol: tcp
+    env_file:
+      - "rtorrent-rutorrent.env"
+    volumes:
+      - "./data:/data"
+      - "./passwd:/passwd"
+      - "/volume1/media/torrents:/downloads"
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 32000
+        hard: 40000
+    restart: always
+
+networks:
+  rtorrent:
+    name: rtorrent
