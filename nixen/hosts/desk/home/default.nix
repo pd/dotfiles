@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-unstable, ... }:
 {
   imports = [
     ./emacs.nix
@@ -18,7 +18,8 @@
     home.packages = with pkgs; [
       age
       cfssl
-      go
+      pkgs-unstable.go
+      pkgs-unstable.gotools
       just
       pyrosimple
       screen
