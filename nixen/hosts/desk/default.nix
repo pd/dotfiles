@@ -41,4 +41,12 @@
   environment.systemPackages = with pkgs; [
     sops
   ];
+
+  # TODO tmp while i reshape the content
+  fileSystems."/media" = {
+    fsType = "nfs";
+    device = "nas.home:/volume1/media";
+    options = [ "noatime" ];
+  };
+
 }
