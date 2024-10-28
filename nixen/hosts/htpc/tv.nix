@@ -53,8 +53,13 @@
 
   services.nginx = {
     enable = true;
+
     virtualHosts."kodi.home".locations."/" = {
       proxyPass = "http://127.0.0.1:8080";
+    };
+
+    virtualHosts."jellyfin.home".locations."/" = {
+      proxyPass = "http://127.0.0.1:8096";
     };
   };
 

@@ -76,6 +76,7 @@
     htpc = {
       cnames = [
         "kodi"
+        "jellyfin"
         "store"
         "torrent"
       ];
