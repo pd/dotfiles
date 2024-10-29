@@ -206,15 +206,15 @@
           "$mod, T, togglesplit,"
           "$mod SHIFT, Backspace, exit,"
 
-          "$mod, left, movefocus, l"
-          "$mod, right, movefocus, r"
-          "$mod, up, movefocus, u"
-          "$mod, down, movefocus, d"
+          "$mod SHIFT, h, movefocus, l"
+          "$mod SHIFT, l, movefocus, r"
+          "$mod SHIFT, k, movefocus, u"
+          "$mod SHIFT, j, movefocus, d"
 
-          "$mod SHIFT, left, movewindow, l"
-          "$mod SHIFT, right, movewindow, r"
-          "$mod SHIFT, up, movewindow, u"
-          "$mod SHIFT, down, movewindow, d"
+          "$mod CTRL SHIFT, h, movewindow, l"
+          "$mod CTRL SHIFT, l, movewindow, r"
+          "$mod CTRL SHIFT, k, movewindow, u"
+          "$mod CTRL SHIFT, j, movewindow, d"
 
           "$mod, 1, workspace, 1"
           "$mod, 2, workspace, 2"
