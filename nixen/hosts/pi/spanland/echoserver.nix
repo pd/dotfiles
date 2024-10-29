@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}:
+{ config, pkgs, ... }:
 let
   echoserver = pkgs.buildGoModule {
     name = "echoserver";

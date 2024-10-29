@@ -1,7 +1,4 @@
-{
-  lib,
-  ...
-}:
+{ lib, ... }:
 let
   net = import ../../modules/net.nix;
   wanHosts = lib.filterAttrs (_: peer: peer ? "wg0") net.hosts;

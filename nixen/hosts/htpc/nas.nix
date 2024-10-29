@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   pd = config.users.users.pd;
 
@@ -53,7 +58,10 @@ in
   fileSystems."/media" = {
     fsType = "nfs";
     device = "${nasIP}:/volume1/media";
-    options = [ "noatime" "x-systemd.automount" ];
+    options = [
+      "noatime"
+      "x-systemd.automount"
+    ];
   };
 
   networking.firewall.allowedTCPPorts = [ 80 ];

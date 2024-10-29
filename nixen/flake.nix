@@ -50,9 +50,7 @@
     {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
 
-      nixpkgs.overlays = [
-        (import self.inputs.emacs-overlay)
-      ];
+      nixpkgs.overlays = [ (import self.inputs.emacs-overlay) ];
 
       nixosConfigurations = {
         # nixos-rebuild switch --flake .#desk

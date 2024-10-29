@@ -1,8 +1,4 @@
-{
-  pkgs,
-  config,
-  ...
-}:
+{ pkgs, config, ... }:
 {
   fonts.packages = with pkgs; [
     noto-fonts
@@ -54,9 +50,7 @@
   };
 
   home-manager.users.pd = {
-    home.packages = with pkgs; [
-      alacritty
-    ];
+    home.packages = with pkgs; [ alacritty ];
 
     programs.wofi.enable = true;
 
@@ -76,9 +70,7 @@
           "sway/mode"
         ];
 
-        modules-center = [
-          "sway/window"
-        ];
+        modules-center = [ "sway/window" ];
 
         modules-right = [
           "cpu"
@@ -100,10 +92,10 @@
         "sway/workspaces" = {
           disable-scroll = true;
           persistent-workspaces = {
-            "1" = [];
-            "2" = [];
-            "3" = [];
-            "4" = [];
+            "1" = [ ];
+            "2" = [ ];
+            "3" = [ ];
+            "4" = [ ];
           };
         };
 
@@ -153,67 +145,69 @@
     wayland.windowManager.sway = {
       enable = true;
 
-      config = let
-        mod = "Mod4";
-        term = "${pkgs.alacritty}/bin/alacritty";
-      in rec {
-        modifier = mod;
-        terminal = term;
+      config =
+        let
+          mod = "Mod4";
+          term = "${pkgs.alacritty}/bin/alacritty";
+        in
+        rec {
+          modifier = mod;
+          terminal = term;
 
-        bars = [];
+          bars = [ ];
 
-        keybindings = {
-          "${mod}+Return" = "exec ${term}";
-          "${mod}+Space" = "exec ${pkgs.wofi}/bin/wofi --show drun";
+          keybindings = {
+            "${mod}+Return" = "exec ${term}";
+            "${mod}+Space" = "exec ${pkgs.wofi}/bin/wofi --show drun";
 
-          "${mod}+r" = "mode resize";
-          "${mod}+Shift+r" = "reload";
-          "${mod}+Shift+q" = "kill";
+            "${mod}+r" = "mode resize";
+            "${mod}+Shift+r" = "reload";
+            "${mod}+Shift+q" = "kill";
 
-          "${mod}+Shift+h" = "focus left";
-          "${mod}+Shift+j" = "focus down";
-          "${mod}+Shift+k" = "focus up";
-          "${mod}+Shift+l" = "focus right";
+            "${mod}+Shift+h" = "focus left";
+            "${mod}+Shift+j" = "focus down";
+            "${mod}+Shift+k" = "focus up";
+            "${mod}+Shift+l" = "focus right";
 
-          "${mod}+Shift+Ctrl+h" = "move left";
-          "${mod}+Shift+Ctrl+j" = "move down";
-          "${mod}+Shift+Ctrl+k" = "move up";
-          "${mod}+Shift+Ctrl+l" = "move right";
+            "${mod}+Shift+Ctrl+h" = "move left";
+            "${mod}+Shift+Ctrl+j" = "move down";
+            "${mod}+Shift+Ctrl+k" = "move up";
+            "${mod}+Shift+Ctrl+l" = "move right";
 
-          "${mod}+1" = "workspace number 1";
-          "${mod}+2" = "workspace number 2";
-          "${mod}+3" = "workspace number 3";
-          "${mod}+4" = "workspace number 4";
-          "${mod}+5" = "workspace number 5";
-          "${mod}+6" = "workspace number 6";
+            "${mod}+1" = "workspace number 1";
+            "${mod}+2" = "workspace number 2";
+            "${mod}+3" = "workspace number 3";
+            "${mod}+4" = "workspace number 4";
+            "${mod}+5" = "workspace number 5";
+            "${mod}+6" = "workspace number 6";
 
-          "${mod}+Shift+1" = "move container to workspace number 1";
-          "${mod}+Shift+2" = "move container to workspace number 2";
-          "${mod}+Shift+3" = "move container to workspace number 3";
-          "${mod}+Shift+4" = "move container to workspace number 4";
-          "${mod}+Shift+5" = "move container to workspace number 5";
-          "${mod}+Shift+6" = "move container to workspace number 6";
-        };
+            "${mod}+Shift+1" = "move container to workspace number 1";
+            "${mod}+Shift+2" = "move container to workspace number 2";
+            "${mod}+Shift+3" = "move container to workspace number 3";
+            "${mod}+Shift+4" = "move container to workspace number 4";
+            "${mod}+Shift+5" = "move container to workspace number 5";
+            "${mod}+Shift+6" = "move container to workspace number 6";
+          };
 
-        modes = {
-          resize = {
-            Escape = "mode default";
-            h = "resize shrink width 20 px;";
-            j = "resize grow height 20 px;";
-            k = "resize shrink height 20 px;";
-            l = "resize grow width 20 px;";
+          modes = {
+            resize = {
+              Escape = "mode default";
+              h = "resize shrink width 20 px;";
+              j = "resize grow height 20 px;";
+              k = "resize shrink height 20 px;";
+              l = "resize grow width 20 px;";
+            };
+          };
+
+          gaps = {
+            smartBorders = "on";
+            smartGaps = true;
+          };
+
+          window = {
+            titlebar = false;
           };
         };
-
-        gaps = {
-          smartBorders = "on";
-          smartGaps = true;
-        };
-
-        window = {
-          titlebar = false;
-        };
-      };
     };
   };
 }

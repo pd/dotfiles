@@ -1,17 +1,17 @@
-{
-  lib,
-  ...
-}:
+{ lib, ... }:
 let
   net = import ../../modules/net.nix;
 
   onLan = lib.filterAttrs (_: v: v ? "lan") net.hosts;
   ips = lib.mapAttrsToList (k: v: {
     ip = v.lan.ip;
-    names = [k] ++ (v.cnames or []);
+    names = [ k ] ++ (v.cnames or [ ]);
   }) onLan;
 
-  toRecord = ip: n: { name = "${n}.home"; value = ip; };
+  toRecord = ip: n: {
+    name = "${n}.home";
+    value = ip;
+  };
   records = builtins.concatMap (rcd: lib.map (toRecord rcd.ip) rcd.names) ips;
 in
 {

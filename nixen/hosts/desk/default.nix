@@ -38,9 +38,7 @@
   # things want a password to log in after screenlock etc
   users.mutableUsers = lib.mkForce true;
 
-  environment.systemPackages = with pkgs; [
-    sops
-  ];
+  environment.systemPackages = with pkgs; [ sops ];
 
   # TODO tmp while i reshape the content
   fileSystems."/media" = {

@@ -32,18 +32,14 @@ in
       default = "10.100.100.0/24";
     };
 
-    wan.ipv4 = mkOption {
-      type = types.str;
-    };
+    wan.ipv4 = mkOption { type = types.str; };
 
     wan.port = mkOption {
       type = types.int;
       default = 51820;
     };
 
-    wan.publicKey = mkOption {
-      type = types.str;
-    };
+    wan.publicKey = mkOption { type = types.str; };
 
     wan.natInterface = mkOption {
       type = types.nullOr types.str;

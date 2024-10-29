@@ -12,9 +12,7 @@ in
       default = "192.168.1.254";
     };
 
-    lan.ipv4 = mkOption {
-      type = types.str;
-    };
+    lan.ipv4 = mkOption { type = types.str; };
 
     lan.nameservers = mkOption {
       type = types.listOf types.str;
@@ -70,9 +68,7 @@ in
         # this just hurts wifi performance for no benefit.
         wifi.powersave = false;
 
-        ensureProfiles.environmentFiles = [
-          config.sops.secrets.wifi.path
-        ];
+        ensureProfiles.environmentFiles = [ config.sops.secrets.wifi.path ];
 
         ensureProfiles.profiles = {
           wifi = {

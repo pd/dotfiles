@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 let
   internetsfamous = pkgs.runCommand "install-nginx-site" { } ''
     install -Dm644 ${./internetsfamous/index.html} $out/www/index.html

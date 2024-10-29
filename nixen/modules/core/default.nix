@@ -5,9 +5,7 @@ let
   keys = import ../keys.nix;
 in
 {
-  imports = [
-    ../network
-  ];
+  imports = [ ../network ];
 
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   sops.defaultSopsFile = ../../hosts/${config.networking.hostName}/secrets.yaml;
