@@ -1,5 +1,7 @@
-{ config, ... }
-:
+{
+  config,
+  ...
+}:
 {
   sops.secrets.spanland-private-key = {
     mode = "0440";
@@ -35,5 +37,4 @@
       }];
     };
   };
-
 }
