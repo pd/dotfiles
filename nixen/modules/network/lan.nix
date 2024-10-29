@@ -49,7 +49,7 @@ in
       networking.interfaces."${cfg.wired.interface}".ipv4.addresses = [
         {
           address = cfg.ipv4;
-          prefixLength = 24;
+          prefixLength = 22;
         }
       ];
     })
