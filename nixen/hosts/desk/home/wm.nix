@@ -158,6 +158,7 @@
 
           keybindings = {
             "${mod}+Return" = "exec ${term}";
+            "${mod}+Shift+Return" = "split v, exec ${term}";
             "${mod}+Space" = "exec ${pkgs.wofi}/bin/wofi --show drun";
 
             "${mod}+r" = "mode resize";
