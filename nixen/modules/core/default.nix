@@ -52,6 +52,7 @@ in
     jq
     procps
     ripgrep
+    tcpdump
     tree
     vim
   ];
