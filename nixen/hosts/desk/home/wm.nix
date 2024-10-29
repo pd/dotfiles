@@ -14,11 +14,6 @@
     proggyfonts
   ];
 
-  environment.systemPackages = with pkgs; [
-    alacritty
-    kitty
-    wezterm
-  ];
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # caps -> ctrl
@@ -40,18 +35,16 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
         user = config.users.users.pd.name;
       };
 
       initial_session = {
-        command = "Hyprland";
+        command = "sway";
         user = config.users.users.pd.name;
       };
     };
   };
-
-  programs.hyprland.enable = true;
 
   stylix = {
     enable = true;
@@ -61,6 +54,10 @@
   };
 
   home-manager.users.pd = {
+    home.packages = with pkgs; [
+      alacritty
+    ];
+
     programs.wofi.enable = true;
 
     programs.waybar = {
@@ -75,12 +72,13 @@
 
       settings.mainBar = {
         modules-left = [
-          "hyprland/workspaces"
+          "sway/workspaces"
+          "sway/mode"
           "tray"
         ];
 
         modules-center = [
-          "hyprland/window"
+          "sway/window"
         ];
 
         modules-right = [
@@ -92,19 +90,6 @@
           "clock"
         ];
 
-        "hyprland/workspaces" = {
-          active-only = false;
-          disable-scroll = true;
-          on-click = "activate";
-
-          persistent-workspaces = {
-            "1" = [ ];
-            "2" = [ ];
-            "3" = [ ];
-            "4" = [ ];
-          };
-        };
-
         cpu = {
           format = " {usage}%";
         };
@@ -113,9 +98,14 @@
           format = " {percentage}%";
         };
 
+        "sway/workspaces" = {
+          disable-scroll = true;
+          persistent-workspaces = [ "1" "2" "3" "4" ];
+        };
+
         "network#lan" = {
           name = "lan";
-          format = "<span color='#69ff94'></span> {essid} {signalStrength}%";
+          format = "<span color='#69ff94'></span> {essid}/{signalStrength}%";
           format-disconnected = "<span color='#dd532e'></span>";
           tooltip-format = "{ifname}: {ipaddr}/{cidr} via {gwaddr}";
         };
@@ -156,81 +146,59 @@
       };
     };
 
-    wayland.windowManager.hyprland = {
+    wayland.windowManager.sway = {
       enable = true;
-      settings = {
-        monitor = ",preferred,auto,auto";
 
-        exec-once = [
-          "waybar &"
-        ];
+      config = let
+        mod = "Mod4";
+        term = "${pkgs.alacritty}/bin/alacritty";
+      in rec {
+        modifier = mod;
+        terminal = term;
 
-        env = [
-          "XCURSOR_SIZE,16"
-          "HYPRCURSOR_SIZE,16"
-        ];
+        bars = [];
 
-        general = {
-          layout = "dwindle";
-          gaps_in = 2;
-          gaps_out = 4;
-          border_size = 1;
+        keybindings = {
+          "${mod}+Return" = "exec ${term}";
+          "${mod}+Space" = "exec ${pkgs.wofi}/bin/wofi --show drun";
+
+          "${mod}+r" = "mode resize";
+          "${mod}+Shift+r" = "reload";
+          "${mod}+Shift+q" = "kill";
+
+          "${mod}+Shift+h" = "focus left";
+          "${mod}+Shift+j" = "focus down";
+          "${mod}+Shift+k" = "focus up";
+          "${mod}+Shift+l" = "focus right";
+
+          "${mod}+Shift+Ctrl+h" = "move left";
+          "${mod}+Shift+Ctrl+j" = "move down";
+          "${mod}+Shift+Ctrl+k" = "move up";
+          "${mod}+Shift+Ctrl+l" = "move right";
+
+          "${mod}+1" = "workspace number 1";
+          "${mod}+2" = "workspace number 2";
+          "${mod}+3" = "workspace number 3";
+          "${mod}+4" = "workspace number 4";
+          "${mod}+5" = "workspace number 5";
+          "${mod}+6" = "workspace number 6";
+
+          "${mod}+Shift+1" = "move container to workspace number 1";
+          "${mod}+Shift+2" = "move container to workspace number 2";
+          "${mod}+Shift+3" = "move container to workspace number 3";
+          "${mod}+Shift+4" = "move container to workspace number 4";
+          "${mod}+Shift+5" = "move container to workspace number 5";
+          "${mod}+Shift+6" = "move container to workspace number 6";
         };
 
-        dwindle = {
-          pseudotile = true;
-          preserve_split = true;
+        gaps = {
+          smartBorders = "on";
+          smartGaps = true;
         };
 
-        master = {
-          new_status = "master";
+        window = {
+          titlebar = false;
         };
-
-        misc = {
-          disable_hyprland_logo = true;
-        };
-
-        input = {
-          kb_layout = "us";
-          follow_mouse = 2;
-          sensitivity = -0.2;
-        };
-
-        "$mod" = "SUPER";
-        "$menu" = "wofi --show drun";
-
-        bind = [
-          "$mod, SPACE, exec, $menu"
-          "$mod, Return, exec, kitty"
-          "$mod, P, pseudo,"
-          "$mod, T, togglesplit,"
-          "$mod SHIFT, Backspace, exit,"
-
-          "$mod SHIFT, h, movefocus, l"
-          "$mod SHIFT, l, movefocus, r"
-          "$mod SHIFT, k, movefocus, u"
-          "$mod SHIFT, j, movefocus, d"
-
-          "$mod CTRL SHIFT, h, movewindow, l"
-          "$mod CTRL SHIFT, l, movewindow, r"
-          "$mod CTRL SHIFT, k, movewindow, u"
-          "$mod CTRL SHIFT, j, movewindow, d"
-
-          "$mod, 1, workspace, 1"
-          "$mod, 2, workspace, 2"
-          "$mod, 3, workspace, 3"
-          "$mod, 4, workspace, 4"
-
-          "$mod SHIFT, 1, movetoworkspace, 1"
-          "$mod SHIFT, 2, movetoworkspace, 2"
-          "$mod SHIFT, 3, movetoworkspace, 3"
-          "$mod SHIFT, 4, movetoworkspace, 4"
-        ];
-
-        bindm = [
-          "$mod, mouse:272, movewindow"
-          "$mod, mouse:273, resizewindow"
-        ];
       };
     };
   };
