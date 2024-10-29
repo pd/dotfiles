@@ -3,7 +3,9 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/core
+    # ./dhcp.nix
     ./dns.nix
+    ./spanland.nix
   ];
 
   system.stateVersion = "24.05";
