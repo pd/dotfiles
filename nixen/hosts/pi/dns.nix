@@ -67,6 +67,16 @@ in
         mapping = lib.listToAttrs records;
       };
 
+      conditional = {
+        fallbackUpstream = false;
+        rewrite = {
+          rpi = "rpi.svc.cluster.local";
+        };
+        mapping = {
+          "rpi.svc.cluster.local" = "172.30.30.1";
+        };
+      };
+
       caching = {
         cacheTimeNegative = "30s";
       };
