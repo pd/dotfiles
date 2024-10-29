@@ -74,7 +74,6 @@
         modules-left = [
           "sway/workspaces"
           "sway/mode"
-          "tray"
         ];
 
         modules-center = [
@@ -100,7 +99,12 @@
 
         "sway/workspaces" = {
           disable-scroll = true;
-          persistent-workspaces = [ "1" "2" "3" "4" ];
+          persistent-workspaces = {
+            "1" = [];
+            "2" = [];
+            "3" = [];
+            "4" = [];
+          };
         };
 
         "network#lan" = {
@@ -189,6 +193,16 @@
           "${mod}+Shift+4" = "move container to workspace number 4";
           "${mod}+Shift+5" = "move container to workspace number 5";
           "${mod}+Shift+6" = "move container to workspace number 6";
+        };
+
+        modes = {
+          resize = {
+            Escape = "mode default";
+            h = "resize shrink width 20 px;";
+            j = "resize grow height 20 px;";
+            k = "resize shrink height 20 px;";
+            l = "resize grow width 20 px;";
+          };
         };
 
         gaps = {
