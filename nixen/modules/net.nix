@@ -90,6 +90,10 @@
     };
 
     pi = {
+      cnames = [
+        "ns"
+      ];
+
       lan = {
         ip = "192.168.1.13";
       };
@@ -97,6 +101,14 @@
       wg0 = {
         ip = "10.100.100.13";
         publicKey = "xDPPIIjA72BrCFC+5eqJn7IiC0xeI6Dof38Inj+tXwg=";
+      };
+    };
+
+    erin = {
+      ssh = false;
+
+      lan = {
+        ip = "192.168.1.14";
       };
     };
 
