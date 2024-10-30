@@ -28,6 +28,7 @@
       just
       pyrosimple
       screen
+      sops
     ];
   };
 }
