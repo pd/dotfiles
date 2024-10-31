@@ -16,6 +16,9 @@ test host:
 switch host:
     @just {{host}} switch
 
+repl host:
+    @just {{host}} repl
+
 # nixos-rebuild <op> all hosts
 all op="test": (desk op) (htpc op) (pi op) (donix op)
 
