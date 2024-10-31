@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 {
   fonts.packages = with pkgs; [
     noto-fonts
@@ -31,12 +31,12 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd river";
         user = config.users.users.pd.name;
       };
 
       initial_session = {
-        command = "sway";
+        command = "river";
         user = config.users.users.pd.name;
       };
     };
@@ -53,6 +53,7 @@
     home.packages = with pkgs; [ alacritty ];
 
     programs.wofi.enable = true;
+    services.dunst.enable = true;
 
     programs.waybar = {
       enable = true;
@@ -66,11 +67,12 @@
 
       settings.mainBar = {
         modules-left = [
-          "sway/workspaces"
-          "sway/mode"
+          "river/tags"
+          "river/mode"
+          "river/layout"
         ];
 
-        modules-center = [ "sway/window" ];
+        modules-center = [ "river/window" ];
 
         modules-right = [
           "cpu"
@@ -89,7 +91,7 @@
           format = " {percentage}%";
         };
 
-        "sway/workspaces" = {
+        "river/workspaces" = {
           disable-scroll = true;
           persistent-workspaces = {
             "1" = [ ];
@@ -142,73 +144,70 @@
       };
     };
 
-    wayland.windowManager.sway = {
+    wayland.windowManager.river = {
       enable = true;
+      systemd.enable = true;
 
-      config =
-        let
-          mod = "Mod4";
-          term = "${pkgs.alacritty}/bin/alacritty";
-        in
-        rec {
-          modifier = mod;
-          terminal = term;
-
-          bars = [ ];
-
-          keybindings = {
-            "${mod}+Return" = "exec ${term}";
-            "${mod}+Shift+Return" = "split v, exec ${term}";
-            "${mod}+Space" = "exec ${pkgs.wofi}/bin/wofi --show drun";
-
-            "${mod}+r" = "mode resize";
-            "${mod}+Shift+r" = "reload";
-            "${mod}+Shift+q" = "kill";
-
-            "${mod}+Shift+h" = "focus left";
-            "${mod}+Shift+j" = "focus down";
-            "${mod}+Shift+k" = "focus up";
-            "${mod}+Shift+l" = "focus right";
-
-            "${mod}+Shift+Ctrl+h" = "move left";
-            "${mod}+Shift+Ctrl+j" = "move down";
-            "${mod}+Shift+Ctrl+k" = "move up";
-            "${mod}+Shift+Ctrl+l" = "move right";
-
-            "${mod}+1" = "workspace number 1";
-            "${mod}+2" = "workspace number 2";
-            "${mod}+3" = "workspace number 3";
-            "${mod}+4" = "workspace number 4";
-            "${mod}+5" = "workspace number 5";
-            "${mod}+6" = "workspace number 6";
-
-            "${mod}+Shift+1" = "move container to workspace number 1";
-            "${mod}+Shift+2" = "move container to workspace number 2";
-            "${mod}+Shift+3" = "move container to workspace number 3";
-            "${mod}+Shift+4" = "move container to workspace number 4";
-            "${mod}+Shift+5" = "move container to workspace number 5";
-            "${mod}+Shift+6" = "move container to workspace number 6";
+      settings = let
+        mod = "Super";
+        tag = index:
+          let
+            i = toString index;
+            tags = "$((1 << (${i} - 1)))";
+          in
+          {
+            "${mod} ${i}" = "set-focused-tags ${tags}";
+            "${mod}+Shift ${i}" = "set-view-tags ${tags}";
+            "${mod}+Control ${i}" = "toggle-focus-tags ${tags}";
+            "${mod}+Control+Shift ${i}" = "toggle-view-tags ${tags}";
           };
+      in
+      {
+        map.normal = {
+          "${mod} Return" = "spawn alacritty";
 
-          modes = {
-            resize = {
-              Escape = "mode default";
-              h = "resize shrink width 20 px;";
-              j = "resize grow height 20 px;";
-              k = "resize shrink height 20 px;";
-              l = "resize grow width 20 px;";
-            };
-          };
+          "${mod} Space" = "spawn 'wofi --show drun'";
+          "${mod} comma" = "zoom";
 
-          gaps = {
-            smartBorders = "on";
-            smartGaps = true;
-          };
+          "${mod}+Shift H" = "focus-view left";
+          "${mod}+Shift J" = "focus-view down";
+          "${mod}+Shift K" = "focus-view up";
+          "${mod}+Shift L" = "focus-view right";
+          "${mod}+Shift N" = "focus-view next";
 
-          window = {
-            titlebar = false;
-          };
+          "${mod}+Shift+Control J" = "swap previous";
+          "${mod}+Shift+Control K" = "swap next";
+
+          "${mod}+Shift F" = "toggle-fullscreen";
+          "${mod}+Shift Space" = "toggle-float";
+
+          "${mod}+Alt I" = "send-layout-cmd rivertile 'main-count +1'";
+          "${mod}+Alt D" = "send-layout-cmd rivertile 'main-count -1'";
+          "${mod}+Alt bracketleft" = "send-layout-cmd rivertile 'main-ratio -0.05'";
+          "${mod}+Alt bracketright" = "send-layout-cmd rivertile 'main-ratio +0.05'";
+          "${mod}+Alt Left" = "send-layout-cmd rivertile 'main-location left'";
+          "${mod}+Alt Up" = "send-layout-cmd rivertile 'main-location top'";
+          "${mod}+Alt Right" = "send-layout-cmd rivertile 'main-location right'";
+          "${mod}+Alt Down" = "send-layout-cmd rivertile 'main-location bottom'";
+
+          "${mod}+Shift+Control BackSpace" = "exit";
+        } // (lib.zipAttrs (map tag (lib.range 1 9)));
+
+        map-pointer.normal = {
+          "${mod} BTN_LEFT" = "move-view";
+          "${mod} BTN_RIGHT" = "resize-view";
+          "${mod} BTN_MIDDLE" = "toggle-float";
         };
+
+        spawn = [
+          "waybar"
+          "rivertile -view-padding 2 -outer-padding 0"
+        ];
+
+        border-width = 3;
+        default-layout = "rivertile";
+        focus-follows-cursor = "always";
+      };
     };
   };
 }
