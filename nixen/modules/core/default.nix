@@ -5,7 +5,10 @@ let
   keys = import ../keys.nix;
 in
 {
-  imports = [ ../network ];
+  imports = [
+    ../network
+    ./monitoring.nix
+  ];
 
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   sops.defaultSopsFile = ../../hosts/${config.networking.hostName}/secrets.yaml;
@@ -31,7 +34,6 @@ in
       options = "--delete-older-than 30d";
     };
   };
-  security.sudo.wheelNeedsPassword = false;
 
   networking.firewall.enable = true;
 
@@ -73,6 +75,7 @@ in
     };
   };
 
+  security.sudo.wheelNeedsPassword = false;
   users = {
     mutableUsers = false;
     users.pd = {

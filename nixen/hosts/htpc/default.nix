@@ -3,6 +3,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/core
+    ./prometheus.nix
     ./nas.nix
     ./tv.nix
   ];

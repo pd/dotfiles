@@ -75,8 +75,10 @@
       cnames = [
         "kodi"
         "jellyfin"
+        "prom"
         "store"
         "torrent"
+        "www"
       ];
 
       lan = {
