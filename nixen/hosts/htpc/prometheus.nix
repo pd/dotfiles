@@ -1,8 +1,26 @@
 { config, ... }:
 let
   inherit (builtins) map toString;
+
   targets = port: names: map (n: "${n}:${toString port}") names;
-  exporters = config.services.prometheus.exporters;
+  staticJob = job_name: port: hosts: {
+    inherit job_name;
+    scrape_interval = "60s";
+    static_configs = [ { targets = targets port hosts; } ];
+  };
+
+  ports =
+    let
+      prometheus = config.services.prometheus;
+      exporters = prometheus.exporters;
+    in
+    {
+      jellyfin = 8096;
+      nginx-exporter = exporters.nginx.port;
+      node-exporter = exporters.node.port;
+      prometheus = prometheus.port;
+      wireguard = exporters.wireguard.port;
+    };
 in
 {
   services.prometheus = {
@@ -15,35 +33,16 @@ in
     };
 
     scrapeConfigs = [
-      {
-        job_name = "nodes";
-        scrape_interval = "60s";
-        static_configs = [
-          {
-            targets = targets 9100 [
-              "desk.home"
-              "htpc.home"
-              "pi.home"
-              "10.100.100.1" # TODO donix has no internal name yet
-            ];
-          }
-        ];
-      }
-      {
-        job_name = "prometheus";
-        scrape_interval = "60s";
-        static_configs = [ { targets = targets config.services.prometheus.port [ "127.0.0.1" ]; } ];
-      }
-      {
-        job_name = "nginx";
-        scrape_interval = "60s";
-        static_configs = [ { targets = targets exporters.nginx.port [ "127.0.0.1" ]; } ];
-      }
-      {
-        job_name = "jellyfin";
-        scrape_interval = "60s";
-        static_configs = [ { targets = targets 8096 [ "127.0.0.1" ]; } ];
-      }
+      (staticJob "nodes" ports.node-exporter [
+        "desk.home"
+        "htpc.home"
+        "pi.home"
+        "srv.wg"
+      ])
+      (staticJob "prometheus" ports.prometheus [ "127.0.0.1" ])
+      (staticJob "nginx" ports.nginx-exporter [ "127.0.0.1" ])
+      (staticJob "jellyfin" ports.jellyfin [ "127.0.0.1" ])
+      (staticJob "wireguard" ports.wireguard [ "srv.wg" ])
     ];
   };
 
@@ -53,7 +52,7 @@ in
 
     virtualHosts."prom.home" = {
       locations."/" = {
-        proxyPass = "http://127.0.0.1:9999";
+        proxyPass = "http://127.0.0.1:${toString ports.prometheus}";
       };
     };
   };

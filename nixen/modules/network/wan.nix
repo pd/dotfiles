@@ -105,6 +105,17 @@ in
           publicKey = peer.wg0.publicKey;
           presharedKeyFile = config.sops.secrets."wireguard-preshared-key-${name}".path;
         }) clients;
+
+        # Write a mock config the exporter can grab friendly names from
+        conf = lib.strings.concatStrings (
+          map (peer: ''
+            [Peer]
+            # friendly_name=${peer.name}
+            PublicKey = ${peer.publicKey}
+            AllowedIPs = ${head peer.allowedIPs}
+          '') peers
+        );
+        wgPeerNames = pkgs.writeText "wg-peer-names" conf;
       in
       {
         sops.secrets = psk-secrets;
@@ -125,6 +136,16 @@ in
             ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s ${cfg.cidr} -o ${cfg.natInterface} -j MASQUERADE
           '';
         };
+
+        services.prometheus.exporters.wireguard = {
+          enable = true;
+          listenAddress = net.hosts.donix.wg0.ip;
+          wireguardConfig = wgPeerNames;
+        };
+
+        networking.firewall.interfaces.wg0.allowedTCPPorts = [
+          config.services.prometheus.exporters.wireguard.port
+        ];
       }
     ))
   ];
