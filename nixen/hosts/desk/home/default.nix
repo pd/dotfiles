@@ -29,6 +29,7 @@
       pyrosimple
       screen
       sops
+      watchexec
     ];
   };
 }
