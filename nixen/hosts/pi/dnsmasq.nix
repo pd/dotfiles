@@ -16,21 +16,30 @@ let
     '';
   };
 
-  onLan = lib.filterAttrs (_: v: v ? "lan") net.hosts;
-  hosts = lib.mapAttrsToList (name: v: {
+  on-lan = lib.filterAttrs (_: v: v ? "lan") net.hosts;
+  lan-hosts = lib.mapAttrsToList (name: v: {
     name = "${name}.home";
     ip = v.lan.ip;
     cnames = lib.map (n: "${n}.home") (v.cnames or [ ]);
-  }) onLan;
+  }) on-lan;
 
-  host-records = (builtins.map (host: "${host.name},${host.ip}") hosts);
+  on-wan = lib.filterAttrs (_: v: v ? "wg0") net.hosts;
+  wan-hosts = lib.mapAttrsToList (name: v: {
+    name = "${name}.wg";
+    ip = v.wg0.ip;
+    cnames = lib.map (n: "${n}.wg") (v.cnames or [ ]);
+  }) on-wan;
+
+  host-records =
+    (map (host: "${host.name},${host.ip}") lan-hosts)
+    ++ (map (host: "${host.name},${host.ip}") wan-hosts);
 
   cnames =
     let
       expand = cnames: lib.strings.concatStringsSep "," cnames;
       toEntry = host: lib.lists.optional (host.cnames != [ ]) "${expand host.cnames},${host.name}";
     in
-    builtins.concatMap toEntry hosts;
+    builtins.concatMap toEntry (lan-hosts ++ wan-hosts);
 
 in
 {
@@ -53,8 +62,10 @@ in
       # dns
       port = 53;
       no-resolv = true;
-      domain = "home,192.168.0.0/22";
-      local = [ "/home/" ];
+      local = [
+        "/home/"
+        "/wg/"
+      ];
 
       host-record = host-records;
       cname = cnames;

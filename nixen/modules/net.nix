@@ -33,7 +33,7 @@
 
   hosts = {
     donix = {
-      cnames = [ "wg" ];
+      cnames = [ "srv" ];
 
       ssh = {
         hostname = "donix.krh.me";

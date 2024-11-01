@@ -7,7 +7,6 @@
 {
   imports = [
     ../../modules/core
-    ./dns.nix
     ./www.nix
   ];
 
