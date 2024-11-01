@@ -1,6 +1,13 @@
 { lib, net, ... }:
 let
-  others = lib.filterAttrs (n: h: n != "desk" && (h.ssh or { }) != false) net.hosts;
+  others = removeAttrs net.ssh.hosts [ "desk" ];
+  matchBlock =
+    name: host:
+    {
+      port = 1222;
+      hostname = "${name}.home";
+    }
+    // (host.ssh or { });
 in
 {
   home-manager.users.pd.programs.ssh = {
@@ -11,15 +18,6 @@ in
       IdentityFile ~/.ssh/id_ed25519
     '';
 
-    matchBlocks = lib.mapAttrs (
-      name: host:
-      let
-        ssh = host.ssh or { };
-      in
-      {
-        hostname = ssh.hostname or "${name}.home";
-        port = ssh.port or 1222;
-      }
-    ) others;
+    matchBlocks = lib.mapAttrs matchBlock others;
   };
 }

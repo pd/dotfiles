@@ -19,30 +19,23 @@ let
     '';
   };
 
-  on-lan = lib.filterAttrs (_: v: v ? "lan") net.hosts;
-  lan-hosts = lib.mapAttrsToList (name: v: {
-    name = "${name}.home";
-    ip = v.lan.ip;
-    cnames = lib.map (n: "${n}.home") (v.cnames or [ ]);
-  }) on-lan;
+  dnsInfo = tld: net: name: host: {
+    name = "${name}.${tld}";
+    ip = host."${net}".ip;
+    cnames = map (n: "${n}.${tld}") (host.cnames or [ ]);
+  };
 
-  on-wan = lib.filterAttrs (_: v: v ? "wg0") net.hosts;
-  wan-hosts = lib.mapAttrsToList (name: v: {
-    name = "${name}.wg";
-    ip = v.wg0.ip;
-    cnames = lib.map (n: "${n}.wg") (v.cnames or [ ]);
-  }) on-wan;
+  hosts =
+    (lib.mapAttrsToList (dnsInfo "home" "lan") net.lan.hosts)
+    ++ (lib.mapAttrsToList (dnsInfo "wg" "wg") net.wg.hosts);
 
-  host-records =
-    (map (host: "${host.name},${host.ip}") lan-hosts)
-    ++ (map (host: "${host.name},${host.ip}") wan-hosts);
-
+  host-records = map (host: "${host.name},${host.ip}") hosts;
   cnames =
     let
       expand = cnames: lib.strings.concatStringsSep "," cnames;
       toEntry = host: lib.lists.optional (host.cnames != [ ]) "${expand host.cnames},${host.name}";
     in
-    builtins.concatMap toEntry (lan-hosts ++ wan-hosts);
+    builtins.concatMap toEntry hosts;
 
 in
 {

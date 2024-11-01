@@ -49,7 +49,7 @@
 
       nixpkgs.overlays = [ (import self.inputs.emacs-overlay) ];
 
-      net = import ./modules/net.nix { lib = nixpkgs.lib; };
+      net = import ./modules/net.nix { lib = inputs.nixpkgs.lib; };
 
       nixosConfigurations = {
         # nixos-rebuild switch --flake .#desk

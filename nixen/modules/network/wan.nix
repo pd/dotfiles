@@ -23,7 +23,7 @@ in
 
     wan.serverPublicKey = mkOption {
       type = types.str;
-      default = net.hosts.donix.wg0.publicKey;
+      default = net.hosts.donix.wg.publicKey;
     };
 
     wan.cidr = mkOption {
@@ -87,7 +87,7 @@ in
     (mkIf isServer (
       let
         hostname = config.networking.hostName;
-        clients = lib.filterAttrs (name: host: (host ? "wg0") && name != hostname) net.hosts;
+        clients = removeAttrs net.wg.hosts [ hostname ];
 
         psk-secrets = lib.mapAttrs' (name: peer: {
           name = "wireguard-preshared-key-${name}";
@@ -100,8 +100,8 @@ in
 
         peers = lib.mapAttrsToList (name: peer: {
           inherit name;
-          allowedIPs = [ "${peer.wg0.ip}/32" ];
-          publicKey = peer.wg0.publicKey;
+          allowedIPs = [ "${peer.wg.ip}/32" ];
+          publicKey = peer.wg.publicKey;
           presharedKeyFile = config.sops.secrets."wireguard-preshared-key-${name}".path;
         }) clients;
 
@@ -138,7 +138,7 @@ in
 
         services.prometheus.exporters.wireguard = {
           enable = true;
-          listenAddress = net.hosts.donix.wg0.ip;
+          listenAddress = net.hosts.donix.wg.ip;
           wireguardConfig = wgPeerNames;
         };
 

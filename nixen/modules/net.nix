@@ -19,18 +19,21 @@
 #   hera:  .120
 { lib, ... }:
 rec {
-  nets = {
-    lan = {
-      gateway = "192.168.1.254";
-      ssid = "bazqux";
-    };
-
-    wg0 = {
-      server = "donix";
-      endpoint = "wg.krh.me:51820";
-      cidr = "10.100.100.0/24";
-    };
+  # hosts on the lan
+  lan = {
+    hosts = lib.filterAttrs (_: h: h ? "lan") hosts;
+    ips = lib.mapAttrs (_: v: v.lan.ip) lan.hosts;
   };
+
+  # hosts on the wg network
+  wg = {
+    hosts = lib.filterAttrs (_: h: h ? "wg") hosts;
+    ips = lib.mapAttrs (_: v: v.wg.ip) wg.hosts;
+    pks = lib.mapAttrs (_: v: v.wg.publicKey) wg.hosts;
+  };
+
+  # hosts with ssh enabled
+  ssh.hosts = lib.filterAttrs (_: h: (h.ssh or { }) != false) hosts;
 
   hosts = {
     donix = {
@@ -40,7 +43,7 @@ rec {
         hostname = "donix.krh.me";
       };
 
-      wg0 = {
+      wg = {
         ip = "10.100.100.1";
         publicKey = "WZgf+DC6SBQeatqOgpC2j6tvIu5VxKi/WgdbIU/m7wg=";
       };
@@ -51,7 +54,7 @@ rec {
         ip = "192.168.1.10";
       };
 
-      wg0 = {
+      wg = {
         ip = "10.100.100.10";
         publicKey = "CA7HMcgdgxixmpikVA15Bxydi7pFriBbR3A3W7mE2BU=";
       };
@@ -66,7 +69,7 @@ rec {
         ip = "192.168.1.11";
       };
 
-      wg0 = {
+      wg = {
         ip = "10.100.100.11";
         publicKey = "ifiRznc81W75NIIq53+8BH6uJ3iJODbXdAk+ND1J+3U=";
       };
@@ -87,7 +90,7 @@ rec {
         ip = "192.168.1.12";
       };
 
-      wg0 = {
+      wg = {
         ip = "10.100.100.12";
         publicKey = "sZql5WlnNt45LuiQUjow0y+Hc9LdWW7nnSUjOMHSsgw=";
       };
@@ -100,7 +103,7 @@ rec {
         ip = "192.168.1.13";
       };
 
-      wg0 = {
+      wg = {
         ip = "10.100.100.13";
         publicKey = "xDPPIIjA72BrCFC+5eqJn7IiC0xeI6Dof38Inj+tXwg=";
       };
@@ -119,7 +122,7 @@ rec {
         ip = "192.168.1.100";
       };
 
-      wg0 = {
+      wg = {
         ip = "10.100.100.100";
         publicKey = "OgjpXp3AvhTRswErbC32X6zrnfEZeM3B/tjTPr87oig=";
       };
