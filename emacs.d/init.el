@@ -80,6 +80,12 @@
   ; no i do not want to print
   (unbind-key "s-p"))
 
+;; emacs 30, wayland, nix, madness
+(when (string-equal "gnu/linux" system-type)
+  (setq default-frame-alist '((undecorated . t)))
+  (when (and (display-graphic-p) (not (null (x-list-fonts "FiraCode Nerd Font-10"))))
+    (set-frame-font "FiraCode Nerd Font-10" nil t)))
+
 ;; just buy into the whole vertico et al ecosystem for now
 (use-package vertico
   :init (vertico-mode)
@@ -302,9 +308,6 @@
     (add-hook 'before-save-hook 'jsonnet-reformat-buffer nil t))
   (add-hook 'jsonnet-mode-hook #'pd/setup-jsonnet-mode))
 
-;; (use-package jsonnet-ts-mode
-;;   :load-path ("~/.emacs.d/lisp"))
-
 (use-package lisp-mode
   :ensure nil
   :hook turn-on-eldoc-mode
@@ -320,7 +323,12 @@
 
 (use-package markdown-mode)
 
-(use-package nix-mode)
+(use-package nix-mode
+  :ensure t)
+(use-package nixfmt
+  :ensure t
+  :config
+  (add-hook 'nix-mode-hook 'nixfmt-on-save-mode))
 
 (use-package rust-mode
   :config
@@ -335,7 +343,7 @@
   :config
   (setq sh-basic-offset 2))
 
-(use-package sops-mode)
+(use-package sops)
 
 (use-package terraform-mode
   :config
