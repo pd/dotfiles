@@ -1,14 +1,32 @@
-{ pkgs, config, lib, ... }:
 {
-  fonts.packages = with pkgs; [
-    noto-fonts
-    noto-fonts-emoji
-    fira-code
-    fira-code-symbols
-    liberation_ttf
-    nerdfonts
-    proggyfonts
-  ];
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+{
+  fonts = {
+    enableDefaultPackages = true;
+    packages = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+      fira-code
+      fira-code-symbols
+      liberation_ttf
+      nerdfonts
+      proggyfonts
+    ];
+
+    fontconfig = {
+      defaultFonts = {
+        serif = [ "Noto Serif" ];
+        sansSerif = [ "Noto Sans" ];
+        emoji = [ "Noto Color Emoji" ];
+        monospace = [ "FiraCode Nerd Font" ];
+      };
+    };
+  };
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
