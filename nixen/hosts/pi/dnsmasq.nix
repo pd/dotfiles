@@ -1,7 +1,10 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  net,
+  ...
+}:
 let
-  net = import ../../modules/net.nix;
-
   blockLists = pkgs.stdenv.mkDerivation {
     name = "dns-block-lists";
     src = pkgs.fetchurl {

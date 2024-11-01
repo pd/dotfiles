@@ -1,6 +1,5 @@
-{ lib, ... }:
+{ lib, net, ... }:
 let
-  net = import ../../../modules/net.nix;
   others = lib.filterAttrs (n: h: n != "desk" && (h.ssh or { }) != false) net.hosts;
 in
 {

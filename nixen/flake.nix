@@ -1,9 +1,6 @@
 {
   description = "nixen";
 
-  # gh = repo: { url = "github:${repo}"; };
-  # ghFollows = repo: (gh repo) // { inputs.nixpkgs.follows = "nixpkgs"; };
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -47,16 +44,19 @@
       stylix,
       ...
     }:
-    {
+    rec {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
 
       nixpkgs.overlays = [ (import self.inputs.emacs-overlay) ];
 
+      net = import ./modules/net.nix { lib = nixpkgs.lib; };
+
       nixosConfigurations = {
         # nixos-rebuild switch --flake .#desk
-        desk = nixpkgs.lib.nixosSystem rec {
+        desk = inputs.nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
           specialArgs = {
+            inherit net;
             pkgs-unstable = import nixpkgs-unstable {
               inherit system;
               config.allowUnfree = true;
@@ -71,8 +71,11 @@
         };
 
         # nixos-rebuild switch --flake .#donix --target-host donix --build-host donix --use-remote-sudo
-        donix = nixpkgs.lib.nixosSystem {
+        donix = inputs.nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+          specialArgs = {
+            inherit net;
+          };
           modules = [
             ./hosts/donix
             inputs.sops-nix.nixosModules.sops
@@ -81,8 +84,11 @@
         };
 
         # nixos-rebuild switch --flake .#htpc --target-host htpc --build-host htpc --use-remote-sudo
-        htpc = nixpkgs.lib.nixosSystem {
+        htpc = inputs.nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+          specialArgs = {
+            inherit net;
+          };
           modules = [
             ./hosts/htpc
             inputs.sops-nix.nixosModules.sops
@@ -91,8 +97,11 @@
 
         # building the SD, from desk with aarch64 emu:
         # nix run nixpkgs#nixos-generators -- -f sd-aarch64 --flake .#pi --system aarch64-linux -o ./pi.sd
-        pi = nixpkgs.lib.nixosSystem {
+        pi = inputs.nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
+          specialArgs = {
+            inherit net;
+          };
           modules = [
             ./hosts/pi
             inputs.sops-nix.nixosModules.sops

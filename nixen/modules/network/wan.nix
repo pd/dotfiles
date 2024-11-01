@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  net,
   pkgs,
   ...
 }:
@@ -8,8 +9,6 @@ with lib;
 let
   cfg = config.wan;
   isServer = config.wan.natInterface != null;
-
-  net = import ../net.nix;
 in
 {
   options = {

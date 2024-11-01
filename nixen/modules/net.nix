@@ -17,7 +17,8 @@
 #   nas:   .100
 #   tv:    .101
 #   hera:  .120
-{
+{ lib, ... }:
+rec {
   nets = {
     lan = {
       gateway = "192.168.1.254";

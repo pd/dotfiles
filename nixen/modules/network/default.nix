@@ -1,6 +1,10 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  net,
+  ...
+}:
 let
-  net = import ../net.nix;
   host = net.hosts."${config.networking.hostName}";
 in
 {

@@ -1,13 +1,12 @@
 {
   config,
-  lib,
+  net,
   pkgs,
   ...
 }:
 let
   pd = config.users.users.pd;
-
-  nasIP = (import ../../modules/net.nix).hosts.nas.lan.ip;
+  nasIP = net.hosts.nas.lan.ip;
 
   filebotd = pkgs.buildGoModule {
     name = "filebotd";
