@@ -320,6 +320,8 @@
 
 (use-package markdown-mode)
 
+(use-package nix-mode)
+
 (use-package rust-mode
   :config
   (setq rust-format-on-save t))
@@ -332,6 +334,8 @@
   :ensure nil
   :config
   (setq sh-basic-offset 2))
+
+(use-package sops-mode)
 
 (use-package terraform-mode
   :config
@@ -364,6 +368,7 @@
   (setq lsp-keymap-prefix "C-c l") ; so it at least doesn't steal s-l
   :commands (lsp lsp-deferred)
   :hook ((go-mode . lsp-deferred)
+         (nix-mode . lsp-deferred)
          (rust-mode . lsp-deferred)
          (rust-ts-mode . lsp-deferred))
   :config
