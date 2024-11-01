@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 {
   home-manager.users.pd = {
     programs.autojump = {
@@ -25,6 +25,10 @@
       envExtra = ''
         # Ensure tramp can parse the prompt
         [[ $TERM = "dumb" ]] && unsetopt zle && PS1='$ '
+      '';
+
+      initExtra = ''
+        source ${pkgs-unstable.emacsPackages.vterm}/share/emacs/site-lisp/elpa/*/etc/emacs-vterm-zsh.sh
       '';
 
       shellAliases = {
