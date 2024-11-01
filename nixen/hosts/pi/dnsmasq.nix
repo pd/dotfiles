@@ -23,7 +23,7 @@ let
     cnames = lib.map (n: "${n}.home") (v.cnames or [ ]);
   }) onLan;
 
-  host-records = builtins.map (host: "${host.name},${host.ip}") hosts;
+  host-records = (builtins.map (host: "${host.name},${host.ip}") hosts);
 
   cnames =
     let
@@ -35,7 +35,10 @@ let
 in
 {
   networking = {
-    nameservers = lib.mkForce [ "127.0.0.1" "::1" ];
+    nameservers = lib.mkForce [
+      "127.0.0.1"
+      "::1"
+    ];
     firewall = {
       allowedTCPPorts = [ 53 ];
       allowedUDPPorts = [ 53 ];
