@@ -19,6 +19,7 @@ let
       nginx-exporter = exporters.nginx.port;
       node-exporter = exporters.node.port;
       prometheus = prometheus.port;
+      rtorrent = 9135;
       wireguard = exporters.wireguard.port;
     };
 in
@@ -43,6 +44,7 @@ in
       (staticJob "nginx" ports.nginx-exporter [ "127.0.0.1" ])
       (staticJob "jellyfin" ports.jellyfin [ "127.0.0.1" ])
       (staticJob "wireguard" ports.wireguard [ "srv.wg" ])
+      (staticJob "rtorrent" ports.rtorrent [ "127.0.0.1" ])
     ];
   };
 
