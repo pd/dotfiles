@@ -78,17 +78,33 @@
 
       style = ''
         * {
-          font-family: FiraCode Nerd Font Mono, Noto Sans Mono;
-          font-size: 16px;
+          font-family: Noto Sans Mono;
+          font-size: 11pt;
+        }
+
+        .modules-right label {
+          margin: 5px;
+        }
+
+        #tags .focused {
+          background-color: @base01;
+        }
+
+        #tags .occupied {
+          color: @base0C;
+        }
+
+        #tags .urgent {
+          color: @base0F;
+        }
+
+        #network.disconnected {
+          color: @base0F;
         }
       '';
 
       settings.mainBar = {
-        modules-left = [
-          "river/tags"
-          "river/mode"
-          "river/layout"
-        ];
+        modules-left = [ "river/tags" ];
 
         modules-center = [ "river/window" ];
 
@@ -101,36 +117,44 @@
           "clock"
         ];
 
+        "river/tags" = {
+          num-tags = 4;
+        };
+
         cpu = {
           format = " {usage}%";
+          tooltip = false;
         };
 
         memory = {
           format = " {percentage}%";
-        };
-
-        "river/workspaces" = {
-          disable-scroll = true;
-          persistent-workspaces = {
-            "1" = [ ];
-            "2" = [ ];
-            "3" = [ ];
-            "4" = [ ];
-          };
+          tooltip-format = "";
         };
 
         "network#lan" = {
           name = "lan";
-          format = "<span color='#69ff94'></span> {essid}/{signalStrength}%";
-          format-disconnected = "<span color='#dd532e'></span>";
-          tooltip-format = "{ifname}: {ipaddr}/{cidr} via {gwaddr}";
+          format = "";
+          tooltip-format-wifi = "{ifname} {ipaddr}/{cidr}\n{essid} ({signalStrength}%)";
         };
 
         "network#wg" = {
           name = "wg";
-          format = "<span color='#69ff94'></span>";
-          format-disconnected = "<span color='#dd532e'></span>";
-          tooltip-format = "{ifname}: {ipaddr}/{cidr} via {gwaddr}";
+          interface = "wg0";
+          format = "🔒";
+          format-disconnected = "";
+          tooltip-format = "{ifname} {ipaddr}/{cidr}";
+        };
+
+        pulseaudio = {
+          scroll-step = 2;
+          format = "{icon} {volume}%";
+          format-muted = "";
+          format-icons = {
+            default = [
+              ""
+              ""
+            ];
+          };
         };
 
         clock = {
@@ -138,7 +162,7 @@
             "America/Chicago"
             "UTC"
           ];
-          format = " {:%Z|%F %H:%M}";
+          format = "{:%F %H:%M %Z}";
           tooltip-format = "<tt>{calendar}</tt>";
           calendar = {
             mode = "year";
@@ -166,66 +190,69 @@
       enable = true;
       systemd.enable = true;
 
-      settings = let
-        mod = "Super";
-        tag = index:
-          let
-            i = toString index;
-            tags = "$((1 << (${i} - 1)))";
-          in
-          {
-            "${mod} ${i}" = "set-focused-tags ${tags}";
-            "${mod}+Shift ${i}" = "set-view-tags ${tags}";
-            "${mod}+Control ${i}" = "toggle-focus-tags ${tags}";
-            "${mod}+Control+Shift ${i}" = "toggle-view-tags ${tags}";
+      settings =
+        let
+          mod = "Super";
+          tag =
+            index:
+            let
+              i = toString index;
+              tags = "$((1 << (${i} - 1)))";
+            in
+            {
+              "${mod} ${i}" = "set-focused-tags ${tags}";
+              "${mod}+Shift ${i}" = "set-view-tags ${tags}";
+              "${mod}+Control ${i}" = "toggle-focus-tags ${tags}";
+              "${mod}+Control+Shift ${i}" = "toggle-view-tags ${tags}";
+            };
+        in
+        {
+          map.normal = {
+            "${mod} Return" = "spawn alacritty";
+
+            "${mod} Space" = "spawn 'wofi --show drun'";
+            "${mod} comma" = "zoom";
+
+            "${mod}+Shift H" = "focus-view left";
+            "${mod}+Shift J" = "focus-view down";
+            "${mod}+Shift K" = "focus-view up";
+            "${mod}+Shift L" = "focus-view right";
+            "${mod}+Shift N" = "focus-view next";
+
+            "${mod}+Shift+Control J" = "swap previous";
+            "${mod}+Shift+Control K" = "swap next";
+
+            "${mod}+Shift F" = "toggle-fullscreen";
+            "${mod}+Shift Space" = "toggle-float";
+
+            "${mod}+Alt I" = "send-layout-cmd rivertile 'main-count +1'";
+            "${mod}+Alt D" = "send-layout-cmd rivertile 'main-count -1'";
+            "${mod}+Alt bracketleft" = "send-layout-cmd rivertile 'main-ratio -0.05'";
+            "${mod}+Alt bracketright" = "send-layout-cmd rivertile 'main-ratio +0.05'";
+            "${mod}+Alt Left" = "send-layout-cmd rivertile 'main-location left'";
+            "${mod}+Alt Up" = "send-layout-cmd rivertile 'main-location top'";
+            "${mod}+Alt Right" = "send-layout-cmd rivertile 'main-location right'";
+            "${mod}+Alt Down" = "send-layout-cmd rivertile 'main-location bottom'";
+
+            "${mod}+Shift+Control BackSpace" = "exit";
+          } // (lib.zipAttrs (map tag (lib.range 1 9)));
+
+          map-pointer.normal = {
+            "${mod} BTN_LEFT" = "move-view";
+            "${mod} BTN_RIGHT" = "resize-view";
+            "${mod} BTN_MIDDLE" = "toggle-float";
           };
-      in
-      {
-        map.normal = {
-          "${mod} Return" = "spawn alacritty";
 
-          "${mod} Space" = "spawn 'wofi --show drun'";
-          "${mod} comma" = "zoom";
+          spawn = [
+            "'waybar'"
+            "'rivertile -view-padding 2 -outer-padding 0'"
+          ];
 
-          "${mod}+Shift H" = "focus-view left";
-          "${mod}+Shift J" = "focus-view down";
-          "${mod}+Shift K" = "focus-view up";
-          "${mod}+Shift L" = "focus-view right";
-          "${mod}+Shift N" = "focus-view next";
-
-          "${mod}+Shift+Control J" = "swap previous";
-          "${mod}+Shift+Control K" = "swap next";
-
-          "${mod}+Shift F" = "toggle-fullscreen";
-          "${mod}+Shift Space" = "toggle-float";
-
-          "${mod}+Alt I" = "send-layout-cmd rivertile 'main-count +1'";
-          "${mod}+Alt D" = "send-layout-cmd rivertile 'main-count -1'";
-          "${mod}+Alt bracketleft" = "send-layout-cmd rivertile 'main-ratio -0.05'";
-          "${mod}+Alt bracketright" = "send-layout-cmd rivertile 'main-ratio +0.05'";
-          "${mod}+Alt Left" = "send-layout-cmd rivertile 'main-location left'";
-          "${mod}+Alt Up" = "send-layout-cmd rivertile 'main-location top'";
-          "${mod}+Alt Right" = "send-layout-cmd rivertile 'main-location right'";
-          "${mod}+Alt Down" = "send-layout-cmd rivertile 'main-location bottom'";
-
-          "${mod}+Shift+Control BackSpace" = "exit";
-        } // (lib.zipAttrs (map tag (lib.range 1 9)));
-
-        map-pointer.normal = {
-          "${mod} BTN_LEFT" = "move-view";
-          "${mod} BTN_RIGHT" = "resize-view";
-          "${mod} BTN_MIDDLE" = "toggle-float";
+          background-color = "0x6077a6";
+          border-width = 3;
+          default-layout = "rivertile";
+          focus-follows-cursor = "normal";
         };
-
-        spawn = [
-          "waybar"
-          "rivertile -view-padding 2 -outer-padding 0"
-        ];
-
-        border-width = 3;
-        default-layout = "rivertile";
-        focus-follows-cursor = "always";
-      };
     };
   };
 }
