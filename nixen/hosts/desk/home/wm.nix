@@ -65,194 +65,219 @@
     polarity = "dark";
     image = config.lib.stylix.pixel "base03";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/ashes.yaml";
+
   };
 
-  home-manager.users.pd = {
-    home.packages = with pkgs; [ alacritty ];
+  home-manager.users.pd =
+    let
+      search-menu = pkgs.writeShellScriptBin "search-menu" (builtins.readFile ./search-menu.sh);
+    in
+    {
+      home.packages = with pkgs; [
+        alacritty
+        search-menu
+      ];
 
-    programs.wofi.enable = true;
-    services.dunst.enable = true;
+      stylix.targets = {
+        firefox.enable = false;
+      };
 
-    programs.waybar = {
-      enable = true;
+      services.dunst.enable = true;
 
-      style = ''
-        * {
-          font-family: Noto Sans Mono;
-          font-size: 11pt;
-        }
-
-        .modules-right label {
-          margin: 5px;
-        }
-
-        #tags .focused {
-          background-color: @base01;
-        }
-
-        #tags .occupied {
-          color: @base0C;
-        }
-
-        #tags .urgent {
-          color: @base0F;
-        }
-
-        #network.disconnected {
-          color: @base0F;
-        }
-      '';
-
-      settings.mainBar = {
-        modules-left = [ "river/tags" ];
-
-        modules-center = [ "river/window" ];
-
-        modules-right = [
-          "cpu"
-          "memory"
-          "network#lan"
-          "network#wg"
-          "pulseaudio"
-          "clock"
-        ];
-
-        "river/tags" = {
-          num-tags = 4;
-        };
-
-        cpu = {
-          format = " {usage}%";
-          tooltip = false;
-        };
-
-        memory = {
-          format = " {percentage}%";
-          tooltip-format = "";
-        };
-
-        "network#lan" = {
-          name = "lan";
-          format = "";
-          tooltip-format-wifi = "{ifname} {ipaddr}/{cidr}\n{essid} ({signalStrength}%)";
-        };
-
-        "network#wg" = {
-          name = "wg";
-          interface = "wg0";
-          format = "🔒";
-          format-disconnected = "";
-          tooltip-format = "{ifname} {ipaddr}/{cidr}";
-        };
-
-        pulseaudio = {
-          scroll-step = 2;
-          format = "{icon} {volume}%";
-          format-muted = "";
-          format-icons = {
-            default = [
-              ""
-              ""
-            ];
-          };
-        };
-
-        clock = {
-          timezones = [
-            "America/Chicago"
-            "UTC"
-          ];
-          format = "{:%F %H:%M %Z}";
-          tooltip-format = "<tt>{calendar}</tt>";
-          calendar = {
-            mode = "year";
-            mode-mon-col = 3;
-            weeks-pos = "";
-            on-scroll = 1;
-            format = {
-              months = "<span color='#ffead3'><b>{}</b></span>";
-              days = "<span color='#ecc6d9'><b>{}</b></span>";
-              weeks = "<span color='#99ffdd'><b>W{}</b></span>";
-              weekdays = "<span color='#ffcc66'><b>{}</b></span>";
-              today = "<span color='#ff6699'><b><u>{}</u></b></span>";
-            };
-          };
-          actions = {
-            on-click-right = "mode";
-            on-scroll-up = "tz_up";
-            on-scroll-down = "tz_down";
+      programs.fuzzel = {
+        enable = true;
+        settings = {
+          main.font = lib.mkForce "Noto Sans:size=12";
+          key-bindings = {
+            execute-or-next = "Control+Tab";
+            insert-selected = "Tab";
           };
         };
       };
-    };
 
-    wayland.windowManager.river = {
-      enable = true;
-      systemd.enable = true;
+      programs.waybar = {
+        enable = true;
 
-      settings =
-        let
-          mod = "Super";
-          tag =
-            index:
-            let
-              i = toString index;
-              tags = "$((1 << (${i} - 1)))";
-            in
-            {
-              "${mod} ${i}" = "set-focused-tags ${tags}";
-              "${mod}+Shift ${i}" = "set-view-tags ${tags}";
-              "${mod}+Control ${i}" = "toggle-focus-tags ${tags}";
-              "${mod}+Control+Shift ${i}" = "toggle-view-tags ${tags}";
-            };
-        in
-        {
-          map.normal = {
-            "${mod} Return" = "spawn alacritty";
+        style = ''
+          * {
+            font-family: Noto Sans Mono;
+            font-size: 11pt;
+          }
 
-            "${mod} Space" = "spawn 'wofi --show drun'";
-            "${mod} comma" = "zoom";
+          .modules-right label {
+            margin: 5px;
+          }
 
-            "${mod}+Shift H" = "focus-view left";
-            "${mod}+Shift J" = "focus-view down";
-            "${mod}+Shift K" = "focus-view up";
-            "${mod}+Shift L" = "focus-view right";
-            "${mod}+Shift N" = "focus-view next";
+          #tags .focused {
+            background-color: @base01;
+          }
 
-            "${mod}+Shift+Control J" = "swap previous";
-            "${mod}+Shift+Control K" = "swap next";
+          #tags .occupied {
+            color: @base0C;
+          }
 
-            "${mod}+Shift F" = "toggle-fullscreen";
-            "${mod}+Shift Space" = "toggle-float";
+          #tags .urgent {
+            color: @base0F;
+          }
 
-            "${mod}+Alt I" = "send-layout-cmd rivertile 'main-count +1'";
-            "${mod}+Alt D" = "send-layout-cmd rivertile 'main-count -1'";
-            "${mod}+Alt bracketleft" = "send-layout-cmd rivertile 'main-ratio -0.05'";
-            "${mod}+Alt bracketright" = "send-layout-cmd rivertile 'main-ratio +0.05'";
-            "${mod}+Alt Left" = "send-layout-cmd rivertile 'main-location left'";
-            "${mod}+Alt Up" = "send-layout-cmd rivertile 'main-location top'";
-            "${mod}+Alt Right" = "send-layout-cmd rivertile 'main-location right'";
-            "${mod}+Alt Down" = "send-layout-cmd rivertile 'main-location bottom'";
+          #network.disconnected {
+            color: @base0F;
+          }
+        '';
 
-            "${mod}+Shift+Control BackSpace" = "exit";
-          } // (lib.zipAttrs (map tag (lib.range 1 9)));
-
-          map-pointer.normal = {
-            "${mod} BTN_LEFT" = "move-view";
-            "${mod} BTN_RIGHT" = "resize-view";
-            "${mod} BTN_MIDDLE" = "toggle-float";
-          };
-
-          spawn = [
-            "'waybar'"
-            "'rivertile -view-padding 2 -outer-padding 0'"
+        settings.mainBar = {
+          modules-left = [
+            "river/tags"
+            "tray"
           ];
 
-          background-color = "0x6077a6";
-          border-width = 3;
-          default-layout = "rivertile";
-          focus-follows-cursor = "normal";
+          modules-center = [ "river/window" ];
+
+          modules-right = [
+            "cpu"
+            "memory"
+            "network#lan"
+            "network#wg"
+            "pulseaudio"
+            "clock"
+          ];
+
+          "river/tags" = {
+            num-tags = 4;
+          };
+
+          cpu = {
+            format = " {usage}%";
+            tooltip = false;
+          };
+
+          memory = {
+            format = " {percentage}%";
+            tooltip-format = "";
+          };
+
+          "network#lan" = {
+            name = "lan";
+            format = "";
+            tooltip-format-wifi = "{ifname} {ipaddr}/{cidr}\n{essid} ({signalStrength}%)";
+          };
+
+          "network#wg" = {
+            name = "wg";
+            interface = "wg0";
+            format = "🔒";
+            format-disconnected = "";
+            tooltip-format = "{ifname} {ipaddr}/{cidr}";
+          };
+
+          pulseaudio = {
+            scroll-step = 2;
+            format = "{icon} {volume}%";
+            format-muted = "";
+            format-icons = {
+              default = [
+                ""
+                ""
+              ];
+            };
+          };
+
+          clock = {
+            timezones = [
+              "America/Chicago"
+              "UTC"
+            ];
+            format = "{:%F %H:%M %Z}";
+            tooltip-format = "<tt>{calendar}</tt>";
+            calendar = {
+              mode = "year";
+              mode-mon-col = 3;
+              weeks-pos = "";
+              on-scroll = 1;
+              format = {
+                months = "<span color='#ffead3'><b>{}</b></span>";
+                days = "<span color='#ecc6d9'><b>{}</b></span>";
+                weeks = "<span color='#99ffdd'><b>W{}</b></span>";
+                weekdays = "<span color='#ffcc66'><b>{}</b></span>";
+                today = "<span color='#ff6699'><b><u>{}</u></b></span>";
+              };
+            };
+            actions = {
+              on-click-right = "mode";
+              on-scroll-up = "tz_up";
+              on-scroll-down = "tz_down";
+            };
+          };
         };
+      };
+
+      wayland.windowManager.river = {
+        enable = true;
+        systemd.enable = true;
+
+        settings =
+          let
+            mod = "Super";
+            tag =
+              index:
+              let
+                i = toString index;
+                tags = "$((1 << (${i} - 1)))";
+              in
+              {
+                "${mod} ${i}" = "set-focused-tags ${tags}";
+                "${mod}+Shift ${i}" = "set-view-tags ${tags}";
+                "${mod}+Control ${i}" = "toggle-focus-tags ${tags}";
+                "${mod}+Control+Shift ${i}" = "toggle-view-tags ${tags}";
+              };
+          in
+          {
+            map.normal = {
+              "${mod} Return" = "spawn alacritty";
+              "${mod} Space" = "spawn 'fuzzel'";
+              "${mod} slash" = "spawn '${search-menu}/bin/search-menu'";
+
+              "${mod}+Shift H" = "focus-view left";
+              "${mod}+Shift J" = "focus-view down";
+              "${mod}+Shift K" = "focus-view up";
+              "${mod}+Shift L" = "focus-view right";
+              "${mod}+Shift N" = "focus-view next";
+
+              "${mod} comma" = "zoom";
+              "${mod}+Shift+Control J" = "swap previous";
+              "${mod}+Shift+Control K" = "swap next";
+
+              "${mod}+Shift F" = "toggle-fullscreen";
+              "${mod}+Shift Space" = "toggle-float";
+
+              "${mod}+Alt I" = "send-layout-cmd rivertile 'main-count +1'";
+              "${mod}+Alt D" = "send-layout-cmd rivertile 'main-count -1'";
+              "${mod}+Alt bracketleft" = "send-layout-cmd rivertile 'main-ratio -0.05'";
+              "${mod}+Alt bracketright" = "send-layout-cmd rivertile 'main-ratio +0.05'";
+              "${mod}+Alt Left" = "send-layout-cmd rivertile 'main-location left'";
+              "${mod}+Alt Up" = "send-layout-cmd rivertile 'main-location top'";
+              "${mod}+Alt Right" = "send-layout-cmd rivertile 'main-location right'";
+              "${mod}+Alt Down" = "send-layout-cmd rivertile 'main-location bottom'";
+
+              "${mod}+Shift+Control BackSpace" = "exit";
+            } // (lib.zipAttrs (map tag (lib.range 1 9)));
+
+            map-pointer.normal = {
+              "${mod} BTN_LEFT" = "move-view";
+              "${mod} BTN_RIGHT" = "resize-view";
+              "${mod} BTN_MIDDLE" = "toggle-float";
+            };
+
+            spawn = [
+              "'waybar'"
+              "'rivertile -view-padding 2 -outer-padding 0'"
+            ];
+
+            background-color = "0x6077a6";
+            border-width = 3;
+            default-layout = "rivertile";
+            focus-follows-cursor = "normal";
+          };
+      };
     };
-  };
 }
