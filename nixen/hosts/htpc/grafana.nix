@@ -6,6 +6,22 @@
       server = {
         http_addr = "127.0.0.1";
       };
+
+      "auth.anonymous".enabled = true;
+      "auth.anonymous".org_role = "Admin";
+    };
+
+    provision = {
+      enable = true;
+      datasources.settings.datasources = [
+        {
+          name = "prom";
+          type = "prometheus";
+          access = "proxy";
+          url = "http://localhost:${toString config.services.prometheus.port}";
+          isDefault = true;
+        }
+      ];
     };
   };
 

@@ -73,8 +73,9 @@
 
     htpc = {
       cnames = [
-        "kodi"
+        "grafana"
         "jellyfin"
+        "kodi"
         "prom"
         "store"
         "torrent"

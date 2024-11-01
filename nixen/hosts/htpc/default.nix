@@ -4,6 +4,7 @@
     ./hardware-configuration.nix
     ../../modules/core
     ./prometheus.nix
+    ./grafana.nix
     ./nas.nix
     ./tv.nix
   ];
