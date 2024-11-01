@@ -17,6 +17,11 @@ in
       programs.emacs = {
         enable = true;
         package = pkgs-unstable.emacs30-pgtk;
+        extraPackages =
+          epkgs: with epkgs; [
+            treesit-grammars.with-all-grammars
+            vterm
+          ];
       };
 
       services.emacs = {
@@ -25,9 +30,9 @@ in
       };
 
       home.packages = with pkgs; [
+        emacs-all-the-icons-fonts
         nixfmt-rfc-style
         nil
-        emacsPackages.vterm
       ];
     };
 }
