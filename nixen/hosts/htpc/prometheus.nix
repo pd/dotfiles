@@ -20,6 +20,7 @@ let
       node-exporter = exporters.node.port;
       prometheus = prometheus.port;
       rtorrent = 9135;
+      snmp = 9116;
       wireguard = exporters.wireguard.port;
     };
 in
@@ -34,17 +35,33 @@ in
     };
 
     scrapeConfigs = [
+      (staticJob "jellyfin" ports.jellyfin [ "127.0.0.1" ])
+      (staticJob "nginx" ports.nginx-exporter [ "127.0.0.1" ])
       (staticJob "nodes" ports.node-exporter [
         "desk.home"
         "htpc.home"
         "pi.home"
+        "nas.home"
         "srv.wg"
       ])
       (staticJob "prometheus" ports.prometheus [ "127.0.0.1" ])
-      (staticJob "nginx" ports.nginx-exporter [ "127.0.0.1" ])
-      (staticJob "jellyfin" ports.jellyfin [ "127.0.0.1" ])
-      (staticJob "wireguard" ports.wireguard [ "srv.wg" ])
       (staticJob "rtorrent" ports.rtorrent [ "127.0.0.1" ])
+      (staticJob "snmp-exporter" ports.snmp [ "nas.home" ])
+      (
+        (staticJob "snmp" ports.snmp [ "nas.home" ])
+        // {
+          metrics_path = "/snmp";
+          params = {
+            auth = [ "public_v2" ];
+            module = [
+              "if_mib"
+              "synology"
+            ];
+            target = [ "tcp://nas.home" ];
+          };
+        }
+      )
+      (staticJob "wireguard" ports.wireguard [ "srv.wg" ])
     ];
   };
 
