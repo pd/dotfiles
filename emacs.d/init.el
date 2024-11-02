@@ -55,6 +55,7 @@
 
 ;; decent theme
 (use-package gruvbox-theme
+  :ensure t
   :config
   (load-theme 'gruvbox-dark-hard)
   (set-face-background 'default "#111")
@@ -82,9 +83,8 @@
 
 ;; emacs 30, wayland, nix, madness
 (when (string-equal "gnu/linux" system-type)
-  (setq default-frame-alist '((undecorated . t)))
-  (when (and (display-graphic-p) (not (null (x-list-fonts "FiraCode Nerd Font-10"))))
-    (set-frame-font "FiraCode Nerd Font-10" nil t)))
+  (add-to-list 'default-frame-alist '(undecorated . t))
+  (add-to-list 'default-frame-alist '(font . "FiraCode Nerd Font-10")))
 
 ;; just buy into the whole vertico et al ecosystem for now
 (use-package vertico
@@ -194,8 +194,6 @@
 (use-package evil-textobj-syntax)
 
 ;; qol
-; blindly install them all:
-; (all-the-icons-install-fonts)
 (use-package all-the-icons)
 
 (use-package autorevert
