@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   services.grafana = {
     enable = true;
@@ -8,6 +8,7 @@
       };
 
       "auth.anonymous".enabled = true;
+      "auth.anonymous".org_name = "pd";
       "auth.anonymous".org_role = "Admin";
     };
 
@@ -31,6 +32,7 @@
     virtualHosts."grafana.home" = {
       locations."/" = {
         proxyPass = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}";
+        recommendedProxySettings = true;
       };
     };
   };
