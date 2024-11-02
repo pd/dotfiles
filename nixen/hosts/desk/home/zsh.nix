@@ -34,15 +34,6 @@
       enableVteIntegration = true;
       autocd = true;
 
-      envExtra = ''
-        # Ensure tramp can parse the prompt
-        [[ $TERM = "dumb" ]] && unsetopt zle && PS1='$ '
-      '';
-
-      initExtra = ''
-        source ${pkgs-unstable.emacsPackages.vterm}/share/emacs/site-lisp/elpa/*/etc/emacs-vterm-zsh.sh
-      '';
-
       sessionVariables = {
         EDITOR = "emacsclient --alternate-editor='' --reuse-frame";
       };

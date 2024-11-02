@@ -1,6 +1,6 @@
 # Things I'm guaranteed to want on every system.
 
-{ pkgs, config, ... }:
+{ config, pkgs, ... }:
 let
   keys = import ../keys.nix;
 in
@@ -62,6 +62,10 @@ in
     interactiveShellInit = ''
       autoload -U select-word-style
       select-word-style bash
+
+      if [[ "$TERM" != "dumb" ]]; then
+        source ${pkgs.emacsPackages.vterm}/share/emacs/site-lisp/elpa/*/etc/emacs-vterm-zsh.sh
+      fi
     '';
   };
 
