@@ -396,7 +396,9 @@
   :hook
   (vterm-mode . evil-emacs-state)
   :config
-  (setq vterm-buffer-name-string "*vterm %s*")
+  (setq vterm-buffer-name-string "*vterm %s*"
+        vterm-tramp-shells '(("ssh" "zsh")))
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
   (add-to-list 'vterm-eval-cmds
                '("update-default-directory" (lambda (path)
                                               (setq default-directory path)))))
