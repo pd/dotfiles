@@ -11,6 +11,18 @@
       enableZshIntegration = true;
     };
 
+    # https://github.com/direnv/direnv/wiki/Sops/bdc3484a0603120cdbec7cdc0d4daf218f2c4ca0
+    xdg.configFile."direnv/direnvrc" = {
+      enable = true;
+      text = ''
+        use_sops() {
+          local path="''${1:-$PWD/.envrc.sops.yaml}"
+          eval "$(sops -d --output-type dotenv "$path" | direnv dotenv bash /dev/stdin)"
+          watch_file "$path"
+        }
+      '';
+    };
+
     programs.fzf = {
       enable = true;
       enableZshIntegration = true;
@@ -30,6 +42,10 @@
       initExtra = ''
         source ${pkgs-unstable.emacsPackages.vterm}/share/emacs/site-lisp/elpa/*/etc/emacs-vterm-zsh.sh
       '';
+
+      sessionVariables = {
+        EDITOR = "emacsclient --alternate-editor='' --reuse-frame";
+      };
 
       shellAliases = {
         g = "git";
