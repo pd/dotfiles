@@ -306,6 +306,8 @@
     (add-hook 'before-save-hook 'jsonnet-reformat-buffer nil t))
   (add-hook 'jsonnet-mode-hook #'pd/setup-jsonnet-mode))
 
+(use-package just-mode)
+
 (use-package lisp-mode
   :ensure nil
   :hook turn-on-eldoc-mode
