@@ -75,11 +75,13 @@
     {
       home.packages = with pkgs; [
         alacritty
+        lswt # to get app-id for riverctl rules
         search-menu
       ];
 
       stylix.targets = {
         firefox.enable = false;
+        emacs.enable = false;
       };
 
       services.dunst.enable = true;
@@ -100,7 +102,7 @@
 
         style = ''
           * {
-            font-family: Noto Sans Mono;
+            font-family: Noto Sans Mono, NotoSans Nerd Font Mono, Symbols Nerd Font;
             font-size: 11pt;
           }
 
@@ -143,7 +145,15 @@
           ];
 
           "river/tags" = {
-            num-tags = 4;
+            num-tags = 6;
+            tag-labels = [
+              "1:󰿗"
+              "2:"
+              "3:󰈹"
+              "4:"
+              "5"
+              "6"
+            ];
           };
 
           cpu = {
@@ -267,6 +277,12 @@
               "${mod} BTN_RIGHT" = "resize-view";
               "${mod} BTN_MIDDLE" = "toggle-float";
             };
+
+            rule-add = [
+              "-app-id 'emacs' tags '3'" # 1|2
+              "-app-id 'firefox' tags '5'" # 1|3
+              "-app-id 'Slack' tags '8'" # 4
+            ];
 
             spawn = [
               "'waybar'"

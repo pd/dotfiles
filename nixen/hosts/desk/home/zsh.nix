@@ -34,6 +34,7 @@
       shellAliases = {
         g = "git";
         z = "j";
+        em = "emacsclient --alternate-editor='' --no-wait --reuse-frame";
       };
 
       plugins = [
