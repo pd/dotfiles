@@ -77,6 +77,9 @@
         alacritty
         lswt # to get app-id for riverctl rules
         search-menu
+        swayidle
+        sway-audio-idle-inhibit
+        wlopm # display on/off
       ];
 
       stylix.targets = {
@@ -141,6 +144,7 @@
             "network#lan"
             "network#wg"
             "pulseaudio"
+            "custom/audio-state"
             "clock"
           ];
 
@@ -189,6 +193,19 @@
                 ""
                 ""
               ];
+            };
+          };
+
+          "custom/audio-state" = {
+            format = "{icon}";
+            exec = "sway-audio-idle-inhibit --dry-print-both-waybar";
+            exec-if = "which sway-audio-idle-inhibit";
+            return-type = "json";
+            format-icons = {
+              output = "";
+              input = "";
+              output-input = "  ";
+              none = "";
             };
           };
 
@@ -284,9 +301,11 @@
               "-app-id 'Slack' tags '8'" # 4
             ];
 
-            spawn = [
-              "'waybar'"
-              "'rivertile -view-padding 2 -outer-padding 0'"
+            spawn = map (cmd: ''"${cmd}"'') [
+              "waybar"
+              "rivertile -view-padding 2 -outer-padding 0"
+              "swayidle -w timeout 600 'wlopm --off *' resume 'wlopm --on *'"
+              "sway-audio-idle-inhibit"
             ];
 
             background-color = "0x6077a6";
