@@ -16,7 +16,7 @@
 ;; tuck most things away in emacs.d/{etc,var}
 (use-package no-littering
   :config
-  (setq custom-file (expand-file-name "etc/custom.el" user-emacs-directory))
+  (setq custom-file (no-littering-expand-etc-file-name "custom.el"))
   (load custom-file)
   (setq backup-directory-alist
         `((".*" . ,(no-littering-expand-var-file-name "backup/"))))
@@ -417,7 +417,7 @@
 
 (defun pd/vterm-or-consult (&optional arg)
   "Use consult to switch to a vterm.
-With no prefix arg, or if no vterms exist, create a new one in default-directory."
+With prefix arg, or if no vterms exist, create a new one in default-directory."
   (interactive "P")
   (require 'consult)
   (let* ((terms (pd/vterm-buffers))
