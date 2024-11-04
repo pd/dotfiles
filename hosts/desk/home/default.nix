@@ -21,6 +21,7 @@
       pkgs-unstable.go
       pkgs-unstable.gotools
       just
+      opentofu
       pyrosimple
       screen
       pkgs-unstable.signal-desktop
