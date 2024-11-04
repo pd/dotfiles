@@ -159,6 +159,10 @@
             ];
           };
 
+          "river/window" = {
+            max-length = 100;
+          };
+
           cpu = {
             format = " {usage}%";
             tooltip = false;
