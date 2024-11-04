@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-git ls-tree --name-only -z -r HEAD | \
-  xargs -0 -n1 git blame --line-porcelain | \
-  grep '^committer ' | \
-  cut -d' ' -f2- | \
-  sort | uniq -c | sort -rg

@@ -1,2 +1,0 @@
-export POW_TIMEOUT=14400 # 4 hours
-export POW_WORKERS=2     # 2 workers per app
