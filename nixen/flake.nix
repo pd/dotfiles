@@ -31,21 +31,10 @@
     };
   };
 
-  # TODO modular + home-manager as both integrated and distinct output
-  # https://github.com/nmasur/dotfiles/blob/a6e4b3130d6f86303d9f80fdedbd38094d8427ac/flake.nix#L286-L307
   outputs =
-    inputs@{
-      self,
-      nixpkgs,
-      nixpkgs-unstable,
-      nixos-generators,
-      home-manager,
-      sops-nix,
-      stylix,
-      ...
-    }:
+    inputs@{ self, ... }:
     rec {
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
+      formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
 
       nixpkgs.overlays = [ (import self.inputs.emacs-overlay) ];
 
@@ -57,7 +46,7 @@
           system = "x86_64-linux";
           specialArgs = {
             inherit net;
-            pkgs-unstable = import nixpkgs-unstable {
+            pkgs-unstable = import inputs.nixpkgs-unstable {
               inherit system;
               config.allowUnfree = true;
             };
