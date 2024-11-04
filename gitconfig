@@ -43,7 +43,6 @@
 	d   = diff --patience
 	ds  = diff --cached --patience
 	dhd = diff HEAD
-	dmb = delete-merged-branches
 	f   = fetch
 	krh = remote rename khargraves krh
 	l   = log --date=short --pretty=format:'%C(bold magenta)%h %Creset%C(green)%cd%Creset %C(white)%aN%Creset %s %C(yellow)%d'

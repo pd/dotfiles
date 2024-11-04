@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+  node-exporter:
+    privileged: true
+    image: prom/node-exporter
+    container_name: node-exporter
+    restart: unless-stopped
+    ports:
+    - "9100:9100"
+    volumes:
+    - /proc:/host/proc:ro
+    - /sys:/host/sys:ro
+    - /:/rootfs:ro
+    command:
+    - "--path.procfs=/host/proc"
+    - "--path.sysfs=/host/sys"
+    - "--collector.filesystem.ignored-mount-points"
+    - "^/(rootfs/)?(dev|etc|host|proc|run|sys|volume1)($$|/)"
+
+  snmp-exporter:
+    image: prom/snmp-exporter
+    container_name: snmp_exporter
+    restart: unless-stopped
+    volumes:
+    - ./snmp.yml:/etc/snmp_exporter/snmp.yml
+    ports:
+    - 9116:9116
+    command:
+    - "--config.file=/etc/snmp_exporter/snmp.yml"
