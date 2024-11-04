@@ -8,6 +8,11 @@
     ./zsh.nix
   ];
 
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+  };
+
   home-manager.users.pd = {
     home.stateVersion = "24.05";
 
