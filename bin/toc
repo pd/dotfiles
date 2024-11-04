@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-# https://news.ycombinator.com/item?id=9811348
-# much <3 ty
-man -P "grep -E '^[^ ]'" $1

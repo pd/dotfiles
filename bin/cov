@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-set -e
-
-pkg="${1:-./...}"
-go test -v -coverpkg="$pkg" -coverprofile=cov.out "$pkg"
-go tool cover -html=cov.out
-rm cov.out
