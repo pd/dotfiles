@@ -65,7 +65,6 @@
     polarity = "dark";
     image = config.lib.stylix.pixel "base03";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/ashes.yaml";
-
   };
 
   home-manager.users.pd =
@@ -238,6 +237,19 @@
         };
       };
 
+      services.swayidle = {
+        enable = true;
+        extraArgs = [ "-d" ];
+        systemdTarget = "river-session.target";
+        timeouts = [
+          {
+            timeout = 600;
+            command = "${pkgs.wlopm}/bin/wlopm --off '*'";
+            resumeCommand = "${pkgs.wlopm}/bin/wlopm --on '*'";
+          }
+        ];
+      };
+
       wayland.windowManager.river = {
         enable = true;
         systemd.enable = true;
@@ -301,10 +313,9 @@
               "-app-id 'Slack' tags '8'" # 4
             ];
 
-            spawn = map (cmd: ''"${cmd}"'') [
+            spawn = map (cmd: "'${cmd}'") [
               "waybar"
               "rivertile -view-padding 2 -outer-padding 0"
-              "swayidle -w timeout 600 'wlopm --off *' resume 'wlopm --on *'"
               "sway-audio-idle-inhibit"
             ];
 
