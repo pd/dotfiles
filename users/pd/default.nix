@@ -1,4 +1,13 @@
 { pkgs, ... }:
+let
+  etc = {
+    "direnv/direnvrc" = ./etc/direnvrc;
+    "irb/irbrc" = ./etc/irbrc;
+    "pry/pryrc" = ./etc/pryrc;
+    "pg/psqlrc" = ./etc/psqlrc;
+    "sqlite3/sqliterc" = ./etc/sqliterc;
+  };
+in
 {
   imports = [
     ./git.nix
@@ -12,6 +21,8 @@
 
   home-manager.users.pd = {
     programs.home-manager.enable = true;
+
+    xdg.configFile = builtins.mapAttrs (dest: source: { inherit source; }) etc;
 
     home.packages = with pkgs; [
       age
