@@ -42,6 +42,7 @@
         fi
 
         export PSQLRC="$HOME/.config/pg/psqlrc"
+        export KUBECTL_EXTERNAL_DIFF='dyff between --omit-header --set-exit-code'
       '';
 
       initExtra = ''

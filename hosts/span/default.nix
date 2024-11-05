@@ -9,29 +9,9 @@
 
   work.enable = true;
 
-  # lol?
-  environment.systemPackages = with pkgs; [
-    cfssl
-    curl
-    dig
-    dyff
-    fd
-    git
-    google-cloud-sdk
-    htop
-    kfilt
-    kubectl
-    kubernetes-helm
-    kustomize
-    jq
-    iterm2
-    mise
-    procps
-    ripgrep
-    stern
-    tree
-    vim
-  ];
+  environment.variables = {
+    EDITOR = "vim";
+  };
 
   nix = {
     package = pkgs.nix;
@@ -87,6 +67,7 @@
       "dash"
       "discord"
       "firefox"
+      "iterm2"
       "orbstack"
       "neo4j"
       "notion"

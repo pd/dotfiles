@@ -24,15 +24,45 @@ in
 
     xdg.configFile = builtins.mapAttrs (dest: source: { inherit source; }) etc;
 
-    home.packages = with pkgs; [
-      age
-      age-plugin-yubikey
-      cfssl
-      just
-      nil
-      nixfmt-rfc-style
-      sops
-      watchexec
-    ];
+    home.packages =
+      with pkgs;
+      [
+        age
+        age-plugin-yubikey
+        cfssl
+        curl
+        dig
+        dyff
+        fd
+        git
+        google-cloud-sdk
+        htop
+        just
+        kfilt
+        kubectl
+        kubernetes-helm
+        kustomize
+        jq
+        mise
+        nil
+        nixfmt-rfc-style
+        sops
+        stern
+        watchexec
+      ]
+      ++ (lib.optionals stdenv.isDarwin [
+        # these are currently installed globally via modules/core,
+        # but I'm not using that (yet) on darwin:
+        curl
+        dig
+        fd
+        git
+        htop
+        jq
+        ripgrep
+        tcpdump
+        tree
+        vim
+      ]);
   };
 }
