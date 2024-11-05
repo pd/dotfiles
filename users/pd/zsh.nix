@@ -19,9 +19,20 @@
     programs.zsh = {
       enable = true;
 
-      enableVteIntegration = true;
       autocd = true;
-      syntaxHighlighting.enable = true;
+      enableVteIntegration = true;
+
+      history = {
+        save = 50000;
+        size = 10000;
+        path = "$HOME/.history.zsh";
+
+        expireDuplicatesFirst = true;
+        ignoreDups = true;
+        ignoreAllDups = true;
+        ignoreSpace = true;
+        share = true;
+      };
 
       envExtra = ''
         if [[ -n "$INSIDE_EMACS" ]]; then
@@ -33,9 +44,19 @@
         export PSQLRC="$HOME/.config/pg/psqlrc"
       '';
 
+      initExtra = ''
+        # man 1 zshoptions
+        setopt glob_star_short
+        setopt hist_reduce_blanks
+        setopt hist_save_no_dups
+        setopt inc_append_history
+        unsetopt nomatch
+      '';
+
       shellAliases = {
         em = "emacsclient --alternate-editor='' --no-wait --reuse-frame";
         g = "git";
+        k = "kubectl";
         ll = "ls -l";
         ls = "ls -Fh";
         z = "j";
