@@ -67,7 +67,7 @@
     (when (executable-find "mise")
       (with-temp-buffer
         (call-process "mise" nil t nil "bin-paths")
-        (let ((paths (s-lines (buffer-substring (point-min) (point-max)))))
+        (let ((paths (split-string (buffer-substring (point-min) (point-max)) "\n")))
           (setq exec-path (append paths exec-path)))))))
 
 ;; decent theme
@@ -84,7 +84,8 @@
   (set-face-background 'hl-line "#222"))
 
 (use-package simple-modeline
-  :init (simple-modeline-mode))
+  :config
+  (simple-modeline-mode))
 
 ;; currently emacs-plus@28 via the emacs-plus tap:
 ; https://github.com/d12frosted/homebrew-emacs-plus
@@ -94,6 +95,9 @@
         ns-function-modifier     'hyper
         ns-use-native-fullscreen nil)
   (setq dired-use-ls-dired nil)
+
+  (add-to-list 'default-frame-alist '(ns-appearance . dark))
+  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . nil))
 
   ; no i do not want to print
   (unbind-key "s-p"))

@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ inputs, pkgs, pkgs-unstable, ... }:
 {
   system.stateVersion = 5;
 
@@ -83,6 +83,11 @@
     brews = [ "restish" ];
   };
 
+  services.emacs = {
+    enable = true;
+    package = pkgs-unstable.emacs30;
+  };
+
   programs.zsh = {
     enable = true;
     interactiveShellInit = ''
@@ -109,5 +114,6 @@
 
   home-manager.users.pd = {
     home.stateVersion = "24.05";
+    home.packages = [ pkgs-unstable.emacs30 ];
   };
 }
