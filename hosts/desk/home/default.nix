@@ -1,17 +1,11 @@
 { pkgs, pkgs-unstable, ... }:
 {
   imports = [
+    ../../../users/pd
     ./emacs.nix
-    ./git.nix
     ./ssh.nix
     ./wm.nix
-    ./zsh.nix
   ];
-
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-  };
 
   home-manager.users.pd = {
     home.stateVersion = "24.05";
@@ -20,19 +14,14 @@
     programs.firefox.enable = true;
 
     home.packages = with pkgs; [
-      age
-      age-plugin-yubikey
-      cfssl
+      git-trim
       pkgs-unstable.go
       pkgs-unstable.gotools
-      just
       opentofu
       pyrosimple
       screen
       pkgs-unstable.signal-desktop
       pkgs-unstable.slack
-      sops
-      watchexec
     ];
   };
 
