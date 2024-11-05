@@ -365,6 +365,22 @@
         "type": "github"
       }
     },
+    "private": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1730817768,
+        "narHash": "sha256-HTqyOKec6JuPSxSroNkUpRoFPD79/PY2EMWBLoPul+c=",
+        "ref": "refs/heads/master",
+        "rev": "906517f5d46614094a5fbb9ba6c3b81d59f4aa75",
+        "revCount": 130,
+        "type": "git",
+        "url": "ssh://git@github.com/pd/dotfiles.private.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/pd/dotfiles.private.git"
+      }
+    },
     "root": {
       "inputs": {
         "emacs-overlay": "emacs-overlay",
@@ -373,6 +389,7 @@
         "nixos-generators": "nixos-generators",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "private": "private",
         "sops-nix": "sops-nix",
         "stylix": "stylix"
       }

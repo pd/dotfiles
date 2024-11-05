@@ -3,6 +3,7 @@
 .envrc
 
 emacs.d/elpa
+emacs.d/tree-sitter
 emacs.d/var
 
 vim-tmp/*
