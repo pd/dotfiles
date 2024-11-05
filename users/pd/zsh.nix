@@ -52,6 +52,13 @@
         setopt hist_save_no_dups
         setopt inc_append_history
         unsetopt nomatch
+
+        if which mise &>/dev/null; then
+          # do not allow mise to take over $GOBIN, I don't want
+          # a different dir every time I update go
+          export GOBIN=~/go/bin
+          source <(mise activate zsh)
+        fi
       '';
 
       shellAliases = {
