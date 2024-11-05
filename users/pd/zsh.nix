@@ -47,6 +47,7 @@
 
       initExtra = ''
         # man 1 zshoptions
+        setopt cdablevars
         setopt glob_star_short
         setopt hist_reduce_blanks
         setopt hist_save_no_dups
