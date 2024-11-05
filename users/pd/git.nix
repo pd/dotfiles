@@ -1,7 +1,9 @@
-{ pkgs, ... }:
+{ ... }:
 {
   home-manager.users.pd = {
-    home.packages = [ pkgs.git-trim ];
+    # Fails to build on darwin atm;
+    # I'd previously installed it via cargo:
+    # home.packages = [ pkgs.git-trim ];
 
     programs.git = {
       enable = true;

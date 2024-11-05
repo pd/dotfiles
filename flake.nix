@@ -5,6 +5,18 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
+    private = {
+      # TODO would prefer to just keep using a submodule as before
+      # https://github.com/NixOS/nix/pull/7862
+      url = "git+ssh://git@github.com/pd/dotfiles.private.git";
+      flake = false;
+    };
+
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -45,7 +57,7 @@
         desk = inputs.nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
           specialArgs = {
-            inherit net;
+            inherit net inputs;
             pkgs-unstable = import inputs.nixpkgs-unstable {
               inherit system;
               config.allowUnfree = true;
@@ -96,6 +108,20 @@
             inputs.sops-nix.nixosModules.sops
           ];
         };
+      };
+
+      darwinConfigurations."span" = inputs.nix-darwin.lib.darwinSystem rec {
+        system = "x86_64-darwin";
+        specialArgs = {
+          inherit net inputs;
+          pkgs-unstable = import inputs.nixpkgs-unstable {
+            inherit system;
+          };
+        };
+        modules = [
+          inputs.home-manager.darwinModules.home-manager
+          ./hosts/span
+        ];
       };
 
       images = {

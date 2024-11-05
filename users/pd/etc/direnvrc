@@ -1,0 +1,6 @@
+# https://github.com/direnv/direnv/wiki/Sops/bdc3484a0603120cdbec7cdc0d4daf218f2c4ca0
+use_sops() {
+  local path="''${1:-$PWD/.envrc.sops.yaml}"
+  eval "$(sops -d --output-type dotenv "$path" | direnv dotenv bash /dev/stdin)"
+  watch_file "$path"
+}
