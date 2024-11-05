@@ -4,6 +4,8 @@ prepend_path () {
   fi
 }
 
+# nix it
+if false; then
 # OSX's path_helper is full on evil. It's run from /etc/zshrc, so every
 # interactive shell, and it aggressively pushes `/bin:/usr/bin` etc to the
 # front of $PATH which is THE EXACT WORST OPTION WHY WOULD YOU DO THAT FFS.
@@ -44,4 +46,5 @@ fi
 
 if which fasd >/dev/null 2>&1; then
   eval "$(fasd --init auto)"
+fi
 fi
