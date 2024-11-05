@@ -33,3 +33,7 @@ pi op="test":
 
 donix op="test":
     nixos-rebuild {{op}} --flake '.#donix' --target-host donix --build-host donix --use-remote-sudo --fast
+
+# can only really be run on span, doesn't have test or repl, etc
+span op="switch":
+    darwin-rebuild {{op}} --flake '.#span'

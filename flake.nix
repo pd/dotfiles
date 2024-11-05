@@ -103,8 +103,14 @@
         };
       };
 
-      darwinConfigurations."span" = inputs.nix-darwin.lib.darwinSystem {
+      darwinConfigurations."span" = inputs.nix-darwin.lib.darwinSystem rec {
         system = "x86_64-darwin";
+        specialArgs = {
+          inherit net;
+          pkgs-unstable = import inputs.nixpkgs-unstable {
+            inherit system;
+          };
+        };
         modules = [
           inputs.home-manager.darwinModules.home-manager
           ./hosts/span
