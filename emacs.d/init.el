@@ -131,6 +131,7 @@
   :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
 
 (use-package savehist
+  :ensure nil
   :init (savehist-mode))
 
 (use-package marginalia
@@ -258,6 +259,7 @@
   :init (popwin-mode))
 
 (use-package recentf
+  :ensure nil
   :init (recentf-mode)
   :config
   (setq recentf-max-saved-items 250)
@@ -279,6 +281,7 @@
   :config (setq which-key-idle-delay 0.8))
 
 (use-package windmove
+  :ensure nil
   :bind (("s-h" . windmove-left)
          ("s-j" . windmove-down)
          ("s-k" . windmove-up)
@@ -336,7 +339,7 @@
   (setq comment-column 0))
 
 ; reliably annoying that this doesn't descend from lisp-mode
-(use-package emacs-lisp-mode
+(use-package elisp-mode
   :ensure nil
   :hook turn-on-eldoc-mode
   :config
@@ -352,10 +355,6 @@
   (add-hook 'nix-mode-hook 'nixfmt-on-save-mode))
 
 (use-package rust-mode
-  :config
-  (setq rust-format-on-save t))
-
-(use-package rust-ts-mode
   :config
   (setq rust-format-on-save t))
 
