@@ -16,7 +16,7 @@ in
 
       programs.emacs = {
         enable = true;
-        package = pkgs-unstable.emacs30-pgtk;
+        package = pkgs.unstable.emacs30-pgtk;
         extraPackages =
           epkgs: with epkgs; [
             treesit-grammars.with-all-grammars

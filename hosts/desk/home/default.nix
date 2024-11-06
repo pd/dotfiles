@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ../../../users/pd
@@ -15,13 +15,13 @@
 
     home.packages = with pkgs; [
       git-trim
-      pkgs-unstable.go
-      pkgs-unstable.gotools
+      pkgs.unstable.go
+      pkgs.unstable.gotools
       opentofu
       pyrosimple
       screen
-      pkgs-unstable.signal-desktop
-      pkgs-unstable.slack
+      pkgs.unstable.signal-desktop
+      pkgs.unstable.slack
     ];
   };
 

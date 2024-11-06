@@ -22,11 +22,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    emacs-overlay = {
-      url = "github:nix-community/emacs-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -44,26 +39,38 @@
   };
 
   outputs =
-    inputs@{ self, ... }:
-    rec {
-      formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
-
-      nixpkgs.overlays = [ (import self.inputs.emacs-overlay) ];
-
+    inputs:
+    let
       net = import ./modules/net.nix { lib = inputs.nixpkgs.lib; };
+
+      specialArgs = {
+        inherit net inputs;
+      };
+
+      withOverlays = system: {
+        nixpkgs = {
+          config.allowUnfree = true;
+          overlays = [
+            (final: prev: {
+              unstable = import inputs.nixpkgs-unstable {
+                system = system;
+                config.allowUnfree = true;
+              };
+            })
+          ];
+        };
+      };
+    in
+    {
+      formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
 
       nixosConfigurations = {
         # nixos-rebuild switch --flake .#desk
         desk = inputs.nixpkgs.lib.nixosSystem rec {
+          inherit specialArgs;
           system = "x86_64-linux";
-          specialArgs = {
-            inherit net inputs;
-            pkgs-unstable = import inputs.nixpkgs-unstable {
-              inherit system;
-              config.allowUnfree = true;
-            };
-          };
           modules = [
+            (withOverlays system)
             ./hosts/desk
             inputs.home-manager.nixosModules.home-manager
             inputs.sops-nix.nixosModules.sops
@@ -73,10 +80,8 @@
 
         # nixos-rebuild switch --flake .#donix --target-host donix --build-host donix --use-remote-sudo
         donix = inputs.nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
           system = "x86_64-linux";
-          specialArgs = {
-            inherit net;
-          };
           modules = [
             ./hosts/donix
             inputs.sops-nix.nixosModules.sops
@@ -86,10 +91,8 @@
 
         # nixos-rebuild switch --flake .#htpc --target-host htpc --build-host htpc --use-remote-sudo
         htpc = inputs.nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
           system = "x86_64-linux";
-          specialArgs = {
-            inherit net;
-          };
           modules = [
             ./hosts/htpc
             inputs.sops-nix.nixosModules.sops
@@ -99,10 +102,8 @@
         # building the SD, from desk with aarch64 emu:
         # nix run nixpkgs#nixos-generators -- -f sd-aarch64 --flake .#pi --system aarch64-linux -o ./pi.sd
         pi = inputs.nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
           system = "aarch64-linux";
-          specialArgs = {
-            inherit net;
-          };
           modules = [
             ./hosts/pi
             inputs.sops-nix.nixosModules.sops
@@ -112,13 +113,9 @@
 
       darwinConfigurations."span" = inputs.nix-darwin.lib.darwinSystem rec {
         system = "x86_64-darwin";
-        specialArgs = {
-          inherit net inputs;
-          pkgs-unstable = import inputs.nixpkgs-unstable {
-            inherit system;
-          };
-        };
+        specialArgs = specialArgs;
         modules = [
+          (withOverlays system)
           inputs.home-manager.darwinModules.home-manager
           ./hosts/span
         ];
