@@ -112,8 +112,8 @@
       };
 
       darwinConfigurations."span" = inputs.nix-darwin.lib.darwinSystem rec {
+        inherit specialArgs;
         system = "x86_64-darwin";
-        specialArgs = specialArgs;
         modules = [
           (withOverlays system)
           inputs.home-manager.darwinModules.home-manager
