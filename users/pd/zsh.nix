@@ -43,6 +43,9 @@
 
         export PSQLRC="$HOME/.config/pg/psqlrc"
         export KUBECTL_EXTERNAL_DIFF='dyff between --omit-header --set-exit-code'
+
+        # not everything is nixied up yet
+        export PATH="$HOME/bin:$HOME/go/bin:$PATH"
       '';
 
       initExtra = ''
@@ -55,9 +58,6 @@
         unsetopt nomatch
 
         if which mise &>/dev/null; then
-          # do not allow mise to take over $GOBIN, I don't want
-          # a different dir every time I update go
-          export GOBIN=~/go/bin
           source <(mise activate zsh)
         fi
       '';
