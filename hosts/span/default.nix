@@ -1,4 +1,10 @@
-{ inputs, pkgs, ... }:
+{
+  config,
+  inputs,
+  net,
+  pkgs,
+  ...
+}:
 {
   system.stateVersion = 5;
 
@@ -30,7 +36,6 @@
     };
   };
 
-  nixpkgs.config.allowUnfree = true;
   services.nix-daemon.enable = true;
 
   security.pam.enableSudoTouchIdAuth = true;
@@ -59,6 +64,11 @@
       remapCapsLockToControl = true;
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    wireguard-go
+    wireguard-tools
+  ];
 
   # Mostly use homebrew for now, to approximate my current system
   homebrew = {
@@ -122,5 +132,31 @@
 
     # Keep orbstack in the ssh config
     programs.ssh.includes = [ "~/.orbstack/ssh/config" ];
+
+    sops.defaultSopsFile = ./secrets.yaml;
+    sops.age.keyFile = "/Users/pd/Library/Application Support/sops/age/keys.txt";
+    sops.secrets.wireguard-private-key = { };
+    sops.secrets.wireguard-preshared-key = { };
   };
+
+  networking.wg-quick.interfaces.wg0 =
+    let
+      secrets = config.home-manager.users.pd.sops.secrets;
+    in
+    {
+      privateKeyFile = secrets.wireguard-private-key.path;
+      address = [ "${net.hosts.span.wg.ip}/32" ];
+      dns = [ "${net.hosts.pi.wg.ip},wg,home" ];
+      postDown = "networksetup -setdnsservers Wi-Fi Empty";
+
+      peers = [
+        {
+          endpoint = "wg.krh.me:51820";
+          publicKey = net.hosts.donix.wg.publicKey;
+          presharedKeyFile = secrets.wireguard-preshared-key.path;
+          allowedIPs = [ "10.100.100.0/24" ];
+          persistentKeepalive = 25;
+        }
+      ];
+    };
 }

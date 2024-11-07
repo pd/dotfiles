@@ -117,6 +117,7 @@
         modules = [
           (withOverlays system)
           inputs.home-manager.darwinModules.home-manager
+          { home-manager.sharedModules = [ inputs.sops-nix.homeManagerModules.sops ]; }
           ./hosts/span
         ];
       };
