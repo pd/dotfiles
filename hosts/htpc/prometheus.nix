@@ -42,6 +42,7 @@ in
         "htpc.home"
         "pi.home"
         "nas.home"
+        "wrt.home"
         "srv.wg"
       ])
       (staticJob "prometheus" ports.prometheus [ "127.0.0.1" ])
