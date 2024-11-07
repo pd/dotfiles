@@ -38,6 +38,7 @@ in
         git
         google-cloud-sdk
         htop
+        ipcalc
         just
         kfilt
         kubectl
