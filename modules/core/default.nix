@@ -8,32 +8,13 @@ in
   imports = [
     ../network
     ./monitoring.nix
+    ./nix.nix
+    ./packages.nix
+    ./shell.nix
   ];
 
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   sops.defaultSopsFile = ../../hosts/${config.networking.hostName}/secrets.yaml;
-
-  nix = {
-    settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-
-      trusted-users = [
-        "root"
-        "@wheel"
-      ];
-    };
-
-    gc = {
-      automatic = true;
-      persistent = true;
-      dates = "weekly";
-      randomizedDelaySec = "30min";
-      options = "--delete-older-than 30d";
-    };
-  };
 
   networking.firewall.enable = true;
 
@@ -41,20 +22,6 @@ in
     defaultLocale = "en_US.UTF-8";
     supportedLocales = [ "en_US.UTF-8/UTF-8" ];
   };
-
-  environment.systemPackages = with pkgs; [
-    curl
-    dig
-    fd
-    git
-    htop
-    jq
-    procps
-    ripgrep
-    tcpdump
-    tree
-    vim
-  ];
 
   services.openssh = {
     enable = true;

@@ -31,10 +31,7 @@ in
         age
         age-plugin-yubikey
         cfssl
-        curl
-        dig
         dyff
-        fd
         google-cloud-sdk
         htop
         ipcalc
@@ -42,7 +39,6 @@ in
         kfilt
         kubernetes-helm
         kustomize
-        jq
         mise
         stern
         watchexec
@@ -52,18 +48,6 @@ in
         nil
         nixfmt-rfc-style
         sops
-      ])
-      ++ (lib.optionals stdenv.isDarwin [
-        # these are currently installed globally via modules/core,
-        # but I'm not using that (yet) on darwin:
-        curl
-        dig
-        fd
-        htop
-        ripgrep
-        tcpdump
-        tree
-        vim
       ]);
   };
 }

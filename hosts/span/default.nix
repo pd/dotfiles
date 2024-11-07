@@ -9,6 +9,8 @@
   system.stateVersion = 5;
 
   imports = [
+    ../../modules/core/nix.nix
+    ../../modules/core/packages.nix
     ../../modules/core/shell.nix
 
     ../../users/pd
@@ -22,8 +24,6 @@
   };
 
   nix = {
-    package = pkgs.nix;
-
     settings = {
       experimental-features = [
         "nix-command"
