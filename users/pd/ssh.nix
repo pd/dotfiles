@@ -1,6 +1,11 @@
-{ lib, net, ... }:
+{
+  config,
+  lib,
+  net,
+  ...
+}:
 let
-  others = removeAttrs net.ssh.hosts [ "desk" ];
+  others = removeAttrs net.ssh.hosts [ config.networking.hostName ];
   matchBlock =
     name: host:
     {

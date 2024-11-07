@@ -3,7 +3,6 @@
   imports = [
     ../../../users/pd
     ./emacs.nix
-    ./ssh.nix
     ./wm.nix
   ];
 
