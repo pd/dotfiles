@@ -20,13 +20,13 @@ in
         options = "--delete-older-than 30d";
       }
 
-      (mkIf isLinux {
+      (optionalAttrs isLinux {
         persistent = true;
         dates = "weekly";
         randomizedDelaySec = "30min";
       })
 
-      (mkIf (!isLinux) {
+      (optionalAttrs (!isLinux) {
         interval = {
           Weekday = 0; # Sunday
           Hour = 6;
