@@ -1,9 +1,4 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
+{ lib, net, ... }:
 {
   imports = [
     ../../modules/core
@@ -14,6 +9,12 @@
 
   networking.hostName = "donix";
   wan.natInterface = "ens3";
+
+  networking.nameservers = lib.mkForce [
+    net.hosts.pi.wg.ip
+    "1.1.1.1"
+    "8.8.8.8"
+  ];
 
   time.timeZone = "America/Chicago";
 

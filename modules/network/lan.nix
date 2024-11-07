@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  config,
+  lib,
+  net,
+  ...
+}:
 with lib;
 let
   cfg = config.lan;
@@ -9,7 +14,7 @@ in
 
     lan.gateway = mkOption {
       type = types.str;
-      default = "192.168.1.254";
+      default = "192.168.1.1";
     };
 
     lan.ipv4 = mkOption { type = types.str; };
@@ -17,7 +22,7 @@ in
     lan.nameservers = mkOption {
       type = types.listOf types.str;
       default = [
-        "192.168.1.13" # pi
+        net.hosts.pi.lan.ip
         "2606:4700:4700::1111"
         "1.1.1.1"
         "8.8.8.8"
