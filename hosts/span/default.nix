@@ -35,6 +35,8 @@
 
   security.pam.enableSudoTouchIdAuth = true;
 
+  networking.hostName = "span";
+
   system = {
     activationScripts.postUserActivation.text = ''
       # activateSettings -u will reload the settings from the database and
@@ -117,5 +119,8 @@
   home-manager.users.pd = {
     home.stateVersion = "24.05";
     home.packages = [ pkgs.unstable.emacs30 ];
+
+    # Keep orbstack in the ssh config
+    programs.ssh.includes = [ "~/.orbstack/ssh/config" ];
   };
 }
