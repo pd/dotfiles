@@ -12,6 +12,7 @@ let
 in
 {
   imports = [
+    ./bin.nix
     ./git.nix
     ./ssh.nix
     ./zsh.nix
