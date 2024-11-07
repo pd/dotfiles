@@ -312,11 +312,11 @@
     "private": {
       "flake": false,
       "locked": {
-        "lastModified": 1730835806,
-        "narHash": "sha256-8MrloRDLywMXSLqhneHeFCd/qRJF/X/eRZ7R43SzFIY=",
+        "lastModified": 1731014190,
+        "narHash": "sha256-H2jAEWAKwZIUazsAotWZ2ivjWHguVH8V4ix/Ji3qC18=",
         "ref": "refs/heads/main",
-        "rev": "ce526d360076434ab3f60a8c3c86dae3b4c7643b",
-        "revCount": 132,
+        "rev": "f6f41c7948db60f907faf9c19d17546fd4c2e2b5",
+        "revCount": 133,
         "type": "git",
         "url": "ssh://git@github.com/pd/dotfiles.private.git"
       },
