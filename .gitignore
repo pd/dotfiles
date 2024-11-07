@@ -1,6 +1,5 @@
 *.swp
 *.elc
-.envrc
 
 emacs.d/elpa
 emacs.d/tree-sitter
