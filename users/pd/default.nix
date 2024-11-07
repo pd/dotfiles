@@ -3,6 +3,8 @@ let
   etc = {
     "direnv/direnvrc" = ./etc/direnvrc;
     "irb/irbrc" = ./etc/irbrc;
+    "mise/config.toml" = ./etc/mise.toml;
+    "mise/go" = ./etc/mise-go-packages;
     "pry/pryrc" = ./etc/pryrc;
     "pg/psqlrc" = ./etc/psqlrc;
     "sqlite3/sqliterc" = ./etc/sqliterc;
@@ -39,12 +41,12 @@ in
         kfilt
         kubernetes-helm
         kustomize
-        mise
         stern
         watchexec
       ]
       ++ (with unstable; [
         kubectl
+        mise
         nil
         nixfmt-rfc-style
         sops
