@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   home-manager.users.pd = {
     # Fails to build on darwin atm;
@@ -7,6 +7,7 @@
 
     programs.git = {
       enable = true;
+      package = pkgs.unstable.git;
       userName = "Kyle Hargraves";
       userEmail = "pd@krh.me";
 

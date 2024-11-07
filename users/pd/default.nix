@@ -35,32 +35,31 @@ in
         dig
         dyff
         fd
-        git
         google-cloud-sdk
         htop
         ipcalc
         just
         kfilt
-        kubectl
         kubernetes-helm
         kustomize
         jq
         mise
-        nil
-        nixfmt-rfc-style
-        sops
         stern
         watchexec
       ]
+      ++ (with unstable; [
+        kubectl
+        nil
+        nixfmt-rfc-style
+        sops
+      ])
       ++ (lib.optionals stdenv.isDarwin [
         # these are currently installed globally via modules/core,
         # but I'm not using that (yet) on darwin:
         curl
         dig
         fd
-        git
         htop
-        jq
         ripgrep
         tcpdump
         tree

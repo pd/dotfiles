@@ -29,10 +29,6 @@ in
         startWithUserSession = true;
       };
 
-      home.packages = with pkgs; [
-        emacs-all-the-icons-fonts
-        nixfmt-rfc-style
-        nil
-      ];
+      home.packages = with pkgs; [ emacs-all-the-icons-fonts ];
     };
 }
