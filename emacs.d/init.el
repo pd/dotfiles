@@ -415,13 +415,21 @@
   (vterm-max-scrollback 50000)
   :hook
   (vterm-mode . evil-emacs-state)
+  :bind
+  (:map vterm-mode-map                  ; reclaim some bindings
+        ("M-'"  . pd/vterm-or-consult)
+        ("M-\"" . vterm))
   :config
   (setq vterm-buffer-name-string "*vterm %s*"
-        vterm-tramp-shells '(("ssh" "zsh")))
+        vterm-tramp-shells '(("ssh" "zsh"))
+        vterm-copy-mode-remove-fake-newlines t)
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
   (add-to-list 'vterm-eval-cmds
                '("update-default-directory" (lambda (path)
-                                              (setq default-directory path)))))
+                                              (setq default-directory path))))
+  (defun pd/vterm-term-prompt-regexp ()
+    (setq term-prompt-regexp "^> "))
+  (add-hook 'vterm-mode-hook 'pd/vterm-term-prompt-regexp))
 
 (defun pd/vterm-buffers ()
   (--filter (with-current-buffer it (eq major-mode 'vterm-mode))
@@ -443,9 +451,11 @@ With prefix arg, or if no vterms exist, create a new one in default-directory."
   (let* ((terms (pd/vterm-buffers))
          (n (length terms)))
     (cond
-     ((or arg (eq n 0))
+     ; no vterms, explicit prefix arg, or single vterm that is our current buffer
+     ((or arg (eq n 0) (and (eq n 1) (eq major-mode 'vterm-mode)))
       (vterm arg))
-     ((eq n 1)
+     ; one vterm that isn't our current buffer
+     ((and (eq n 1) (not (eq major-mode 'vterm-mode)))
       (switch-to-buffer (car terms)))
      (t
       (consult--multi '(consult-vterm-buffer-source))))))
@@ -521,6 +531,7 @@ uncomment the current line."
    ;; misc
    ("M-;"     . pd/comment-dwim)
    ("M-'"     . pd/vterm-or-consult)
+   ("M-\""    . vterm)
    ("C-x C-b" . ibuffer)
    ("C-x C-d" . dired)
    ("C-x d"   . dired)
