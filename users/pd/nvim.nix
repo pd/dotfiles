@@ -58,10 +58,9 @@
       };
     };
 
-    # If we're using home-manager, then favor nvim
-    programs.zsh.envExtra = ''
-      alias vim=nvim
-      alias vimdiff='nvim -d'
-    '';
+    programs.zsh.shellAliases = {
+      vim = "nvim";
+      vimdiff = "nvim -d";
+    };
   };
 }

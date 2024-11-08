@@ -101,7 +101,9 @@
       "zoom"
     ];
 
-    brews = [ "restish" ];
+    brews = [
+      "restish"
+    ];
   };
 
   # half of this should already be installed via brew, but just
@@ -123,7 +125,10 @@
 
   home-manager.users.pd = {
     home.stateVersion = "24.05";
-    home.packages = [ pkgs.unstable.emacs30 ];
+    home.packages = [
+      pkgs.unstable.emacs30
+      pkgs.kyverno-chainsaw
+    ];
 
     # Keep orbstack in the ssh config
     programs.ssh.includes = [ "~/.orbstack/ssh/config" ];
