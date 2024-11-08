@@ -2,6 +2,9 @@
 {
   home-manager.users.pd =
     { config, ... }:
+    let
+      xdg = config.xdg;
+    in
     {
       programs.autojump = {
         enable = true;
@@ -25,12 +28,12 @@
 
         autocd = true;
         enableVteIntegration = true;
-        zprof.enable = true;
+        # zprof.enable = true;
 
         history = {
           save = 50000;
           size = 10000;
-          path = "$HOME/.history.zsh";
+          path = "${xdg.cacheHome}/zsh/history";
 
           expireDuplicatesFirst = true;
           ignoreDups = true;
@@ -38,6 +41,22 @@
           ignoreSpace = true;
           share = true;
         };
+
+        completionInit = ''
+          # Only rebuild zcompdump once a day
+          # Lifted from prezto:
+          # https://github.com/sorin-ionescu/prezto/blob/9195b6/modules/completion/init.zsh#L53-L68
+          autoload -Uz compinit
+          _comp_path="${xdg.cacheHome}/zsh/zcompdump"
+          if [[ $_comp_path(#qNmh-22) ]]; then
+            compinit -C -d "$_comp_path"
+          else
+            mkdir -p "$_comp_path:h"
+            compinit -i -d "$_comp_path"
+            touch "$_comp_path"
+          fi
+          unset _comp_path
+        '';
 
         envExtra = ''
           if [[ -n "$INSIDE_EMACS" ]]; then
@@ -53,27 +72,24 @@
           export PATH="$HOME/bin:$HOME/go/bin:$PATH"
         '';
 
-        initExtra =
-          let
-            xdg = config.xdg;
-          in
-          ''
-            set -o emacs
+        initExtra = ''
+          set -o emacs
 
-            # man 1 zshoptions
-            setopt cdablevars
-            setopt glob_star_short
-            setopt hist_reduce_blanks
-            setopt hist_save_no_dups
-            setopt inc_append_history
-            unsetopt nomatch
+          # man 1 zshoptions
+          setopt cdablevars
+          setopt glob_star_short
+          setopt hist_reduce_blanks
+          setopt hist_save_no_dups
+          setopt inc_append_history
+          unsetopt nomatch
 
-            if which mise &>/dev/null; then
-              source <(mise activate zsh)
-            fi
+          if which mise &>/dev/null; then
+            source <(mise activate zsh)
+          fi
 
-            [[ -f "${xdg.configHome}/zsh/p10k.zsh" ]] && source "${xdg.configHome}/zsh/p10k.zsh"
-          '';
+          prompt off
+          [[ -f "${xdg.configHome}/zsh/p10k.zsh" ]] && source "${xdg.configHome}/zsh/p10k.zsh"
+        '';
 
         shellAliases = {
           em = "emacsclient --alternate-editor='' --no-wait --reuse-frame";
