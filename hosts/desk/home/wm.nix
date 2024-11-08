@@ -65,6 +65,14 @@
     polarity = "dark";
     image = config.lib.stylix.pixel "base03";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/ashes.yaml";
+
+    fonts = {
+      monospace = {
+        name = "FiraCode Nerd Font";
+        package = pkgs.fira-code;
+      };
+      sizes.terminal = 10;
+    };
   };
 
   home-manager.users.pd =
@@ -73,7 +81,6 @@
     in
     {
       home.packages = with pkgs; [
-        alacritty
         lswt # to get app-id for riverctl rules
         search-menu
         swayidle
@@ -87,6 +94,13 @@
       };
 
       services.dunst.enable = true;
+
+      programs.alacritty = {
+        enable = true;
+        settings = {
+          mouse.hide_when_typing = true;
+        };
+      };
 
       programs.fuzzel = {
         enable = true;

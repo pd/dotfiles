@@ -25,6 +25,7 @@
 
         autocd = true;
         enableVteIntegration = true;
+        zprof.enable = true;
 
         history = {
           save = 50000;
@@ -57,6 +58,8 @@
             xdg = config.xdg;
           in
           ''
+            set -o emacs
+
             # man 1 zshoptions
             setopt cdablevars
             setopt glob_star_short
