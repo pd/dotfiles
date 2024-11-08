@@ -21,7 +21,7 @@
         enableZshIntegration = true;
       };
 
-      home.packages = [ pkgs.zsh-powerlevel10k ];
+      # home.packages = [ pkgs.zsh-powerlevel10k ];
 
       programs.zsh = {
         enable = true;
@@ -112,8 +112,18 @@
           }
           {
             name = "powerlevel10k";
-            src = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k";
             file = "powerlevel10k.zsh-theme";
+            src = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k";
+          }
+          {
+            name = "zhooks";
+            file = "zhooks.plugin.zsh";
+            src = pkgs.fetchFromGitHub {
+              owner = "agkozak";
+              repo = "zhooks";
+              rev = "e6616b4a2786b45a56a2f591b79439836e678d22";
+              sha256 = "zahXMPeJ8kb/UZd85RBcMbomB7HjfEKzQKjF2NnumhQ=";
+            };
           }
         ];
       };

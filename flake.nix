@@ -92,10 +92,11 @@
         };
 
         # nixos-rebuild switch --flake .#donix --target-host donix --build-host donix --use-remote-sudo
-        donix = inputs.nixpkgs.lib.nixosSystem {
+        donix = inputs.nixpkgs.lib.nixosSystem rec {
           inherit specialArgs;
           system = "x86_64-linux";
           modules = [
+            (withOverlays system)
             ./hosts/donix
             inputs.sops-nix.nixosModules.sops
             "${inputs.nixpkgs}/nixos/modules/virtualisation/digital-ocean-config.nix"
@@ -103,10 +104,11 @@
         };
 
         # nixos-rebuild switch --flake .#htpc --target-host htpc --build-host htpc --use-remote-sudo
-        htpc = inputs.nixpkgs.lib.nixosSystem {
+        htpc = inputs.nixpkgs.lib.nixosSystem rec {
           inherit specialArgs;
           system = "x86_64-linux";
           modules = [
+            (withOverlays system)
             ./hosts/htpc
             inputs.sops-nix.nixosModules.sops
           ];
@@ -114,10 +116,11 @@
 
         # building the SD, from desk with aarch64 emu:
         # nix run nixpkgs#nixos-generators -- -f sd-aarch64 --flake .#pi --system aarch64-linux -o ./pi.sd
-        pi = inputs.nixpkgs.lib.nixosSystem {
+        pi = inputs.nixpkgs.lib.nixosSystem rec {
           inherit specialArgs;
           system = "aarch64-linux";
           modules = [
+            (withOverlays system)
             ./hosts/pi
             inputs.sops-nix.nixosModules.sops
           ];
