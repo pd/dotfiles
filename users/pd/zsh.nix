@@ -16,6 +16,8 @@
       enableZshIntegration = true;
     };
 
+    home.packages = [ pkgs.zsh-powerlevel10k ];
+
     programs.zsh = {
       enable = true;
 

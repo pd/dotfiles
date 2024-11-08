@@ -12,18 +12,23 @@
       flake = false;
     };
 
-    nix-darwin = {
-      url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -60,6 +65,13 @@
           ];
         };
       };
+
+      homeManagerModules = {
+        home-manager.sharedModules = [
+          inputs.sops-nix.homeManagerModules.sops
+          inputs.nixvim.homeManagerModules.nixvim
+        ];
+      };
     in
     {
       formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
@@ -75,6 +87,7 @@
             inputs.home-manager.nixosModules.home-manager
             inputs.sops-nix.nixosModules.sops
             inputs.stylix.nixosModules.stylix
+            homeManagerModules
           ];
         };
 
@@ -117,7 +130,7 @@
         modules = [
           (withOverlays system)
           inputs.home-manager.darwinModules.home-manager
-          { home-manager.sharedModules = [ inputs.sops-nix.homeManagerModules.sops ]; }
+          homeManagerModules
           ./hosts/span
         ];
       };

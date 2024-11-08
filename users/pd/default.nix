@@ -14,6 +14,7 @@ in
   imports = [
     ./bin.nix
     ./git.nix
+    ./nvim.nix
     ./ssh.nix
     ./zsh.nix
   ];

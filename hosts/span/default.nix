@@ -104,6 +104,19 @@
     brews = [ "restish" ];
   };
 
+  # half of this should already be installed via brew, but just
+  # slamming more shit in here until no more tofu i guess
+  fonts.packages = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    fira-code
+    fira-code-symbols
+    liberation_ttf
+    nerdfonts
+    proggyfonts
+  ];
+
   users.users.pd = {
     home = /Users/pd;
   };
