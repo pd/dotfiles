@@ -66,7 +66,7 @@ in
       networking.networkmanager.unmanaged = [ "wg0" ];
     })
 
-    (mkIf (!isServer) {
+    (mkIf (cfg.enable && !isServer) {
       sops.secrets.wireguard-preshared-key = {
         mode = "0440";
         owner = config.users.users.root.name;
@@ -84,7 +84,7 @@ in
       ];
     })
 
-    (mkIf isServer (
+    (mkIf (cfg.enable && isServer) (
       let
         hostname = config.networking.hostName;
         clients = removeAttrs net.wg.hosts [ hostname ];
