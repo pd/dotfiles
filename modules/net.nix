@@ -119,7 +119,7 @@ rec {
       };
     };
 
-    erin = {
+    air = {
       ssh = false;
 
       lan = {
