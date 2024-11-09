@@ -14,6 +14,11 @@ in
       trusted-users = if isLinux then [ "@wheel" ] else [ "@admin" ];
     };
 
+    optimise = {
+      automatic = true;
+      dates = [ "05:25" ];
+    };
+
     gc = mkMerge [
       {
         automatic = true;
