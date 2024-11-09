@@ -3,6 +3,7 @@ searches() {
   echo 'nixpkgs '
   echo 'home-manager '
   echo 'nixgh '
+  echo 'nixdarwin '
 }
 
 q="$(searches | fuzzel --dmenu --fuzzy-min-length=2)"
@@ -13,6 +14,7 @@ case "$q" in
   nixpkgs*) url="https://search.nixos.org/packages?channel=24.05&query=${term}";;
   home-manager*) url="https://home-manager-options.extranix.com/?release=release-24.05&query=${term}";;
   nixgh*) url="https://github.com/search?type=code&q=language%3Anix%20${term}";;
+  nixdarwin*) url="https://searchix.alanpearce.eu/options/darwin/search?query=${term}";;
   *) exit 1;;
 esac
 
