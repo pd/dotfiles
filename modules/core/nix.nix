@@ -14,10 +14,16 @@ in
       trusted-users = if isLinux then [ "@wheel" ] else [ "@admin" ];
     };
 
-    optimise = {
-      automatic = true;
-      dates = [ "05:25" ];
-    };
+    optimise = mkMerge [
+      { automatic = true; }
+      (optionalAttrs isLinux { dates = [ "05:25" ]; })
+      (optionalAttrs (!isLinux) {
+        interval = {
+          Hour = 5;
+          Minute = 25;
+        };
+      })
+    ];
 
     gc = mkMerge [
       {
