@@ -150,16 +150,20 @@
   (consult-buffer consult-focus-lines consult-goto-line consult-imenu consult-ripgrep)
   :bind
   (("C-x b" . consult-buffer)
-   ("s-g"   . consult-ripgrep)
    ("<leader>cb" . consult-buffer)
    ("<leader>cg" . consult-ripgrep)
-   ("<leader>cf" . consult-focus-lines)
+   ("<leader>ce" . consult-flymake)
    ("<leader>ci" . consult-imenu)
    ("<leader>cl" . consult-line)
    ("<leader>cL" . consult-goto-line)
-   ("<leader>cm" . consult-flymake))
+   ("<leader>cn" . consult-focus-lines)) ; "narrow"
   :config
   (setq consult-narrow-key "<"))
+
+(use-package consult-project-extra
+  :ensure t
+  :bind
+  ("<leader>cp" . consult-project-extra-find))
 
 ;; vim
 (use-package undo-fu
@@ -238,7 +242,9 @@
   (company-show-quick-access 'left)
   (company-tooltip-align-annotations t))
 
-(use-package deadgrep)
+(use-package deadgrep
+  :bind
+  ("s-g" . deadgrep))
 
 (use-package envrc
   :init (envrc-global-mode)
@@ -525,7 +531,7 @@ uncomment the current line."
    ("C-M-_"   . text-scale-decrease)
 
    ;; jumps
-   ("<leader>je" . consult-flymake) ; also cm, but i think of it as a "jump" often
+   ("<leader>je" . consult-flymake) ; also ce, but i think of it as a "jump" often
    ("<leader>jf" . find-function)
    ("<leader>ji" . pd/find-init.el)
    ("<leader>jl" . find-library)

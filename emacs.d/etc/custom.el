@@ -12,8 +12,9 @@
      "d80952c58cf1b06d936b1392c38230b74ae1a2a6729594770762dc0779ac66b7"
      default))
  '(package-selected-packages
-   '(all-the-icons base16-theme company consult cue-mode deadgrep
-                   diminish dockerfile-mode enh-ruby-mode envrc
+   '(all-the-icons base16-theme company consult consult-project-extra
+                   consult-project-extras cue-mode deadgrep diminish
+                   dockerfile-mode enh-ruby-mode envrc
                    evil-cleverparens evil-collection evil-commentary
                    evil-mc evil-textobj-line evil-textobj-syntax
                    expand-region go-mode gruvbox-theme ibuffer-vc
