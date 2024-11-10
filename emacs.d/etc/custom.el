@@ -19,11 +19,11 @@
                    evil-textobj-line evil-textobj-syntax
                    exec-path-from-shell expand-region go-mode
                    gruvbox-theme ibuffer-vc jsonnet-mode just-mode
-                   lsp-ui magit marginalia nix-mode nix-ts-mode nixfmt
-                   nixpkgs-fmt no-littering orderless popper popwin
-                   rust-mode simple-modeline sops terraform-mode
-                   undo-fu vertico vterm wgrep whitespace-cleanup-mode
-                   yaml-mode))
+                   just-ts-mode lsp-ui magit marginalia nix-mode
+                   nix-ts-mode nixfmt nixpkgs-fmt no-littering
+                   orderless popper popwin rust-mode simple-modeline
+                   sops terraform-mode undo-fu vertico vterm wgrep
+                   whitespace-cleanup-mode yaml-mode zig-ts-mode))
  '(safe-local-variable-values
    '((flycheck-disabled-checkers emacs-lisp-checkdoc emacs-lisp))))
 (custom-set-faces

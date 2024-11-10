@@ -406,28 +406,15 @@
 
 (use-package terraform-mode
   :init
-  (setq terraform-format-on-save t)
+  (setq terraform-format-on-save nil)
 
   :config
-  (defun terraform-format-buffer ()
-    "Rewrite current buffer in a canonical format using terraform fmt.
-Modified to prefer tofu when available.
-Pending: https://github.com/hcl-emacs/terraform-mode/issues/73"
-    (interactive)
-    (let ((buf (get-buffer-create "*terraform-fmt*"))
-          (fmtr (or (executable-find "tofu") (executable-find "terraform"))))
-      (if (zerop (call-process-region (point-min) (point-max)
-                                      fmtr nil buf nil "fmt" "-no-color" "-"))
-          (let ((point (point))
-                (window-start (window-start)))
-            (erase-buffer)
-            (insert-buffer-substring buf)
-            (when (/= terraform-indent-level 2)
-              (indent-region (point-min) (point-max)))
-            (goto-char point)
-            (set-window-start nil window-start))
-        (message "terraform fmt: %s" (with-current-buffer buf (buffer-string))))
-      (kill-buffer buf))))
+  (setq pd/tffmt
+        (or (executable-find "tofu") (executable-find "terraform")))
+  (reformatter-define pd/tffmt
+    :program pd/tffmt
+    :args '("fmt" "-no-color" "-"))
+  (add-hook 'terraform-mode-hook 'pd/tffmt-on-save-mode))
 
 (use-package wgrep)
 
@@ -469,6 +456,8 @@ Pending: https://github.com/hcl-emacs/terraform-mode/issues/73"
 
 (use-package lsp-ui
   :commands lsp-ui-mode)
+
+(use-package reformatter))
 
 ;; shell
 (use-package vterm
