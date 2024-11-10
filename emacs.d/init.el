@@ -158,7 +158,13 @@
   :config
   (setq consult-narrow-key "<"))
 
+(use-package consult-dir
+  :after (consult)
+  :bind
+  ("<leader>cd" . consult-dir))
+
 (use-package consult-project-extra
+  :after (consult)
   :bind
   ("<leader>cp" . consult-project-extra-find))
 
@@ -166,7 +172,10 @@
   :bind
   (("s-."   . embark-act)
    ("s-;"   . embark-dwim))
+  :custom
   :config
+  ;; enable if i never develop the muscle memory:
+  ;; (setq embark-prompter 'embark-completing-read-prompter)
   (add-to-pd/default.nix list 'display-buffer-alist
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
                  nil
