@@ -15,28 +15,11 @@
 
     ../../users/pd
     "${inputs.private}/work"
+
+    ./homebrew.nix
   ];
 
   work.enable = true;
-
-  environment.variables = {
-    EDITOR = "vim";
-  };
-
-  nix = {
-    settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-
-      trusted-users = [ "@admin" ];
-    };
-
-    gc = {
-      automatic = true;
-    };
-  };
 
   services.nix-daemon.enable = true;
 
@@ -67,43 +50,15 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    wireguard-go
-    wireguard-tools
-  ];
+  environment = {
+    systemPackages = with pkgs; [
+      wireguard-go
+      wireguard-tools
+    ];
 
-  # Mostly use homebrew for now, to approximate my current system
-  homebrew = {
-    enable = true;
-
-    global.autoUpdate = false;
-
-    caskArgs = {
-      appdir = "~/Applications";
+    variables = {
+      EDITOR = "nvim";
     };
-
-    casks = [
-      "alfred"
-      "bitwarden"
-      "dash"
-      "discord"
-      "firefox"
-      "iterm2"
-      "orbstack"
-      "neo4j"
-      "notion"
-      "signal"
-      "slack"
-      "spectacle"
-      "visual-studio-code"
-      "vlc"
-      "wireshark"
-      "zoom"
-    ];
-
-    brews = [
-      "restish"
-    ];
   };
 
   # half of this should already be installed via brew, but just
@@ -126,11 +81,9 @@
   home-manager.users.pd = {
     home.stateVersion = "24.05";
     home.packages = [
-      pkgs.unstable.emacs30
       pkgs.kyverno-chainsaw
     ];
 
-    # Keep orbstack in the ssh config
     programs.ssh.includes = [ "~/.orbstack/ssh/config" ];
 
     sops.defaultSopsFile = ./secrets.yaml;
