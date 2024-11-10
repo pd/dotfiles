@@ -545,5 +545,4 @@ uncomment the current line."
    ("<leader>ts" . transpose-sexps)
 
    ;; repls
-   ("<leader>xe" . ielm)
-   ("<leader>xs" . pd/vterm-or-consult)))
+   ("<leader>xe" . ielm)))
