@@ -26,7 +26,7 @@ in
 
       services.emacs = {
         enable = true;
-        startWithUserSession = true;
+        startWithUserSession = "graphical";
       };
 
       home.packages = with pkgs; [ emacs-all-the-icons-fonts ];
