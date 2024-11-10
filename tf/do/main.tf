@@ -38,6 +38,7 @@ resource "digitalocean_droplet" "do" {
   region = "nyc3"
   size   = "s-1vcpu-1gb"
   image  = "53893572"
+  ipv6   = true
 }
 
 data "digitalocean_image" "donix" {
