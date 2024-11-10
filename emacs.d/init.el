@@ -133,7 +133,7 @@
   :init (savehist-mode))
 
 (use-package marginalia
-  :init (marginalia-mode))
+  :config (marginalia-mode))
 
 (use-package orderless
   :config
@@ -161,6 +161,19 @@
 (use-package consult-project-extra
   :bind
   ("<leader>cp" . consult-project-extra-find))
+
+(use-package embark
+  :bind
+  (("s-."   . embark-act)
+   ("s-;"   . embark-dwim))
+  :config
+  (add-to-pd/default.nix list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+
+(use-package embark-consult
+  :after (embark consult))
 
 ;; vim
 (use-package undo-fu
@@ -369,6 +382,8 @@
 (use-package terraform-mode
   :config
   (add-hook 'terraform-mode-hook 'terraform-format-on-save-mode))
+
+(use-package wgrep)
 
 (use-package whitespace-cleanup-mode
   :diminish

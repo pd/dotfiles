@@ -14,15 +14,16 @@
  '(package-selected-packages
    '(all-the-icons base16-theme company consult consult-project-extra
                    consult-project-extras cue-mode deadgrep diminish
-                   dockerfile-mode enh-ruby-mode envrc
-                   evil-cleverparens evil-collection evil-commentary
-                   evil-mc evil-textobj-line evil-textobj-syntax
-                   expand-region go-mode gruvbox-theme ibuffer-vc
-                   jsonnet-mode lsp-ui magit marginalia nix-mode
-                   nix-ts-mode nixfmt nixpkgs-fmt no-littering
-                   orderless popwin rust-mode simple-modeline sops
-                   sops-mode terraform-mode undo-fu vertico vterm
-                   whitespace-cleanup-mode yaml-mode))
+                   dockerfile-mode embark embark-consult enh-ruby-mode
+                   envrc evil-cleverparens evil-collection
+                   evil-commentary evil-mc evil-textobj-line
+                   evil-textobj-syntax expand-region go-mode
+                   gruvbox-theme ibuffer-vc jsonnet-mode lsp-ui magit
+                   marginalia nix-mode nix-ts-mode nixfmt nixpkgs-fmt
+                   no-littering orderless popwin rust-mode
+                   simple-modeline sops sops-mode terraform-mode
+                   undo-fu vertico vterm whitespace-cleanup-mode
+                   yaml-mode))
  '(safe-local-variable-values
    '((flycheck-disabled-checkers emacs-lisp-checkdoc emacs-lisp))))
 (custom-set-faces
