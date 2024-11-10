@@ -371,7 +371,7 @@
     (add-hook 'before-save-hook 'jsonnet-reformat-buffer nil t))
   (add-hook 'jsonnet-mode-hook #'pd/setup-jsonnet-mode))
 
-(use-package just-mode)
+(use-package just-ts-mode)
 
 (use-package lisp-mode
   :ensure nil
@@ -425,6 +425,8 @@
   (whitespace-cleanup-mode-only-if-initially-clean nil))
 
 (use-package yaml-mode)
+
+(use-package zig-ts-mode)
 
 ;; ide
 (use-package ibuffer
