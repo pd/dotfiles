@@ -172,7 +172,6 @@
   :bind
   (("s-."   . embark-act)
    ("s-;"   . embark-dwim))
-  :custom
   :config
   ;; enable if i never develop the muscle memory:
   ;; (setq embark-prompter 'embark-completing-read-prompter)
@@ -183,6 +182,19 @@
 
 (use-package embark-consult
   :after (embark consult))
+
+(use-package popper
+  :init
+  (setq popper-reference-buffers
+        '("\\*Messages\\*"
+          help-mode
+          compilation-mode
+          ("\\*Warnings\\*" . hide)))
+  (popper-mode +1)
+  (popper-echo-mode +1)
+  :bind
+  (("s-`" . popper-toggle)
+   ("M-`" . popper-cycle)))
 
 ;; vim
 (use-package undo-fu
