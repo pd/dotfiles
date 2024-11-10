@@ -154,7 +154,7 @@
    ("<leader>ci" . consult-imenu)
    ("<leader>cl" . consult-line)
    ("<leader>cL" . consult-goto-line)
-   ("<leader>cn" . consult-focus-lines)) ; "narrow"
+   ("<leader>cm" . consult-focus-lines)) ; "matching"
   :config
   (setq consult-narrow-key "<"))
 
