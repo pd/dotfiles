@@ -46,6 +46,7 @@ in
         kubernetes-helm
         kustomize
         stern
+        unzip
         watchexec
       ]
       ++ (with unstable; [
