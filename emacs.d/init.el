@@ -459,7 +459,7 @@
 (use-package lsp-ui
   :commands lsp-ui-mode)
 
-(use-package reformatter))
+(use-package reformatter)
 
 ;; shell
 (use-package vterm
