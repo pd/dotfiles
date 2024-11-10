@@ -16,6 +16,7 @@ in
     ./bin.nix
     ./git.nix
     ./nvim.nix
+    ./prog.nix
     ./ssh.nix
     ./zsh.nix
   ];

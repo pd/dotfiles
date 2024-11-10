@@ -1,4 +1,4 @@
-{ config, pkgs-unstable, ... }:
+{ config, ... }:
 let
   homeDir = config.users.users.pd.home;
 in

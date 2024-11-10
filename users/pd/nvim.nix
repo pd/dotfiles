@@ -5,8 +5,6 @@
       enable = true;
 
       extraPackages = with pkgs; [
-        gopls # TODO lift to home prolly
-        gotools
         stylua
       ];
 
