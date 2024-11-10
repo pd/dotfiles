@@ -55,7 +55,6 @@
 
 ;; absorb the crazy nix PATH shenanigans
 (use-package exec-path-from-shell
-  :ensure t
   :init
   (setq exec-path-from-shell-arguments nil)
   :config
@@ -72,7 +71,6 @@
 
 ;; decent theme
 (use-package gruvbox-theme
-  :ensure t
   :config
   (load-theme 'gruvbox-dark-hard)
   (set-face-background 'default "#111")
@@ -161,7 +159,6 @@
   (setq consult-narrow-key "<"))
 
 (use-package consult-project-extra
-  :ensure t
   :bind
   ("<leader>cp" . consult-project-extra-find))
 
@@ -353,10 +350,8 @@
 
 (use-package markdown-mode)
 
-(use-package nix-mode
-  :ensure t)
+(use-package nix-mode)
 (use-package nixfmt
-  :ensure t
   :config
   (add-hook 'nix-mode-hook 'nixfmt-on-save-mode))
 
