@@ -12,18 +12,18 @@
      "d80952c58cf1b06d936b1392c38230b74ae1a2a6729594770762dc0779ac66b7"
      default))
  '(package-selected-packages
-   '(all-the-icons base16-theme company consult consult-dir
-                   consult-project-extra consult-project-extras
-                   cue-mode deadgrep diminish dockerfile-mode embark
-                   embark-consult enh-ruby-mode envrc
-                   evil-cleverparens evil-collection evil-commentary
-                   evil-mc evil-textobj-line evil-textobj-syntax
-                   expand-region go-mode gruvbox-theme ibuffer-vc
-                   jsonnet-mode lsp-ui magit marginalia nix-mode
-                   nix-ts-mode nixfmt nixpkgs-fmt no-littering
-                   orderless popwin rust-mode simple-modeline sops
-                   sops-mode terraform-mode undo-fu vertico vterm
-                   whitespace-cleanup-mode yaml-mode))
+   '(all-the-icons company consult-dir consult-project-extra cue-mode
+                   deadgrep diminish dockerfile-mode embark-consult
+                   enh-ruby-mode envrc evil-cleverparens
+                   evil-collection evil-commentary evil-mc
+                   evil-textobj-line evil-textobj-syntax
+                   exec-path-from-shell expand-region go-mode
+                   gruvbox-theme ibuffer-vc jsonnet-mode just-mode
+                   lsp-ui magit marginalia nix-mode nix-ts-mode nixfmt
+                   nixpkgs-fmt no-littering orderless popper popwin
+                   rust-mode simple-modeline sops terraform-mode
+                   undo-fu vertico vterm wgrep whitespace-cleanup-mode
+                   yaml-mode))
  '(safe-local-variable-values
    '((flycheck-disabled-checkers emacs-lisp-checkdoc emacs-lisp))))
 (custom-set-faces

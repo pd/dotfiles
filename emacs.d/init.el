@@ -54,6 +54,12 @@
 (setq require-final-newline t)
 
 ;; absorb the crazy nix PATH shenanigans
+(defun pd/mise-bin-paths ()
+  (when (executable-find "mise")
+    (with-temp-buffer
+      (call-process "mise" nil t nil "bin-paths" "-q")
+      (split-string (buffer-substring (point-min) (point-max)) "\n"))))
+
 (use-package exec-path-from-shell
   :init
   (setq exec-path-from-shell-arguments nil)
@@ -63,11 +69,8 @@
 
     ; somehow this isn't functioning when running through
     ; exec-path-from-shell, so just do it by hand for now
-    (when (executable-find "mise")
-      (with-temp-buffer
-        (call-process "mise" nil t nil "bin-paths")
-        (let ((paths (split-string (buffer-substring (point-min) (point-max)) "\n")))
-          (setq exec-path (append paths exec-path)))))))
+    (dolist (path (pd/mise-bin-paths))
+      (add-to-list 'exec-path path))))
 
 ;; decent theme
 (use-package gruvbox-theme
@@ -187,6 +190,7 @@
   :init
   (setq popper-reference-buffers
         '("\\*Messages\\*"
+          "\\*Backtrace\\*"
           help-mode
           compilation-mode
           ("\\*Warnings\\*" . hide)))
@@ -401,8 +405,29 @@
 (use-package sops)
 
 (use-package terraform-mode
+  :init
+  (setq terraform-format-on-save t)
+
   :config
-  (add-hook 'terraform-mode-hook 'terraform-format-on-save-mode))
+  (defun terraform-format-buffer ()
+    "Rewrite current buffer in a canonical format using terraform fmt.
+Modified to prefer tofu when available.
+Pending: https://github.com/hcl-emacs/terraform-mode/issues/73"
+    (interactive)
+    (let ((buf (get-buffer-create "*terraform-fmt*"))
+          (fmtr (or (executable-find "tofu") (executable-find "terraform"))))
+      (if (zerop (call-process-region (point-min) (point-max)
+                                      fmtr nil buf nil "fmt" "-no-color" "-"))
+          (let ((point (point))
+                (window-start (window-start)))
+            (erase-buffer)
+            (insert-buffer-substring buf)
+            (when (/= terraform-indent-level 2)
+              (indent-region (point-min) (point-max)))
+            (goto-char point)
+            (set-window-start nil window-start))
+        (message "terraform fmt: %s" (with-current-buffer buf (buffer-string))))
+      (kill-buffer buf))))
 
 (use-package wgrep)
 
