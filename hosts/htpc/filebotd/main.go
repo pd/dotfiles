@@ -46,13 +46,12 @@ func main() {
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 
-
-		// We always 200 cuz filebot exits non-zero for all kinds of reasons
-		// and who cares really
 		log.Info("running filebot", "cmd", cmd.Args)
 		err := cmd.Run()
 		log.Info("filebot exited", "error", err)
 
+		// We always 200 cuz filebot exits non-zero for all kinds of reasons
+		// and who cares really
 		w.WriteHeader(http.StatusOK)
 	})
 
@@ -84,6 +83,7 @@ func filebot(src, dest string) *exec.Cmd {
 // rtorrent on nas sees `/downloads/...`, everything else
 // sees `/media/torrents/...`
 var rgxDownloads = regexp.MustCompile(`^/downloads/`)
+
 func rewriteDataPath(path string) string {
 	return rgxDownloads.ReplaceAllLiteralString(path, "/media/torrents/")
 }
