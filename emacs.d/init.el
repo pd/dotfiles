@@ -545,4 +545,7 @@ uncomment the current line."
    ("<leader>ts" . transpose-sexps)
 
    ;; repls
-   ("<leader>xe" . ielm)))
+   ("<leader>xe" . ielm)
+
+   ;; other window plz
+   ("<leader>wo" . other-window-prefix)))
