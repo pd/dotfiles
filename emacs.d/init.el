@@ -551,6 +551,7 @@ uncomment the current line."
     (dolist (grammar
              '((css "https://github.com/tree-sitter/tree-sitter-css")
                (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "master" "src"))
+               (just "https://github.com/IndianBoy42/tree-sitter-just")
                (json "https://github.com/tree-sitter/tree-sitter-json")
                (ruby "https://github.com/tree-sitter/tree-sitter-ruby")
                (rust "https://github.com/tree-sitter/tree-sitter-rust")
@@ -561,6 +562,7 @@ uncomment the current line."
         (treesit-install-language-grammar (car grammar)))))
 
   (dolist (remap '((css-mode . css-ts-mode)
+                   (just-mode . just-ts-mode)
                    (js-mode . js-ts-mode)
                    (json-mode . json-ts-mode)
                    (ruby-mode . ruby-ts-mode)
