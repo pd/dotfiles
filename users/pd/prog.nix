@@ -5,6 +5,7 @@
       go
       gopls
       gotools
+      go-jsonnet
       nil
       (hiPrio ruby) # win over gotools `bundle`
       rubyPackages.pry

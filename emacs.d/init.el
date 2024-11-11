@@ -363,17 +363,17 @@
 
 (use-package go-mode
   :config
-  (setq gofmt-command "goimports")
+  (reformatter-define pd/gofmt :program "goimports")
+  (add-hook 'go-mode-hook #'pd/gofmt-mode)
+
   (defun pd/setup-go-mode ()
-    (setq-local tab-width 4)
-    (add-hook 'before-save-hook 'gofmt-before-save nil t))
+    (setq-local tab-width 4))
   (add-hook 'go-mode-hook #'pd/setup-go-mode))
 
 (use-package jsonnet-mode
   :config
-  (defun pd/setup-jsonnet-mode ()
-    (add-hook 'before-save-hook 'jsonnet-reformat-buffer nil t))
-  (add-hook 'jsonnet-mode-hook #'pd/setup-jsonnet-mode))
+  (reformatter-define pd/jsonnet-fmt :program "jsonnetfmt")
+  (add-hook 'jsonnet-mode-hook #'pd/jsonnet-fmt-mode))
 
 (use-package just-ts-mode)
 
