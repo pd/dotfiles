@@ -625,6 +625,7 @@ uncomment the current line."
 
    ;; repls
    ("<leader>xe" . ielm)
+   ("<leader>xn" . nix-repl)
 
    ;; other window plz
    ("<leader>wo" . other-window-prefix)))
