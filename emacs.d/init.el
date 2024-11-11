@@ -186,19 +186,23 @@
 (use-package embark-consult
   :after (embark consult))
 
-(use-package popper
-  :init
-  (setq popper-reference-buffers
-        '("\\*Messages\\*"
-          "\\*Backtrace\\*"
-          help-mode
-          compilation-mode
-          ("\\*Warnings\\*" . hide)))
-  (popper-mode +1)
-  (popper-echo-mode +1)
-  :bind
-  (("s-`" . popper-toggle)
-   ("M-`" . popper-cycle)))
+;; Causing Help to fail to display at all, eg C-h f whatever:
+;;   popwin:close-popup-window-timer: error: (error Attempt to delete main window of frame #<frame *Warnings* 0x7f984648da68>)
+;;   delete-other-windows: Cannot make side window the only window [2 times]
+;;
+;; (use-package popper
+;;   :init
+;;   (setq popper-reference-buffers
+;;         '("\\*Messages\\*"
+;;           "\\*Backtrace\\*"
+;;           help-mode
+;;           compilation-mode
+;;           ("\\*Warnings\\*" . hide)))
+;;   (popper-mode +1)
+;;   (popper-echo-mode +1)
+;;   :bind
+;;   (("s-`" . popper-toggle)
+;;    ("M-`" . popper-cycle)))
 
 ;; vim
 (use-package undo-fu
