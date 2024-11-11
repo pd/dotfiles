@@ -442,24 +442,53 @@
     (ibuffer-vc-set-filter-groups-by-vc-root))
   (add-hook 'ibuffer-mode-hook 'pd/prepare-ibuffer))
 
-(use-package lsp-mode
-  :init
-  (setq lsp-keymap-prefix "C-c l") ; so it at least doesn't steal s-l
-  :commands (lsp lsp-deferred)
-  :hook ((go-mode . lsp-deferred)
-         (nix-mode . lsp-deferred)
-         (rust-mode . lsp-deferred)
-         (rust-ts-mode . lsp-deferred))
+(use-package eglot
+  :hook
+  ((go-mode nix-mode zig-ts-mode) . eglot-ensure)
+  :bind
+  (("<leader>la" . eglot-code-actions)
+   ("<leader>lf" . eglot-format-buffer)
+   ("<leader>lr" . eglot-rename)
+   ("<leader>lx" . eglot-shutdown)
+   ("<leader>lX" . eglot-shutdown-all)
+   ("<leader>lz" . eglot-reconnect))
   :config
-  (setq read-process-output-max (* 1024 1024))
-  ; emulate <leader>l being the lsp-keymap-prefix
-  (evil-define-key '(normal visual) 'lsp-mode (kbd "SPC l") lsp-command-map)
-  (evil-normalize-keymaps))
-
-(use-package lsp-ui
-  :commands lsp-ui-mode)
+  (add-to-list 'eglot-server-programs '(zig-ts-mode . ("zls"))))
 
 (use-package reformatter)
+
+(use-package treesit
+  :ensure nil
+  :preface
+  (defun pd/treesit-install-grammars ()
+    (interactive)
+    (dolist (grammar
+             '((css "https://github.com/tree-sitter/tree-sitter-css")
+               (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "master" "src"))
+               (just "https://github.com/IndianBoy42/tree-sitter-just")
+               (json "https://github.com/tree-sitter/tree-sitter-json")
+               (ruby "https://github.com/tree-sitter/tree-sitter-ruby")
+               (rust "https://github.com/tree-sitter/tree-sitter-rust")
+               (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src"))
+               (yaml "https://github.com/ikatyang/tree-sitter-yaml")
+               (zig "https://github.com/maxxnino/tree-sitter-zig")))
+      (add-to-list 'treesit-language-source-alist grammar)
+      (unless (treesit-language-available-p (car grammar))
+        (treesit-install-language-grammar (car grammar)))))
+
+  (dolist (remap '((css-mode        . css-ts-mode)
+                   (just-mode       . just-ts-mode)
+                   (js-mode         . js-ts-mode)
+                   (json-mode       . json-ts-mode)
+                   (ruby-mode       . ruby-ts-mode)
+                   (rust-mode       . rust-ts-mode)
+                   (typescript-mode . tsx-ts-mode)
+                   (yaml-mode       . yaml-ts-mode)
+                   (zig-mode        . zig-ts-mode)))
+    (add-to-list 'major-mode-remap-alist remap))
+
+  :config
+  (pd/treesit-install-grammars))
 
 ;; shell
 (use-package vterm
@@ -541,39 +570,7 @@ uncomment the current line."
         (end-of-line)
         (comment-or-uncomment-region beg (point))))))
 
-
-;;; maybe
-(use-package treesit
-  :ensure nil
-  :preface
-  (defun pd/treesit-install-grammars ()
-    (interactive)
-    (dolist (grammar
-             '((css "https://github.com/tree-sitter/tree-sitter-css")
-               (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "master" "src"))
-               (just "https://github.com/IndianBoy42/tree-sitter-just")
-               (json "https://github.com/tree-sitter/tree-sitter-json")
-               (ruby "https://github.com/tree-sitter/tree-sitter-ruby")
-               (rust "https://github.com/tree-sitter/tree-sitter-rust")
-               (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src"))
-               (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
-      (add-to-list 'treesit-language-source-alist grammar)
-      (unless (treesit-language-available-p (car grammar))
-        (treesit-install-language-grammar (car grammar)))))
-
-  (dolist (remap '((css-mode . css-ts-mode)
-                   (just-mode . just-ts-mode)
-                   (js-mode . js-ts-mode)
-                   (json-mode . json-ts-mode)
-                   (ruby-mode . ruby-ts-mode)
-                   (rust-mode . rust-ts-mode)
-                   (typescript-mode . tsx-ts-mode)
-                   (yaml-mode . yaml-ts-mode)))
-    (add-to-list 'major-mode-remap-alist remap))
-
-  :config
-  (pd/treesit-install-grammars))
-
+;; the end
 (use-package emacs
   :ensure nil
   :init
