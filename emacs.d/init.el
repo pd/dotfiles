@@ -388,7 +388,14 @@
 
 (use-package markdown-mode)
 
-(use-package nix-mode)
+(use-package nix-mode
+  :config
+  (defun pd/nix-repl-from-project-root (orig &rest args)
+    (let ((root (project-root (project-current))))
+      (let ((default-directory (or root default-directory)))
+        (apply orig args))))
+  (advice-add 'nix-repl :around #'pd/nix-repl-from-project-root))
+
 (use-package nixfmt
   :config
   (add-hook 'nix-mode-hook 'nixfmt-on-save-mode))
