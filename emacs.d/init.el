@@ -361,19 +361,19 @@
   :config
   (setq enh-ruby-preserve-indent-in-heredocs t))
 
-(use-package go-mode
+(use-package go-ts-mode
   :config
   (reformatter-define pd/gofmt :program "goimports")
-  (add-hook 'go-mode-hook #'pd/gofmt-mode)
+  (add-hook 'go-ts-mode-hook #'pd/gofmt-on-save-mode)
 
   (defun pd/setup-go-mode ()
     (setq-local tab-width 4))
-  (add-hook 'go-mode-hook #'pd/setup-go-mode))
+  (add-hook 'go-ts-mode-hook #'pd/setup-go-mode))
 
 (use-package jsonnet-mode
   :config
-  (reformatter-define pd/jsonnet-fmt :program "jsonnetfmt")
-  (add-hook 'jsonnet-mode-hook #'pd/jsonnet-fmt-mode))
+  (reformatter-define pd/jsonnetfmt :program "jsonnetfmt")
+  (add-hook 'jsonnet-mode-hook #'pd/jsonnetfmt-on-save-mode))
 
 (use-package just-ts-mode)
 
@@ -475,6 +475,7 @@
     (interactive)
     (dolist (grammar
              '((css "https://github.com/tree-sitter/tree-sitter-css")
+               (go "https://github.com/tree-sitter/tree-sitter-go")
                (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "master" "src"))
                (just "https://github.com/IndianBoy42/tree-sitter-just")
                (json "https://github.com/tree-sitter/tree-sitter-json")
@@ -488,6 +489,7 @@
         (treesit-install-language-grammar (car grammar)))))
 
   (dolist (remap '((css-mode        . css-ts-mode)
+                   (go-mode         . go-ts-mode)
                    (just-mode       . just-ts-mode)
                    (js-mode         . js-ts-mode)
                    (json-mode       . json-ts-mode)
