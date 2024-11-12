@@ -550,9 +550,13 @@ targets."
   :hook
   (vterm-mode . evil-emacs-state)
   :bind
-  (:map vterm-mode-map                  ; reclaim some bindings
-        ("M-'"  . pd/vterm-or-consult)
-        ("M-\"" . vterm))
+  (
+   :map vterm-mode-map                  ; reclaim some bindings
+   ("M-'"  . pd/vterm-or-consult)
+   ("M-\"" . vterm)
+
+   :map embark-file-map
+   ("$" . pd/vterm-at))
   :config
   (setq vterm-buffer-name-string "*vterm %s*"
         vterm-tramp-shells '(("ssh" "zsh"))
@@ -576,6 +580,12 @@ targets."
           :category buffer
           :state    ,#'consult--buffer-state
           :items    ,(lambda () (mapcar #'buffer-name (pd/vterm-buffers)))))
+
+(defun pd/vterm-at (path)
+  (interactive "fDir: \n")
+  (let ((default-directory (if (file-directory-p path) path
+                             (file-name-directory path))))
+    (vterm)))
 
 (defun pd/vterm-or-consult (&optional arg)
   "Use consult to switch to a vterm.
