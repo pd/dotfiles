@@ -361,14 +361,14 @@
   :config
   (setq enh-ruby-preserve-indent-in-heredocs t))
 
+(use-package inf-ruby)
+
 (use-package go-ts-mode
+  :custom
+  (go-ts-mode-indent-offset 4)
   :config
   (reformatter-define pd/gofmt :program "goimports")
-  (add-hook 'go-ts-mode-hook #'pd/gofmt-on-save-mode)
-
-  (defun pd/setup-go-mode ()
-    (setq-local tab-width 4))
-  (add-hook 'go-ts-mode-hook #'pd/setup-go-mode))
+  (add-hook 'go-ts-mode-hook #'pd/gofmt-on-save-mode))
 
 (use-package jsonnet-mode
   :config
@@ -455,7 +455,7 @@
 
 (use-package eglot
   :hook
-  ((go-mode nix-mode zig-ts-mode) . eglot-ensure)
+  ((go-mode go-ts-mode nix-mode zig-ts-mode) . eglot-ensure)
   :bind
   (("<leader>la" . eglot-code-actions)
    ("<leader>lf" . eglot-format-buffer)
