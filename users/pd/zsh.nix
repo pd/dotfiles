@@ -14,14 +14,13 @@
       programs.direnv = {
         enable = true;
         enableZshIntegration = true;
+        nix-direnv.enable = true;
       };
 
       programs.fzf = {
         enable = true;
         enableZshIntegration = true;
       };
-
-      # home.packages = [ pkgs.zsh-powerlevel10k ];
 
       programs.zsh = {
         enable = true;
