@@ -4,6 +4,15 @@
     { config, ... }:
     let
       xdg = config.xdg;
+
+      # Inexplicably, `--reuse-frame` does the opposite on MacOS (as of Emacs 30).
+      # It's not just me, apparently:
+      # https://emacs.stackexchange.com/questions/79292/why-is-emacsclient-not-reusing-the-existing-frame
+      emacsclient =
+        if pkgs.hostPlatform.isLinux then
+          "emacsclient --alternate-editor='' --no-wait --reuse-frame"
+        else
+          "emacsclient --alternate-editor='' --no-wait";
     in
     {
       programs.autojump = {
@@ -59,7 +68,7 @@
 
         envExtra = ''
           if [[ -n "$INSIDE_EMACS" ]]; then
-            export EDITOR='emacsclient --alternate-editor="" --reuse-frame';
+            export EDITOR="${emacsclient}"
           else
             export EDITOR=nvim
           fi
@@ -91,7 +100,7 @@
         '';
 
         shellAliases = {
-          em = "emacsclient --alternate-editor='' --no-wait --reuse-frame";
+          em = emacsclient;
           g = "git";
           k = "kubectl";
           ll = "ls -l";
