@@ -407,7 +407,9 @@ targets."
   (go-ts-mode-indent-offset 4)
   :config
   (reformatter-define pd/gofmt :program "goimports")
-  (add-hook 'go-ts-mode-hook #'pd/gofmt-on-save-mode))
+  (add-hook 'go-ts-mode-hook (lambda ()
+                               (pd/gofmt-on-save-mode +1)
+                               (setq tab-width 4))))
 
 (use-package jsonnet-mode
   :config
