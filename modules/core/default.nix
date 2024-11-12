@@ -39,9 +39,9 @@ in
     users.pd = {
       isNormalUser = true;
       extraGroups = [
+        "keys"
         "networkmanager"
         "wheel"
-        "keys"
       ];
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = keys.desk.ssh ++ keys.span.ssh;

@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -33,4 +33,11 @@
   # TODO: can i turn this back on?
   # things want a password to log in after screenlock etc
   users.mutableUsers = lib.mkForce true;
+
+  # Installed at the system level for setcap + wireshark group
+  programs.wireshark = {
+    enable = true;
+    package = pkgs.wireshark-qt;
+  };
+  users.users.pd.extraGroups = [ "wireshark" ];
 }
