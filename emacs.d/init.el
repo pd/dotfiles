@@ -454,7 +454,12 @@ targets."
   :config
   (setq sh-basic-offset 2))
 
-(use-package sops)
+(use-package sops
+  :bind
+  (("C-x C-s" . sops-save-file)
+   ("C-c C-k" . sops-cancel))
+  :config
+  (global-sops-mode +1))
 
 (use-package terraform-mode
   :init
