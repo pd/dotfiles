@@ -174,7 +174,10 @@
 (use-package embark
   :bind
   (("s-."   . embark-act)
-   ("s-;"   . embark-dwim))
+   ("s-;"   . embark-dwim)
+
+   :map embark-file-map
+   ("$" . pd/vterm-at))
   :config
   ;; enable if i never develop the muscle memory:
   ;; (setq embark-prompter 'embark-completing-read-prompter)
@@ -455,9 +458,6 @@ targets."
   (setq sh-basic-offset 2))
 
 (use-package sops
-  :bind
-  (("C-x C-s" . sops-save-file)
-   ("C-c C-k" . sops-cancel))
   :config
   (global-sops-mode +1))
 
@@ -557,13 +557,9 @@ targets."
   :hook
   (vterm-mode . evil-emacs-state)
   :bind
-  (
-   :map vterm-mode-map                  ; reclaim some bindings
+  (:map vterm-mode-map                  ; reclaim some bindings
    ("M-'"  . pd/vterm-or-consult)
-   ("M-\"" . vterm)
-
-   :map embark-file-map
-   ("$" . pd/vterm-at))
+   ("M-\"" . vterm))
   :config
   (setq vterm-buffer-name-string "*vterm %s*"
         vterm-tramp-shells '(("ssh" "zsh"))
