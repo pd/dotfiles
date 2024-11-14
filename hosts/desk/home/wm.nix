@@ -99,6 +99,10 @@
         enable = true;
         settings = {
           mouse.hide_when_typing = true;
+
+          # nas doesn't have alacritty in terminfo,
+          # not worth figthing
+          env.TERM = "xterm-256color";
         };
       };
 
