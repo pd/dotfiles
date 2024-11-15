@@ -141,11 +141,11 @@ in
 
         services.prometheus.exporters.wireguard = {
           enable = true;
-          listenAddress = net.hosts.pi.wg.ip;
+          listenAddress = "0.0.0.0";
           wireguardConfig = wgPeerNames;
         };
 
-        networking.firewall.interfaces.wg0.allowedTCPPorts = [
+        networking.firewall.allowedTCPPorts = [
           config.services.prometheus.exporters.wireguard.port
         ];
       }
