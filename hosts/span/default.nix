@@ -127,16 +127,19 @@
     in
     {
       privateKeyFile = secrets.wireguard-private-key.path;
-      address = [ "${net.hosts.span.wg.ip}/32" ];
-      dns = [ "${net.hosts.pi.wg.ip},wg,home" ];
+      address = [ "${net.wg.ips.span}/32" ];
+      dns = [ "${net.wg.ips.pi},wg,home" ];
       postDown = "networksetup -setdnsservers Wi-Fi Empty";
 
       peers = [
         {
-          endpoint = "wg.krh.me:51820";
-          publicKey = net.hosts.donix.wg.publicKey;
+          endpoint = "wg.krh.me:51930";
+          publicKey = net.wg.pks.pi;
           presharedKeyFile = secrets.wireguard-preshared-key.path;
-          allowedIPs = [ "10.100.100.0/24" ];
+          allowedIPs = [
+            net.lan.cidr
+            net.wg.cidr
+          ];
           persistentKeepalive = 25;
         }
       ];
