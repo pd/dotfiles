@@ -16,7 +16,6 @@ locals {
 
       { type = "A", name = "do", value = digitalocean_droplet.do.ipv4_address },
       { type = "A", name = "donix", value = digitalocean_droplet.donix.ipv4_address },
-      { type = "A", name = "wg", value = digitalocean_droplet.donix.ipv4_address },
 
       { type = "CNAME", name = "mail", value = "ghs.googlehosted.com." },
       { type = "MX", name = "@", value = "aspmx.l.google.com.", priority = 1 },

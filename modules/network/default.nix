@@ -10,13 +10,13 @@ in
 {
   imports = [
     ./lan.nix
-    ./wan.nix
+    ./wg.nix
   ];
 
   lan.enable = lib.mkDefault (host ? "lan");
   lan.ipv4 = lib.mkIf config.lan.enable host.lan.ip;
 
-  wan.enable = lib.mkDefault (host ? "wg");
-  wan.ipv4 = lib.mkIf config.wan.enable host.wg.ip;
-  wan.publicKey = lib.mkIf config.wan.enable host.wg.publicKey;
+  wg.enable = lib.mkDefault (host ? "wg");
+  wg.ipv4 = lib.mkIf config.wg.enable host.wg.ip;
+  wg.publicKey = lib.mkIf config.wg.enable host.wg.publicKey;
 }

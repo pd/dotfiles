@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -11,6 +11,7 @@
 
   networking.hostName = "pi";
   lan.wired.interface = "end0";
+  wg.natInterface = "end0";
 
   boot.loader.grub.enable = false;
   boot.loader.generic-extlinux-compatible.enable = true;

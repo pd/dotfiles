@@ -1,4 +1,4 @@
-{ lib, net, ... }:
+{ lib, ... }:
 {
   imports = [
     ../../modules/core
@@ -6,12 +6,9 @@
   ];
 
   system.stateVersion = "24.05";
-
   networking.hostName = "donix";
-  wan.natInterface = "ens3";
 
   networking.nameservers = lib.mkForce [
-    net.hosts.pi.wg.ip
     "1.1.1.1"
     "8.8.8.8"
   ];

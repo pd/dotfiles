@@ -1,12 +1,13 @@
-# home 192.168.1.0/24,  gw .254
-# wg   10.100.100.0/24, gw .1
+# home 192.168.1.0/22
+# wg   192.168.20.0/24
 #
 # computers:
-#   do:    .1, wan only
+#   wrt:   .1, gw
+#   rpt:   .2
 #   desk:  .10
 #   span:  .11
 #   htpc:  .12
-#   pi:    .13
+#   pi:    .13, wg
 #   air:   .14
 #
 # phones:
@@ -16,17 +17,18 @@
 # appliances:
 #   nas:   .100
 #   tv:    .101
+#   do:    .110
 #   hera:  .120
 { lib, ... }:
 rec {
-  # hosts on the lan
   lan = {
+    cidr = "192.168.0.0/22";
     hosts = lib.filterAttrs (_: h: h ? "lan") hosts;
     ips = lib.mapAttrs (_: v: v.lan.ip) lan.hosts;
   };
 
-  # hosts on the wg network
   wg = {
+    cidr = "192.168.20.0/24";
     hosts = lib.filterAttrs (_: h: h ? "wg") hosts;
     ips = lib.mapAttrs (_: v: v.wg.ip) wg.hosts;
     pks = lib.mapAttrs (_: v: v.wg.publicKey) wg.hosts;
@@ -36,56 +38,31 @@ rec {
   ssh.hosts = lib.filterAttrs (_: h: (h.ssh or { }) != false) hosts;
 
   hosts = {
-    donix = {
-      cnames = [ "srv" ];
-
-      ssh = {
-        hostname = "donix.krh.me";
-      };
-
-      wg = {
-        ip = "10.100.100.1";
-        publicKey = "WZgf+DC6SBQeatqOgpC2j6tvIu5VxKi/WgdbIU/m7wg=";
-      };
+    wrt = {
+      lan.ip = "192.168.1.1";
+      ssh.user = "root";
     };
 
-    wrt = {
-      ssh = {
-        user = "root";
-      };
-
-      lan = {
-        ip = "192.168.1.1";
-      };
+    rpt = {
+      lan.ip = "192.168.1.2";
+      ssh.user = "root";
     };
 
     desk = {
-      lan = {
-        ip = "192.168.1.10";
-      };
-
-      wg = {
-        ip = "10.100.100.10";
-        publicKey = "CA7HMcgdgxixmpikVA15Bxydi7pFriBbR3A3W7mE2BU=";
-      };
+      lan.ip = "192.168.1.10";
     };
 
     span = {
-      ssh = {
-        port = 22;
-      };
-
-      lan = {
-        ip = "192.168.1.11";
-      };
-
+      lan.ip = "192.168.1.11";
+      ssh.port = 22;
       wg = {
-        ip = "10.100.100.11";
+        ip = "192.168.20.11";
         publicKey = "ifiRznc81W75NIIq53+8BH6uJ3iJODbXdAk+ND1J+3U=";
       };
     };
 
     htpc = {
+      lan.ip = "192.168.1.12";
       cnames = [
         "grafana"
         "jellyfin"
@@ -95,63 +72,49 @@ rec {
         "torrent"
         "www"
       ];
-
-      lan = {
-        ip = "192.168.1.12";
-      };
-
       wg = {
-        ip = "10.100.100.12";
+        ip = "192.168.20.12";
         publicKey = "sZql5WlnNt45LuiQUjow0y+Hc9LdWW7nnSUjOMHSsgw=";
       };
     };
 
     pi = {
-      cnames = [ "ns" ];
-
-      lan = {
-        ip = "192.168.1.13";
-      };
-
+      lan.ip = "192.168.1.13";
+      cnames = [
+        "ns"
+        "wg"
+      ];
       wg = {
-        ip = "10.100.100.13";
+        ip = "192.168.20.13";
         publicKey = "xDPPIIjA72BrCFC+5eqJn7IiC0xeI6Dof38Inj+tXwg=";
       };
     };
 
     air = {
+      lan.ip = "192.168.1.14";
       ssh = false;
-
-      lan = {
-        ip = "192.168.1.14";
-      };
     };
 
     nas = {
-      lan = {
-        ip = "192.168.1.100";
-      };
-
-      wg = {
-        ip = "10.100.100.100";
-        publicKey = "OgjpXp3AvhTRswErbC32X6zrnfEZeM3B/tjTPr87oig=";
-      };
+      lan.ip = "192.168.1.100";
     };
 
     tv = {
+      lan.ip = "192.168.1.101";
       ssh = false;
+    };
 
-      lan = {
-        ip = "192.168.1.101";
+    donix = {
+      ssh.hostname = "donix.krh.me";
+      wg = {
+        ip = "192.168.20.110";
+        publicKey = "WZgf+DC6SBQeatqOgpC2j6tvIu5VxKi/WgdbIU/m7wg=";
       };
     };
 
     hera = {
+      lan.ip = "192.168.1.120";
       ssh = false;
-
-      lan = {
-        ip = "192.168.1.120";
-      };
     };
   };
 }

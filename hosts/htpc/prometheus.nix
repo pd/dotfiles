@@ -43,7 +43,7 @@ in
         "htpc.home"
         "pi.home"
         "nas.home"
-        "srv.wg"
+        "donix.wg"
       ])
       (staticJob "prometheus" ports.prometheus [ "127.0.0.1" ])
       (staticJob "rtorrent" ports.rtorrent [ "127.0.0.1" ])
@@ -62,7 +62,7 @@ in
           };
         }
       )
-      (staticJob "wireguard" ports.wireguard [ "srv.wg" ])
+      (staticJob "wireguard" ports.wireguard [ "pi.home" ])
       (
         (staticJob "wrt" ports.node-exporter [ "wrt.home" ])
         // {

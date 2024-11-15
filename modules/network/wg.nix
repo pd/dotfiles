@@ -7,42 +7,45 @@
 }:
 with lib;
 let
-  cfg = config.wan;
-  isServer = config.wan.natInterface != null;
+  cfg = config.wg;
+  isServer = config.wg.natInterface != null;
 in
 {
   options = {
-    wan.enable = mkEnableOption "on the wireguard wan";
+    wg.enable = mkEnableOption "on the wireguard wan";
 
-    # wan.server.endpoint
-    # wan.server.publicKey
-    wan.endpoint = mkOption {
+    wg.endpoint = mkOption {
       type = types.str;
-      default = "wg.krh.me:51820";
+      default = "wg.krh.me:51930";
     };
 
-    wan.serverPublicKey = mkOption {
+    wg.serverPublicKey = mkOption {
       type = types.str;
-      default = net.hosts.donix.wg.publicKey;
+      default = net.hosts.pi.wg.publicKey;
     };
 
-    wan.cidr = mkOption {
+    wg.cidr = mkOption {
       type = types.str;
-      default = "10.100.100.0/24";
+      default = net.wg.cidr;
     };
 
-    wan.ipv4 = mkOption { type = types.str; };
+    wg.ipv4 = mkOption { type = types.str; };
 
-    wan.port = mkOption {
+    wg.port = mkOption {
       type = types.int;
-      default = 51820;
+      default = 51930;
     };
 
-    wan.publicKey = mkOption { type = types.str; };
+    wg.publicKey = mkOption { type = types.str; };
 
-    wan.natInterface = mkOption {
+    wg.natInterface = mkOption {
       type = types.nullOr types.str;
       default = null;
+    };
+
+    wg.internalOnly = mkOption {
+      type = types.bool;
+      default = false;
     };
   };
 
@@ -57,7 +60,6 @@ in
       networking = {
         firewall.allowedUDPPorts = [ cfg.port ];
         wireguard.interfaces.wg0 = {
-          listenPort = cfg.port;
           ips = [ "${cfg.ipv4}/32" ];
           privateKeyFile = config.sops.secrets.wireguard-private-key.path;
         };
@@ -76,7 +78,7 @@ in
       networking.wireguard.interfaces.wg0.peers = [
         {
           endpoint = cfg.endpoint;
-          allowedIPs = [ cfg.cidr ];
+          allowedIPs = [ cfg.cidr ] ++ (lib.optional cfg.internalOnly net.lan.cidr);
           publicKey = cfg.serverPublicKey;
           presharedKeyFile = config.sops.secrets.wireguard-preshared-key.path;
           persistentKeepalive = 25;
@@ -126,6 +128,7 @@ in
         };
 
         networking.wireguard.interfaces.wg0 = {
+          listenPort = cfg.port;
           peers = peers;
           postSetup = ''
             ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s ${cfg.cidr} -o ${cfg.natInterface} -j MASQUERADE
@@ -138,7 +141,7 @@ in
 
         services.prometheus.exporters.wireguard = {
           enable = true;
-          listenAddress = net.hosts.donix.wg.ip;
+          listenAddress = net.hosts.pi.wg.ip;
           wireguardConfig = wgPeerNames;
         };
 
