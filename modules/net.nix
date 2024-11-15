@@ -95,6 +95,15 @@ rec {
       ssh = false;
     };
 
+    pdroid = {
+      lan.ip = "192.168.1.50";
+      ssh = false;
+      wg = {
+        ip = "192.168.20.50";
+        publicKey = "";
+      };
+    };
+
     nas = {
       lan.ip = "192.168.1.100";
     };
