@@ -458,8 +458,22 @@ targets."
   (setq sh-basic-offset 2))
 
 (use-package sops
+  :init
+  (define-minor-mode pd/sops-edit-mode "sops-mode bindings"
+    :lighter ""
+    :keymap (make-sparse-keymap))
+  (defun pd/maybe-sops-edit-mode ()
+    (when (or (sops--is-sops-file) (equal sops--status "decrypted"))
+      (pd/sops-edit-mode +1)))
+  :bind
+  (:map pd/sops-edit-mode-map
+        ("C-x C-e" . sops-edit-file)
+        ("C-x C-s" . sops-save-file)
+        ("C-c C-c" . sops-save-file)
+        ("C-c C-k" . sops-cancel))
   :config
-  (global-sops-mode +1))
+  (global-sops-mode +1)
+  (add-hook 'sops-mode-hook 'pd/maybe-sops-edit-mode))
 
 (use-package terraform-mode
   :init
