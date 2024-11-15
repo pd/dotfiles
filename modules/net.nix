@@ -100,7 +100,7 @@ rec {
       ssh = false;
       wg = {
         ip = "192.168.20.50";
-        publicKey = "";
+        publicKey = "YeemrKq8W+3LwT0Z4nqgivC/zGTKZdwQHL0d+W3lNTc=";
       };
     };
 
