@@ -19,16 +19,6 @@ in
 
     lan.ipv4 = mkOption { type = types.str; };
 
-    lan.nameservers = mkOption {
-      type = types.listOf types.str;
-      default = [
-        net.hosts.pi.lan.ip
-        "2606:4700:4700::1111"
-        "1.1.1.1"
-        "8.8.8.8"
-      ];
-    };
-
     lan.wired.interface = mkOption {
       type = types.nullOr types.str;
       default = null;
@@ -41,20 +31,12 @@ in
   };
 
   config = mkMerge [
-    {
-      networking.search = [ "home" ];
-      networking.nameservers = cfg.nameservers;
-    }
-
     (mkIf (cfg.enable && cfg.wired.interface != null) {
-      networking.defaultGateway.interface = cfg.wired.interface;
-      networking.defaultGateway.address = cfg.gateway;
-      networking.interfaces."${cfg.wired.interface}".ipv4.addresses = [
-        {
-          address = cfg.ipv4;
-          prefixLength = 22;
-        }
-      ];
+      networking.interfaces."${cfg.wired.interface}" = {
+        name = cfg.wired.interface;
+        useDHCP = true;
+        # TODO wakeOnLan
+      };
     })
 
     (mkIf (cfg.enable && cfg.wifi.interface != null) {
@@ -74,33 +56,28 @@ in
         wifi.powersave = false;
 
         ensureProfiles.environmentFiles = [ config.sops.secrets.wifi.path ];
-
-        ensureProfiles.profiles = {
+        ensureProfiles.profiles.wifi = {
+          connection = {
+            id = "$ssid";
+            autoconnect = "yes";
+            permissions = "";
+            type = "wifi";
+            interface-name = cfg.wifi.interface;
+          };
+          ipv4 = {
+            method = "auto";
+          };
+          ipv6 = {
+            method = "auto";
+          };
           wifi = {
-            connection = {
-              id = "$ssid";
-              autoconnect = "yes";
-              permissions = "";
-              type = "wifi";
-              interface-name = cfg.wifi.interface;
-            };
-            ipv4 = {
-              method = "auto";
-              ignore-auto-dns = true;
-            };
-            ipv6 = {
-              method = "auto";
-              ignore-auto-dns = true;
-            };
-            wifi = {
-              mode = "infrastructure";
-              ssid = "$ssid";
-            };
-            wifi-security = {
-              auth-alg = "open";
-              key-mgmt = "wpa-psk";
-              psk = "$psk";
-            };
+            mode = "infrastructure";
+            ssid = "$ssid";
+          };
+          wifi-security = {
+            auth-alg = "open";
+            key-mgmt = "wpa-psk";
+            psk = "$psk";
           };
         };
       };
