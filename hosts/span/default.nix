@@ -68,6 +68,10 @@
         # 24h time
         AppleICUForce24HourTime = true;
       };
+
+      trackpad = {
+        TrackpadThreeFingerTapGesture = 0;
+      };
     };
 
     keyboard = {
