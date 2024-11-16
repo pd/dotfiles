@@ -3,10 +3,6 @@
     ssh = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFWXGORnABVvcG3aIp/l0Y0mK6puJHZndPkd+XeoyV5i" ];
   };
 
-  orb = {
-    ssh = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOFtmzbqCwjonqmL63WU+asTz7pBdH6zZdSePFGCcG1M" ];
-  };
-
   span = {
     ssh = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINL/LBITUZGTMudEJ46NLPy/MbtuRfc9dPETK+d9KT5F"
