@@ -3,6 +3,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/core
+    ../../modules/nameserver
     ./prometheus.nix
     ./grafana.nix
     ./nas.nix

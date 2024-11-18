@@ -55,7 +55,6 @@ in
 
     # https://thekelleys.org.uk/dnsmasq/docs/dnsmasq-man.html
     settings = {
-      # dns
       port = 53;
       no-resolv = true;
       local = [
@@ -68,7 +67,6 @@ in
 
       strict-order = true;
       server = [
-        "/svc.cluster.local/172.30.30.1"
         "1.1.1.1"
         "8.8.8.8"
       ];

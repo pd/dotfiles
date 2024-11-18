@@ -67,6 +67,7 @@ rec {
         "grafana"
         "jellyfin"
         "kodi"
+        "ns2"
         "prom"
         "store"
         "torrent"
@@ -82,6 +83,7 @@ rec {
       lan.ip = "192.168.1.13";
       cnames = [
         "ns"
+        "ns1"
         "wg"
       ];
       wg = {

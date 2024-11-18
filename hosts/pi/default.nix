@@ -3,8 +3,8 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/core
+    ../../modules/nameserver
     ./spanland
-    ./dnsmasq.nix
   ];
 
   system.stateVersion = "24.05";
