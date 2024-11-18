@@ -19,17 +19,26 @@ let
     '';
   };
 
-  dnsInfo = tld: net: name: host: {
-    name = "${name}.${tld}";
-    ip = host."${net}".ip;
-    cnames = map (n: "${n}.${tld}") (host.cnames or [ ]);
-  };
+  dnsInfo =
+    tld: net: name: host:
+    let
+      ipv4 = host."${net}".ip;
+      tail = lib.drop 2 (lib.splitString "." ipv4);
+      netnum = lib.head tail;
+      hostnum = lib.last tail;
+      ipv6 = "fded:${netnum}::${hostnum}";
+    in
+    {
+      inherit ipv4 ipv6;
+      name = "${name}.${tld}";
+      cnames = map (n: "${n}.${tld}") (host.cnames or [ ]);
+    };
 
   hosts =
     (lib.mapAttrsToList (dnsInfo "home" "lan") net.lan.hosts)
     ++ (lib.mapAttrsToList (dnsInfo "wg" "wg") net.wg.hosts);
 
-  host-records = map (host: "${host.name},${host.ip}") hosts;
+  host-records = map (host: "${host.name},${host.ipv4},${host.ipv6}") hosts;
   cnames =
     let
       expand = cnames: lib.strings.concatStringsSep "," cnames;
