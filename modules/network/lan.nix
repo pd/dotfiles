@@ -31,6 +31,10 @@ in
   };
 
   config = mkMerge [
+    {
+      networking.resolvconf.extraOptions = [ "timeout:1" ];
+    }
+
     (mkIf (cfg.enable && cfg.wired.interface != null) {
       networking.interfaces."${cfg.wired.interface}" = {
         name = cfg.wired.interface;
