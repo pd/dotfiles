@@ -143,13 +143,5 @@
           ./hosts/span
         ];
       };
-
-      images = {
-        donix = inputs.nixos-generators.nixosGenerate {
-          system = "x86_64-linux";
-          format = "do";
-          modules = [ ./hosts/donix ];
-        };
-      };
     };
 }
