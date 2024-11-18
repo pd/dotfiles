@@ -88,12 +88,12 @@
           system = "x86_64-linux";
           modules = [
             (withOverlays system)
-            ./hosts/desk
-            inputs.home-manager.nixosModules.home-manager
-            inputs.sops-nix.nixosModules.sops
             inputs.disko.nixosModules.disko
+            inputs.sops-nix.nixosModules.sops
+            inputs.home-manager.nixosModules.home-manager
             inputs.stylix.nixosModules.stylix
             homeManagerModules
+            ./hosts/desk
           ];
         };
 
@@ -103,9 +103,9 @@
           system = "x86_64-linux";
           modules = [
             (withOverlays system)
-            ./hosts/donix
-            inputs.sops-nix.nixosModules.sops
             "${inputs.nixpkgs}/nixos/modules/virtualisation/digital-ocean-config.nix"
+            inputs.sops-nix.nixosModules.sops
+            ./hosts/donix
           ];
         };
 
@@ -115,8 +115,8 @@
           system = "x86_64-linux";
           modules = [
             (withOverlays system)
-            ./hosts/htpc
             inputs.sops-nix.nixosModules.sops
+            ./hosts/htpc
           ];
         };
 
@@ -127,8 +127,8 @@
           system = "aarch64-linux";
           modules = [
             (withOverlays system)
-            ./hosts/pi
             inputs.sops-nix.nixosModules.sops
+            ./hosts/pi
           ];
         };
       };
