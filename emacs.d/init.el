@@ -571,6 +571,7 @@ targets."
   :custom
   (vterm-always-compile-module t)
   (vterm-max-scrollback 50000)
+  (vterm-clear-scrollback-when-clearing t)
   :hook
   (vterm-mode . evil-emacs-state)
   :bind
