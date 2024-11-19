@@ -158,8 +158,7 @@
           modules-right = [
             "cpu"
             "memory"
-            "network#lan"
-            "network#wg"
+            "network"
             "pulseaudio"
             "custom/audio-state"
             "clock"
@@ -191,18 +190,20 @@
             tooltip-format = "";
           };
 
-          "network#lan" = {
-            name = "lan";
-            format = "";
-            tooltip-format-wifi = "{ifname} {ipaddr}/{cidr}\n{essid} ({signalStrength}%)";
-          };
-
-          "network#wg" = {
-            name = "wg";
-            interface = "wg0";
-            format = "🔒";
-            format-disconnected = "";
-            tooltip-format = "{ifname} {ipaddr}/{cidr}";
+          network = {
+            format-icons = [
+              "󰤯"
+              "󰤟"
+              "󰤢"
+              "󰤥"
+              "󰤨"
+            ];
+            format-wifi = "{icon}";
+            format-ethernet = "󰈀";
+            format-disconnected = "⚠";
+            tooltip-format-wifi = "WiFi: {essid} ({signalStrength}%)\n {bandwidthUpBytes}  {bandwidthDownBytes}";
+            tooltip-format-ethernet = "Ethernet: {ifname}\n {bandwidthUpBytes}  {bandwidthDownBytes}";
+            tooltip-format-disconnected = "Disconnected";
           };
 
           pulseaudio = {
