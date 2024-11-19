@@ -419,7 +419,10 @@ targets."
   (reformatter-define pd/jsonnetfmt :program "jsonnetfmt")
   (add-hook 'jsonnet-mode-hook #'pd/jsonnetfmt-on-save-mode))
 
-(use-package just-ts-mode)
+(use-package just-ts-mode
+  :config
+  (add-hook 'just-ts-mode-hook (lambda ()
+                                 (setq tab-width 4))))
 
 (use-package lisp-mode
   :ensure nil
