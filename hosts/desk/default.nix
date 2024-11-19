@@ -10,7 +10,7 @@
   system.stateVersion = "24.05";
 
   networking.hostName = "desk";
-  lan.wifi.interface = "wlp6s0";
+  lan.wired.interface = "enp42s0";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -21,7 +21,7 @@
 
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
-  security.polkit.enable = true; # TODO: do i still need this
+  security.polkit.enable = true;
 
   services.pipewire = {
     enable = true;
