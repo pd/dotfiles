@@ -69,17 +69,10 @@ in
       User = pd.name;
       ExecStart = "${filebotd}/bin/filebotd";
       EnvironmentFile = config.sops.secrets.jellyfin-api-key.path;
-
-      # TODO: lib.makeBinPath [pkgs.filebot] is insufficient,
-      # cuz it then shells out to uname, dirname, etc. not sure
-      # how to generate the "transitively required PATH" or
-      # even what that's called in nixland
       Environment = "PATH=/run/current-system/sw/bin";
     };
   };
 
-  # TODO: is there some way to piggyback on the existing
-  # prometheus exporter tooling to generate all this?
   systemd.services.rtorrent-exporter = {
     enable = true;
     description = "rtorrent-exporter";
@@ -87,13 +80,11 @@ in
     after = [ "network.target" ];
     serviceConfig = {
       Type = "exec";
+      User = config.users.users.prometheus.name;
       ExecStart = ''
         ${rtorrent-exporter}/bin/rtorrent_exporter \
           --rtorrent.scrape-uri="http://nas.home:8000/RPC2"
       '';
-
-      # TODO builtins get their own user
-      User = config.users.users.prometheus.name;
     };
   };
 
