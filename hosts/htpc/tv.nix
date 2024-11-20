@@ -38,9 +38,6 @@
 
   users.users.kodi = {
     isNormalUser = true;
-
-    # TODO seems like this ought to be required yet ...
-    # extraGroups = ["audio" "transmission" "video"];
   };
 
   environment.systemPackages = with pkgs; [

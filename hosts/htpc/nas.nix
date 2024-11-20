@@ -1,12 +1,10 @@
 {
   config,
-  net,
   pkgs,
   ...
 }:
 let
   pd = config.users.users.pd;
-  nasIP = net.hosts.nas.lan.ip;
 
   filebotd = pkgs.buildGoModule {
     name = "filebotd";
@@ -51,14 +49,13 @@ in
     rtorrent-exporter
   ];
 
-  # TODO: figure out why the ordering of the automount
-  # means dns resolution isn't functioning yet
   fileSystems."/media" = {
     fsType = "nfs";
-    device = "${nasIP}:/volume1/media";
+    device = "nas.home:/volume1/media";
     options = [
       "noatime"
       "x-systemd.automount"
+      "x-systemd.requires=network-online.target"
     ];
   };
 
