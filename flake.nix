@@ -49,21 +49,22 @@
   };
 
   outputs =
-    inputs:
+    inputs@{ nixpkgs, ... }:
     let
-      net = import ./modules/net.nix { lib = inputs.nixpkgs.lib; };
+      inherit (nixpkgs) lib;
 
       specialArgs = {
-        inherit net inputs;
+        inherit inputs;
+        net = import ./modules/net.nix { inherit lib; };
       };
 
-      withOverlays = system: {
+      overlaysFor = system: {
         nixpkgs = {
           config.allowUnfree = true;
           overlays = [
             (final: prev: {
               unstable = import inputs.nixpkgs-unstable {
-                system = system;
+                inherit system;
                 config.allowUnfree = true;
               };
             })
@@ -77,67 +78,73 @@
           inputs.nixvim.homeManagerModules.nixvim
         ];
       };
+
+      eachSystem = lib.genAttrs [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+      ];
     in
     {
-      formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
+      formatter = eachSystem (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
 
-      nixosConfigurations = {
-        # nixos-rebuild switch --flake .#desk
-        desk = inputs.nixpkgs.lib.nixosSystem rec {
-          inherit specialArgs;
-          system = "x86_64-linux";
-          modules = [
-            (withOverlays system)
-            inputs.disko.nixosModules.disko
-            inputs.sops-nix.nixosModules.sops
-            inputs.home-manager.nixosModules.home-manager
-            inputs.stylix.nixosModules.stylix
-            homeManagerModules
-            ./hosts/desk
-          ];
-        };
-
-        # nixos-rebuild switch --flake .#donix --target-host donix --build-host donix --use-remote-sudo
-        donix = inputs.nixpkgs.lib.nixosSystem rec {
-          inherit specialArgs;
-          system = "x86_64-linux";
-          modules = [
-            (withOverlays system)
-            "${inputs.nixpkgs}/nixos/modules/virtualisation/digital-ocean-config.nix"
-            inputs.sops-nix.nixosModules.sops
-            ./hosts/donix
-          ];
-        };
-
-        # nixos-rebuild switch --flake .#htpc --target-host htpc --build-host htpc --use-remote-sudo
-        htpc = inputs.nixpkgs.lib.nixosSystem rec {
-          inherit specialArgs;
-          system = "x86_64-linux";
-          modules = [
-            (withOverlays system)
-            inputs.sops-nix.nixosModules.sops
-            ./hosts/htpc
-          ];
-        };
-
-        # building the SD, from desk with aarch64 emu:
-        # nix run nixpkgs#nixos-generators -- -f sd-aarch64 --flake .#pi --system aarch64-linux -o ./pi.sd
-        pi = inputs.nixpkgs.lib.nixosSystem rec {
-          inherit specialArgs;
-          system = "aarch64-linux";
-          modules = [
-            (withOverlays system)
-            inputs.sops-nix.nixosModules.sops
-            ./hosts/pi
-          ];
-        };
+      # nixos-rebuild switch --flake .#desk
+      nixosConfigurations.desk = lib.nixosSystem rec {
+        inherit specialArgs;
+        system = "x86_64-linux";
+        modules = [
+          (overlaysFor system)
+          inputs.disko.nixosModules.disko
+          inputs.sops-nix.nixosModules.sops
+          inputs.home-manager.nixosModules.home-manager
+          inputs.stylix.nixosModules.stylix
+          homeManagerModules
+          ./hosts/desk
+        ];
       };
 
-      darwinConfigurations."span" = inputs.nix-darwin.lib.darwinSystem rec {
+      # nixos-rebuild switch --flake .#donix --target-host donix --build-host donix --use-remote-sudo
+      nixosConfigurations.donix = lib.nixosSystem rec {
+        inherit specialArgs;
+        system = "x86_64-linux";
+        modules = [
+          (overlaysFor system)
+          "${inputs.nixpkgs}/nixos/modules/virtualisation/digital-ocean-config.nix"
+          inputs.sops-nix.nixosModules.sops
+          ./hosts/donix
+        ];
+      };
+
+      # nixos-rebuild switch --flake .#htpc --target-host htpc --build-host htpc --use-remote-sudo
+      nixosConfigurations.htpc = lib.nixosSystem rec {
+        inherit specialArgs;
+        system = "x86_64-linux";
+        modules = [
+          (overlaysFor system)
+          inputs.sops-nix.nixosModules.sops
+          ./hosts/htpc
+        ];
+      };
+
+      # building the SD, from desk with aarch64 emu:
+      # nix run nixpkgs#nixos-generators -- -f sd-aarch64 --flake .#pi --system aarch64-linux -o ./pi.sd
+      nixosConfigurations.pi = lib.nixosSystem rec {
+        inherit specialArgs;
+        system = "aarch64-linux";
+        modules = [
+          (overlaysFor system)
+          inputs.sops-nix.nixosModules.sops
+          ./hosts/pi
+        ];
+      };
+
+      # only from span:
+      # darwin-rebuild switch --flake .#span
+      darwinConfigurations.span = inputs.nix-darwin.lib.darwinSystem rec {
         inherit specialArgs;
         system = "x86_64-darwin";
         modules = [
-          (withOverlays system)
+          (overlaysFor system)
           inputs.home-manager.darwinModules.home-manager
           homeManagerModules
           ./hosts/span
