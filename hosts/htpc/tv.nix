@@ -60,10 +60,4 @@
       proxyPass = "http://127.0.0.1:8096";
     };
   };
-
-  # TODO: deal with ipv6 or "private dns" for android
-  # my phone uses the pi for dns, but injects an ipv6 dns
-  # resolver ahead of it no matter what i do. so i need
-  # direct access to kodi to use a remote.
-  networking.firewall.allowedTCPPorts = [ 8080 ];
 }
