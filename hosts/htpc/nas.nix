@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   pkgs,
   ...
 }:
@@ -31,6 +32,10 @@ let
   };
 in
 {
+  imports = [
+    "${inputs.private}/archival"
+  ];
+
   sops.secrets.filebot-license = {
     path = "${pd.home}/.local/share/filebot/data/.license";
     owner = pd.name;

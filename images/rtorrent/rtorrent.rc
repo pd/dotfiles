@@ -52,9 +52,10 @@ system.umask.set = 0022
 # Add a preferred filename encoding to the list
 encoding.add = UTF-8
 
-# Watch a directory for new torrents, and stop those that have been deleted
-directory.watch.added = (cat,(cfg.watch)), load.start
-schedule2 = untied_directory, 5, 5, (cat,"stop_untied=",(cfg.watch),"*.torrent")
+# Watch for new archival torrents
+# Normal torrent flow is through various browser addons,
+# not watch dirs.
+schedule2 = watch_archive,10,10,"load.start_verbose=/downloads/watch/archive/*.torrent,d.custom2.set=archive"
 
 # Move finished (no need Autotools/Automove plugin on ruTorrent)
 method.insert = d.get_finished_dir, simple, "cat=$cfg.download_complete=,$d.custom1="
@@ -68,4 +69,5 @@ method.set_key = event.download.finished,move_complete, \
    execute.nothrow = curl, \
      \"--data-urlencode\", (cat,\"path=\",(d.data_path)), \
      \"--data-urlencode\", (cat,\"tracker=\",(d.custom1)), \
+     \"--data-urlencode\", (cat,\"role=\",(d.custom2)), \
      http://torrent.home/_hooks/completed"

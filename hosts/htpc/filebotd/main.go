@@ -22,11 +22,18 @@ func main() {
 	mux.HandleFunc("POST /_hooks/completed", func(w http.ResponseWriter, r *http.Request) {
 		tracker := r.PostFormValue("tracker")
 		path := rewriteDataPath(r.PostFormValue("path"))
+		role := r.PostFormValue("role")
 
 		log := slog.With("tracker", tracker, "path", path)
 		if tracker == "" || path == "" {
 			w.WriteHeader(http.StatusBadRequest)
 			log.Error("empty params", "status", http.StatusBadRequest)
+			return
+		}
+
+		if role == "archive" {
+			w.WriteHeader(http.StatusOK)
+			log.Info("skipping archive torrent")
 			return
 		}
 
