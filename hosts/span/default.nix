@@ -85,6 +85,7 @@
 
   environment = {
     systemPackages = with pkgs; [
+      unstable.postgresql
       wireguard-go
       wireguard-tools
     ];
