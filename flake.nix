@@ -37,6 +37,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    dewclaw = {
+      url = "github:MakiseKurisu/dewclaw";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -53,9 +58,9 @@
     let
       inherit (nixpkgs) lib;
 
+      net = import ./modules/net.nix { inherit lib; };
       specialArgs = {
-        inherit inputs;
-        net = import ./modules/net.nix { inherit lib; };
+        inherit inputs net;
       };
 
       overlaysFor = system: {
@@ -88,7 +93,6 @@
     {
       formatter = eachSystem (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
 
-      # nixos-rebuild switch --flake .#desk
       nixosConfigurations.desk = lib.nixosSystem rec {
         inherit specialArgs;
         system = "x86_64-linux";
@@ -103,7 +107,6 @@
         ];
       };
 
-      # nixos-rebuild switch --flake .#donix --target-host donix --build-host donix --use-remote-sudo
       nixosConfigurations.donix = lib.nixosSystem rec {
         inherit specialArgs;
         system = "x86_64-linux";
@@ -115,7 +118,6 @@
         ];
       };
 
-      # nixos-rebuild switch --flake .#htpc --target-host htpc --build-host htpc --use-remote-sudo
       nixosConfigurations.htpc = lib.nixosSystem rec {
         inherit specialArgs;
         system = "x86_64-linux";
@@ -126,8 +128,6 @@
         ];
       };
 
-      # building the SD, from desk with aarch64 emu:
-      # nix run nixpkgs#nixos-generators -- -f sd-aarch64 --flake .#pi --system aarch64-linux -o ./pi.sd
       nixosConfigurations.pi = lib.nixosSystem rec {
         inherit specialArgs;
         system = "aarch64-linux";
@@ -138,8 +138,6 @@
         ];
       };
 
-      # only from span:
-      # darwin-rebuild switch --flake .#span
       darwinConfigurations.span = inputs.nix-darwin.lib.darwinSystem rec {
         inherit specialArgs;
         system = "x86_64-darwin";
@@ -150,5 +148,39 @@
           ./hosts/span
         ];
       };
+
+      # routers
+      packages = eachSystem (
+        system:
+        let
+          # TODO: unstable for newer sops; use stable after 24.11
+          pkgs = inputs.nixpkgs-unstable.legacyPackages.${system};
+
+          deploy = pkgs.callPackage inputs.dewclaw {
+            inherit pkgs;
+            configuration = import ./routers {
+              inherit net pkgs;
+            };
+          };
+
+          configs = pkgs.runCommand "extract-configs" { } ''
+            mkdir $out
+            for d in ${deploy}/bin/deploy-*; do
+              host="$(basename $d | sed 's/^deploy-//')"
+              config="$(cat ${deploy}/bin/deploy-$host | grep 'cp.*no-preserve' | awk '{print $3}')"
+              install -Dm600 $config $out/$host.uci
+            done
+          '';
+        in
+        {
+          routers = pkgs.symlinkJoin {
+            name = "routers";
+            paths = [
+              deploy
+              configs
+            ];
+          };
+        }
+      );
     };
 }
