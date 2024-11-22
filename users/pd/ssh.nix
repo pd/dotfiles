@@ -6,13 +6,7 @@
 }:
 let
   others = removeAttrs net.ssh.hosts [ config.networking.hostName ];
-  matchBlock =
-    name: host:
-    {
-      port = 1222;
-      hostname = "${name}.home";
-    }
-    // (host.ssh or { });
+  matchBlock = _: host: host.ssh;
 in
 {
   home-manager.users.pd.programs.ssh = {
