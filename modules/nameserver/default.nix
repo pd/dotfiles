@@ -5,6 +5,27 @@
   ...
 }:
 let
+  # doesn't use go.mod so just build it the old fashioned way
+  hosts-bl = pkgs.stdenv.mkDerivation {
+    name = "hosts-bl";
+    src = pkgs.fetchFromGitHub {
+      owner = "ScriptTiger";
+      repo = "Hosts-BL";
+      rev = "b3ac0a50fce8e714e754a17e6a11f8709386782c";
+      hash = "sha256-w+4dEWwFMjBbeJPOqMrzLBBzPYh/V5SfV2BMrI0p3nw=";
+    };
+
+    configurePhase = ''
+      export GOCACHE=$TMPDIR/go-cache
+      export CGO_ENABLED=0
+    '';
+
+    installPhase = ''
+      mkdir -p $out/bin
+      ${pkgs.unstable.go}/bin/go build -o $out/bin/hosts-bl $src/hosts-bl.go $src/include_other.go
+    '';
+  };
+
   blockLists = pkgs.stdenv.mkDerivation {
     name = "dns-block-lists";
     src = pkgs.fetchurl {
@@ -15,7 +36,7 @@ let
     dontUnpack = true;
     installPhase = ''
       mkdir $out
-      grep '^0.0.0.0' $src > $out/dns-block-list
+      ${hosts-bl}/bin/hosts-bl -f ipv6 -to_blackhole_v6 ::0 -i $src -o $out/dns-block-list
     '';
   };
 
