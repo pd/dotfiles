@@ -83,6 +83,10 @@ in
   services.dnsmasq = {
     enable = true;
 
+    # we manage this directly ourselves instead; no need for nixos
+    # to wire up a separate resolvconf, override nameservers, etc.
+    resolveLocalQueries = false;
+
     # https://thekelleys.org.uk/dnsmasq/docs/dnsmasq-man.html
     settings = {
       port = 53;
