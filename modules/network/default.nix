@@ -14,9 +14,9 @@ in
   ];
 
   lan.enable = lib.mkDefault (host ? "lan");
-  lan.ipv4 = lib.mkIf config.lan.enable host.lan.ip;
+  lan.ipv4 = lib.mkIf config.lan.enable host.lan.ipv4;
 
   wg.enable = lib.mkDefault (host ? "wg");
-  wg.ipv4 = lib.mkIf config.wg.enable host.wg.ip;
+  wg.ipv4 = lib.mkIf config.wg.enable host.wg.ipv4;
   wg.publicKey = lib.mkIf config.wg.enable host.wg.publicKey;
 }

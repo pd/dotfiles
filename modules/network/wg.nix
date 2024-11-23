@@ -102,7 +102,7 @@ in
 
         peers = lib.mapAttrsToList (name: peer: {
           inherit name;
-          allowedIPs = [ "${peer.wg.ip}/32" ];
+          allowedIPs = [ "${peer.wg.ipv4}/32" ];
           publicKey = peer.wg.publicKey;
           presharedKeyFile = config.sops.secrets."wireguard-preshared-key-${name}".path;
         }) clients;

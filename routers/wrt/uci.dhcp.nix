@@ -25,7 +25,7 @@ let
     name: host:
     {
       inherit name;
-      inherit (host.lan) ip;
+      ip = host.lan.ipv4;
       mac = map toUpper host.macs;
     }
     // (mkv6 host);
@@ -37,7 +37,7 @@ in
     {
       interface = [ "lan" ];
 
-      server = [ "/*.home/${net.lan.ips.pi}" ];
+      server = [ "/*.home/${net.lan.ipv4.pi}" ];
       rebind_domain = [ "home" ];
       domain = "home";
       local = "/home/";
@@ -71,7 +71,7 @@ in
     start = 612; # .2.100 .. .2.249
     limit = 150;
     dhcp_option = [
-      "6,${net.lan.ips.pi},${net.lan.ips.htpc}"
+      "6,${net.lan.ipv4.pi},${net.lan.ipv4.htpc}"
       "119,home"
     ];
 
@@ -84,8 +84,8 @@ in
       "other-config"
     ];
     dns = [
-      "fded:1::13" # TODO net.lan.ipv6.pi
-      "fded:1::12"
+      net.lan.ipv6.pi
+      net.lan.ipv6.htpc
     ];
   };
 

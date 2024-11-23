@@ -43,7 +43,7 @@ let
   dnsInfo =
     tld: net: name: host:
     let
-      ipv4 = host."${net}".ip;
+      ipv4 = host."${net}".ipv4;
       tail = lib.drop 2 (lib.splitString "." ipv4);
       netnum = lib.head tail;
       hostnum = lib.last tail;

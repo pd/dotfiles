@@ -29,14 +29,14 @@ let
   mkLan =
     id: lan:
     mkIf "lan" (lan != false) { } {
-      ip = "192.168.1.${toString id}";
+      ipv4 = "192.168.1.${toString id}";
       ipv6 = "fded:1::${toString id}";
     };
 
   mkWg =
     id: wg:
     mkIf "wg" (wg ? publicKey) wg {
-      ip = "192.168.20.${toString id}";
+      ipv4 = "192.168.20.${toString id}";
       ipv6 = "fded:20::${toString id}";
     };
 
@@ -74,13 +74,15 @@ rec {
   lan = {
     cidr = "192.168.0.0/22";
     hosts = filterAttrs (_: h: h ? lan) hosts;
-    ips = mapAttrs (_: v: v.lan.ip) lan.hosts;
+    ipv4 = mapAttrs (_: v: v.lan.ipv4) lan.hosts;
+    ipv6 = mapAttrs (_: v: v.lan.ipv6) lan.hosts;
   };
 
   wg = {
     cidr = "192.168.20.0/24";
     hosts = filterAttrs (_: h: h ? wg) hosts;
-    ips = mapAttrs (_: v: v.wg.ip) wg.hosts;
+    ipv4 = mapAttrs (_: v: v.wg.ipv4) wg.hosts;
+    ipv6 = mapAttrs (_: v: v.wg.ipv6) wg.hosts;
     pks = mapAttrs (_: v: v.wg.publicKey) wg.hosts;
   };
 
