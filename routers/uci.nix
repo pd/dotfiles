@@ -1,4 +1,9 @@
-{ lib, net, ... }:
+{
+  dmerge,
+  lib,
+  net,
+  ...
+}:
 with lib;
 let
   keys = import ../modules/keys.nix;
@@ -22,9 +27,29 @@ in
       }
     ];
 
+  dnat =
+    name:
+    {
+      ip,
+      port,
+      proto ? [
+        "tcp"
+        "udp"
+      ],
+    }@_:
+    {
+      inherit name proto;
+      src = "wan";
+      dest = "lan";
+      target = "DNAT";
+      src_dport = port;
+      dest_ip = ip;
+      dest_port = port;
+    };
+
   mkRouter =
     hostname: packages: custom:
-    recursiveUpdate {
+    dmerge.merge {
       inherit packages;
 
       deploy = {
@@ -86,6 +111,49 @@ in
             ];
             dns_search = [ "home" ];
           };
+        };
+
+        firewall = {
+          defaults = [
+            {
+              input = "REJECT";
+              output = "ACCEPT";
+              forward = "REJECT";
+              synflood_protect = true;
+            }
+          ];
+
+          zone = [
+            {
+              name = "lan";
+              input = "ACCEPT";
+              output = "ACCEPT";
+              forward = "ACCEPT";
+              network = [ "lan" ];
+              log = true;
+            }
+
+            {
+              name = "wan";
+              input = "REJECT";
+              output = "ACCEPT";
+              forward = "REJECT";
+              network = [
+                "wan"
+                "wan6"
+              ];
+              masq = true;
+              mtu_fix = true;
+              log = true;
+            }
+          ];
+
+          forwarding.lan_wan = {
+            src = "lan";
+            dest = "wan";
+          };
+
+          rule = import ./default-firewall-rules.nix;
         };
       };
 

@@ -1,4 +1,5 @@
 {
+  dmerge,
   lib,
   net,
   uci,
@@ -21,7 +22,6 @@ let
 in
 uci.mkRouter "wrt" packages {
   uci.retain = [
-    "firewall" # TODO
     "luci"
     "rpcd"
     "ubootenv"
@@ -30,6 +30,13 @@ uci.mkRouter "wrt" packages {
   ];
 
   uci.settings = {
+    dhcp = import ./uci.dhcp.nix { inherit lib net; };
+    ddns = import ./uci.ddns.nix { inherit lib; };
+    firewall = import ./uci.firewall.nix { inherit dmerge net uci; };
+    network = import ./uci.network.nix { inherit net uci; };
+    upnpd = import ./uci.upnpd.nix { };
+    wireless = import ./uci.wireless.nix { };
+
     prometheus-node-exporter-lua = {
       prometheus-node-exporter-lua.main = {
         listen_interface = "lan";
@@ -37,11 +44,5 @@ uci.mkRouter "wrt" packages {
         listen_port = 9100;
       };
     };
-
-    dhcp = import ./uci.dhcp.nix { inherit lib net; };
-    ddns = import ./uci.ddns.nix { inherit lib; };
-    network = import ./uci.network.nix { inherit net uci; };
-    upnpd = import ./uci.upnpd.nix { };
-    wireless = import ./uci.wireless.nix { };
   };
 }

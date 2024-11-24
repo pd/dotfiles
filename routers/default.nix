@@ -1,17 +1,19 @@
 {
+  dmerge,
   net,
   pkgs,
 }:
 let
   uci = import ./uci.nix {
-    inherit net;
+    inherit dmerge net;
     inherit (pkgs) lib;
   };
 
-  mkRouter =
+  router =
     name:
     import ./${name} {
       inherit
+        dmerge
         net
         pkgs
         uci
@@ -20,6 +22,8 @@ let
     };
 in
 {
-  openwrt.wrt = mkRouter "wrt";
-  openwrt.rpt = mkRouter "rpt";
+  openwrt = pkgs.lib.genAttrs [
+    "wrt"
+    "rpt"
+  ] router;
 }

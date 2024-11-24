@@ -12,9 +12,18 @@
       flake = false;
     };
 
+    dewclaw = {
+      url = "github:MakiseKurisu/dewclaw";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    dmerge = {
+      url = "github:divnix/dmerge";
     };
 
     home-manager = {
@@ -35,11 +44,6 @@
     nixvim = {
       url = "github:nix-community/nixvim/nixos-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    dewclaw = {
-      url = "github:MakiseKurisu/dewclaw";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     sops-nix = {
@@ -159,6 +163,7 @@
           deploy = pkgs.callPackage inputs.dewclaw {
             inherit pkgs;
             configuration = import ./routers {
+              inherit (inputs) dmerge;
               inherit net pkgs;
             };
           };

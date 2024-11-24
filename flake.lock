@@ -176,6 +176,26 @@
         "type": "github"
       }
     },
+    "dmerge": {
+      "inputs": {
+        "haumea": "haumea",
+        "nixlib": "nixlib",
+        "yants": "yants"
+      },
+      "locked": {
+        "lastModified": 1698340621,
+        "narHash": "sha256-SFrpyBVYaBVu4kaEm6O9O5P+ZKASMEa2EOQSlC33/Ok=",
+        "owner": "divnix",
+        "repo": "dmerge",
+        "rev": "7e528814b0da207ea12ab3f62f2a928b7b8fe9c6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "divnix",
+        "repo": "dmerge",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "locked": {
         "lastModified": 1696426674,
@@ -343,6 +363,28 @@
         "type": "github"
       }
     },
+    "haumea": {
+      "inputs": {
+        "nixpkgs": [
+          "dmerge",
+          "nixlib"
+        ]
+      },
+      "locked": {
+        "lastModified": 1685133229,
+        "narHash": "sha256-FePm/Gi9PBSNwiDFq3N+DWdfxFq0UKsVVTJS3cQPn94=",
+        "owner": "nix-community",
+        "repo": "haumea",
+        "rev": "34dd58385092a23018748b50f9b23de6266dffc2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "v0.2.2",
+        "repo": "haumea",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -450,6 +492,21 @@
     },
     "nixlib": {
       "locked": {
+        "lastModified": 1681001314,
+        "narHash": "sha256-5sDnCLdrKZqxLPK4KA8+f4A3YKO/u6ElpMILvX0g72c=",
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "rev": "367c0e1086a4eb4502b24d872cea2c7acdd557f4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
+    "nixlib_2": {
+      "locked": {
         "lastModified": 1729386149,
         "narHash": "sha256-hUP9oxmnOmNnKcDOf5Y55HQ+NnoT0+bLWHLQWLLw9Ks=",
         "owner": "nix-community",
@@ -465,7 +522,7 @@
     },
     "nixos-generators": {
       "inputs": {
-        "nixlib": "nixlib",
+        "nixlib": "nixlib_2",
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -592,6 +649,7 @@
       "inputs": {
         "dewclaw": "dewclaw",
         "disko": "disko",
+        "dmerge": "dmerge",
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nixos-generators": "nixos-generators",
@@ -673,6 +731,27 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "yants": {
+      "inputs": {
+        "nixpkgs": [
+          "dmerge",
+          "nixlib"
+        ]
+      },
+      "locked": {
+        "lastModified": 1677285314,
+        "narHash": "sha256-hlAcg2514zKrPu8jn24BUsIjjvXvCLdw1jvKgBTpqko=",
+        "owner": "divnix",
+        "repo": "yants",
+        "rev": "9eab24b273ce021406c852166c216b86e2bb4ec4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "divnix",
+        "repo": "yants",
         "type": "github"
       }
     }
