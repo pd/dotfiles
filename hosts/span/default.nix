@@ -132,8 +132,8 @@
     in
     {
       privateKeyFile = secrets.wireguard-private-key.path;
-      address = [ "${net.wg.ips.span}/32" ];
-      dns = [ "${net.wg.ips.pi},wg,home" ];
+      address = [ "${net.wg.ipv4.span}/32" ];
+      dns = [ "${net.wg.ipv4.pi},wg,home" ];
       postDown = "networksetup -setdnsservers Wi-Fi Empty";
 
       peers = [

@@ -1,5 +1,5 @@
-# home 192.168.1.0/22
-# wg   192.168.20.0/24
+# home 192.168.1.0/22  fded:1::/48
+# wg   192.168.20.0/24 fded:20::/48
 #
 # computers:
 #   wrt:   .1, gw
@@ -20,49 +20,111 @@
 #   do:    .110
 #   hera:  .120
 { lib, ... }:
+with lib;
+let
+  mkIf =
+    k: on: custom: defaults:
+    if on then { ${k} = defaults // custom; } else { };
+
+  mkLan =
+    id: lan:
+    mkIf "lan" (lan != false) { } {
+      ipv4 = "192.168.1.${toString id}";
+      ipv6 = "fded:1::${toString id}";
+    };
+
+  mkWg =
+    id: wg:
+    mkIf "wg" (wg ? publicKey) wg {
+      ipv4 = "192.168.20.${toString id}";
+      ipv6 = "fded:20::${toString id}";
+    };
+
+  mkSsh =
+    hostname: ssh:
+    mkIf "ssh" (ssh != false) ssh {
+      hostname = "${hostname}.home";
+      port = 1222;
+    };
+
+  mkHost =
+    hostname:
+    _@{
+      id,
+      duid ? null,
+      lan ? { },
+      macs ? [ ],
+      ssh ? { },
+      wg ? { },
+      cnames ? [ ],
+    }:
+    {
+      inherit
+        id
+        duid
+        macs
+        cnames
+        ;
+    }
+    // (mkLan id lan)
+    // (mkWg id wg)
+    // (mkSsh hostname ssh);
+in
 rec {
   lan = {
     cidr = "192.168.0.0/22";
-    hosts = lib.filterAttrs (_: h: h ? "lan") hosts;
-    ips = lib.mapAttrs (_: v: v.lan.ip) lan.hosts;
+    hosts = filterAttrs (_: h: h ? lan) hosts;
+    ipv4 = mapAttrs (_: v: v.lan.ipv4) lan.hosts;
+    ipv6 = mapAttrs (_: v: v.lan.ipv6) lan.hosts;
   };
 
   wg = {
     cidr = "192.168.20.0/24";
-    hosts = lib.filterAttrs (_: h: h ? "wg") hosts;
-    ips = lib.mapAttrs (_: v: v.wg.ip) wg.hosts;
-    pks = lib.mapAttrs (_: v: v.wg.publicKey) wg.hosts;
+    hosts = filterAttrs (_: h: h ? wg) hosts;
+    ipv4 = mapAttrs (_: v: v.wg.ipv4) wg.hosts;
+    ipv6 = mapAttrs (_: v: v.wg.ipv6) wg.hosts;
+    pks = mapAttrs (_: v: v.wg.publicKey) wg.hosts;
   };
 
-  # hosts with ssh enabled
-  ssh.hosts = lib.filterAttrs (_: h: (h.ssh or { }) != false) hosts;
+  ssh.hosts = filterAttrs (_: h: h ? ssh) hosts;
 
-  hosts = {
+  hosts = mapAttrs mkHost {
     wrt = {
-      lan.ip = "192.168.1.1";
+      id = 1;
       ssh.user = "root";
+      cnames = [ "gw" ];
     };
 
     rpt = {
-      lan.ip = "192.168.1.2";
+      id = 2;
+      duid = "000300019483c4a4aad2";
+      macs = [ "94:83:c4:a4:aa:d2" ];
+      ssh.hostname = "192.168.1.2"; # TODO figure out why ipv6 fails
       ssh.user = "root";
     };
 
     desk = {
-      lan.ip = "192.168.1.10";
+      id = 10;
+      duid = "000100012ecf7ce92cf05ddb8d13"; # TODO wl* duid?
+      macs = [
+        "14:cc:20:23:ea:6c" # wlp0s20f3
+        "2c:f0:5d:db:8d:13" # enp42s0
+      ];
     };
 
     span = {
-      lan.ip = "192.168.1.11";
+      id = 11;
+      duid = "00010001294a1d92f8ffc2698bb6";
+      macs = [ "f8:ff:c2:69:8b:b6" ];
       ssh.port = 22;
-      wg = {
-        ip = "192.168.20.11";
-        publicKey = "ifiRznc81W75NIIq53+8BH6uJ3iJODbXdAk+ND1J+3U=";
-      };
+      wg.publicKey = "ifiRznc81W75NIIq53+8BH6uJ3iJODbXdAk+ND1J+3U=";
     };
 
     htpc = {
-      lan.ip = "192.168.1.12";
+      id = 12;
+      duid = "0004dd5908ad4d02b46426ad2e2b179289d9";
+      macs = [ "b0:a4:60:17:89:87" ];
+      wg.publicKey = "sZql5WlnNt45LuiQUjow0y+Hc9LdWW7nnSUjOMHSsgw=";
       cnames = [
         "grafana"
         "jellyfin"
@@ -73,58 +135,63 @@ rec {
         "torrent"
         "www"
       ];
-      wg = {
-        ip = "192.168.20.12";
-        publicKey = "sZql5WlnNt45LuiQUjow0y+Hc9LdWW7nnSUjOMHSsgw=";
-      };
     };
 
     pi = {
-      lan.ip = "192.168.1.13";
+      id = 13;
+      duid = "000103042eaecf0e000000000000";
+      macs = [ "d8:3a:dd:70:a7:f5" ];
+      wg.publicKey = "xDPPIIjA72BrCFC+5eqJn7IiC0xeI6Dof38Inj+tXwg=";
       cnames = [
         "ns"
         "ns1"
         "wg"
       ];
-      wg = {
-        ip = "192.168.20.13";
-        publicKey = "xDPPIIjA72BrCFC+5eqJn7IiC0xeI6Dof38Inj+tXwg=";
-      };
     };
 
     air = {
-      lan.ip = "192.168.1.14";
+      id = 14;
+      duid = "000100012c2b9b1910b58855b7af";
+      macs = [ "10:b5:88:55:b7:af" ];
       ssh = false;
     };
 
     pdroid = {
-      lan.ip = "192.168.1.50";
+      id = 50;
+      macs = [ "d4:3a:2c:55:0a:dd" ];
       ssh = false;
-      wg = {
-        ip = "192.168.20.50";
-        publicKey = "YeemrKq8W+3LwT0Z4nqgivC/zGTKZdwQHL0d+W3lNTc=";
-      };
+      wg.publicKey = "YeemrKq8W+3LwT0Z4nqgivC/zGTKZdwQHL0d+W3lNTc=";
+    };
+
+    erphone = {
+      id = 51;
+      duid = "0001000129ad30d098502e23cf69";
+      macs = [ "98:50:2e:23:cf:69" ];
+      ssh = false;
     };
 
     nas = {
-      lan.ip = "192.168.1.100";
+      id = 100;
+      duid = "000300019009d05929cc";
+      macs = [ "90:09:d0:59:29:cc" ];
     };
 
     tv = {
-      lan.ip = "192.168.1.101";
+      id = 101;
+      macs = [ "60:8d:26:68:54:0c" ];
       ssh = false;
     };
 
     donix = {
+      id = 110;
+      lan = false;
       ssh.hostname = "donix.krh.me";
-      wg = {
-        ip = "192.168.20.110";
-        publicKey = "WZgf+DC6SBQeatqOgpC2j6tvIu5VxKi/WgdbIU/m7wg=";
-      };
+      wg.publicKey = "WZgf+DC6SBQeatqOgpC2j6tvIu5VxKi/WgdbIU/m7wg=";
     };
 
     hera = {
-      lan.ip = "192.168.1.120";
+      id = 120;
+      macs = [ "00:11:32:41:42:23" ];
       ssh = false;
     };
   };

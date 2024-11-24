@@ -43,3 +43,8 @@ creation_rules:
     - *pd-span
     - *pd-desk
     - *host-span
+- path_regex: routers/.*/secrets.yaml$
+  key_groups:
+  - age:
+    - *pd-span
+    - *pd-desk
