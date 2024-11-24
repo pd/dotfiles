@@ -67,6 +67,13 @@ in
         };
 
         network = {
+          interface.loopback = {
+            device = "lo";
+            proto = "static";
+            ipaddr = "127.0.0.1";
+            netmask = "255.0.0.0";
+          };
+
           interface.lan = {
             device = "br-lan";
             proto = "static";
