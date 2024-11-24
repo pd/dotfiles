@@ -3,7 +3,11 @@
   pkgs,
 }:
 let
-  uci = import ./uci.nix { lib = pkgs.lib; };
+  uci = import ./uci.nix {
+    inherit net;
+    inherit (pkgs) lib;
+  };
+
   mkRouter =
     name:
     import ./${name} {

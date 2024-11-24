@@ -1,20 +1,14 @@
 {
   lib,
+  net,
   uci,
   ...
 }:
-{
-  deploy.host = "192.168.1.2"; # TODO why does ssh over ipv6 fail
-  deploy.sshConfig = {
-    Port = 1222;
-  };
-
-  packages = [ ];
-  users.root.hashedPassword = "$6$VaxrusIClFD3RwYc$GP9rU3UrVrn5Qz1PrtN716jWEAeYte1Lj6eq.NcY1iupk0f35P8MeiRhe7L0EkVrxNC0OT2Uah1VzJBwdJJav1";
-  etc."dropbear/authorized_keys".text = uci.authorized-keys;
+uci.mkRouter "rpt" [ ] {
+  deploy.host = net.lan.ipv4.rpt; # TODO why does ipv6 (thus by hostname) fail
 
   uci.retain = [
-    "firewall"
+    "firewall" # TODO
     "luci"
     "rpcd"
     "ttyd"
@@ -22,36 +16,7 @@
     "uhttpd"
   ];
 
-  uci.sopsSecrets = ./secrets.yaml;
   uci.settings = {
-    dropbear.dropbear = [
-      {
-        Interface = "lan";
-        Port = 1222;
-        PasswordAuth = "off";
-      }
-    ];
-
-    system = {
-      system = [
-        {
-          hostname = "rpt";
-          zonename = "America/Chicago";
-        }
-      ];
-
-      timeserver.ntp = {
-        enabled = true;
-        enable_server = false;
-        server = [
-          "0.openwrt.pool.ntp.org"
-          "1.openwrt.pool.ntp.org"
-          "2.openwrt.pool.ntp.org"
-          "3.openwrt.pool.ntp.org"
-        ];
-      };
-    };
-
     dhcp = {
       dnsmasq = [
         {
@@ -66,42 +31,12 @@
     };
 
     network = {
-      interface.loopback = {
-        device = "lo";
-        proto = "static";
-        ipaddr = "127.0.0.1";
-        netmask = "255.0.0.0";
-      };
-
+      device = uci.bridgeLan 2 (lib.head net.hosts.rpt.macs);
       interface.lan = {
-        device = "br-lan";
-        proto = "static";
-        ipaddr = "192.168.1.2";
-        netmask = "255.255.252.0";
-        ip6addr = [ "fded:1::2" ];
-        ip6gw = [ "fded:1::1" ];
-        dns = [
-          "192.168.1.13"
-          "192.168.1.12"
-        ];
-        dns_search = "home";
+        ipaddr = net.lan.ipv4.rpt;
+        ip6addr = [ net.lan.ipv6.rpt ];
+        ip6gw = [ net.lan.ipv6.wrt ];
       };
-
-      device =
-        let
-          lan-devices = map (n: {
-            name = "lan${toString n}";
-            macaddr = "94:83:c4:a4:aa:d2";
-          }) (lib.range 1 2);
-        in
-        [
-          {
-            name = "br-lan";
-            type = "bridge";
-            ports = map (d: d.name) lan-devices;
-          }
-        ]
-        ++ lan-devices;
     };
 
     wireless =

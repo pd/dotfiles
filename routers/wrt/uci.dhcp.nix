@@ -1,9 +1,6 @@
-{ lib, ... }:
+{ lib, net, ... }:
 with lib;
 let
-  # TODO why isn't this available to the fn ^^
-  net = import ../../modules/net.nix { inherit lib; };
-
   pad =
     id:
     let
@@ -83,6 +80,7 @@ in
       "managed-config"
       "other-config"
     ];
+    ra_useleasetime = true;
     dns = [
       net.lan.ipv6.pi
       net.lan.ipv6.htpc

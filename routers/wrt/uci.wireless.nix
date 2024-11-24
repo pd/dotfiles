@@ -17,8 +17,6 @@ let
     wds = true;
     ieee80211r = true;
     mobility_domain = "dead";
-
-    # tbh no idea just copying from existing config
     ft_over_ds = false;
     ft_psk_generate_local = true;
   };
