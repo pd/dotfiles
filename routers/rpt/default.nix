@@ -19,7 +19,13 @@ uci.mkRouter "rpt" [ ] {
     dhcp = {
       dnsmasq = [
         {
+          interface = [ "lan" ];
           localservice = true;
+          rebind_protection = false;
+          server = [
+            net.lan.ipv4.pi
+            net.lan.ipv4.htpc
+          ];
         }
       ];
 

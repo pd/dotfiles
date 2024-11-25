@@ -33,21 +33,12 @@ in
   dnsmasq = [
     {
       interface = [ "lan" ];
-
-      server = [ "/*.home/${net.lan.ipv4.pi}" ];
-      rebind_domain = [ "home" ];
-      domain = "home";
-      local = "/home/";
-
-      authoritative = true;
-      domainneeded = true;
-      expandhosts = true;
       localservice = true;
-      rebind_protection = true;
-      readethers = true;
-
-      cachesize = 1000;
-      ednspacket_max = 1232;
+      rebind_protection = false;
+      server = [
+        net.lan.ipv4.pi
+        net.lan.ipv4.htpc
+      ];
 
       leasefile = "/tmp/dhcp.leases";
       resolvfile = "/tmp/resolv.conf.d/resolv.conf.auto";
