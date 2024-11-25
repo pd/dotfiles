@@ -29,7 +29,13 @@ in
       default = net.wg.cidr;
     };
 
+    wg.cidr6 = mkOption {
+      type = types.str;
+      default = net.wg.cidr6;
+    };
+
     wg.ipv4 = mkOption { type = types.str; };
+    wg.ipv6 = mkOption { type = types.str; };
 
     wg.port = mkOption {
       type = types.int;
@@ -60,7 +66,10 @@ in
       networking = {
         firewall.allowedUDPPorts = [ cfg.port ];
         wireguard.interfaces.wg0 = {
-          ips = [ "${cfg.ipv4}/32" ];
+          ips = [
+            "${cfg.ipv4}/32"
+            "${cfg.ipv6}/128"
+          ];
           privateKeyFile = config.sops.secrets.wireguard-private-key.path;
         };
       };
@@ -78,7 +87,10 @@ in
       networking.wireguard.interfaces.wg0.peers = [
         {
           endpoint = cfg.endpoint;
-          allowedIPs = [ cfg.cidr ] ++ (lib.optional cfg.internalOnly net.lan.cidr);
+          allowedIPs = [
+            cfg.cidr
+            cfg.cidr6
+          ] ++ (lib.optional cfg.internalOnly net.lan.cidr);
           publicKey = cfg.serverPublicKey;
           presharedKeyFile = config.sops.secrets.wireguard-preshared-key.path;
           persistentKeepalive = 25;
@@ -102,7 +114,10 @@ in
 
         peers = lib.mapAttrsToList (name: peer: {
           inherit name;
-          allowedIPs = [ "${peer.wg.ipv4}/32" ];
+          allowedIPs = [
+            "${peer.wg.ipv4}/32"
+            "${peer.wg.ipv6}/128"
+          ];
           publicKey = peer.wg.publicKey;
           presharedKeyFile = config.sops.secrets."wireguard-preshared-key-${name}".path;
         }) clients;
@@ -132,10 +147,12 @@ in
           peers = peers;
           postSetup = ''
             ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s ${cfg.cidr} -o ${cfg.natInterface} -j MASQUERADE
+            ${pkgs.iptables}/bin/ip6tables -t nat -A POSTROUTING -s ${cfg.cidr6} -o ${cfg.natInterface} -j MASQUERADE
           '';
 
           postShutdown = ''
             ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s ${cfg.cidr} -o ${cfg.natInterface} -j MASQUERADE
+            ${pkgs.iptables}/bin/ip6tables -t nat -D POSTROUTING -s ${cfg.cidr6} -o ${cfg.natInterface} -j MASQUERADE
           '';
         };
 
