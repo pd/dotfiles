@@ -49,7 +49,7 @@ in
       default = null;
     };
 
-    wg.internalOnly = mkOption {
+    wg.includeLanRoutes = mkOption {
       type = types.bool;
       default = false;
     };
@@ -87,10 +87,15 @@ in
       networking.wireguard.interfaces.wg0.peers = [
         {
           endpoint = cfg.endpoint;
-          allowedIPs = [
-            cfg.cidr
-            cfg.cidr6
-          ] ++ (lib.optional cfg.internalOnly net.lan.cidr);
+          allowedIPs =
+            [
+              cfg.cidr
+              cfg.cidr6
+            ]
+            ++ (lib.optionals cfg.includeLanRoutes [
+              net.lan.cidr
+              net.lan.cidr6
+            ]);
           publicKey = cfg.serverPublicKey;
           presharedKeyFile = config.sops.secrets.wireguard-preshared-key.path;
           persistentKeepalive = 25;

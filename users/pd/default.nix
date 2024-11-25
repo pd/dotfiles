@@ -45,6 +45,7 @@ in
         kfilt
         kubernetes-helm
         kustomize
+        ssh-to-age
         stern
         unzip
         watchexec

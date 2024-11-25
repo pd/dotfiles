@@ -116,7 +116,6 @@
         system = "x86_64-linux";
         modules = [
           (overlaysFor system)
-          "${inputs.nixpkgs}/nixos/modules/virtualisation/digital-ocean-config.nix"
           inputs.sops-nix.nixosModules.sops
           ./hosts/donix
         ];

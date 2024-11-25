@@ -41,29 +41,46 @@ resource "digitalocean_droplet" "do" {
   ipv6   = true
 }
 
-data "digitalocean_image" "donix" {
-  name   = "donix"
-  source = "user"
+data "digitalocean_image" "ubuntu" {
+  slug = "ubuntu-22-04-x64"
 }
 
 resource "digitalocean_droplet" "donix" {
   name     = "donix.krh.me"
   region   = "nyc3"
   size     = "s-1vcpu-1gb"
-  image    = data.digitalocean_image.donix.id
+  image    = data.digitalocean_image.ubuntu.id
+  ipv6     = true
   ssh_keys = data.digitalocean_ssh_keys.ssh.ssh_keys[*].id
+
+  # https://github.com/elitak/nixos-infect/blob/5ef3f953d32ab92405b280615718e0b80da2ebe6/README.md#digital-ocean
+  # starting from ubuntu 22.04 because of:
+  # https://github.com/elitak/nixos-infect/issues/199
+  user_data = <<EOF
+#cloud-config
+write_files:
+- path: /etc/nixos/host.nix
+  permissions: '0644'
+  content: |
+    {pkgs, ...}:
+    { environment.systemPackages = [ pkgs.vim ]; }
+runcmd:
+- curl https://raw.githubusercontent.com/elitak/nixos-infect/master/nixos-infect | PROVIDER=digitalocean NIXOS_IMPORT=./host.nix NIX_CHANNEL=nixos-24.05 bash 2>&1 | tee /tmp/infect.log
+EOF
 }
 
 output "do" {
   value = {
     name = digitalocean_droplet.do.name
-    ip   = digitalocean_droplet.do.ipv4_address
+    ip4  = digitalocean_droplet.do.ipv4_address
+    ip6  = digitalocean_droplet.do.ipv6_address
   }
 }
 
 output "donix" {
   value = {
     name = digitalocean_droplet.donix.name
-    ip   = digitalocean_droplet.donix.ipv4_address
+    ip4  = digitalocean_droplet.donix.ipv4_address
+    ip6  = digitalocean_droplet.donix.ipv6_address
   }
 }

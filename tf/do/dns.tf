@@ -6,6 +6,8 @@ locals {
       { type = "NS", name = "@", value = "ns3.digitalocean.com." },
       { type = "A", name = "@", value = digitalocean_droplet.donix.ipv4_address },
       { type = "A", name = "www", value = digitalocean_droplet.donix.ipv4_address },
+      { type = "AAAA", name = "@", value = digitalocean_droplet.donix.ipv6_address },
+      { type = "AAAA", name = "www", value = digitalocean_droplet.donix.ipv6_address },
       { type = "CAA", name = "@", value = "letsencrypt.org." },
     ]
 
@@ -15,7 +17,9 @@ locals {
       { type = "NS", name = "@", value = "ns3.digitalocean.com." },
 
       { type = "A", name = "do", value = digitalocean_droplet.do.ipv4_address },
+      { type = "AAAA", name = "do", value = digitalocean_droplet.do.ipv6_address },
       { type = "A", name = "donix", value = digitalocean_droplet.donix.ipv4_address },
+      { type = "AAAA", name = "donix", value = digitalocean_droplet.donix.ipv6_address },
 
       { type = "CNAME", name = "mail", value = "ghs.googlehosted.com." },
       { type = "MX", name = "@", value = "aspmx.l.google.com.", priority = 1 },

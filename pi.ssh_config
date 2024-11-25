@@ -1,3 +1,8 @@
 Host pi
   HostName 192.168.1.13
   Port 1222
+
+Host donix
+  HostName donix.krh.me
+  Port 22
+  User root
