@@ -130,7 +130,7 @@ in
               output = "ACCEPT";
               forward = "ACCEPT";
               network = [ "lan" ];
-              log = true;
+              log = false;
             }
 
             {
@@ -144,7 +144,7 @@ in
               ];
               masq = true;
               mtu_fix = true;
-              log = true;
+              log = false;
             }
           ];
 
