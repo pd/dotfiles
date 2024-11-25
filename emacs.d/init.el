@@ -576,8 +576,9 @@ targets."
   (vterm-mode . evil-emacs-state)
   :bind
   (:map vterm-mode-map                  ; reclaim some bindings
-   ("M-'"  . pd/vterm-or-consult)
-   ("M-\"" . vterm))
+   ("M-'"   . pd/vterm-or-consult)
+   ("M-\""  . vterm)
+   ("M-s-'" . pd/vterm-local))
   :config
   (setq vterm-buffer-name-string "*vterm %s*"
         vterm-tramp-shells '(("ssh" "zsh"))
@@ -607,6 +608,13 @@ targets."
   (let ((default-directory (if (file-directory-p path) path
                              (file-name-directory path))))
     (vterm)))
+
+(defun pd/vterm-local ()
+  "vterm, but never on a remote host."
+  (interactive)
+  (if (file-remote-p default-directory)
+      (pd/vterm-at (expand-file-name "~"))
+    (pd/vterm-at default-directory)))
 
 (defun pd/vterm-or-consult (&optional arg)
   "Use consult to switch to a vterm.
@@ -667,6 +675,7 @@ uncomment the current line."
    ("M-;"     . pd/comment-dwim)
    ("M-'"     . pd/vterm-or-consult)
    ("M-\""    . vterm)
+   ("M-s-'"   . pd/vterm-local)
    ("C-x C-b" . ibuffer)
    ("C-x C-d" . dired)
    ("C-x d"   . dired)
