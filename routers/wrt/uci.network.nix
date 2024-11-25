@@ -26,5 +26,6 @@
     reqaddress = "try";
     reqprefix = "auto";
     peerdns = false;
+    delegate = true;
   };
 }
