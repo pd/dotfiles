@@ -8,6 +8,10 @@
 
   system.stateVersion = "24.05";
   networking.hostName = "donix";
+  networking.nameservers = [
+    "1.1.1.1"
+    "8.8.8.8"
+  ];
   wg.offLan = true;
 
   time.timeZone = "America/Chicago";

@@ -44,6 +44,16 @@ in
 
     wg.publicKey = mkOption { type = types.str; };
 
+    wg.privateKeyFile = mkOption {
+      type = types.str;
+      default = config.sops.secrets.wireguard-private-key.path;
+    };
+
+    wg.presharedKeyFile = mkOption {
+      type = types.str;
+      default = config.sops.secrets.wireguard-preshared-key.path;
+    };
+
     wg.natInterface = mkOption {
       type = types.nullOr types.str;
       default = null;
@@ -52,6 +62,11 @@ in
     wg.offLan = mkOption {
       type = types.bool;
       default = false;
+    };
+
+    wg.autostart = mkOption {
+      type = types.bool;
+      default = true;
     };
   };
 
@@ -63,18 +78,13 @@ in
         group = "wheel";
       };
 
-      networking = {
-        firewall.allowedUDPPorts = [ cfg.port ];
-        wireguard.interfaces.wg0 = {
-          ips = [
-            "${cfg.ipv4}/32"
-            "${cfg.ipv6}/128"
-          ];
-          privateKeyFile = config.sops.secrets.wireguard-private-key.path;
-        };
+      networking.wg-quick.interfaces.wg0 = {
+        inherit (cfg) autostart privateKeyFile;
+        address = [
+          "${cfg.ipv4}/32"
+          "${cfg.ipv6}/128"
+        ];
       };
-
-      networking.networkmanager.unmanaged = [ "wg0" ];
     })
 
     (mkIf (cfg.enable && !isServer) {
@@ -84,40 +94,42 @@ in
         group = "wheel";
       };
 
-      networking.wireguard.interfaces.wg0.peers = [
-        {
-          endpoint = if cfg.offLan then "wg.krh.me:51930" else cfg.endpoint;
-          allowedIPs =
-            [
-              cfg.cidr
-              cfg.cidr6
-            ]
-            ++ (lib.optionals cfg.offLan [
-              net.lan.cidr
-              net.lan.cidr6
-            ]);
-          publicKey = cfg.serverPublicKey;
-          presharedKeyFile = config.sops.secrets.wireguard-preshared-key.path;
-          persistentKeepalive = 25;
-        }
-      ];
+      networking.firewall.allowedUDPPorts = [ cfg.port ];
+      networking.wg-quick.interfaces.wg0 = {
+        peers = [
+          {
+            endpoint = if cfg.offLan then "wg.krh.me:51930" else cfg.endpoint;
+            publicKey = cfg.serverPublicKey;
+            presharedKeyFile = config.sops.secrets.wireguard-preshared-key.path;
+            allowedIPs =
+              [
+                cfg.cidr
+                cfg.cidr6
+              ]
+              ++ (lib.optionals cfg.offLan [
+                net.lan.cidr
+                net.lan.cidr6
+              ]);
+            persistentKeepalive = 25;
+          }
+        ];
+      };
     })
 
     (mkIf (cfg.enable && !isServer && cfg.offLan) {
-      networking.nameservers = [
+      networking.wg-quick.interfaces.wg0.dns = [
         net.wg.ipv6.pi
         net.wg.ipv4.pi
         net.wg.ipv6.htpc
         net.wg.ipv4.htpc
-        "1.1.1.1"
-        "8.8.8.8"
+        "wg"
+        "home"
       ];
     })
 
     (mkIf (cfg.enable && isServer) (
       let
-        hostname = config.networking.hostName;
-        clients = removeAttrs net.wg.hosts [ hostname ];
+        clients = removeAttrs net.wg.hosts [ config.networking.hostName ];
 
         psk-secrets = lib.mapAttrs' (name: peer: {
           name = "wireguard-preshared-key-${name}";
@@ -138,15 +150,15 @@ in
           presharedKeyFile = config.sops.secrets."wireguard-preshared-key-${name}".path;
         }) clients;
 
+        peerSection = peer: ''
+          [Peer]
+          # friendly_name=${peer.name}
+          PublicKey = ${peer.publicKey}
+          AllowedIPs = ${head peer.allowedIPs}
+        '';
+
         # Write a mock config the exporter can grab friendly names from
-        conf = lib.strings.concatStrings (
-          map (peer: ''
-            [Peer]
-            # friendly_name=${peer.name}
-            PublicKey = ${peer.publicKey}
-            AllowedIPs = ${head peer.allowedIPs}
-          '') peers
-        );
+        conf = lib.strings.concatStrings (map peerSection peers);
         wgPeerNames = pkgs.writeText "wg-peer-names" conf;
       in
       {
@@ -164,15 +176,24 @@ in
           internalInterfaces = [ "wg0" ];
         };
 
-        networking.wireguard.interfaces.wg0 = {
+        networking.firewall = {
+          allowedUDPPorts = [ cfg.port ];
+          allowedTCPPorts = [
+            config.services.prometheus.exporters.wireguard.port
+          ];
+        };
+
+        networking.wg-quick.interfaces.wg0 = {
           listenPort = cfg.port;
-          peers = peers;
-          postSetup = ''
+
+          peers = lib.map (p: removeAttrs p [ "name" ]) peers;
+
+          postUp = ''
             ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s ${cfg.cidr} -o ${cfg.natInterface} -j MASQUERADE
             ${pkgs.iptables}/bin/ip6tables -t nat -A POSTROUTING -s ${cfg.cidr6} -o ${cfg.natInterface} -j MASQUERADE
           '';
 
-          postShutdown = ''
+          postDown = ''
             ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s ${cfg.cidr} -o ${cfg.natInterface} -j MASQUERADE
             ${pkgs.iptables}/bin/ip6tables -t nat -D POSTROUTING -s ${cfg.cidr6} -o ${cfg.natInterface} -j MASQUERADE
           '';
@@ -184,9 +205,6 @@ in
           wireguardConfig = wgPeerNames;
         };
 
-        networking.firewall.allowedTCPPorts = [
-          config.services.prometheus.exporters.wireguard.port
-        ];
       }
     ))
   ];

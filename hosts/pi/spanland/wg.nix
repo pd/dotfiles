@@ -13,13 +13,9 @@
   };
 
   networking = {
-    firewall.allowedUDPPorts = [ 61820 ];
-    networkmanager.unmanaged = [ "wg1" ];
-    wireguard.interfaces.wg1 = {
-      listenPort = 61820;
-      ips = [ "172.30.30.2/32" ];
+    wg-quick.interfaces.wg1 = {
+      address = [ "172.30.30.2/32" ];
       privateKeyFile = config.sops.secrets.spanland-private-key.path;
-
       peers = [
         {
           endpoint = "wireguard.spantree.net:51820";
