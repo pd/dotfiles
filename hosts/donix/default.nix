@@ -8,11 +8,7 @@
 
   system.stateVersion = "24.05";
   networking.hostName = "donix";
-  networking.nameservers = lib.mkForce [
-    "1.1.1.1"
-    "8.8.8.8"
-  ];
-  wg.includeLanRoutes = true;
+  wg.offLan = true;
 
   time.timeZone = "America/Chicago";
 

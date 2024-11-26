@@ -16,7 +16,7 @@ in
 
     wg.endpoint = mkOption {
       type = types.str;
-      default = "wg.krh.me:51930";
+      default = "wg.home:51930";
     };
 
     wg.serverPublicKey = mkOption {
@@ -49,7 +49,7 @@ in
       default = null;
     };
 
-    wg.includeLanRoutes = mkOption {
+    wg.offLan = mkOption {
       type = types.bool;
       default = false;
     };
@@ -86,13 +86,13 @@ in
 
       networking.wireguard.interfaces.wg0.peers = [
         {
-          endpoint = cfg.endpoint;
+          endpoint = if cfg.offLan then "wg.krh.me:51930" else cfg.endpoint;
           allowedIPs =
             [
               cfg.cidr
               cfg.cidr6
             ]
-            ++ (lib.optionals cfg.includeLanRoutes [
+            ++ (lib.optionals cfg.offLan [
               net.lan.cidr
               net.lan.cidr6
             ]);
@@ -100,6 +100,17 @@ in
           presharedKeyFile = config.sops.secrets.wireguard-preshared-key.path;
           persistentKeepalive = 25;
         }
+      ];
+    })
+
+    (mkIf (cfg.enable && !isServer && cfg.offLan) {
+      networking.nameservers = [
+        net.wg.ipv6.pi
+        net.wg.ipv4.pi
+        net.wg.ipv6.htpc
+        net.wg.ipv4.htpc
+        "1.1.1.1"
+        "8.8.8.8"
       ];
     })
 
@@ -140,6 +151,12 @@ in
       in
       {
         sops.secrets = psk-secrets;
+
+        boot.kernel.sysctl = {
+          # IPv4 was on without me explicitly opting in.
+          # I have no idea why.
+          "net.ipv6.conf.all.forwarding" = 1;
+        };
 
         networking.nat = {
           enable = true;
