@@ -425,14 +425,7 @@ targets."
   (add-hook 'just-ts-mode-hook (lambda ()
                                  (setq tab-width 4))))
 
-(use-package lisp-mode
-  :ensure nil
-  :hook turn-on-eldoc-mode
-  :config
-  (setq comment-column 0))
-
-; reliably annoying that this doesn't descend from lisp-mode
-(use-package elisp-mode
+(use-package lisp-data-mode
   :ensure nil
   :hook turn-on-eldoc-mode
   :config
