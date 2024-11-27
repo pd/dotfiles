@@ -21,7 +21,6 @@
         screen
       ]
       ++ (with unstable; [
-        git-trim
         go
         gotools
         signal-desktop
