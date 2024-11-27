@@ -5,16 +5,28 @@
     let
       xdg = config.xdg;
 
-      # Inexplicably, `--reuse-frame` does the opposite on MacOS (as of Emacs 30).
-      # It's not just me, apparently:
-      # https://emacs.stackexchange.com/questions/79292/why-is-emacsclient-not-reusing-the-existing-frame
-      emacsclient =
+      em = pkgs.writeShellScriptBin "em" (
         if pkgs.hostPlatform.isLinux then
-          "emacsclient --alternate-editor='' --no-wait --reuse-frame"
+          ''
+            emacsclient --alternate-editor="" --no-wait --reuse-frame "$@"
+          ''
         else
-          "emacsclient --alternate-editor='' --no-wait";
+          # Inexplicably, `--reuse-frame` does the opposite on MacOS (as of Emacs 30).
+          # It's not just me, apparently:
+          # https://emacs.stackexchange.com/questions/79292/why-is-emacsclient-not-reusing-the-existing-frame
+          ''
+            if emacsclient -n -e "(if (> (length (frame-list)) 1) 't)" | grep t >/dev/null 2>&1; then
+              emacsclient --alternate-editor="" --no-wait "$@"
+            else
+              emacsclient --alternate-editor="" --create-frame --no-wait "$@"
+            fi
+          ''
+      );
+
     in
     {
+      home.packages = [ em ];
+
       programs.autojump = {
         enable = true;
         enableZshIntegration = true;
@@ -68,7 +80,7 @@
 
         envExtra = ''
           if [[ -n "$INSIDE_EMACS" ]]; then
-            export EDITOR="${emacsclient}"
+            export EDITOR="emacsclient"
           else
             export EDITOR=nvim
           fi
@@ -100,7 +112,6 @@
         '';
 
         shellAliases = {
-          em = emacsclient;
           g = "git";
           k = "kubectl";
           ll = "ls -l";
