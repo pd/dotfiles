@@ -682,7 +682,6 @@ uncomment the current line."
    ("C-x C-d" . dired)
    ("C-x d"   . dired)
    ("C-c w"   . delete-trailing-whitespace)
-   ("C-c \\"  . delete-horizontal-whitespace)
    ("C-c ="   . align-regexp)
    ("C-M-+"   . text-scale-increase)
    ("C-M-_"   . text-scale-decrease)
