@@ -363,6 +363,7 @@ targets."
   :config (setq uniquify-buffer-name-style 'forward))
 
 (use-package which-key
+  :ensure nil
   :init (which-key-mode)
   :diminish
   :config (setq which-key-idle-delay 0.8))
