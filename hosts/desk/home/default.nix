@@ -16,6 +16,7 @@
       with pkgs;
       [
         opentofu
+        pavucontrol
         pyrosimple
         screen
       ]
