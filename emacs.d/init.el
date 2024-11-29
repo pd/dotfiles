@@ -138,14 +138,6 @@
 (use-package marginalia
   :config (marginalia-mode))
 
-(use-package orderless
-  :config
-  (setq orderless-matching-styles
-        '(orderless-literal orderless-regexp orderless-flex))
-  :custom
-  (completion-styles '(orderless basic))
-  (completion-category-overrides '((file (styles basic partial-completion)))))
-
 (use-package consult
   :commands
   (consult-buffer consult-focus-lines consult-goto-line consult-imenu consult-ripgrep)
