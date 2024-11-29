@@ -208,6 +208,7 @@
 
           pulseaudio = {
             scroll-step = 2;
+            on-click = "pavucontrol";
             format = "{icon} {volume}%";
             format-muted = "";
             format-icons = {
