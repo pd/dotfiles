@@ -624,7 +624,8 @@ With prefix arg, or if no vterms exist, create a new one in default-directory."
 (defun pd/reload-buffer ()
   "Kill the current buffer and immediately reload it without moving point."
   (interactive)
-  (let ((path (buffer-file-name)) (point (point)))
+  (let ((path (buffer-file-name))
+        (point (point)))
     (kill-buffer)
     (find-file path)
     (goto-char point)))

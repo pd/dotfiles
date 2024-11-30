@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 with lib;
 let
-  isLinux = pkgs.stdenv.isLinux;
+  inherit (pkgs.stdenv) isLinux;
 in
 {
   nix = {

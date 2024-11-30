@@ -10,7 +10,7 @@
 
     desktopManager.kodi = {
       enable = true;
-      package = (pkgs.kodi.withPackages (kodiPackages: [ kodiPackages.jellyfin ]));
+      package = pkgs.kodi.withPackages (kpkgs: [ kpkgs.jellyfin ]);
     };
 
     displayManager.lightdm.greeter.enable = false;

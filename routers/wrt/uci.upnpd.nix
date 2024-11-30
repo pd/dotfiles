@@ -1,5 +1,4 @@
-{ }:
-{
+_: {
   upnpd.config = {
     enabled = true;
     internal_iface = "lan";
