@@ -40,20 +40,11 @@ let
     '';
   };
 
-  dnsInfo =
-    tld: net: name: host:
-    let
-      ipv4 = host."${net}".ipv4;
-      tail = lib.drop 2 (lib.splitString "." ipv4);
-      netnum = lib.head tail;
-      hostnum = lib.last tail;
-      ipv6 = "fded:${netnum}::${hostnum}";
-    in
-    {
-      inherit ipv4 ipv6;
-      name = "${name}.${tld}";
-      cnames = map (n: "${n}.${tld}") (host.cnames or [ ]);
-    };
+  dnsInfo = tld: net: name: host: {
+    inherit (host."${net}") ipv4 ipv6;
+    name = "${name}.${tld}";
+    cnames = map (n: "${n}.${tld}") (host.cnames or [ ]);
+  };
 
   hosts =
     (lib.mapAttrsToList (dnsInfo "home" "lan") net.lan.hosts)
