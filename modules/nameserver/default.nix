@@ -5,34 +5,13 @@
   ...
 }:
 let
-  # doesn't use go.mod so just build it the old fashioned way
-  hosts-bl = pkgs.stdenv.mkDerivation {
-    name = "hosts-bl";
-    src = pkgs.fetchFromGitHub {
-      owner = "ScriptTiger";
-      repo = "Hosts-BL";
-      rev = "b3ac0a50fce8e714e754a17e6a11f8709386782c";
-      hash = "sha256-w+4dEWwFMjBbeJPOqMrzLBBzPYh/V5SfV2BMrI0p3nw=";
-    };
-
-    configurePhase = ''
-      export GOCACHE=$TMPDIR/go-cache
-      export CGO_ENABLED=0
-    '';
-
-    installPhase = ''
-      mkdir -p $out/bin
-      ${pkgs.unstable.go}/bin/go build -o $out/bin/hosts-bl $src/hosts-bl.go $src/include_other.go
-    '';
-  };
-
+  # performing the relevant bits of: https://github.com/ScriptTiger/Hosts-BL
   block-lists = pkgs.runCommand "block-lists" { } ''
     mkdir $out
-    ${hosts-bl}/bin/hosts-bl \
-      -f ipv6 \
-      -to_blackhole_v6 ::0 \
-      -i ${pkgs.unstable.stevenblack-blocklist}/hosts \
-      -o $out/dns-block-list
+    cat ${pkgs.unstable.stevenblack-blocklist}/hosts |
+      awk '/^0.0.0.0 [a-z]/ { print $2 }' |
+      pr -9 -t -T -a -s' ' - |
+      awk '{ print "0.0.0.0 " $0; print "::0 " $0 }' > $out/dns-block-list
   '';
 
   dnsInfo = tld: net: name: host: {
