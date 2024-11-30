@@ -26,19 +26,14 @@ let
     '';
   };
 
-  blockLists = pkgs.stdenv.mkDerivation {
-    name = "dns-block-lists";
-    src = pkgs.fetchurl {
-      url = "https://raw.githubusercontent.com/StevenBlack/hosts/b307ce09a15cbe7773a65411f75c7d4fd403a230/hosts";
-      hash = "sha256-oCej3Kti/Iqim/sq4BA9z4Yr/IGLtdwXTiieQe8f6Uo=";
-    };
-
-    dontUnpack = true;
-    installPhase = ''
-      mkdir $out
-      ${hosts-bl}/bin/hosts-bl -f ipv6 -to_blackhole_v6 ::0 -i $src -o $out/dns-block-list
-    '';
-  };
+  block-lists = pkgs.runCommand "block-lists" { } ''
+    mkdir $out
+    ${hosts-bl}/bin/hosts-bl \
+      -f ipv6 \
+      -to_blackhole_v6 ::0 \
+      -i ${pkgs.unstable.stevenblack-blocklist}/hosts \
+      -o $out/dns-block-list
+  '';
 
   dnsInfo = tld: net: name: host: {
     inherit (host."${net}") ipv4 ipv6;
@@ -98,7 +93,7 @@ in
 
       no-hosts = true;
       expand-hosts = false;
-      addn-hosts = [ "${blockLists}/dns-block-list" ];
+      addn-hosts = [ "${block-lists}/dns-block-list" ];
     };
   };
 
