@@ -23,15 +23,17 @@
 
         conform-nvim = {
           enable = true;
-          formatOnSave = {
-            lspFallback = true;
-            timeoutMs = 500;
-          };
-          formattersByFt = {
-            go = [ "goimports" ];
-            lua = [ "stylua" ];
-            nix = [ "nixfmt" ];
-            "_" = [ "trim_whitespace" ];
+          settings = {
+            format_on_save = {
+              lsp_format = "fallback";
+              timeout_ms = 500;
+            };
+            formatters_by_ft = {
+              go = [ "goimports" ];
+              lua = [ "stylua" ];
+              nix = [ "nixfmt" ];
+              "_" = [ "trim_whitespace" ];
+            };
           };
         };
 
@@ -53,6 +55,8 @@
               "<leader>fb" = pk "buffers" "Pick buffer";
             };
         };
+
+        web-devicons.enable = true;
       };
     };
 
