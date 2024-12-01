@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -19,7 +19,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   hardware.enableRedistributableFirmware = true;
-  hardware.pulseaudio.enable = true;
   security.rtkit.enable = true;
 
   time.timeZone = "America/Chicago";

@@ -25,7 +25,7 @@
     user = config.users.users.kodi.name;
   };
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
       intel-compute-runtime
