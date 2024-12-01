@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs2405.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     private = {
@@ -72,6 +73,11 @@
           config.allowUnfree = true;
           overlays = [
             (final: prev: {
+              rollback = import inputs.nixpkgs2405 {
+                inherit system;
+                config.allowUnfree = true;
+              };
+
               unstable = import inputs.nixpkgs-unstable {
                 inherit system;
                 config.allowUnfree = true;

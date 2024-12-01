@@ -276,6 +276,7 @@
 
       wayland.windowManager.river = {
         enable = true;
+        package = pkgs.rollback.river;
         systemd.enable = true;
 
         settings =
