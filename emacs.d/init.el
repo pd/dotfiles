@@ -219,6 +219,11 @@ targets."
 (use-package embark-consult
   :after (embark consult))
 
+(use-package orderless
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
+
 ;; Causing Help to fail to display at all, eg C-h f whatever:
 ;;   popwin:close-popup-window-timer: error: (error Attempt to delete main window of frame #<frame *Warnings* 0x7f984648da68>)
 ;;   delete-other-windows: Cannot make side window the only window [2 times]
