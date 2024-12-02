@@ -88,7 +88,7 @@
   :config
   (simple-modeline-mode))
 
-;; currently emacs-plus@28 via the emacs-plus tap:
+;; currently emacs-plus@30 via the emacs-plus tap:
 ; https://github.com/d12frosted/homebrew-emacs-plus
 (when (string-equal "darwin" system-type)
   (setq ns-command-modifier      'meta
@@ -96,7 +96,6 @@
         ns-function-modifier     'hyper
         ns-use-native-fullscreen nil)
   (setq dired-use-ls-dired nil)
-
   (add-to-list 'default-frame-alist '(ns-appearance . dark))
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . nil))
 
@@ -154,12 +153,12 @@
   (setq consult-narrow-key "<"))
 
 (use-package consult-dir
-  :after (consult)
+  :after consult
   :bind
   ("<leader>cd" . consult-dir))
 
 (use-package consult-project-extra
-  :after (consult)
+  :after consult
   :bind
   ("<leader>cp" . consult-project-extra-find))
 
@@ -293,8 +292,6 @@ targets."
 (use-package evil-textobj-syntax)
 
 ;; qol
-(use-package all-the-icons)
-
 (use-package autorevert
   :ensure nil
   :diminish auto-revert-mode)
@@ -333,6 +330,22 @@ targets."
   (("C-x g" . magit-status))
   :config
   (setq magit-save-repository-buffers 'dontask))
+
+(use-package nerd-icons
+  :custom
+  (nerd-icons-font-family "Symbols Nerd Font Mono"))
+
+(use-package nerd-icons-completion
+  :after nerd-icons
+  :config (nerd-icons-completion-mode))
+
+(use-package nerd-icons-dired
+  :after nerd-icons
+  :hook (dired-mode . nerd-icons-dired-mode))
+
+(use-package nerd-icons-ibuffer
+  :after nerd-icons
+  :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
 
 (use-package popwin
   :init (popwin-mode))
