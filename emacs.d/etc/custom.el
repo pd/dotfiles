@@ -17,7 +17,7 @@
                    enh-ruby-mode envrc evil-cleverparens
                    evil-collection evil-commentary evil-mc
                    evil-textobj-line evil-textobj-syntax
-                   exec-path-from-shell expand-region go-mode
+                   exec-path-from-shell expand-region git-link go-mode
                    gruvbox-theme ibuffer-vc inf-ruby jsonnet-mode
                    just-mode just-ts-mode lsp-ui magit marginalia
                    nix-mode nix-ts-mode nixfmt nixpkgs-fmt

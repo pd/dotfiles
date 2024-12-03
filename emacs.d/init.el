@@ -330,6 +330,10 @@ targets."
   (("C-=" . er/expand-region)
    ("C-_" . er/contract-region)))
 
+(use-package git-link
+  :custom
+  (get-link-use-commit t))
+
 (use-package magit
   :bind
   (("C-x g" . magit-status))
