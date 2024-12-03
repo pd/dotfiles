@@ -162,6 +162,25 @@
   :bind
   ("<leader>cp" . consult-project-extra-find))
 
+(use-package corfu
+  :bind
+  (:map corfu-map
+        ("C-SPC" . corfu-insert-separator)
+        ("s-SPC" . corfu-insert-separator))
+  :custom
+  (corfu-cycle t)
+  (corfu-auto t)
+  (corfu-auto-delay 0.2)
+  (corfu-popupinfo-delay 0.2)
+  (corfu-auto-prefix 2)
+  (corfu-preselect 'directory)
+  :init
+  (global-corfu-mode)
+  (corfu-popupinfo-mode)
+  :config
+  ; complete only with TAB, not RET
+  (keymap-unset corfu-map "RET"))
+
 (use-package embark
   :bind
   (("s-."   . embark-act)
@@ -301,22 +320,6 @@ targets."
   :ensure nil
   :diminish auto-revert-mode)
 
-(use-package company
-  :diminish
-  :init (global-company-mode)
-  :bind
-  (:map company-active-map
-        ("RET" . nil)
-        ("<return>" . nil)
-        ("C-RET" . company-complete-selection)
-        ("M-RET" . company-complete-selection))
-  :custom
-  (company-idle-delay 0.2)
-  (company-minimum-prefix-length 2)
-  (company-selection-wrap-around t)
-  (company-show-quick-access 'left)
-  (company-tooltip-align-annotations t))
-
 (use-package deadgrep
   :bind
   ("s-g" . deadgrep))
@@ -347,6 +350,11 @@ targets."
 (use-package nerd-icons-completion
   :after nerd-icons
   :config (nerd-icons-completion-mode))
+
+(use-package nerd-icons-corfu
+  :after nerd-icons
+  :config
+  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
 (use-package nerd-icons-dired
   :after nerd-icons

@@ -12,19 +12,20 @@
      "d80952c58cf1b06d936b1392c38230b74ae1a2a6729594770762dc0779ac66b7"
      default))
  '(package-selected-packages
-   '(all-the-icons company consult-dir consult-project-extra cue-mode
-                   deadgrep diminish dockerfile-mode embark-consult
-                   enh-ruby-mode envrc evil-cleverparens
-                   evil-collection evil-commentary evil-mc
-                   evil-textobj-line evil-textobj-syntax
+   '(all-the-icons consult-dir consult-project-extra corfu cue-mode
+                   deadgrep diminish dired-subtree dockerfile-mode
+                   embark-consult enh-ruby-mode envrc
+                   evil-cleverparens evil-collection evil-commentary
+                   evil-mc evil-textobj-line evil-textobj-syntax
                    exec-path-from-shell expand-region git-link go-mode
                    gruvbox-theme ibuffer-vc inf-ruby jsonnet-mode
                    just-mode just-ts-mode lsp-ui magit marginalia
-                   nix-mode nix-ts-mode nixfmt nixpkgs-fmt
-                   no-littering orderless popper popwin rust-mode
-                   simple-modeline sops terraform-mode undo-fu vertico
-                   vterm wgrep whitespace-cleanup-mode yaml-mode
-                   zig-ts-mode))
+                   nerd-icons-completion nerd-icons-corfu
+                   nerd-icons-dired nerd-icons-ibuffer nix-mode
+                   nix-ts-mode nixfmt nixpkgs-fmt no-littering
+                   orderless popper popwin rust-mode simple-modeline
+                   sops terraform-mode undo-fu vertico vterm wgrep
+                   whitespace-cleanup-mode yaml-mode zig-ts-mode))
  '(safe-local-variable-values
    '((flycheck-disabled-checkers emacs-lisp-checkdoc emacs-lisp))))
 (custom-set-faces
