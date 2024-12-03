@@ -24,7 +24,7 @@
         `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
 
 ;; i've got plenty of ram
-(setq gc-cons-threshold (* 1024 1024 32))
+(setq gc-cons-threshold (* 1024 1024 128))
 
 ;; simmer down
 (menu-bar-mode -1)
