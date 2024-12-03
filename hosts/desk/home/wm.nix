@@ -335,6 +335,7 @@
               "-app-id 'emacs' tags '3'" # 1|2
               "-app-id 'firefox' tags '5'" # 1|3
               "-app-id 'Slack' tags '8'" # 4
+              "-app-id 'org.pulseaudio.pavucontrol' float"
             ];
 
             spawn = map (cmd: "'${cmd}'") [
