@@ -162,25 +162,6 @@
   :bind
   ("<leader>cp" . consult-project-extra-find))
 
-(use-package corfu
-  :bind
-  (:map corfu-map
-        ("C-SPC" . corfu-insert-separator)
-        ("s-SPC" . corfu-insert-separator))
-  :custom
-  (corfu-cycle t)
-  (corfu-auto t)
-  (corfu-auto-delay 0.2)
-  (corfu-popupinfo-delay 0.2)
-  (corfu-auto-prefix 2)
-  (corfu-preselect 'directory)
-  :init
-  (global-corfu-mode)
-  (corfu-popupinfo-mode)
-  :config
-  ; complete only with TAB, not RET
-  (keymap-unset corfu-map "RET"))
-
 (use-package embark
   :bind
   (("s-."   . embark-act)
@@ -519,6 +500,32 @@ targets."
 (use-package zig-ts-mode)
 
 ;; ide
+(use-package cape
+  :bind
+  ("C-c p" . cape-prefix-map)
+  :init
+  (add-hook 'completion-at-point-functions #'cape-dabbrev)
+  (add-hook 'completion-at-point-functions #'cape-file))
+
+(use-package corfu
+  :bind
+  (:map corfu-map
+        ("C-SPC" . corfu-insert-separator)
+        ("s-SPC" . corfu-insert-separator))
+  :custom
+  (corfu-cycle t)
+  (corfu-auto t)
+  (corfu-auto-delay 0.2)
+  (corfu-popupinfo-delay 0.2)
+  (corfu-auto-prefix 2)
+  (corfu-preselect 'directory)
+  :init
+  (global-corfu-mode)
+  (corfu-popupinfo-mode)
+  :config
+  ; complete only with TAB, not RET
+  (keymap-unset corfu-map "RET"))
+
 (use-package ibuffer
   :ensure nil)
 

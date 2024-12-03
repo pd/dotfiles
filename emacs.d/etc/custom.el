@@ -12,7 +12,7 @@
      "d80952c58cf1b06d936b1392c38230b74ae1a2a6729594770762dc0779ac66b7"
      default))
  '(package-selected-packages
-   '(all-the-icons consult-dir consult-project-extra corfu cue-mode
+   '(all-the-icons cape consult-dir consult-project-extra corfu cue-mode
                    deadgrep diminish dired-subtree dockerfile-mode
                    embark-consult enh-ruby-mode envrc
                    evil-cleverparens evil-collection evil-commentary
