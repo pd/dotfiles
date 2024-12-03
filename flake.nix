@@ -14,7 +14,7 @@
 
     dewclaw = {
       url = "github:MakiseKurisu/dewclaw";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     disko = {
@@ -156,9 +156,7 @@
       packages = eachSystem (
         system:
         let
-          # TODO: unstable for newer sops; use stable after 24.11
-          pkgs = inputs.nixpkgs-unstable.legacyPackages.${system};
-
+          pkgs = inputs.nixpkgs.legacyPackages.${system};
           deploy = pkgs.callPackage inputs.dewclaw {
             inherit pkgs;
             configuration = import ./routers {
