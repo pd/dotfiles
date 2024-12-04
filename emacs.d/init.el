@@ -420,7 +420,7 @@ targets."
 
 (use-package jsonnet-mode
   :config
-  (reformatter-define pd/jsonnetfmt :program "jsonnetfmt")
+  (reformatter-define pd/jsonnetfmt :program "jsonnetfmt" :args '("-"))
   (add-hook 'jsonnet-mode-hook #'pd/jsonnetfmt-on-save-mode))
 
 (use-package just-ts-mode
