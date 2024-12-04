@@ -85,7 +85,7 @@
         search-menu
         swayidle
         sway-audio-idle-inhibit
-        wlopm # display on/off
+        wlr-randr
       ];
 
       stylix.targets = {
@@ -268,8 +268,8 @@
         timeouts = [
           {
             timeout = 600;
-            command = "${pkgs.wlopm}/bin/wlopm --off '*'";
-            resumeCommand = "${pkgs.wlopm}/bin/wlopm --on '*'";
+            command = "${pkgs.wlr-randr}/bin/wlr-randr --output DVI-I-1 --off";
+            resumeCommand = "${pkgs.wlr-randr}/bin/wlr-randr --output DVI-I-1 --on";
           }
         ];
       };
