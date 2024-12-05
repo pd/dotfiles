@@ -602,7 +602,7 @@ targets."
   (:map vterm-mode-map                  ; reclaim some bindings
    ("M-'"   . pd/vterm-or-consult)
    ("M-\""  . vterm)
-   ("M-s-'" . pd/vterm-local))
+   ("M-s-'" . pd/vterm-on))
   :config
   (setq vterm-buffer-name-string "*vterm %s*"
         vterm-tramp-shells '(("ssh" "zsh"))
@@ -633,12 +633,15 @@ targets."
                              (file-name-directory path))))
     (vterm)))
 
-(defun pd/vterm-local ()
-  "vterm, but never on a remote host."
-  (interactive)
-  (if (file-remote-p default-directory)
-      (pd/vterm-at (expand-file-name "~"))
-    (pd/vterm-at default-directory)))
+(defun pd/vterm-on (host)
+  "vterm on a host"
+  (interactive
+   (let* ((sshconfig (expand-file-name "~/.ssh/config"))
+          (hosts (remq nil (mapcar 'cadr (tramp-parse-sconfig sshconfig)))))
+     (list (completing-read "Host: " (nconc '("localhost") hosts)))))
+  (if (string-equal host "localhost")
+      (pd/vterm-at "~")
+    (pd/vterm-at (format "/ssh:%s:." host))))
 
 (defun pd/vterm-or-consult (&optional arg)
   "Use consult to switch to a vterm.
@@ -700,7 +703,7 @@ uncomment the current line."
    ("M-;"     . pd/comment-dwim)
    ("M-'"     . pd/vterm-or-consult)
    ("M-\""    . vterm)
-   ("M-s-'"   . pd/vterm-local)
+   ("M-s-'"   . pd/vterm-on)
    ("C-x C-b" . ibuffer)
    ("C-x C-d" . dired)
    ("C-x d"   . dired)
