@@ -511,7 +511,6 @@ targets."
   :bind
   (:map corfu-map
         ("C-SPC" . corfu-insert-separator)
-        ("s-SPC" . corfu-insert-separator)
         ("M-RET" . corfu-insert))
   :custom
   (corfu-cycle t)
