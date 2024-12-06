@@ -24,7 +24,7 @@
         `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
 
 ;; i've got plenty of ram
-(setq gc-cons-threshold (* 1024 1024 128))
+(setq gc-cons-threshold (* 128 1024 1024))
 
 ;; simmer down
 (menu-bar-mode -1)
@@ -109,16 +109,7 @@
 
 ;; just buy into the whole vertico et al ecosystem for now
 (use-package vertico
-  :init (vertico-mode)
-  :config
-  (require 'vertico-directory)
-  :bind
-  (("M-V" . #'vertico-multiform-vertical)
-   ("M-G" . #'vertico-multiform-grid)
-   ("M-F" . #'vertico-multiform-flat)
-   ("M-R" . #'vertico-multiform-reverse)
-   ("M-U" . #'vertico-multiform-unobtrusive))
-  :hook (vertico-multiform-mode))
+  :init (vertico-mode))
 
 (use-package vertico-directory
   :after vertico
@@ -135,7 +126,7 @@
   :init (savehist-mode))
 
 (use-package marginalia
-  :config (marginalia-mode))
+  :init (marginalia-mode))
 
 (use-package consult
   :commands
@@ -567,12 +558,12 @@ targets."
              '((css "https://github.com/tree-sitter/tree-sitter-css")
                (go "https://github.com/tree-sitter/tree-sitter-go")
                (gomod "https://github.com/camdencheek/tree-sitter-go-mod")
-               (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "master" "src"))
+               (javascript "https://github.com/tree-sitter/tree-sitter-javascript")
                (just "https://github.com/IndianBoy42/tree-sitter-just")
                (json "https://github.com/tree-sitter/tree-sitter-json")
                (ruby "https://github.com/tree-sitter/tree-sitter-ruby")
                (rust "https://github.com/tree-sitter/tree-sitter-rust")
-               (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src"))
+               (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
                (yaml "https://github.com/ikatyang/tree-sitter-yaml")
                (zig "https://github.com/maxxnino/tree-sitter-zig")))
       (add-to-list 'treesit-language-source-alist grammar)
