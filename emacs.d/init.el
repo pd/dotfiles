@@ -554,6 +554,10 @@ targets."
 
 (use-package reformatter)
 
+(use-package tramp
+  :ensure nil
+  :autoload (tramp-parse-sconfig))
+
 (use-package treesit
   :ensure nil
   :preface
