@@ -109,7 +109,11 @@
 
 ;; just buy into the whole vertico et al ecosystem for now
 (use-package vertico
-  :init (vertico-mode))
+  :init (vertico-mode)
+  :bind
+  (:map vertico-map
+        ("C-M-n" . vertico-next-group)
+        ("C-M-p" . vertico-previous-group)))
 
 (use-package vertico-directory
   :after vertico
