@@ -331,6 +331,11 @@
               "${mod} BTN_MIDDLE" = "toggle-float";
             };
 
+            input."pointer-*" = {
+              accel-profile = "flat";
+              pointer-accel = "0.1";
+            };
+
             rule-add = [
               "-app-id 'emacs' tags '3'" # 1|2
               "-app-id 'firefox' tags '5'" # 1|3
