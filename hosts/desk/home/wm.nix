@@ -244,13 +244,19 @@
               mode-mon-col = 3;
               weeks-pos = "";
               on-scroll = 1;
-              format = {
-                months = "<span color='#ffead3'><b>{}</b></span>";
-                days = "<span color='#ecc6d9'><b>{}</b></span>";
-                weeks = "<span color='#99ffdd'><b>W{}</b></span>";
-                weekdays = "<span color='#ffcc66'><b>{}</b></span>";
-                today = "<span color='#ff6699'><b><u>{}</u></b></span>";
-              };
+              format =
+                with config.lib.stylix.colors.withHashtag;
+                let
+                  span = color: content: "<span color='${color}'>${content}</span>";
+                  bold = "<b>{}</b>";
+                  plain = "{}";
+                in
+                {
+                  months = span base0C bold;
+                  days = span base06 plain;
+                  weekdays = span base08 bold;
+                  today = span base0E bold;
+                };
             };
             actions = {
               on-click-right = "mode";
