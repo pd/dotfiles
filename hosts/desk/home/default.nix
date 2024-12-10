@@ -16,8 +16,9 @@
       with pkgs;
       [
         opentofu
-        pavucontrol
-        pyrosimple
+        pavucontrol # audio
+        pinta # remedial image editing
+        pyrosimple # rtorrent clis
         screen
       ]
       ++ (with unstable; [
