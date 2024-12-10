@@ -342,12 +342,23 @@
               pointer-accel = "0.1";
             };
 
-            rule-add = [
-              "-app-id 'emacs' tags '3'" # 1|2
-              "-app-id 'firefox' tags '5'" # 1|3
-              "-app-id 'Slack' tags '8'" # 4
-              "-app-id 'org.pulseaudio.pavucontrol' float"
-            ];
+            rule-add =
+              let
+                tag = app: v: "-app-id '${app}' tags '${toString v}'";
+                float = app: "-app-id '${app}' float";
+
+                tags = lib.mapAttrsToList tag {
+                  emacs = 3; # 1|2
+                  firefox = 5; # 1|3
+                  Slack = 8; # 4
+                };
+
+                floats = map float [
+                  "org.pulseaudio.pavucontrol"
+                  "pinta"
+                ];
+              in
+              tags ++ floats;
 
             spawn = map (cmd: "'${cmd}'") [
               "waybar"
