@@ -411,7 +411,20 @@ targets."
   (reformatter-define pd/gofmt :program "goimports")
   (add-hook 'go-ts-mode-hook (lambda ()
                                (pd/gofmt-on-save-mode +1)
-                               (setq tab-width 4))))
+                               (setq tab-width 4)))
+
+  ; https://github.com/golang/tools/blob/8d38122b0b1a9991f490aa06b7bfca7b4140bdad/gopls/doc/emacs.md#configuring-eglot
+  ; so eglot starts LSP in a reasonable spot when jumping into ~/go/pkg/... et al
+  (require 'project)
+
+  (defun project-find-go-module (dir)
+    (when-let ((root (locate-dominating-file dir "go.mod")))
+      (cons 'go-module root)))
+
+  (cl-defmethod project-root ((project (head go-module)))
+    (cdr project))
+
+  (add-hook 'project-find-functions #'project-find-go-module))
 
 (use-package jsonnet-mode
   :config
