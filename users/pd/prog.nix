@@ -11,6 +11,7 @@ in
       go-jsonnet
       nil
       (hiPrio ruby') # win over gotools `bundle`
+      uv
       zig
       zig-shell-completions
       zls

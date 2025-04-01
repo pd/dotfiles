@@ -103,9 +103,9 @@
           setopt inc_append_history
           unsetopt nomatch
 
-          if which mise &>/dev/null; then
-            source <(mise activate zsh)
-          fi
+          # if which mise &>/dev/null; then
+          #   source <(mise activate zsh)
+          # fi
 
           prompt off
           [[ -f "${xdg.configHome}/zsh/p10k.zsh" ]] && source "${xdg.configHome}/zsh/p10k.zsh"

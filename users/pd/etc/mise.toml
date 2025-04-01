@@ -1,11 +1,10 @@
 [tools]
-concourse = "7.11.2"
-gcloud = "488.0.0"
-go = "1.23"
-ruby = "3.3"
-teleport-community = "16.1"
-terraform = "1.5.7" # lol
-tflint = "0.45.0"
+go = "latest"
+ruby = "latest"
+uv = "latest"
+
+[env]
+_.python.venv = { path = ".venv", create = true }
 
 [settings]
 go_default_packages_file = "~/.config/mise/go"
