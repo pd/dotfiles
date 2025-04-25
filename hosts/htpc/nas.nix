@@ -14,6 +14,8 @@ let
     CGO_ENABLED = 0;
   };
 
+  media-prune = pkgs.writeShellScript "media-prune" (builtins.readFile ./media-prune.sh);
+
   rtorrent-exporter = pkgs.stdenv.mkDerivation {
     name = "rtorrent-exporter";
     src = pkgs.fetchurl {
@@ -90,6 +92,23 @@ in
         ${rtorrent-exporter}/bin/rtorrent_exporter \
           --rtorrent.scrape-uri="http://nas.home:8000/RPC2"
       '';
+    };
+  };
+
+  systemd.services.media-prune = {
+    serviceConfig = {
+      Type = "oneshot";
+      User = "pd";
+    };
+
+    script = "${media-prune}";
+  };
+
+  systemd.timers.media-prune = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnBootSec = [ "60m" ];
+      OnUnitActiveSec = [ "720m" ];
     };
   };
 
