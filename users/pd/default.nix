@@ -38,7 +38,7 @@ in
         age-plugin-yubikey
         cfssl
         dyff
-        google-cloud-sdk
+        (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
         htop
         ipcalc
         just
@@ -51,6 +51,7 @@ in
         watchexec
       ]
       ++ (with unstable; [
+        kind
         kubectl
         mise
         nil
