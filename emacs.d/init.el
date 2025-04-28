@@ -689,7 +689,7 @@ With prefix arg, or if no vterms exist, create a new one in default-directory."
 
 (defun pd/comment-dwim (arg)
   "If the region is active (`mark-active') and `transient-mark-mode'
-is on, let's `comment-dwim' do its thing.
+is on, lets `comment-dwim' do its thing.
 If not, `comment-dwim' doesn't DWIM at all. Instead, comment or
 uncomment the current line."
   (interactive "*P")
