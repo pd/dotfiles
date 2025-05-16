@@ -29,9 +29,27 @@
   environment = {
     systemPackages = with pkgs; [
       opentofu
+      pandoc
       unstable.postgresql
       wireguard-go
       wireguard-tools
+
+      (texliveBasic.withPackages (
+        ps: with ps; [
+          bookmark
+          etoolbox
+          fancyhdr
+          hyperref
+          lastpage
+          listings
+          sectsty
+          titlesec
+          tocloft
+          unicode-math
+          xcolor
+          xetex
+        ]
+      ))
     ];
 
     variables = {
