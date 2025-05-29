@@ -39,6 +39,7 @@
           bookmark
           etoolbox
           fancyhdr
+          float
           hyperref
           lastpage
           listings
