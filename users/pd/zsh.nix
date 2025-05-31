@@ -92,7 +92,7 @@
           export PATH="$HOME/bin:$HOME/go/bin:$PATH"
         '';
 
-        initExtra = ''
+        initContent = ''
           set -o emacs
 
           # man 1 zshoptions

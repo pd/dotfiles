@@ -23,8 +23,7 @@
   networking.hostName = "span";
 
   work.enable = true;
-  services.nix-daemon.enable = true;
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   environment = {
     systemPackages = with pkgs; [
@@ -60,16 +59,18 @@
 
   # half of this should already be installed via brew, but just
   # slamming more shit in here until no more tofu i guess
-  fonts.packages = with pkgs; [
-    noto-fonts
-    noto-fonts-cjk-sans
-    noto-fonts-emoji
-    fira-code
-    fira-code-symbols
-    liberation_ttf
-    nerdfonts
-    proggyfonts
-  ];
+  fonts.packages =
+    with pkgs;
+    [
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-emoji
+      fira-code
+      fira-code-symbols
+      liberation_ttf
+      proggyfonts
+    ]
+    ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
   users.users.pd = {
     home = /Users/pd;
