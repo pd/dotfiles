@@ -2,13 +2,13 @@
   description = "nixen";
 
   inputs = {
+    self.submodules = true;
+
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     private = {
-      # TODO would prefer to just keep using a submodule as before
-      # https://github.com/NixOS/nix/pull/7862
-      url = "git+ssh://git@github.com/pd/dotfiles.private.git";
+      url = "path:./private";
       flake = false;
     };
 

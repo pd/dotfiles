@@ -623,18 +623,14 @@
     "private": {
       "flake": false,
       "locked": {
-        "lastModified": 1747413629,
-        "narHash": "sha256-EUFGZZAOd1sTNXuvOIwiKLdEcj3uhyRFZCUreZhcjBc=",
-        "ref": "refs/heads/main",
-        "rev": "eaabcda109d78184c1c73b9acdf54e97f877d3cc",
-        "revCount": 141,
-        "type": "git",
-        "url": "ssh://git@github.com/pd/dotfiles.private.git"
+        "path": "./private",
+        "type": "path"
       },
       "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/pd/dotfiles.private.git"
-      }
+        "path": "./private",
+        "type": "path"
+      },
+      "parent": []
     },
     "root": {
       "inputs": {
