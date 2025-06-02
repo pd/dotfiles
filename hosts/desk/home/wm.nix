@@ -7,16 +7,18 @@
 {
   fonts = {
     enableDefaultPackages = true;
-    packages = with pkgs; [
-      noto-fonts
-      noto-fonts-cjk-sans
-      noto-fonts-emoji
-      fira-code
-      fira-code-symbols
-      liberation_ttf
-      nerdfonts
-      proggyfonts
-    ];
+    packages =
+      with pkgs;
+      [
+        noto-fonts
+        noto-fonts-cjk-sans
+        noto-fonts-emoji
+        fira-code
+        fira-code-symbols
+        liberation_ttf
+        proggyfonts
+      ]
+      ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
     fontconfig = {
       defaultFonts = {
@@ -366,7 +368,7 @@
               "sway-audio-idle-inhibit"
             ];
 
-            background-color = "0x6077a6";
+            background-color = lib.mkForce "0x6077a6";
             border-width = 3;
             default-layout = "rivertile";
             focus-follows-cursor = "normal";
