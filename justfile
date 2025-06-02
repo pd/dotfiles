@@ -36,7 +36,7 @@ donix op="test":
 
 # can only really be run on span, doesn't have test or repl, etc
 span op="switch":
-    darwin-rebuild {{ op }} --flake '.#span'
+    sudo darwin-rebuild {{ op }} --flake '.#span'
 
 routers:
     nix build '.#routers'
