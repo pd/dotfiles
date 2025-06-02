@@ -90,9 +90,17 @@
         wlr-randr
       ];
 
-      stylix.targets = {
-        firefox.enable = false;
-        emacs.enable = false;
+      stylix = {
+        cursor = {
+          package = pkgs.vanilla-dmz;
+          name = "Vanilla-DMZ";
+          size = 24;
+        };
+
+        targets = {
+          firefox.enable = false;
+          emacs.enable = false;
+        };
       };
 
       services.dunst.enable = true;
