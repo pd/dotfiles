@@ -7,16 +7,18 @@
 {
   fonts = {
     enableDefaultPackages = true;
-    packages = with pkgs; [
-      noto-fonts
-      noto-fonts-cjk-sans
-      noto-fonts-emoji
-      fira-code
-      fira-code-symbols
-      liberation_ttf
-      nerdfonts
-      proggyfonts
-    ];
+    packages =
+      with pkgs;
+      [
+        noto-fonts
+        noto-fonts-cjk-sans
+        noto-fonts-emoji
+        fira-code
+        fira-code-symbols
+        liberation_ttf
+        proggyfonts
+      ]
+      ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
     fontconfig = {
       defaultFonts = {
@@ -88,9 +90,17 @@
         wlr-randr
       ];
 
-      stylix.targets = {
-        firefox.enable = false;
-        emacs.enable = false;
+      stylix = {
+        cursor = {
+          package = pkgs.vanilla-dmz;
+          name = "Vanilla-DMZ";
+          size = 24;
+        };
+
+        targets = {
+          firefox.enable = false;
+          emacs.enable = false;
+        };
       };
 
       services.dunst.enable = true;
@@ -101,7 +111,7 @@
           mouse.hide_when_typing = true;
 
           # nas doesn't have alacritty in terminfo,
-          # not worth figthing
+          # not worth fighting
           env.TERM = "xterm-256color";
         };
       };
@@ -366,7 +376,7 @@
               "sway-audio-idle-inhibit"
             ];
 
-            background-color = "0x6077a6";
+            background-color = lib.mkForce "0x6077a6";
             border-width = 3;
             default-layout = "rivertile";
             focus-follows-cursor = "normal";

@@ -130,7 +130,6 @@ rec {
       cnames = [
         "grafana"
         "jellyfin"
-        "kodi"
         "ns2"
         "prom"
         "store"

@@ -4,7 +4,7 @@ let
     name = "echoserver";
     src = ./echoserver;
     vendorHash = null;
-    CGO_ENABLED = 0;
+    env.CGO_ENABLED = 0;
   };
 in
 {

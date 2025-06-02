@@ -2,13 +2,13 @@
   description = "nixen";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    self.submodules = true;
+
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     private = {
-      # TODO would prefer to just keep using a submodule as before
-      # https://github.com/NixOS/nix/pull/7862
-      url = "git+ssh://git@github.com/pd/dotfiles.private.git";
+      url = "path:./private";
       flake = false;
     };
 
@@ -27,12 +27,12 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-darwin = {
-      url = "github:LnL7/nix-darwin/nix-darwin-24.11";
+      url = "github:LnL7/nix-darwin/nix-darwin-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -47,7 +47,7 @@
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-24.11";
+      url = "github:nix-community/nixvim/nixos-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -57,7 +57,7 @@
     };
 
     stylix = {
-      url = "github:danth/stylix";
+      url = "github:nix-community/stylix/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
