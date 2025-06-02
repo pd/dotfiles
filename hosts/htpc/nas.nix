@@ -11,7 +11,7 @@ let
     name = "filebotd";
     src = ./filebotd;
     vendorHash = null;
-    CGO_ENABLED = 0;
+    env.CGO_ENABLED = 0;
   };
 
   media-prune = pkgs.writeShellScript "media-prune" (builtins.readFile ./media-prune.sh);
