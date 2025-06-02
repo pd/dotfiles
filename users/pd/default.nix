@@ -45,6 +45,7 @@ in
         kfilt
         kubernetes-helm
         kustomize
+        kustomize-sops
         ssh-to-age
         stern
         unzip
