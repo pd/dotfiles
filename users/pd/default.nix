@@ -15,6 +15,7 @@ in
   imports = [
     ./bin.nix
     ./git.nix
+    ./k8s.nix
     ./nvim.nix
     ./prog.nix
     ./ssh.nix
@@ -37,23 +38,15 @@ in
         age
         age-plugin-yubikey
         cfssl
-        dyff
         (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
         htop
         ipcalc
         just
-        kfilt
-        kubernetes-helm
-        kustomize
-        kustomize-sops
         ssh-to-age
-        stern
         unzip
         watchexec
       ]
       ++ (with unstable; [
-        kind
-        kubectl
         mise
         nil
         nixfmt-rfc-style
