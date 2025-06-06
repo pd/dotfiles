@@ -1,4 +1,20 @@
 { lib, ... }:
+let
+  friends = {
+    rhys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIOZGcHggrgVlMOSh2lG3i8Jp1vA2rz7NyuWSnlVYnUh" ];
+    packrat386 = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKykCUxNhZg/CNBEKAb2LPtW4oD6oB1DEeAR55hslr5D" ];
+  };
+
+  mkAdmin = user: keys: {
+    isNormalUsers = true;
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "keys"
+    ];
+    openssh.authorizedKeys.keys = keys;
+  };
+in
 {
   imports = [
     ../../modules/core
@@ -16,27 +32,5 @@
 
   time.timeZone = "America/Chicago";
 
-  users.users.rhys = {
-    isNormalUser = true;
-    extraGroups = [
-      "wheel"
-      "networkmanager"
-      "keys"
-    ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIOZGcHggrgVlMOSh2lG3i8Jp1vA2rz7NyuWSnlVYnUh"
-    ];
-  };
-
-  users.users.packrat386 = {
-    isNormalUser = true;
-    extraGroups = [
-      "wheel"
-      "networkmanager"
-      "keys"
-    ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKykCUxNhZg/CNBEKAb2LPtW4oD6oB1DEeAR55hslr5D"
-    ];
-  };
+  users.users = lib.mapAttrs mkAdmin friends;
 }
