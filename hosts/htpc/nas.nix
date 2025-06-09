@@ -15,6 +15,7 @@ let
   };
 
   media-prune = pkgs.writeShellScript "media-prune" (builtins.readFile ./media-prune.sh);
+  media-sort = pkgs.writeShellScript "media-sort" (builtins.readFile ./media-sort.sh);
 
   rtorrent-exporter = pkgs.stdenv.mkDerivation {
     name = "rtorrent-exporter";
