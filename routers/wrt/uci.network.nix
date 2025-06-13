@@ -11,6 +11,7 @@
 
   interface.lan = {
     ipaddr = net.lan.ipv4.wrt;
+    ip6addr = net.lan.ipv6.wrt;
     ip6assign = 64;
   };
 
