@@ -5,6 +5,7 @@ in
 {
   home-manager.users.pd = {
     home.packages = with pkgs.unstable; [
+      dive
       go
       gopls
       gotools
