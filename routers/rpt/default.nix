@@ -38,8 +38,8 @@ uci.mkRouter "rpt" [ ] {
       interface.lan = {
         ipaddr = net.lan.ipv4.rpt;
         gateway = net.lan.ipv4.wrt;
-        ip6addr = [ "${net.lan.ipv6.rpt}/64" ];
-        ip6gw = [ net.lan.ipv6.wrt ];
+        ip6addr = "${net.lan.ipv6.rpt}/64";
+        ip6gw = net.lan.ipv6.wrt;
       };
     };
 

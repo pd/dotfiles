@@ -11,7 +11,7 @@
 
   interface.lan = {
     ipaddr = net.lan.ipv4.wrt;
-    ip6addr = [ "${net.lan.ipv6.wrt}/64" ];
+    ip6addr = "${net.lan.ipv6.wrt}/64";
     ip6assign = 64;
     ip6class = [
       "local"
