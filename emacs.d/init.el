@@ -298,7 +298,13 @@ targets."
 
 (use-package deadgrep
   :bind
-  ("s-g" . deadgrep))
+  ("s-g" . deadgrep)
+  :config
+  (defun pd/deadgrep-project-root ()
+    "deadgrep current dir in dired-mode"
+    (if (eq major-mode 'dired-mode) default-directory
+      (deadgrep--project-root)))
+  (setq deadgrep-project-root-function 'pd/deadgrep-project-root))
 
 (use-package envrc
   :init (envrc-global-mode)
