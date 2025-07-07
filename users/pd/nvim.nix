@@ -4,6 +4,10 @@
     programs.nixvim = {
       enable = true;
 
+      # I will not be learning yet another clipboard management system
+      clipboard.register = "unnamedplus";
+      opts.mouse = "";
+
       extraPackages = with pkgs; [
         stylua
       ];
