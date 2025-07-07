@@ -19,16 +19,6 @@ in
       dest_ip = [ pi6 ];
       dest_port = 51930;
     }
-
-    {
-      name = "deadc0decafe6";
-      target = "ACCEPT";
-      src = "wan";
-      proto = "udp";
-      family = "ipv6";
-      dest_ip = [ pi6 ];
-      dest_port = 49374;
-    }
   ];
 
   redirect = [
@@ -41,12 +31,6 @@ in
       proto = [ "udp" ];
       ip = net.lan.ipv4.pi;
       port = 51930;
-    })
-
-    (uci.dnat "deadc0decafe4" {
-      proto = [ "udp" ];
-      ip = net.lan.ipv4.pi;
-      port = 49374;
     })
   ];
 }

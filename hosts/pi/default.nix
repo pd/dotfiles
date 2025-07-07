@@ -4,7 +4,6 @@
     ./hardware-configuration.nix
     ../../modules/core
     ../../modules/nameserver
-    ./spanland
   ];
 
   system.stateVersion = "24.05";
