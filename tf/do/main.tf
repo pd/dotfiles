@@ -33,14 +33,6 @@ resource "b2_bucket" "tfstate" {
 data "digitalocean_ssh_keys" "ssh" {
 }
 
-resource "digitalocean_droplet" "do" {
-  name   = "do.krh.me"
-  region = "nyc3"
-  size   = "s-1vcpu-1gb"
-  image  = "53893572"
-  ipv6   = true
-}
-
 data "digitalocean_image" "ubuntu" {
   slug = "ubuntu-22-04-x64"
 }
@@ -67,14 +59,6 @@ write_files:
 runcmd:
 - curl https://raw.githubusercontent.com/elitak/nixos-infect/master/nixos-infect | PROVIDER=digitalocean NIXOS_IMPORT=./host.nix NIX_CHANNEL=nixos-24.05 bash 2>&1 | tee /tmp/infect.log
 EOF
-}
-
-output "do" {
-  value = {
-    name = digitalocean_droplet.do.name
-    ip4  = digitalocean_droplet.do.ipv4_address
-    ip6  = digitalocean_droplet.do.ipv6_address
-  }
 }
 
 output "donix" {

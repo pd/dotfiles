@@ -16,8 +16,6 @@ locals {
       { type = "NS", name = "@", value = "ns2.digitalocean.com." },
       { type = "NS", name = "@", value = "ns3.digitalocean.com." },
 
-      { type = "A", name = "do", value = digitalocean_droplet.do.ipv4_address },
-      { type = "AAAA", name = "do", value = digitalocean_droplet.do.ipv6_address },
       { type = "A", name = "donix", value = digitalocean_droplet.donix.ipv4_address },
       { type = "AAAA", name = "donix", value = digitalocean_droplet.donix.ipv6_address },
 
