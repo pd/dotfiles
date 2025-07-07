@@ -4,7 +4,7 @@
 
   # configuration.nix
   boot.tmp.cleanOnBoot = true;
-  zramSwap.enable = true;
+  zramSwap.enable = false;
 
   # hardware-configuration.nix
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
