@@ -418,11 +418,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1748373722,
-        "narHash": "sha256-qi6aDGP2W6GyAUNEhg+slQWEpUiJ8LNIrQkmxHpzadI=",
+        "lastModified": 1749744770,
+        "narHash": "sha256-MEM9XXHgBF/Cyv1RES1t6gqAX7/tvayBC1r/KPyK1ls=",
         "owner": "LnL7",
         "repo": "nix-darwin",
-        "rev": "75b99daa12b1fffd646d6c3cf13b06f1fa5cef63",
+        "rev": "536f951efb1ccda9b968e3c9dee39fbeb6d3fdeb",
         "type": "github"
       },
       "original": {
@@ -623,11 +623,11 @@
     "private": {
       "flake": false,
       "locked": {
-        "path": "./private",
+        "path": "private",
         "type": "path"
       },
       "original": {
-        "path": "./private",
+        "path": "private",
         "type": "path"
       },
       "parent": []

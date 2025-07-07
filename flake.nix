@@ -8,7 +8,7 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     private = {
-      url = "path:./private";
+      url = ./private;
       flake = false;
     };
 
