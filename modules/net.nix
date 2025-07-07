@@ -102,13 +102,14 @@ rec {
       id = 2;
       duid = "000300019483c4a4aad2";
       macs = [ "94:83:c4:a4:aa:d2" ];
-      ssh.hostname = "192.168.1.2"; # TODO figure out why ipv6 fails
       ssh.user = "root";
     };
 
     desk = {
       id = 10;
-      duid = "000100012ecf7ce92cf05ddb8d13"; # TODO wl* duid?
+      # TODO: support multiple DUIDs, so eth+wifi can mix, and because
+      # DUID differs in windows
+      duid = "000100012ecf7ce92cf05ddb8d13";
       macs = [
         "14:cc:20:23:ea:6c" # wlp0s20f3
         "2c:f0:5d:db:8d:13" # enp42s0

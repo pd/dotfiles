@@ -69,6 +69,12 @@ in
             Port = 1222;
             PasswordAuth = "off";
           }
+
+          {
+            Interface = "lan6";
+            Port = 1222;
+            PasswordAuth = "off";
+          }
         ];
 
         system = {
