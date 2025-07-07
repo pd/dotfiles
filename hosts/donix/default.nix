@@ -6,7 +6,7 @@ let
   };
 
   mkAdmin = user: keys: {
-    isNormalUsers = true;
+    isNormalUser = true;
     extraGroups = [
       "wheel"
       "networkmanager"
