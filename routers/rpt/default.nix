@@ -5,8 +5,6 @@
   ...
 }:
 uci.mkRouter "rpt" [ ] {
-  deploy.host = net.lan.ipv4.rpt; # TODO why does ipv6 (thus by hostname) fail
-
   uci.retain = [
     "luci"
     "rpcd"
