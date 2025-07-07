@@ -13,6 +13,7 @@
 # phones:
 #   pd:    .50
 #   erin:  .51
+#   ipad:  .52
 #
 # appliances:
 #   nas:   .100
@@ -168,6 +169,13 @@ rec {
       id = 51;
       duid = "0001000129ad30d098502e23cf69";
       macs = [ "98:50:2e:23:cf:69" ];
+      ssh = false;
+    };
+
+    erpad = {
+      id = 52;
+      duid = "000100012228a0c0f0766f681fad";
+      macs = [ "f0:76:6f:68:1f:ad" ];
       ssh = false;
     };
 
