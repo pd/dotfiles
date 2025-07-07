@@ -95,6 +95,7 @@
       secrets = config.home-manager.users.pd.sops.secrets;
     in
     {
+      autostart = false;
       privateKeyFile = secrets.wireguard-private-key.path;
       address = [
         "${net.wg.ipv4.span}/32"
