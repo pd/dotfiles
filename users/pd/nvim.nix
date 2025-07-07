@@ -6,7 +6,14 @@
 
       # I will not be learning yet another clipboard management system
       clipboard.register = "unnamedplus";
-      opts.mouse = "";
+
+      opts = {
+        mouse = "";
+
+        tabstop = 2;
+        shiftwidth = 2;
+        expandtab = true;
+      };
 
       extraPackages = with pkgs; [
         stylua
@@ -61,6 +68,13 @@
         };
 
         web-devicons.enable = true;
+      };
+
+      extraFiles = {
+        "ftplugin/just.lua".text = ''
+          vim.opt.tabstop = 4
+          vim.opt.shiftwidth = 4
+        '';
       };
     };
 
