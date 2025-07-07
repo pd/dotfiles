@@ -75,11 +75,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1741101583,
-        "narHash": "sha256-Qn2sE0zv80aG1Kgv5/cKYdqAoSQW6fXJ2ZyycVC7GdU=",
+        "lastModified": 1750091431,
+        "narHash": "sha256-Blkqla37tLRbWO5a++sR7htKeTDeI5GxwcSslENzRd4=",
         "owner": "MakiseKurisu",
         "repo": "dewclaw",
-        "rev": "b27182eda28c512fb8145ae2afe916a47be56b4f",
+        "rev": "d55ec8bc70ccf8b525ea74e2243fec1d2465cdb8",
         "type": "github"
       },
       "original": {
