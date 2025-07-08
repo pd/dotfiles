@@ -62,7 +62,7 @@ in
         ensureProfiles.profiles.wifi = {
           connection = {
             id = "$ssid";
-            autoconnect = "yes";
+            autoconnect = "true";
             permissions = "";
             type = "wifi";
             interface-name = cfg.wifi.interface;

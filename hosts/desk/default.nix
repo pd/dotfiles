@@ -11,6 +11,7 @@
 
   networking.hostName = "desk";
   lan.wired.interface = "enp42s0";
+  # lan.wifi.interface = "wlp6s0";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
