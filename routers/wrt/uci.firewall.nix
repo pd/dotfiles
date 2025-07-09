@@ -14,6 +14,7 @@ in
       name = "wg6";
       target = "ACCEPT";
       src = "wan";
+      dest = "*";
       proto = "udp";
       family = "ipv6";
       dest_ip = [ pi6 ];
