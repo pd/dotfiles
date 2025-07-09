@@ -7,26 +7,12 @@
   ...
 }:
 let
-  packages = [
-    "bind-dig"
-    "ddns-scripts-digitalocean"
-    "luci-app-ddns"
-    "luci-app-upnp"
-    "prometheus-node-exporter-lua"
-    "prometheus-node-exporter-lua-nat_traffic"
-    "prometheus-node-exporter-lua-netstat"
-    "prometheus-node-exporter-lua-openwrt"
-    "prometheus-node-exporter-lua-wifi"
-    "prometheus-node-exporter-lua-wifi_stations"
-    "tcpdump"
-  ];
-
   ddnsWG6 = pkgs.writeTextFile {
     name = "update_wg_pi.sh";
     text = builtins.readFile ./update_wg_pi.sh;
   };
 in
-uci.mkRouter "wrt" packages {
+uci.mkRouter "wrt" {
   uci.retain = [
     "luci"
     "rpcd"

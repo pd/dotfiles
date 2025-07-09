@@ -56,8 +56,8 @@ in
       key._secret = "wifi_password";
     };
 
-    ap = device: (iface device) // { mode = "ap"; };
     sta = device: (iface device) // { mode = "sta"; };
+    ap = device: (iface device) // { mode = "ap"; };
 
     off = {
       disabled = true;
@@ -69,10 +69,8 @@ in
   };
 
   mkRouter =
-    hostname: packages: custom:
+    hostname: custom:
     dmerge.merge {
-      inherit packages;
-
       deploy = {
         host = "${hostname}.home";
         sshConfig.Port = 1222;
