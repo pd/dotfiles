@@ -13,7 +13,7 @@ in
 
     lan.gateway = mkOption {
       type = types.str;
-      default = "192.168.1.1";
+      default = "192.168.40.1";
     };
 
     lan.ipv4 = mkOption { type = types.str; };

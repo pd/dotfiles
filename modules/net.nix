@@ -1,4 +1,4 @@
-# home 192.168.40.0/22 fded:20::/48
+# home 192.168.40.0/22 fded:40::/48
 # wg   192.168.60.0/24 fded:60::/48
 #
 # computers:
@@ -44,7 +44,7 @@ let
   mkLan =
     id: lan:
     mkIf "lan" (lan != false) { } {
-      ipv4 = "192.168.1.${toString id}";
+      ipv4 = "192.168.40.${toString id}";
       ipv6 = "fded:40::${toString id}";
     };
 
@@ -88,7 +88,7 @@ let
 in
 rec {
   lan = {
-    cidr = "192.168.0.0/22";
+    cidr = "192.168.40.0/22";
     cidr6 = "fded:40::/64";
     hosts = filterAttrs (_: h: h ? lan) hosts;
     ipv4 = mapAttrs (_: v: v.lan.ipv4) lan.hosts;
