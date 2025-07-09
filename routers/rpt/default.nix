@@ -45,59 +45,15 @@ uci.mkRouter "rpt" [ ] {
       };
     };
 
-    wireless =
-      let
-        device = {
-          type = "mac80211";
-        };
+    wireless = with uci.wifi; {
+      wifi-device.radio0 = device "platform/soc@0/c000000.wifi" // bands."2g" // off;
+      wifi-device.radio1 = device "platform/soc@0/b00a040.wifi1" // bands."5g";
 
-        iface = {
-          network = "lan";
-          ssid = "bazqux";
-          encryption = "psk2";
-          key._secret = "wifi_password";
-        };
+      wifi-iface."radio0_sta" = sta "radio0" // wds;
+      wifi-iface."radio0_ap" = ap "radio0";
 
-        sta = iface // {
-          mode = "sta";
-          wds = true;
-        };
-
-        ap = iface // {
-          mode = "ap";
-        };
-      in
-      {
-        wifi-device.radio0 = device // {
-          path = "platform/soc@0/c000000.wifi";
-          band = "2g";
-          channel = 1;
-          htmode = "HE20";
-          disabled = true;
-        };
-
-        wifi-device.radio1 = device // {
-          path = "platform/soc@0/b00a040.wifi1";
-          band = "5g";
-          channel = 36;
-          htmode = "HE80";
-        };
-
-        wifi-iface."radio0_sta" = sta // {
-          device = "radio0";
-        };
-
-        wifi-iface."radio0_ap" = ap // {
-          device = "radio0";
-        };
-
-        wifi-iface."radio1_sta" = sta // {
-          device = "radio1";
-        };
-
-        wifi-iface."radio1_ap" = ap // {
-          device = "radio1";
-        };
-      };
+      wifi-iface."radio1_sta" = sta "radio1" // wds;
+      wifi-iface."radio1_ap" = ap "radio1";
+    };
   };
 }

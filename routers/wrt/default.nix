@@ -41,7 +41,7 @@ uci.mkRouter "wrt" packages {
     firewall = import ./uci.firewall.nix { inherit dmerge net uci; };
     network = import ./uci.network.nix { inherit net uci; };
     upnpd = import ./uci.upnpd.nix { };
-    wireless = import ./uci.wireless.nix { };
+    wireless = import ./uci.wireless.nix { inherit net uci; };
 
     prometheus-node-exporter-lua = {
       prometheus-node-exporter-lua.main = {

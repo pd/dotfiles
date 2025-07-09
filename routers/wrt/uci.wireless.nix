@@ -1,44 +1,9 @@
-{ }:
-let
-  device = {
-    type = "mac80211";
-    htmode = "HE40";
-    cell_density = false;
-  };
-
-  iface = {
-    network = "lan";
-    mode = "ap";
-    ssid = "bazqux";
-    encryption = "psk2";
-    key._secret = "wifi_password";
-
-    # roaming
-    wds = true;
-    ieee80211r = true;
-    mobility_domain = "dead";
-    ft_over_ds = false;
-    ft_psk_generate_local = true;
-  };
-in
+{ uci, ... }:
+with uci.wifi;
 {
-  wifi-device.radio0 = device // {
-    channel = 1;
-    band = "2g";
-    path = "platform/soc/18000000.wifi";
-  };
+  wifi-device.radio0 = device "platform/soc/18000000.wifi" // bands."2g";
+  wifi-device.radio1 = device "platform/soc/18000000.wifi+1" // bands."5g";
 
-  wifi-iface.default_radio0 = iface // {
-    device = "radio0";
-  };
-
-  wifi-device.radio1 = device // {
-    channel = "auto";
-    band = "5g";
-    path = "platform/soc/18000000.wifi+1";
-  };
-
-  wifi-iface.default_radio1 = iface // {
-    device = "radio1";
-  };
+  wifi-iface.default_radio0 = ap "radio0" // wds;
+  wifi-iface.default_radio1 = ap "radio1" // wds;
 }

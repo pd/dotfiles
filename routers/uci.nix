@@ -47,6 +47,46 @@ in
       dest_port = port;
     };
 
+  wifi = rec {
+    bands = {
+      "2g" = {
+        band = "2g";
+        channel = 1;
+        htmode = "HE40";
+      };
+      "5g" = {
+        band = "5g";
+        channel = 36;
+        htmode = "HE80";
+      };
+    };
+
+    off = {
+      disabled = true;
+    };
+    wds = {
+      wds = true;
+    };
+
+    device = path: {
+      inherit path;
+      type = "mac80211";
+      country = "US";
+      cell_density = "1";
+    };
+
+    iface = device: {
+      inherit device;
+      network = "lan";
+      ssid = "bazqux";
+      encryption = "psk2";
+      key._secret = "wifi_password";
+    };
+
+    ap = device: (iface device) // { mode = "ap"; };
+    sta = device: (iface device) // { mode = "sta"; };
+  };
+
   mkRouter =
     hostname: packages: custom:
     dmerge.merge {
