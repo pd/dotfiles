@@ -27,14 +27,6 @@ uci.mkRouter "wrt" {
     network = import ./uci.network.nix { inherit net uci; };
     upnpd = import ./uci.upnpd.nix { inherit net; };
     wireless = import ./uci.wireless.nix { inherit net uci; };
-
-    prometheus-node-exporter-lua = {
-      prometheus-node-exporter-lua.main = {
-        listen_interface = "lan";
-        listen_ipv6 = true;
-        listen_port = 9100;
-      };
-    };
   };
 
   # deploySteps is marked internal but I want to copy a file

@@ -188,6 +188,14 @@ in
 
           rule = import ./default-firewall-rules.nix;
         };
+
+        prometheus-node-exporter-lua = {
+          prometheus-node-exporter-lua.main = {
+            listen_interface = "lan";
+            listen_ipv6 = true;
+            listen_port = 9100;
+          };
+        };
       };
 
     } custom;
