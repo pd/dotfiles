@@ -2,6 +2,7 @@
   dmerge,
   lib,
   net,
+  pkgs,
   uci,
   ...
 }:
@@ -19,6 +20,11 @@ let
     "prometheus-node-exporter-lua-wifi_stations"
     "tcpdump"
   ];
+
+  ddnsWG6 = pkgs.writeTextFile {
+    name = "update_wg_pi.sh";
+    text = builtins.readFile ./update_wg_pi.sh;
+  };
 in
 uci.mkRouter "wrt" packages {
   uci.retain = [
@@ -45,4 +51,21 @@ uci.mkRouter "wrt" packages {
       };
     };
   };
+
+  # deploySteps is marked internal but I want to copy a file
+  # and this is the best I've got
+  deploySteps.ddns =
+    let
+      path = "/usr/lib/ddns/update_wg_pi.sh";
+    in
+    {
+      priority = 100;
+      copy = ''
+        scp ${ddnsWG6} device:${path}
+      '';
+      apply = ''
+        chown root:root ${path}
+        chmod 544 ${path}
+      '';
+    };
 }

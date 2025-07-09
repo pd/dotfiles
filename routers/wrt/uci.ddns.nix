@@ -32,7 +32,7 @@ let
       subdomain = "wg";
       ipv = 6;
       id = 1759484529;
-      script = "/usr/lib/ddns/update_wg_pi.sh"; # TODO how do i get this integrated
+      script = "/usr/lib/ddns/update_wg_pi.sh";
     };
   };
 
