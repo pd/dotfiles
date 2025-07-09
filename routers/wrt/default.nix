@@ -17,7 +17,6 @@ uci.mkRouter "wrt" {
     "luci"
     "rpcd"
     "ubootenv"
-    "ucitrack"
     "uhttpd"
   ];
 
