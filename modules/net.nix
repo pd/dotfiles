@@ -1,25 +1,29 @@
-# home 192.168.1.0/22  fded:1::/48
-# wg   192.168.20.0/24 fded:20::/48
+# home 192.168.40.0/22 fded:20::/48
+# wg   192.168.60.0/24 fded:60::/48
 #
 # computers:
-#   wrt:   .1, gw
-#   rpt:   .2
-#   desk:  .10
-#   span:  .11
-#   htpc:  .12
-#   pi:    .13, wg
-#   air:   .14
+#   wrt:        .1, gw
+#   rpt:        .2
+#   desk:       .10
+#   span:       .11
+#   htpc:       .12
+#   pi:         .13, wg
+#   air:        .14
+#   desk-wifi:  .20
 #
-# phones:
-#   pd:    .50
-#   erin:  .51
-#   ipad:  .52
+# mobile:
+#   pd:         .50
+#   erin:       .51
+#   ipad:       .52
+#   avp:        .53
 #
 # appliances:
-#   nas:   .100
-#   tv:    .101
-#   do:    .110
-#   hera:  .120
+#   nas:        .100
+#   tv:         .101
+#   do:         .110
+#   hera:       .120
+#
+# unknown:      .42/24
 { lib, ... }:
 with lib;
 let
@@ -31,14 +35,14 @@ let
     id: lan:
     mkIf "lan" (lan != false) { } {
       ipv4 = "192.168.1.${toString id}";
-      ipv6 = "fded:1::${toString id}";
+      ipv6 = "fded:40::${toString id}";
     };
 
   mkWg =
     id: wg:
     mkIf "wg" (wg ? publicKey) wg {
-      ipv4 = "192.168.20.${toString id}";
-      ipv6 = "fded:20::${toString id}";
+      ipv4 = "192.168.60.${toString id}";
+      ipv6 = "fded:60::${toString id}";
     };
 
   mkSsh =
@@ -81,8 +85,8 @@ rec {
   };
 
   wg = {
-    cidr = "192.168.20.0/24";
-    cidr6 = "fded:20::/64";
+    cidr = "192.168.60.0/24";
+    cidr6 = "fded:60::/64";
     hosts = filterAttrs (_: h: h ? wg) hosts;
     ipv4 = mapAttrs (_: v: v.wg.ipv4) wg.hosts;
     ipv6 = mapAttrs (_: v: v.wg.ipv6) wg.hosts;
@@ -107,8 +111,8 @@ rec {
 
     desk = {
       id = 10;
-      # TODO: support multiple DUIDs, so eth+wifi can mix, and because
-      # DUID differs in windows
+      # TODO: support multiple DUIDs so lease matches across
+      # nixos and windows
       duid = "000100012ecf7ce92cf05ddb8d13";
       macs = [
         "14:cc:20:23:ea:6c" # wlp0s20f3
@@ -179,6 +183,11 @@ rec {
       macs = [ "f0:76:6f:68:1f:ad" ];
       ssh = false;
     };
+
+    # avp = {
+    #   id = 53;
+    #   ssh = false;
+    # };
 
     nas = {
       id = 100;
