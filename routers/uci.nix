@@ -27,26 +27,6 @@ in
       }
     ];
 
-  dnat =
-    name:
-    {
-      ip,
-      port,
-      proto ? [
-        "tcp"
-        "udp"
-      ],
-    }@_:
-    {
-      inherit name proto;
-      src = "wan";
-      dest = "lan";
-      target = "DNAT";
-      src_dport = port;
-      dest_ip = ip;
-      dest_port = port;
-    };
-
   wifi = rec {
     bands = {
       "2g" = {
@@ -59,13 +39,6 @@ in
         channel = 36;
         htmode = "HE80";
       };
-    };
-
-    off = {
-      disabled = true;
-    };
-    wds = {
-      wds = true;
     };
 
     device = path: {
@@ -85,6 +58,14 @@ in
 
     ap = device: (iface device) // { mode = "ap"; };
     sta = device: (iface device) // { mode = "sta"; };
+
+    off = {
+      disabled = true;
+    };
+
+    wds = {
+      wds = true;
+    };
   };
 
   mkRouter =
