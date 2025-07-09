@@ -30,6 +30,8 @@ uci.mkRouter "rpt" [ ] {
       dhcp.lan = {
         interface = "lan";
         ignore = true;
+        dhcpv6 = "disabled";
+        ra = "disabled";
       };
     };
 
