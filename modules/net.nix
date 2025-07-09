@@ -195,10 +195,11 @@ rec {
       ssh = false;
     };
 
-    # avp = {
-    #   id = 53;
-    #   ssh = false;
-    # };
+    avp = {
+      id = 53;
+      macs = [ "ee:47:b2:66:96:8e" ];
+      ssh = false;
+    };
 
     nas = {
       id = 100;
