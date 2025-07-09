@@ -78,7 +78,7 @@ in
 rec {
   lan = {
     cidr = "192.168.0.0/22";
-    cidr6 = "fded:1::/64";
+    cidr6 = "fded:40::/64";
     hosts = filterAttrs (_: h: h ? lan) hosts;
     ipv4 = mapAttrs (_: v: v.lan.ipv4) lan.hosts;
     ipv6 = mapAttrs (_: v: v.lan.ipv6) lan.hosts;

@@ -1,6 +1,6 @@
 { net, uci, ... }:
 {
-  globals = [ { ula_prefix = "fded:40::/48"; } ];
+  globals = [ { ula_prefix = net.lan.cidr6; } ];
 
   device = [
     {

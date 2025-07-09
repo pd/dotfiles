@@ -40,7 +40,7 @@ uci.mkRouter "wrt" packages {
     ddns = import ./uci.ddns.nix { inherit lib; };
     firewall = import ./uci.firewall.nix { inherit dmerge net uci; };
     network = import ./uci.network.nix { inherit net uci; };
-    upnpd = import ./uci.upnpd.nix { };
+    upnpd = import ./uci.upnpd.nix { inherit net; };
     wireless = import ./uci.wireless.nix { inherit net uci; };
 
     prometheus-node-exporter-lua = {
