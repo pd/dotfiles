@@ -4,10 +4,6 @@
   uci,
   ...
 }:
-let
-  # TODO not sure where to encode this
-  pi6 = "2600:1700:3040:1e2f::13";
-in
 {
   rule = dmerge.append [
     {
@@ -17,7 +13,7 @@ in
       dest = "*";
       proto = "udp";
       family = "ipv6";
-      dest_ip = [ pi6 ];
+      dest_ip = [ net.hosts.pi.pub.ipv6 ];
       dest_port = 51930;
     }
   ];
