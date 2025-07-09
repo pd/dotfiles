@@ -57,7 +57,15 @@ in
     };
 
     sta = device: (iface device) // { mode = "sta"; };
-    ap = device: (iface device) // { mode = "ap"; };
+    ap =
+      device:
+      (iface device)
+      // {
+        mode = "ap";
+        bss_transition = true; # 802.11v
+        ieee80211r = true;
+        mobility_domain = "dead";
+      };
 
     off = {
       disabled = true;
