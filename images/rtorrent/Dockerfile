@@ -1,2 +1,2 @@
-FROM crazymax/rtorrent-rutorrent:4.3.6-6.0
+FROM crazymax/rtorrent-rutorrent:5.2.10-0.15.5
 COPY rtlocal.rc /tpls/etc/rtorrent/.rtlocal.rc
