@@ -91,8 +91,17 @@ in
                 source_labels = [ "mac" ];
                 target_label = "mac";
               }
+
+              {
+                action = "replace";
+                source_labels = [ "instance" ];
+                target_label = "router";
+                regex = "(.+).home:[0-9]+";
+                replacement = "$1";
+              }
             ]
             ++ (mapAttrsToList (mac: host: {
+              action = "replace";
               source_labels = [ "mac" ];
               target_label = "host";
               regex = mac;

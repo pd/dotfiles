@@ -112,12 +112,23 @@ rec {
       id = 1;
       ssh.user = "root";
       cnames = [ "gw" ];
+      macs = [
+        "94:83:c4:a3:31:20" # eth1
+        "94:83:c4:a3:31:22" # eth0, lan1..5, br-lan
+        "94:83:c4:a3:31:23" # phy0-ap0
+        "94:83:c4:a3:31:24" # phy1-ap0
+      ];
     };
 
     rpt = {
       id = 2;
       duid = "000300019483c4a4aad4";
-      macs = [ "94:83:c4:a4:aa:d4" ];
+      macs = [
+        "94:83:c4:a4:aa:d2" # eth0
+        "94:83:c4:a4:aa:d4" # lan1, lan2, br-lan
+        "94:83:c4:a4:aa:d6" # phy1-ap0
+        "96:83:c4:a4:aa:d6" # phy1-sta0
+      ];
       ssh.user = "root";
     };
 
