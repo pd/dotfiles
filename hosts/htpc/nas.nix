@@ -73,12 +73,12 @@ in
     description = "filebotd";
     wantedBy = [ "multi-user.target" ];
     after = [ "network.target" ];
+    path = [ pkgs.filebot ];
     serviceConfig = {
       Type = "exec";
       User = pd.name;
       ExecStart = "${filebotd}/bin/filebotd";
       EnvironmentFile = config.sops.secrets.jellyfin-api-key.path;
-      Environment = "PATH=/run/current-system/sw/bin";
     };
   };
 
