@@ -15,16 +15,22 @@ let
   '';
 
   dnsInfo = tld: net: name: host: {
-    inherit (host."${net}") ipv4 ipv6;
+    inherit (host."${net}") ipv4;
     name = "${name}.${tld}";
     cnames = map (n: "${n}.${tld}") (host.cnames or [ ]);
+    ipv6 = host.ipv6 or false;
   };
 
   hosts =
     (lib.mapAttrsToList (dnsInfo "home" "lan") net.lan.hosts)
     ++ (lib.mapAttrsToList (dnsInfo "wg" "wg") net.wg.hosts);
 
-  host-records = map (host: "${host.name},${host.ipv4},${host.ipv6}") hosts;
+  host-record =
+    host:
+    if host.ipv6 != false then
+      "${host.name},${host.ipv4},${host.ipv6}"
+    else
+      "${host.name},${host.ipv4}";
   cnames =
     let
       expand = cnames: lib.strings.concatStringsSep "," cnames;
@@ -61,7 +67,7 @@ in
         "/wg/"
       ];
 
-      host-record = host-records;
+      host-record = map host-record hosts;
       cname = cnames;
 
       strict-order = true;
