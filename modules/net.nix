@@ -9,13 +9,17 @@
 #   htpc:       .12
 #   pi:         .13, wg
 #   air:        .14
-#   desk-wifi:  .20
+#   win:        .15
 #
 # mobile:
 #   pd:         .50
 #   erin:       .51
 #   ipad:       .52
 #   avp:        .53
+#
+# extra interfaces:
+#   desk-wifi:  .80
+#   win-wifi:   .85
 #
 # appliances:
 #   nas:        .100
@@ -137,13 +141,14 @@ rec {
 
     desk = {
       id = 10;
-      # TODO: support multiple DUIDs so lease matches across
-      # nixos and windows
-      duid = "000100012ecf7ce92cf05ddb8d13";
-      macs = [
-        "14:cc:20:23:ea:6c" # wlp0s20f3
-        "2c:f0:5d:db:8d:13" # enp42s0
-      ];
+      duid = "000100012edf49e42cf05ddb8d13";
+      macs = [ "2c:f0:5d:db:8d:f3" ];
+    };
+
+    desk-wifi = {
+      id = 80;
+      duid = "00042e9db5721b37282968f57627580d9d07";
+      macs = [ "14:cc:20:23:ea:fc" ];
     };
 
     span = {
@@ -186,6 +191,20 @@ rec {
       id = 14;
       duid = "000100012c2b9b1910b58855b7af";
       macs = [ "10:b5:88:55:b7:af" ];
+      ssh = false;
+    };
+
+    win = {
+      id = 15;
+      duid = "00010001282008632cf05ddb8d13";
+      macs = [ "2c:f0:5d:db:8d:13" ];
+      ssh = false;
+    };
+
+    win-wifi = {
+      id = 85;
+      duid = "00010001282008632cf05ddb8d13";
+      macs = [ "14:cc:20:23:ea:6c" ];
       ssh = false;
     };
 

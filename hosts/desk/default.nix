@@ -10,8 +10,8 @@
   system.stateVersion = "24.05";
 
   networking.hostName = "desk";
-  lan.wired.interface = "enp42s0";
-  # lan.wifi.interface = "wlp6s0";
+  lan.wired.interface = "eth0";
+  # lan.wifi.interface = "wlan0";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -42,4 +42,23 @@
     package = pkgs.wireshark-qt;
   };
   users.users.pd.extraGroups = [ "wireshark" ];
+
+  # Reassign MACs so nixos is distinct from windows
+  systemd.network.links."40-eth" = {
+    matchConfig.PermanentMACAddress = "2c:f0:5d:db:8d:13";
+    linkConfig = {
+      MACAddressPolicy = "none";
+      MACAddress = "2c:f0:5d:db:8d:f3";
+      Name = "eth0";
+    };
+  };
+
+  systemd.network.links."40-wlan" = {
+    matchConfig.PermanentMACAddress = "14:cc:20:23:ea:6c";
+    linkConfig = {
+      MACAddressPolicy = "none";
+      MACAddress = "14:cc:20:23:ea:fc";
+      Name = "wlan0";
+    };
+  };
 }
