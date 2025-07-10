@@ -43,10 +43,12 @@ let
 
   mkLan =
     id: lan: v6:
-    mkIf "lan" (lan != false) { } {
-      ipv4 = "192.168.40.${toString id}";
-    }
-    // (if v6 then { ipv6 = "fded:40::${toString id}"; } else { });
+    mkIf "lan" (lan != false) { } (
+      {
+        ipv4 = "192.168.40.${toString id}";
+      }
+      // (if v6 then { ipv6 = "fded:40::${toString id}"; } else { })
+    );
 
   mkWg =
     id: wg:
@@ -80,6 +82,7 @@ let
         duid
         macs
         cnames
+        v6
         ;
     }
     // (mkLan id lan v6)
@@ -93,7 +96,7 @@ rec {
     cidr6 = "fded:40::/64";
     hosts = filterAttrs (_: h: h ? lan) hosts;
     ipv4 = mapAttrs (_: v: v.lan.ipv4) lan.hosts;
-    ipv6 = mapAttrs (_: v: v.lan.ipv6) (filterAttrs (_: h: h ? v6) lan.hosts);
+    ipv6 = mapAttrs (_: v: v.lan.ipv6) (filterAttrs (_: h: h.v6) lan.hosts);
   };
 
   wg = {
