@@ -9,3 +9,4 @@ _.python.venv = { path = ".venv", create = true }
 [settings]
 go_default_packages_file = "~/.config/mise/go"
 go_set_gobin = false
+idiomatic_version_file_enable_tools = [ "python" ]
