@@ -480,11 +480,9 @@ targets."
     (when (or (sops--is-sops-file) (equal sops--status "decrypted"))
       (pd/sops-edit-mode +1)))
   :bind
-  (:map pd/sops-edit-mode-map
-        ("C-x C-e" . sops-edit-file)
-        ("C-x C-s" . sops-save-file)
-        ("C-c C-c" . sops-save-file)
-        ("C-c C-k" . sops-cancel))
+  (("C-c C-d" . sops-edit-file)
+   ("C-c C-c" . sops-save-file)
+   ("C-c C-k" . sops-cancel))
   :config
   (global-sops-mode +1)
   (add-hook 'sops-mode-hook 'pd/maybe-sops-edit-mode))
