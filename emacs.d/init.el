@@ -585,7 +585,6 @@ targets."
                (ruby "https://github.com/tree-sitter/tree-sitter-ruby")
                (rust "https://github.com/tree-sitter/tree-sitter-rust")
                (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-               (yaml "https://github.com/ikatyang/tree-sitter-yaml")
                (zig "https://github.com/maxxnino/tree-sitter-zig")))
       (add-to-list 'treesit-language-source-alist grammar)
       (unless (treesit-language-available-p (car grammar))
@@ -599,7 +598,6 @@ targets."
                    (ruby-mode       . ruby-ts-mode)
                    (rust-mode       . rust-ts-mode)
                    (typescript-mode . tsx-ts-mode)
-                   (yaml-mode       . yaml-ts-mode)
                    (zig-mode        . zig-ts-mode)))
     (add-to-list 'major-mode-remap-alist remap))
 
