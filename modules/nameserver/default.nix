@@ -15,10 +15,10 @@ let
   '';
 
   dnsInfo = tld: net: name: host: {
-    inherit (host."${net}") ipv4;
+    inherit (host.${net}) ipv4;
     name = "${name}.${tld}";
     cnames = map (n: "${n}.${tld}") (host.cnames or [ ]);
-    ipv6 = host.ipv6 or false;
+    ipv6 = host.${net}.ipv6 or null;
   };
 
   hosts =
@@ -27,10 +27,14 @@ let
 
   host-record =
     host:
-    if host.ipv6 != false then
-      "${host.name},${host.ipv4},${host.ipv6}"
-    else
-      "${host.name},${host.ipv4}";
+    lib.concatStringsSep "," (
+      [
+        host.name
+        host.ipv4
+      ]
+      ++ lib.optional (host.ipv6 != null) host.ipv6
+    );
+
   cnames =
     let
       expand = cnames: lib.strings.concatStringsSep "," cnames;
