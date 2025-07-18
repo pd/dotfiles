@@ -21,6 +21,7 @@ let
       exporters = prometheus.exporters;
     in
     {
+      caddy = 2020;
       jellyfin = 8096;
       nginx-exporter = exporters.nginx.port;
       node-exporter = exporters.node.port;
@@ -52,11 +53,9 @@ in
     };
 
     scrapeConfigs = [
+      (staticJob "caddy" ports.caddy [ "donix.wg" ])
       (staticJob "jellyfin" ports.jellyfin [ "htpc.home" ])
-      (staticJob "nginx" ports.nginx-exporter [
-        "htpc.home"
-        "donix.wg"
-      ])
+      (staticJob "nginx" ports.nginx-exporter [ "htpc.home" ])
       (staticJob "ntfy" ports.ntfy [ "donix.wg" ])
       (staticJob "nodes" ports.node-exporter [
         "desk.home"

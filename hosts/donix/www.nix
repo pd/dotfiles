@@ -1,6 +1,6 @@
 { net, pkgs, ... }:
 let
-  internetsfamous = pkgs.runCommand "install-nginx-site" { } ''
+  internetsfamous = pkgs.runCommand "internetsfamous-site" { } ''
     install -Dm644 ${./internetsfamous/index.html} $out/www/index.html
   '';
 in
@@ -8,32 +8,28 @@ in
   networking.firewall.allowedTCPPorts = [
     80
     443
+    2020
   ];
-
-  security.acme.acceptTerms = true;
-  security.acme.defaults.email = "letsencrypt@krh.me";
 
   environment.systemPackages = [ internetsfamous ];
 
-  services.nginx = {
+  services.caddy = {
     enable = true;
-    statusPage = true;
-    recommendedTlsSettings = true;
-    recommendedOptimisation = true;
-    recommendedBrotliSettings = true;
-    recommendedGzipSettings = true;
-    recommendedZstdSettings = true;
+    email = "letsencrypt@krh.me";
 
-    virtualHosts."internetsfamo.us" = {
-      enableACME = true;
-      forceSSL = true;
-      root = "${internetsfamous}/www";
-    };
-  };
+    globalConfig = ''
+      metrics { per_host }
+    '';
 
-  services.prometheus.exporters.nginx = {
-    enable = true;
-    openFirewall = true;
-    listenAddress = "${net.wg.ipv4.donix}";
+    virtualHosts."internetsfamo.us".extraConfig = ''
+      root ${internetsfamous}/www
+      file_server
+    '';
+
+    virtualHosts.":2020".extraConfig = ''
+      @wan not client_ip ${net.wg.cidr} ${net.wg.cidr6}
+      abort @wan
+      metrics
+    '';
   };
 }

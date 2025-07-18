@@ -54,13 +54,9 @@ in
     '';
   };
 
-  services.nginx.virtualHosts."ntfy.krh.me" = {
-    enableACME = true;
-    forceSSL = true;
-
-    locations."/" = {
-      proxyPass = "http://127.0.0.1:${toString port}";
-      proxyWebsockets = true;
-    };
+  services.caddy.virtualHosts."ntfy.krh.me" = {
+    extraConfig = ''
+      reverse_proxy localhost:${toString port}
+    '';
   };
 }
