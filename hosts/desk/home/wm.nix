@@ -186,6 +186,10 @@
             ];
           };
 
+          tray = {
+            spacing = 15;
+          };
+
           "river/window" = {
             max-length = 100;
           };
