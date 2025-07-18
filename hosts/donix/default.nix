@@ -19,6 +19,7 @@ in
   imports = [
     ../../modules/core
     ./infect.nix
+    ./ntfy.nix
     ./www.nix
   ];
 
