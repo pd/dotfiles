@@ -12,6 +12,7 @@ in
       go-jsonnet
       nil
       (hiPrio ruby') # win over gotools `bundle`
+      supabase-cli
       uv
       zig
       zig-shell-completions
