@@ -23,7 +23,6 @@ let
     {
       caddy = 2020;
       jellyfin = 8096;
-      nginx-exporter = exporters.nginx.port;
       node-exporter = exporters.node.port;
       ntfy = 9712; # cf donix/ntfy.nix
       prometheus = prometheus.port;
@@ -53,9 +52,11 @@ in
     };
 
     scrapeConfigs = [
-      (staticJob "caddy" ports.caddy [ "donix.wg" ])
+      (staticJob "caddy" ports.caddy [
+        "htpc.home"
+        "donix.wg"
+      ])
       (staticJob "jellyfin" ports.jellyfin [ "htpc.home" ])
-      (staticJob "nginx" ports.nginx-exporter [ "htpc.home" ])
       (staticJob "ntfy" ports.ntfy [ "donix.wg" ])
       (staticJob "nodes" ports.node-exporter [
         "desk.home"
@@ -116,14 +117,7 @@ in
     ];
   };
 
-  services.nginx = {
-    enable = true;
-    statusPage = true;
-
-    virtualHosts."prom.home" = {
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString ports.prometheus}";
-      };
-    };
-  };
+  services.caddy.virtualHosts."prom.home:80".extraConfig = ''
+    reverse_proxy localhost:${toString ports.prometheus}
+  '';
 }

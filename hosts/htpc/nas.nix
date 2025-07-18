@@ -116,22 +116,19 @@ in
 
   networking.firewall.allowedTCPPorts = [ 80 ];
 
-  services.nginx = {
-    enable = true;
+  services.caddy.virtualHosts = {
+    "store.home:80".extraConfig = ''
+      reverse_proxy nas.home:5000
+    '';
 
-    virtualHosts."store.home".locations."/" = {
-      proxyPass = "http://nas.home:5000";
-    };
+    "torrent.home:80".extraConfig = ''
+      handle /_hooks/* {
+        reverse_proxy localhost:12345
+      }
 
-    virtualHosts."torrent.home" = {
-      locations."/_hooks/" = {
-        proxyPass = "http://127.0.0.1:12345";
-      };
-
-      locations."/" = {
-        proxyPass = "http://nas.home:8080";
-      };
-    };
+      handle {
+        reverse_proxy nas.home:8080
+      }
+    '';
   };
-
 }

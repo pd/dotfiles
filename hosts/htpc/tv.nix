@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   services.jellyfin = {
     enable = true;
@@ -22,11 +22,7 @@
     jellyfin-ffmpeg
   ];
 
-  services.nginx = {
-    enable = true;
-
-    virtualHosts."jellyfin.home".locations."/" = {
-      proxyPass = "http://127.0.0.1:8096";
-    };
-  };
+  services.caddy.virtualHosts."jellyfin.home:80".extraConfig = ''
+    reverse_proxy localhost:8096
+  '';
 }

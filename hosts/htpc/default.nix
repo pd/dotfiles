@@ -4,6 +4,7 @@
     ./hardware-configuration.nix
     ../../modules/core
     ../../modules/nameserver
+    ./caddy.nix
     ./prometheus.nix
     ./grafana.nix
     ./nas.nix
