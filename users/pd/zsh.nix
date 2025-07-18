@@ -63,6 +63,10 @@
         };
 
         completionInit = ''
+          if readlink ~/bin/docker | grep -q orbstack; then
+            source <(docker completion zsh)
+          fi
+
           # Only rebuild zcompdump once a day
           # Lifted from prezto:
           # https://github.com/sorin-ionescu/prezto/blob/9195b6/modules/completion/init.zsh#L53-L68
