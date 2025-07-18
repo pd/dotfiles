@@ -24,6 +24,7 @@ let
       jellyfin = 8096;
       nginx-exporter = exporters.nginx.port;
       node-exporter = exporters.node.port;
+      ntfy = 9712; # cf donix/ntfy.nix
       prometheus = prometheus.port;
       rtorrent = 9135;
       snmp = 9116;
@@ -51,8 +52,12 @@ in
     };
 
     scrapeConfigs = [
-      (staticJob "jellyfin" ports.jellyfin [ "127.0.0.1" ])
-      (staticJob "nginx" ports.nginx-exporter [ "127.0.0.1" ])
+      (staticJob "jellyfin" ports.jellyfin [ "htpc.home" ])
+      (staticJob "nginx" ports.nginx-exporter [
+        "htpc.home"
+        "donix.wg"
+      ])
+      (staticJob "ntfy" ports.ntfy [ "donix.wg" ])
       (staticJob "nodes" ports.node-exporter [
         "desk.home"
         "htpc.home"
@@ -60,8 +65,8 @@ in
         "nas.home"
         "donix.wg"
       ])
-      (staticJob "prometheus" ports.prometheus [ "127.0.0.1" ])
-      (staticJob "rtorrent" ports.rtorrent [ "127.0.0.1" ])
+      (staticJob "prometheus" ports.prometheus [ "htpc.home" ])
+      (staticJob "rtorrent" ports.rtorrent [ "htpc.home" ])
       (staticJob "snmp-exporter" ports.snmp [ "nas.home" ])
       (
         (staticJob "snmp" ports.snmp [ "nas.home" ])

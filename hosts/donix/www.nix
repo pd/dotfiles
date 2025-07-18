@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ net, pkgs, ... }:
 let
   internetsfamous = pkgs.runCommand "install-nginx-site" { } ''
     install -Dm644 ${./internetsfamous/index.html} $out/www/index.html
@@ -17,7 +17,7 @@ in
 
   services.nginx = {
     enable = true;
-    statusPage = false;
+    statusPage = true;
     recommendedTlsSettings = true;
     recommendedOptimisation = true;
     recommendedBrotliSettings = true;
@@ -29,5 +29,11 @@ in
       forceSSL = true;
       root = "${internetsfamous}/www";
     };
+  };
+
+  services.prometheus.exporters.nginx = {
+    enable = true;
+    openFirewall = true;
+    listenAddress = "${net.wg.ipv4.donix}";
   };
 }
