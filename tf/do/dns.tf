@@ -18,6 +18,7 @@ locals {
 
       { type = "A", name = "donix", value = digitalocean_droplet.donix.ipv4_address },
       { type = "AAAA", name = "donix", value = digitalocean_droplet.donix.ipv6_address },
+      { type = "CNAME", name = "ntfy", value = "donix.krh.me." },
 
       { type = "CNAME", name = "mail", value = "ghs.googlehosted.com." },
       { type = "MX", name = "@", value = "aspmx.l.google.com.", priority = 1 },
@@ -46,6 +47,7 @@ resource "digitalocean_record" "dns" {
   type   = each.value.type
   name   = each.value.name
   value  = each.value.value
+  ttl    = 300
 
   tag   = each.value.type == "CAA" ? "issue" : null
   flags = each.value.type == "CAA" ? 0 : null
