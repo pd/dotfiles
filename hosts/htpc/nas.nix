@@ -20,8 +20,8 @@ let
   rtorrent-exporter = pkgs.stdenv.mkDerivation {
     name = "rtorrent-exporter";
     src = pkgs.fetchurl {
-      url = "https://github.com/thde/rtorrent_exporter/releases/download/v1.3.2/rtorrent_exporter_1.3.2_linux_amd64.tar.gz";
-      sha256 = "24psJpXnKniTHg3BqXoVyazwBHeb75r7F7/LX3tC0SY=";
+      url = "https://github.com/aauren/rtorrent-exporter/releases/download/v1.4.9/rtorrent-exporter_Linux_amd64.tar.gz";
+      sha256 = "RVFyOIDe02+I7x8fz47Cvp8pKOyNIVCfpEnMi2UXNts=";
     };
     phases = [
       "unpackPhase"
@@ -30,7 +30,7 @@ let
     sourceRoot = ".";
     installPhase = ''
       mkdir -p $out/bin
-      cp rtorrent_exporter $out/bin
+      cp rtorrent-exporter-*/rtorrent-exporter $out/bin
     '';
   };
 in
@@ -48,6 +48,10 @@ in
   sops.secrets.jellyfin-api-key = {
     owner = pd.name;
     group = pd.group;
+  };
+
+  sops.secrets."rtorrent-exporter.yaml" = {
+    owner = config.users.users.prometheus.name;
   };
 
   environment.systemPackages = with pkgs; [
@@ -91,8 +95,8 @@ in
       Type = "exec";
       User = config.users.users.prometheus.name;
       ExecStart = ''
-        ${rtorrent-exporter}/bin/rtorrent_exporter \
-          --rtorrent.scrape-uri="http://nas.home:8000/RPC2"
+        ${rtorrent-exporter}/bin/rtorrent-exporter \
+          --config ${config.sops.secrets."rtorrent-exporter.yaml".path}
       '';
     };
   };
