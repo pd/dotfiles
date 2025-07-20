@@ -86,6 +86,7 @@ in
     };
   };
 
+  networking.firewall.allowedTCPPorts = [ 9135 ];
   systemd.services.rtorrent-exporter = {
     enable = true;
     description = "rtorrent-exporter";
@@ -117,8 +118,6 @@ in
       OnUnitActiveSec = [ "720m" ];
     };
   };
-
-  networking.firewall.allowedTCPPorts = [ 80 ];
 
   services.caddy.virtualHosts = {
     "store.home:80".extraConfig = ''
