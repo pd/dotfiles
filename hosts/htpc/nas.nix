@@ -82,7 +82,6 @@ in
       Type = "exec";
       User = pd.name;
       ExecStart = "${filebotd}/bin/filebotd";
-      EnvironmentFile = config.sops.secrets.jellyfin-api-key.path;
     };
   };
 
