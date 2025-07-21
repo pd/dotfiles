@@ -34,7 +34,7 @@ let
   macs = lib.concatMapAttrs (
     host: attrs:
     builtins.listToAttrs (
-      lib.map (mac: {
+      map (mac: {
         name = mac;
         value = host;
       }) attrs.macs
@@ -47,9 +47,6 @@ in
     enableReload = true;
     webExternalUrl = "http://prom.home";
     port = 9999;
-    exporters = {
-      nginx.enable = true;
-    };
 
     scrapeConfigs = [
       (staticJob "caddy" ports.caddy [
