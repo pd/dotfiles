@@ -45,11 +45,6 @@ in
     group = pd.group;
   };
 
-  sops.secrets.jellyfin-api-key = {
-    owner = pd.name;
-    group = pd.group;
-  };
-
   sops.secrets."rtorrent-exporter.yaml" = {
     owner = config.users.users.prometheus.name;
   };
