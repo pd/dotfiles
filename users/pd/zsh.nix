@@ -1,29 +1,36 @@
 { pkgs, ... }:
+let
+  em = pkgs.writeShellScriptBin "em" (
+    if pkgs.hostPlatform.isLinux then
+      ''
+        emacsclient --alternate-editor="" --no-wait --reuse-frame "$@"
+      ''
+    else
+      # Inexplicably, `--reuse-frame` does the opposite on MacOS (as of Emacs 30).
+      # It's not just me, apparently:
+      # https://emacs.stackexchange.com/questions/79292/why-is-emacsclient-not-reusing-the-existing-frame
+      ''
+        if emacsclient -n -e "(if (> (length (frame-list)) 1) 't)" | grep t >/dev/null 2>&1; then
+          emacsclient --alternate-editor="" --no-wait "$@"
+        else
+          emacsclient --alternate-editor="" --create-frame --no-wait "$@"
+        fi
+      ''
+  );
+in
 {
+  # If using my user's zshrc, no need for compinit to run from
+  # the system zshrc.
+  programs.zsh = {
+    enableGlobalCompInit = false;
+    enableBashCompletion = false;
+
+    # to include global startup in zprof:
+    # shellInit = "zmodload zsh/zprof";
+  };
+
   home-manager.users.pd =
     { config, ... }:
-    let
-      xdg = config.xdg;
-
-      em = pkgs.writeShellScriptBin "em" (
-        if pkgs.hostPlatform.isLinux then
-          ''
-            emacsclient --alternate-editor="" --no-wait --reuse-frame "$@"
-          ''
-        else
-          # Inexplicably, `--reuse-frame` does the opposite on MacOS (as of Emacs 30).
-          # It's not just me, apparently:
-          # https://emacs.stackexchange.com/questions/79292/why-is-emacsclient-not-reusing-the-existing-frame
-          ''
-            if emacsclient -n -e "(if (> (length (frame-list)) 1) 't)" | grep t >/dev/null 2>&1; then
-              emacsclient --alternate-editor="" --no-wait "$@"
-            else
-              emacsclient --alternate-editor="" --create-frame --no-wait "$@"
-            fi
-          ''
-      );
-
-    in
     {
       home.packages = [ em ];
 
@@ -45,42 +52,23 @@
 
       programs.zsh = {
         enable = true;
+        # zprof.enable = true;
 
         autocd = true;
         enableVteIntegration = true;
-        # zprof.enable = true;
 
         history = {
           save = 50000;
           size = 10000;
-          path = "${xdg.cacheHome}/zsh/history";
+          path = "${config.xdg.cacheHome}/zsh/history";
 
           expireDuplicatesFirst = true;
           ignoreDups = true;
           ignoreAllDups = true;
           ignoreSpace = true;
+          saveNoDups = true;
           share = true;
         };
-
-        completionInit = ''
-          if readlink ~/bin/docker | grep -q orbstack; then
-            source <(docker completion zsh)
-          fi
-
-          # Only rebuild zcompdump once a day
-          # Lifted from prezto:
-          # https://github.com/sorin-ionescu/prezto/blob/9195b6/modules/completion/init.zsh#L53-L68
-          autoload -Uz compinit
-          _comp_path="${xdg.cacheHome}/zsh/zcompdump"
-          if [[ $_comp_path(#qNmh-22) ]]; then
-            compinit -C -d "$_comp_path"
-          else
-            mkdir -p "$_comp_path:h"
-            compinit -i -d "$_comp_path"
-            touch "$_comp_path"
-          fi
-          unset _comp_path
-        '';
 
         envExtra = ''
           if [[ -n "$INSIDE_EMACS" ]]; then
@@ -92,7 +80,7 @@
           export PSQLRC="$HOME/.config/pg/psqlrc"
           export KUBECTL_EXTERNAL_DIFF='dyff between --omit-header --set-exit-code'
 
-          # not everything is nixied up yet
+          # not everything is nix'd yet
           export PATH="$HOME/bin:$HOME/go/bin:$PATH"
         '';
 
@@ -103,16 +91,10 @@
           setopt cdablevars
           setopt glob_star_short
           setopt hist_reduce_blanks
-          setopt hist_save_no_dups
           setopt inc_append_history
           unsetopt nomatch
 
-          # if which mise &>/dev/null; then
-          #   source <(mise activate zsh)
-          # fi
-
-          prompt off
-          [[ -f "${xdg.configHome}/zsh/p10k.zsh" ]] && source "${xdg.configHome}/zsh/p10k.zsh"
+          [[ -f "${config.xdg.configHome}/zsh/p10k.zsh" ]] && source "${config.xdg.configHome}/zsh/p10k.zsh"
         '';
 
         shellAliases = {
