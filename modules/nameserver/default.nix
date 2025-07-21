@@ -44,6 +44,8 @@ let
 
 in
 {
+  imports = [ ./monitoring.nix ];
+
   networking = {
     nameservers = lib.mkForce [
       "127.0.0.1"
@@ -70,6 +72,9 @@ in
         "/home/"
         "/wg/"
       ];
+
+      # default is 150
+      cache-size = 2000;
 
       host-record = map host-record hosts;
       cname = cnames;

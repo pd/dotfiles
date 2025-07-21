@@ -22,6 +22,7 @@ let
     in
     {
       caddy = 2020;
+      dnsmasq = exporters.dnsmasq.port;
       jellyfin = 8096;
       node-exporter = exporters.node.port;
       ntfy = 9712; # cf donix/ntfy.nix
@@ -52,6 +53,10 @@ in
       (staticJob "caddy" ports.caddy [
         "htpc.home"
         "donix.wg"
+      ])
+      (staticJob "dnsmasq" ports.dnsmasq [
+        "pi.home"
+        "htpc.home"
       ])
       (staticJob "jellyfin" ports.jellyfin [ "htpc.home" ])
       (staticJob "ntfy" ports.ntfy [ "donix.wg" ])
