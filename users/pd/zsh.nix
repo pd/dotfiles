@@ -56,8 +56,7 @@ in
 
         settings = {
           format = lib.concatStrings [
-            "$username"
-            "$hostname"
+            "\${custom.userhost}"
             "$directory"
             "$git_branch"
             "$git_state"
@@ -68,6 +67,12 @@ in
             "$status"
             "$character"
           ];
+
+          custom.userhost = {
+            when = "test -n \"$SSH_CONNECTION\"";
+            command = "echo $USER@$HOST";
+            format = "[$output](cyan) ";
+          };
 
           git_branch.format = "[$branch]($style) ";
           git_status = {
