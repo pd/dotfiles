@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 let
   em = pkgs.writeShellScriptBin "em" (
     if pkgs.hostPlatform.isLinux then
@@ -50,6 +50,65 @@ in
         enableZshIntegration = true;
       };
 
+      programs.starship = {
+        enable = true;
+        enableZshIntegration = true;
+
+        settings = {
+          format = lib.concatStrings [
+            "$username"
+            "$hostname"
+            "$directory"
+            "$git_branch"
+            "$git_state"
+            "$git_status"
+            "$kubernetes"
+            "$cmd_duration"
+            "$line_break"
+            "$status"
+            "$character"
+          ];
+
+          git_branch.format = "[$branch]($style) ";
+          git_status = {
+            format = "$ahead_behind$untracked$modified";
+            ahead = "[>$count](green)";
+            behind = "[<$count](green)";
+            diverged = "[>$ahead_count<$behind_count](bright-red)";
+            modified = "[!$count](blue)";
+            untracked = "[?$count](yellow)";
+          };
+
+          cmd_duration = {
+            min_time = 5000;
+            format = " took [$duration]($style)";
+          };
+
+          status = {
+            disabled = false;
+            format = "[!](red)[$status](bold red) ";
+          };
+
+          kubernetes = {
+            disabled = false;
+            format = " [k8s/$context](blue)";
+            detect_env_vars = [ "KUBECONFIG" ];
+            detect_folders = [ "k8s" ];
+            contexts = [
+              {
+                context_pattern = "gke.*spanland-prod";
+                context_alias = "spanland";
+              }
+            ];
+          };
+
+          character = {
+            success_symbol = "[>](bold blue)";
+            error_symbol = "[>](bold red)";
+          };
+        };
+      };
+
       programs.zsh = {
         enable = true;
         # zprof.enable = true;
@@ -95,8 +154,6 @@ in
           setopt hist_reduce_blanks
           setopt inc_append_history
           unsetopt nomatch
-
-          [[ -f "${config.xdg.configHome}/zsh/p10k.zsh" ]] && source "${config.xdg.configHome}/zsh/p10k.zsh"
         '';
 
         shellAliases = {
@@ -116,11 +173,6 @@ in
               rev = "b8f11253753be845aec450c3ac68f317a0c0ec2a";
               sha256 = "McOiMwLclsZ11PzyvNeMnSK7oiuticpTPKRKb3v8At8=";
             };
-          }
-          {
-            name = "powerlevel10k";
-            file = "powerlevel10k.zsh-theme";
-            src = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k";
           }
           {
             name = "zhooks";

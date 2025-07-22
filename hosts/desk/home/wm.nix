@@ -98,8 +98,9 @@
         };
 
         targets = {
-          firefox.enable = false;
           emacs.enable = false;
+          firefox.enable = false;
+          starship.enable = false;
         };
       };
 
