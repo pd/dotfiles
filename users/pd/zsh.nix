@@ -80,6 +80,8 @@ in
           export PSQLRC="$HOME/.config/pg/psqlrc"
           export KUBECTL_EXTERNAL_DIFF='dyff between --omit-header --set-exit-code'
 
+          export LESS="--quit-if-one-screen --RAW-CONTROL-CHARS"
+
           # not everything is nix'd yet
           export PATH="$HOME/bin:$HOME/go/bin:$PATH"
         '';

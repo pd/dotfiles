@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 let
   ruby' = pkgs.ruby.withPackages (gems: with gems; [ pry ]);
 in
@@ -18,5 +18,24 @@ in
       zig-shell-completions
       zls
     ];
+
+    programs.jujutsu =
+      let
+        git = config.home-manager.users.pd.programs.git;
+      in
+      {
+        enable = true;
+        package = pkgs.unstable.jujutsu;
+        settings = {
+          user.name = git.userName;
+          user.email = git.userEmail;
+
+          signing = {
+            behavior = "own";
+            backend = "ssh";
+            key = git.signing.key;
+          };
+        };
+      };
   };
 }
