@@ -8,7 +8,6 @@ let
     "pry/pryrc" = ./etc/pryrc;
     "pg/psqlrc" = ./etc/psqlrc;
     "sqlite3/sqliterc" = ./etc/sqliterc;
-    "zsh/p10k.zsh" = ./etc/p10k.zsh;
   };
 in
 {

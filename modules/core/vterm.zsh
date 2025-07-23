@@ -42,10 +42,7 @@ vterm_cmd() {
 # $(hostname) does not return the correct string to connect to the server.
 #
 # The escape sequence "51;A" has also the role of identifying the end of the
-# prompt
-#
-# This will be clobbered by p10k in home-manager-owned users,
-# so needs to be manually re-applied in those cases.
+# prompt.
 vterm_prompt_end() {
   vterm_printf "51;A$(whoami)@$(hostname):$(pwd)"
 }
