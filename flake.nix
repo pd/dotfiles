@@ -14,7 +14,7 @@
         ];
       };
 
-      eachSystem = lib.genAttrs [
+      forEachSystem = lib.genAttrs [
         "x86_64-linux"
         "aarch64-linux"
         "x86_64-darwin"
@@ -44,7 +44,7 @@
         };
     in
     {
-      formatter = eachSystem (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
+      formatter = forEachSystem (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
 
       nixosConfigurations.desk = mkNixos "desk" "x86_64-linux" [
         inputs.disko.nixosModules.disko
@@ -65,7 +65,7 @@
       nixosConfigurations.pi = mkNixos "htpc" "aarch64-linux" [ ];
 
       # routers
-      packages = eachSystem (
+      packages = forEachSystem (
         system:
         let
           pkgs = inputs.nixpkgs.legacyPackages.${system};
