@@ -5,27 +5,7 @@
     inputs@{ nixpkgs, ... }:
     let
       inherit (nixpkgs) lib;
-
       net = import ./modules/net.nix { inherit lib; };
-      specialArgs = {
-        inherit inputs net;
-      };
-
-      overlaysFor = system: {
-        nixpkgs = {
-          config.allowUnfree = true;
-          overlays = [
-            (final: prev: {
-              unstable = import inputs.nixpkgs-unstable {
-                inherit system;
-                config.allowUnfree = true;
-              };
-            })
-
-            (final: prev: import ./pkgs { pkgs = final; })
-          ];
-        };
-      };
 
       homeManagerModules = {
         home-manager.sharedModules = [
@@ -39,66 +19,50 @@
         "aarch64-linux"
         "x86_64-darwin"
       ];
+
+      mkNixos =
+        host: system: modules:
+        lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs net; };
+          modules = [
+            ./modules/nixpkgs.nix
+            inputs.sops-nix.nixosModules.sops
+            ./hosts/${host}
+          ] ++ modules;
+        };
+
+      mkDarwin =
+        host: system: modules:
+        inputs.nix-darwin.lib.darwinSystem {
+          inherit system;
+          specialArgs = { inherit inputs net; };
+          modules = [
+            ./modules/nixpkgs.nix
+            ./hosts/${host}
+          ];
+        };
     in
     {
       formatter = eachSystem (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
 
-      nixosConfigurations.desk = lib.nixosSystem rec {
-        inherit specialArgs;
-        system = "x86_64-linux";
-        modules = [
-          (overlaysFor system)
-          inputs.disko.nixosModules.disko
-          inputs.sops-nix.nixosModules.sops
-          inputs.home-manager.nixosModules.home-manager
-          inputs.nix-index-database.nixosModules.nix-index
-          inputs.stylix.nixosModules.stylix
-          homeManagerModules
-          ./hosts/desk
-        ];
-      };
+      nixosConfigurations.desk = mkNixos "desk" "x86_64-linux" [
+        inputs.disko.nixosModules.disko
+        inputs.nix-index-database.nixosModules.nix-index
+        inputs.stylix.nixosModules.stylix
+        inputs.home-manager.nixosModules.home-manager
+        homeManagerModules
+      ];
 
-      nixosConfigurations.donix = lib.nixosSystem rec {
-        inherit specialArgs;
-        system = "x86_64-linux";
-        modules = [
-          (overlaysFor system)
-          inputs.sops-nix.nixosModules.sops
-          ./hosts/donix
-        ];
-      };
+      darwinConfigurations.span = mkDarwin "span" "x86_64-darwin" [
+        inputs.home-manager.darwinModules.home-manager
+        inputs.nix-index-database.darwinModules.nix-index
+        homeManagerModules
+      ];
 
-      nixosConfigurations.htpc = lib.nixosSystem rec {
-        inherit specialArgs;
-        system = "x86_64-linux";
-        modules = [
-          (overlaysFor system)
-          inputs.sops-nix.nixosModules.sops
-          ./hosts/htpc
-        ];
-      };
-
-      nixosConfigurations.pi = lib.nixosSystem rec {
-        inherit specialArgs;
-        system = "aarch64-linux";
-        modules = [
-          (overlaysFor system)
-          inputs.sops-nix.nixosModules.sops
-          ./hosts/pi
-        ];
-      };
-
-      darwinConfigurations.span = inputs.nix-darwin.lib.darwinSystem rec {
-        inherit specialArgs;
-        system = "x86_64-darwin";
-        modules = [
-          (overlaysFor system)
-          inputs.home-manager.darwinModules.home-manager
-          inputs.nix-index-database.darwinModules.nix-index
-          homeManagerModules
-          ./hosts/span
-        ];
-      };
+      nixosConfigurations.donix = mkNixos "donix" "x86_64-linux" [ ];
+      nixosConfigurations.htpc = mkNixos "htpc" "x86_64-linux" [ ];
+      nixosConfigurations.pi = mkNixos "htpc" "aarch64-linux" [ ];
 
       # routers
       packages = eachSystem (
