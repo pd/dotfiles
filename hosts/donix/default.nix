@@ -24,6 +24,7 @@ in
   ];
 
   system.stateVersion = "24.05";
+  nixpkgs.hostPlatform.system = "x86_64-linux";
   networking.hostName = "donix";
   networking.nameservers = [
     "1.1.1.1"
