@@ -7,6 +7,7 @@
 }:
 {
   system.stateVersion = 5;
+  nixpkgs.hostPlatform.system = "x86_64-darwin";
 
   imports = [
     ../../modules/core/nix.nix

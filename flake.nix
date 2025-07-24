@@ -18,12 +18,12 @@
         "x86_64-linux"
         "aarch64-linux"
         "x86_64-darwin"
+        "aarch64-darwin"
       ];
 
       mkNixos =
-        host: system: modules:
+        host: modules:
         lib.nixosSystem {
-          inherit system;
           specialArgs = { inherit inputs net; };
           modules = [
             ./modules/nixpkgs.nix
@@ -33,9 +33,8 @@
         };
 
       mkDarwin =
-        host: system: modules:
+        host: modules:
         inputs.nix-darwin.lib.darwinSystem {
-          inherit system;
           specialArgs = { inherit inputs net; };
           modules = [
             ./modules/nixpkgs.nix
@@ -46,7 +45,7 @@
     {
       formatter = forEachSystem (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
 
-      nixosConfigurations.desk = mkNixos "desk" "x86_64-linux" [
+      nixosConfigurations.desk = mkNixos "desk" [
         inputs.disko.nixosModules.disko
         inputs.nix-index-database.nixosModules.nix-index
         inputs.stylix.nixosModules.stylix
@@ -54,15 +53,15 @@
         homeManagerModules
       ];
 
-      darwinConfigurations.span = mkDarwin "span" "x86_64-darwin" [
+      darwinConfigurations.span = mkDarwin "span" [
         inputs.home-manager.darwinModules.home-manager
         inputs.nix-index-database.darwinModules.nix-index
         homeManagerModules
       ];
 
-      nixosConfigurations.donix = mkNixos "donix" "x86_64-linux" [ ];
-      nixosConfigurations.htpc = mkNixos "htpc" "x86_64-linux" [ ];
-      nixosConfigurations.pi = mkNixos "pi" "aarch64-linux" [ ];
+      nixosConfigurations.donix = mkNixos "donix" [ ];
+      nixosConfigurations.htpc = mkNixos "htpc" [ ];
+      nixosConfigurations.pi = mkNixos "pi" [ ];
 
       # routers
       packages = forEachSystem (
