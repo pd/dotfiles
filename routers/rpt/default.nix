@@ -4,7 +4,7 @@
   uci,
   ...
 }:
-uci.mkRouter "rpt" {
+uci.mkRouter "rpt" ./secrets.yaml {
   uci.retain = [
     "luci"
     "rpcd"

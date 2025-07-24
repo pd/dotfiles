@@ -68,29 +68,24 @@
         system:
         let
           pkgs = inputs.nixpkgs.legacyPackages.${system};
-          deploy = pkgs.callPackage inputs.dewclaw {
-            inherit pkgs;
-            configuration = import ./routers {
-              inherit (inputs) dmerge;
-              inherit net pkgs;
+          keys = import ./modules/keys.nix;
+          mkRouter =
+            host:
+            pkgs.callPackage ./pkgs/router {
+              inherit (inputs) dmerge dewclaw;
+              inherit host net pkgs;
+              path = ./routers/${host};
+              authorized-keys = keys.workstations.ssh;
             };
-          };
-
-          configs = pkgs.runCommand "extract-configs" { } ''
-            mkdir $out
-            for d in ${deploy}/bin/deploy-*; do
-              host="$(basename $d | sed 's/^deploy-//')"
-              config="$(cat ${deploy}/bin/deploy-$host | grep 'cp.*no-preserve' | awk '{print $3}')"
-              install -Dm600 $config $out/$host.uci
-            done
-          '';
         in
-        {
-          routers = pkgs.symlinkJoin {
+        rec {
+          wrt = mkRouter "wrt";
+          rpt = mkRouter "rpt";
+          routers = pkgs.buildEnv {
             name = "routers";
             paths = [
-              deploy
-              configs
+              wrt
+              rpt
             ];
           };
         }

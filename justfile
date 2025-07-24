@@ -63,6 +63,7 @@ rpt op="reload": routers
     @just _deploy_router rpt {{ op }}
 
 _deploy_router name op:
-    if [[ "{{ op }}" == "restart" ]]; then ./result/bin/deploy-{{ name }}; \
+    if [[ "{{ op }}" == "build" ]]; then true; \
+    elif [[ "{{ op }}" == "restart" ]]; then ./result/bin/deploy-{{ name }}; \
     else ./result/bin/deploy-{{ name }} --reload; \
     fi

@@ -1,4 +1,8 @@
-{
+rec {
+  workstations = {
+    ssh = desk.ssh ++ span.ssh;
+  };
+
   desk = {
     ssh = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFWXGORnABVvcG3aIp/l0Y0mK6puJHZndPkd+XeoyV5i" ];
   };

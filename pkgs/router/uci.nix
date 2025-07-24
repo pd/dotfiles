@@ -1,14 +1,11 @@
 {
   dmerge,
+  authorized-keys,
   lib,
   net,
   ...
 }:
 with lib;
-let
-  keys = import ../modules/keys.nix;
-  authorized-keys = concatStringsSep "\n" (keys.desk.ssh ++ keys.span.ssh);
-in
 {
   bridgeLan =
     n: macaddr:
@@ -77,17 +74,16 @@ in
   };
 
   mkRouter =
-    hostname: custom:
+    hostname: secrets: custom:
     dmerge.merge {
       deploy = {
         host = "${hostname}.home";
         sshConfig.Port = 1222;
       };
 
+      uci.sopsSecrets = secrets;
       users.root.hashedPassword = "$6$VaxrusIClFD3RwYc$GP9rU3UrVrn5Qz1PrtN716jWEAeYte1Lj6eq.NcY1iupk0f35P8MeiRhe7L0EkVrxNC0OT2Uah1VzJBwdJJav1";
-      etc."dropbear/authorized_keys".text = authorized-keys;
-
-      uci.sopsSecrets = ./${hostname}/secrets.yaml;
+      etc."dropbear/authorized_keys".text = concatStringsSep "\n" authorized-keys;
 
       uci.settings = {
         dropbear.dropbear = [

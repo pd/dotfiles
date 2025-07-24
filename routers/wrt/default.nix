@@ -12,7 +12,7 @@ let
     text = builtins.readFile ./update_wg_pi.sh;
   };
 in
-uci.mkRouter "wrt" {
+uci.mkRouter "wrt" ./secrets.yaml {
   uci.retain = [
     "luci"
     "rpcd"
