@@ -40,7 +40,7 @@
           modules = [
             ./modules/nixpkgs.nix
             ./hosts/${host}
-          ];
+          ] ++ modules;
         };
     in
     {
@@ -62,7 +62,7 @@
 
       nixosConfigurations.donix = mkNixos "donix" "x86_64-linux" [ ];
       nixosConfigurations.htpc = mkNixos "htpc" "x86_64-linux" [ ];
-      nixosConfigurations.pi = mkNixos "htpc" "aarch64-linux" [ ];
+      nixosConfigurations.pi = mkNixos "pi" "aarch64-linux" [ ];
 
       # routers
       packages = forEachSystem (
