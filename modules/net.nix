@@ -17,6 +17,9 @@
 #   ipad:       .52
 #   avp:        .53
 #
+# vms:
+#   orb@span:   ???
+#
 # extra interfaces:
 #   desk-wifi:  .80
 #   win-wifi:   .85
@@ -198,6 +201,13 @@ rec {
       id = 15;
       duid = "00010001282008632cf05ddb8d13";
       macs = [ "2c:f0:5d:db:8d:13" ];
+      ssh = false;
+    };
+
+    # TODO I probably don't want this defined here at all, but I unconditionally
+    # access it atm.
+    orb = {
+      id = 150;
       ssh = false;
     };
 

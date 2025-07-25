@@ -1,0 +1,97 @@
+# Edit this configuration file to define what should be installed on
+# your system.  Help is available in the configuration.nix(5) man page
+# and in the NixOS manual (accessible by running ‘nixos-help’).
+
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
+
+{
+  imports = [
+    "${modulesPath}/virtualisation/lxc-container.nix"
+    ./incus.nix
+    ./orbstack.nix
+
+    ../../modules/core
+    ../../users/pd
+  ];
+
+  nixpkgs.hostPlatform.system = "x86_64-linux";
+  system.stateVersion = "25.05";
+  home-manager.users.pd.home.stateVersion = "25.05";
+
+  # Let orbstack own network config
+  lan.enable = false;
+  wg.enable = false;
+
+  # fails on:
+  #   listenAddress = if config.lan.enable then "0.0.0.0" else config.wg.ipv4;
+  # because orb uses neither.
+  services.prometheus.exporters.node.enable = lib.mkForce false;
+
+  users.users.pd = {
+    uid = 501;
+    extraGroups = [
+      "wheel"
+      "orbstack"
+    ];
+
+    # simulate isNormalUser, but with an arbitrary UID
+    isNormalUser = lib.mkForce false;
+    isSystemUser = true;
+    group = "users";
+    createHome = true;
+    home = "/home/pd";
+    homeMode = "700";
+    useDefaultShell = true;
+  };
+
+  security.sudo.wheelNeedsPassword = false;
+
+  # This being `true` leads to a few nasty bugs, change at your own risk!
+  users.mutableUsers = false;
+
+  time.timeZone = "America/Chicago";
+
+  networking = {
+    dhcpcd.enable = false;
+    useDHCP = false;
+    useHostResolvConf = false;
+  };
+
+  systemd.network = {
+    enable = true;
+    networks."50-eth0" = {
+      matchConfig.Name = "eth0";
+      networkConfig = {
+        DHCP = "ipv4";
+        IPv6AcceptRA = true;
+      };
+      linkConfig.RequiredForOnline = "routable";
+    };
+  };
+
+  # Extra certificates from OrbStack.
+  security.pki.certificates = [
+    ''
+            -----BEGIN CERTIFICATE-----
+      MIICDDCCAbKgAwIBAgIQf+fxBdf00ma1UxF2NjzEgzAKBggqhkjOPQQDAjBmMR0w
+      GwYDVQQKExRPcmJTdGFjayBEZXZlbG9wbWVudDEeMBwGA1UECwwVQ29udGFpbmVy
+      cyAmIFNlcnZpY2VzMSUwIwYDVQQDExxPcmJTdGFjayBEZXZlbG9wbWVudCBSb290
+      IENBMB4XDTI0MDMwODE1MDIzMFoXDTM0MDMwODE1MDIzMFowZjEdMBsGA1UEChMU
+      T3JiU3RhY2sgRGV2ZWxvcG1lbnQxHjAcBgNVBAsMFUNvbnRhaW5lcnMgJiBTZXJ2
+      aWNlczElMCMGA1UEAxMcT3JiU3RhY2sgRGV2ZWxvcG1lbnQgUm9vdCBDQTBZMBMG
+      ByqGSM49AgEGCCqGSM49AwEHA0IABEpbBgLULaGuaAT1bxCMjKoCXFqaozIRRcYr
+      Y/uXf5GegTqSSKlPKmfQX5qOG75e84AJ3MKeUn9UOFX/lTRPlTqjQjBAMA4GA1Ud
+      DwEB/wQEAwIBBjAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBQ6mxIGAl/vWEso
+      IL2gEZXZ4WX87DAKBggqhkjOPQQDAgNIADBFAiEA2g6NaDXyEe2JTXYObDUoGg4a
+      E+cqjB5fG0aNcYl/fQ4CID1E8JETcVYBlUyUzOQV/bocrkUhG7jBCTcePyqqOlOl
+      -----END CERTIFICATE-----
+
+    ''
+  ];
+}

@@ -53,6 +53,11 @@
         homeManagerModules
       ];
 
+      nixosConfigurations.orb = mkNixos "orb" [
+        inputs.home-manager.nixosModules.home-manager
+        homeManagerModules
+      ];
+
       darwinConfigurations.span = mkDarwin "span" [
         inputs.home-manager.darwinModules.home-manager
         inputs.nix-index-database.darwinModules.nix-index

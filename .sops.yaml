@@ -4,6 +4,7 @@ keys:
 - &host-desk age1vqpwqc3kru8h24ek6kz5ekpztc7l6408xrexm4dcu6y5twrvnvasm3uxul
 - &host-donix age1pc9nd0m9vygv8zsz756kj2t0z9ffwqjpg82c2r2n2p0y7aul4scqmmvhhq
 - &host-htpc age1n5j5e9zghxg06n2cg7gw3xlx5zvjmx0nz862t4kcxfpkenj4wdzsz5yhcy
+- &host-orb age1fjrcmqhw24j8hc0leq8luuwwv4aurrq87yjeluf2s06nkdnklavqmt7u8q
 - &host-pi age17602hsan7zthm9jwgqmffs0k5cg0l5rtmu9vpuk5ww4cgu6m4grq97dmq3
 - &host-span age1ad6arnnrtk3vd6663gre3qys36te8qdj0hckqkm3ujm6vaswkqnsmvt2he
 
@@ -31,6 +32,12 @@ creation_rules:
     - *pd-span
     - *pd-desk
     - *host-htpc
+- path_regex: hosts/orb/secrets.yaml$
+  key_groups:
+  - age:
+    - *pd-span
+    - *pd-desk
+    - *host-orb
 - path_regex: hosts/pi/secrets.yaml$
   key_groups:
   - age:

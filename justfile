@@ -50,6 +50,11 @@ donix op="test":
 span op="switch":
     sudo darwin-rebuild {{ op }} --flake '.#span'
 
+# can only really be run on orb, but is otherwise full nixos
+[group('hosts')]
+orb op="test":
+    sudo nixos-rebuild {{ op }} --flake '.#orb' --fast
+
 [group('routers')]
 routers:
     nix build '.#routers'
