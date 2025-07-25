@@ -6,7 +6,6 @@
 
     taps = [
       "d12frosted/emacs-plus"
-      "danielgtaylor/restish"
     ];
 
     caskArgs = {
@@ -21,8 +20,6 @@
           "with-imagemagick"
         ];
       }
-
-      "restish"
     ];
 
     casks = [
