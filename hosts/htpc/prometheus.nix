@@ -68,7 +68,24 @@ in
         "donix.wg"
       ])
       (staticJob "prometheus" ports.prometheus [ "htpc.home" ])
-      (staticJob "rtorrent" ports.rtorrent [ "htpc.home" ])
+      (
+        (staticJob "rtorrent" ports.rtorrent [ "htpc.home" ])
+        // {
+          metric_relabel_configs = [
+            {
+              # Drop metrics until rtorrent-exporter has populated the
+              # tracker details. Avoids having to explicitly juggle
+              # potentially empty tracker labels everywhere.
+              action = "drop";
+              source_labels = [
+                "__name__"
+                "tracker"
+              ];
+              regex = "^rtorrent_downloads_(up|down)load_(total|rate)_bytes;$";
+            }
+          ];
+        }
+      )
       (staticJob "snmp-exporter" ports.snmp [ "nas.home" ])
       (
         (staticJob "snmp" ports.snmp [ "nas.home" ])
