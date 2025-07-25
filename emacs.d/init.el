@@ -86,6 +86,25 @@
 
 (use-package simple-modeline
   :config
+  (defun pd/simple-modeline-tramp ()
+    (when-let* ((host (file-remote-p default-directory 'host)))
+      (propertize (concat " @" host) 'face 'italic)))
+
+  (setq simple-modeline-segments
+        '(; lhs
+          (simple-modeline-segment-modified
+           simple-modeline-segment-buffer-name
+           pd/simple-modeline-tramp
+           simple-modeline-segment-position)
+
+          ; rhs
+          (simple-modeline-segment-minor-modes
+           simple-modeline-segment-input-method simple-modeline-segment-eol
+           simple-modeline-segment-encoding simple-modeline-segment-vc
+           simple-modeline-segment-misc-info simple-modeline-segment-process
+           simple-modeline-segment-major-mode)
+          ))
+
   (simple-modeline-mode))
 
 ;; currently emacs-plus@30 via the emacs-plus tap:
