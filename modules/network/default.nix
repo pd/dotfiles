@@ -5,7 +5,9 @@
   ...
 }:
 let
-  host = net.hosts."${config.networking.hostName}";
+  # undefined host will just result in both lan and wg being off,
+  # being excluded from default ssh configs, etc.
+  host = net.hosts."${config.networking.hostName}" or { };
 in
 {
   imports = [
