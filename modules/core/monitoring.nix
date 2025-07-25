@@ -6,7 +6,13 @@ in
   services.prometheus.exporters.node = {
     enable = true;
     openFirewall = true;
-    listenAddress = if config.lan.enable then "0.0.0.0" else config.wg.ipv4;
+    listenAddress =
+      if config.lan.enable then
+        "0.0.0.0"
+      else if config.wg.enable then
+        config.wg.ipv4
+      else
+        null;
     enabledCollectors = [
       "systemd"
       "textfile"

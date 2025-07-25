@@ -5,10 +5,11 @@
   ...
 }:
 let
-  inherit (builtins) map toString;
+  # inherit (builtins) toString;
   inherit (lib) mapAttrsToList;
 
-  targets = port: names: map (n: "${n}:${toString port}") names;
+  maybePort = port: name: if lib.hasInfix ":" name then name else "${name}:${toString port}";
+  targets = port: names: map (maybePort port) names;
   staticJob = job_name: port: hosts: {
     inherit job_name;
     scrape_interval = "60s";
@@ -51,21 +52,22 @@ in
 
     scrapeConfigs = [
       (staticJob "caddy" ports.caddy [
-        "htpc.home"
         "donix.wg"
+        "htpc.home"
       ])
       (staticJob "dnsmasq" ports.dnsmasq [
-        "pi.home"
         "htpc.home"
+        "pi.home"
       ])
       (staticJob "jellyfin" ports.jellyfin [ "htpc.home" ])
       (staticJob "ntfy" ports.ntfy [ "donix.wg" ])
       (staticJob "nodes" ports.node-exporter [
         "desk.home"
-        "htpc.home"
-        "pi.home"
-        "nas.home"
         "donix.wg"
+        "htpc.home"
+        "nas.home"
+        "orb.home:19100"
+        "pi.home"
       ])
       (staticJob "prometheus" ports.prometheus [ "htpc.home" ])
       (
@@ -104,8 +106,8 @@ in
       (staticJob "wireguard" ports.wireguard [ "pi.home" ])
       (
         (staticJob "wrt" ports.node-exporter [
-          "wrt.home"
           "rpt.home"
+          "wrt.home"
         ])
         // {
           metric_relabel_configs =

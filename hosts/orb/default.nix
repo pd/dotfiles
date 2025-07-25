@@ -22,10 +22,11 @@
   lan.enable = false;
   wg.enable = false;
 
-  # fails on:
-  #   listenAddress = if config.lan.enable then "0.0.0.0" else config.wg.ipv4;
-  # because orb uses neither.
-  services.prometheus.exporters.node.enable = lib.mkForce false;
+  # move off default port
+  services.prometheus.exporters.node = {
+    port = 19100;
+    listenAddress = lib.mkForce "0.0.0.0";
+  };
 
   users.users.pd = {
     uid = 501;

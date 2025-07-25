@@ -35,7 +35,7 @@ desk op="test":
 
 [group('hosts')]
 htpc op="test":
-    @just _nixos_rebuild {{ op }} desk
+    @just _nixos_rebuild {{ op }} htpc
 
 [group('hosts')]
 pi op="test":

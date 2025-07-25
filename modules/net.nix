@@ -157,6 +157,7 @@ rec {
       macs = [ "f8:ff:c2:69:8b:b6" ];
       ssh.port = 22;
       wg.publicKey = "ifiRznc81W75NIIq53+8BH6uJ3iJODbXdAk+ND1J+3U=";
+      cnames = [ "orb" ];
     };
 
     htpc = {
