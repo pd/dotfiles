@@ -27,7 +27,7 @@ repl host:
 
 # nixos-rebuild <op> all hosts
 [group('hosts')]
-all op="test": (desk op) (htpc op) (pi op) (donix op)
+all op="test": (desk op) (htpc op) (pi op) (donix op) (orb op)
 
 [group('hosts')]
 desk op="test":
@@ -80,8 +80,3 @@ _deploy_router name op:
     elif [[ "{{ op }}" == "restart" ]]; then ./result/bin/deploy-{{ name }}; \
     else ./result/bin/deploy-{{ name }} --reload; \
     fi
-
-wtf:
-    #!/usr/bin/env bash
-    echo lol wat
-    true
