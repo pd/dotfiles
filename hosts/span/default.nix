@@ -17,8 +17,9 @@
     ../../users/pd
     "${inputs.private}/work"
 
-    ./homebrew.nix
     ./system.nix
+    ./network.nix
+    ./homebrew.nix
   ];
 
   networking.hostName = "span";
@@ -90,34 +91,4 @@
     sops.secrets.wireguard-private-key = { };
     sops.secrets.wireguard-preshared-key = { };
   };
-
-  networking.wg-quick.interfaces.wg0 =
-    let
-      secrets = config.home-manager.users.pd.sops.secrets;
-    in
-    {
-      autostart = false;
-      privateKeyFile = secrets.wireguard-private-key.path;
-      address = [
-        "${net.wg.ipv4.span}/32"
-        "${net.wg.ipv6.span}/128"
-      ];
-      dns = [ "${net.wg.ipv4.pi},${net.wg.ipv6.pi},wg,home" ];
-      postDown = "networksetup -setdnsservers Wi-Fi Empty";
-
-      peers = [
-        {
-          endpoint = "wg.krh.me:51930";
-          publicKey = net.wg.pks.pi;
-          presharedKeyFile = secrets.wireguard-preshared-key.path;
-          allowedIPs = [
-            net.lan.cidr
-            net.lan.cidr6
-            net.wg.cidr
-            net.wg.cidr6
-          ];
-          persistentKeepalive = 25;
-        }
-      ];
-    };
 }

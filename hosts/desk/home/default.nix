@@ -28,11 +28,6 @@
         slack
       ]);
 
-    # TODO: span ssh doesn't listen on v6
-    programs.ssh.matchBlocks.span = {
-      addressFamily = "inet";
-    };
-
     # connect to orbstack nixos vm by jumping through span
     programs.ssh.matchBlocks.orb = {
       proxyJump = "span";
