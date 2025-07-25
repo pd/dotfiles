@@ -31,29 +31,37 @@ all op="test": (desk op) (htpc op) (pi op) (donix op)
 
 [group('hosts')]
 desk op="test":
-    sudo nixos-rebuild {{ op }} --flake '.#desk' --fast
+    @just _nixos_rebuild {{ op }} desk
 
 [group('hosts')]
 htpc op="test":
-    nixos-rebuild {{ op }} --flake '.#htpc' --target-host htpc --build-host htpc --use-remote-sudo --fast
+    @just _nixos_rebuild {{ op }} desk
 
 [group('hosts')]
 pi op="test":
-    nixos-rebuild {{ op }} --flake '.#pi' --target-host pi --build-host pi --use-remote-sudo --fast
+    @just _nixos_rebuild {{ op }} pi
 
 [group('hosts')]
 donix op="test":
-    nixos-rebuild {{ op }} --flake '.#donix' --target-host donix --build-host donix --use-remote-sudo --fast
+    @just _nixos_rebuild {{ op }} donix
+
+[group('hosts')]
+orb op="test":
+    @just _nixos_rebuild {{ op }} orb
+
+_nixos_rebuild op host:
+    #!/usr/bin/env bash
+    if [[ "{{ host }}" == "$HOSTNAME" ]]; then
+      sudo nixos-rebuild {{ op }} --flake '.#{{ host }}' --fast
+    else
+      nixos-rebuild {{ op }} --flake '.#{{ host }}' --target-host {{ host }} --build-host {{ host }} --use-remote-sudo --fast
+    fi
 
 # can only really be run on span, doesn't have test or repl, etc
 [group('hosts')]
 span op="switch":
     sudo darwin-rebuild {{ op }} --flake '.#span'
 
-# can only really be run on orb, but is otherwise full nixos
-[group('hosts')]
-orb op="test":
-    sudo nixos-rebuild {{ op }} --flake '.#orb' --fast
 
 [group('routers')]
 routers:
@@ -72,3 +80,8 @@ _deploy_router name op:
     elif [[ "{{ op }}" == "restart" ]]; then ./result/bin/deploy-{{ name }}; \
     else ./result/bin/deploy-{{ name }} --reload; \
     fi
+
+wtf:
+    #!/usr/bin/env bash
+    echo lol wat
+    true
