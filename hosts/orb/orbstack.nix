@@ -30,6 +30,10 @@
   '';
 
   # Disable sshd
+  # Because services.openssh is disabled, you have to manually generate a host
+  # key for sops-nix to work:
+  #   ssh-keygen -f /etc/ssh/ssh_host_ed25519_key -N ''
+  #   cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age
   services.openssh.enable = lib.mkForce false;
 
   # systemd

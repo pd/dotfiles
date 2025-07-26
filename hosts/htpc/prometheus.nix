@@ -5,7 +5,6 @@
   ...
 }:
 let
-  # inherit (builtins) toString;
   inherit (lib) mapAttrsToList;
 
   maybePort = port: name: if lib.hasInfix ":" name then name else "${name}:${toString port}";
