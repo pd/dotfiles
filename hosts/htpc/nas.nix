@@ -7,8 +7,6 @@
 let
   pd = config.users.users.pd;
 
-  media-prune = pkgs.writeShellScript "media-prune" (builtins.readFile ./media-prune.sh);
-  media-sort = pkgs.writeShellScriptBin "media-sort" (builtins.readFile ./media-sort.sh);
 in
 {
   imports = [
@@ -29,11 +27,11 @@ in
     with pkgs;
     [
       filebot
-      media-sort
       nfs-utils
     ]
     ++ (with pkgs.pd; [
       filebotd
+      mediaman
       rtorrent-exporter
     ]);
 
@@ -82,7 +80,7 @@ in
       User = "pd";
     };
 
-    script = "${media-prune}";
+    script = "${pkgs.pd.mediaman}/bin/media-prune";
   };
 
   systemd.timers.media-prune = {
