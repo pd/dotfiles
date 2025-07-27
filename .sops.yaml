@@ -1,6 +1,7 @@
 keys:
 - &pd-desk age12uqgz9ghdjx9df00hshmgmjddp57u83wwj0nu0vg8mvvkzwuydpsxfns33
 - &pd-span age1qh726xrj4tzl778wajr40draeureqrly7c5m639tq5qhmr5sev9s7k5pd3
+- &pd-orb age1v30sfftltx4jz2f8zygwvtqxglm42lek98zt25m346pd2ln7affspsnv9z
 - &host-desk age1vqpwqc3kru8h24ek6kz5ekpztc7l6408xrexm4dcu6y5twrvnvasm3uxul
 - &host-donix age1pc9nd0m9vygv8zsz756kj2t0z9ffwqjpg82c2r2n2p0y7aul4scqmmvhhq
 - &host-htpc age1n5j5e9zghxg06n2cg7gw3xlx5zvjmx0nz862t4kcxfpkenj4wdzsz5yhcy
@@ -55,3 +56,4 @@ creation_rules:
   - age:
     - *pd-span
     - *pd-desk
+    - *pd-orb
