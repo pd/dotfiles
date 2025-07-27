@@ -30,8 +30,8 @@ uci.mkRouter "rpt" ./secrets.yaml {
       dhcp.lan = {
         interface = "lan";
         ignore = true;
-        dhcpv6 = "disabled";
-        ra = "disabled";
+        dhcpv6 = "relay";
+        ra = "relay";
       };
     };
 
