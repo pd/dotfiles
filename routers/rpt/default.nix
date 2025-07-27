@@ -21,7 +21,9 @@ uci.mkRouter "rpt" ./secrets.yaml {
           localservice = true;
           rebind_protection = false;
           server = [
+            net.lan.ipv6.pi
             net.lan.ipv4.pi
+            net.lan.ipv6.htpc
             net.lan.ipv4.htpc
           ];
         }
