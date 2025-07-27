@@ -194,5 +194,13 @@ with lib;
         };
       };
 
+      # I don't want dewclaw managing packages at all.
+      # TODO: This is not a particularly public interface, so is very
+      # likely to break at some point.
+      deploySteps.packages = {
+        copy = lib.mkForce "";
+        apply = lib.mkForce "";
+      };
+
     } custom;
 }
