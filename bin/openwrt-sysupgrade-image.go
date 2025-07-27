@@ -43,6 +43,7 @@ var (
 		"iperf3",
 		"luci-app-attendedsysupgrade",
 		"luci-app-firewall",
+		"luci-app-package-manager",
 		"luci-mod-admin-full",
 		"luci-mod-network",
 		"luci-mod-status",
