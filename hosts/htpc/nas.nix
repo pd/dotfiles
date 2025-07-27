@@ -25,13 +25,17 @@ in
     owner = config.users.users.prometheus.name;
   };
 
-  environment.systemPackages = with pkgs; [
-    filebot
-    filebotd
-    media-sort
-    nfs-utils
-    rtorrent-exporter
-  ];
+  environment.systemPackages =
+    with pkgs;
+    [
+      filebot
+      media-sort
+      nfs-utils
+    ]
+    ++ (with pkgs.pd; [
+      filebotd
+      rtorrent-exporter
+    ]);
 
   fileSystems."/media" = {
     fsType = "nfs";
@@ -52,7 +56,7 @@ in
     serviceConfig = {
       Type = "exec";
       User = pd.name;
-      ExecStart = "${pkgs.filebotd}/bin/filebotd";
+      ExecStart = "${pkgs.pd.filebotd}/bin/filebotd";
     };
   };
 
@@ -66,7 +70,7 @@ in
       Type = "exec";
       User = config.users.users.prometheus.name;
       ExecStart = ''
-        ${pkgs.rtorrent-exporter}/bin/rtorrent-exporter \
+        ${pkgs.pd.rtorrent-exporter}/bin/rtorrent-exporter \
           --config ${config.sops.secrets."rtorrent-exporter.yaml".path}
       '';
     };
