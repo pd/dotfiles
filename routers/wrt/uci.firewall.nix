@@ -1,6 +1,6 @@
 {
   dmerge,
-  net,
+  pd,
   ...
 }:
 let
@@ -48,20 +48,20 @@ in
   rule = dmerge.append [
     (forwardRule "wg6" {
       proto = "udp";
-      ip = net.hosts.pi.pub.ipv6;
+      ip = pd.net.hosts.pi.pub.ipv6;
       port = 51930;
     })
   ];
 
   redirect = [
     (dnat "rtorrent" {
-      ip = net.lan.ipv4.nas;
+      ip = pd.net.lan.ipv4.nas;
       port = 50000;
     })
 
     (dnat "wg" {
       proto = [ "udp" ];
-      ip = net.lan.ipv4.pi;
+      ip = pd.net.lan.ipv4.pi;
       port = 51930;
     })
   ];

@@ -1,6 +1,6 @@
 {
   lib,
-  net,
+  pd,
   uci,
   ...
 }:
@@ -21,10 +21,10 @@ uci.mkRouter "rpt" ./secrets.yaml {
           localservice = true;
           rebind_protection = false;
           server = [
-            net.lan.ipv6.pi
-            net.lan.ipv4.pi
-            net.lan.ipv6.htpc
-            net.lan.ipv4.htpc
+            pd.net.lan.ipv6.pi
+            pd.net.lan.ipv4.pi
+            pd.net.lan.ipv6.htpc
+            pd.net.lan.ipv4.htpc
           ];
         }
       ];
@@ -38,12 +38,12 @@ uci.mkRouter "rpt" ./secrets.yaml {
     };
 
     network = {
-      device = uci.bridgeLan 2 (lib.head net.hosts.rpt.macs);
+      device = uci.bridgeLan 2 (lib.head pd.net.hosts.rpt.macs);
       interface.lan = {
-        ipaddr = [ "${net.lan.ipv4.rpt}/22" ];
-        gateway = net.lan.ipv4.wrt;
-        ip6addr = [ "${net.lan.ipv6.rpt}/64" ];
-        ip6gw = net.lan.ipv6.wrt;
+        ipaddr = [ "${pd.net.lan.ipv4.rpt}/22" ];
+        gateway = pd.net.lan.ipv4.wrt;
+        ip6addr = [ "${pd.net.lan.ipv6.rpt}/64" ];
+        ip6gw = pd.net.lan.ipv6.wrt;
       };
     };
 

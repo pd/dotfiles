@@ -1,35 +1,34 @@
 {
   config,
-  net,
+  pd,
   pkgs,
   ...
 }:
 {
   networking.wg-quick.interfaces.wg0 =
     let
-      # TODO: dumb to have to reach into home-manager for this
       secrets = config.home-manager.users.pd.sops.secrets;
     in
     {
       autostart = false;
       privateKeyFile = secrets.wireguard-private-key.path;
       address = [
-        "${net.wg.ipv4.span}/32"
-        "${net.wg.ipv6.span}/128"
+        "${pd.net.wg.ipv4.span}/32"
+        "${pd.net.wg.ipv6.span}/128"
       ];
-      dns = [ "${net.wg.ipv4.pi},${net.wg.ipv6.pi},wg,home" ];
+      dns = [ "${pd.net.wg.ipv4.pi},${pd.net.wg.ipv6.pi},wg,home" ];
       postDown = "networksetup -setdnsservers Wi-Fi Empty";
 
       peers = [
         {
           endpoint = "wg.krh.me:51930";
-          publicKey = net.wg.pks.pi;
+          publicKey = pd.net.wg.pks.pi;
           presharedKeyFile = secrets.wireguard-preshared-key.path;
           allowedIPs = [
-            net.lan.cidr
-            net.lan.cidr6
-            net.wg.cidr
-            net.wg.cidr6
+            pd.net.lan.cidr
+            pd.net.lan.cidr6
+            pd.net.wg.cidr
+            pd.net.wg.cidr6
           ];
           persistentKeepalive = 25;
         }
@@ -43,7 +42,7 @@
   launchd.agents.homeULA =
     let
       dev = "en0";
-      ula = net.lan.ipv6.span;
+      ula = pd.net.lan.ipv6.span;
       ssid = "bazqux"; # TODO: prolly encode ssid somewhere else
 
       home-ula-toggle = pkgs.writeShellScript "home-ula-toggle" ''

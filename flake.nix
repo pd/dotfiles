@@ -4,8 +4,12 @@
   outputs =
     inputs@{ nixpkgs, ... }:
     let
-      inherit (nixpkgs) lib;
-      net = import ./modules/net.nix { inherit lib; };
+      lib =
+        nixpkgs.lib
+        // (import ./lib {
+          inherit (inputs) dmerge;
+          inherit lib;
+        });
 
       homeManagerModules = {
         home-manager.sharedModules = [
@@ -21,10 +25,15 @@
         "aarch64-darwin"
       ];
 
+      specialArgs = {
+        inherit inputs lib;
+        inherit (lib) pd;
+      };
+
       mkNixos =
         host: modules:
         lib.nixosSystem {
-          specialArgs = { inherit inputs net; };
+          inherit specialArgs;
           modules = [
             ./modules/nixpkgs.nix
             inputs.sops-nix.nixosModules.sops
@@ -35,7 +44,7 @@
       mkDarwin =
         host: modules:
         inputs.nix-darwin.lib.darwinSystem {
-          specialArgs = { inherit inputs net; };
+          inherit specialArgs;
           modules = [
             ./modules/nixpkgs.nix
             ./hosts/${host}
@@ -72,15 +81,13 @@
       packages = forEachSystem (
         system:
         let
-          pkgs = inputs.nixpkgs.legacyPackages.${system};
-          keys = import ./modules/keys.nix;
+          pkgs = nixpkgs.legacyPackages.${system};
           mkRouter =
             host:
             pkgs.callPackage ./pkgs/router {
               inherit (inputs) dmerge dewclaw;
-              inherit host net pkgs;
+              inherit lib host pkgs;
               path = ./routers/${host};
-              authorized-keys = keys.workstations.ssh;
             };
         in
         rec {

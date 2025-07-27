@@ -1,7 +1,7 @@
 {
   dmerge,
   lib,
-  net,
+  pd,
   pkgs,
   uci,
   ...
@@ -21,12 +21,12 @@ uci.mkRouter "wrt" ./secrets.yaml {
   ];
 
   uci.settings = {
-    dhcp = import ./uci.dhcp.nix { inherit lib net; };
+    dhcp = import ./uci.dhcp.nix { inherit lib pd; };
     ddns = import ./uci.ddns.nix { inherit lib; };
-    firewall = import ./uci.firewall.nix { inherit dmerge net uci; };
-    network = import ./uci.network.nix { inherit net uci; };
-    upnpd = import ./uci.upnpd.nix { inherit net; };
-    wireless = import ./uci.wireless.nix { inherit net uci; };
+    firewall = import ./uci.firewall.nix { inherit dmerge pd uci; };
+    network = import ./uci.network.nix { inherit pd uci; };
+    upnpd = import ./uci.upnpd.nix { inherit pd; };
+    wireless = import ./uci.wireless.nix { inherit pd uci; };
   };
 
   # deploySteps is marked internal but I want to copy a file

@@ -1,4 +1,4 @@
-{ net, pkgs, ... }:
+{ pd, pkgs, ... }:
 let
   internetsfamous = pkgs.runCommand "internetsfamous-site" { } ''
     install -Dm644 ${./internetsfamous/index.html} $out/www/index.html
@@ -27,7 +27,7 @@ in
     '';
 
     virtualHosts.":2020".extraConfig = ''
-      @wan not client_ip ${net.wg.cidr} ${net.wg.cidr6}
+      @wan not client_ip ${pd.net.wg.cidr} ${pd.net.wg.cidr6}
       abort @wan
       metrics
     '';

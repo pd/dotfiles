@@ -1,34 +1,22 @@
 {
   host,
   path,
-  authorized-keys,
 
   dewclaw,
   dmerge,
-  lib ? pkgs.lib,
-  net,
+  lib,
   pkgs,
 }:
 let
-  uci = import ./uci.nix {
-    inherit
-      authorized-keys
-      dmerge
-      lib
-      net
-      ;
-  };
-
   deploy = pkgs.callPackage dewclaw {
     inherit pkgs;
     configuration = {
       openwrt.${host} = import path {
+        inherit (lib) pd uci;
         inherit
           dmerge
           lib
-          net
           pkgs
-          uci
           ;
       };
     };

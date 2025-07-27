@@ -1,9 +1,11 @@
 # Things I'm guaranteed to want on every system.
 
-{ config, pkgs, ... }:
-let
-  keys = import ../keys.nix;
-in
+{
+  config,
+  pd,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ../network
@@ -44,7 +46,7 @@ in
         "wheel"
       ];
       shell = pkgs.zsh;
-      openssh.authorizedKeys.keys = keys.desk.ssh ++ keys.span.ssh;
+      openssh.authorizedKeys.keys = pd.keys.workstations.ssh;
     };
   };
 }

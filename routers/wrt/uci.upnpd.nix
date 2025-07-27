@@ -1,4 +1,4 @@
-{ net }:
+{ pd }:
 {
   upnpd.config = {
     enabled = true;
@@ -15,7 +15,7 @@
     {
       action = "allow";
       ext_ports = "40000-65535";
-      int_addr = net.lan.cidr;
+      int_addr = pd.net.lan.cidr;
       int_ports = "40000-65535";
       comment = "Allow high ports";
     }

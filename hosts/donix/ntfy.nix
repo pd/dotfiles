@@ -1,6 +1,6 @@
 {
   config,
-  net,
+  pd,
   pkgs,
   ...
 }:
@@ -29,7 +29,7 @@ in
 
       log-format = "json";
       enable-metrics = true;
-      metrics-listen-http = "${net.wg.ipv4.donix}:${toString metricsPort}";
+      metrics-listen-http = "${pd.net.wg.ipv4.donix}:${toString metricsPort}";
     };
   };
 

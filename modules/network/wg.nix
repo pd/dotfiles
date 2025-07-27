@@ -1,7 +1,7 @@
 {
   lib,
   config,
-  net,
+  pd,
   pkgs,
   ...
 }:
@@ -21,17 +21,17 @@ in
 
     wg.serverPublicKey = mkOption {
       type = types.str;
-      default = net.hosts.pi.wg.publicKey;
+      default = pd.net.hosts.pi.wg.publicKey;
     };
 
     wg.cidr = mkOption {
       type = types.str;
-      default = net.wg.cidr;
+      default = pd.net.wg.cidr;
     };
 
     wg.cidr6 = mkOption {
       type = types.str;
-      default = net.wg.cidr6;
+      default = pd.net.wg.cidr6;
     };
 
     wg.ipv4 = mkOption { type = types.str; };
@@ -107,8 +107,8 @@ in
                 cfg.cidr6
               ]
               ++ (lib.optionals cfg.offLan [
-                net.lan.cidr
-                net.lan.cidr6
+                pd.net.lan.cidr
+                pd.net.lan.cidr6
               ]);
             persistentKeepalive = 25;
           }
@@ -118,10 +118,10 @@ in
 
     (mkIf (cfg.enable && !isServer && cfg.offLan) {
       networking.wg-quick.interfaces.wg0.dns = [
-        net.wg.ipv6.pi
-        net.wg.ipv4.pi
-        net.wg.ipv6.htpc
-        net.wg.ipv4.htpc
+        pd.net.wg.ipv6.pi
+        pd.net.wg.ipv4.pi
+        pd.net.wg.ipv6.htpc
+        pd.net.wg.ipv4.htpc
         "wg"
         "home"
       ];
@@ -129,7 +129,7 @@ in
 
     (mkIf (cfg.enable && isServer) (
       let
-        clients = removeAttrs net.wg.hosts [ config.networking.hostName ];
+        clients = removeAttrs pd.net.wg.hosts [ config.networking.hostName ];
 
         psk-secrets = lib.mapAttrs' (name: peer: {
           name = "wireguard-preshared-key-${name}";

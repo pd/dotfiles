@@ -1,8 +1,9 @@
 {
   dmerge,
-  authorized-keys,
   lib,
-  net,
+
+  authorized-keys,
+  resolvers,
   ...
 }:
 with lib;
@@ -132,12 +133,7 @@ with lib;
             device = "br-lan";
             proto = "static";
             netmask = "255.255.252.0";
-            dns = [
-              net.lan.ipv6.pi
-              net.lan.ipv4.pi
-              net.lan.ipv6.htpc
-              net.lan.ipv4.htpc
-            ];
+            dns = resolvers;
             dns_search = [ "home" ];
           };
         };

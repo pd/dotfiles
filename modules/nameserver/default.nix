@@ -1,7 +1,7 @@
 {
-  pkgs,
   lib,
-  net,
+  pd,
+  pkgs,
   ...
 }:
 let
@@ -22,8 +22,8 @@ let
   };
 
   hosts =
-    (lib.mapAttrsToList (dnsInfo "home" "lan") net.lan.hosts)
-    ++ (lib.mapAttrsToList (dnsInfo "wg" "wg") net.wg.hosts);
+    (lib.mapAttrsToList (dnsInfo "home" "lan") pd.net.lan.hosts)
+    ++ (lib.mapAttrsToList (dnsInfo "wg" "wg") pd.net.wg.hosts);
 
   host-record =
     host:

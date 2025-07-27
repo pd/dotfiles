@@ -1,6 +1,6 @@
-{ net, uci, ... }:
+{ pd, uci, ... }:
 {
-  globals = [ { ula_prefix = net.lan.cidr6; } ];
+  globals = [ { ula_prefix = pd.net.lan.cidr6; } ];
 
   device = [
     {
@@ -10,9 +10,9 @@
   ] ++ (uci.bridgeLan 5 "94:83:c4:a3:31:22");
 
   interface.lan = {
-    ipaddr = net.lan.ipv4.wrt;
+    ipaddr = pd.net.lan.ipv4.wrt;
     netmask = "255.255.252.0";
-    ip6addr = "${net.lan.ipv6.wrt}/64";
+    ip6addr = "${pd.net.lan.ipv6.wrt}/64";
     ip6assign = 64;
     ip6class = [
       "local"

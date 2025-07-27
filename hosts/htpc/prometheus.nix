@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  net,
+  pd,
   ...
 }:
 let
@@ -40,7 +40,7 @@ let
         value = host;
       }) attrs.macs
     )
-  ) net.hosts;
+  ) pd.net.hosts;
 in
 {
   services.prometheus = {

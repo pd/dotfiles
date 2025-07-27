@@ -30,7 +30,6 @@
       "firefox"
       "iterm2"
       "orbstack"
-      "neo4j"
       "notion"
       "signal"
       "slack"
