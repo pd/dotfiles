@@ -30,7 +30,27 @@
     };
   };
 
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  # make wayland+river+screensharing function
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+    XDG_CURRENT_DESKTOP = "river";
+    XDG_SESSION_TYPE = "wayland";
+  };
+
+  xdg.portal = {
+    enable = true;
+    config.common.default = [ "wlr" ];
+    wlr = {
+      enable = true;
+      settings = {
+        screencast = {
+          chooser_type = "none";
+          output_name = "DVI-I-1";
+          max_fps = 60;
+        };
+      };
+    };
+  };
 
   # caps -> ctrl
   services.keyd = {
