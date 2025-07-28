@@ -8,8 +8,6 @@
   imports = [
     "${modulesPath}/virtualisation/lxc-container.nix"
     ./orbstack.nix
-
-    ../../modules/core
     ../../users/pd
   ];
 

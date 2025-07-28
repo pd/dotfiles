@@ -8,10 +8,6 @@
   nixpkgs.hostPlatform.system = "x86_64-darwin";
 
   imports = [
-    ../../modules/core/nix.nix
-    ../../modules/core/packages.nix
-    ../../modules/core/shell.nix
-
     ../../users/pd
     "${inputs.private}/work"
 

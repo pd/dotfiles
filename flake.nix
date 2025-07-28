@@ -35,7 +35,7 @@
         lib.nixosSystem {
           inherit specialArgs;
           modules = [
-            ./modules/nixpkgs.nix
+            ./modules/core/nixos
             inputs.sops-nix.nixosModules.sops
             ./hosts/${host}
           ] ++ modules;
@@ -46,7 +46,7 @@
         inputs.nix-darwin.lib.darwinSystem {
           inherit specialArgs;
           modules = [
-            ./modules/nixpkgs.nix
+            ./modules/core/darwin
             ./hosts/${host}
           ] ++ modules;
         };
