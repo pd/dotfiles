@@ -3,7 +3,7 @@
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
-    ./home
+    ./wayland.nix
   ];
 
   system.stateVersion = "24.05";
@@ -20,7 +20,6 @@
   time.timeZone = "America/Chicago";
 
   security.polkit.enable = true;
-
   security.rtkit.enable = true;
   services.pulseaudio.enable = false;
   services.pipewire = {
@@ -29,6 +28,9 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
+
+  # Needed for age-plugin-yubikey
+  services.pcscd.enable = true;
 
   # desktop ends up occasionally wanting a password for
   # screenlocks, polkit agent, etc.

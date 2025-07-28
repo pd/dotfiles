@@ -30,7 +30,11 @@ repl host:
       nix repl .#nixosConfigurations.{{ host }}
     fi
 
-# nixos-rebuild <op> all hosts
+homeConfiguration := x'$USER@$(hostname)'
+[group('ops')]
+hm op="switch":
+    home-manager {{ op }} --flake .#{{ homeConfiguration }}
+
 [group('hosts')]
 all op="test": (desk op) (htpc op) (pi op) (donix op) (orb op)
 
