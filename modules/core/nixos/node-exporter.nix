@@ -14,7 +14,6 @@ in
       else
         null;
     enabledCollectors = [
-      "systemd"
       "textfile"
     ];
     extraFlags = [
