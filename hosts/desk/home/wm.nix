@@ -157,6 +157,10 @@
             font-size: 11pt;
           }
 
+          .modules-right {
+            margin-right: 10px;
+          }
+
           .modules-right label {
             margin: 5px;
           }
@@ -193,6 +197,7 @@
             "pulseaudio"
             "custom/audio-state"
             "clock"
+            "custom/dunst"
           ];
 
           "river/tags" = {
@@ -298,6 +303,15 @@
               on-scroll-up = "tz_up";
               on-scroll-down = "tz_down";
             };
+          };
+
+          "custom/dunst" = {
+            format = "{text}";
+            exec = "${pkgs.pd.waybar-dunst}/bin/waybar-dunst";
+            return-type = "json";
+            on-click = "dunstctl history-pop";
+            on-click-middle = "dunstctl history-clear";
+            on-click-right = "dunstctl set-paused toggle";
           };
         };
       };
