@@ -23,7 +23,12 @@ switch host:
 
 [group('ops')]
 repl host:
-    @just {{ host }} repl
+    #!/usr/bin/env bash
+    if [[ "{{ host }}" == "span" ]]; then
+      nix repl .#darwinConfigurations.span
+    else
+      nix repl .#nixosConfigurations.{{ host }}
+    fi
 
 # nixos-rebuild <op> all hosts
 [group('hosts')]
@@ -57,7 +62,7 @@ _nixos_rebuild op host:
       nixos-rebuild {{ op }} --flake '.#{{ host }}' --target-host {{ host }} --build-host {{ host }} --use-remote-sudo --fast
     fi
 
-# can only really be run on span, doesn't have test or repl, etc
+# can only really be run on span
 [group('hosts')]
 span op="switch":
     sudo darwin-rebuild {{ op }} --flake '.#span'
