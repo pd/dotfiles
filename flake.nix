@@ -40,10 +40,18 @@
 
       extraSpecialArgs = {
         inherit inputs;
+        inherit (lib) pd;
       };
 
       mkHome =
         userAtHost: system:
+        let
+          extraSpecialArgs = {
+            inherit inputs;
+            inherit (lib) pd;
+            hostname = lib.last (lib.splitString "@" userAtHost);
+          };
+        in
         inputs.home-manager.lib.homeManagerConfiguration {
           inherit extraSpecialArgs;
           pkgs = nixpkgs.legacyPackages.${system};

@@ -6,6 +6,7 @@
     ./k8s.nix
     ./nvim.nix
     ./prog.nix
+    ./ssh.nix
     ./zsh.nix
   ];
 

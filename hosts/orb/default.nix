@@ -8,12 +8,10 @@
   imports = [
     "${modulesPath}/virtualisation/lxc-container.nix"
     ./orbstack.nix
-    ../../users/pd
   ];
 
   nixpkgs.hostPlatform.system = "x86_64-linux";
   system.stateVersion = "25.05";
-  home-manager.users.pd.home.stateVersion = "25.05";
 
   # Let orbstack own network config
   networking.hostName = "orb";
