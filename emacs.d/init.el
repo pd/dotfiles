@@ -669,8 +669,12 @@ targets."
 (defun pd/vterm-on (host)
   "vterm on a host"
   (interactive
-   (let* ((sshconfig (expand-file-name "~/.ssh/config"))
-          (hosts (remq nil (mapcar 'cadr (tramp-parse-sconfig sshconfig)))))
+   (let* ((sconfig-hosts (lambda (path)
+                          (let ((fname (expand-file-name path)))
+                            (when (file-exists-p fname)
+                              (mapcar 'cadr (tramp-parse-sconfig fname))))))
+          (ssh-configs (apply 'append (mapcar sconfig-hosts '("~/.ssh/config" "~/.orbstack/ssh/config"))))
+          (hosts (remq nil ssh-configs)))
      (list (completing-read "Host: " (nconc '("localhost") hosts)))))
   (if (string-equal host "localhost")
       (pd/vterm-at "~")
