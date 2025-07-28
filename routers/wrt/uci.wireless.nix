@@ -1,5 +1,5 @@
-{ uci, ... }:
-with uci.wifi;
+{ lib, ... }:
+with lib.uci.wifi;
 {
   wifi-device.radio0 = device "platform/soc/18000000.wifi" // bands."2g";
   wifi-device.radio1 = device "platform/soc/18000000.wifi+1" // bands."5g";

@@ -12,7 +12,7 @@ let
     inherit pkgs;
     configuration = {
       openwrt.${host} = import path {
-        inherit (lib) pd uci;
+        inherit (lib) pd;
         inherit
           dmerge
           lib

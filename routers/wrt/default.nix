@@ -3,16 +3,9 @@
   lib,
   pd,
   pkgs,
-  uci,
   ...
 }:
-let
-  ddnsWG6 = pkgs.writeTextFile {
-    name = "update_wg_pi.sh";
-    text = builtins.readFile ./update_wg_pi.sh;
-  };
-in
-uci.mkRouter "wrt" ./secrets.yaml {
+lib.uci.mkRouter "wrt" ./secrets.yaml {
   uci.retain = [
     "luci"
     "rpcd"
@@ -23,10 +16,10 @@ uci.mkRouter "wrt" ./secrets.yaml {
   uci.settings = {
     dhcp = import ./uci.dhcp.nix { inherit lib pd; };
     ddns = import ./uci.ddns.nix { inherit lib; };
-    firewall = import ./uci.firewall.nix { inherit dmerge pd uci; };
-    network = import ./uci.network.nix { inherit pd uci; };
+    firewall = import ./uci.firewall.nix { inherit dmerge pd; };
+    network = import ./uci.network.nix { inherit lib pd; };
     upnpd = import ./uci.upnpd.nix { inherit pd; };
-    wireless = import ./uci.wireless.nix { inherit pd uci; };
+    wireless = import ./uci.wireless.nix { inherit lib; };
   };
 
   # deploySteps is marked internal but I want to copy a file
@@ -34,6 +27,10 @@ uci.mkRouter "wrt" ./secrets.yaml {
   deploySteps.ddns =
     let
       path = "/usr/lib/ddns/update_wg_pi.sh";
+      ddnsWG6 = pkgs.writeTextFile {
+        name = "update_wg_pi.sh";
+        text = builtins.readFile ./update_wg_pi.sh;
+      };
     in
     {
       priority = 100;

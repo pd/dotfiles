@@ -1,6 +1,8 @@
 { lib, pd, ... }:
 with lib;
 let
+  inherit (pd.net) lan;
+
   pad =
     id:
     let
@@ -27,7 +29,7 @@ let
     }
     // (mkv6 host);
 
-  hosts = mapAttrsToList mkHost (removeAttrs pd.net.lan.hosts [ "wrt" ]);
+  hosts = mapAttrsToList mkHost (removeAttrs lan.hosts [ "wrt" ]);
 in
 {
   dnsmasq = [
@@ -36,8 +38,8 @@ in
       localservice = true;
       rebind_protection = false;
       server = [
-        pd.net.lan.ipv4.pi
-        pd.net.lan.ipv4.htpc
+        lan.ipv4.pi
+        lan.ipv4.htpc
       ];
 
       leasefile = "/tmp/dhcp.leases";
@@ -59,7 +61,7 @@ in
     start = 612; # .2.100 .. .2.249
     limit = 150;
     dhcp_option = [
-      "6,${pd.net.lan.ipv4.pi},${pd.net.lan.ipv4.htpc}"
+      "6,${lan.ipv4.pi},${lan.ipv4.htpc}"
       "119,home"
     ];
 
@@ -73,8 +75,8 @@ in
     ];
     ra_useleasetime = true;
     dns = [
-      pd.net.lan.ipv6.pi
-      pd.net.lan.ipv6.htpc
+      lan.ipv6.pi
+      lan.ipv6.htpc
     ];
   };
 

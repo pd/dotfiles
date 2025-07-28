@@ -1,10 +1,12 @@
 {
   lib,
   pd,
-  uci,
   ...
 }:
-uci.mkRouter "rpt" ./secrets.yaml {
+let
+  inherit (pd.net) lan hosts;
+in
+lib.uci.mkRouter "rpt" ./secrets.yaml {
   uci.retain = [
     "luci"
     "rpcd"
@@ -21,10 +23,10 @@ uci.mkRouter "rpt" ./secrets.yaml {
           localservice = true;
           rebind_protection = false;
           server = [
-            pd.net.lan.ipv6.pi
-            pd.net.lan.ipv4.pi
-            pd.net.lan.ipv6.htpc
-            pd.net.lan.ipv4.htpc
+            lan.ipv6.pi
+            lan.ipv4.pi
+            lan.ipv6.htpc
+            lan.ipv4.htpc
           ];
         }
       ];
@@ -38,16 +40,16 @@ uci.mkRouter "rpt" ./secrets.yaml {
     };
 
     network = {
-      device = uci.bridgeLan 2 (lib.head pd.net.hosts.rpt.macs);
+      device = lib.uci.bridgeLan 2 (lib.head hosts.rpt.macs);
       interface.lan = {
-        ipaddr = [ "${pd.net.lan.ipv4.rpt}/22" ];
-        gateway = pd.net.lan.ipv4.wrt;
-        ip6addr = [ "${pd.net.lan.ipv6.rpt}/64" ];
-        ip6gw = pd.net.lan.ipv6.wrt;
+        ipaddr = [ "${lan.ipv4.rpt}/22" ];
+        gateway = lan.ipv4.wrt;
+        ip6addr = [ "${lan.ipv6.rpt}/64" ];
+        ip6gw = lan.ipv6.wrt;
       };
     };
 
-    wireless = with uci.wifi; {
+    wireless = with lib.uci.wifi; {
       wifi-device.radio0 = device "platform/soc@0/c000000.wifi" // bands."2g" // off;
       wifi-device.radio1 = device "platform/soc@0/b00a040.wifi1" // bands."5g";
 
