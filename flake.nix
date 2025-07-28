@@ -11,20 +11,6 @@
           inherit lib;
         });
 
-      homeManagerModules = {
-        home-manager.sharedModules = [
-          inputs.sops-nix.homeManagerModules.sops
-          inputs.nixvim.homeManagerModules.nixvim
-        ];
-      };
-
-      forEachSystem = lib.genAttrs [
-        "x86_64-linux"
-        "aarch64-linux"
-        "x86_64-darwin"
-        "aarch64-darwin"
-      ];
-
       specialArgs = {
         inherit inputs lib;
         inherit (lib) pd;
@@ -47,9 +33,47 @@
           inherit specialArgs;
           modules = [
             ./modules/core/darwin
+            inputs.sops-nix.darwinModules.sops
             ./hosts/${host}
           ] ++ modules;
         };
+
+      extraSpecialArgs = {
+        inherit inputs;
+        inherit (lib) pd;
+      };
+
+      mkHome =
+        userAtHost: system:
+        let
+          extraSpecialArgs = {
+            inherit inputs;
+            inherit (lib) pd;
+            hostname = lib.last (lib.splitString "@" userAtHost);
+          };
+        in
+        inputs.home-manager.lib.homeManagerConfiguration {
+          inherit extraSpecialArgs;
+          pkgs = nixpkgs.legacyPackages.${system};
+          modules = [
+            ./modules/core/nixpkgs.nix
+            {
+              imports = [
+                inputs.sops-nix.homeManagerModules.sops
+                inputs.stylix.homeModules.stylix
+                inputs.nixvim.homeModules.nixvim
+              ];
+            }
+            ./homes/${userAtHost}
+          ];
+        };
+
+      forEachSystem = lib.genAttrs [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
     in
     {
       formatter = forEachSystem (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
@@ -58,24 +82,21 @@
         inputs.disko.nixosModules.disko
         inputs.nix-index-database.nixosModules.nix-index
         inputs.stylix.nixosModules.stylix
-        inputs.home-manager.nixosModules.home-manager
-        homeManagerModules
-      ];
-
-      nixosConfigurations.orb = mkNixos "orb" [
-        inputs.home-manager.nixosModules.home-manager
-        homeManagerModules
       ];
 
       darwinConfigurations.span = mkDarwin "span" [
-        inputs.home-manager.darwinModules.home-manager
         inputs.nix-index-database.darwinModules.nix-index
-        homeManagerModules
       ];
+
+      nixosConfigurations.orb = mkNixos "orb" [ ];
 
       nixosConfigurations.donix = mkNixos "donix" [ ];
       nixosConfigurations.htpc = mkNixos "htpc" [ ];
       nixosConfigurations.pi = mkNixos "pi" [ ];
+
+      homeConfigurations."pd@desk" = mkHome "pd@desk" "x86_64-linux";
+      homeConfigurations."pd@span" = mkHome "pd@span" "x86_64-darwin";
+      homeConfigurations."pd@orb" = mkHome "pd@orb" "x86_64-linux";
 
       # routers
       packages = forEachSystem (

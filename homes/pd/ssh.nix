@@ -1,15 +1,15 @@
 {
-  config,
   lib,
+  hostname,
   pd,
   ...
 }:
 let
-  others = removeAttrs pd.net.ssh.hosts [ config.networking.hostName ];
+  others = removeAttrs pd.net.ssh.hosts [ hostname ];
   matchBlock = _: host: host.ssh;
 in
 {
-  home-manager.users.pd.programs.ssh = {
+  programs.ssh = {
     enable = true;
 
     extraConfig = ''
