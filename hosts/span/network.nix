@@ -4,6 +4,9 @@
   pkgs,
   ...
 }:
+let
+  inherit (pd.net) lan wg;
+in
 {
   networking.wg-quick.interfaces.wg0 =
     let
@@ -13,22 +16,22 @@
       autostart = false;
       privateKeyFile = secrets.wireguard-private-key.path;
       address = [
-        "${pd.net.wg.ipv4.span}/32"
-        "${pd.net.wg.ipv6.span}/128"
+        "${wg.ipv4.span}/32"
+        "${wg.ipv6.span}/128"
       ];
-      dns = [ "${pd.net.wg.ipv4.pi},${pd.net.wg.ipv6.pi},wg,home" ];
+      dns = [ "${wg.ipv4.pi},${wg.ipv6.pi},wg,home" ];
       postDown = "networksetup -setdnsservers Wi-Fi Empty";
 
       peers = [
         {
           endpoint = "wg.krh.me:51930";
-          publicKey = pd.net.wg.pks.pi;
+          publicKey = wg.pks.pi;
           presharedKeyFile = secrets.wireguard-preshared-key.path;
           allowedIPs = [
-            pd.net.lan.cidr
-            pd.net.lan.cidr6
-            pd.net.wg.cidr
-            pd.net.wg.cidr6
+            lan.cidr
+            lan.cidr6
+            wg.cidr
+            wg.cidr6
           ];
           persistentKeepalive = 25;
         }
@@ -42,7 +45,7 @@
   launchd.agents.homeULA =
     let
       dev = "en0";
-      ula = pd.net.lan.ipv6.span;
+      ula = lan.ipv6.span;
       ssid = "bazqux"; # TODO: prolly encode ssid somewhere else
 
       home-ula-toggle = pkgs.writeShellScript "home-ula-toggle" ''
