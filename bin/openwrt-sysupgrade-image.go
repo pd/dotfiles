@@ -69,7 +69,6 @@ var (
 				"ddns-scripts-digitalocean",
 				"luci-app-ddns",
 				"luci-app-upnp",
-				"prometheus-node-exporter-lua-nat_traffic",
 			}...),
 		},
 		"rpt": {
