@@ -33,6 +33,7 @@
           inherit specialArgs;
           modules = [
             ./modules/core/darwin
+            inputs.sops-nix.darwinModules.sops
             ./hosts/${host}
           ] ++ modules;
         };

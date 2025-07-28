@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   imports = [
     ./files.nix
@@ -10,6 +10,11 @@
   ];
 
   programs.home-manager.enable = true;
+
+  news = {
+    display = "silent";
+    entries = lib.mkForce [ ];
+  };
 
   home.username = "pd";
   home.packages =

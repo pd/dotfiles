@@ -12,13 +12,13 @@ let
   ];
 
   etc = {
-    "direnv/direnvrc" = ../../users/pd/etc/direnvrc;
-    "irb/irbrc" = ../../users/pd/etc/irbrc;
-    "mise/config.toml" = ../../users/pd/etc/mise.toml;
-    "mise/go" = ../../users/pd/etc/mise-go-packages;
-    "pry/pryrc" = ../../users/pd/etc/pryrc;
-    "pg/psqlrc" = ../../users/pd/etc/psqlrc;
-    "sqlite3/sqliterc" = ../../users/pd/etc/sqliterc;
+    "direnv/direnvrc" = ./etc/direnvrc;
+    "irb/irbrc" = ./etc/irbrc;
+    "mise/config.toml" = ./etc/mise.toml;
+    "mise/go" = ./etc/mise-go-packages;
+    "pry/pryrc" = ./etc/pryrc;
+    "pg/psqlrc" = ./etc/psqlrc;
+    "sqlite3/sqliterc" = ./etc/sqliterc;
   };
 in
 {

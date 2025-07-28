@@ -8,9 +8,14 @@ let
   inherit (pd.net) lan wg;
 in
 {
+  sops.defaultSopsFile = ./secrets.yaml;
+  sops.age.keyFile = "/Users/pd/Library/Application Support/sops/age/keys.txt";
+  sops.secrets.wireguard-private-key = { };
+  sops.secrets.wireguard-preshared-key = { };
+
   networking.wg-quick.interfaces.wg0 =
     let
-      secrets = config.home-manager.users.pd.sops.secrets;
+      secrets = config.sops.secrets;
     in
     {
       autostart = false;
