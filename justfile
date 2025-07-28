@@ -57,7 +57,7 @@ orb op="test":
 _nixos_rebuild op host:
     #!/usr/bin/env bash
     if [[ "{{ host }}" == "$HOSTNAME" ]]; then
-      sudo nixos-rebuild {{ op }} --flake '.#{{ host }}' --fast
+      nixos-rebuild {{ op }} --flake '.#{{ host }}' --use-remote-sudo --fast
     else
       nixos-rebuild {{ op }} --flake '.#{{ host }}' --target-host {{ host }} --build-host {{ host }} --use-remote-sudo --fast
     fi
