@@ -28,6 +28,7 @@
       "dash"
       "discord"
       "firefox"
+      "google-chrome"
       "iterm2"
       "orbstack"
       "notion"
