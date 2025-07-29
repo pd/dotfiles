@@ -4,31 +4,46 @@ AWS_ACCESS_KEY_ID: ENC[AES256_GCM,data:3Lc8iChoaX6nFefuug0DepggxoLS/g==,iv:tTe04
 AWS_SECRET_ACCESS_KEY: ENC[AES256_GCM,data:QP5K5kjvC8p+WdHIFS6W0sz5qg==,iv:F5Sb64nI3uDg0W4DD5j9i+eAX0hc81la3o7dd8FLMA8=,tag:6N5BuiRYlhsQYGAknYu2tA==,type:str]
 DIGITALOCEAN_TOKEN: ENC[AES256_GCM,data:DogZ83pDqMNhA+VYtmT8cCaws/ldJZeOj6neYiEGsaryrMSHnmTaJp9IHLslYvWGzAbh0NWddLBjKI7zaXEha7dGNE3xVdg=,iv:WwRZKCR7iFdlOX/v+oFQW+5V1GVXrJWYBAGMMD6paaA=,tag:hDLbBMFhtmS6psj9sUCnfQ==,type:str]
 sops:
-    kms: []
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
     age:
         - recipient: age1qh726xrj4tzl778wajr40draeureqrly7c5m639tq5qhmr5sev9s7k5pd3
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBXMGxFdDhLZFBjaWszZ2g0
-            eUUyWXhDWEp6VndVOGptMitHaSs4VzYrYUJzCnYyT25mM1N0ZWZhWkUyRkZuMnB4
-            bGlQaGJQQ3RDVzVXaG1QTTJKV3lmVWsKLS0tIGgwcmpveHBYTzdKRnNRMlpPSTJl
-            Q2JvUWRaSmxPTnZBRStwUW55RlVEdlkKCoM/+yj3PuL3k1V2L8AylQb0oq3kfy3V
-            fzAzQL6PfRCDG5H1kkmZZWrG3LcxPAgRFeU/RZYFAooHRkO+1F1GDA==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBVenQwU084d0svZDMzeDJL
+            djBublZSQllNb01zTi91YVZJQmsxNDBrTmxNCmNHRzhhYXhDSlJ4d2hYTDQvRW9Q
+            N1NSSXpRcXhmSGlrVUdwbzNHMTdTczgKLS0tIEp3MndZTzVlM3FGVUwxOTdtakZY
+            a0JiUFR1dDhwRElhQ1E5TlFxNDVaZHMKrz9TXjnomcwNAI93ZIn4HEYUSbmjixty
+            l1ATPCJ51dR5JDAjRKRuKL+bTQWvMWPTUKKLOrNH6vbGA7SbZXysHA==
             -----END AGE ENCRYPTED FILE-----
         - recipient: age12uqgz9ghdjx9df00hshmgmjddp57u83wwj0nu0vg8mvvkzwuydpsxfns33
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAyL0RUcmFUQTh5U0hocWNq
-            UWNtdFJ1RWFNMjFhTEUxbEFtRkpJN2cvamc0CktWS0VtcURYaVVIRGtDOHdnUHVi
-            SDdUT1ZkVUE0TytXR3QvdENMa1FDSDgKLS0tIGhKbGp5cXFZZVFQTnFlYVZrQ2Rx
-            ajg3RmRCN3NabU0wbjNoa29VQjlmZGMKHTiOeN6StdzhWjxkfxDu2KCjMQKAA3Cf
-            Lue6y+UAl/EpFwiIAAaE7r/GHTIayLnkmebnepBvIAW9ZuTgwjgtIQ==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBGb3hzdWttNkhmbHNXWkRm
+            WHZKVVJPendaQWxPWlVReXZXcDJqUWNZbXl3CnNuVlJPTEtKV3FUUnQwdWVvb2J2
+            bk8zeUtoeXNHY1NnNzAwdDRKMVFQZlUKLS0tIHhjOEJrZ0VYdlBYYmxjRVFtNEJM
+            VWcwRnQwc2xBemg2aDJFcEpDcTdSdFkKGMeyPw3hwYzkvA6ssePAO3V58mMG8IWD
+            759vOOIW6XJ1mI9x3vcApgBrZJAB6AXtsnNDbplmcAK9UGqF1m+DyQ==
+            -----END AGE ENCRYPTED FILE-----
+        - recipient: age1yubikey1qwpnm5gflajwaptyzmhrapandm2flm2x97hlsps9lt3q48zkrnqvcx4qk4g
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IHBpdi1wMjU2IGQ0b2xBdyBBcE9mSk1F
+            YlBWRmEwM0w4eGo5RDlYYWZoTzJsRGZYaWZPNElPeXhrbWxPVApNZnRoQjd2VU9m
+            TklDZVc4dGJkTGVqY29FWGRNUVdUVHVlK09QdElqc2N3Ci0tLSB6dzJsTXdyeVFW
+            Yk11cVJnWjNZeDIrUXFnUTlCVEl5bWFlWUVvdmhzcTJVCuDimT60ZRtV4WSbPm64
+            VS/iHRRl352FLxoWbqQ0912ALDRubVLpPAa3T9qsV2xuwSJc3q/V+eijtuyiRYcN
+            hnM=
+            -----END AGE ENCRYPTED FILE-----
+        - recipient: age1yubikey1q2m5hrmgxhhg6yzdz4y8sstucwlaklrmghl4nx69qrtyknunsd8m6ukcs8q
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IHBpdi1wMjU2IEVSeGhBZyBBMG5iVkM0
+            N2psdjU5bUM4ZDZYRlFoVzNLa1c3UEs1eXpTc1NoOEd6bVdXTwoyQzJqSWVOYzJv
+            K085a1FJejFiQ3haV1BXVnY3WlhWcmxjQTN6bUMvWUxZCi0tLSBTSWFycVlQd3U3
+            Mmh3NEN6U0FBeHlGbGFaTU5yWC9CRncwNmV2QkY3TGZjCsvdOSF/w469hicoBLMp
+            j0a9vEEMFKtrKWZZhBkHvl6nWYGibn/m+Q7x1hNg5DvRwa9i2t6hNOpkB/MGzWJM
+            pxQ=
             -----END AGE ENCRYPTED FILE-----
     lastmodified: "2024-11-02T01:48:38Z"
     mac: ENC[AES256_GCM,data:XOMLpYqpLTC6x6fk3ZnkUyTEOAKLnPL9vT+jzfRS6Hh4r3aZfBX7jwZxiwonHSvg0bDM0ViC8lj5pmK0VHUTNSbT+IW9FzXBocQkcv7vUPLIdv20Y4cEmkAt9HPYMCgb29ZWeqyPMZaDzVf4f3RUY3GDoJekHwjqQXLTwFVrqis=,iv:88E+JFxQNREioXtddpNeZziFVG4pjOPN6NMua562WR4=,tag:VDc+7/VhGGY1tP34biK+3w==,type:str]
-    pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.8.1
