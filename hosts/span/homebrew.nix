@@ -31,12 +31,13 @@
       "iterm2"
       "orbstack"
       "notion"
+      "notion-calendar"
       "signal"
       "slack"
       "spectacle"
       "visual-studio-code"
       "vlc"
-      "wireshark"
+      "wireshark-app"
       "zoom"
     ];
   };
