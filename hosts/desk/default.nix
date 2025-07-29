@@ -3,6 +3,7 @@
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
+    ./oci.nix
     ./wayland.nix
   ];
 
@@ -37,13 +38,6 @@
   sops.secrets.desktop-password.neededForUsers = true;
   users.users.pd.hashedPasswordFile = config.sops.secrets.desktop-password.path;
 
-  # Installed at the system level for setcap + wireshark group
-  programs.wireshark = {
-    enable = true;
-    package = pkgs.wireshark-qt;
-  };
-  users.users.pd.extraGroups = [ "wireshark" ];
-
   # Reassign MACs so nixos is distinct from windows
   systemd.network.links."40-eth" = {
     matchConfig.PermanentMACAddress = "2c:f0:5d:db:8d:13";
@@ -62,4 +56,11 @@
       Name = "wlan0";
     };
   };
+
+  # Installed at the system level for setcap + wireshark group
+  programs.wireshark = {
+    enable = true;
+    package = pkgs.wireshark-qt;
+  };
+  users.users.pd.extraGroups = [ "wireshark" ];
 }
