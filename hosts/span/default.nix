@@ -18,9 +18,7 @@
 
   environment = {
     systemPackages = with pkgs; [
-      opentofu
       pandoc
-      unstable.postgresql
       wireguard-go
       wireguard-tools
 

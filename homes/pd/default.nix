@@ -38,6 +38,8 @@
       mise
       nil
       nixfmt-rfc-style
+      opentofu
+      postgresql
       sops
     ]);
 }

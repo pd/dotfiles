@@ -14,7 +14,6 @@
   home.packages =
     with pkgs;
     [
-      opentofu
       pavucontrol # audio
       pinta # remedial image editing
       pyrosimple # rtorrent clis
