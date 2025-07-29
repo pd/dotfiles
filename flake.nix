@@ -38,11 +38,6 @@
           ] ++ modules;
         };
 
-      extraSpecialArgs = {
-        inherit inputs;
-        inherit (lib) pd;
-      };
-
       mkHome =
         userAtHost: system:
         let
@@ -89,7 +84,6 @@
       ];
 
       nixosConfigurations.orb = mkNixos "orb" [ ];
-
       nixosConfigurations.donix = mkNixos "donix" [ ];
       nixosConfigurations.htpc = mkNixos "htpc" [ ];
       nixosConfigurations.pi = mkNixos "pi" [ ];
