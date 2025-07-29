@@ -77,10 +77,12 @@
         inputs.disko.nixosModules.disko
         inputs.nix-index-database.nixosModules.nix-index
         inputs.stylix.nixosModules.stylix
+        ./modules/fonts
       ];
 
       darwinConfigurations.span = mkDarwin "span" [
         inputs.nix-index-database.darwinModules.nix-index
+        ./modules/fonts
       ];
 
       nixosConfigurations.orb = mkNixos "orb" [ ];
