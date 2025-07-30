@@ -86,7 +86,7 @@ in
     description = "filebotd";
     wantedBy = [ "multi-user.target" ];
     after = [ "network.target" ];
-    path = [ pkgs.filebot ];
+    path = [ filebot ];
     serviceConfig = {
       Type = "exec";
       User = pd.name;
