@@ -37,6 +37,12 @@ func main() {
 			return
 		}
 
+		if role == "opsbetter" {
+			w.WriteHeader(http.StatusOK)
+			log.Info("skipping opsbetter upload")
+			return
+		}
+
 		var dest string
 		switch tracker {
 		case "passthepopcorn.me":

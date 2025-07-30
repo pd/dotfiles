@@ -6,7 +6,6 @@
 }:
 let
   pd = config.users.users.pd;
-
 in
 {
   imports = [

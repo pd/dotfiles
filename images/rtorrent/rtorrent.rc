@@ -57,6 +57,9 @@ encoding.add = UTF-8
 # not watch dirs.
 schedule2 = watch_archive,10,10,"load.start_verbose=/downloads/watch/archive/*.torrent,d.custom2.set=archive"
 
+# Watch for new opsbetter torrents
+schedule2 = watch_opsbetter,10,10,"load.start_verbose=/downloads/watch/opsbetter/*.torrent,d.custom2.set=opsbetter,d.directory.set=/downloads/done/opsfet.ch"
+
 # Move finished (no need Autotools/Automove plugin on ruTorrent)
 method.insert = d.get_finished_dir, simple, "cat=$cfg.download_complete=,$d.custom1="
 method.insert = d.move_to_complete, simple, \
