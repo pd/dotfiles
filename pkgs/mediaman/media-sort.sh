@@ -2,8 +2,11 @@
 
 set -euo pipefail
 
+ACTION="${ACTION:-symlink}"
+
 usage() {
   echo "$0 [tv|movie|music] [path]" >&2
+  echo "  \$ACTION: --action flag [move, symlink, test]; default: symlink"
   exit 1
 }
 
@@ -21,7 +24,7 @@ _filebot() {
     -rename \
     -non-strict \
     -no-xattr \
-    --action symlink \
+    --action "$ACTION" \
     --conflict skip \
     --format "$format" \
     --output "$dest" \
