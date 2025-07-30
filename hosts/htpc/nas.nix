@@ -63,9 +63,6 @@ in
     [ filebot ]
     ++ (with pkgs; [
       chromaprint # audio id for filebot
-      flac
-      imagemagick
-      intermodal # fancier mktorrent
       nfs-utils
     ])
     ++ (with pkgs.pd; [

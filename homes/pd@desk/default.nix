@@ -18,7 +18,6 @@
       bitwarden-desktop
       pavucontrol # audio
       pinta # remedial image editing
-      pyrosimple # rtorrent clis
       screen
     ]
     ++ (with unstable; [
