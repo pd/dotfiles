@@ -13,6 +13,7 @@ in
     search-menu
     swayidle
     sway-audio-idle-inhibit
+    wl-clipboard
     wlr-randr
   ];
 
