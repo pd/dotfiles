@@ -4,6 +4,7 @@
     ./files.nix
     ./git.nix
     ./k8s.nix
+    ./music.nix
     ./nvim.nix
     ./prog.nix
     ./ssh.nix
@@ -25,12 +26,12 @@
       age-plugin-yubikey
       cfssl
       awscli2
-      ssm-session-manager-plugin
       (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
       htop
       ipcalc
       just
       ssh-to-age
+      ssm-session-manager-plugin
       unzip
       watchexec
     ]
