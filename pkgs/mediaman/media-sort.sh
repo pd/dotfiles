@@ -3,7 +3,7 @@
 set -euo pipefail
 
 usage() {
-  echo "$0 [tv|movie] [path]" >&2
+  echo "$0 [tv|movie|music] [path]" >&2
   exit 1
 }
 
@@ -12,13 +12,18 @@ _filebot() {
   local dest="$2"
   local path="$3"
 
+  local format="${4:-}"
+  if [[ "$format" == "" ]]; then
+    format="{jellyfin.tail}"
+  fi
+
   filebot \
     -rename \
     -non-strict \
     -no-xattr \
     --action symlink \
     --conflict skip \
-    --format '{jellyfin.tail}' \
+    --format "$format" \
     --output "$dest" \
     --db "$db" \
     -r "$path"
@@ -31,6 +36,7 @@ main() {
   case "$kind" in
   tv)    _filebot "TheMovieDB::TV" /media/sorted/TV "$path" ;;
   movie) _filebot "TheMovieDB" /media/sorted/Movies "$path" ;;
+  music) _filebot "ID3" /media/sorted/Music "$path" "{artist}/{album} ({y})/{artist} - {album} ({y}) - {pi.pad(2)}. {t}" ;;
   *)     usage;;
   esac
 }

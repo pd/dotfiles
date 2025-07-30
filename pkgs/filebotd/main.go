@@ -49,6 +49,8 @@ func main() {
 			dest = "/media/sorted/Movies"
 		case "landof.tv":
 			dest = "/media/sorted/TV"
+		case "opsfet.ch":
+			dest = "/media/sorted/Music"
 		default:
 			w.WriteHeader(http.StatusBadRequest)
 			log.Error("unsupported tracker", "status", http.StatusBadRequest)
@@ -77,6 +79,13 @@ func filebot(src, dest string) *exec.Cmd {
 	db := "TheMovieDB"
 	if strings.HasSuffix(dest, "/TV") {
 		db = "TheMovieDB::TV"
+	} else if strings.HasSuffix(dest, "/Music") {
+		db = "ID3"
+	}
+
+	format := "{jellyfin.tail}"
+	if db == "ID3" {
+		format = "{artist}/{album} ({y})/{artist} - {album} ({y}) - {pi.pad(2)}. {t}"
 	}
 
 	return exec.Command(
@@ -86,7 +95,7 @@ func filebot(src, dest string) *exec.Cmd {
 		"-no-xattr",
 		"--action", "symlink",
 		"--conflict", "skip",
-		"--format", "{jellyfin.tail}",
+		"--format", format,
 		"--db", db,
 		"-r", src,
 		"--output", dest,
