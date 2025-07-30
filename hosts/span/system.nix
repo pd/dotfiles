@@ -23,6 +23,11 @@
           "Assistant Enabled" = false; # go away siri
           "Dictation Enabled" = false;
         };
+
+        "com.apple.desktopservices" = {
+          DSDontWriteNetworkStores = true;
+          DSDontWriteUSBStores = true;
+        };
       };
 
       dock = {
