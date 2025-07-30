@@ -11,6 +11,20 @@
     # '';
 
     defaults = {
+      CustomUserPreferences = {
+        "com.apple.Siri" = {
+          ConfirmSiriInvokedViaEitherCmdTwice = 0;
+          KeyboardShortcutSAE.enabled = 0;
+          KeyboardShortcutPreSAE.enabled = 0;
+          VoiceTriggerUserEnabled = 0;
+        };
+
+        "com.apple.assistant.support" = {
+          "Assistant Enabled" = false; # go away siri
+          "Dictation Enabled" = false;
+        };
+      };
+
       dock = {
         autohide = true;
         orientation = "bottom";
