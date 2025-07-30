@@ -49,6 +49,10 @@ in
     webExternalUrl = "http://prom.home";
     port = 9999;
 
+    extraFlags = [
+      "--web.enable-admin-api"
+    ];
+
     scrapeConfigs = [
       (staticJob "caddy" ports.caddy [
         "donix.wg"
