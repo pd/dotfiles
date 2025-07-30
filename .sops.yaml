@@ -19,6 +19,16 @@ creation_rules:
     - *pd-desk
     - *yubiring
     - *yubicab
+- path_regex: homes/pd/secrets.yaml$
+  key_groups:
+  - age:
+    - *pd-span
+    - *pd-desk
+    - *yubiring
+    - *yubicab
+    - *host-desk
+    - *host-span
+    - *host-orb
 - path_regex: hosts/desk/secrets.yaml$
   key_groups:
   - age:

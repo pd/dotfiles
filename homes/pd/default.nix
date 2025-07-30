@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ./files.nix
@@ -12,6 +17,13 @@
   ];
 
   programs.home-manager.enable = true;
+
+  sops.defaultSopsFile = ./secrets.yaml;
+  sops.age.keyFile =
+    if pkgs.hostPlatform.isLinux then
+      "${config.home.homeDirectory}/.config/sops/age/keys.txt"
+    else
+      "${config.home.homeDirectory}/Library/Application Support/sops/age/keys.txt";
 
   news = {
     display = "silent";
