@@ -27,6 +27,9 @@ in
     with pkgs;
     [
       filebot
+      flac
+      imagemagick
+      intermodal # fancier mktorrent
       nfs-utils
     ]
     ++ (with pkgs.pd; [
