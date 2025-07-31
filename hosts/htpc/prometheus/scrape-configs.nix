@@ -9,7 +9,7 @@ let
   targets = port: names: map (maybePort port) names;
   staticJob = job_name: port: hosts: {
     inherit job_name;
-    scrape_interval = "60s";
+    scrape_interval = "15s";
     static_configs = [ { targets = targets port hosts; } ];
   };
 
