@@ -85,7 +85,7 @@ func filebot(src, dest string) *exec.Cmd {
 
 	format := "{jellyfin.tail}"
 	if db == "ID3" {
-		format = "{artist}/{album} ({y})/{artist} - {album} ({y}) - {pi.pad(2)}. {t}"
+		format = "{albumArtist}/{album} ({y})/{albumArtist} - {album} ({y}) - {pi.pad(2)}. {t}"
 	}
 
 	return exec.Command(
