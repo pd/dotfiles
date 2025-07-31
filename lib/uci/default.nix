@@ -49,7 +49,7 @@ with lib;
     iface = device: {
       inherit device;
       network = "lan";
-      ssid = "bazqux";
+      ssid = lib.pd.net.wifi.ssid;
       encryption = "psk2";
       key._secret = "wifi_password";
     };

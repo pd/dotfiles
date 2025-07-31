@@ -95,6 +95,10 @@ let
     // (mkSsh hostname ssh);
 in
 rec {
+  wifi = {
+    ssid = "bazqux";
+  };
+
   lan = {
     cidr = "192.168.40.0/22";
     cidr6 = "fded:40::/64";

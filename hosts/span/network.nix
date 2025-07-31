@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (pd.net) lan wg;
+  inherit (pd.net) lan wg wifi;
 in
 {
   sops.defaultSopsFile = ./secrets.yaml;
@@ -51,12 +51,15 @@ in
     let
       dev = "en0";
       ula = lan.ipv6.span;
-      ssid = "bazqux"; # TODO: prolly encode ssid somewhere else
 
       home-ula-toggle = pkgs.writeShellScript "home-ula-toggle" ''
         on_home_wifi() {
-          ssid="$(networksetup -getairportnetwork ${dev} | awk -F': ' '{print $2}')"
-          test "$ssid" == "${ssid}"
+          # macos 15 sequoia has intentionally made it a nightmare
+          # to retrieve the ssid you're connected to, so just check
+          # that we've probably got a v6 addr in the right /64.
+          #
+          # why do i still run an OS that is actively hostile
+          ifconfig en0 inet6 | grep -q 'fded:40::'
         }
 
         has_ula() {
@@ -76,9 +79,10 @@ in
         Label = "home.ula.toggle";
         RunAtLoad = true;
 
-        # _something_ in here changes when bouncing across wifi networks,
-        # so this is probably running too often but seems to work
-        WatchPaths = [ "/Library/Preferences/SystemConfiguration" ];
+        WatchPaths = [
+          "/Library/Preferences/SystemConfiguration/NetworkInterfaces.plist"
+          "/Library/Preferences/SystemConfiguration/com.apple.airport.preferences.plist"
+        ];
       };
     };
 }
