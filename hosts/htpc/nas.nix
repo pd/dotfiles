@@ -26,6 +26,7 @@ in
     with pkgs;
     [
       chromaprint # audio id for filebot
+      flac # for metaflac
       nfs-utils
     ]
     ++ (with pkgs.pd; [

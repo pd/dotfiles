@@ -39,7 +39,7 @@ main() {
   case "$kind" in
   tv)    _filebot "${DB:-TheMovieDB::TV}" /media/sorted/TV "$path" ;;
   movie) _filebot "${DB:-TheMovieDB}" /media/sorted/Movies "$path" ;;
-  music) _filebot "${DB:-ID3}" /media/sorted/Music "$path" "{albumArtist}/{album} ({y})/{albumArtist} - {album} ({y}) - {pi.pad(2)}. {t}" ;;
+  music) _filebot "${DB:-ID3}" /media/sorted/Music "$path" "{any{albumArtist}{artist}}/{album} ({y})/{any{albumArtist}{artist}} - {album} ({y}) - {pi.pad(2)}. {t}" ;;
   *)     usage;;
   esac
 }
