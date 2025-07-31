@@ -1,12 +1,13 @@
 package main
 
 import (
+	"errors"
+	"fmt"
 	"log/slog"
 	"net/http"
 	"os"
 	"os/exec"
 	"regexp"
-	"strings"
 )
 
 // Tiny server responsible for running filebot as an after-completion
@@ -17,6 +18,8 @@ func main() {
 	if addr == "" {
 		addr = ":12345"
 	}
+
+	httpClient := &http.Client{}
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("POST /_hooks/completed", func(w http.ResponseWriter, r *http.Request) {
@@ -31,39 +34,36 @@ func main() {
 			return
 		}
 
-		if role == "archive" {
+		if role == "archive" || role == "opsbetter" {
 			w.WriteHeader(http.StatusOK)
-			log.Info("skipping archive torrent")
+			log.Info("skipping torrent", "role", role)
 			return
 		}
 
-		if role == "opsbetter" {
-			w.WriteHeader(http.StatusOK)
-			log.Info("skipping opsbetter upload")
-			return
-		}
-
-		var dest string
-		switch tracker {
-		case "passthepopcorn.me":
-			dest = "/media/sorted/Movies"
-		case "landof.tv":
-			dest = "/media/sorted/TV"
-		case "opsfet.ch":
-			dest = "/media/sorted/Music"
-		default:
+		kind, ok := map[string]string{
+			"landof.tv":         "tv",
+			"opsfet.ch":         "music",
+			"passthepopcorn.me": "movie",
+		}[tracker]
+		if !ok {
 			w.WriteHeader(http.StatusBadRequest)
 			log.Error("unsupported tracker", "status", http.StatusBadRequest)
 			return
 		}
 
-		cmd := filebot(path, dest)
+		cmd := mediaSort(path, kind)
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 
-		log.Info("running filebot", "cmd", cmd.Args)
+		log.Info("running media-sort", "cmd", cmd.Args)
 		err := cmd.Run()
 		log.Info("filebot exited", "error", err)
+
+		go func() {
+			if err := scanLibrary(httpClient, kind); err != nil {
+				log.Error("jellyfin refresh failed", "error", err)
+			}
+		}()
 
 		// We always 200 cuz filebot exits non-zero for all kinds of reasons
 		// and who cares really
@@ -75,31 +75,45 @@ func main() {
 	}
 }
 
-func filebot(src, dest string) *exec.Cmd {
-	db := "TheMovieDB"
-	if strings.HasSuffix(dest, "/TV") {
-		db = "TheMovieDB::TV"
-	} else if strings.HasSuffix(dest, "/Music") {
-		db = "ID3"
-	}
-
-	format := "{jellyfin.tail}"
-	if db == "ID3" {
-		format = "{any{albumArtist}{artist}}/{album} ({y})/{any{albumArtist}{artist}} - {album} ({y}) - {pi.pad(2)}. {t}"
-	}
-
+func mediaSort(src, kind string) *exec.Cmd {
 	return exec.Command(
-		"filebot",
-		"-rename",
-		"-non-strict",
-		"-no-xattr",
-		"--action", "symlink",
-		"--conflict", "skip",
-		"--format", format,
-		"--db", db,
-		"-r", src,
-		"--output", dest,
+		"media-sort",
+		kind,
+		src,
 	)
+}
+
+func scanLibrary(c *http.Client, kind string) error {
+	jfURL := os.Getenv("JELLYFIN_URL")
+	jfKey := os.Getenv("JELLYFIN_API_KEY")
+
+	if jfURL == "" || jfKey == "" {
+		return errors.New("JELLYFIN_URL or JELLYFIN_API_KEY unset")
+	}
+
+	libraryID := map[string]string{
+		"movie": "f137a2dd21bbc1b99aa5c0f6bf02a805",
+		"music": "7e64e319657a9516ec78490da03edccb",
+		"tv":    "a656b907eb3a73532e40e44b968d0225",
+	}[kind]
+
+	req, err := http.NewRequest("POST", fmt.Sprintf("%s/Items/%s/Refresh", jfURL, libraryID), nil)
+	if err != nil {
+		return fmt.Errorf("creating jellyfin refresh request: %w", err)
+	}
+
+	req.Header.Set("X-MediaBrowser-Token", jfKey)
+	resp, err := c.Do(req)
+	if err != nil {
+		return fmt.Errorf("posting jellyfin refresh request: %w", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusNoContent {
+		return fmt.Errorf("posting jellyfin refresh request responded %d", resp.StatusCode)
+	}
+
+	return nil
 }
 
 // rtorrent on nas sees `/downloads/...`, everything else

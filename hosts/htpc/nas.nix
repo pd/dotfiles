@@ -46,16 +46,22 @@ in
     ];
   };
 
+  sops.secrets."filebotd.env" = { };
   systemd.services.filebotd = {
     enable = true;
     description = "filebotd";
     wantedBy = [ "multi-user.target" ];
     after = [ "network.target" ];
-    path = [ pkgs.pd.filebot ];
+    path = [
+      # TODO: PATH should be handled by pkgs at this point
+      pkgs.pd.mediaman
+      pkgs.pd.filebot
+    ];
     serviceConfig = {
       Type = "exec";
       User = pd.name;
       ExecStart = "${pkgs.pd.filebotd}/bin/filebotd";
+      EnvironmentFile = config.sops.secrets."filebotd.env".path;
     };
   };
 
