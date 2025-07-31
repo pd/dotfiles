@@ -5,15 +5,6 @@
   ...
 }:
 let
-  # performing the relevant bits of: https://github.com/ScriptTiger/Hosts-BL
-  block-lists = pkgs.runCommand "block-lists" { } ''
-    mkdir $out
-    cat ${pkgs.unstable.stevenblack-blocklist}/hosts |
-      awk '/^0.0.0.0 [a-z]/ { print $2 }' |
-      pr -9 -t -T -a -s' ' - |
-      awk '{ print "0.0.0.0 " $0; print "::0 " $0 }' > $out/dns-block-list
-  '';
-
   dnsInfo = tld: net: name: host: {
     inherit (host.${net}) ipv4;
     name = "${name}.${tld}";
@@ -87,7 +78,7 @@ in
 
       no-hosts = true;
       expand-hosts = false;
-      addn-hosts = [ "${block-lists}/dns-block-list" ];
+      addn-hosts = [ "${pkgs.pd.dns-blocklist}/dns-blocklist" ];
     };
   };
 
