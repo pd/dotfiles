@@ -37,6 +37,11 @@
         show-recents = false;
       };
 
+      finder = {
+        AppleShowAllExtensions = true;
+        FXPreferredViewStyle = "Nlsv";
+      };
+
       loginwindow = {
         autoLoginUser = "pd";
         GuestEnabled = false;
@@ -65,6 +70,11 @@
 
       trackpad = {
         TrackpadThreeFingerTapGesture = 0;
+      };
+
+      universalaccess = {
+        reduceMotion = true;
+        reduceTransparency = true;
       };
     };
 
