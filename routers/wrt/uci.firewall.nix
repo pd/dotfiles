@@ -54,6 +54,11 @@ in
   ];
 
   redirect = [
+    (dnat "www" {
+      ip = pd.net.lan.ipv4.htpc;
+      port = 443;
+    })
+
     (dnat "rtorrent" {
       ip = pd.net.lan.ipv4.nas;
       port = 50000;
