@@ -6,8 +6,8 @@
     ./prometheus
     ./caddy.nix
     ./grafana.nix
+    ./jellyfin.nix
     ./nas.nix
-    ./tv.nix
   ];
 
   system.stateVersion = "24.05";

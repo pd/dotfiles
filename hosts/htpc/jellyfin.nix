@@ -25,4 +25,8 @@
   services.caddy.virtualHosts."jellyfin.home:80".extraConfig = ''
     reverse_proxy localhost:8096
   '';
+
+  services.caddy.virtualHosts."jf.krh.me".extraConfig = ''
+    reverse_proxy localhost:8096
+  '';
 }

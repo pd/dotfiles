@@ -55,6 +55,7 @@ in
 
   redirect = [
     (dnat "www" {
+      proto = [ "tcp" ];
       ip = pd.net.lan.ipv4.htpc;
       port = 443;
     })

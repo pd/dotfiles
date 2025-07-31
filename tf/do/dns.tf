@@ -26,6 +26,8 @@ locals {
       { type = "MX", name = "@", value = "alt2.aspmx.l.google.com.", priority = 5 },
       { type = "MX", name = "@", value = "alt3.aspmx.l.google.com.", priority = 10 },
       { type = "MX", name = "@", value = "alt4.aspmx.l.google.com.", priority = 10 },
+
+      { type = "CNAME", name = "jf", value = "home.krh.me." },
     ]
   }
 }
