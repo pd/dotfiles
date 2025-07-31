@@ -37,9 +37,9 @@ main() {
   local path="$2"
 
   case "$kind" in
-  tv)    _filebot "TheMovieDB::TV" /media/sorted/TV "$path" ;;
-  movie) _filebot "TheMovieDB" /media/sorted/Movies "$path" ;;
-  music) _filebot "ID3" /media/sorted/Music "$path" "{artist}/{album} ({y})/{artist} - {album} ({y}) - {pi.pad(2)}. {t}" ;;
+  tv)    _filebot "${DB:-TheMovieDB::TV}" /media/sorted/TV "$path" ;;
+  movie) _filebot "${DB:-TheMovieDB}" /media/sorted/Movies "$path" ;;
+  music) _filebot "${DB:-ID3}" /media/sorted/Music "$path" "{artist}/{album} ({y})/{artist} - {album} ({y}) - {pi.pad(2)}. {t}" ;;
   *)     usage;;
   esac
 }
