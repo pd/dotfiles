@@ -1,0 +1,13 @@
+groups:
+- name: wg
+  rules:
+  # If handshake from donix isn't fresh, there's probably something
+  # hosed with wg on pi, typically that pi doesn't have the expected
+  # IPv6 GUA. which I'll figure out the root cause of some day.
+  # presumably.
+  - alert: StaleWireguardHandshake
+    expr: time() - wireguard_latest_handshake_seconds{friendly_name="donix"} > (60*5)
+    annotations:
+      summary: donix wireguard connectivity down
+      description: no wireguard handshake from donix in more than 5 minutes
+

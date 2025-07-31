@@ -3,8 +3,8 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/nameserver
+    ./prometheus
     ./caddy.nix
-    ./prometheus.nix
     ./grafana.nix
     ./nas.nix
     ./tv.nix

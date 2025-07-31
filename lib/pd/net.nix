@@ -170,6 +170,7 @@ rec {
       macs = [ "b0:a4:60:17:89:87" ];
       wg.publicKey = "sZql5WlnNt45LuiQUjow0y+Hc9LdWW7nnSUjOMHSsgw=";
       cnames = [
+        "alerts"
         "grafana"
         "jellyfin"
         "ns2"
