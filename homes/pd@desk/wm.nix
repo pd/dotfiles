@@ -6,11 +6,33 @@
 }:
 let
   search-menu = pkgs.writeShellScriptBin "search-menu" (builtins.readFile ./search-menu.sh);
+
+  screenshots =
+    let
+      grim = lib.getExe' pkgs.grim "grim";
+      slurp = lib.getExe' pkgs.slurp "slurp";
+      wl-copy = lib.getExe' pkgs.wl-clipboard "wl-copy";
+    in
+    pkgs.symlinkJoin {
+      name = "wl-screenshots";
+      paths = [
+        (pkgs.writeShellScriptBin "wl-screenshot-region" ''
+          ${grim} -g "$(${slurp})" - | ${wl-copy}
+        '')
+
+        (pkgs.writeShellScriptBin "wl-screenshot-display" ''
+          ${grim} - | ${wl-copy}
+        '')
+      ];
+    };
 in
 {
   home.packages = with pkgs; [
+    grim
     lswt # to get app-id for riverctl rules
+    screenshots
     search-menu
+    slurp
     swayidle
     sway-audio-idle-inhibit
     wl-clipboard
@@ -297,8 +319,12 @@ in
           "${mod}+Alt Right" = "send-layout-cmd rivertile 'main-location right'";
           "${mod}+Alt Down" = "send-layout-cmd rivertile 'main-location bottom'";
 
+          "None <print>" = "spawn 'wl-screenshot-region'";
+          "${mod} <print>" = "spawn 'wl-screenshot-display'";
+
           "${mod}+Shift+Control BackSpace" = "exit";
-        } // (lib.zipAttrs (map tag (lib.range 1 9)));
+        }
+        // (lib.zipAttrs (map tag (lib.range 1 9)));
 
         map-pointer.normal = {
           "${mod} BTN_LEFT" = "move-view";
