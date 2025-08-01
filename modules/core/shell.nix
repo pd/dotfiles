@@ -13,9 +13,14 @@ in
   # only on my actual workstations.
   programs.zsh = {
     enable = true;
+
     interactiveShellInit = ''
       autoload -U select-word-style
       select-word-style bash
+
+      setopt autocd
+      unsetopt nomatch
+
       source "${vtermZsh}"
     '';
   };
