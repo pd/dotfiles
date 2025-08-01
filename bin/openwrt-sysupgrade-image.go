@@ -39,8 +39,8 @@ var (
 	httpClient = &http.Client{}
 
 	commonPackages = []string{
-		"bind-dig",
 		"coreutils-stty",
+		"drill", // in lieu of dig
 		"iperf3",
 		"luci-app-attendedsysupgrade",
 		"luci-app-firewall",
@@ -77,7 +77,7 @@ var (
 			Version:  "SNAPSHOT",
 			Target:   "qualcommax/ipq50xx",
 			Profile:  "glinet_gl-b3000",
-			Packages: commonPackages,
+			Packages: append(commonPackages, []string{}...),
 		},
 	}
 )
@@ -143,8 +143,17 @@ func waitFor(requestHash string) (string, error) {
 			return "", fmt.Errorf("failed to decode GET build response: %w", err)
 		}
 
+		if statusResp.Status == "failed" {
+			return "", fmt.Errorf("build failed: %s", url)
+		}
+
 		if statusResp.Status != "done" {
-			fmt.Fprintf(os.Stderr, "waiting for image to build ...\n")
+			fmt.Fprintf(
+				os.Stderr,
+				"%s waiting for image to build [status=%s]...\n",
+				time.Now().Format(time.RFC3339),
+				statusResp.Status,
+			)
 			time.Sleep(20 * time.Second)
 			continue
 		}
