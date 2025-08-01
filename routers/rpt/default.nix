@@ -32,20 +32,29 @@ lib.uci.mkRouter "rpt" ./secrets.yaml {
       ];
 
       dhcp.lan = {
-        interface = "lan";
         ignore = true;
-        dhcpv6 = "relay";
-        ra = "relay";
+        interface = "lan";
+      };
+
+      dhcp.lan6 = {
+        ignore = true;
+        interface = "lan6";
       };
     };
 
     network = {
       device = lib.uci.bridgeLan 2 (lib.head hosts.rpt.macs);
       interface.lan = {
-        ipaddr = [ "${lan.ipv4.rpt}/22" ];
-        gateway = lan.ipv4.wrt;
-        ip6addr = [ "${lan.ipv6.rpt}/64" ];
-        ip6gw = lan.ipv6.wrt;
+        device = "br-lan";
+        proto = "dhcp";
+      };
+
+      interface.lan6 = {
+        device = "br-lan";
+        proto = "dhcpv6";
+        reqaddress = "try";
+        reqprefix = "auto";
+        norelease = true;
       };
     };
 

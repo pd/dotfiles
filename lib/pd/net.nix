@@ -133,7 +133,7 @@ rec {
 
     rpt = {
       id = 2;
-      duid = "000300019483c4a4aad4";
+      duid = "000300019483c4a4aad2";
       macs = [
         "94:83:c4:a4:aa:d2" # eth0
         "94:83:c4:a4:aa:d4" # lan1, lan2, br-lan
