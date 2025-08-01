@@ -54,6 +54,13 @@ in
       sizes.terminal = 10;
     };
 
+    icons = {
+      enable = true;
+      package = pkgs.numix-icon-theme;
+      dark = "Numix";
+      light = "Numix-Light";
+    };
+
     cursor = {
       package = pkgs.vanilla-dmz;
       name = "Vanilla-DMZ";
