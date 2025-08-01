@@ -26,16 +26,14 @@ in
     with pkgs;
     [
       chromaprint # audio id for filebot
-      flac # for metaflac
-      intermodal # imdl verify
       nfs-utils
-      unzip
     ]
     ++ (with pkgs.pd; [
       filebot
       filebotd
       mediaman
       rtorrent-exporter
+      xtor
     ]);
 
   fileSystems."/media" = {
