@@ -4,6 +4,9 @@
   outputs =
     inputs@{ nixpkgs, ... }:
     let
+      # TODO: split off lib.uci, lib.pd into pdlib or something
+      # https://nixos.org/manual/nixpkgs/stable/#module-system-lib-evalModules-param-specialArgs
+      # explicitly advises not to use specialArgs to override lib
       lib =
         nixpkgs.lib
         // (import ./lib {
@@ -24,7 +27,8 @@
             ./modules/core/nixos
             inputs.sops-nix.nixosModules.sops
             ./hosts/${host}
-          ] ++ modules;
+          ]
+          ++ modules;
         };
 
       mkDarwin =
@@ -35,7 +39,8 @@
             ./modules/core/darwin
             inputs.sops-nix.darwinModules.sops
             ./hosts/${host}
-          ] ++ modules;
+          ]
+          ++ modules;
         };
 
       mkHome =
