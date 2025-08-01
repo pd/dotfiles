@@ -2,7 +2,6 @@
   dmerge,
   lib,
   pd,
-  pkgs,
   ...
 }:
 lib.uci.mkRouter "wrt" ./secrets.yaml {
@@ -22,20 +21,15 @@ lib.uci.mkRouter "wrt" ./secrets.yaml {
     wireless = import ./uci.wireless.nix { inherit lib; };
   };
 
-  # deploySteps is marked internal but I want to copy a file
-  # and this is the best I've got
+  # TODO: should not be touching deploySteps
   deploySteps.ddns =
     let
       path = "/usr/lib/ddns/update_wg_pi.sh";
-      ddnsWG6 = pkgs.writeTextFile {
-        name = "update_wg_pi.sh";
-        text = builtins.readFile ./update_wg_pi.sh;
-      };
     in
     {
       priority = 100;
       copy = ''
-        scp ${ddnsWG6} device:${path}
+        scp ${./update_wg_pi.sh} device:${path}
       '';
       apply = ''
         chown root:root ${path}

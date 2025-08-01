@@ -190,9 +190,30 @@ with lib;
         };
       };
 
+      # TODO: Should not really be reaching into deploySteps at all,
+      # it's explicitly marked internal. still doing it.
+
+      # Install just enough for a decent zsh env that works via
+      # tramp+vterm.
+      deploySteps.zsh = {
+        priority = 100;
+        copy = "";
+        apply = ''
+          cat >/root/.profile <<EOF
+          if [[ "\$TERM" == "dumb" ]]; then
+            export PS1='$ '
+          elif which zsh >/dev/null 2>&1; then
+            exec zsh -il
+          fi
+          EOF
+
+          cat >/root/.zshrc <<EOF
+          export PROMPT='%n@%m:%~/ > '
+          EOF
+        '';
+      };
+
       # I don't want dewclaw managing packages at all.
-      # TODO: This is not a particularly public interface, so is very
-      # likely to break at some point.
       deploySteps.packages = {
         copy = lib.mkForce "";
         apply = lib.mkForce "";
