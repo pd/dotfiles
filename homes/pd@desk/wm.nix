@@ -30,6 +30,7 @@ in
   home.packages = with pkgs; [
     grim
     lswt # to get app-id for riverctl rules
+    imv # minimalist image viewer
     screenshots
     search-menu
     slurp
@@ -349,8 +350,9 @@ in
             };
 
             floats = map float [
+              "imv"
               "org.pulseaudio.pavucontrol"
-              "pinta"
+              "com.github.PintaProject.Pinta"
             ];
           in
           tags ++ floats;
