@@ -40,6 +40,7 @@ var (
 
 	commonPackages = []string{
 		"bind-dig",
+		"coreutils-stty",
 		"iperf3",
 		"luci-app-attendedsysupgrade",
 		"luci-app-firewall",
@@ -58,6 +59,7 @@ var (
 		"tcpdump",
 		"-wpad-basic-mbedtls",
 		"wpad",
+		"zsh",
 	}
 
 	routers = map[string]Router{
