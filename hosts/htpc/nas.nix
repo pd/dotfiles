@@ -28,6 +28,7 @@ in
       chromaprint # audio id for filebot
       flac # for metaflac
       nfs-utils
+      unzip
     ]
     ++ (with pkgs.pd; [
       filebot
