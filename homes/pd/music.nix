@@ -3,6 +3,7 @@
   home.packages = with pkgs; [
     flac
     imagemagick
+    intermodal # for imdl verify mostly
     lame
     mktorrent
     pyrosimple # lstor, rtxmlrpc

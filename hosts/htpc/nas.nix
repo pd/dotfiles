@@ -27,6 +27,7 @@ in
     [
       chromaprint # audio id for filebot
       flac # for metaflac
+      intermodal # imdl verify
       nfs-utils
       unzip
     ]
