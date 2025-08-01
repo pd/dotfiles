@@ -45,16 +45,13 @@
 
       mkHome =
         userAtHost: system:
-        let
+        inputs.home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${system};
           extraSpecialArgs = {
             inherit inputs;
             inherit (lib) pd;
             hostname = lib.last (lib.splitString "@" userAtHost);
           };
-        in
-        inputs.home-manager.lib.homeManagerConfiguration {
-          inherit extraSpecialArgs;
-          pkgs = nixpkgs.legacyPackages.${system};
           modules = [
             ./modules/core/nixpkgs.nix
             {
@@ -104,6 +101,7 @@
         system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
+          unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
           mkRouter =
             host:
             pkgs.callPackage ./pkgs/router {
@@ -123,6 +121,9 @@
             ];
           };
         }
+        // (import ./pkgs {
+          inherit pkgs unstable;
+        })
       );
     };
 

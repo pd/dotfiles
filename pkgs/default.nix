@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, unstable, ... }:
 {
   dns-blocklist = pkgs.callPackage ./dns-blocklist.nix {
-    inherit (pkgs.unstable) stevenblack-blocklist;
+    inherit (unstable) stevenblack-blocklist;
   };
 
   filebot = pkgs.callPackage ./filebot.nix { };

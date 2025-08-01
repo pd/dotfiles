@@ -7,6 +7,7 @@
 {
   imports = [
     "${modulesPath}/virtualisation/lxc-container.nix"
+    "${modulesPath}/profiles/headless.nix"
     ./orbstack.nix
   ];
 
@@ -69,7 +70,7 @@
   # Extra certificates from OrbStack.
   security.pki.certificates = [
     ''
-            -----BEGIN CERTIFICATE-----
+      -----BEGIN CERTIFICATE-----
       MIICDDCCAbKgAwIBAgIQf+fxBdf00ma1UxF2NjzEgzAKBggqhkjOPQQDAjBmMR0w
       GwYDVQQKExRPcmJTdGFjayBEZXZlbG9wbWVudDEeMBwGA1UECwwVQ29udGFpbmVy
       cyAmIFNlcnZpY2VzMSUwIwYDVQQDExxPcmJTdGFjayBEZXZlbG9wbWVudCBSb290
@@ -82,7 +83,6 @@
       IL2gEZXZ4WX87DAKBggqhkjOPQQDAgNIADBFAiEA2g6NaDXyEe2JTXYObDUoGg4a
       E+cqjB5fG0aNcYl/fQ4CID1E8JETcVYBlUyUzOQV/bocrkUhG7jBCTcePyqqOlOl
       -----END CERTIFICATE-----
-
     ''
   ];
 }
