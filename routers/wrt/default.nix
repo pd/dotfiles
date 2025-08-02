@@ -2,9 +2,10 @@
   dmerge,
   lib,
   pd,
+  uci,
   ...
 }:
-lib.uci.mkRouter "wrt" ./secrets.yaml {
+uci.mkRouter "wrt" ./secrets.yaml {
   uci.retain = [
     "luci"
     "rpcd"
@@ -15,10 +16,10 @@ lib.uci.mkRouter "wrt" ./secrets.yaml {
     dhcp = import ./uci.dhcp.nix { inherit lib pd; };
     ddns = import ./uci.ddns.nix { inherit lib; };
     firewall = import ./uci.firewall.nix { inherit dmerge pd; };
-    network = import ./uci.network.nix { inherit lib pd; };
+    network = import ./uci.network.nix { inherit pd uci; };
     uhttpd = import ./uci.uhttpd.nix { inherit lib pd; };
     upnpd = import ./uci.upnpd.nix { inherit pd; };
-    wireless = import ./uci.wireless.nix { inherit lib; };
+    wireless = import ./uci.wireless.nix { inherit uci; };
   };
 
   # TODO: should not be touching deploySteps

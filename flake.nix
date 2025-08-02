@@ -4,19 +4,16 @@
   outputs =
     inputs@{ nixpkgs, ... }:
     let
-      # TODO: split off lib.uci, lib.pd into pdlib or something
-      # https://nixos.org/manual/nixpkgs/stable/#module-system-lib-evalModules-param-specialArgs
-      # explicitly advises not to use specialArgs to override lib
-      lib =
-        nixpkgs.lib
-        // (import ./lib {
-          inherit (inputs) dmerge;
-          inherit lib;
-        });
+      inherit (nixpkgs) lib;
+
+      libx = import ./lib {
+        inherit lib;
+        inherit (inputs) dmerge;
+      };
 
       specialArgs = {
-        inherit inputs lib;
-        inherit (lib) pd;
+        inherit inputs lib libx;
+        inherit (libx) pd;
       };
 
       mkNixos =
@@ -27,8 +24,7 @@
             ./modules/core/nixos
             inputs.sops-nix.nixosModules.sops
             ./hosts/${host}
-          ]
-          ++ modules;
+          ] ++ modules;
         };
 
       mkDarwin =
@@ -39,8 +35,7 @@
             ./modules/core/darwin
             inputs.sops-nix.darwinModules.sops
             ./hosts/${host}
-          ]
-          ++ modules;
+          ] ++ modules;
         };
 
       mkHome =
@@ -49,7 +44,7 @@
           pkgs = nixpkgs.legacyPackages.${system};
           extraSpecialArgs = {
             inherit inputs;
-            inherit (lib) pd;
+            inherit (libx) pd;
             hostname = lib.last (lib.splitString "@" userAtHost);
           };
           modules = [
@@ -106,7 +101,12 @@
             host:
             pkgs.callPackage ./pkgs/router {
               inherit (inputs) dmerge dewclaw;
-              inherit lib host pkgs;
+              inherit (libx) pd uci;
+              inherit
+                lib
+                host
+                pkgs
+                ;
               path = ./routers/${host};
             };
         in

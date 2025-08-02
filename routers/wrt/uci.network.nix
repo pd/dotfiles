@@ -1,4 +1,4 @@
-{ lib, pd, ... }:
+{ pd, uci }:
 {
   globals = [ { ula_prefix = pd.net.lan.cidr6; } ];
 
@@ -7,7 +7,7 @@
       name = "eth1";
       macaddr = "94:83:c4:a3:31:20";
     }
-  ] ++ (lib.uci.bridgeLan 5 "94:83:c4:a3:31:22");
+  ] ++ (uci.bridgeLan 5 "94:83:c4:a3:31:22");
 
   interface.lan = {
     ipaddr = pd.net.lan.ipv4.wrt;

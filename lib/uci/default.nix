@@ -1,6 +1,7 @@
 {
   dmerge,
   lib,
+  pd,
 
   authorized-keys,
   resolvers,
@@ -49,7 +50,7 @@ with lib;
     iface = device: {
       inherit device;
       network = "lan";
-      ssid = lib.pd.net.wifi.ssid;
+      ssid = pd.net.wifi.ssid;
       encryption = "psk2";
       key._secret = "wifi_password";
     };
@@ -215,8 +216,8 @@ with lib;
 
       # I don't want dewclaw managing packages at all.
       deploySteps.packages = {
-        copy = lib.mkForce "";
-        apply = lib.mkForce "";
+        copy = mkForce "";
+        apply = mkForce "";
       };
 
     } custom;

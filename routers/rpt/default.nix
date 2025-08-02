@@ -1,12 +1,13 @@
 {
   lib,
   pd,
+  uci,
   ...
 }:
 let
   inherit (pd.net) lan hosts;
 in
-lib.uci.mkRouter "rpt" ./secrets.yaml {
+uci.mkRouter "rpt" ./secrets.yaml {
   uci.retain = [
     "luci"
     "rpcd"
@@ -43,7 +44,7 @@ lib.uci.mkRouter "rpt" ./secrets.yaml {
     };
 
     network = {
-      device = lib.uci.bridgeLan 2 (lib.head hosts.rpt.macs);
+      device = uci.bridgeLan 2 (lib.head hosts.rpt.macs);
       interface.lan = {
         device = "br-lan";
         proto = "dhcp";
@@ -58,7 +59,7 @@ lib.uci.mkRouter "rpt" ./secrets.yaml {
       };
     };
 
-    wireless = with lib.uci.wifi; {
+    wireless = with uci.wifi; {
       wifi-device.radio0 = device "platform/soc@0/c000000.wifi" // bands."2g" // off;
       wifi-device.radio1 = device "platform/soc@0/b00a040.wifi1" // bands."5g";
 

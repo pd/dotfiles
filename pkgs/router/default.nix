@@ -5,18 +5,21 @@
   dewclaw,
   dmerge,
   lib,
+  pd,
   pkgs,
+  uci,
 }:
 let
   deploy = pkgs.callPackage dewclaw {
     inherit pkgs;
     configuration = {
       openwrt.${host} = import path {
-        inherit (lib) pd;
         inherit
           dmerge
           lib
+          pd
           pkgs
+          uci
           ;
       };
     };
