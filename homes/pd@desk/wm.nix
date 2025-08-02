@@ -300,10 +300,18 @@ in
           };
       in
       {
+        declare-mode = [
+          "reshape"
+        ];
+
+        # Key names:
+        # https://github.com/xkbcommon/libxkbcommon/blob/e9fd95/include/xkbcommon/xkbcommon-keysyms.h
         map.normal = {
           "${mod} Return" = "spawn alacritty";
           "${mod} Space" = "spawn 'fuzzel'";
           "${mod} slash" = "spawn '${search-menu}/bin/search-menu'";
+
+          "${mod} R" = "enter-mode reshape";
 
           "${mod}+Shift H" = "focus-view left";
           "${mod}+Shift J" = "focus-view down";
@@ -318,21 +326,28 @@ in
           "${mod}+Shift F" = "toggle-fullscreen";
           "${mod}+Shift Space" = "toggle-float";
 
-          "${mod}+Alt I" = "send-layout-cmd rivertile 'main-count +1'";
-          "${mod}+Alt D" = "send-layout-cmd rivertile 'main-count -1'";
-          "${mod}+Alt bracketleft" = "send-layout-cmd rivertile 'main-ratio -0.05'";
-          "${mod}+Alt bracketright" = "send-layout-cmd rivertile 'main-ratio +0.05'";
-          "${mod}+Alt Left" = "send-layout-cmd rivertile 'main-location left'";
-          "${mod}+Alt Up" = "send-layout-cmd rivertile 'main-location top'";
-          "${mod}+Alt Right" = "send-layout-cmd rivertile 'main-location right'";
-          "${mod}+Alt Down" = "send-layout-cmd rivertile 'main-location bottom'";
-
           "None <print>" = "spawn 'wl-screenshot-region'";
           "${mod} <print>" = "spawn 'wl-screenshot-display'";
 
           "${mod}+Shift+Control BackSpace" = "exit";
         }
         // (lib.zipAttrs (map tag (lib.range 1 9)));
+
+        map.reshape = {
+          "None Enter" = "enter-mode normal";
+          "None Return" = "enter-mode normal";
+
+          "None Plus" = "send-layout-cmd rivertile 'main-count +1'";
+          "None Minus" = "send-layout-cmd rivertile 'main-count +1'";
+
+          "Shift Left" = "send-layout-cmd rivertile 'main-ratio -0.05'";
+          "Shift Right" = "send-layout-cmd rivertile 'main-ratio +0.05'";
+
+          "None Left" = "send-layout-cmd rivertile 'main-location left'";
+          "None Up" = "send-layout-cmd rivertile 'main-location top'";
+          "None Right" = "send-layout-cmd rivertile 'main-location right'";
+          "None Down" = "send-layout-cmd rivertile 'main-location bottom'";
+        };
 
         map-pointer.normal = {
           "${mod} BTN_LEFT" = "move-view";
