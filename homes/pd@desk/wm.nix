@@ -377,7 +377,7 @@ in
               "com.github.PintaProject.Pinta"
             ];
           in
-          tags ++ floats;
+          [ "ssd" ] ++ tags ++ floats;
 
         spawn = map (cmd: "'${cmd}'") [
           "waybar"
