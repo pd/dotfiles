@@ -21,5 +21,19 @@
   hardware.enableRedistributableFirmware = true;
   security.rtkit.enable = true;
 
+  services.keyd = {
+    enable = true;
+    keyboards = {
+      default = {
+        ids = [ "*" ];
+        settings = {
+          main = {
+            capslock = "layer(control)";
+          };
+        };
+      };
+    };
+  };
+
   time.timeZone = "America/Chicago";
 }
