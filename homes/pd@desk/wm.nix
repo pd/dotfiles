@@ -385,7 +385,7 @@ in
           "sway-audio-idle-inhibit"
         ];
 
-        background-color = lib.mkForce "0x6077a6";
+        background-color = lib.mkForce "0x101013";
         border-width = 3;
         default-layout = "rivertile";
         focus-follows-cursor = "normal";
