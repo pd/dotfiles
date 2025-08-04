@@ -16,6 +16,7 @@
     [
       bitwarden-cli
       bitwarden-desktop
+      discord # god help me
       pavucontrol # audio
       pinta # remedial image editing
       screen
