@@ -11,6 +11,9 @@ in
   options = {
     lan.enable = mkEnableOption "inside the house";
 
+    # TODO rm once everything's cut over
+    lan.networkd = mkEnableOption "use systemd-networkd";
+
     lan.gateway = mkOption {
       type = types.str;
       default = "192.168.40.1";
@@ -31,18 +34,61 @@ in
 
   config = mkMerge [
     {
+      # TODO irrelevant now i think? move to resolvectl somehow i guess
       networking.resolvconf.extraOptions = [ "timeout:1" ];
     }
 
-    (mkIf (cfg.enable && cfg.wired.interface != null) {
-      networking.interfaces."${cfg.wired.interface}" = {
-        name = cfg.wired.interface;
-        useDHCP = true;
-        # TODO wakeOnLan
+    (mkIf cfg.networkd {
+      networking.useDHCP = false;
+      systemd.network.enable = true;
+    })
+
+    (mkIf (cfg.enable && cfg.networkd && cfg.wired.interface != null) {
+      systemd.network.networks."10-lan" = {
+        matchConfig.Name = cfg.wired.interface;
+        networkConfig = {
+          DHCP = true;
+          IPv6AcceptRA = true;
+          UseDomains = true;
+        };
       };
     })
 
-    (mkIf (cfg.enable && cfg.wifi.interface != null) {
+    (mkIf (cfg.enable && !cfg.networkd && cfg.wired.interface != null) {
+      networking.interfaces.${cfg.wired.interface} = {
+        name = cfg.wired.interface;
+        useDHCP = true;
+      };
+    })
+
+    (mkIf (cfg.enable && cfg.networkd && cfg.wifi.interface != null) {
+      sops.secrets.wifi = {
+        mode = "0440";
+        owner = "root";
+        group = "wheel";
+      };
+
+      systemd.network.networks."20-wifi" = {
+        matchConfig.Name = cfg.wifi.interface;
+        networkConfig = {
+          DHCP = true;
+          IPv6AcceptRA = true;
+          UseDomains = true;
+        };
+      };
+
+      # TODO def wrong
+      networking.networkmanager.enable = false;
+      networking.wireless.iwd = {
+        enable = true;
+        settings = {
+          Network.EnableIPv6 = true;
+          Settings.AutoConnect = true;
+        };
+      };
+    })
+
+    (mkIf (cfg.enable && !cfg.networkd && cfg.wifi.interface != null) {
       sops.secrets.wifi = {
         mode = "0440";
         owner = "root";
@@ -50,7 +96,6 @@ in
       };
 
       networking.wireless.enable = false;
-
       networking.networkmanager = {
         enable = true;
 

@@ -145,7 +145,7 @@ rec {
 
     desk = {
       id = 10;
-      duid = "000100012edf49e42cf05ddb8d13";
+      duid = "00020000ab1128098d9beaf51da5";
       macs = [ "2c:f0:5d:db:8d:f3" ];
     };
 
@@ -183,7 +183,7 @@ rec {
 
     pi = {
       id = 13;
-      duid = "000103042eaecf0e000000000000";
+      duid = "00020000ab117bab113ac86ee6d1";
       macs = [ "d8:3a:dd:70:a7:f5" ];
       wg.publicKey = "xDPPIIjA72BrCFC+5eqJn7IiC0xeI6Dof38Inj+tXwg=";
       cnames = [

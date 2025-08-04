@@ -10,6 +10,8 @@
   system.stateVersion = "24.05";
 
   networking.hostName = "desk";
+
+  lan.networkd = true;
   lan.wired.interface = "eth0";
   # lan.wifi.interface = "wlan0";
 
