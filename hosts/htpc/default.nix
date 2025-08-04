@@ -22,6 +22,8 @@
   hardware.enableRedistributableFirmware = true;
   security.rtkit.enable = true;
 
+  time.timeZone = "America/Chicago";
+
   services.keyd = {
     enable = true;
     keyboards = {
@@ -36,5 +38,4 @@
     };
   };
 
-  time.timeZone = "America/Chicago";
 }

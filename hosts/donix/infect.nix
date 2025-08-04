@@ -28,7 +28,10 @@
   '';
 
   networking = {
-    defaultGateway = "159.203.128.1";
+    defaultGateway = {
+      address = "159.203.128.1";
+      interface = "eth0";
+    };
     defaultGateway6 = {
       address = "2604:a880:800:14::1";
       interface = "eth0";

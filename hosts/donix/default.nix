@@ -29,6 +29,9 @@ in
     "1.1.1.1"
     "8.8.8.8"
   ];
+
+  networking.useDHCP = false;
+  networking.useNetworkd = true;
   wg.offLan = true;
 
   time.timeZone = "America/Chicago";

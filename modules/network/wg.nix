@@ -75,15 +75,24 @@ in
       sops.secrets.wireguard-private-key = {
         mode = "0440";
         owner = config.users.users.root.name;
-        group = "wheel";
+        group = "systemd-network";
       };
 
-      networking.wg-quick.interfaces.wg0 = {
-        inherit (cfg) autostart privateKeyFile;
-        address = [
-          "${cfg.ipv4}/32"
-          "${cfg.ipv6}/128"
-        ];
+      environment.systemPackages = [ pkgs.wireguard-tools ];
+
+      systemd.network = {
+        enable = true;
+        netdevs."30-wg0" = {
+          netdevConfig = {
+            Kind = "wireguard";
+            Name = "wg0";
+            MTUBytes = "1300";
+          };
+
+          wireguardConfig = {
+            PrivateKeyFile = config.sops.secrets.wireguard-private-key.path;
+          };
+        };
       };
     })
 
@@ -91,40 +100,53 @@ in
       sops.secrets.wireguard-preshared-key = {
         mode = "0440";
         owner = config.users.users.root.name;
-        group = "wheel";
+        group = "systemd-network";
       };
 
-      networking.firewall.allowedUDPPorts = [ cfg.port ];
-      networking.wg-quick.interfaces.wg0 = {
-        peers = [
+      systemd.network = {
+        netdevs."30-wg0".wireguardPeers = [
           {
-            endpoint = if cfg.offLan then "wg.krh.me:51930" else cfg.endpoint;
-            publicKey = cfg.serverPublicKey;
-            presharedKeyFile = config.sops.secrets.wireguard-preshared-key.path;
-            allowedIPs =
-              [
-                cfg.cidr
-                cfg.cidr6
-              ]
-              ++ (lib.optionals cfg.offLan [
-                pd.net.lan.cidr
-                pd.net.lan.cidr6
-              ]);
-            persistentKeepalive = 25;
+            Endpoint = if cfg.offLan then "wg.krh.me:51930" else cfg.endpoint;
+            PublicKey = cfg.serverPublicKey;
+            PresharedKeyFile = config.sops.secrets.wireguard-preshared-key.path;
+            AllowedIPs = [
+              cfg.cidr
+              cfg.cidr6
+            ]
+            ++ (lib.optionals cfg.offLan [
+              pd.net.lan.cidr
+              pd.net.lan.cidr6
+            ]);
+            PersistentKeepalive = 25;
           }
         ];
-      };
-    })
 
-    (mkIf (cfg.enable && !isServer && cfg.offLan) {
-      networking.wg-quick.interfaces.wg0.dns = [
-        pd.net.wg.ipv6.pi
-        pd.net.wg.ipv4.pi
-        pd.net.wg.ipv6.htpc
-        pd.net.wg.ipv4.htpc
-        "wg"
-        "home"
-      ];
+        networks.wg0 = {
+          matchConfig.Name = "wg0";
+          address = [
+            "${cfg.ipv4}/24"
+            "${cfg.ipv6}/64"
+          ];
+          dns = [
+            pd.net.wg.ipv6.pi
+            pd.net.wg.ipv6.htpc
+            pd.net.wg.ipv4.pi
+            pd.net.wg.ipv4.htpc
+          ];
+          domains = [
+            "home"
+            "wg"
+          ];
+          routes =
+            if cfg.offLan then
+              [
+                { Destination = pd.net.lan.cidr; }
+                { Destination = pd.net.lan.cidr6; }
+              ]
+            else
+              [ ];
+        };
+      };
     })
 
     (mkIf (cfg.enable && isServer) (
@@ -136,25 +158,25 @@ in
           value = {
             mode = "0440";
             owner = config.users.users.root.name;
-            group = "wheel";
+            group = "systemd-network";
           };
         }) clients;
 
         peers = lib.mapAttrsToList (name: peer: {
           inherit name;
-          allowedIPs = [
+          AllowedIPs = [
             "${peer.wg.ipv4}/32"
             "${peer.wg.ipv6}/128"
           ];
-          publicKey = peer.wg.publicKey;
-          presharedKeyFile = config.sops.secrets."wireguard-preshared-key-${name}".path;
+          PublicKey = peer.wg.publicKey;
+          PresharedKeyFile = config.sops.secrets."wireguard-preshared-key-${name}".path;
         }) clients;
 
         peerSection = peer: ''
           [Peer]
           # friendly_name=${peer.name}
-          PublicKey = ${peer.publicKey}
-          AllowedIPs = ${head peer.allowedIPs}
+          PublicKey = ${peer.PublicKey}
+          AllowedIPs = ${head peer.AllowedIPs}
         '';
 
         # Write a mock config the exporter can grab friendly names from
@@ -165,15 +187,8 @@ in
         sops.secrets = psk-secrets;
 
         boot.kernel.sysctl = {
-          # IPv4 was on without me explicitly opting in.
-          # I have no idea why.
+          "net.ipv4.conf.all.forwarding" = 1;
           "net.ipv6.conf.all.forwarding" = 1;
-        };
-
-        networking.nat = {
-          enable = true;
-          externalInterface = cfg.natInterface;
-          internalInterfaces = [ "wg0" ];
         };
 
         networking.firewall = {
@@ -183,20 +198,22 @@ in
           ];
         };
 
-        networking.wg-quick.interfaces.wg0 = {
-          listenPort = cfg.port;
+        systemd.network = {
+          netdevs."30-wg0" = {
+            wireguardConfig.ListenPort = cfg.port;
+            wireguardPeers = lib.map (p: removeAttrs p [ "name" ]) peers;
+          };
 
-          peers = lib.map (p: removeAttrs p [ "name" ]) peers;
-
-          postUp = ''
-            ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s ${cfg.cidr} -o ${cfg.natInterface} -j MASQUERADE
-            ${pkgs.iptables}/bin/ip6tables -t nat -A POSTROUTING -s ${cfg.cidr6} -o ${cfg.natInterface} -j MASQUERADE
-          '';
-
-          postDown = ''
-            ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s ${cfg.cidr} -o ${cfg.natInterface} -j MASQUERADE
-            ${pkgs.iptables}/bin/ip6tables -t nat -D POSTROUTING -s ${cfg.cidr6} -o ${cfg.natInterface} -j MASQUERADE
-          '';
+          networks."wg0" = {
+            matchConfig.Name = "wg0";
+            address = [
+              "${cfg.ipv4}/24"
+              "${cfg.ipv6}/64"
+            ];
+            networkConfig = {
+              IPMasquerade = "both";
+            };
+          };
         };
 
         services.prometheus.exporters.wireguard = {
@@ -204,7 +221,6 @@ in
           listenAddress = "0.0.0.0";
           wireguardConfig = wgPeerNames;
         };
-
       }
     ))
   ];
