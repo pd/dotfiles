@@ -53,10 +53,4 @@ in
       ntfy access sub '*' ro
     '';
   };
-
-  services.caddy.virtualHosts."ntfy.krh.me" = {
-    extraConfig = ''
-      reverse_proxy localhost:${toString port}
-    '';
-  };
 }

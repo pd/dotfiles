@@ -1,4 +1,4 @@
-{ pd, ... }:
+{ config, pd, ... }:
 {
   imports = [ ../../modules/httpd ];
 
@@ -10,6 +10,7 @@
     ];
 
     staticSites."internetsfamo.us".root = ./internetsfamous;
+    reverseProxies."ntfy.krh.me" = config.services.ntfy-sh.settings.listen-http;
   };
 
 }
