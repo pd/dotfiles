@@ -140,7 +140,6 @@
                 direnv
                 home-manager
                 just
-                neovim
                 nix-direnv
               ]
               ++ (with unstable; [
