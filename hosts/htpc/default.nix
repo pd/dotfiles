@@ -4,7 +4,7 @@
     ./hardware-configuration.nix
     ../../modules/nameserver
     ./prometheus
-    ./caddy.nix
+    ./httpd.nix
     ./grafana.nix
     ./jellyfin.nix
     ./nas.nix

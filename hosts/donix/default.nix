@@ -19,7 +19,7 @@ in
   imports = [
     ./infect.nix
     ./ntfy.nix
-    ./www.nix
+    ./httpd.nix
   ];
 
   system.stateVersion = "24.05";

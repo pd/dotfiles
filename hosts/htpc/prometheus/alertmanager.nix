@@ -1,9 +1,6 @@
 { config, ... }:
 let
-  ports = {
-    alertmanager = toString config.services.prometheus.alertmanager.port;
-    alertmanager-ntfy = "18888";
-  };
+  ports.alertmanager-ntfy = "18888";
 in
 {
   services.prometheus.alertmanagers = [
@@ -21,16 +18,14 @@ in
       receivers = [
         {
           name = "ntfy";
-          webhook_configs = [ { url = "http://127.0.0.1:${ports.alertmanager-ntfy}/hook"; } ];
+          webhook_configs = [
+            { url = "http://127.0.0.1:${ports.alertmanager-ntfy}/hook"; }
+          ];
         }
       ];
       route.receiver = "ntfy";
     };
   };
-
-  services.caddy.virtualHosts."alerts.home:80".extraConfig = ''
-    reverse_proxy localhost:${ports.alertmanager}
-  '';
 
   sops.secrets.alertmanager-ntfy = { };
   services.prometheus.alertmanager-ntfy = {

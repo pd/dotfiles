@@ -17,8 +17,4 @@
     retentionTime = "60d";
     ruleFiles = [ ./prometheus.rules.yaml ];
   };
-
-  services.caddy.virtualHosts."prom.home:80".extraConfig = ''
-    reverse_proxy localhost:9999
-  '';
 }

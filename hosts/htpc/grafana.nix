@@ -1,10 +1,4 @@
 { config, ... }:
-let
-  ports = {
-    grafana = toString config.services.grafana.settings.server.http_port;
-    prometheus = toString config.services.prometheus.port;
-  };
-in
 {
   services.grafana = {
     enable = true;
@@ -25,14 +19,10 @@ in
           name = "prom";
           type = "prometheus";
           access = "proxy";
-          url = "http://localhost:${ports.prometheus}";
+          url = "http://localhost:${toString config.services.prometheus.port}";
           isDefault = true;
         }
       ];
     };
   };
-
-  services.caddy.virtualHosts."grafana.home:80".extraConfig = ''
-    reverse_proxy localhost:${ports.grafana}
-  '';
 }

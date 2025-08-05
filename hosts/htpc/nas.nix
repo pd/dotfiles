@@ -97,20 +97,4 @@ in
       OnUnitActiveSec = [ "720m" ];
     };
   };
-
-  services.caddy.virtualHosts = {
-    "store.home:80".extraConfig = ''
-      reverse_proxy nas.home:5000
-    '';
-
-    "torrent.home:80".extraConfig = ''
-      handle /_hooks/* {
-        reverse_proxy localhost:12345
-      }
-
-      handle {
-        reverse_proxy nas.home:8080
-      }
-    '';
-  };
 }
