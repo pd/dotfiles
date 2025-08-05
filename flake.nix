@@ -91,7 +91,6 @@
       homeConfigurations."pd@span" = mkHome "pd@span" "x86_64-darwin";
       homeConfigurations."pd@orb" = mkHome "pd@orb" "x86_64-linux";
 
-      # routers
       packages = forEachSystem (
         system:
         let
@@ -124,6 +123,31 @@
         // (import ./pkgs {
           inherit pkgs unstable;
         })
+      );
+
+      devShells = forEachSystem (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
+        in
+        {
+          default = pkgs.mkShell {
+            buildInputs =
+              with pkgs;
+              [
+                direnv
+                just
+                neovim
+                nix-direnv
+              ]
+              ++ (with unstable; [
+                git
+                opentofu
+                sops
+              ]);
+          };
+        }
       );
     };
 

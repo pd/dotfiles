@@ -13,6 +13,7 @@ vim/bundle
 .terraform.tfstate*
 
 result
+/.direnv
 
 # openwrt images
 /*.bin
