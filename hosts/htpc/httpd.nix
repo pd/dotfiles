@@ -12,7 +12,7 @@
           grafana = config.services.grafana.settings.server.http_port;
           jellyfin = 8096;
           prom = config.services.prometheus.port;
-          rtorrent = 8000;
+          rtorrent = 8080;
           synologyDSM = 5000;
         };
       in
