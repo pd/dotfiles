@@ -10,7 +10,6 @@ vim/.netrwhist
 vim/bundle
 
 .terraform
-.terraform.lock*
 .terraform.tfstate*
 
 result
