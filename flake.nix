@@ -89,6 +89,7 @@
 
       homeConfigurations."pd@desk" = mkHome "pd@desk" "x86_64-linux";
       homeConfigurations."pd@span" = mkHome "pd@span" "x86_64-darwin";
+      homeConfigurations."pd@htpc" = mkHome "pd@htpc" "x86_64-linux";
       homeConfigurations."pd@orb" = mkHome "pd@orb" "x86_64-linux";
 
       packages = forEachSystem (
@@ -137,6 +138,7 @@
               with pkgs;
               [
                 direnv
+                home-manager
                 just
                 neovim
                 nix-direnv
