@@ -7,6 +7,7 @@
     git
     htop
     jq
+    nvd # to diff nixos generations
     procps
     ripgrep
     tcpdump

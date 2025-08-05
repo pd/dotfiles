@@ -10,6 +10,10 @@ test-all: (all "test")
 switch-all: (all "switch")
 
 [group('ops')]
+diff host:
+    @just {{ host }} diff
+
+[group('ops')]
 build host:
     @just {{ host }} build
 
@@ -33,7 +37,13 @@ repl host:
 homeConfiguration := x'$USER@$(hostname)'
 [group('ops')]
 hm op="switch":
-    home-manager {{ op }} --flake .#{{ homeConfiguration }}
+    #!/usr/bin/env bash
+    if [[ "{{ op }}" == "diff" ]]; then
+      just hm build
+      nvd diff $(home-manager generations | head -1 | cut -d' ' -f7) ./result
+    else
+      home-manager {{ op }} --flake .#{{ homeConfiguration }}
+    fi
 
 [group('hosts')]
 all op="test": (desk op) (htpc op) (pi op) (donix op) (orb op)
@@ -60,7 +70,24 @@ orb op="test":
 
 _nixos_rebuild op host:
     #!/usr/bin/env bash
-    if [[ "{{ host }}" == "$HOSTNAME" ]]; then
+    set -euo pipefail
+
+    is_local() {
+      test "{{ host }}" == "$HOSTNAME"
+    }
+
+    if [[ "{{ op }}" == "diff" ]]; then
+      if is_local; then
+        just build {{ host }}
+        nvd diff /run/current-system ./result
+      else
+        build_log="$(mktemp -p "${TMPDIR:-/tmp}" nixos-rebuild-log.XXXXXX)"
+        trap "rm -f $build_log" EXIT
+        just build {{ host }} | tee "$build_log"
+        ssh "{{ host }}" nvd diff /run/current-system "$(cat "$build_log")"
+      fi
+
+    elif is_local; then
       nixos-rebuild {{ op }} --flake '.#{{ host }}' --use-remote-sudo --fast
     else
       nixos-rebuild {{ op }} --flake '.#{{ host }}' --target-host {{ host }} --build-host {{ host }} --use-remote-sudo --fast
