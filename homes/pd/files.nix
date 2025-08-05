@@ -14,10 +14,8 @@ let
 
   etc = {
     "direnv/direnvrc" = ./etc/direnvrc;
-    "irb/irbrc" = ./etc/irbrc;
     "mise/config.toml" = ./etc/mise.toml;
     "mise/go" = ./etc/mise-go-packages;
-    "pry/pryrc" = ./etc/pryrc;
     "pg/psqlrc" = ./etc/psqlrc;
     "sqlite3/sqliterc" = ./etc/sqliterc;
   };
