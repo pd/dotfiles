@@ -48,6 +48,10 @@ in
     };
   };
 
+  services.resolved.extraConfig = ''
+    DNSStubListener=no
+  '';
+
   services.dnsmasq = {
     enable = true;
 
