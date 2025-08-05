@@ -11,60 +11,60 @@ let
   isServer = config.wg.natInterface != null;
 in
 {
-  options = {
-    wg.enable = mkEnableOption "on the wireguard wan";
+  options.wg = {
+    enable = mkEnableOption "on the wireguard wan";
 
-    wg.endpoint = mkOption {
+    endpoint = mkOption {
       type = types.str;
       default = "wg.home:51930";
     };
 
-    wg.serverPublicKey = mkOption {
+    serverPublicKey = mkOption {
       type = types.str;
       default = pd.net.hosts.pi.wg.publicKey;
     };
 
-    wg.cidr = mkOption {
+    cidr = mkOption {
       type = types.str;
       default = pd.net.wg.cidr;
     };
 
-    wg.cidr6 = mkOption {
+    cidr6 = mkOption {
       type = types.str;
       default = pd.net.wg.cidr6;
     };
 
-    wg.ipv4 = mkOption { type = types.str; };
-    wg.ipv6 = mkOption { type = types.str; };
+    ipv4 = mkOption { type = types.str; };
+    ipv6 = mkOption { type = types.str; };
 
-    wg.port = mkOption {
+    port = mkOption {
       type = types.int;
       default = 51930;
     };
 
-    wg.publicKey = mkOption { type = types.str; };
+    publicKey = mkOption { type = types.str; };
 
-    wg.privateKeyFile = mkOption {
+    privateKeyFile = mkOption {
       type = types.str;
       default = config.sops.secrets.wireguard-private-key.path;
     };
 
-    wg.presharedKeyFile = mkOption {
+    presharedKeyFile = mkOption {
       type = types.str;
       default = config.sops.secrets.wireguard-preshared-key.path;
     };
 
-    wg.natInterface = mkOption {
+    natInterface = mkOption {
       type = types.nullOr types.str;
       default = null;
     };
 
-    wg.offLan = mkOption {
+    offLan = mkOption {
       type = types.bool;
       default = false;
     };
 
-    wg.autostart = mkOption {
+    autostart = mkOption {
       type = types.bool;
       default = true;
     };

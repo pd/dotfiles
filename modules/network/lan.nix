@@ -8,25 +8,25 @@ let
   cfg = config.lan;
 in
 {
-  options = {
-    lan.enable = mkEnableOption "inside the house";
+  options.lan = {
+    enable = mkEnableOption "inside the house";
 
     # TODO rm once everything's cut over
-    lan.networkd = mkEnableOption "use systemd-networkd";
+    networkd = mkEnableOption "use systemd-networkd";
 
-    lan.gateway = mkOption {
+    gateway = mkOption {
       type = types.str;
       default = "192.168.40.1";
     };
 
-    lan.ipv4 = mkOption { type = types.str; };
+    ipv4 = mkOption { type = types.str; };
 
-    lan.wired.interface = mkOption {
+    wired.interface = mkOption {
       type = types.nullOr types.str;
       default = null;
     };
 
-    lan.wifi.interface = mkOption {
+    wifi.interface = mkOption {
       type = types.nullOr types.str;
       default = null;
     };
