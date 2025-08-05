@@ -24,7 +24,8 @@
             ./modules/core/nixos
             inputs.sops-nix.nixosModules.sops
             ./hosts/${host}
-          ] ++ modules;
+          ]
+          ++ modules;
         };
 
       mkDarwin =
@@ -35,7 +36,8 @@
             ./modules/core/darwin
             inputs.sops-nix.darwinModules.sops
             ./hosts/${host}
-          ] ++ modules;
+          ]
+          ++ modules;
         };
 
       mkHome =
@@ -60,15 +62,26 @@
           ];
         };
 
-      forEachSystem = lib.genAttrs [
-        "x86_64-linux"
-        "aarch64-linux"
-        "x86_64-darwin"
-        "aarch64-darwin"
-      ];
+      forEachSystem =
+        fn:
+        lib.genAttrs
+          [
+            "x86_64-linux"
+            "aarch64-linux"
+            "x86_64-darwin"
+            "aarch64-darwin"
+          ]
+          (
+            system:
+            fn {
+              inherit system;
+              pkgs = nixpkgs.legacyPackages.${system};
+              unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
+            }
+          );
     in
     {
-      formatter = forEachSystem (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
+      formatter = forEachSystem ({ pkgs, ... }: pkgs.nixfmt-rfc-style);
 
       nixosConfigurations.desk = mkNixos "desk" [
         inputs.disko.nixosModules.disko
@@ -93,10 +106,8 @@
       homeConfigurations."pd@orb" = mkHome "pd@orb" "x86_64-linux";
 
       packages = forEachSystem (
-        system:
+        { pkgs, unstable, ... }:
         let
-          pkgs = nixpkgs.legacyPackages.${system};
-          unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
           mkRouter =
             host:
             pkgs.callPackage ./pkgs/router {
@@ -127,11 +138,7 @@
       );
 
       devShells = forEachSystem (
-        system:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-          unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
-        in
+        { pkgs, unstable, ... }:
         {
           default = pkgs.mkShell {
             buildInputs =
