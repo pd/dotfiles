@@ -8,5 +8,5 @@ pkgs.runCommand "dns-blocklist" { } ''
   cat ${stevenblack-blocklist}/hosts |
     awk '/^0.0.0.0 [a-z]/ { print $2 }' |
     pr -9 -t -T -a -s' ' - |
-    awk '{ print "0.0.0.0 " $0; print "::0 " $0 }' > $out/dns-block-list
+    awk '{ print "0.0.0.0 " $0; print "::0 " $0 }' > $out/dns-blocklist
 ''
