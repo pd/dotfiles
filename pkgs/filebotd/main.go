@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log/slog"
 	"net/http"
+	"net/url"
 	"os"
 	"os/exec"
 	"regexp"
@@ -103,6 +104,19 @@ func scanLibrary(c *http.Client, kind string) error {
 	}
 
 	req.Header.Set("X-MediaBrowser-Token", jfKey)
+	q := url.Values{}
+	for k, v := range map[string]string{
+		"Recursive":           "true",
+		"ImageRefreshMode":    "Default",
+		"MetadataRefreshMode": "Default",
+		"ReplaceAllImages":    "false",
+		"RegenerateTrickplay": "false",
+		"ReplaceAllMetadata":  "false",
+	} {
+		q.Add(k, v)
+	}
+	req.URL.RawQuery = q.Encode()
+
 	resp, err := c.Do(req)
 	if err != nil {
 		return fmt.Errorf("posting jellyfin refresh request: %w", err)
