@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ ... }:
 {
   lan.networkd = true;
   lan.wired.interface = "eth0";
@@ -13,20 +13,25 @@
     duid = "de:ad:c0:de:ca:fe";
     iaid = 15503; # via $((RANDOM))
   };
-  # Reassign MACs so nixos is distinct from windows
-  services.udev.extraRules =
-    let
-      ip = lib.getExe' pkgs.iproute2 "ip";
-    in
-    ''
-      ACTION=="add", SUBSYSTEM=="net", ATTR{address}=="2c:f0:5d:db:8d:13", NAME=="*", \
-        RUN+="${ip} link set dev $name address 2c:f0:5d:db:8d:f3", \
-        RUN+="${ip} link set dev $name name eth0"
 
-      ACTION=="add", SUBSYSTEM=="net", ATTR{address}=="14:cc:20:23:ea:6c", NAME=="*", \
-        RUN+="${ip} link set dev $name address 14:cc:20:23:ea:fc", \
-        RUN+="${ip} link set dev $name name wlan0"
-    '';
+  # Reassign MACs so nixos is distinct from windows
+  systemd.network.links."10-eth0" = {
+    matchConfig.PermanentMACAddress = "2c:f0:5d:db:8d:13";
+    linkConfig = {
+      MACAddressPolicy = "none";
+      MACAddress = "2c:f0:5d:db:8d:f3";
+      Name = "eth0";
+    };
+  };
+
+  systemd.network.links."10-wlan0" = {
+    matchConfig.PermanentMACAddress = "14:cc:20:23:ea:6c";
+    linkConfig = {
+      MACAddress = "14:cc:20:23:ea:fc";
+      MACAddressPolicy = "none";
+      Name = "wlan0";
+    };
+  };
 
   # And wait for reassignment to complete before bringing the network up,
   # so we get the right DHCP assignments.
