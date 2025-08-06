@@ -84,7 +84,7 @@ _nixos_rebuild op host:
         build_log="$(mktemp -p "${TMPDIR:-/tmp}" nixos-rebuild-log.XXXXXX)"
         trap "rm -f $build_log" EXIT
         just build {{ host }} | tee "$build_log"
-        ssh "{{ host }}" nvd diff /run/current-system "$(cat "$build_log")"
+        ssh "{{ host }}" nix run nixpkgs#nvd diff /run/current-system "$(cat "$build_log")"
       fi
 
     elif is_local; then
