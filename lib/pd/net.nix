@@ -151,7 +151,7 @@ rec {
 
     desk-wifi = {
       id = 80;
-      duid = "00042e9db5721b37282968f57627580d9d07";
+      duid = "0002deadc0decafe"; # overridden in systemd-networkd config
       macs = [ "14:cc:20:23:ea:fc" ];
     };
 

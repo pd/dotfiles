@@ -30,14 +30,27 @@ in
       type = types.nullOr types.str;
       default = null;
     };
+
+    wifi.requiredForOnline = mkOption {
+      type = types.bool;
+      default = true;
+    };
+
+    wifi.id = mkOption {
+      description = "Override DUID+IAID for the interface.";
+      type = types.nullOr (
+        types.submodule {
+          options = {
+            duid = mkOption { type = types.str; };
+            iaid = mkOption { type = types.int; };
+          };
+        }
+      );
+      default = null;
+    };
   };
 
   config = mkMerge [
-    {
-      # TODO irrelevant now i think? move to resolvectl somehow i guess
-      networking.resolvconf.extraOptions = [ "timeout:1" ];
-    }
-
     (mkIf cfg.networkd {
       networking.useDHCP = false;
       systemd.network.enable = true;
@@ -84,13 +97,23 @@ in
           UseDomains = true;
         };
 
-        dhcpV4Config = {
-          RouteMetric = 300;
-        };
+        dhcpV4Config.RouteMetric = 300;
+        ipv6AcceptRAConfig.RouteMetric = 300;
 
-        ipv6AcceptRAConfig = {
-          RouteMetric = 300;
-        };
+        linkConfig.RequiredForOnline = cfg.wifi.requiredForOnline;
+
+        # systemd (correctly) sends the same DUID as for any other
+        # interfaces, but openwrt's odhcpd doesn't respect IAID
+        # in leases, so allow overriding DUID when necessary.
+        dhcpV6Config =
+          if cfg.wifi.id != null then
+            {
+              DUIDType = "vendor";
+              DUIDRawData = cfg.wifi.id.duid;
+              IAID = cfg.wifi.id.iaid;
+            }
+          else
+            { };
       };
 
       networking.networkmanager.enable = false;
