@@ -166,7 +166,7 @@ rec {
 
     htpc = {
       id = 12;
-      duid = "0004dd5908ad4d02b46426ad2e2b179289d9";
+      duid = "00020000ab11c0d46c058a8aa1e2";
       macs = [ "b0:a4:60:17:89:87" ];
       wg.publicKey = "sZql5WlnNt45LuiQUjow0y+Hc9LdWW7nnSUjOMHSsgw=";
       cnames = [
