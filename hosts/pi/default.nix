@@ -8,7 +8,6 @@
   system.stateVersion = "24.05";
 
   networking.hostName = "pi";
-  lan.networkd = true;
   lan.wired.interface = "end0";
   wg.natInterface = "end0";
 

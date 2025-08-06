@@ -14,7 +14,6 @@
 
   networking.hostName = "htpc";
   lan.wifi.interface = "wlan0";
-  lan.networkd = true;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

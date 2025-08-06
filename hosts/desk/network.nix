@@ -1,6 +1,5 @@
 { ... }:
 {
-  lan.networkd = true;
   lan.wired.interface = "eth0";
 
   # keep wifi on as a lower priority interface.
