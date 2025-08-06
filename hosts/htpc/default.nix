@@ -13,8 +13,8 @@
   system.stateVersion = "24.05";
 
   networking.hostName = "htpc";
-  lan.wifi.interface = "wlp0s20f3"; # TODO just run cable, networkd+wifi sucks
-  # lan.networkd = true;
+  lan.wifi.interface = "wlan0";
+  lan.networkd = true;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
