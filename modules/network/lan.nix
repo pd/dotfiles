@@ -48,8 +48,16 @@ in
         matchConfig.Name = cfg.wired.interface;
         networkConfig = {
           DHCP = true;
-          IPv6AcceptRA = true;
           UseDomains = true;
+          IPv6AcceptRA = true;
+        };
+
+        dhcpV4Config = {
+          RouteMetric = 100;
+        };
+
+        ipv6AcceptRAConfig = {
+          RouteMetric = 100;
         };
       };
     })
@@ -75,9 +83,16 @@ in
           IPv6AcceptRA = true;
           UseDomains = true;
         };
+
+        dhcpV4Config = {
+          RouteMetric = 300;
+        };
+
+        ipv6AcceptRAConfig = {
+          RouteMetric = 300;
+        };
       };
 
-      # TODO def wrong
       networking.networkmanager.enable = false;
       networking.wireless.iwd = {
         enable = true;
