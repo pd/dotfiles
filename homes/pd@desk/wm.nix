@@ -266,6 +266,32 @@ in
     };
   };
 
+  services.kanshi = {
+    enable = true;
+
+    settings = [
+      {
+        output.criteria = "DP-1";
+        output.scale = 1.25;
+      }
+      {
+
+        profile.name = "dual";
+        profile.outputs = [
+          {
+            criteria = "DP-1";
+            position = "1200,0";
+            scale = 1.25;
+          }
+          {
+            criteria = "DP-2";
+            transform = "90";
+          }
+        ];
+      }
+    ];
+  };
+
   services.swayidle =
     let
       display-state = pkgs.writeShellScript "display-state" ''
@@ -398,7 +424,6 @@ in
         set-cursor-warp = "on-output-change";
 
         spawn = map (cmd: "'${cmd}'") [
-          "wlr-randr --output DP-2 --left-of DP-1 --transform 90"
           "waybar"
           "rivertile -view-padding 2 -outer-padding 0"
           "sway-audio-idle-inhibit"
