@@ -8,9 +8,9 @@
   imports = [
     ./files.nix
     ./git.nix
-    ./k8s.nix
     ./music.nix
     ./nvim.nix
+    ./ops.nix
     ./prog.nix
     ./ssh.nix
     ./zsh.nix
@@ -37,13 +37,10 @@
       age
       age-plugin-yubikey
       cfssl
-      awscli2
-      (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
       htop
       ipcalc
       just
       ssh-to-age
-      ssm-session-manager-plugin
       unzip
       watchexec
     ]
