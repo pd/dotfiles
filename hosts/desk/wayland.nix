@@ -28,8 +28,8 @@
       enable = true;
       settings = {
         screencast = {
-          chooser_type = "none"; # TODO gotta choose an output now
-          output_name = "DVI-I-1";
+          chooser_type = "simple";
+          chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
           max_fps = 60;
         };
       };
