@@ -1,5 +1,6 @@
 { config, pkgs, ... }:
 {
+  # pretty
   fonts = {
     enableDefaultPackages = true;
 
@@ -27,7 +28,7 @@
       enable = true;
       settings = {
         screencast = {
-          chooser_type = "none";
+          chooser_type = "none"; # TODO gotta choose an output now
           output_name = "DVI-I-1";
           max_fps = 60;
         };
@@ -50,6 +51,7 @@
     };
   };
 
+  # simplest greeter
   services.greetd = {
     enable = true;
     settings = {
@@ -65,6 +67,7 @@
     };
   };
 
+  # style the console too
   stylix = {
     enable = true;
     polarity = "dark";

@@ -269,8 +269,13 @@ in
   services.swayidle =
     let
       display-state = pkgs.writeShellScript "display-state" ''
-        ${pkgs.wlr-randr}/bin/wlr-randr --output HDMI-A-1 --"$1"
+        ${pkgs.wlr-randr}/bin/wlr-randr --output DP-1 --"$1"
         ${pkgs.wlr-randr}/bin/wlr-randr --output DP-2 --"$1"
+
+        # TODO: figure out why I have to reposition on wake
+        #if [[ "$1" == "on" ]]; then
+        #  wlr-randr --output DP-2 --left-of DP-1 --transform 90
+        #fi
       '';
     in
     {
@@ -333,10 +338,10 @@ in
           "${mod}+Shift F" = "toggle-fullscreen";
           "${mod}+Shift Space" = "toggle-float";
 
-          "${mod}+Shift Left" = "focus-output left";
-          "${mod}+Shift Right" = "focus-output right";
-          "${mod}+Shift+Control Left" = "send-to-output left";
-          "${mod}+Shift+Control Right" = "send-to-output right";
+          "${mod} braceleft" = "focus-output left";
+          "${mod} braceright" = "focus-output right";
+          "${mod}+Control braceleft" = "send-to-output left";
+          "${mod}+Control braceright" = "send-to-output right";
 
           "None <print>" = "spawn 'wl-screenshot-region'";
           "${mod} <print>" = "spawn 'wl-screenshot-display'";
@@ -346,8 +351,7 @@ in
         // (lib.zipAttrs (map tag (lib.range 1 9)));
 
         map.reshape = {
-          "None Enter" = "enter-mode normal";
-          "None Return" = "enter-mode normal";
+          "None Escape" = "enter-mode normal";
 
           "None Plus" = "send-layout-cmd rivertile 'main-count +1'";
           "None Minus" = "send-layout-cmd rivertile 'main-count +1'";
@@ -394,7 +398,7 @@ in
         set-cursor-warp = "on-output-change";
 
         spawn = map (cmd: "'${cmd}'") [
-          "wlr-randr --output DP-2 --left-of HDMI-A-1 --transform 90"
+          "wlr-randr --output DP-2 --left-of DP-1 --transform 90"
           "waybar"
           "rivertile -view-padding 2 -outer-padding 0"
           "sway-audio-idle-inhibit"

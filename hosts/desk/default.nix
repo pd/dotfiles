@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ./hardware-configuration.nix
@@ -10,14 +15,28 @@
 
   system.stateVersion = "24.05";
   networking.hostName = "desk";
+  time.timeZone = "America/Chicago";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "ntfs" ];
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  time.timeZone = "America/Chicago";
+  # AMD GPU + dual output
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  boot.kernelParams = [
+    "video=DP-1:3840x2160@60"
+    "video=DP-2:1920x1200@59.950001" # lol why not 60
+  ];
 
+  # better support for very new AMDs in newish kernels
+  boot.kernelPackages =
+    if lib.versionOlder pkgs.linuxPackages.kernel.version pkgs.linuxPackages_6_15.kernel.version then
+      pkgs.linuxPackages_6_15
+    else
+      builtins.warn "nixpkgs kernel version has surpassed the 6.15 in linuxPackages_6_15";
+
+  # mostly functional audio
   security.polkit.enable = true;
   security.rtkit.enable = true;
   services.pulseaudio.enable = false;
