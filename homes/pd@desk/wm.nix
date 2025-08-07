@@ -132,7 +132,9 @@ in
       }
     '';
 
-    settings.mainBar = {
+    settings.dp-1 = {
+      output = "DP-1";
+
       modules-left = [
         "river/tags"
         "tray"
@@ -262,6 +264,34 @@ in
         on-click = "dunstctl history-pop";
         on-click-middle = "dunstctl history-clear";
         on-click-right = "dunstctl set-paused toggle";
+      };
+    };
+
+    settings.dp-2 = {
+      output = "DP-2";
+
+      modules-left = [ "river/tags" ];
+      modules-center = [ "river/window" ];
+      modules-right = [ "tray" ];
+
+      "river/tags" = {
+        num-tags = 5;
+        hide-vacant = true;
+        tag-labels = [
+          ""
+          ""
+          "3:󰈹"
+          "4:"
+          "5:💬"
+        ];
+      };
+
+      tray = {
+        spacing = 15;
+      };
+
+      "river/window" = {
+        max-length = 100;
       };
     };
   };
@@ -407,11 +437,13 @@ in
           let
             tag = app: v: "-app-id '${app}' tags '${toString v}'";
             float = app: "-app-id '${app}' float";
+            output = app: output: "-app-id '${app}' output '${output}'";
 
             tags = lib.mapAttrsToList tag {
               emacs = 3; # 1|2
               firefox = 5; # 1|3
               Slack = 8; # 4
+              signal = 16; # 5
             };
 
             floats = map float [
@@ -419,8 +451,12 @@ in
               "org.pulseaudio.pavucontrol"
               "com.github.PintaProject.Pinta"
             ];
+
+            outputs = lib.mapAttrsToList output {
+              signal = "DP-2";
+            };
           in
-          [ "ssd" ] ++ tags ++ floats;
+          [ "ssd" ] ++ tags ++ outputs ++ floats;
 
         set-cursor-warp = "on-output-change";
 
