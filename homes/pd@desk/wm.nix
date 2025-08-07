@@ -301,10 +301,8 @@ in
         ${pkgs.wlr-randr}/bin/wlr-randr --output DP-1 --"$1"
         ${pkgs.wlr-randr}/bin/wlr-randr --output DP-2 --"$1"
 
-        # TODO: figure out why I have to reposition on wake
-        #if [[ "$1" == "on" ]]; then
-        #  wlr-randr --output DP-2 --left-of DP-1 --transform 90
-        #fi
+        # TODO: figure out why positioning is lost when displays come back on
+        [[ "$1" == "on" ]] && systemctl restart --user kanshi
       '';
     in
     {
