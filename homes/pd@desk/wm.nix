@@ -280,11 +280,14 @@ in
         profile.outputs = [
           {
             criteria = "DP-1";
-            position = "1200,0";
+            mode = "3840x2160";
+            position = "1210,0";
             scale = 1.25;
           }
           {
             criteria = "DP-2";
+            mode = "1920x1200";
+            position = "0,240";
             transform = "90";
           }
         ];
