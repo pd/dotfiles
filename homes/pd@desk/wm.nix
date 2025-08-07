@@ -326,6 +326,11 @@ in
           "${mod}+Shift F" = "toggle-fullscreen";
           "${mod}+Shift Space" = "toggle-float";
 
+          "${mod}+Shift Left" = "focus-output left";
+          "${mod}+Shift Right" = "focus-output right";
+          "${mod}+Shift+Control Left" = "send-to-output left";
+          "${mod}+Shift+Control Right" = "send-to-output right";
+
           "None <print>" = "spawn 'wl-screenshot-region'";
           "${mod} <print>" = "spawn 'wl-screenshot-display'";
 
@@ -378,6 +383,8 @@ in
             ];
           in
           [ "ssd" ] ++ tags ++ floats;
+
+        set-cursor-warp = "on-output-change";
 
         spawn = map (cmd: "'${cmd}'") [
           "waybar"

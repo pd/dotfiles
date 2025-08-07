@@ -124,7 +124,7 @@
 ;; emacs 30, wayland, nix, madness
 (when (string-equal "gnu/linux" system-type)
   (add-to-list 'default-frame-alist '(undecorated . t))
-  (add-to-list 'default-frame-alist '(font . "FiraCode Nerd Font-10")))
+  (add-to-list 'default-frame-alist '(font . "FiraCode Nerd Font-12")))
 
 ;; just buy into the whole vertico et al ecosystem for now
 (use-package vertico
