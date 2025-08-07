@@ -394,6 +394,7 @@ in
         set-cursor-warp = "on-output-change";
 
         spawn = map (cmd: "'${cmd}'") [
+          "wlr-randr --output DP-2 --left-of HDMI-A-1 --transform 90"
           "waybar"
           "rivertile -view-padding 2 -outer-padding 0"
           "sway-audio-idle-inhibit"
