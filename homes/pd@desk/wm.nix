@@ -266,18 +266,25 @@ in
     };
   };
 
-  services.swayidle = {
-    enable = true;
-    extraArgs = [ "-d" ];
-    systemdTarget = "river-session.target";
-    timeouts = [
-      {
-        timeout = 600;
-        command = "${pkgs.wlr-randr}/bin/wlr-randr --output DVI-I-1 --off";
-        resumeCommand = "${pkgs.wlr-randr}/bin/wlr-randr --output DVI-I-1 --on";
-      }
-    ];
-  };
+  services.swayidle =
+    let
+      display-state = pkgs.writeShellScript "display-state" ''
+        ${pkgs.wlr-randr}/bin/wlr-randr --output HDMI-A-1 --"$1"
+        ${pkgs.wlr-randr}/bin/wlr-randr --output DP-2 --"$1"
+      '';
+    in
+    {
+      enable = true;
+      extraArgs = [ "-d" ];
+      systemdTarget = "river-session.target";
+      timeouts = [
+        {
+          timeout = 600;
+          command = "${display-state} off";
+          resumeCommand = "${display-state} on";
+        }
+      ];
+    };
 
   wayland.windowManager.river = {
     enable = true;
