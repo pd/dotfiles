@@ -70,4 +70,7 @@
     package = pkgs.wireshark-qt;
   };
   users.users.pd.extraGroups = [ "wireshark" ];
+
+  # new gpu lets see how it goes
+  programs.steam.enable = true;
 }
