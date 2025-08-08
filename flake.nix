@@ -199,6 +199,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixpkgs-terraform = {
+      url = "github:stackbuilders/nixpkgs-terraform";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -39,6 +39,8 @@ in
     eksctl
     ssm-session-manager-plugin
 
+    opentofu
+    terraform-versions."1.12.2" # TODO get nixpkgs-terraform binary cache working
   ])
   ++ (with pkgs.unstable; [
     kind
