@@ -47,6 +47,15 @@
     pulse.enable = true;
   };
 
+  # bluetooth
+  services.blueman.enable = true;
+  hardware.bluetooth = {
+    enable = true;
+
+    # https://github.com/bluez/bluez/blob/master/src/main.conf
+    settings.General.Experimental = true; # show battery charge of devices
+  };
+
   # Needed for age-plugin-yubikey
   services.pcscd.enable = true;
 

@@ -74,8 +74,27 @@ in
     };
   };
 
-  services.dunst.enable = true;
+  # bluetooth in tray
+  services.blueman-applet.enable = true;
 
+  # play/pause with airpod touch
+  # nixos wiki says this is 'unnecessary and may cause issues' but it doesn't
+  # work without it:
+  # https://nixos.wiki/wiki/Bluetooth#Using_Bluetooth_headset_buttons_to_control_media_player
+  services.mpris-proxy.enable = true;
+
+  # notifications
+  services.dunst = {
+    enable = true;
+    settings.global = {
+      notification_limit = 5;
+      monitor = "DP-1";
+      origin = "top-right";
+      offset = "(10,20)";
+    };
+  };
+
+  # term
   programs.alacritty = {
     enable = true;
     settings = {
@@ -87,6 +106,7 @@ in
     };
   };
 
+  # dmenu-y
   programs.fuzzel = {
     enable = true;
     settings = {
