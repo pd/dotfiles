@@ -25,8 +25,8 @@
   # AMD GPU + dual output
   boot.initrd.kernelModules = [ "amdgpu" ];
   boot.kernelParams = [
-    "video=DP-1:3840x2160@60"
-    "video=DP-2:1920x1200@59.950001" # lol why not 60
+    "video=DP-1:3840x2160"
+    # "video=DP-2:1920x1200,rotate=90"
   ];
 
   # better support for very new AMDs in newish kernels
