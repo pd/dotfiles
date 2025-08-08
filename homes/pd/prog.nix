@@ -1,6 +1,11 @@
 { config, pkgs, ... }:
 let
-  ruby' = pkgs.ruby.withPackages (gems: with gems; [ pry ]);
+  ruby' = pkgs.ruby.withPackages (
+    gems: with gems; [
+      pry
+      activesupport
+    ]
+  );
 in
 {
   home.packages = with pkgs.unstable; [
