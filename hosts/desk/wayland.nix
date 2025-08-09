@@ -52,20 +52,26 @@
   };
 
   # simplest greeter
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd river";
-        user = config.users.users.pd.name;
-      };
+  services.greetd =
+    let
+      rivercat = pkgs.writeShellScript "rivercat" ''
+        exec systemd-cat --identifier=river river -log-level debug
+      '';
+    in
+    {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd ${rivercat}";
+          user = config.users.users.pd.name;
+        };
 
-      initial_session = {
-        command = "river";
-        user = config.users.users.pd.name;
+        initial_session = {
+          command = rivercat;
+          user = config.users.users.pd.name;
+        };
       };
     };
-  };
 
   # style the console too
   stylix = {
