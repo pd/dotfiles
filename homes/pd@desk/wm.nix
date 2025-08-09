@@ -341,6 +341,9 @@ in
 
   services.swayidle =
     let
+      wlr-randr = lib.getExe' pkgs.wlr-randr "wlr-randr";
+      systemctl = lib.getExe' pkgs.systemd "systemctl";
+
       display-state = pkgs.writeShellScript "display-state" ''
         # TODO: not sure why this suddenly started happening; on resume, river is dead and we're back at greetd --
         # Aug 08 09:20:01 desk swayidle[361952]: 2025-08-08 09:20:01 - [Line 1096] Unable to connect to the compositor.
@@ -349,12 +352,12 @@ in
         # TBD if explicitly setting WAYLAND_DISPLAY will help
         export WAYLAND_DISPLAY=wayland-1
 
-        ${pkgs.wlr-randr}/bin/wlr-randr --output DP-1 --"$1"
-        ${pkgs.wlr-randr}/bin/wlr-randr --output DP-2 --"$1"
+        ${wlr-randr} --output DP-1 --"$1"
+        ${wlr-randr} --output DP-2 --"$1"
 
         # TODO: figure out why positioning is lost when displays come back on
         if [[ "$1" == "on" ]]; then
-          systemctl restart --user kanshi
+          ${systemctl} restart --user kanshi
         fi
       '';
     in
