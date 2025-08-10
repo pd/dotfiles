@@ -15,6 +15,10 @@
   networking.hostName = "htpc";
   lan.wired.interface = "eno1";
   lan.wifi.interface = "wlan0";
+  lan.wifi.id = {
+    duid = "de:ad:c0:de:ca:fe:00:82";
+    iaid = 18631;
+  };
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

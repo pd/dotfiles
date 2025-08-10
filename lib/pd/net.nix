@@ -19,6 +19,7 @@
 #
 # extra interfaces:
 #   desk-wifi:  .80
+#   htpc-wifi:  .82
 #   win-wifi:   .85
 #
 # appliances:
@@ -167,7 +168,7 @@ rec {
     htpc = {
       id = 12;
       duid = "00020000ab11c0d46c058a8aa1e2";
-      macs = [ "b0:a4:60:17:89:87" ];
+      macs = [ "1c:69:7a:a2:40:de" ];
       wg.publicKey = "sZql5WlnNt45LuiQUjow0y+Hc9LdWW7nnSUjOMHSsgw=";
       cnames = [
         "alerts"
@@ -179,6 +180,12 @@ rec {
         "torrent"
         "www"
       ];
+    };
+
+    htpc-wifi = {
+      id = 82;
+      duid = "0002deadc0decafe0082";
+      macs = [ "b0:a4:60:17:89:87" ];
     };
 
     pi = {
