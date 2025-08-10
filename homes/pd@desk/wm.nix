@@ -426,8 +426,8 @@ in
           "${mod}+Control braceleft" = "send-to-output left";
           "${mod}+Control braceright" = "send-to-output right";
 
-          "None <print>" = "spawn 'wl-screenshot-region'";
-          "${mod} <print>" = "spawn 'wl-screenshot-display'";
+          "None Print" = "spawn 'wl-screenshot-region'";
+          "${mod} Print" = "spawn 'wl-screenshot-display'";
 
           "${mod}+Shift+Control BackSpace" = "exit";
         }
