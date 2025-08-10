@@ -13,6 +13,7 @@
   system.stateVersion = "24.05";
 
   networking.hostName = "htpc";
+  lan.wired.interface = "eno1";
   lan.wifi.interface = "wlan0";
 
   boot.loader.systemd-boot.enable = true;
