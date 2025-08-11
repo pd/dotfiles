@@ -16,7 +16,10 @@ in
   programs.emacs = {
     enable = true;
     package = pkgs.emacsWithPackagesFromUsePackage {
-      package = if isDarwin then pkgs.emacs30 else pkgs.unstable.emacs30-pgtk;
+      # on darwin, emacs-30 from nix-darwin-emacs
+      # on linux, emacs30-pgtk from nixpkgs-unstable (*not* emacs-overlay)
+      # cf. overlays in flake.nix's mkHome
+      package = if isDarwin then pkgs.emacs-30 else pkgs.unstable.emacs30-pgtk;
       config = ../../emacs.d/init.el;
       alwaysEnsure = true;
       defaultInitFile = false;

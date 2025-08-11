@@ -214,6 +214,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-darwin-emacs = {
+      url = "github:nix-giant/nix-darwin-emacs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
