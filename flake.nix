@@ -57,6 +57,21 @@
                 inputs.stylix.homeModules.stylix
                 inputs.nixvim.homeModules.nixvim
               ];
+
+              nixpkgs.overlays =
+                if system == "x86_64-darwin" || system == "aarch64-darwin" then
+                  # On darwin, use the emacs from nix-darwin-emacs and packages from
+                  # emacs-overlay.
+                  [
+                    inputs.nix-darwin-emacs.overlays.emacs
+                    inputs.emacs-overlay.overlays.package
+                  ]
+                else
+                  # On linux, use emacs-overlay for the packages and FromUsePackage
+                  # helper, but we run an emacs from nixpkgs-unstable.
+                  [
+                    inputs.emacs-overlay.overlays.default
+                  ];
             }
             ./homes/${userAtHost}
           ];
@@ -184,6 +199,11 @@
       url = "github:divnix/dmerge";
     };
 
+    emacs-overlay = {
+      url = "github:nix-community/emacs-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -191,6 +211,11 @@
 
     nix-darwin = {
       url = "github:LnL7/nix-darwin/nix-darwin-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-darwin-emacs = {
+      url = "github:nix-giant/nix-darwin-emacs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

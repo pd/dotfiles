@@ -2,7 +2,6 @@
 {
   imports = [
     ../pd
-    ./emacs.nix
     ./wm.nix
   ];
 
