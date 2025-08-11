@@ -592,23 +592,6 @@ targets."
 (use-package treesit
   :ensure nil
   :preface
-  (defun pd/treesit-install-grammars ()
-    (interactive)
-    (dolist (grammar
-             '((css "https://github.com/tree-sitter/tree-sitter-css")
-               (go "https://github.com/tree-sitter/tree-sitter-go")
-               (gomod "https://github.com/camdencheek/tree-sitter-go-mod")
-               (javascript "https://github.com/tree-sitter/tree-sitter-javascript")
-               (just "https://github.com/IndianBoy42/tree-sitter-just")
-               (json "https://github.com/tree-sitter/tree-sitter-json")
-               (ruby "https://github.com/tree-sitter/tree-sitter-ruby")
-               (rust "https://github.com/tree-sitter/tree-sitter-rust")
-               (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-               (zig "https://github.com/maxxnino/tree-sitter-zig")))
-      (add-to-list 'treesit-language-source-alist grammar)
-      (unless (treesit-language-available-p (car grammar))
-        (treesit-install-language-grammar (car grammar)))))
-
   (dolist (remap '((css-mode        . css-ts-mode)
                    (go-mode         . go-ts-mode)
                    (just-mode       . just-ts-mode)
@@ -618,10 +601,7 @@ targets."
                    (rust-mode       . rust-ts-mode)
                    (typescript-mode . tsx-ts-mode)
                    (zig-mode        . zig-ts-mode)))
-    (add-to-list 'major-mode-remap-alist remap))
-
-  :config
-  (pd/treesit-install-grammars))
+    (add-to-list 'major-mode-remap-alist remap)))
 
 ;; shell
 (use-package vterm
