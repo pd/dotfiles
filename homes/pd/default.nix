@@ -6,6 +6,7 @@
 }:
 {
   imports = [
+    ./emacs.nix
     ./files.nix
     ./git.nix
     ./music.nix

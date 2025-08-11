@@ -128,6 +128,27 @@
         "type": "github"
       }
     },
+    "emacs-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixpkgs-stable": "nixpkgs-stable"
+      },
+      "locked": {
+        "lastModified": 1754929898,
+        "narHash": "sha256-QkKnm58KMyb0ki5F+hdPC9SP18Q2t9It58xRgBFrLdE=",
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "rev": "6d0695fbc0800c0d9073db9cf52294179ee2aa3c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "type": "github"
+      }
+    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -469,6 +490,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-stable": {
+      "locked": {
+        "lastModified": 1751274312,
+        "narHash": "sha256-/bVBlRpECLVzjV19t5KMdMFWSwKLtb5RyXdjz3LJT+g=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "50ab793786d9de88ee30ec4e4c24fb4236fc2674",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-24.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-terraform": {
       "inputs": {
         "nixpkgs": [
@@ -598,6 +635,7 @@
         "dewclaw": "dewclaw",
         "disko": "disko",
         "dmerge": "dmerge",
+        "emacs-overlay": "emacs-overlay",
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nix-index-database": "nix-index-database",
