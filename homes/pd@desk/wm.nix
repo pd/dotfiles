@@ -70,6 +70,9 @@ in
       emacs.enable = false;
       firefox.enable = false;
       starship.enable = false;
+      waybar = {
+        font = "emoji";
+      };
     };
   };
 
@@ -117,127 +120,8 @@ in
     };
   };
 
-  programs.waybar = {
-    enable = true;
-
-    style = ''
-      * {
-        font-family: Noto Sans Mono, NotoSans Nerd Font Mono, Symbols Nerd Font;
-        font-size: 11pt;
-      }
-
-      .modules-right {
-        margin-right: 10px;
-      }
-
-      .modules-right label {
-        margin: 5px;
-      }
-
-      #tags .focused {
-        background-color: @base01;
-      }
-
-      #tags .occupied {
-        color: @base0C;
-      }
-
-      #tags .urgent {
-        color: @base0F;
-      }
-
-      #network.disconnected {
-        color: @base0F;
-      }
-    '';
-
-    settings.dp-1 = {
-      output = "DP-1";
-
-      modules-left = [
-        "river/tags"
-      ];
-
-      modules-center = [ "river/window" ];
-
-      modules-right = [
-        "cpu"
-        "memory"
-        "network"
-        "pulseaudio"
-        "custom/audio-state"
-        "clock"
-        "custom/dunst"
-      ];
-
-      "river/tags" = {
-        num-tags = 6;
-        tag-labels = [
-          "1:󰿗"
-          "2:"
-          "3:󰈹"
-          "4:"
-          "5"
-          "6"
-        ];
-      };
-
-      "river/window" = {
-        max-length = 100;
-      };
-
-      cpu = {
-        format = " {usage}%";
-        tooltip = false;
-      };
-
-      memory = {
-        format = " {percentage}%";
-        tooltip-format = "";
-      };
-
-      network = {
-        format-icons = [
-          "󰤯"
-          "󰤟"
-          "󰤢"
-          "󰤥"
-          "󰤨"
-        ];
-        format-wifi = "{icon}";
-        format-ethernet = "󰈀";
-        format-disconnected = "⚠";
-        tooltip-format-wifi = "WiFi: {essid} ({signalStrength}%)\n {bandwidthUpBytes}  {bandwidthDownBytes}";
-        tooltip-format-ethernet = "Ethernet: {ifname}\n {bandwidthUpBytes}  {bandwidthDownBytes}";
-        tooltip-format-disconnected = "Disconnected";
-      };
-
-      pulseaudio = {
-        scroll-step = 2;
-        on-click = "pavucontrol";
-        format = "{icon} {volume}%";
-        format-muted = "";
-        format-icons = {
-          default = [
-            ""
-            ""
-          ];
-        };
-      };
-
-      "custom/audio-state" = {
-        format = "{icon}";
-        exec = "sway-audio-idle-inhibit --dry-print-both-waybar";
-        exec-if = "which sway-audio-idle-inhibit";
-        return-type = "json";
-        format-icons = {
-          output = "";
-          input = "";
-          output-input = "  ";
-          none = "";
-        };
-      };
-
+  programs.waybar =
+    let
       clock = {
         timezones = [
           "America/Chicago"
@@ -264,6 +148,7 @@ in
               today = span base0E bold;
             };
         };
+
         actions = {
           on-click-right = "mode";
           on-scroll-up = "tz_up";
@@ -271,44 +156,166 @@ in
         };
       };
 
-      "custom/dunst" = {
-        format = "{text}";
-        exec = "${pkgs.pd.waybar-dunst}/bin/waybar-dunst";
-        return-type = "json";
-        on-click = "dunstctl history-pop";
-        on-click-middle = "dunstctl history-clear";
-        on-click-right = "dunstctl set-paused toggle";
-      };
-    };
-
-    settings.dp-2 = {
-      output = "DP-2";
-
-      modules-left = [ "river/tags" ];
-      modules-center = [ "river/window" ];
-      modules-right = [ "tray" ];
-
-      "river/tags" = {
-        num-tags = 5;
-        hide-vacant = true;
+      tags = {
+        num-tags = 6;
         tag-labels = [
-          ""
-          ""
+          "1:󰿗"
+          "2:"
           "3:󰈹"
           "4:"
-          "5:💬"
+          "5"
+          "6"
         ];
       };
 
       tray = {
         spacing = 15;
+        show-passive-items = true;
+      };
+    in
+    {
+      enable = true;
+
+      style = ''
+        * {
+          font-family: Noto Sans Mono, NotoSans Nerd Font Mono, Symbols Nerd Font;
+          font-size: 11pt;
+        }
+
+        window#waybar {
+          background: transparent;
+        }
+
+        .modules-left,
+        .modules-center,
+        .modules-right {
+          background: @base00;
+          border-radius: 10px;
+          margin: 0 5px;
+        }
+
+        .modules-right label {
+          margin: 5px;
+        }
+
+        #tags .focused {
+          box-shadow: inset 0 -2px;
+        }
+
+        #tags .occupied {
+          color: @base0C;
+        }
+
+        #tags .urgent {
+          color: @base0F;
+        }
+
+        #network.disconnected {
+          color: @base0F;
+        }
+
+        #tray, #custom-dunst {
+          margin: 0 10px;
+        }
+      '';
+
+      settings.dp-1 = {
+        output = "DP-1";
+
+        modules-left = [
+          "custom/dunst"
+          "tray"
+        ];
+
+        modules-center = [
+          "river/tags"
+        ];
+
+        modules-right = [
+          "cpu"
+          "memory"
+          "network"
+          "pulseaudio"
+          "custom/audio-state"
+          "clock"
+        ];
+
+        inherit tray clock;
+        "river/tags" = tags;
+
+        cpu = {
+          format = " {usage}%";
+          tooltip = false;
+        };
+
+        memory = {
+          format = " {percentage}%";
+          tooltip-format = "";
+        };
+
+        network = {
+          format-icons = [
+            "󰤯"
+            "󰤟"
+            "󰤢"
+            "󰤥"
+            "󰤨"
+          ];
+          format-wifi = "{icon}";
+          format-ethernet = "󰈀";
+          format-disconnected = "⚠";
+          tooltip-format-wifi = "WiFi: {essid} ({signalStrength}%)\n {bandwidthUpBytes}  {bandwidthDownBytes}";
+          tooltip-format-ethernet = "Ethernet: {ifname}\n {bandwidthUpBytes}  {bandwidthDownBytes}";
+          tooltip-format-disconnected = "Disconnected";
+        };
+
+        pulseaudio = {
+          scroll-step = 2;
+          on-click = "pavucontrol";
+          format = "{icon} {volume}%";
+          format-muted = "";
+          format-icons = {
+            default = [
+              ""
+              ""
+            ];
+          };
+        };
+
+        "custom/audio-state" = {
+          format = "{icon}";
+          exec = "sway-audio-idle-inhibit --dry-print-both-waybar";
+          exec-if = "which sway-audio-idle-inhibit";
+          return-type = "json";
+          format-icons = {
+            output = "";
+            input = "";
+            output-input = "  ";
+            none = "";
+          };
+        };
+
+        "custom/dunst" = {
+          format = "{text}";
+          exec = "${pkgs.pd.waybar-dunst}/bin/waybar-dunst";
+          return-type = "json";
+          on-click = "dunstctl history-pop";
+          on-click-middle = "dunstctl history-clear";
+          on-click-right = "dunstctl set-paused toggle";
+        };
       };
 
-      "river/window" = {
-        max-length = 100;
+      settings.dp-2 = {
+        output = "DP-2";
+
+        modules-left = [ "tray" ];
+        modules-center = [ "river/tags" ];
+        modules-right = [ "clock" ];
+
+        inherit tray clock;
+        "river/tags" = tags;
       };
     };
-  };
 
   services.kanshi = {
     enable = true;
@@ -473,6 +480,7 @@ in
             };
 
             floats = map float [
+              ".blueman-manager-wrapped"
               "imv"
               "org.pulseaudio.pavucontrol"
               "com.github.PintaProject.Pinta"
