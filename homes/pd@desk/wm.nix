@@ -191,7 +191,7 @@ in
         .modules-right {
           background: @base00;
           border-radius: 10px;
-          margin: 0 5px;
+          margin: 5px 5px 0 5px;
         }
 
         .modules-right label {
