@@ -25,27 +25,27 @@ let
   );
 in
 {
-  home.packages = [
-    gcloud
-    ksops
-  ]
-  ++ (with pkgs; [
-    dyff
-    kfilt
-    kubernetes-helm
-    kustomize
-    stern
+  home.packages =
+    with pkgs;
+    [
+      dyff
+      kfilt
+      unstable.kind
+      unstable.kubectl
+      kubernetes-helm
+      kustomize
+      stern
 
-    eksctl
-    ssm-session-manager-plugin
+      eksctl
+      ssm-session-manager-plugin
 
-    opentofu
-    terraform-versions."1.12.2" # TODO get nixpkgs-terraform binary cache working
-  ])
-  ++ (with pkgs.unstable; [
-    kind
-    kubectl
-  ]);
+      opentofu
+      terraform-versions."1.12.2" # TODO never hits in their cachix?
+    ]
+    ++ [
+      gcloud
+      ksops
+    ];
 
   programs.awscli = {
     enable = true;
