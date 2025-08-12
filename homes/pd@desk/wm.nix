@@ -496,7 +496,7 @@ in
 
         spawn = map (cmd: "'${cmd}'") [
           "waybar"
-          "rivertile -view-padding 2 -outer-padding 0"
+          "rivertile -view-padding 4 -outer-padding 4"
           "sway-audio-idle-inhibit"
         ];
 
