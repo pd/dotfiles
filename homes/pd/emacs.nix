@@ -23,6 +23,11 @@ in
       config = ../../emacs.d/init.el;
       alwaysEnsure = true;
       defaultInitFile = false;
+      extraEmacsPackages =
+        epkgs: with epkgs; [
+          treesit-grammars.with-all-grammars
+          vterm
+        ];
     };
   };
 
