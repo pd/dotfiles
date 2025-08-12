@@ -26,10 +26,10 @@ in
     with pkgs;
     [
       chromaprint # audio id for filebot
+      filebot
       nfs-utils
     ]
     ++ (with pkgs.pd; [
-      filebot
       filebotd
       mediaman
       rtorrent-exporter
@@ -55,7 +55,7 @@ in
     path = [
       # TODO: PATH should be handled by pkgs at this point
       pkgs.pd.mediaman
-      pkgs.pd.filebot
+      pkgs.filebot
     ];
     serviceConfig = {
       Type = "exec";

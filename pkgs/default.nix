@@ -4,7 +4,6 @@
     inherit (unstable) stevenblack-blocklist;
   };
 
-  filebot = pkgs.callPackage ./filebot.nix { };
   filebotd = pkgs.callPackage ./filebotd { };
   mediaman = pkgs.callPackage ./mediaman { };
   ptpimg-uploader = pkgs.callPackage ./ptpimg-uploader.nix { };
