@@ -55,7 +55,7 @@
   services.greetd =
     let
       rivercat = pkgs.writeShellScript "rivercat" ''
-        exec systemd-cat --identifier=river river -log-level debug
+        exec systemd-cat --identifier=river river
       '';
     in
     {
