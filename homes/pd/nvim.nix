@@ -75,6 +75,15 @@
         vim.opt.shiftwidth = 4
       '';
     };
+
+    keymaps = [
+      {
+        mode = "c";
+        key = "%/";
+        action = ''<C-R>=expand("%:p:h")."/"<CR>'';
+      }
+    ];
+
   };
 
   programs.zsh.shellAliases = {
