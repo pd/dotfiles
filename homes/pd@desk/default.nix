@@ -33,4 +33,7 @@
     hostname = "localhost";
     port = 32222;
   };
+
+  # desk is only linux box that isn't headless
+  programs.nixvim.clipboard.providers.wl-copy.enable = true;
 }

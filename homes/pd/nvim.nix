@@ -25,25 +25,32 @@
       settings.theme = "dragon";
     };
 
+    lsp.servers = {
+      nil_ls.enable = true;
+      gopls.enable = true;
+    };
+
     plugins = {
       direnv.enable = true;
       lualine.enable = true;
-      treesitter.enable = true;
+      web-devicons.enable = true;
       which-key.enable = true;
 
-      conform-nvim = {
+      cmp = {
+        enable = true;
+        autoEnableSources = true;
+        settings.sources = [
+          { name = "nvim_lsp"; }
+          { name = "path"; }
+          { name = "buffer"; }
+        ];
+      };
+
+      treesitter = {
         enable = true;
         settings = {
-          format_on_save = {
-            lsp_format = "fallback";
-            timeout_ms = 500;
-          };
-          formatters_by_ft = {
-            go = [ "goimports" ];
-            lua = [ "stylua" ];
-            nix = [ "nixfmt" ];
-            "_" = [ "trim_whitespace" ];
-          };
+          indent.enable = true;
+          highlight.enable = true;
         };
       };
 
@@ -66,7 +73,21 @@
           };
       };
 
-      web-devicons.enable = true;
+      conform-nvim = {
+        enable = true;
+        settings = {
+          format_on_save = {
+            lsp_format = "fallback";
+            timeout_ms = 500;
+          };
+          formatters_by_ft = {
+            go = [ "goimports" ];
+            lua = [ "stylua" ];
+            nix = [ "nixfmt" ];
+            "_" = [ "trim_whitespace" ];
+          };
+        };
+      };
     };
 
     extraFiles = {
@@ -83,7 +104,6 @@
         action = ''<C-R>=expand("%:p:h")."/"<CR>'';
       }
     ];
-
   };
 
   programs.zsh.shellAliases = {
