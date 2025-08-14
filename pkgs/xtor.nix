@@ -2,6 +2,7 @@
   buildEnv,
 
   flac,
+  ffmpeg_6-headless,
   imagemagick,
   intermodal,
   lame,
@@ -13,6 +14,7 @@ buildEnv {
   name = "xtor";
   paths = [
     flac # metaflac
+    ffmpeg_6-headless # ffprobe
     imagemagick
     intermodal # imdl verify
     lame
