@@ -4,7 +4,6 @@ let
   mkScript = name: pkgs.writeShellScriptBin name (binFile name);
 
   scripts = map mkScript [
-    "bcopsup"
     "ctx"
     "ff-container"
     "git-show-file-at-rev"

@@ -1,7 +1,8 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 {
   imports = [
     ../pd
+    "${inputs.private}/pd@desk"
     ./wm.nix
   ];
 
