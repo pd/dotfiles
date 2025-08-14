@@ -261,11 +261,12 @@ in
             "󰤥"
             "󰤨"
           ];
+          family = "ipv4_6";
           format-wifi = "{icon}";
           format-ethernet = "󰈀";
           format-disconnected = "⚠";
-          tooltip-format-wifi = "WiFi: {essid} ({signalStrength}%)\n {bandwidthUpBytes}  {bandwidthDownBytes}";
-          tooltip-format-ethernet = "Ethernet: {ifname}\n {bandwidthUpBytes}  {bandwidthDownBytes}";
+          tooltip-format-ethernet = "{ifname}: {ipaddr}";
+          tooltip-format-wifi = "{ifname}: {ipaddr} {essid} ({signalStrength}% / {signaldBm})";
           tooltip-format-disconnected = "Disconnected";
         };
 
