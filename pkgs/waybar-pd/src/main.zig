@@ -41,7 +41,7 @@ fn registryListener(registry: *wl.Registry, event: wl.Registry.Event, context: *
                 context.seats.append(seat) catch @panic("out of memory");
             }
         },
-        .global_remove => {}
+        .global_remove => {},
     }
 }
 
@@ -50,13 +50,13 @@ fn seatStatusListener(_: *zriver.SeatStatusV1, event: zriver.SeatStatusV1.Event,
         .mode => |mode| {
             const w = std.io.getStdOut().writer();
             if (!std.mem.eql(u8, std.mem.span(mode.name), "normal")) {
-                w.print("{{\"text\":\"{s}\", \"class\":\"{s}\"}}\n", .{mode.name, mode.name}) catch return;
+                w.print("{{\"text\":\"{s}\", \"class\":\"{s}\"}}\n", .{ mode.name, mode.name }) catch return;
             } else {
                 w.print("{{}}\n", .{}) catch return;
             }
         },
         .focused_output => {},
         .unfocused_output => {},
-        .focused_view => {}
+        .focused_view => {},
     }
 }
