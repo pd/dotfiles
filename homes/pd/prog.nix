@@ -18,9 +18,10 @@ in
     (hiPrio ruby') # win over gotools `bundle`
     supabase-cli
     uv
-    zig
-    zig-shell-completions
-    zls
+
+    # use zvm because nixpkgs often has zig+zls diverge,
+    # and then most of zls is hosed
+    zvm
   ];
 
   programs.jujutsu =
