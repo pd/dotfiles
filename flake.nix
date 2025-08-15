@@ -176,6 +176,7 @@
               buildInputs = with pkgs; [ dbus ];
               nativeBuildInputs = with pkgs; [
                 pkg-config
+                systemdLibs
                 wayland
                 wayland-protocols
                 wayland-scanner

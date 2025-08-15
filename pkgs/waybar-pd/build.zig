@@ -26,6 +26,7 @@ pub fn build(b: *std.Build) void {
     exe.root_module.addImport("wayland", wayland);
     exe.linkLibC();
     exe.linkSystemLibrary("wayland-client");
+    exe.linkSystemLibrary("libsystemd");
     b.installArtifact(exe);
 
     const run_cmd = b.addRunArtifact(exe);

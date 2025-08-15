@@ -4,7 +4,11 @@ const wayland = @import("wayland");
 const wl = wayland.client.wl;
 const zriver = wayland.client.zriver;
 
-const Context = struct {
+const c = @cImport({
+    @cInclude("systemd/sd-bus.h");
+});
+
+const WlContext = struct {
     status_manager: ?*zriver.StatusManagerV1 = null,
     seats: std.ArrayList(*wl.Seat) = std.ArrayList(*wl.Seat).init(std.heap.c_allocator),
 };
@@ -27,8 +31,8 @@ fn riverMode() !void {
     const display = try wl.Display.connect(null);
     const registry = try display.getRegistry();
 
-    var context = Context{};
-    registry.setListener(*Context, registryListener, &context);
+    var context = WlContext{};
+    registry.setListener(*WlContext, registryListener, &context);
     if (display.roundtrip() != .SUCCESS)
         return error.RoundtripFailed;
 
@@ -45,50 +49,76 @@ fn riverMode() !void {
 }
 
 fn dunst() !void {
-    // Should surely use a dbus lib instead but this is the most direct port for now
-    const alloc = std.heap.page_allocator;
-    const argv = [_][]const u8{
-        "dbus-monitor",
-        "--profile",
+    var user_bus: ?*c.sd_bus = null;
+    if (c.sd_bus_default_user(&user_bus) < 0) {
+        return error.DBusConnectError;
+    }
+
+    const bus = user_bus orelse unreachable;
+    if (c.sd_bus_add_match(
+        bus,
+        null,
         "path='/org/freedesktop/Notifications',interface='org.freedesktop.DBus.Properties',member='PropertiesChanged'",
-    };
-
-    var dbusMonitor = std.process.Child.init(&argv, alloc);
-    dbusMonitor.stdout_behavior = .Pipe;
-    try dbusMonitor.spawn();
-
-    const stdout = dbusMonitor.stdout orelse unreachable;
-    var buffered_reader = std.io.bufferedReader(stdout.reader());
-    var line = std.ArrayList(u8).init(alloc);
+        handleNotificationPropertiesChanged,
+        bus,
+    ) < 0) {
+        return error.DBusAddMatchError;
+    }
 
     while (true) {
-        // We don't actually care what it prints, just that it did
-        line.clearRetainingCapacity();
-        buffered_reader.reader().streamUntilDelimiter(line.writer(), '\n', null) catch |err| switch (err) {
-            error.EndOfStream => {
-                _ = try dbusMonitor.wait();
-                return;
-            },
-            else => return err,
-        };
-
-        // TODO use dbus-send which is all dunstctl is doing?
-        // dbus-send --print-reply=literal --dest=org.freedesktop.Notifications /org/freedesktop/Notifications org.freedesktop.DBus.Properties.Get string:org.dunstproject.cmd0 string:paused
-
-        // for now just call dunstctl itself
-        const dunstArgv = [_][]const u8{ "dunstctl", "is-paused" };
-        const result = try std.process.Child.run(.{
-            .allocator = alloc,
-            .argv = &dunstArgv,
-        });
-
-        const w = std.io.getStdOut().writer();
-        if (std.mem.eql(u8, result.stdout, "true\n")) {
-            w.print("paused\n", .{}) catch return;
-        } else {
-            w.print("not paused\n", .{}) catch return;
-        }
+        _ = c.sd_bus_wait(bus, std.math.maxInt(u64));
+        _ = c.sd_bus_process(bus, null);
     }
+}
+
+fn handleNotificationPropertiesChanged(_: ?*c.sd_bus_message, userdata: ?*anyopaque, _: [*c]c.sd_bus_error) callconv(.C) c_int {
+    const bus: *c.sd_bus = @ptrCast(@alignCast(userdata));
+    const w = std.io.getStdOut().writer();
+
+    const is_paused = dunstIsPaused(bus) catch return -1;
+    if (is_paused) {
+        w.print("{{\"text\":\"paused\"}}\n", .{}) catch return -1;
+    } else {
+        w.print("{{\"text\":\"unpaused\"}}\n", .{}) catch return -1;
+    }
+
+    return 0;
+}
+
+fn dunstIsPaused(bus: *c.sd_bus) anyerror!bool {
+    var msg: *c.sd_bus_message = undefined;
+    var err: c.sd_bus_error = c.sd_bus_error{
+        .name = undefined,
+        .message = undefined,
+        ._need_free = 0,
+    };
+    defer {
+        c.sd_bus_error_free(&err);
+        _ = c.sd_bus_message_unref(msg);
+    }
+
+    if (c.sd_bus_call_method(
+        bus,
+        "org.freedesktop.Notifications",
+        "/org/freedesktop/Notifications",
+        "org.freedesktop.DBus.Properties",
+        "Get",
+        &err,
+        @ptrCast(&msg),
+        "ss",
+        "org.dunstproject.cmd0",
+        "paused",
+    ) < 0)
+        return error.DBusMethodCallError;
+
+    var is_paused: c_int = undefined;
+    const res = c.sd_bus_message_read(msg, "v", "b", &is_paused);
+    if (res < 0) {
+        std.debug.print("{d}: {any}\n", .{ res, msg });
+        return error.DBusMessageReadError;
+    }
+
+    return is_paused == 1;
 }
 
 fn idleInhibit() !void {
@@ -97,7 +127,7 @@ fn idleInhibit() !void {
     }
 }
 
-fn registryListener(registry: *wl.Registry, event: wl.Registry.Event, context: *Context) void {
+fn registryListener(registry: *wl.Registry, event: wl.Registry.Event, context: *WlContext) void {
     switch (event) {
         .global => |global| {
             const interface = global.interface;
