@@ -32,6 +32,9 @@
       ".#*"
       "#*#"
       "*~"
+
+      ".zig-cache/"
+      "zig-out/"
     ];
 
     signing = {
