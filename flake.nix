@@ -155,21 +155,33 @@
       devShells = forEachSystem (
         { pkgs, unstable, ... }:
         {
-          default = pkgs.mkShell {
-            buildInputs =
-              with pkgs;
-              [
-                direnv
-                home-manager
-                just
-                nix-direnv
-              ]
-              ++ (with unstable; [
-                git
-                opentofu
-                sops
-              ]);
-          };
+          default = pkgs.mkShell (
+            {
+              buildInputs =
+                with pkgs;
+                [
+                  direnv
+                  home-manager
+                  just
+                  nix-direnv
+                ]
+                ++ (with unstable; [
+                  git
+                  opentofu
+                  sops
+                ]);
+            }
+            // {
+              # hacking on waybar-pd
+              buildInputs = with pkgs; [ dbus ];
+              nativeBuildInputs = with pkgs; [
+                pkg-config
+                wayland
+                wayland-protocols
+                wayland-scanner
+              ];
+            }
+          );
         }
       );
     };

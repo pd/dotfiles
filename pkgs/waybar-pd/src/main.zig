@@ -1,39 +1,62 @@
-//! By convention, main.zig is where your main function lives in the case that
-//! you are building an executable. If you are making a library, the convention
-//! is to delete this file and start with root.zig instead.
-
-pub fn main() !void {
-    // Prints to stderr (it's a shortcut based on `std.io.getStdErr()`)
-    std.debug.print("All your {s} are belong to us.\n", .{"codebase"});
-
-    // stdout is for the actual output of your application, for example if you
-    // are implementing gzip, then only the compressed bytes should be sent to
-    // stdout, not any debugging messages.
-    const stdout_file = std.io.getStdOut().writer();
-    var bw = std.io.bufferedWriter(stdout_file);
-    const stdout = bw.writer();
-
-    try stdout.print("Run `zig build test` to run the tests.\n", .{});
-
-    try bw.flush(); // Don't forget to flush!
-}
-
-test "simple test" {
-    var list = std.ArrayList(i32).init(std.testing.allocator);
-    defer list.deinit(); // Try commenting this out and see if zig detects the memory leak!
-    try list.append(42);
-    try std.testing.expectEqual(@as(i32, 42), list.pop());
-}
-
-test "fuzz example" {
-    const Context = struct {
-        fn testOne(context: @This(), input: []const u8) anyerror!void {
-            _ = context;
-            // Try passing `--fuzz` to `zig build test` and see if it manages to fail this test case!
-            try std.testing.expect(!std.mem.eql(u8, "canyoufindme", input));
-        }
-    };
-    try std.testing.fuzz(Context{}, Context.testOne, .{});
-}
-
 const std = @import("std");
+
+const wayland = @import("wayland");
+const wl = wayland.client.wl;
+const zriver = wayland.client.zriver;
+
+const Context = struct {
+    status_manager: ?*zriver.StatusManagerV1 = null,
+    seats: std.ArrayList(*wl.Seat) = std.ArrayList(*wl.Seat).init(std.heap.c_allocator),
+};
+
+pub fn main() anyerror!void {
+    const display = try wl.Display.connect(null);
+    const registry = try display.getRegistry();
+
+    var context = Context{};
+    registry.setListener(*Context, registryListener, &context);
+    if (display.roundtrip() != .SUCCESS)
+        return error.RoundtripFailed;
+
+    const status_manager = context.status_manager orelse return error.RiverStatusManagerNotAdvertised;
+    for (context.seats.items) |seat| {
+        const seat_status = try status_manager.getRiverSeatStatus(seat);
+        seat_status.setListener(?*anyopaque, seatStatusListener, null);
+    }
+
+    while (true) {
+        if (display.dispatch() != .SUCCESS)
+            return error.DispatchFailed;
+    }
+}
+
+fn registryListener(registry: *wl.Registry, event: wl.Registry.Event, context: *Context) void {
+    switch (event) {
+        .global => |global| {
+            const interface = global.interface;
+            if (std.mem.orderZ(u8, interface, zriver.StatusManagerV1.interface.name) == .eq) {
+                context.status_manager = registry.bind(global.name, zriver.StatusManagerV1, 4) catch return;
+            } else if (std.mem.orderZ(u8, interface, wl.Seat.interface.name) == .eq) {
+                const seat = registry.bind(global.name, wl.Seat, 9) catch return;
+                context.seats.append(seat) catch @panic("out of memory");
+            }
+        },
+        .global_remove => {}
+    }
+}
+
+fn seatStatusListener(_: *zriver.SeatStatusV1, event: zriver.SeatStatusV1.Event, _: ?*anyopaque) void {
+    switch (event) {
+        .mode => |mode| {
+            const w = std.io.getStdOut().writer();
+            if (!std.mem.eql(u8, std.mem.span(mode.name), "normal")) {
+                w.print("{{\"text\":\"{s}\", \"class\":\"{s}\"}}\n", .{mode.name, mode.name}) catch return;
+            } else {
+                w.print("{{}}\n", .{}) catch return;
+            }
+        },
+        .focused_output => {},
+        .unfocused_output => {},
+        .focused_view => {}
+    }
+}
