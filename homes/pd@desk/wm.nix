@@ -5,6 +5,15 @@
   ...
 }:
 let
+  layout-outputs =
+    let
+      wlr-randr = lib.getExe' pkgs.wlr-randr "wlr-randr";
+    in
+    pkgs.writeShellScriptBin "layout-outputs" ''
+      ${wlr-randr} --output DP-1 --mode 3840x2160 --pos 1210,0 --scale 1.25
+      ${wlr-randr} --output DP-2 --mode 1920x1200 --pos 0,240  --transform 90
+    '';
+
   search-menu = pkgs.writeShellScriptBin "search-menu" (builtins.readFile ./search-menu.sh);
 
   screenshots =
@@ -32,12 +41,14 @@ in
     lswt # to get app-id for riverctl rules
     imv # minimalist image viewer
     river-filtile
-    screenshots
-    search-menu
     slurp
     sway-audio-idle-inhibit
     wl-clipboard
     wlr-randr
+
+    layout-outputs
+    screenshots
+    search-menu
   ];
 
   stylix = {
@@ -319,47 +330,17 @@ in
       };
     };
 
-  services.kanshi = {
-    enable = true;
-
-    settings = [
-      {
-        output.criteria = "DP-1";
-        output.scale = 1.25;
-      }
-      {
-
-        profile.name = "dual";
-        profile.outputs = [
-          {
-            criteria = "DP-1";
-            mode = "3840x2160";
-            position = "1210,0";
-            scale = 1.25;
-          }
-          {
-            criteria = "DP-2";
-            mode = "1920x1200";
-            position = "0,240";
-            transform = "90";
-          }
-        ];
-      }
-    ];
-  };
-
   services.swayidle =
     let
+      layout = lib.getExe' layout-outputs "layout-outputs";
       wlr-randr = lib.getExe' pkgs.wlr-randr "wlr-randr";
-      systemctl = lib.getExe' pkgs.systemd "systemctl";
-
       display-state = pkgs.writeShellScript "display-state" ''
         ${wlr-randr} --output DP-1 --"$1"
         ${wlr-randr} --output DP-2 --"$1"
 
         # TODO: figure out why positioning is _sometimes_ lost when displays come back on
         if [[ "$1" == "on" ]]; then
-          ${systemctl} restart --user kanshi
+          ${layout}
         fi
       '';
     in
