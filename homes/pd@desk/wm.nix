@@ -31,6 +31,7 @@ in
     grim
     lswt # to get app-id for riverctl rules
     imv # minimalist image viewer
+    river-filtile
     screenshots
     search-menu
     slurp
@@ -400,6 +401,10 @@ in
           "reshape"
         ];
 
+        # New windows are generally subordinate to existing ones, so
+        # drop to bottom of the stack
+        default-attach-mode = "bottom";
+
         # Key names:
         # https://github.com/xkbcommon/libxkbcommon/blob/e9fd95/include/xkbcommon/xkbcommon-keysyms.h
         map.normal = {
@@ -437,16 +442,20 @@ in
         map.reshape = {
           "None Escape" = "enter-mode normal";
 
-          "${mod} Plus" = "send-layout-cmd rivertile 'main-count +1'";
-          "${mod} Minus" = "send-layout-cmd rivertile 'main-count -1'";
+          "${mod} Z" = "send-layout-cmd filtile flip";
 
-          "Shift Left" = "send-layout-cmd rivertile 'main-ratio -0.05'";
-          "Shift Right" = "send-layout-cmd rivertile 'main-ratio +0.05'";
+          "${mod} Plus" = "send-layout-cmd filtile 'main-count +1'";
+          "${mod} Minus" = "send-layout-cmd filtile 'main-count -1'";
 
-          "None Left" = "send-layout-cmd rivertile 'main-location left'";
-          "None Up" = "send-layout-cmd rivertile 'main-location top'";
-          "None Right" = "send-layout-cmd rivertile 'main-location right'";
-          "None Down" = "send-layout-cmd rivertile 'main-location bottom'";
+          "Shift Left" = "send-layout-cmd filtile 'move-split-left 0.05'";
+          "Shift Up" = "send-layout-cmd filtile 'move-split-up 0.05'";
+          "Shift Right" = "send-layout-cmd filtile 'move-split-right 0.05'";
+          "Shift Down" = "send-layout-cmd filtile 'move-split-down 0.05'";
+
+          "None Left" = "send-layout-cmd filtile 'main-location left'";
+          "None Up" = "send-layout-cmd filtile 'main-location top'";
+          "None Right" = "send-layout-cmd filtile 'main-location right'";
+          "None Down" = "send-layout-cmd filtile 'main-location bottom'";
         };
 
         map-pointer.normal = {
@@ -503,13 +512,22 @@ in
 
         spawn = map (cmd: "'${cmd}'") [
           "waybar"
-          "rivertile -view-padding 4 -outer-padding 4"
           "sway-audio-idle-inhibit"
+          "layout-outputs"
+          "filtile -view-padding 4 -outer-padding 4"
+
+          # on vertical monitor, split vertically and keep new windows small
+          # they're almost always ephemeral
+          "riverctl send-layout-cmd filtile '--output DP-2 main-location top'"
+          "riverctl send-layout-cmd filtile '--output DP-2 main-ratio 75'"
+
+          # start with focus on main monitor
+          "riverctl focus-output DP-1"
         ];
 
         background-color = lib.mkForce "0x303038";
         border-width = 3;
-        default-layout = "rivertile";
+        default-layout = "filtile";
         focus-follows-cursor = "normal";
       };
   };
