@@ -437,8 +437,8 @@ in
         map.reshape = {
           "None Escape" = "enter-mode normal";
 
-          "None Plus" = "send-layout-cmd rivertile 'main-count +1'";
-          "None Minus" = "send-layout-cmd rivertile 'main-count +1'";
+          "${mod} Plus" = "send-layout-cmd rivertile 'main-count +1'";
+          "${mod} Minus" = "send-layout-cmd rivertile 'main-count -1'";
 
           "Shift Left" = "send-layout-cmd rivertile 'main-ratio -0.05'";
           "Shift Right" = "send-layout-cmd rivertile 'main-ratio +0.05'";
