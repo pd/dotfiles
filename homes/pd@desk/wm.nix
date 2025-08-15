@@ -469,9 +469,18 @@ in
 
         rule-add =
           let
-            tag = app: v: "-app-id '${app}' tags '${toString v}'";
-            float = app: "-app-id '${app}' float";
-            output = app: output: "-app-id '${app}' output '${output}'";
+            flags =
+              match:
+              let
+                matches = if (builtins.isList match) then match else [ match ];
+                mkFlag = k: v: "${k} ${v}";
+              in
+              lib.concatStringsSep " " (lib.zipListsWith mkFlag [ "-app-id" "-title" ] matches);
+
+            mkRule = match: action: "${flags match} ${action}";
+            tag = match: v: mkRule match "tags '${toString v}'";
+            float = match: mkRule match "float";
+            output = match: output: mkRule match "output '${output}'";
 
             tags = lib.mapAttrsToList tag {
               emacs = 3; # 1|2
@@ -485,6 +494,10 @@ in
               "imv"
               "org.pulseaudio.pavucontrol"
               "com.github.PintaProject.Pinta"
+              [
+                "firefox"
+                "Library"
+              ]
             ];
 
             outputs = lib.mapAttrsToList output {
