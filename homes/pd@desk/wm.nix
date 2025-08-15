@@ -496,14 +496,6 @@ in
           "sway-audio-idle-inhibit"
           "layout-outputs"
           "filtile -view-padding 4 -outer-padding 4"
-
-          # on vertical monitor, split vertically and keep new windows small
-          # they're almost always ephemeral
-          "riverctl send-layout-cmd filtile '--output DP-2 main-location top'"
-          "riverctl send-layout-cmd filtile '--output DP-2 main-ratio 75'"
-
-          # start with focus on main monitor
-          "riverctl focus-output DP-1"
         ];
 
         background-color = lib.mkForce "0x303038";
@@ -511,5 +503,16 @@ in
         default-layout = "filtile";
         focus-follows-cursor = "normal";
       };
+
+    # Ensure send-layout-cmd fires after filtile is actually running
+    extraConfig = ''
+      # on vertical monitor, split vertically and keep new windows small
+      # they're almost always ephemeral
+      riverctl send-layout-cmd filtile "--output DP-2 main-location top"
+      riverctl send-layout-cmd filtile "--output DP-2 main-ratio 75"
+
+      # start with focus on main monitor
+      riverctl focus-output DP-1
+    '';
   };
 }
