@@ -139,7 +139,7 @@ in
       export LESS="--quit-if-one-screen --RAW-CONTROL-CHARS"
 
       # not everything is nix'd yet
-      export PATH="$HOME/bin:$HOME/go/bin:$PATH"
+      export PATH="$HOME/bin:$HOME/go/bin:$HOME/.zvm/bin:$PATH"
     '';
 
     initContent = ''

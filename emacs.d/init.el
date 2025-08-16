@@ -529,7 +529,12 @@ targets."
 
 (use-package yaml-mode)
 
-(use-package zig-ts-mode)
+(use-package zig-ts-mode
+  :config
+  (reformatter-define pd/zigfmt
+    :program (executable-find "zig")
+    :args '("fmt" "--stdin"))
+  (add-hook 'zig-ts-mode-hook 'pd/zigfmt-on-save-mode))
 
 ;; ide
 (use-package cape

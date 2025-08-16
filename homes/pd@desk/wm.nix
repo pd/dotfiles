@@ -168,6 +168,13 @@ in
         };
       };
 
+      mode = {
+        format = "{text}";
+        hide-empty-text = true;
+        exec = "${pkgs.pd.waybar-pd}/bin/waybar-pd river-mode";
+        return-type = "json";
+      };
+
       tags = {
         num-tags = 6;
         tag-labels = [
@@ -226,8 +233,12 @@ in
           color: @base0F;
         }
 
-        #tray, #custom-dunst {
+        #custom-dunst, #tray, #custom-river-mode {
           margin: 0 10px;
+        }
+
+        #custom-river-mode.reshape {
+          color: @base0D;
         }
       '';
 
@@ -237,6 +248,7 @@ in
         modules-left = [
           "custom/dunst"
           "tray"
+          "custom/river-mode"
         ];
 
         modules-center = [
@@ -254,6 +266,20 @@ in
 
         inherit tray clock;
         "river/tags" = tags;
+        "custom/river-mode" = mode;
+
+        "custom/dunst" = {
+          format = "{icon}";
+          format-icons = {
+            paused = "󰂛";
+            unpaused = "󰂚";
+          };
+          exec = "${pkgs.pd.waybar-pd}/bin/waybar-pd dunst";
+          return-type = "json";
+          on-click = "dunstctl history-pop";
+          on-click-middle = "dunstctl history-clear";
+          on-click-right = "dunstctl set-paused toggle";
+        };
 
         cpu = {
           format = " {usage}%";
@@ -308,25 +334,22 @@ in
           };
         };
 
-        "custom/dunst" = {
-          format = "{text}";
-          exec = "${pkgs.pd.waybar-dunst}/bin/waybar-dunst";
-          return-type = "json";
-          on-click = "dunstctl history-pop";
-          on-click-middle = "dunstctl history-clear";
-          on-click-right = "dunstctl set-paused toggle";
-        };
       };
 
       settings.dp-2 = {
         output = "DP-2";
 
-        modules-left = [ "tray" ];
+        modules-left = [
+          "tray"
+          "custom/river-mode"
+        ];
         modules-center = [ "river/tags" ];
         modules-right = [ "clock" ];
 
         inherit tray clock;
         "river/tags" = tags;
+        "custom/river-mode" = mode;
+
       };
     };
 
@@ -335,13 +358,12 @@ in
       layout = lib.getExe' layout-outputs "layout-outputs";
       wlr-randr = lib.getExe' pkgs.wlr-randr "wlr-randr";
       display-state = pkgs.writeShellScript "display-state" ''
-        ${wlr-randr} --output DP-1 --"$1"
-        ${wlr-randr} --output DP-2 --"$1"
+        ${wlr-randr} --output DP-1 --"$1" --output DP-2 --"$1"
 
         # TODO: figure out why positioning is _sometimes_ lost when displays come back on
-        if [[ "$1" == "on" ]]; then
-          ${layout}
-        fi
+        #if [[ "$1" == "on" ]]; then
+        #  ${layout}
+        #fi
       '';
     in
     {
