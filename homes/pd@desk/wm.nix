@@ -349,7 +349,6 @@ in
         inherit tray clock;
         "river/tags" = tags;
         "custom/river-mode" = mode;
-
       };
     };
 
@@ -438,6 +437,7 @@ in
           "None Print" = "spawn 'wl-screenshot-region'";
           "${mod} Print" = "spawn 'wl-screenshot-display'";
 
+          "${mod} F12" = "spawn ${layout-outputs}/bin/layout-outputs";
           "${mod}+Shift+Control BackSpace" = "exit";
         }
         // (lib.zipAttrs (map tag (lib.range 1 9)));
