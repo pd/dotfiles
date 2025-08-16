@@ -6,7 +6,7 @@
 
     .dependencies = .{
         .wayland = .{
-            .url = "git+https://codeberg.org/ifreund/zig-wayland.git#65b01fb69148013eea882c8222a82a1d96a6241b",
+            .url = "https://codeberg.org/ifreund/zig-wayland/archive/65b01fb69148013eea882c8222a82a1d96a6241b.tar.gz",
             .hash = "wayland-0.4.0-dev-lQa1krLJAQBGO2aKqDcfxUOsW_e4PJZO_K_rxA20RztB",
         },
     },

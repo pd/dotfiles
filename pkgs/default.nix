@@ -9,5 +9,6 @@
   ptpimg-uploader = pkgs.callPackage ./ptpimg-uploader.nix { };
   rtorrent-exporter = pkgs.callPackage ./rtorrent-exporter.nix { };
   waybar-dunst = pkgs.callPackage ./waybar-dunst.nix { };
+  waybar-pd = pkgs.callPackage ./waybar-pd/package.nix { };
   xtor = pkgs.callPackage ./xtor.nix { };
 }
