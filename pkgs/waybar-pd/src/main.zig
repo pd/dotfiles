@@ -22,8 +22,6 @@ pub fn main() !void {
         try riverMode();
     } else if (std.mem.eql(u8, mode, "dunst")) {
         try dunst();
-    } else if (std.mem.eql(u8, mode, "idle-inhibit")) {
-        try idleInhibit();
     }
 }
 
@@ -121,12 +119,6 @@ fn dunstIsPaused(bus: *c.sd_bus) anyerror!bool {
     }
 
     return is_paused == 1;
-}
-
-fn idleInhibit() !void {
-    while (true) {
-        std.time.sleep(5 * std.time.ns_per_s);
-    }
 }
 
 fn registryListener(registry: *wl.Registry, event: wl.Registry.Event, context: *WlContext) void {
