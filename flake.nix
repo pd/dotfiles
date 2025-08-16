@@ -171,7 +171,7 @@
                   sops
                 ]);
             }
-            // {
+            // (lib.optionalAttrs pkgs.stdenv.isLinux {
               # hacking on waybar-pd
               buildInputs = with pkgs; [ dbus ];
               nativeBuildInputs = with pkgs; [
@@ -181,7 +181,7 @@
                 wayland-protocols
                 wayland-scanner
               ];
-            }
+            })
           );
         }
       );
