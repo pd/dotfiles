@@ -65,6 +65,9 @@ fn dunst() !void {
         return error.DBusAddMatchError;
     }
 
+    // Print initial state immediately
+    try dunstPrintIsPaused(bus);
+
     while (true) {
         _ = c.sd_bus_wait(bus, std.math.maxInt(u64));
         _ = c.sd_bus_process(bus, null);
@@ -73,16 +76,15 @@ fn dunst() !void {
 
 fn handleNotificationPropertiesChanged(_: ?*c.sd_bus_message, userdata: ?*anyopaque, _: [*c]c.sd_bus_error) callconv(.C) c_int {
     const bus: *c.sd_bus = @ptrCast(@alignCast(userdata));
-    const w = std.io.getStdOut().writer();
-
-    const is_paused = dunstIsPaused(bus) catch return -1;
-    if (is_paused) {
-        w.print("{{\"text\":\"paused\"}}\n", .{}) catch return -1;
-    } else {
-        w.print("{{\"text\":\"unpaused\"}}\n", .{}) catch return -1;
-    }
-
+    dunstPrintIsPaused(bus) catch return -1;
     return 0;
+}
+
+fn dunstPrintIsPaused(bus: *c.sd_bus) !void {
+    const w = std.io.getStdOut().writer();
+    const is_paused = try dunstIsPaused(bus);
+    const state = if (is_paused) "paused" else "unpaused";
+    try w.print("{{\"text\":\"{s}\", \"alt\":\"{s}\", \"class\":\"{s}\"}}\n", .{ state, state, state });
 }
 
 fn dunstIsPaused(bus: *c.sd_bus) anyerror!bool {
@@ -147,7 +149,8 @@ fn seatStatusListener(_: *zriver.SeatStatusV1, event: zriver.SeatStatusV1.Event,
         .mode => |mode| {
             const w = std.io.getStdOut().writer();
             if (!std.mem.eql(u8, std.mem.span(mode.name), "normal")) {
-                w.print("{{\"text\":\"{s}\", \"class\":\"{s}\"}}\n", .{ mode.name, mode.name }) catch return;
+                const s = mode.name;
+                w.print("{{\"text\":\"{s}\", \"alt\":\"{s}\", \"class\":\"{s}\"}}\n", .{ s, s, s }) catch return;
             } else {
                 w.print("{{}}\n", .{}) catch return;
             }
