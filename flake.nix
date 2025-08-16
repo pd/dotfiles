@@ -2,7 +2,7 @@
   description = "nixen";
 
   outputs =
-    inputs@{ nixpkgs, ... }:
+    inputs@{ self, nixpkgs, ... }:
     let
       inherit (nixpkgs) lib;
 
@@ -153,7 +153,12 @@
       );
 
       devShells = forEachSystem (
-        { pkgs, unstable, ... }:
+        {
+          system,
+          pkgs,
+          unstable,
+          ...
+        }:
         {
           default = pkgs.mkShell (
             {
@@ -172,15 +177,7 @@
                 ]);
             }
             // (lib.optionalAttrs pkgs.stdenv.isLinux {
-              # hacking on waybar-pd
-              buildInputs = with pkgs; [ dbus ];
-              nativeBuildInputs = with pkgs; [
-                pkg-config
-                systemdLibs
-                wayland
-                wayland-protocols
-                wayland-scanner
-              ];
+              nativeBuildInputs = self.packages.${system}.waybar-pd.nativeBuildInputs;
             })
           );
         }
