@@ -358,11 +358,9 @@ in
       wlr-randr = lib.getExe' pkgs.wlr-randr "wlr-randr";
       display-state = pkgs.writeShellScript "display-state" ''
         ${wlr-randr} --output DP-1 --"$1" --output DP-2 --"$1"
-
-        # TODO: figure out why positioning is _sometimes_ lost when displays come back on
-        #if [[ "$1" == "on" ]]; then
-        #  ${layout}
-        #fi
+        if [[ "$1" == "on" ]]; then
+          ${layout}
+        fi
       '';
     in
     {
