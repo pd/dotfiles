@@ -20,11 +20,13 @@ let
 in
 {
   home.packages = with pkgs.unstable; [
+    delve
     dive
     go
     gopls
     gotools
     go-jsonnet
+    lldb
     nil
     (hiPrio ruby') # win over gotools `bundle`
     supabase-cli

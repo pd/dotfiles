@@ -563,19 +563,6 @@ targets."
   ; complete only with TAB, not RET
   (keymap-unset corfu-map "RET"))
 
-(use-package ibuffer
-  :ensure nil)
-
-(use-package ibuffer-vc
-  :after ibuffer
-  :config
-  (setq ibuffer-default-sorting-mode 'filename/process
-        ibuffer-show-empty-filter-groups nil)
-  (defun pd/prepare-ibuffer ()
-    (ibuffer-auto-mode +1)
-    (ibuffer-vc-set-filter-groups-by-vc-root))
-  (add-hook 'ibuffer-mode-hook 'pd/prepare-ibuffer))
-
 (use-package eglot
   :hook
   ((go-mode go-ts-mode nix-mode zig-ts-mode) . eglot-ensure)
@@ -588,6 +575,42 @@ targets."
    ("<leader>lz" . eglot-reconnect))
   :config
   (add-to-list 'eglot-server-programs '(zig-ts-mode . ("zls"))))
+
+(use-package dape
+  :preface
+  (setq dape-key-prefix nil)
+  :custom
+  (dape-buffer-window-arrangement 'right)
+  :bind
+  (("<leader>dd" . dape)
+   ("<leader>di" . dape-info)
+   ("<leader>dq" . dape-quit)
+   ("<leader>dQ" . dape-disconnect-quit)
+   ("<leader>dr" . dape-restart)
+
+   ("<leader>db" . dape-breakpoint-toggle)
+   ("<leader>dB" . dape-breakpoint-remove-all)
+
+   ("<leader>dc" . dape-continue)
+   ("<leader>dn" . dape-next)
+   ("<leader>do" . dape-step-out)
+   ("<leader>ds" . dape-step-in)
+   ("<leader>dp" . dape-pause)
+   ("<leader>dw" . dape-watch-dwim)
+   ("<leader>dx" . dape-evaluate-expression)))
+
+(use-package ibuffer
+  :ensure nil)
+
+(use-package ibuffer-vc
+  :after ibuffer
+  :config
+  (setq ibuffer-default-sorting-mode 'filename/process
+        ibuffer-show-empty-filter-groups nil)
+  (defun pd/prepare-ibuffer ()
+    (ibuffer-auto-mode +1)
+    (ibuffer-vc-set-filter-groups-by-vc-root))
+  (add-hook 'ibuffer-mode-hook 'pd/prepare-ibuffer))
 
 (use-package reformatter)
 
