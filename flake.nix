@@ -162,6 +162,11 @@
         {
           default = pkgs.mkShell (
             {
+              # Prevents devshell from polluting cflags or maybe gcc
+              # invocation or something that injects `_FORTIFY_SOURCE`
+              # which then breaks dlv
+              hardeningDisable = [ "fortify" ];
+
               buildInputs =
                 with pkgs;
                 [
