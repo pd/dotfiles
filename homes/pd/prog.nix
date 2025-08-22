@@ -34,23 +34,4 @@ in
 
     zvm
   ];
-
-  programs.jujutsu =
-    let
-      git = config.programs.git;
-    in
-    {
-      enable = true;
-      package = pkgs.unstable.jujutsu;
-      settings = {
-        user.name = git.userName;
-        user.email = git.userEmail;
-
-        signing = {
-          behavior = "own";
-          backend = "ssh";
-          key = git.signing.key;
-        };
-      };
-    };
 }
