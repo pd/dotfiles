@@ -9,7 +9,6 @@
     ./emacs.nix
     ./files.nix
     ./git.nix
-    ./music.nix
     ./nvim.nix
     ./ops.nix
     ./prog.nix

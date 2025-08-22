@@ -4,6 +4,7 @@
     ../pd
     "${inputs.private}/pd@desk"
     ./wm.nix
+    ./music.nix
   ];
 
   home.stateVersion = "25.05";
