@@ -20,13 +20,11 @@
       pavucontrol # audio
       pinta # remedial image editing
       screen
+      zoom-us
     ]
     ++ (with unstable; [
-      go
-      gotools
       signal-desktop
       slack
-      zoom-us
     ]);
 
   # connect to orbstack nixos vm by jumping through span
