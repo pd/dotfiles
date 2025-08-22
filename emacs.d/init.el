@@ -107,8 +107,8 @@
 
   (simple-modeline-mode))
 
-;; currently emacs-plus@30 via the emacs-plus tap:
-; https://github.com/d12frosted/homebrew-emacs-plus
+; currently emacs-plus@30 via nix-darwin-emacs:
+; https://github.com/nix-giant/nix-darwin-emacs
 (when (string-equal "darwin" system-type)
   (setq ns-command-modifier      'meta
         ns-alternate-modifier    'super
@@ -121,7 +121,7 @@
   ; no i do not want to print
   (unbind-key "s-p"))
 
-;; emacs 30, wayland, nix, madness
+;; emacs 30-pgtk, wayland, nix, madness
 (when (string-equal "gnu/linux" system-type)
   (add-to-list 'default-frame-alist '(undecorated . t))
   (add-to-list 'default-frame-alist '(font . "FiraCode Nerd Font-10")))
@@ -184,8 +184,6 @@
    :map embark-file-map
    ("$" . pd/vterm-at))
   :config
-  ;; enable if i never develop the muscle memory:
-  ;; (setq embark-prompter 'embark-completing-read-prompter)
   (add-to-list 'display-buffer-alist
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
                  nil
@@ -238,23 +236,25 @@ targets."
   (completion-styles '(orderless basic))
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
-;; Causing Help to fail to display at all, eg C-h f whatever:
-;;   popwin:close-popup-window-timer: error: (error Attempt to delete main window of frame #<frame *Warnings* 0x7f984648da68>)
-;;   delete-other-windows: Cannot make side window the only window [2 times]
-;;
-;; (use-package popper
-;;   :init
-;;   (setq popper-reference-buffers
-;;         '("\\*Messages\\*"
-;;           "\\*Backtrace\\*"
-;;           help-mode
-;;           compilation-mode
-;;           ("\\*Warnings\\*" . hide)))
-;;   (popper-mode +1)
-;;   (popper-echo-mode +1)
-;;   :bind
-;;   (("s-`" . popper-toggle)
-;;    ("M-`" . popper-cycle)))
+; condense the 900 ephemeral windows into a single one i can toggle
+; open/closed at will
+(use-package popper
+  :init
+  (setq popper-reference-buffers
+        '("\\*Messages\\*"
+          "\\*Backtrace\\*"
+          help-mode
+          compilation-mode
+          ("\\*Warnings\\*" . hide)))
+  (popper-mode +1)
+  (popper-echo-mode +1)
+  :bind
+  (("s-`" . popper-toggle)
+   ("M-`" . popper-cycle)))
+
+; i forget how this interacted with popper but let's see how life without it is
+;; (use-package popwin
+;;   :init (popwin-mode))
 
 ;; vim
 (use-package undo-fu
@@ -364,9 +364,6 @@ targets."
 (use-package nerd-icons-ibuffer
   :after nerd-icons
   :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
-
-(use-package popwin
-  :init (popwin-mode))
 
 (use-package recentf
   :ensure nil
