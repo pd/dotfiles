@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+# -*- mode: sh; sh-shell: bash -*-
 
 set -euo pipefail
 

@@ -1,12 +1,13 @@
 { pkgs, ... }:
 let
-  prune = pkgs.writeShellScriptBin "media-prune" (builtins.readFile ./media-prune.sh);
-  sort = pkgs.writeShellScriptBin "media-sort" (builtins.readFile ./media-sort.sh);
+  paths = map (script: pkgs.writeShellScriptBin script (builtins.readFile ./${script}.sh)) [
+    "media-prune"
+    "media-sort"
+    "retag"
+    "lstags"
+  ];
 in
 pkgs.buildEnv {
   name = "mediaman";
-  paths = [
-    prune
-    sort
-  ];
+  inherit paths;
 }
