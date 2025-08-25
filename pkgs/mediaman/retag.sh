@@ -13,7 +13,7 @@ retag() {
 
     flags+=("--remove-tag=$tag")
     if [[ -n "$value" ]]; then
-      flags+=("--set-tag=$tag=\"$value\"")
+      flags+=("--set-tag=$tag=$value")
     fi
   done
 
@@ -43,7 +43,6 @@ main() {
   local src
   src="$(dirname "$(readlink -f "$link")")"
 
-  echo $link $src
   if [[ ! -d "$src" ]]; then
     echo "Source dir detection failed: $src" >&2
     exit 1
