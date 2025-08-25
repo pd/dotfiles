@@ -174,7 +174,7 @@ rec {
         "alerts"
         "grafana"
         "jellyfin"
-        "maloja"
+        "koito"
         "ns2"
         "prom"
         "scrobbler"

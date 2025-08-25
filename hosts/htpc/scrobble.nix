@@ -1,15 +1,14 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
-  storage.maloja = "/var/lib/maloja";
+  storage.koito = "/var/lib/koito";
   storage.multiscrobbler = "/var/lib/multiscrobbler";
 in
 {
+  sops.secrets."koito.env" = { };
   sops.secrets."multiscrobbler.env" = { };
-  sops.secrets."maloja-apikeys.yml" = { };
-  sops.secrets."maloja-secrets.ini" = { };
 
   systemd.tmpfiles.settings."10-scrobble" = {
-    "${storage.maloja}".d = {
+    "${storage.koito}".d = {
       user = "root";
       group = "root";
       mode = "0755";
@@ -22,19 +21,26 @@ in
   };
 
   virtualisation.quadlet.containers = {
-    maloja.containerConfig = {
-      image = "docker.io/krateng/maloja:3.2.4@sha256:b5e62bbc0e69de2ee9ff60322cc144fe0263548ba1db1501fc657ff1b37a9904";
+    # koito uses host network to hit postgres. i don't want to
+    # containerize postgres, and i'm too lazy to figure out the podman
+    # incantations to make it reachable without host networking.
+    koito.containerConfig = {
+      image = "docker.io/gabehf/koito:v0.0.13@sha256:456beeeaa3485a52ce7073013e1479036da6a50ee49d07e9703815f194401dc8";
+      networks = [ "host" ];
+      environmentFiles = [ config.sops.secrets."koito.env".path ];
       environments = {
-        # https://github.com/krateng/maloja/blob/master/settings.md
-        MALOJA_DATA_DIRECTORY = "/data";
-        MALOJA_SKIP_SETUP = "true";
+        KOITO_ALLOWED_HOSTS = "*";
+        KOITO_BIND_ADDR = "127.0.0.1";
+        KOITO_CONFIG_DIR = "/data";
+        KOITO_DEFAULT_USERNAME = "pd";
+        KOITO_ENABLE_FULL_IMAGE_CACHE = "true";
+        KOITO_ENABLE_STRUCTURED_LOGGING = "true";
+        KOITO_LOG_LEVEL = "info";
+        KOITO_FETCH_IMAGES_DURING_IMPORT = "true";
       };
       volumes = [
-        "${storage.maloja}:/data"
-        "${config.sops.secrets."maloja-apikeys.yml".path}:/data/apikeys.yml:ro"
-        "${config.sops.secrets."maloja-secrets.ini".path}:/run/secrets/maloja.ini"
+        "${storage.koito}:/data"
       ];
-      publishPorts = [ "127.0.0.1:42010:42010" ];
     };
 
     multiscrobbler.containerConfig = {

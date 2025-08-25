@@ -8,6 +8,7 @@
     ./grafana.nix
     ./jellyfin.nix
     ./nas.nix
+    ./psql.nix
     ./scrobble.nix
   ];
 

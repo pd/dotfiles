@@ -11,7 +11,7 @@
           filebotd = 12345;
           grafana = config.services.grafana.settings.server.http_port;
           jellyfin = 8096;
-          maloja = 42010;
+          koito = 4110;
           multiscrobbler = 9078;
           prom = config.services.prometheus.port;
           rtorrent = 8080;
@@ -24,7 +24,7 @@
         "grafana.home:80" = "localhost:${grafana}";
         "jellyfin.home:80" = "localhost:${jellyfin}";
         "jf.krh.me" = "localhost:${jellyfin}";
-        "maloja.home:80" = "localhost:${maloja}";
+        "koito.home:80" = "localhost:${koito}";
         "prom.home:80" = "localhost:${prom}";
         "scrobbler.home:80" = "localhost:${multiscrobbler}";
         "store.home:80" = "nas.home:${synologyDSM}";
