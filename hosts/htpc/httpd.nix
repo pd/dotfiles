@@ -13,6 +13,7 @@
           jellyfin = 8096;
           koito = 4110;
           multiscrobbler = 9078;
+          npd = 9776;
           prom = config.services.prometheus.port;
           rtorrent = 8080;
           synologyDSM = 5000;
@@ -25,6 +26,7 @@
         "jellyfin.home:80" = "localhost:${jellyfin}";
         "jf.krh.me" = "localhost:${jellyfin}";
         "koito.home:80" = "localhost:${koito}";
+        "npd.krh.me" = "localhost:${npd}";
         "prom.home:80" = "localhost:${prom}";
         "scrobbler.home:80" = "localhost:${multiscrobbler}";
         "store.home:80" = "nas.home:${synologyDSM}";

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>pdnp</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="pdnp">
+
+    {{ with .NP }}
+    <meta property="og:title" content="now playing">
+    <meta property="og:description" content="{{ .Album }} by {{ .Artist }}">
+    <meta property="og:image" content="{{ .ImageAbs }}">
+    <meta property="twitter:card" content="summary">
+    {{ end }}
+
+    <style>
+      body {
+        margin: 30px auto;
+        max-width: 1200px;
+        padding: 0 20px;
+        background-color: #5a5a5f;
+        color: #e0e0e0;
+        font-family: Roboto, Arial, sans-serif;
+      }
+
+      .np {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        margin-bottom: 40px;
+      }
+
+      .np .album-art {
+        width: 300px;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      .np-info {
+        flex: 1;
+      }
+
+      .np-info .album {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .np-info .artist {
+        font-size: 20px;
+        color: #b8b8b8;
+      }
+
+      .silence {
+        font-style: italic;
+        color: #888;
+      }
+
+      .prev {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        max-width: 880px;
+        gap: 20px;
+        margin-top: 20px;
+      }
+
+      .prev .album-art {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
+        object-fit: cover;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s;
+      }
+
+      .prev .album-art:hover {
+        transform: scale(1.05);
+      }
+
+      h2 {
+        color: #f0f0f0;
+      }
+
+      h3 {
+        color: #c0c0c0;
+        font-style: italic;
+      }
+
+      @media (max-width: 768px) {
+        .np {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .prev {
+          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>np:</h2>
+    <div class="np">
+      {{ with .NP }}
+      <a href="https://www.discogs.com/search/?q={{ .Artist }}+{{ .Album }}&type=all" target="_blank">
+        <img src="{{ .Image }}" class="album-art" alt="{{ .Artist }} - {{ .Album }}" title="{{ .Artist }} - {{ .Album }}">
+      </a>
+      <div class="np-info">
+        <p class="album">{{ .Album }}</p>
+        <p class="artist">{{ .Artist }}</p>
+      </div>
+      {{ else }}
+      <p class="silence">shush</p>
+      {{ end }}
+    </div>
+
+    <h3>previously on …</h3>
+    <div class="prev">
+      {{ range .Recent }}
+      <div>
+        <a href="https://www.discogs.com/search/?q={{ .Artist }}+{{ .Album }}&type=all" target="_blank">
+          <img src="{{ .Image }}" class="album-art" alt="{{ .Artist }} - {{ .Album }}" title="{{ .Artist }} - {{ .Album }}">
+        </a>
+      </div>
+      {{ end }}
+    </div>
+  </body>
+</html>

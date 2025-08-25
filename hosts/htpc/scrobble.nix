@@ -6,6 +6,7 @@ in
 {
   sops.secrets."koito.env" = { };
   sops.secrets."multiscrobbler.env" = { };
+  sops.secrets."npd.env" = { };
 
   systemd.tmpfiles.settings."10-scrobble" = {
     "${storage.koito}".d = {
@@ -17,6 +18,23 @@ in
       user = "root";
       group = "root";
       mode = "0755";
+    };
+  };
+
+  systemd.services.npd = {
+    enable = true;
+    description = "npd";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network.target" ];
+    environment = {
+      ADDR = ":9776";
+      JELLYFIN_URL = "http://jellyfin.home";
+    };
+    serviceConfig = {
+      Type = "exec";
+      User = config.users.users.pd.name;
+      ExecStart = "${pkgs.pd.npd}/bin/npd";
+      EnvironmentFile = config.sops.secrets."npd.env".path;
     };
   };
 
@@ -45,11 +63,11 @@ in
 
     multiscrobbler.containerConfig = {
       image = "ghcr.io/foxxmd/multi-scrobbler:0.9.11@sha256:7212fa36e0bc25c88ab43cbe554d69361f331001654866ce048a3c4a8f93a333";
+      networks = [ "host" ];
       volumes = [
         "${storage.multiscrobbler}:/config"
       ];
       environmentFiles = [ config.sops.secrets."multiscrobbler.env".path ];
-      publishPorts = [ "127.0.0.1:9078:9078" ];
     };
   };
 }
