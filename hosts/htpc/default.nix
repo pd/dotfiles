@@ -8,9 +8,11 @@
     ./grafana.nix
     ./jellyfin.nix
     ./nas.nix
+    ./scrobble.nix
   ];
 
   system.stateVersion = "24.05";
+  time.timeZone = "America/Chicago";
 
   networking.hostName = "htpc";
   lan.wired.interface = "eno1";
@@ -26,7 +28,10 @@
   hardware.enableRedistributableFirmware = true;
   security.rtkit.enable = true;
 
-  time.timeZone = "America/Chicago";
+  virtualisation.quadlet = {
+    enable = true;
+    autoEscape = true;
+  };
 
   services.keyd = {
     enable = true;
@@ -41,5 +46,4 @@
       };
     };
   };
-
 }

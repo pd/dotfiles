@@ -110,9 +110,12 @@
         ./modules/fonts
       ];
 
+      nixosConfigurations.htpc = mkNixos "htpc" [
+        inputs.quadlet-nix.nixosModules.quadlet
+      ];
+
       nixosConfigurations.orb = mkNixos "orb" [ ];
       nixosConfigurations.donix = mkNixos "donix" [ ];
-      nixosConfigurations.htpc = mkNixos "htpc" [ ];
       nixosConfigurations.pi = mkNixos "pi" [ ];
 
       homeConfigurations."pd@desk" = mkHome "pd@desk" "x86_64-linux";
@@ -249,6 +252,10 @@
     nixvim = {
       url = "github:nix-community/nixvim/nixos-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    quadlet-nix = {
+      url = "github:SEIAROTg/quadlet-nix";
     };
 
     sops-nix = {
