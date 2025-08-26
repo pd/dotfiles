@@ -23,7 +23,7 @@ var favicon []byte
 type JF struct {
 	client *http.Client
 	url    string
-	token  string
+	apiKey string
 	userID string
 }
 
@@ -75,12 +75,12 @@ func mainErr(_ context.Context) error {
 		return err
 	}
 
-	token, err := getenv("JELLYFIN_TOKEN")
+	apiKey, err := getenv("JELLYFIN_APIKEY")
 	if err != nil {
 		return err
 	}
 
-	jf, err := NewJF(url, token)
+	jf, err := NewJF(url, apiKey)
 	if err != nil {
 		return err
 	}
@@ -162,9 +162,9 @@ func imageProxy(jf *JF) http.Handler {
 	})
 }
 
-func NewJF(url, token string) (*JF, error) {
+func NewJF(url, apiKey string) (*JF, error) {
 	client := &http.Client{}
-	jf := &JF{client: client, url: url, token: token}
+	jf := &JF{client: client, url: url, apiKey: apiKey}
 
 	np, err := jf.Session()
 	if err != nil {
@@ -255,7 +255,7 @@ func (jf *JF) get(path string, q neturl.Values, out any) error {
 		return fmt.Errorf("GET %s: %w", path, err)
 	}
 
-	req.Header.Set("Authorization", fmt.Sprintf("MediaBrowser Token=%s", jf.token))
+	req.Header.Set("Authorization", fmt.Sprintf("MediaBrowser Token=%s", jf.apiKey))
 	req.URL.RawQuery = q.Encode()
 
 	resp, err := jf.client.Do(req)

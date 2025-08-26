@@ -86,10 +86,10 @@ func mediaSort(src, kind string) *exec.Cmd {
 
 func scanLibrary(c *http.Client, kind string) error {
 	jfURL := os.Getenv("JELLYFIN_URL")
-	jfKey := os.Getenv("JELLYFIN_API_KEY")
+	jfKey := os.Getenv("JELLYFIN_APIKEY")
 
 	if jfURL == "" || jfKey == "" {
-		return errors.New("JELLYFIN_URL or JELLYFIN_API_KEY unset")
+		return errors.New("JELLYFIN_URL or JELLYFIN_APIKEY unset")
 	}
 
 	libraryID := map[string]string{
