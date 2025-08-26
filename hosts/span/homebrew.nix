@@ -16,6 +16,7 @@
       "firefox"
       "google-chrome"
       "iterm2"
+      "loom"
       "notion"
       "notion-calendar"
       "orbstack"
