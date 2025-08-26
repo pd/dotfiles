@@ -28,7 +28,10 @@ type JF struct {
 }
 
 type Session struct {
-	UserId         string
+	UserId    string
+	PlayState struct {
+		IsPaused bool
+	}
 	NowPlayingItem *struct {
 		Id      string
 		AlbumId string
@@ -119,7 +122,7 @@ func index(jf *JF, tpl *template.Template) http.Handler {
 			return
 		}
 
-		if np.NowPlayingItem != nil {
+		if np.NowPlayingItem != nil && !np.PlayState.IsPaused {
 			data.NP = &Album{
 				AlbumId: np.NowPlayingItem.AlbumId,
 				Artist:  np.NowPlayingItem.Artist,
@@ -185,7 +188,7 @@ func (jf *JF) Session() (*Session, error) {
 	// Take anything, but prefer something now playing
 	session := sessions[0]
 	for _, s := range sessions {
-		if s.NowPlayingItem != nil {
+		if s.NowPlayingItem != nil && s.PlayState.IsPaused == false {
 			session = s
 			break
 		}
