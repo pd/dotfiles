@@ -5,6 +5,28 @@
   ...
 }:
 let
+  fuzzel-cliphist = pkgs.writeShellApplication {
+    name = "fuzzel-cliphist";
+    runtimeInputs = with pkgs; [
+      fuzzel
+      cliphist
+
+      # TODO image support:
+      # https://github.com/sentriz/cliphist/blob/master/contrib/cliphist-fuzzel-img
+      # https://github.com/workflow/dotfiles/blob/ed87ac9e2560d91562a8e645e46fafdc0805d7bb/home/cliphist/default.nix#L7
+      # imagemagick
+    ];
+
+    bashOptions = [
+      "errexit"
+      "nounset"
+      "pipefail"
+    ];
+    text = ''
+      cliphist list | fuzzel --dmenu --with-nth 2 | cliphist decode | wl-copy
+    '';
+  };
+
   layout-outputs =
     let
       wlr-randr = lib.getExe' pkgs.wlr-randr "wlr-randr";
@@ -131,6 +153,9 @@ in
       };
     };
   };
+
+  # clipboard history
+  services.cliphist.enable = true;
 
   programs.waybar =
     let
@@ -411,6 +436,7 @@ in
           "${mod} Return" = "spawn alacritty";
           "${mod} Space" = "spawn 'fuzzel'";
           "${mod} slash" = "spawn '${search-menu}/bin/search-menu'";
+          "${mod} backslash" = "spawn '${fuzzel-cliphist}/bin/fuzzel-cliphist'";
 
           "${mod} R" = "enter-mode reshape";
 
