@@ -136,13 +136,14 @@ func index(jf *JF, tpl *template.Template) http.Handler {
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
-		data.Recent = recent
 
 		if len(recent) > 0 && data.NP != nil {
 			if recent[0].Album == data.NP.Album && recent[0].Artist == data.NP.Artist {
-				data.Recent = recent[1:]
+				recent = recent[1:]
 			}
 		}
+
+		data.Recent = recent[:min(len(recent), 16)]
 
 		if err := tpl.Execute(w, data); err != nil {
 			// too late to 500
@@ -246,7 +247,7 @@ func (jf *JF) RecentAlbums() ([]*Album, error) {
 		return b.LastPlayed.Compare(a.LastPlayed)
 	})
 
-	return latest[:min(len(latest), 16)], nil
+	return latest, nil
 }
 
 func (jf *JF) get(path string, q neturl.Values, out any) error {
