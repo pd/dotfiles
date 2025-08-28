@@ -443,8 +443,8 @@ in
           "${mod}+Shift N" = "focus-view next";
 
           "${mod} comma" = "zoom";
-          "${mod}+Shift+Control J" = "swap previous";
-          "${mod}+Shift+Control K" = "swap next";
+          "${mod}+Shift+Control K" = "swap previous";
+          "${mod}+Shift+Control J" = "swap next";
 
           "${mod}+Shift F" = "toggle-fullscreen";
           "${mod}+Shift Space" = "toggle-float";
