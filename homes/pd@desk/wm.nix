@@ -196,6 +196,32 @@ in
         return-type = "json";
       };
 
+      pulseaudio =
+        let
+          pavucontrol = lib.getExe' pkgs.pavucontrol "pavucontrol";
+          pactl = lib.getExe' pkgs.pulseaudio "pactl";
+          toggle-sink = pkgs.writeShellScript "toggle-sink" ''
+            headphones="bluez_output.80_99_E7_D1_87_04.1"
+            speakers="alsa_output.pci-0000_2f_00.4.analog-stereo"
+            if [[ "$(${pactl} get-default-sink)" == "$speakers" ]]; then
+              ${pactl} set-default-sink "$headphones"
+            else
+              ${pactl} set-default-sink "$speakers"
+            fi
+          '';
+        in
+        {
+          format = "{icon} {volume}%";
+          format-icons = {
+            default = "󰓃";
+            "bluez_output.80_99_E7_D1_87_04.1" = "";
+          };
+
+          on-click = pavucontrol;
+          on-click-right = toggle-sink;
+          scroll-step = 2;
+        };
+
       tags = {
         num-tags = 6;
         tag-labels = [
@@ -285,7 +311,7 @@ in
           "clock"
         ];
 
-        inherit tray clock;
+        inherit tray clock pulseaudio;
         "river/tags" = tags;
         "custom/river-mode" = mode;
 
@@ -329,19 +355,6 @@ in
           tooltip-format-disconnected = "Disconnected";
         };
 
-        pulseaudio = {
-          scroll-step = 2;
-          on-click = "pavucontrol";
-          format = "{icon} {volume}%";
-          format-muted = "";
-          format-icons = {
-            default = [
-              ""
-              ""
-            ];
-          };
-        };
-
         "custom/audio-state" = {
           format = "{icon}";
           exec = "sway-audio-idle-inhibit --dry-print-both-waybar";
@@ -365,9 +378,12 @@ in
           "custom/river-mode"
         ];
         modules-center = [ "river/tags" ];
-        modules-right = [ "clock" ];
+        modules-right = [
+          "pulseaudio"
+          "clock"
+        ];
 
-        inherit tray clock;
+        inherit tray clock pulseaudio;
         "river/tags" = tags;
         "custom/river-mode" = mode;
       };
