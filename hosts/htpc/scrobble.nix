@@ -55,6 +55,7 @@ in
         KOITO_ENABLE_STRUCTURED_LOGGING = "true";
         KOITO_LOG_LEVEL = "info";
         KOITO_FETCH_IMAGES_DURING_IMPORT = "true";
+        TZ = "America/Chicago";
       };
       volumes = [
         "${storage.koito}:/data"
@@ -67,6 +68,7 @@ in
       volumes = [
         "${storage.multiscrobbler}:/config"
       ];
+      environments.TZ = "America/Chicago";
       environmentFiles = [ config.sops.secrets."multiscrobbler.env".path ];
     };
   };
