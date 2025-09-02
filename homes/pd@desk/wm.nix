@@ -402,7 +402,6 @@ in
     in
     {
       enable = true;
-      extraArgs = [ "-d" ];
       systemdTarget = "river-session.target";
       timeouts = [
         {
