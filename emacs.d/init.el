@@ -781,3 +781,9 @@ uncomment the current line."
 
    ;; other window plz
    ("<leader>wo" . other-window-prefix)))
+
+;; add private to load-path iff it's available
+(let ((private-emacs (expand-file-name "~/dotfiles/private/emacs.d/")))
+  (when (file-directory-p private-emacs)
+    (add-to-list 'load-path private-emacs)
+    (require 'pd/work)))
