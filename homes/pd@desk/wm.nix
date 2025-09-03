@@ -5,24 +5,6 @@
   ...
 }:
 let
-  cliphist-fuzzel-img = pkgs.writeShellApplication {
-    name = "cliphist-fuzzel-img";
-    runtimeInputs = with pkgs; [
-      cliphist
-      fuzzel
-      gawk
-      imagemagick
-      wl-clipboard
-    ];
-
-    bashOptions = [
-      "nounset"
-      "pipefail"
-    ];
-
-    text = builtins.readFile ./cliphist-fuzzel-img.sh;
-  };
-
   layout-outputs =
     let
       wlr-randr = lib.getExe' pkgs.wlr-randr "wlr-randr";
@@ -31,42 +13,15 @@ let
       ${wlr-randr} --output DP-1 --mode 3840x2160 --pos 1210,0 --scale 1.25
       ${wlr-randr} --output DP-2 --mode 1920x1200 --pos 0,240  --transform 90
     '';
-
-  search-menu = pkgs.writeShellScriptBin "search-menu" (builtins.readFile ./search-menu.sh);
-
-  screenshots =
-    let
-      grim = lib.getExe' pkgs.grim "grim";
-      slurp = lib.getExe' pkgs.slurp "slurp";
-      wl-copy = lib.getExe' pkgs.wl-clipboard "wl-copy";
-    in
-    pkgs.symlinkJoin {
-      name = "wl-screenshots";
-      paths = [
-        (pkgs.writeShellScriptBin "wl-screenshot-region" ''
-          ${grim} -g "$(${slurp})" - | ${wl-copy}
-        '')
-
-        (pkgs.writeShellScriptBin "wl-screenshot-display" ''
-          ${grim} - | ${wl-copy}
-        '')
-      ];
-    };
 in
 {
   home.packages = with pkgs; [
-    grim
     lswt # to get app-id for riverctl rules
     imv # minimalist image viewer
     river-filtile
-    slurp
     sway-audio-idle-inhibit
     wl-clipboard
     wlr-randr
-
-    layout-outputs
-    screenshots
-    search-menu
   ];
 
   stylix = {
@@ -141,6 +96,7 @@ in
   # dmenu-y
   programs.fuzzel = {
     enable = true;
+    package = pkgs.pd.launcher;
     settings = {
       main.font = lib.mkForce "Noto Sans:size=12";
       key-bindings = {
@@ -445,9 +401,9 @@ in
         # https://github.com/xkbcommon/libxkbcommon/blob/e9fd95/include/xkbcommon/xkbcommon-keysyms.h
         map.normal = {
           "${mod} Return" = "spawn alacritty";
-          "${mod} Space" = "spawn 'fuzzel'";
-          "${mod} slash" = "spawn '${search-menu}/bin/search-menu'";
-          "${mod} backslash" = "spawn '${cliphist-fuzzel-img}/bin/cliphist-fuzzel-img'";
+          "${mod} Space" = "spawn '${pkgs.pd.launcher}/bin/fuzzel'";
+          "${mod} slash" = "spawn '${pkgs.pd.launcher}/bin/search-menu'";
+          "${mod} backslash" = "spawn '${pkgs.pd.launcher}/bin/cliphist-fuzzel-img'";
 
           "${mod} R" = "enter-mode reshape";
 
@@ -469,8 +425,8 @@ in
           "${mod}+Control braceleft" = "send-to-output left";
           "${mod}+Control braceright" = "send-to-output right";
 
-          "None Print" = "spawn 'wl-screenshot-region'";
-          "${mod} Print" = "spawn 'wl-screenshot-display'";
+          "None Print" = "spawn '${pkgs.pd.screenshots}/bin/wl-screenshot-region'";
+          "${mod} Print" = "spawn '${pkgs.pd.screenshots}/bin/wl-screenshot-display'";
 
           "${mod} F12" = "spawn ${layout-outputs}/bin/layout-outputs";
           "${mod}+Shift+Control BackSpace" = "exit";
