@@ -507,46 +507,23 @@ in
           pointer-accel = "0.1";
         };
 
-        rule-add =
-          let
-            flags =
-              match:
-              let
-                matches = if (builtins.isList match) then match else [ match ];
-                mkFlag = k: v: "${k} ${v}";
-              in
-              lib.concatStringsSep " " (lib.zipListsWith mkFlag [ "-app-id" "-title" ] matches);
+        rule-add = [
+          "ssd"
 
-            mkRule = match: action: "${flags match} ${action}";
-            tag = match: v: mkRule match "tags '${toString v}'";
-            float = match: mkRule match "float";
-            output = match: output: mkRule match "output '${output}'";
+          "-app-id emacs tags 3" # 1|2
+          "-app-id firefox tags 5" # 1|3
+          "-app-id Slack tags 8" # 4
+          "-app-id signal tags 16" # 5
+          "-app-id signal output DP-2"
+          "-app-id 'steam_app_*' tags 32" # 6
+          "-app-id 'steam_app_*' output DP-1"
 
-            tags = lib.mapAttrsToList tag {
-              emacs = 3; # 1|2
-              firefox = 5; # 1|3
-              Slack = 8; # 4
-              signal = 16; # 5
-              "steam_app_*" = 32; # 6
-            };
-
-            floats = map float [
-              ".blueman-manager-wrapped"
-              "imv"
-              "org.pulseaudio.pavucontrol"
-              "com.github.PintaProject.Pinta"
-              [
-                "firefox"
-                "Library"
-              ]
-            ];
-
-            outputs = lib.mapAttrsToList output {
-              signal = "DP-2";
-              "steam_app_*" = "DP-1";
-            };
-          in
-          [ "ssd" ] ++ tags ++ outputs ++ floats;
+          "-app-id .blueman-manager-wrapped float"
+          "-app-id imv float"
+          "-app-id org.pulseaudio.pavucontrol float"
+          "-app-id com.github.PintaProject.Pinta float"
+          "-app-id firefox -title Library float"
+        ];
 
         set-cursor-warp = "on-output-change";
 
