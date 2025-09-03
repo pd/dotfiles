@@ -527,6 +527,7 @@ in
               firefox = 5; # 1|3
               Slack = 8; # 4
               signal = 16; # 5
+              "steam_app_*" = 32; # 6
             };
 
             floats = map float [
@@ -542,6 +543,7 @@ in
 
             outputs = lib.mapAttrsToList output {
               signal = "DP-2";
+              "steam_app_*" = "DP-1";
             };
           in
           [ "ssd" ] ++ tags ++ outputs ++ floats;
