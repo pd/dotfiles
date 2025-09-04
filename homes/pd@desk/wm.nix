@@ -5,14 +5,10 @@
   ...
 }:
 let
-  layout-outputs =
-    let
-      wlr-randr = lib.getExe' pkgs.wlr-randr "wlr-randr";
-    in
-    pkgs.writeShellScriptBin "layout-outputs" ''
-      ${wlr-randr} --output DP-1 --mode 3840x2160 --pos 1210,0 --scale 1.25
-      ${wlr-randr} --output DP-2 --mode 1920x1200 --pos 0,240  --transform 90
-    '';
+  layout-outputs = lib.getExe' (pkgs.writeShellScriptBin "layout-outputs" ''
+    ${pkgs.wlr-randr}/bin/wlr-randr --output DP-1 --mode 3840x2160 --pos 1210,0 --scale 1.25
+    ${pkgs.wlr-randr}/bin/wlr-randr --output DP-2 --mode 1920x1200 --pos 0,240  --transform 90
+  '') "layout-outputs";
 in
 {
   home.packages = with pkgs; [
@@ -347,12 +343,10 @@ in
 
   services.swayidle =
     let
-      layout = lib.getExe' layout-outputs "layout-outputs";
-      wlr-randr = lib.getExe' pkgs.wlr-randr "wlr-randr";
       display-state = pkgs.writeShellScript "display-state" ''
-        ${wlr-randr} --output DP-1 --"$1" --output DP-2 --"$1"
+        ${pkgs.wlr-randr}/bin/wlr-randr --output DP-1 --"$1" --output DP-2 --"$1"
         if [[ "$1" == "on" ]]; then
-          ${layout}
+          ${layout-outputs}
         fi
       '';
     in
@@ -428,7 +422,7 @@ in
           "None Print" = "spawn '${pkgs.pd.screenshots}/bin/wl-screenshot-region'";
           "${mod} Print" = "spawn '${pkgs.pd.screenshots}/bin/wl-screenshot-display'";
 
-          "${mod} F12" = "spawn ${layout-outputs}/bin/layout-outputs";
+          "${mod} F12" = "spawn ${layout-outputs}";
           "${mod}+Shift+Control BackSpace" = "exit";
         }
         // (lib.zipAttrs (map tag (lib.range 1 9)));
@@ -486,8 +480,7 @@ in
         spawn = map (cmd: "'${cmd}'") [
           "waybar"
           "sway-audio-idle-inhibit"
-          "layout-outputs"
-          "filtile -view-padding 4 -outer-padding 4"
+          layout-outputs
         ];
 
         background-color = lib.mkForce "0x303038";
@@ -498,13 +491,14 @@ in
 
     # Ensure send-layout-cmd fires after filtile is actually running
     extraConfig = ''
-      # on vertical monitor, split vertically and keep new windows small
-      # they're almost always ephemeral
-      riverctl send-layout-cmd filtile "--output DP-2 main-location top"
-      riverctl send-layout-cmd filtile "--output DP-2 main-ratio 75"
-
       # start with focus on main monitor
       riverctl focus-output DP-1
+
+      # on vertical monitor, split vertically and keep new windows small
+      # because they're almost always ephemeral
+      filtile -view-padding 4 -outer-padding 4 \
+        --output DP-2 main-location top, \
+        --output DP-2 main-ratio 75 &
     '';
   };
 }
