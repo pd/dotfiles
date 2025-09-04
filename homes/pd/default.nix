@@ -56,4 +56,18 @@
     automatic = true;
     options = "--delete-older-than 15d";
   };
+
+  programs.ghostty = {
+    enable = true;
+    package = if pkgs.hostPlatform.isDarwin then pkgs.unstable.ghostty-bin else pkgs.ghostty;
+    enableZshIntegration = true;
+    settings = {
+      auto-update = "off";
+      background = "111111";
+      foreground = "fdf4c1";
+      split-divider-color = "747372";
+      font-family = "FiraCode Nerd Font Mono";
+      font-size = 12;
+    };
+  };
 }
