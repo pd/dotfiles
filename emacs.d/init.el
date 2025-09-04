@@ -113,8 +113,9 @@
   (setq ns-command-modifier      'meta
         ns-alternate-modifier    'super
         ns-function-modifier     'hyper
-        ns-use-native-fullscreen nil)
-  (setq dired-use-ls-dired nil)
+        ns-use-native-fullscreen nil
+        dired-use-ls-dired       nil)
+  (add-to-list 'default-frame-alist '(font . "FiraCode Nerd Font"))
   (add-to-list 'default-frame-alist '(ns-appearance . dark))
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . nil))
 
