@@ -11,7 +11,7 @@
 
   services.postgresql = {
     enable = true;
-    package = pkgs.postgresql_17_jit;
+    package = pkgs.postgresql_16_jit;
 
     ensureDatabases = [ "koito" ];
     ensureUsers = [
