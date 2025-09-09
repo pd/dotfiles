@@ -173,6 +173,7 @@ rec {
       cnames = [
         "alerts"
         "grafana"
+        "img"
         "jellyfin"
         "koito"
         "ns2"

@@ -6,6 +6,7 @@
     ./prometheus
     ./httpd.nix
     ./grafana.nix
+    ./immich.nix
     ./jellyfin.nix
     ./nas.nix
     ./psql.nix

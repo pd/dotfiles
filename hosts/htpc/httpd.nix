@@ -10,6 +10,7 @@
           alertmanager = config.services.prometheus.alertmanager.port;
           filebotd = 12345;
           grafana = config.services.grafana.settings.server.http_port;
+          immich = config.services.immich.port;
           jellyfin = 8096;
           koito = 4110;
           multiscrobbler = 9078;
@@ -23,6 +24,7 @@
       {
         "alerts.home:80" = "localhost:${alertmanager}";
         "grafana.home:80" = "localhost:${grafana}";
+        "img.home:80" = "localhost:${immich}";
         "jellyfin.home:80" = "localhost:${jellyfin}";
         "jf.krh.me" = "localhost:${jellyfin}";
         "koito.home:80" = "localhost:${koito}";
