@@ -20,6 +20,8 @@ var tplIndex string
 //go:embed favicon.svg
 var favicon []byte
 
+const maxAlbums = 24
+
 type JF struct {
 	client *http.Client
 	url    string
@@ -143,7 +145,7 @@ func index(jf *JF, tpl *template.Template) http.Handler {
 			}
 		}
 
-		data.Recent = recent[:min(len(recent), 16)]
+		data.Recent = recent[:min(len(recent), maxAlbums)]
 
 		if err := tpl.Execute(w, data); err != nil {
 			// too late to 500
@@ -216,7 +218,7 @@ func (jf *JF) RecentAlbums() ([]*Album, error) {
 		"Filters":          {"IsPlayed"},
 		"SortBy":           {"DatePlayed"},
 		"SortOrder":        {"Descending"},
-		"Limit":            {"400"}, // to hopefully get at least 12 albums back
+		"Limit":            {"600"},
 	}, &response)
 	if err != nil {
 		return nil, fmt.Errorf("RecentAlbums: %w", err)
