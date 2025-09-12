@@ -78,14 +78,14 @@
   (load-theme 'gruvbox-dark-hard)
   (custom-theme-set-faces
    'gruvbox-dark-hard
-   '(default ((t (:foreground "#cfcfcf" :background "#0a0a0a"))))
-   '(region ((t (:background "#333")))))
+   '(default ((t (:foreground "#fcfdfc" :background "#0a0a0a"))))
+   '(region ((t (:background "#2a2a2a"))))
+   '(magit-section-highlight ((t (:background "#1c1c1c"))))
+   '(magit-diff-context-highlight ((t (:background "#1c1c1c"))))
+   '(hl-line ((t (:background "#1c1c1c")))))
   (enable-theme 'gruvbox-dark-hard))
 
-(use-package hl-line
-  :ensure nil
-  :config
-  (set-face-background 'hl-line "#222"))
+(use-package hl-line :ensure nil)
 
 (use-package simple-modeline
   :config
