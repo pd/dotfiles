@@ -256,10 +256,6 @@ targets."
   (("s-`" . popper-toggle)
    ("M-`" . popper-cycle)))
 
-; i forget how this interacted with popper but let's see how life without it is
-;; (use-package popwin
-;;   :init (popwin-mode))
-
 ;; vim
 (use-package undo-fu
   :init
