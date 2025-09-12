@@ -78,7 +78,7 @@
   (load-theme 'gruvbox-dark-hard)
   (custom-theme-set-faces
    'gruvbox-dark-hard
-   '(default ((t (:foreground "#ffdfbf" :background "#0a0a0a"))))
+   '(default ((t (:foreground "#cfcfcf" :background "#0a0a0a"))))
    '(region ((t (:background "#333")))))
   (enable-theme 'gruvbox-dark-hard))
 
