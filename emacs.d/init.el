@@ -76,8 +76,11 @@
 (use-package gruvbox-theme
   :config
   (load-theme 'gruvbox-dark-hard)
-  (set-face-background 'default "#111")
-  (set-face-background 'region "#333"))
+  (custom-theme-set-faces
+   'gruvbox-dark-hard
+   '(default ((t (:foreground "#ffdfbf" :background "#0a0a0a"))))
+   '(region ((t (:background "#333")))))
+  (enable-theme 'gruvbox-dark-hard))
 
 (use-package hl-line
   :ensure nil
