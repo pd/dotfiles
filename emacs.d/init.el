@@ -74,16 +74,14 @@
 
 ;; decent theme
 (use-package gruvbox-theme
+  :custom-face
+  (default ((t (:foreground "#efdfb2" :background "#0a0a0a"))))
+  (region ((t (:background "#2a2a2a"))))
+  (magit-section-highlight ((t (:background "#1c1c1c"))))
+  (magit-diff-context-highlight ((t (:background "#1c1c1c"))))
+  (hl-line ((t (:background "#1c1c1c"))))
   :config
-  (load-theme 'gruvbox-dark-hard)
-  (custom-theme-set-faces
-   'gruvbox-dark-hard
-   '(default ((t (:foreground "#efdfb2" :background "#0a0a0a"))))
-   '(region ((t (:background "#2a2a2a"))))
-   '(magit-section-highlight ((t (:background "#1c1c1c"))))
-   '(magit-diff-context-highlight ((t (:background "#1c1c1c"))))
-   '(hl-line ((t (:background "#1c1c1c")))))
-  (enable-theme 'gruvbox-dark-hard))
+  (load-theme 'gruvbox-dark-hard t))
 
 (use-package hl-line :ensure nil)
 
