@@ -78,7 +78,7 @@
   (load-theme 'gruvbox-dark-hard)
   (custom-theme-set-faces
    'gruvbox-dark-hard
-   '(default ((t (:foreground "#fcfdfc" :background "#0a0a0a"))))
+   '(default ((t (:foreground "#efdfb2" :background "#0a0a0a"))))
    '(region ((t (:background "#2a2a2a"))))
    '(magit-section-highlight ((t (:background "#1c1c1c"))))
    '(magit-diff-context-highlight ((t (:background "#1c1c1c"))))
