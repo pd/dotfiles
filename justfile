@@ -46,7 +46,7 @@ hm op="switch":
     fi
 
 [group('hosts')]
-all op="test": (desk op) (htpc op) (pi op) (donix op) (orb op)
+all op="test": (desk op) (htpc op) (pi op) (donix op)
 
 [group('hosts')]
 desk op="test":
