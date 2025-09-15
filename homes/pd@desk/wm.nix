@@ -420,7 +420,7 @@ in
           "${mod}+Control braceright" = "send-to-output right";
 
           "None Print" = "spawn '${pkgs.pd.screenshots}/bin/wl-screenshot-region'";
-          "${mod} Print" = "spawn '${pkgs.pd.screenshots}/bin/wl-screenshot-display'";
+          "${mod} Print" = "spawn '${pkgs.pd.screenshots}/bin/wl-screenshot-output'";
 
           "${mod} F12" = "spawn ${layout-outputs}";
           "${mod}+Shift+Control BackSpace" = "exit";
