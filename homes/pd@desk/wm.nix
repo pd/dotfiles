@@ -364,6 +364,7 @@ in
 
   wayland.windowManager.river = {
     enable = true;
+    package = pkgs.unstable.river-classic;
     systemd.enable = true;
 
     settings =
