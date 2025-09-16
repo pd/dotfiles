@@ -560,7 +560,7 @@ targets."
 
 (use-package eglot
   :hook
-  ((go-mode go-ts-mode nix-mode zig-ts-mode) . eglot-ensure)
+  ((csharp-mode go-mode go-ts-mode nix-mode zig-ts-mode) . eglot-ensure)
   :bind
   (("<leader>la" . eglot-code-actions)
    ("<leader>lf" . eglot-format-buffer)
@@ -569,7 +569,10 @@ targets."
    ("<leader>lX" . eglot-shutdown-all)
    ("<leader>lz" . eglot-reconnect))
   :config
-  (add-to-list 'eglot-server-programs '(zig-ts-mode . ("zls"))))
+  (setopt eglot-connect-timeout nil)
+  (add-to-list 'eglot-server-programs '(zig-ts-mode . ("zls")))
+  (add-to-list 'eglot-server-programs '(csharp-mode . ("OmniSharp" "-lsp")))
+  )
 
 (use-package dape
   :preface

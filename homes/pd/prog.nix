@@ -22,16 +22,17 @@ in
   home.packages = with pkgs.unstable; [
     delve
     dive
+    dotnet-sdk_8
     go
     gopls
     gotools
     go-jsonnet
     lldb
     nil
+    omnisharp-roslyn
     (hiPrio ruby') # win over gotools `bundle`
     supabase-cli
     uv
-
     zvm
   ];
 }
