@@ -37,6 +37,7 @@
       age
       age-plugin-yubikey
       cfssl
+      file
       htop
       ipcalc
       just
