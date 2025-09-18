@@ -15,6 +15,7 @@
 
   system.stateVersion = "24.05";
   time.timeZone = "America/Chicago";
+  docs.enable = false;
 
   networking.hostName = "htpc";
   lan.wired.interface = "eno1";

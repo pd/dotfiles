@@ -18,4 +18,6 @@
     nmap
     traceroute
   ];
+
+  docs.enable = false;
 }

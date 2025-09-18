@@ -35,6 +35,7 @@ in
   wg.offLan = true;
 
   time.timeZone = "America/Chicago";
+  docs.enable = false;
 
   users.users = lib.mapAttrs mkAdmin friends;
 }
