@@ -36,6 +36,7 @@
     [
       age
       age-plugin-yubikey
+      btop
       cfssl
       file
       htop
