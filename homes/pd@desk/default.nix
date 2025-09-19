@@ -24,6 +24,7 @@
       zoom-us
     ]
     ++ (with unstable; [
+      aws-workspaces
       signal-desktop
       slack
     ]);
