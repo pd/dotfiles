@@ -26,11 +26,6 @@ in
 {
   home.packages = [ em ];
 
-  programs.autojump = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
   programs.direnv = {
     enable = true;
     enableZshIntegration = true;
@@ -106,6 +101,11 @@ in
     };
   };
 
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   programs.zsh = {
     enable = true;
     # zprof.enable = true;
@@ -158,7 +158,6 @@ in
       k = "kubectl";
       ll = "ls -l";
       ls = "ls -Fh";
-      z = "j";
     };
 
     plugins = [
