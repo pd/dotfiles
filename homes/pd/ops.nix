@@ -63,5 +63,10 @@ in
       alias kapf='kubectl apply -f- --server-side --force-conflicts'
       alias kdiff='kubectl diff -f- --server-side'
     '';
+
+    # awscli zsh completion doesn't autoload as expected, dunno why
+    completionInit = ''
+      complete -C ${awscli}/bin/aws_completer aws
+    '';
   };
 }

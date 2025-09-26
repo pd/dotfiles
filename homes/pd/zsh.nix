@@ -113,6 +113,11 @@ in
     autocd = true;
     enableVteIntegration = true;
 
+    completionInit = ''
+      autoload -U compinit && compinit
+      autoload -U bashcompinit && bashcompinit
+    '';
+
     history = {
       save = 50000;
       size = 10000;
