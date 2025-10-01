@@ -73,4 +73,7 @@
 
   # new gpu lets see how it goes
   programs.steam.enable = true;
+
+  # so things like `uv run` work
+  programs.nix-ld.enable = true;
 }
