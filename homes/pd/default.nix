@@ -39,6 +39,7 @@
       btop
       cfssl
       file
+      graphviz
       htop
       ipcalc
       just
