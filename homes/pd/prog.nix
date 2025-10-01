@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 let
   ruby' = pkgs.unstable.ruby.withPackages (
     gems: with gems; [

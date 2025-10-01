@@ -627,6 +627,8 @@ targets."
                    (zig-mode        . zig-ts-mode)))
     (add-to-list 'major-mode-remap-alist remap)))
 
+(use-package zeal-at-point)
+
 ;; shell
 (use-package vterm
   :custom

@@ -26,7 +26,8 @@
                    nix-ts-mode nixfmt nixpkgs-fmt no-littering
                    orderless popper popwin rust-mode simple-modeline
                    sops terraform-mode undo-fu vertico vterm wgrep
-                   whitespace-cleanup-mode yaml-mode zig-ts-mode))
+                   whitespace-cleanup-mode yaml-mode zeal-at-point
+                   zig-ts-mode))
  '(safe-local-variable-values
    '((flycheck-disabled-checkers emacs-lisp-checkdoc emacs-lisp))))
 (custom-set-faces

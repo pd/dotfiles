@@ -21,6 +21,7 @@
       pavucontrol # audio
       pinta # remedial image editing
       screen
+      zeal
       zoom-us
     ]
     ++ (with unstable; [
