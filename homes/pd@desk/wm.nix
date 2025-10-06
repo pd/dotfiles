@@ -474,6 +474,13 @@ in
           "-app-id org.pulseaudio.pavucontrol float"
           "-app-id com.github.PintaProject.Pinta float"
           "-app-id firefox -title Library float"
+
+          # AWS workspaces
+          "-app-id Dcvclient tags 16" # 5
+          "-app-id Dcvclient output DP-1" # 5
+          "-app-id workspacesclient tags 8" # 6
+          "-app-id workspacesclient output DP-1"
+          "-app-id workspacesclient float"
         ];
 
         set-cursor-warp = "on-output-change";
