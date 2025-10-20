@@ -13,12 +13,10 @@ in
 
       substituters = [
         "https://nix-community.cachix.org"
-        "https://nixpkgs-terraform.cachix.org"
       ];
 
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        "nixpkgs-terraform.cachix.org-1:8Sit092rIdAVENA3ZVeH9hzSiqI/jng6JiCrQ1Dmusw="
       ];
 
       trusted-users = if isLinux then [ "@wheel" ] else [ "@admin" ];

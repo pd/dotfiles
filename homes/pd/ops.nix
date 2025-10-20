@@ -29,18 +29,15 @@ in
     with pkgs;
     [
       dyff
+      eksctl
       kfilt
       unstable.kind
       unstable.kubectl
       kubernetes-helm
       kustomize
-      stern
-
-      eksctl
-      ssm-session-manager-plugin
-
       opentofu
-      terraform-versions."1.12.2" # TODO never hits in their cachix?
+      ssm-session-manager-plugin
+      stern
     ]
     ++ [
       gcloud

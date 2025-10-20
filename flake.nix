@@ -264,11 +264,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixpkgs-terraform = {
-      url = "github:stackbuilders/nixpkgs-terraform";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixvim = {
       url = "github:nix-community/nixvim/nixos-25.05";
       inputs.nixpkgs.follows = "nixpkgs";

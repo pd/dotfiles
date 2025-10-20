@@ -8,11 +8,6 @@
     };
   };
 
-  # Expose nixpkgs-terraform as `pkgs.terraform-versions`
-  nixpkgs-terraform = final: _prev: {
-    terraform-versions = inputs.nixpkgs-terraform.packages.${final.system};
-  };
-
   # Additional treesitter grammars
   tree-sitter = _final: prev: {
     tree-sitter = prev.tree-sitter.override {
