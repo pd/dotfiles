@@ -32,6 +32,7 @@ in
     };
     serviceConfig = {
       Type = "exec";
+      Restart = "on-failure";
       User = config.users.users.pd.name;
       ExecStart = "${pkgs.pd.npd}/bin/npd";
       EnvironmentFile = config.sops.secrets."npd.env".path;

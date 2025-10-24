@@ -73,6 +73,7 @@ in
     after = [ "network.target" ];
     serviceConfig = {
       Type = "exec";
+      Restart = "on-failure";
       User = config.users.users.prometheus.name;
       ExecStart = ''
         ${pkgs.pd.rtorrent-exporter}/bin/rtorrent-exporter \
