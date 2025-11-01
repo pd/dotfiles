@@ -32,12 +32,14 @@
   # better support for very new AMDs in newish kernels
   boot.kernelPackages =
     let
-      kernel = pkgs.linuxPackages_6_17.kernel;
+      ns = "linuxPackages_6_17";
+      kernelPackages = pkgs.${ns};
+      kernel = kernelPackages.kernel;
     in
     if lib.versionOlder pkgs.linuxPackages.kernel.version kernel.version then
-      pkgs.linuxPackages_6_17
+      kernelPackages
     else
-      builtins.warn "nixpkgs kernel version has surpassed ${kernel.version} from linuxPackages_6_17";
+      builtins.warn "nixpkgs kernel version has surpassed ${kernel.version} from pkgs.${ns}";
 
   # mostly functional audio
   security.polkit.enable = true;
