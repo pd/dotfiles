@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 let
   ruby' = pkgs.unstable.ruby.withPackages (
     gems: with gems; [
@@ -28,7 +28,7 @@ in
     go-jsonnet
     lldb
     nil
-    (hiPrio ruby') # win over gotools `bundle`
+    (lib.hiPrio ruby') # win over gotools `bundle`
     supabase-cli
     uv
 
