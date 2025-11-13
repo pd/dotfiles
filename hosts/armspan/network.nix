@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (pd.net) lan wg wifi;
+  inherit (pd.net) lan wg;
 in
 {
   sops.defaultSopsFile = ./secrets.yaml;
@@ -21,8 +21,8 @@ in
       autostart = false;
       privateKeyFile = secrets.wireguard-private-key.path;
       address = [
-        "${wg.ipv4.span}/32"
-        "${wg.ipv6.span}/128"
+        "${wg.ipv4.armspan}/32"
+        "${wg.ipv6.armspan}/128"
       ];
       dns = [ "${wg.ipv4.pi},${wg.ipv6.pi},wg,home" ];
       postDown = "networksetup -setdnsservers Wi-Fi Empty";
@@ -50,7 +50,7 @@ in
   launchd.agents.homeULA =
     let
       dev = "en0";
-      ula = lan.ipv6.span;
+      ula = lan.ipv6.armspan;
 
       home-ula-toggle = pkgs.writeShellScript "home-ula-toggle" ''
         on_home_wifi() {
