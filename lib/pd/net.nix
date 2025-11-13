@@ -220,7 +220,7 @@ rec {
 
     armspan = {
       id = 16;
-      duid = "0001000130a80175842f57ce34ce";
+      duid = "00030001c6d386c13de0";
       macs = [ "c6:d3:86:c1:3d:e0" ];
       ssh.port = 22;
       wg.publicKey = "6dbFtf4/jeF7/H4UDEnxkFbTSmsaXs43msfJ6YcydTk=";
