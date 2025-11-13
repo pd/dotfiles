@@ -2,7 +2,7 @@
 {
   imports = [
     ../pd
-    "${inputs.private}/pd@span"
+    "${inputs.private}/pd@armspan"
   ];
 
   home.stateVersion = "25.05";
