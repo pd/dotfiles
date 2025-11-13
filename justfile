@@ -30,6 +30,8 @@ repl host:
     #!/usr/bin/env bash
     if [[ "{{ host }}" == "span" ]]; then
       nix repl .#darwinConfigurations.span
+    elif [[ "{{ host }}" == "armspan" ]]; then
+      nix repl .#darwinConfigurations.armspan
     else
       nix repl .#nixosConfigurations.{{ host }}
     fi
@@ -98,6 +100,10 @@ _nixos_rebuild op host:
 span op="switch":
     sudo darwin-rebuild {{ op }} --flake '.#span'
 
+# can only really be run on armspan
+[group('hosts')]
+armspan op="switch":
+    sudo darwin-rebuild {{ op }} --flake '.#armspan'
 
 [group('routers')]
 routers:
