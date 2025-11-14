@@ -1,4 +1,5 @@
 keys:
+- &pd-armspan age1rwnm629kenfmccdkhjvslwtsqtwknw3rax52u7shw75dh8rt24gq7n5y4c
 - &pd-desk age12uqgz9ghdjx9df00hshmgmjddp57u83wwj0nu0vg8mvvkzwuydpsxfns33
 - &pd-span age1qh726xrj4tzl778wajr40draeureqrly7c5m639tq5qhmr5sev9s7k5pd3
 - &pd-orb age1v30sfftltx4jz2f8zygwvtqxglm42lek98zt25m346pd2ln7affspsnv9z
@@ -15,6 +16,7 @@ creation_rules:
 - path_regex: .envrc.sops.yaml$
   key_groups:
   - age:
+    - *pd-armspan
     - *pd-span
     - *pd-desk
     - *yubiring
@@ -22,14 +24,25 @@ creation_rules:
 - path_regex: homes/pd/secrets.yaml$
   key_groups:
   - age:
+    - *pd-armspan
     - *pd-span
     - *pd-desk
     - *pd-orb
     - *yubiring
     - *yubicab
+- path_regex: hosts/armspan/secrets.yaml$
+  key_groups:
+  - age:
+    - *pd-armspan
+    - *pd-span
+    - *pd-desk
+    - *yubiring
+    - *yubicab
+    # - *host-armspan
 - path_regex: hosts/desk/secrets.yaml$
   key_groups:
   - age:
+    - *pd-armspan
     - *pd-span
     - *pd-desk
     - *yubiring
@@ -38,6 +51,7 @@ creation_rules:
 - path_regex: hosts/donix/secrets.yaml$
   key_groups:
   - age:
+    - *pd-armspan
     - *pd-span
     - *pd-desk
     - *yubiring
@@ -46,6 +60,7 @@ creation_rules:
 - path_regex: hosts/htpc/secrets.yaml$
   key_groups:
   - age:
+    - *pd-armspan
     - *pd-span
     - *pd-desk
     - *yubiring
@@ -54,6 +69,7 @@ creation_rules:
 - path_regex: hosts/orb/secrets.yaml$
   key_groups:
   - age:
+    - *pd-armspan
     - *pd-span
     - *pd-desk
     - *yubiring
@@ -62,6 +78,7 @@ creation_rules:
 - path_regex: hosts/pi/secrets.yaml$
   key_groups:
   - age:
+    - *pd-armspan
     - *pd-span
     - *pd-desk
     - *yubiring
@@ -70,6 +87,7 @@ creation_rules:
 - path_regex: hosts/span/secrets.yaml$
   key_groups:
   - age:
+    - *pd-armspan
     - *pd-span
     - *pd-desk
     - *yubiring
@@ -78,6 +96,7 @@ creation_rules:
 - path_regex: routers/.*/secrets.yaml$
   key_groups:
   - age:
+    - *pd-armspan
     - *pd-span
     - *pd-desk
     - *pd-orb

@@ -10,6 +10,7 @@
 #   pi:         .13, wg
 #   air:        .14
 #   win:        .15
+#   armspan:    .16
 #
 # mobile:
 #   pd:         .50
@@ -215,6 +216,14 @@ rec {
       duid = "00010001282008632cf05ddb8d13";
       macs = [ "2c:f0:5d:db:8d:13" ];
       ssh = false;
+    };
+
+    armspan = {
+      id = 16;
+      duid = "00030001c6d386c13de0";
+      macs = [ "c6:d3:86:c1:3d:e0" ];
+      ssh.port = 22;
+      wg.publicKey = "6dbFtf4/jeF7/H4UDEnxkFbTSmsaXs43msfJ6YcydTk=";
     };
 
     win-wifi = {

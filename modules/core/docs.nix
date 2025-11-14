@@ -15,7 +15,7 @@ with lib;
       doc.enable = false;
       info.enable = false;
       man.enable = false;
-      nixos.enable = false;
+      # nixos.enable = false;
     };
   };
 }

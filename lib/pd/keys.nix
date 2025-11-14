@@ -1,6 +1,10 @@
 rec {
   workstations = {
-    ssh = desk.ssh ++ span.ssh;
+    ssh = desk.ssh ++ span.ssh ++ armspan.ssh;
+  };
+
+  armspan = {
+    ssh = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBLvrXCgikdSPUKxIoYJjiWFAWHW7AAmLZa9WuIXQ4Ub" ];
   };
 
   desk = {
