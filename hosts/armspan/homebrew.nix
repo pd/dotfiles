@@ -10,6 +10,7 @@
 
     casks = [
       "alfred"
+      "amazon-workspaces"
       "bitwarden"
       "dash"
       "discord"
