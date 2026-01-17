@@ -12,17 +12,6 @@ let
   gcloud = pkgs.google-cloud-sdk.withExtraComponents [
     pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin
   ];
-
-  # kustomize-sops nixpkg doesn't add it to PATH, but the stack I've inherited
-  # certainly expects it to be there
-  ksops = pkgs.kustomize-sops.overrideAttrs (
-    final: prev: {
-      installPhase = prev.installPhase + ''
-        mkdir -p $out/bin
-        ln -s $out/lib/viaduct.ai/v1/ksops/ksops $out/bin/ksops
-      '';
-    }
-  );
 in
 {
   home.packages =
@@ -35,14 +24,12 @@ in
       unstable.kubectl
       kubernetes-helm
       kustomize
+      kustomize-sops
       opentofu
       ssm-session-manager-plugin
       stern
     ]
-    ++ [
-      gcloud
-      ksops
-    ];
+    ++ [ gcloud ];
 
   programs.awscli = {
     enable = true;

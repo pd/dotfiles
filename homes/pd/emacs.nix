@@ -4,7 +4,7 @@
   ...
 }:
 let
-  inherit (pkgs.hostPlatform) isDarwin;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
   homeDir = config.home.homeDirectory;
   lnDot = f: { source = config.lib.file.mkOutOfStoreSymlink "${homeDir}/dotfiles/${f}"; };
 in

@@ -98,12 +98,22 @@ _nixos_rebuild op host:
 # can only really be run on span
 [group('hosts')]
 span op="switch":
-    sudo darwin-rebuild {{ op }} --flake '.#span'
+    @just _darwin_rebuild {{ op }} span
 
 # can only really be run on armspan
 [group('hosts')]
 armspan op="switch":
-    sudo darwin-rebuild {{ op }} --flake '.#armspan'
+    @just _darwin_rebuild {{ op }} armspan
+
+_darwin_rebuild op host:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if [[ "{{ op }}" == "diff" ]]; then
+      just build {{ host }}
+      nvd diff /run/current-system ./result
+    else
+      sudo darwin-rebuild {{ op }} --flake '.#{{ host }}'
+    fi
 
 [group('routers')]
 routers:

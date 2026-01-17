@@ -6,7 +6,7 @@
 }:
 let
   em = pkgs.writeShellScriptBin "em" (
-    if pkgs.hostPlatform.isLinux then
+    if pkgs.stdenv.hostPlatform.isLinux then
       ''
         emacsclient --alternate-editor="" --no-wait --reuse-frame "$@"
       ''
