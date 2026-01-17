@@ -50,7 +50,7 @@
     ++ (with unstable; [
       mise
       nil
-      nixfmt-rfc-style
+      nixfmt
       postgresql
       sops
     ]);

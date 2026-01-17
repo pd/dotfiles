@@ -115,7 +115,7 @@
           );
     in
     {
-      formatter = forEachSystem ({ pkgs, ... }: pkgs.nixfmt-rfc-style);
+      formatter = forEachSystem ({ unstable, ... }: unstable.nixfmt);
 
       nixosConfigurations.desk = mkNixos "desk" [
         inputs.disko.nixosModules.disko
