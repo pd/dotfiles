@@ -5,18 +5,18 @@
 }:
 python3Packages.buildPythonApplication {
   pname = "ptpimg-uploader";
-  version = "";
+  version = "0.13";
 
   src = fetchFromGitHub {
     owner = "theirix";
     repo = "ptpimg-uploader";
-    rev = "aa0133506a2982fbd6bebbe6e31d7810b1433e73";
-    hash = "sha256-Li8zwpssR1Y6TRkJGQwe5yAbZiZyDD5FCe6bkKJCfX8=";
+    rev = "83214249daba29f65953b89d9b3a0f11c2135c54";
+    hash = "sha256-MM36F+zrXgOczRuCa9DCzcrcPvFu8ideQs9vlfR+OWk=";
   };
 
-  dependencies = with python3Packages; [
-    requests
-  ];
+  pyproject = true;
+  build-system = [ python3Packages.setuptools ];
+  dependencies = [ python3Packages.requests ];
 
   meta = {
     homepage = "https://github.com/theirix/ptpimg-uploader";
