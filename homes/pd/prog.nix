@@ -22,6 +22,7 @@ in
   home.packages = with pkgs.unstable; [
     delve
     dive
+    duckdb
     go
     gopls
     gotools
