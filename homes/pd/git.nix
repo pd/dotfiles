@@ -7,7 +7,7 @@
     package = pkgs.unstable.git;
 
     settings = {
-      core = {
+      user = {
         name = "Kyle Hargraves";
         email = "pd@krh.me";
       };
