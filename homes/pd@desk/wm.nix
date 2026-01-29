@@ -398,7 +398,7 @@ in
           "${mod} Return" = "spawn alacritty";
           "${mod} Space" = "spawn '${pkgs.pd.launcher}/bin/fuzzel'";
           "${mod} slash" = "spawn '${pkgs.pd.launcher}/bin/search-menu'";
-          "${mod} backslash" = "spawn '${pkgs.pd.launcher}/bin/cliphist-fuzzel-img'";
+          "${mod} backslash" = "spawn 'cliphist-fuzzel-img'";
 
           "${mod} R" = "enter-mode reshape";
 

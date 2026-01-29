@@ -29,7 +29,7 @@
   # Expose nixpkgs-unstable as `pkgs.unstable.foo`
   unstable = final: _prev: {
     unstable = import inputs.nixpkgs-unstable {
-      inherit (final) system;
+      system = final.stdenv.hostPlatform.system;
       config.allowUnfree = true;
     };
   };

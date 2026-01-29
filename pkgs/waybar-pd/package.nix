@@ -46,7 +46,7 @@ stdenv.mkDerivation (final: {
   '';
 
   meta = {
-    mainProgram = [ "waybar-pd" ];
+    mainProgram = "waybar-pd";
     platforms = lib.platforms.linux;
   };
 })
