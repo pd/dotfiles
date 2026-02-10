@@ -89,6 +89,15 @@ in
     };
   };
 
+  # term 2
+  programs.ghostty = {
+    enable = true;
+    package = pkgs.unstable.ghostty;
+    settings = {
+      window-decoration = "none";
+    };
+  };
+
   # dmenu-y
   programs.fuzzel = {
     enable = true;
@@ -395,7 +404,7 @@ in
         # Key names:
         # https://github.com/xkbcommon/libxkbcommon/blob/e9fd95/include/xkbcommon/xkbcommon-keysyms.h
         map.normal = {
-          "${mod} Return" = "spawn alacritty";
+          "${mod} Return" = "spawn ghostty";
           "${mod} Space" = "spawn '${pkgs.pd.launcher}/bin/fuzzel'";
           "${mod} slash" = "spawn '${pkgs.pd.launcher}/bin/search-menu'";
           "${mod} backslash" = "spawn 'cliphist-fuzzel-img'";
