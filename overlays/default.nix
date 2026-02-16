@@ -1,5 +1,13 @@
 { inputs, ... }:
 {
+  # Expose nixpkgs-unstable as `pkgs.unstable.foo`
+  unstable = final: _prev: {
+    unstable = import inputs.nixpkgs-unstable {
+      system = final.stdenv.hostPlatform.system;
+      config.allowUnfree = true;
+    };
+  };
+
   # Add my own packages as `pkgs.pd`
   pd = final: _prev: {
     pd = import ../pkgs {
@@ -26,11 +34,13 @@
     };
   };
 
-  # Expose nixpkgs-unstable as `pkgs.unstable.foo`
-  unstable = final: _prev: {
-    unstable = import inputs.nixpkgs-unstable {
-      system = final.stdenv.hostPlatform.system;
-      config.allowUnfree = true;
-    };
+  # Roll back inetutils to 2.6. nixos-25.11 updated to 2.7 to fix a telnetd CVE,
+  # but who cares, telnetd IS the CVE. inetutils 2.7 doesn't build cleanly on mac
+  # and/or clang in general, too lazy to figure it out.
+  #
+  # upstream:
+  # https://github.com/nixos/nixpkgs/issues/488689
+  inetutils_26 = final: _prev: {
+    inetutils = final.unstable.inetutils;
   };
 }
