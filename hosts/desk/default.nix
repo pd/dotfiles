@@ -32,7 +32,7 @@
   # better support for very new AMDs in newish kernels
   boot.kernelPackages =
     let
-      ns = "linuxPackages_6_17";
+      ns = "linuxPackages_6_18";
       kernelPackages = pkgs.${ns};
       kernel = kernelPackages.kernel;
     in
