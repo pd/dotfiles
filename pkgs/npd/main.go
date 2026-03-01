@@ -77,14 +77,21 @@ func mainErr(_ context.Context) error {
 		return err
 	}
 
+	userID, err := getenv("JELLYFIN_USERID")
+	if err != nil {
+		return err
+	}
+
 	apiKey, err := getenv("JELLYFIN_APIKEY")
 	if err != nil {
 		return err
 	}
 
-	jf, err := NewJF(url, apiKey)
-	if err != nil {
-		return err
+	jf := &JF{
+		client: &http.Client{},
+		url:    url,
+		apiKey: apiKey,
+		userID: userID,
 	}
 
 	tpl := template.Must(template.New("index").Parse(tplIndex))
@@ -163,19 +170,6 @@ func imageProxy(jf *JF) http.Handler {
 			return
 		}
 	})
-}
-
-func NewJF(url, apiKey string) (*JF, error) {
-	client := &http.Client{}
-	jf := &JF{client: client, url: url, apiKey: apiKey}
-
-	np, err := jf.Session()
-	if err != nil {
-		return nil, fmt.Errorf("Jellyfin user discovery: %w", err)
-	}
-
-	jf.userID = np.UserId
-	return jf, nil
 }
 
 func (jf *JF) Session() (*Session, error) {
