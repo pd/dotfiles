@@ -70,7 +70,8 @@ in
     enable = true;
     description = "rtorrent-exporter";
     wantedBy = [ "multi-user.target" ];
-    after = [ "network.target" ];
+    wants = [ "network-online.target" ];
+    after = [ "network-online.target" ];
     serviceConfig = {
       Type = "exec";
       Restart = "on-failure";
