@@ -92,9 +92,9 @@ _nixos_rebuild op host:
       fi
 
     elif is_local; then
-      nixos-rebuild {{ op }} --flake '.#{{ host }}' --use-remote-sudo --fast
+      nixos-rebuild {{ op }} --flake '.#{{ host }}' --sudo --no-reexec
     else
-      nixos-rebuild {{ op }} --flake '.#{{ host }}' --target-host {{ host }} --build-host {{ host }} --use-remote-sudo --fast
+      nixos-rebuild {{ op }} --flake '.#{{ host }}' --target-host {{ host }} --build-host {{ host }} --sudo --no-reexec
     fi
 
 # can only really be run on span
