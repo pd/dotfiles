@@ -28,9 +28,7 @@ switch host:
 [group('ops')]
 repl host:
     #!/usr/bin/env bash
-    if [[ "{{ host }}" == "span" ]]; then
-      nix repl .#darwinConfigurations.span
-    elif [[ "{{ host }}" == "armspan" ]]; then
+    if [[ "{{ host }}" == "armspan" ]]; then
       nix repl .#darwinConfigurations.armspan
     elif [[ "{{ host }}" == "hm" ]]; then
       just hm repl
@@ -96,11 +94,6 @@ _nixos_rebuild op host:
     else
       nixos-rebuild {{ op }} --flake '.#{{ host }}' --target-host {{ host }} --build-host {{ host }} --sudo --no-reexec
     fi
-
-# can only really be run on span
-[group('hosts')]
-span op="switch":
-    @just _darwin_rebuild {{ op }} span
 
 # can only really be run on armspan
 [group('hosts')]

@@ -30,9 +30,9 @@
       slack
     ]);
 
-  # connect to orbstack nixos vm by jumping through span
+  # connect to orbstack nixos vm by jumping through armspan
   programs.ssh.matchBlocks.orb = {
-    proxyJump = "span";
+    proxyJump = "armspan";
     hostname = "localhost";
     port = 32222;
   };

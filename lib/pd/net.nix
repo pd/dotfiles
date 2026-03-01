@@ -157,14 +157,7 @@ rec {
       macs = [ "14:cc:20:23:ea:fc" ];
     };
 
-    span = {
-      id = 11;
-      duid = "00010001294a1d92f8ffc2698bb6";
-      macs = [ "f8:ff:c2:69:8b:b6" ];
-      ssh.port = 22;
-      wg.publicKey = "ifiRznc81W75NIIq53+8BH6uJ3iJODbXdAk+ND1J+3U=";
-      cnames = [ "orb" ];
-    };
+    # rip span .11
 
     htpc = {
       id = 12;
@@ -224,6 +217,7 @@ rec {
       macs = [ "c6:d3:86:c1:3d:e0" ];
       ssh.port = 22;
       wg.publicKey = "6dbFtf4/jeF7/H4UDEnxkFbTSmsaXs43msfJ6YcydTk=";
+      cnames = [ "orb" ];
     };
 
     win-wifi = {
