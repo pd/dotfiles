@@ -195,19 +195,16 @@
               # which then breaks dlv
               hardeningDisable = [ "fortify" ];
 
-              buildInputs =
-                with pkgs;
-                [
-                  direnv
-                  home-manager
-                  just
-                  nix-direnv
-                ]
-                ++ (with unstable; [
-                  git
-                  opentofu
-                  sops
-                ]);
+              buildInputs = [
+                pkgs.direnv
+                pkgs.just
+                pkgs.nix-direnv
+
+                unstable.git
+                unstable.home-manager
+                unstable.opentofu
+                unstable.sops
+              ];
             }
             // (lib.optionalAttrs pkgs.stdenv.isLinux {
               nativeBuildInputs =

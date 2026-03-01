@@ -44,7 +44,7 @@ hm op="switch":
       just hm build
       nvd diff $(home-manager generations | head -1 | cut -d' ' -f7) ./result
     else
-      home-manager {{ op }} --flake .#{{ homeConfiguration }}
+      home-manager {{ op }} --flake "path:$(pwd)#{{ homeConfiguration }}"
     fi
 
 [group('hosts')]
