@@ -32,6 +32,8 @@ repl host:
       nix repl .#darwinConfigurations.span
     elif [[ "{{ host }}" == "armspan" ]]; then
       nix repl .#darwinConfigurations.armspan
+    elif [[ "{{ host }}" == "hm" ]]; then
+      just hm repl
     else
       nix repl .#nixosConfigurations.{{ host }}
     fi
