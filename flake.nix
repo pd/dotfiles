@@ -146,7 +146,7 @@
       homeConfigurations."pd@span" = mkHome "pd@span" "x86_64-darwin";
       homeConfigurations."pd@armspan" = mkHome "pd@armspan" "aarch64-darwin";
       homeConfigurations."pd@htpc" = mkHome "pd@htpc" "x86_64-linux";
-      homeConfigurations."pd@orb" = mkHome "pd@orb" "x86_64-linux";
+      homeConfigurations."pd@orb" = mkHome "pd@orb" "aarch64-linux";
 
       packages = forEachSystem (
         { pkgs, unstable, ... }:

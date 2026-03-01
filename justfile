@@ -134,3 +134,11 @@ _deploy_router name op:
     elif [[ "{{ op }}" == "restart" ]]; then ./result/bin/deploy-{{ name }}; \
     else ./result/bin/deploy-{{ name }} --reload; \
     fi
+
+[group('dev')]
+rekey:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    for f in .envrc.sops.yaml {homes,hosts,routers}/*/secrets.yaml; do
+      sops updatekeys -y "$f"
+    done

@@ -11,7 +11,7 @@
     ./orbstack.nix
   ];
 
-  nixpkgs.hostPlatform.system = "x86_64-linux";
+  nixpkgs.hostPlatform.system = "aarch64-linux";
   system.stateVersion = "25.05";
 
   # Let orbstack own network config
