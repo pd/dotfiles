@@ -39,17 +39,20 @@ fn propertiesChanged(
     _: ?*c.sd_bus_message,
     userdata: ?*anyopaque,
     _: [*c]c.sd_bus_error,
-) callconv(.C) c_int {
+) callconv(.c) c_int {
     const bus: *c.sd_bus = @ptrCast(@alignCast(userdata));
     emit(bus) catch return -1;
     return 0;
 }
 
 fn emit(bus: *c.sd_bus) !void {
-    const w = std.io.getStdOut().writer();
+    var buf: [256]u8 = undefined;
+    var stdout_writer = std.fs.File.stdout().writer(&buf);
+    const w = &stdout_writer.interface;
     const is_paused = try isPaused(bus);
     const state = if (is_paused) "paused" else "unpaused";
     try w.print("{{\"text\":\"{s}\", \"alt\":\"{s}\", \"class\":\"{s}\"}}\n", .{ state, state, state });
+    try w.flush();
 }
 
 fn isPaused(bus: *c.sd_bus) DBusError!bool {

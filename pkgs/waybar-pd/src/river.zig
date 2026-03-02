@@ -6,7 +6,7 @@ const zriver = wayland.client.zriver;
 
 const WlContext = struct {
     status_manager: ?*zriver.StatusManagerV1 = null,
-    seats: std.ArrayList(*wl.Seat) = std.ArrayList(*wl.Seat).init(std.heap.c_allocator),
+    seats: std.ArrayList(*wl.Seat) = .empty,
 };
 
 pub fn monitor() !void {
@@ -38,7 +38,7 @@ fn registryListener(registry: *wl.Registry, event: wl.Registry.Event, context: *
                 context.status_manager = registry.bind(global.name, zriver.StatusManagerV1, 4) catch return;
             } else if (std.mem.orderZ(u8, interface, wl.Seat.interface.name) == .eq) {
                 const seat = registry.bind(global.name, wl.Seat, 9) catch return;
-                context.seats.append(seat) catch @panic("out of memory");
+                context.seats.append(std.heap.c_allocator, seat) catch @panic("out of memory");
             }
         },
         else => {},
@@ -48,13 +48,16 @@ fn registryListener(registry: *wl.Registry, event: wl.Registry.Event, context: *
 fn seatStatusListener(_: *zriver.SeatStatusV1, event: zriver.SeatStatusV1.Event, _: ?*anyopaque) void {
     switch (event) {
         .mode => |mode| {
-            const w = std.io.getStdOut().writer();
+            var buf: [256]u8 = undefined;
+            var stdout_writer = std.fs.File.stdout().writer(&buf);
+            const w = &stdout_writer.interface;
             if (!std.mem.eql(u8, std.mem.span(mode.name), "normal")) {
                 const s = mode.name;
                 w.print("{{\"text\":\"{s}\", \"alt\":\"{s}\", \"class\":\"{s}\"}}\n", .{ s, s, s }) catch return;
             } else {
                 w.print("{{}}\n", .{}) catch return;
             }
+            w.flush() catch return;
         },
         else => {},
     }

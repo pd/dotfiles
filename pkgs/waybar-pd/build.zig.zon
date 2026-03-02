@@ -2,12 +2,12 @@
     .name = .waybar_pd,
     .version = "0.0.0",
     .fingerprint = 0x3522a2ee331e2d36, // Changing this has security and trust implications.
-    .minimum_zig_version = "0.14.0",
+    .minimum_zig_version = "0.15.0",
 
     .dependencies = .{
         .wayland = .{
-            .url = "https://codeberg.org/ifreund/zig-wayland/archive/65b01fb69148013eea882c8222a82a1d96a6241b.tar.gz",
-            .hash = "wayland-0.4.0-dev-lQa1krLJAQBGO2aKqDcfxUOsW_e4PJZO_K_rxA20RztB",
+            .url = "https://codeberg.org/ifreund/zig-wayland/archive/260778a0f2f6af0a2c6bd311a60cb1aa4311ef7a.tar.gz",
+            .hash = "wayland-0.5.0-dev-lQa1kv_ZAQCZfnVZMocokZ78QJbH6NaM5RUC9ODQPhx5",
         },
     },
 

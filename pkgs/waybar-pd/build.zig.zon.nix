@@ -10,9 +10,6 @@
   name ? "zig-packages",
 }:
 
-with builtins;
-with lib;
-
 let
   unpackZigArtifact =
     { name, artifact }:
@@ -41,9 +38,9 @@ let
       rev ? throw "rev is required, remove and regenerate the zon2json-lock file",
     }:
     let
-      parts = splitString "#" url;
-      url_base = elemAt parts 0;
-      url_without_query = elemAt (splitString "?" url_base) 0;
+      parts = lib.splitString "#" url;
+      url_base = lib.elemAt parts 0;
+      url_without_query = lib.elemAt (lib.splitString "?" url_base) 0;
     in
     fetchgit {
       inherit name rev hash;
@@ -59,9 +56,9 @@ let
       ...
     }@args:
     let
-      parts = splitString "://" url;
-      proto = elemAt parts 0;
-      path = elemAt parts 1;
+      parts = lib.splitString "://" url;
+      proto = lib.elemAt parts 0;
+      path = lib.elemAt parts 1;
       fetcher = {
         "git+http" = fetchGitZig (
           args
@@ -89,11 +86,11 @@ let
 in
 linkFarm name [
   {
-    name = "wayland-0.4.0-dev-lQa1krLJAQBGO2aKqDcfxUOsW_e4PJZO_K_rxA20RztB";
+    name = "wayland-0.5.0-dev-lQa1kv_ZAQCZfnVZMocokZ78QJbH6NaM5RUC9ODQPhx5";
     path = fetchZigArtifact {
       name = "wayland";
-      url = "https://codeberg.org/ifreund/zig-wayland/archive/65b01fb69148013eea882c8222a82a1d96a6241b.tar.gz";
-      hash = "sha256-zRd5x4CF3S1faEVeFhEtDLPAGtvPtOaPs9pqgw4QemQ=";
+      url = "https://codeberg.org/ifreund/zig-wayland/archive/260778a0f2f6af0a2c6bd311a60cb1aa4311ef7a.tar.gz";
+      hash = "sha256-8r08u15FY3QEq/pJ2BiwJb3Uj8HLzRyoqIkcjgzcx44=";
     };
   }
 ]

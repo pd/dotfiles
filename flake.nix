@@ -201,9 +201,7 @@
               ];
             }
             // (lib.optionalAttrs pkgs.stdenv.isLinux {
-              nativeBuildInputs =
-                lib.remove pkgs.zig_0_14.hook
-                  self.packages.${system}.waybar-pd.nativeBuildInputs;
+              nativeBuildInputs = self.packages.${system}.waybar-pd.nativeBuildInputs;
             })
           );
         }
