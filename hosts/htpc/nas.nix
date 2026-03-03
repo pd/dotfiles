@@ -51,7 +51,8 @@ in
     enable = true;
     description = "filebotd";
     wantedBy = [ "multi-user.target" ];
-    after = [ "network.target" ];
+    wants = [ "network-online.target" ];
+    after = [ "network-online.target" ];
     path = [
       # TODO: PATH should be handled by pkgs at this point
       pkgs.pd.mediaman
