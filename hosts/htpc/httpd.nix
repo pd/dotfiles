@@ -16,7 +16,7 @@
           multiscrobbler = 9078;
           npd = 9776;
           prom = config.services.prometheus.port;
-          rtorrent = 8080;
+          qbittorrent = config.services.qbittorrent.webuiPort;
           synologyDSM = 5000;
         };
       in
@@ -39,7 +39,7 @@
           }
           {
             route = "";
-            upstream = "nas.home:${rtorrent}";
+            upstream = "localhost:${qbittorrent}";
           }
         ];
       };

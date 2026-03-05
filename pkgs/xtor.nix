@@ -8,6 +8,7 @@
   lame,
   mktorrent,
   pyrosimple,
+  qbittorrent-cli,
   unzip,
 }:
 buildEnv {
@@ -19,7 +20,8 @@ buildEnv {
     intermodal # imdl verify
     lame
     mktorrent
-    pyrosimple # lstor, rtxmlrpc
+    pyrosimple # lstor
+    qbittorrent-cli
     unzip
   ];
 }

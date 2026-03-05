@@ -8,7 +8,6 @@ import (
 	"net/url"
 	"os"
 	"os/exec"
-	"regexp"
 )
 
 // Tiny server responsible for running filebot as an after-completion
@@ -25,7 +24,7 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("POST /_hooks/completed", func(w http.ResponseWriter, r *http.Request) {
 		tracker := r.PostFormValue("tracker")
-		path := rewriteDataPath(r.PostFormValue("path"))
+		path := r.PostFormValue("path")
 		role := r.PostFormValue("role")
 
 		log := slog.With("tracker", tracker, "path", path)
@@ -35,16 +34,16 @@ func main() {
 			return
 		}
 
-		if role == "archive" || role == "opsbetter" {
+		if role == "archive" || role == "ptparchive" || role == "opsbetter" {
 			w.WriteHeader(http.StatusOK)
 			log.Info("skipping torrent", "role", role)
 			return
 		}
 
 		kind, ok := map[string]string{
-			"landof.tv":         "tv",
-			"opsfet.ch":         "music",
-			"passthepopcorn.me": "movie",
+			"btn": "tv",
+			"ops": "music",
+			"ptp": "movie",
 		}[tracker]
 		if !ok {
 			w.WriteHeader(http.StatusBadRequest)
@@ -128,12 +127,4 @@ func scanLibrary(c *http.Client, kind string) error {
 	}
 
 	return nil
-}
-
-// rtorrent on nas sees `/downloads/...`, everything else
-// sees `/media/torrents/...`
-var rgxDownloads = regexp.MustCompile(`^/downloads/`)
-
-func rewriteDataPath(path string) string {
-	return rgxDownloads.ReplaceAllLiteralString(path, "/media/torrents/")
 }

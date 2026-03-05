@@ -60,9 +60,9 @@ in
       port = 443;
     })
 
-    (dnat "rtorrent" {
-      ip = pd.net.lan.ipv4.nas;
-      port = 50000;
+    (dnat "qbittorrent" {
+      ip = pd.net.lan.ipv4.htpc;
+      port = 51000;
     })
 
     (dnat "wg" {

@@ -10,16 +10,3 @@ groups:
     annotations:
       summary: donix wireguard connectivity down
       description: no wireguard handshake from donix in more than 5 minutes
-
-- name: rtorrent
-  rules:
-  # rtorrent on nas is semiregularly pinned at 100% CPU and becomes wholly
-  # unresponsive. i rarely notice until i'm trying to use it, at which point
-  # i don't care to figure out the issue; i just bounce the container.
-  # if the scrape is failing, it's probably because rtorrent itself is failing.
-  - alert: RtorrentExporterScrapeFailing
-    expr: up{job="rtorrent"} == 0
-    for: 10m
-    annotations:
-      summary: rtorrent-exporter scrape failing
-      description: no metrics from rtorrent-exporter for more than 10 minutes

@@ -27,7 +27,7 @@ let
       node-exporter = exporters.node.port;
       ntfy = 9712; # cf donix/ntfy.nix
       prometheus = prometheus.port;
-      rtorrent = 9135;
+      qbittorrent = 8090;
       snmp = 9116;
       wireguard = exporters.wireguard.port;
     };
@@ -64,19 +64,29 @@ in
     ])
     (staticJob "prometheus" ports.prometheus [ "htpc.home" ])
     (
-      (staticJob "rtorrent" ports.rtorrent [ "htpc.home" ])
+      (staticJob "qbittorrent" ports.qbittorrent [ "htpc.home" ])
       // {
         metric_relabel_configs = [
           {
-            # Drop metrics until rtorrent-exporter has populated the
-            # tracker details. Avoids having to explicitly juggle
-            # potentially empty tracker labels everywhere.
+            # Drop noisy per-torrent metrics that I don't really care about.
             action = "drop";
-            source_labels = [
-              "__name__"
-              "tracker"
-            ];
-            regex = "^rtorrent_downloads_(up|down)load_(total|rate)_bytes;$";
+            source_labels = [ "__name__" ];
+            regex =
+              let
+                drops = lib.concatStringsSep "|" [
+                  "added_on"
+                  "amount_left_bytes"
+                  "completed_on"
+                  "eta"
+                  "leechers"
+                  "progress"
+                  "seeders"
+                  "session_downloaded_bytes"
+                  "session_uploaded_bytes"
+                  "time_active"
+                ];
+              in
+              "qbittorrent_torrent_(${drops})";
           }
         ];
       }
@@ -103,29 +113,28 @@ in
         "wrt.home"
       ])
       // {
-        metric_relabel_configs =
-          [
-            {
-              action = "lowercase";
-              source_labels = [ "mac" ];
-              target_label = "mac";
-            }
-
-            {
-              action = "replace";
-              source_labels = [ "instance" ];
-              target_label = "router";
-              regex = "(.+).home:[0-9]+";
-              replacement = "$1";
-            }
-          ]
-          ++ (lib.mapAttrsToList (mac: host: {
-            action = "replace";
+        metric_relabel_configs = [
+          {
+            action = "lowercase";
             source_labels = [ "mac" ];
-            target_label = "host";
-            regex = mac;
-            replacement = host;
-          }) macs);
+            target_label = "mac";
+          }
+
+          {
+            action = "replace";
+            source_labels = [ "instance" ];
+            target_label = "router";
+            regex = "(.+).home:[0-9]+";
+            replacement = "$1";
+          }
+        ]
+        ++ (lib.mapAttrsToList (mac: host: {
+          action = "replace";
+          source_labels = [ "mac" ];
+          target_label = "host";
+          regex = mac;
+          replacement = host;
+        }) macs);
       }
     )
   ];
