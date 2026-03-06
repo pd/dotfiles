@@ -8,5 +8,29 @@ groups:
   - alert: StaleWireguardHandshake
     expr: time() - wireguard_latest_handshake_seconds{friendly_name="donix"} > (60*5)
     annotations:
-      summary: donix wireguard connectivity down
-      description: no wireguard handshake from donix in more than 5 minutes
+      summary: "donix wireguard connectivity down for {{ $value | humanizeDuration }}"
+
+- name: nodes
+  rules:
+  - alert: SystemdUnitFailed
+    expr: node_systemd_unit_state{state="failed"} == 1
+    for: 5m
+    annotations:
+      summary: "{{ $labels.name }} failed on {{ $labels.instance }}"
+
+- name: nas
+  rules:
+  - alert: NASRaidDegraded
+    expr: raidStatus != 1
+    annotations:
+      summary: NAS RAID array degraded
+
+  - alert: NASDiskUnhealthy
+    expr: diskHealthStatus != 1
+    annotations:
+      summary: Unhealthy disk on NAS
+
+  - alert: NASStorageSpaceLow
+    expr: raidFreeSize{raidName!~"Storage Pool.*"} / raidTotalSize < 0.05
+    annotations:
+      summary: "{{ $value | humanizePercentage }} storage remaining on NAS"
