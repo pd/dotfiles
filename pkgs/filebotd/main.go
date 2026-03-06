@@ -11,8 +11,9 @@ import (
 )
 
 // Tiny server responsible for running filebot as an after-completion
-// hook fired from rtorrent on nas. Runs on htpc cuz it's easier to
-// provision.
+// hook fired from qbittorrent. Jellyfin refresh afterward can take
+// some time to respond, so it's just fired off as a goroutine and
+// doesn't factor into the response code.
 func main() {
 	addr := os.Getenv("ADDR")
 	if addr == "" {
