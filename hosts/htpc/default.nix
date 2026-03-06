@@ -28,6 +28,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # check in with donix periodically
+  heart.beat = true;
+
   hardware.enableRedistributableFirmware = true;
   security.rtkit.enable = true;
 

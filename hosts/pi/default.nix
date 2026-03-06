@@ -14,6 +14,9 @@
   boot.loader.grub.enable = false;
   boot.loader.generic-extlinux-compatible.enable = true;
 
+  # check in with donix periodically
+  heart.beat = true;
+
   environment.systemPackages = with pkgs; [
     nmap
     traceroute

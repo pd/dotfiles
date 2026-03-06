@@ -38,4 +38,9 @@ in
   docs.enable = false;
 
   users.users = lib.mapAttrs mkAdmin friends;
+
+  heart.monitor = [
+    "pi"
+    "htpc"
+  ];
 }

@@ -6,5 +6,7 @@
     ./nixpkgs.nix
     ./packages.nix
     ./shell.nix
+
+    ../heart
   ];
 }
