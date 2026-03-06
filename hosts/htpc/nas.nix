@@ -147,7 +147,7 @@ in
     environment = {
       QBITTORRENT_BASE_URL = "http://torrent.home";
       QBITTORRENT_USERNAME = "admin";
-      ENABLE_HIGH_CARDINALITY = "true";
+      ENABLE_INCREASED_CARDINALITY = "true";
     };
   };
 

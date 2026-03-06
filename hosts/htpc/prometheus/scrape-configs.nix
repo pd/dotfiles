@@ -76,13 +76,17 @@ in
                 drops = lib.concatStringsSep "|" [
                   "added_on"
                   "amount_left_bytes"
+                  "comment"
                   "completed_on"
                   "eta"
                   "leechers"
                   "progress"
+                  "ratio"
+                  "save_path"
                   "seeders"
                   "session_downloaded_bytes"
                   "session_uploaded_bytes"
+                  "state"
                   "time_active"
                 ];
               in
