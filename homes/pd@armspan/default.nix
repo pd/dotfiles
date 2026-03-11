@@ -2,6 +2,7 @@
 {
   imports = [
     ../pd
+    ./work.nix
     "${inputs.private}/pd@armspan"
   ];
 

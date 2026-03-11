@@ -19,27 +19,8 @@
 
   environment = {
     systemPackages = with pkgs; [
-      pandoc
       wireguard-go
       wireguard-tools
-
-      (texliveBasic.withPackages (
-        ps: with ps; [
-          bookmark
-          etoolbox
-          fancyhdr
-          float
-          hyperref
-          lastpage
-          listings
-          sectsty
-          titlesec
-          tocloft
-          unicode-math
-          xcolor
-          xetex
-        ]
-      ))
     ];
 
     variables = {
