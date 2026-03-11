@@ -7,6 +7,7 @@
 {
   imports = [
     ../.
+    ../../heart
     ../../network
     ./node-exporter.nix
   ];
