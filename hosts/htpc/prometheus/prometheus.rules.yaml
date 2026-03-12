@@ -34,3 +34,12 @@ groups:
     expr: raidFreeSize{raidName!~"Storage Pool.*"} / raidTotalSize < 0.05
     annotations:
       summary: "{{ $value | humanizePercentage }} storage remaining on NAS"
+
+- name: media
+  rules:
+  - alert: TorrentUncategorized
+    expr: count(qbittorrent_torrent_info{category=""}) > 0
+    for: 5m
+    annotations:
+      summary: Uncategorized torrent present
+      description: on-add hook failed, presumably?
