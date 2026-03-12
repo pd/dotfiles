@@ -18,6 +18,15 @@
     mermaid-cli
     pandoc
 
+    (python3.withPackages (pp: [
+      pp.avro
+      pp.boto3
+      pp.duckdb
+      pp.jinja2
+      pp.pandas
+      pp.pyarrow
+    ]))
+
     (texliveBasic.withPackages (
       ps: with ps; [
         bookmark
