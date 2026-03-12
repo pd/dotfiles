@@ -29,6 +29,7 @@
         hyperref
         lastpage
         listings
+        mdwtools
         microtype
         needspace
         newunicodechar
