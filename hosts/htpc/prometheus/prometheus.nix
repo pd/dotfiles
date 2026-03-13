@@ -14,7 +14,7 @@
       "--web.enable-admin-api"
     ];
 
-    retentionTime = "60d";
+    retentionTime = "365d";
     ruleFiles = [ ./prometheus.rules.yaml ];
   };
 }
