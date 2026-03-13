@@ -38,7 +38,9 @@ in
       localservice = true;
       rebind_protection = false;
       server = [
+        lan.ipv6.pi
         lan.ipv4.pi
+        lan.ipv6.htpc
         lan.ipv4.htpc
       ];
 
