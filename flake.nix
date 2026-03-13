@@ -171,6 +171,7 @@
         }
         // (import ./pkgs {
           inherit pkgs unstable;
+          stevenblack-blocklist = inputs.stevenblack-blocklist;
         })
       );
 
@@ -289,6 +290,11 @@
 
     homebrew-cask = {
       url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
+
+    stevenblack-blocklist = {
+      url = "github:StevenBlack/hosts";
       flake = false;
     };
   };

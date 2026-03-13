@@ -13,6 +13,7 @@
     pd = import ../pkgs {
       pkgs = final;
       unstable = final.unstable;
+      stevenblack-blocklist = inputs.stevenblack-blocklist;
     };
   };
 
