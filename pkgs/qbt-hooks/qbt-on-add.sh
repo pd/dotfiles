@@ -11,6 +11,7 @@ esac
 DOMAIN=$(echo "$TRACKER" | sed -E 's|^https?://([^/:]+).*|\1|')
 CATEGORY=$(grep -F "$DOMAIN" "$CATEGORIES" 2>/dev/null | head -1 | cut -d= -f2)
 
+echo "Categorizing $DOMAIN ($TRACKER) as $CATEGORY"
 if [[ -n "$CATEGORY" ]]; then
   curl -s -X POST "$QBT_API/torrents/setCategory" \
     -d "hashes=$HASH&category=$CATEGORY"
