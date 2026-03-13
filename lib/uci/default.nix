@@ -84,7 +84,7 @@ with lib;
       };
 
       sopsSecrets = secrets;
-      users.root.hashedPassword = "$6$VaxrusIClFD3RwYc$GP9rU3UrVrn5Qz1PrtN716jWEAeYte1Lj6eq.NcY1iupk0f35P8MeiRhe7L0EkVrxNC0OT2Uah1VzJBwdJJav1";
+      users.root.hashedPasswordSecret = "root_password";
       etc."dropbear/authorized_keys".text = concatStringsSep "\n" authorized-keys;
 
       uci.settings = {
