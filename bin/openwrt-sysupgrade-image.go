@@ -52,6 +52,7 @@ var (
 		"luci-mod-system",
 		"luci-proto-ipv6",
 		"luci-theme-bootstrap",
+		"owut",
 		"prometheus-node-exporter-lua",
 		"prometheus-node-exporter-lua-netstat",
 		"prometheus-node-exporter-lua-openwrt",
