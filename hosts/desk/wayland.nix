@@ -62,7 +62,7 @@
       enable = true;
       settings = {
         default_session = {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd ${rivercat}";
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd ${rivercat}";
           user = config.users.users.pd.name;
         };
 
