@@ -25,7 +25,7 @@ let
     {
       inherit name;
       ip = host.lan.ipv4;
-      mac = map toUpper host.macs;
+      mac = map toUpper (attrValues host.macs);
     }
     // (mkv6 host);
 

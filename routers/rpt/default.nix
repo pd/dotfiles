@@ -44,7 +44,7 @@ uci.mkRouter "rpt" ./secrets.yaml {
     };
 
     network = {
-      device = uci.bridgeLan 2 (lib.head hosts.rpt.macs);
+      device = uci.bridgeLan 2 hosts.rpt.macs.lan;
       interface.lan = {
         device = "br-lan";
         proto = "dhcp";

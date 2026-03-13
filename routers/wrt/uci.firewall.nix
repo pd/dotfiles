@@ -14,7 +14,7 @@ let
         "tcp"
         "udp"
       ],
-    }@_:
+    }:
     {
       inherit name proto family;
       target = "ACCEPT";
@@ -33,7 +33,7 @@ let
         "tcp"
         "udp"
       ],
-    }@_:
+    }:
     {
       inherit name proto;
       src = "wan";

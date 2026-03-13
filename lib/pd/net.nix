@@ -77,7 +77,7 @@ let
       v6 ? true,
       duid ? null,
       lan ? { },
-      macs ? [ ],
+      macs ? { },
       ssh ? { },
       wg ? { },
       cnames ? [ ],
@@ -104,6 +104,7 @@ rec {
   lan = {
     cidr = "192.168.40.0/22";
     cidr6 = "fded:40::/64";
+    netmask = "255.255.252.0";
     hosts = filterAttrs (_: h: h ? lan) hosts;
     ipv4 = mapAttrs (_: v: v.lan.ipv4) lan.hosts;
     ipv6 = mapAttrs (_: v: v.lan.ipv6) (filterAttrs (_: h: h.v6) lan.hosts);
@@ -112,6 +113,7 @@ rec {
   wg = {
     cidr = "192.168.60.0/24";
     cidr6 = "fded:60::/64";
+    netmask = "255.255.255.0";
     hosts = filterAttrs (_: h: h ? wg) hosts;
     ipv4 = mapAttrs (_: v: v.wg.ipv4) wg.hosts;
     ipv6 = mapAttrs (_: v: v.wg.ipv6) wg.hosts;
@@ -125,36 +127,35 @@ rec {
       id = 1;
       ssh.user = "root";
       cnames = [ "gw" ];
-      macs = [
-        "94:83:c4:a3:31:20" # eth1
-        "94:83:c4:a3:31:22" # eth0, lan1..5, br-lan
-        "94:83:c4:a3:31:23" # phy0-ap0
-        "94:83:c4:a3:31:24" # phy1-ap0
-      ];
+      macs = {
+        wan = "94:83:c4:a3:31:20";
+        lan = "94:83:c4:a3:31:22";
+        radio0 = "94:83:c4:a3:31:23";
+        radio1 = "94:83:c4:a3:31:24";
+      };
     };
 
     rpt = {
       id = 2;
       duid = "000300019483c4a4aad2";
-      macs = [
-        "94:83:c4:a4:aa:d2" # eth0
-        "94:83:c4:a4:aa:d4" # lan1, lan2, br-lan
-        "94:83:c4:a4:aa:d6" # phy1-ap0
-        "96:83:c4:a4:aa:d6" # phy1-sta0
-      ];
+      macs = {
+        lan = "94:83:c4:a4:aa:d2";
+        radio1-ap = "94:83:c4:a4:aa:d6";
+        radio1-sta = "96:83:c4:a4:aa:d6";
+      };
       ssh.user = "root";
     };
 
     desk = {
       id = 10;
       duid = "00020000ab1128098d9beaf51da5";
-      macs = [ "2c:f0:5d:db:8d:f3" ];
+      macs.eth = "2c:f0:5d:db:8d:f3";
     };
 
     desk-wifi = {
       id = 80;
       duid = "0002deadc0decafe"; # overridden in systemd-networkd config
-      macs = [ "14:cc:20:23:ea:fc" ];
+      macs.wifi = "14:cc:20:23:ea:fc";
     };
 
     # rip span .11
@@ -162,7 +163,7 @@ rec {
     htpc = {
       id = 12;
       duid = "00020000ab11c0d46c058a8aa1e2";
-      macs = [ "1c:69:7a:a2:40:de" ];
+      macs.eth = "1c:69:7a:a2:40:de";
       wg.publicKey = "sZql5WlnNt45LuiQUjow0y+Hc9LdWW7nnSUjOMHSsgw=";
       cnames = [
         "alerts"
@@ -182,13 +183,13 @@ rec {
     htpc-wifi = {
       id = 82;
       duid = "0002deadc0decafe0082";
-      macs = [ "b0:a4:60:17:89:87" ];
+      macs.wifi = "b0:a4:60:17:89:87";
     };
 
     pi = {
       id = 13;
       duid = "00020000ab117bab113ac86ee6d1";
-      macs = [ "d8:3a:dd:70:a7:f5" ];
+      macs.eth = "d8:3a:dd:70:a7:f5";
       wg.publicKey = "xDPPIIjA72BrCFC+5eqJn7IiC0xeI6Dof38Inj+tXwg=";
       cnames = [
         "ns"
@@ -200,21 +201,21 @@ rec {
     air = {
       id = 14;
       duid = "000100012c2b9b1910b58855b7af";
-      macs = [ "10:b5:88:55:b7:af" ];
+      macs.wifi = "10:b5:88:55:b7:af";
       ssh = false;
     };
 
     win = {
       id = 15;
       duid = "00010001282008632cf05ddb8d13";
-      macs = [ "2c:f0:5d:db:8d:13" ];
+      macs.eth = "2c:f0:5d:db:8d:13";
       ssh = false;
     };
 
     armspan = {
       id = 16;
       duid = "00030001c6d386c13de0";
-      macs = [ "c6:d3:86:c1:3d:e0" ];
+      macs.wifi = "c6:d3:86:c1:3d:e0";
       ssh.port = 22;
       wg.publicKey = "6dbFtf4/jeF7/H4UDEnxkFbTSmsaXs43msfJ6YcydTk=";
       cnames = [ "orb" ];
@@ -223,13 +224,13 @@ rec {
     win-wifi = {
       id = 85;
       duid = "00010001282008632cf05ddb8d13";
-      macs = [ "14:cc:20:23:ea:6c" ];
+      macs.wifi = "14:cc:20:23:ea:6c";
       ssh = false;
     };
 
     pdroid = {
       id = 50;
-      macs = [ "d4:3a:2c:55:0a:dd" ];
+      macs.wifi = "d4:3a:2c:55:0a:dd";
       ssh = false;
       wg.publicKey = "YeemrKq8W+3LwT0Z4nqgivC/zGTKZdwQHL0d+W3lNTc=";
     };
@@ -237,27 +238,27 @@ rec {
     erphone = {
       id = 51;
       duid = "0001000129ad30d098502e23cf69";
-      macs = [ "98:50:2e:23:cf:69" ];
+      macs.wifi = "98:50:2e:23:cf:69";
       ssh = false;
     };
 
     erpad = {
       id = 52;
       duid = "000100012228a0c0f0766f681fad";
-      macs = [ "f0:76:6f:68:1f:ad" ];
+      macs.wifi = "f0:76:6f:68:1f:ad";
       ssh = false;
     };
 
     avp = {
       id = 53;
-      macs = [ "ee:47:b2:66:96:8e" ];
+      macs.wifi = "ee:47:b2:66:96:8e";
       ssh = false;
     };
 
     nas = {
       id = 100;
       duid = "000300019009d05929cc";
-      macs = [ "90:09:d0:59:29:cc" ];
+      macs.eth = "90:09:d0:59:29:cc";
 
       # synology ipv6 impl is just hosed, it never picks up the ULA no
       # matter what I do, and if I instead assign it manually nothing
@@ -267,7 +268,7 @@ rec {
 
     tv = {
       id = 101;
-      macs = [ "60:8d:26:68:54:0c" ];
+      macs.wifi = "60:8d:26:68:54:0c";
       ssh = false;
     };
 
@@ -280,7 +281,7 @@ rec {
 
     hera = {
       id = 120;
-      macs = [ "00:11:32:41:42:23" ];
+      macs.eth = "00:11:32:41:42:23";
       ssh = false;
     };
   };

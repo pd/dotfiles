@@ -133,7 +133,7 @@ with lib;
           interface.lan = {
             device = "br-lan";
             proto = "static";
-            netmask = "255.255.252.0";
+            netmask = pd.net.lan.netmask;
             dns = resolvers;
             dns_search = [ "home" ];
           };

@@ -38,7 +38,7 @@ let
       map (mac: {
         name = mac;
         value = host;
-      }) attrs.macs
+      }) (lib.attrValues attrs.macs)
     )
   ) pd.net.hosts;
 in
