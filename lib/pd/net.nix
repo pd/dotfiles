@@ -72,7 +72,7 @@ let
 
   mkHost =
     hostname:
-    _@{
+    {
       id,
       v6 ? true,
       duid ? null,

@@ -38,7 +38,7 @@ let
 
   ddnsDO =
     name:
-    _@{
+    {
       subdomain,
       id,
       ipv ? 4,
