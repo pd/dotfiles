@@ -66,7 +66,7 @@ var (
 
 	routers = map[string]Router{
 		"wrt": {
-			Version: "24.10.2",
+			Version: "24.10.5",
 			Target:  "mediatek/filogic",
 			Profile: "glinet_gl-mt6000",
 			Packages: append(commonPackages, []string{
@@ -76,7 +76,7 @@ var (
 			}...),
 		},
 		"rpt": {
-			Version:  "SNAPSHOT",
+			Version:  "25.12.0",
 			Target:   "qualcommax/ipq50xx",
 			Profile:  "glinet_gl-b3000",
 			Packages: append(commonPackages, []string{}...),
