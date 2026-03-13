@@ -7,8 +7,8 @@
     igdv1 = 1;
     uuid = "b3727d58-438d-4c7a-a63a-f33bc8cba7a6";
     upnp_lease_file = "/var/run/miniupnpd.leases";
-    download = 1024;
-    upload = 512;
+    download = 112500;
+    upload = 112500;
   };
 
   perm_rule = [
