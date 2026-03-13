@@ -4,8 +4,6 @@
   pd,
 
   authorized-keys,
-  resolvers,
-  ...
 }:
 with lib;
 {
@@ -88,19 +86,11 @@ with lib;
       etc."dropbear/authorized_keys".text = concatStringsSep "\n" authorized-keys;
 
       uci.settings = {
-        dropbear.dropbear = [
-          {
-            Interface = "lan";
+        dropbear.dropbear = map (iface: {
+            Interface = iface;
             Port = 1222;
             PasswordAuth = "off";
-          }
-
-          {
-            Interface = "lan6";
-            Port = 1222;
-            PasswordAuth = "off";
-          }
-        ];
+          }) [ "lan" "lan6" ];
 
         system = {
           system = [
@@ -134,7 +124,7 @@ with lib;
             device = "br-lan";
             proto = "static";
             netmask = pd.net.lan.netmask;
-            dns = resolvers;
+            dns = pd.net.lan.resolvers;
             dns_search = [ "home" ];
           };
         };

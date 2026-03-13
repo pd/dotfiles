@@ -37,12 +37,7 @@ in
       interface = [ "lan" ];
       localservice = true;
       rebind_protection = false;
-      server = [
-        lan.ipv6.pi
-        lan.ipv4.pi
-        lan.ipv6.htpc
-        lan.ipv4.htpc
-      ];
+      server = lan.resolvers;
 
       leasefile = "/tmp/dhcp.leases";
       resolvfile = "/tmp/resolv.conf.d/resolv.conf.auto";
@@ -76,10 +71,7 @@ in
       "other-config"
     ];
     ra_useleasetime = true;
-    dns = [
-      lan.ipv6.pi
-      lan.ipv6.htpc
-    ];
+    dns = lan.resolvers6;
   };
 
   odhcpd.odhcpd = {

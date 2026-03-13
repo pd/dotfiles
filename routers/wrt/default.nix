@@ -17,7 +17,7 @@ uci.mkRouter "wrt" ./secrets.yaml {
     ddns = import ./uci.ddns.nix { inherit lib; };
     firewall = import ./uci.firewall.nix { inherit dmerge pd; };
     network = import ./uci.network.nix { inherit pd uci; };
-    uhttpd = import ./uci.uhttpd.nix { inherit lib pd; };
+    uhttpd = import ./uci.uhttpd.nix { inherit pd; };
     upnpd = import ./uci.upnpd.nix { inherit pd; };
     wireless = import ./uci.wireless.nix { inherit uci; };
   };

@@ -1,4 +1,4 @@
-{ pd, ... }:
+{ pd }:
 let
   inherit (pd.net) lan;
 in

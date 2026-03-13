@@ -9,11 +9,5 @@ rec {
   uci = import ./uci {
     inherit dmerge lib pd;
     authorized-keys = pd.keys.workstations.ssh;
-    resolvers = with pd.net.lan; [
-      ipv6.pi
-      ipv4.pi
-      ipv6.htpc
-      ipv4.htpc
-    ];
   };
 }
