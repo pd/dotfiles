@@ -29,11 +29,11 @@ switch host:
 repl host:
     #!/usr/bin/env bash
     if [[ "{{ host }}" == "armspan" ]]; then
-      nix repl .#darwinConfigurations.armspan
+      nix repl 'path:.#darwinConfigurations.armspan'
     elif [[ "{{ host }}" == "hm" ]]; then
       just hm repl
     else
-      nix repl .#nixosConfigurations.{{ host }}
+      nix repl 'path:.#nixosConfigurations.{{ host }}'
     fi
 
 homeConfiguration := x'$USER@$(hostname)'
@@ -90,9 +90,9 @@ _nixos_rebuild op host:
       fi
 
     elif is_local; then
-      nixos-rebuild {{ op }} --flake '.#{{ host }}' --sudo --no-reexec
+      nixos-rebuild {{ op }} --flake 'path:.#{{ host }}' --sudo --no-reexec
     else
-      nixos-rebuild {{ op }} --flake '.#{{ host }}' --target-host {{ host }} --build-host {{ host }} --sudo --no-reexec
+      nixos-rebuild {{ op }} --flake 'path:.#{{ host }}' --target-host {{ host }} --build-host {{ host }} --sudo --no-reexec
     fi
 
 # can only really be run on armspan
@@ -107,12 +107,12 @@ _darwin_rebuild op host:
       just build {{ host }}
       nvd diff /run/current-system ./result
     else
-      sudo darwin-rebuild {{ op }} --flake '.#{{ host }}'
+      sudo darwin-rebuild {{ op }} --flake 'path:.#{{ host }}'
     fi
 
 [group('routers')]
 routers:
-    nix build '.#routers'
+    nix build 'path:.#routers'
 
 [group('routers')]
 wrt op="reload": routers
