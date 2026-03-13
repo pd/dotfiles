@@ -62,6 +62,7 @@ with lib;
         bss_transition = true; # 802.11v
         ieee80211r = true;
         ieee80211w = 1; # PMF optional
+        ft_over_ds = false;
         mobility_domain = "dead";
       };
 
@@ -180,6 +181,14 @@ with lib;
             listen_port = 9100;
           };
         };
+
+        usteer.usteer = [
+          {
+            network = "lan";
+            signal_diff_threshold = 8;
+            roam_scan_snr = "-65";
+          }
+        ];
       };
 
       # TODO: Should not really be reaching into deploySteps at all,
