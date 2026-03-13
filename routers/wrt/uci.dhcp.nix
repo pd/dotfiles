@@ -85,7 +85,7 @@ in
   odhcpd.odhcpd = {
     maindhcp = false;
     leasefile = "/tmp/hosts/odhcpd";
-    leasetrigger = "/usr/sbin/odchpd-update";
+    leasetrigger = "/usr/sbin/odhcpd-update";
     loglevel = 4;
   };
 
