@@ -183,29 +183,30 @@
           ...
         }:
         {
-          default = pkgs.mkShell (
-            {
-              # Prevents devshell from polluting cflags or maybe gcc
-              # invocation or something that injects `_FORTIFY_SOURCE`
-              # which then breaks dlv
-              hardeningDisable = [ "fortify" ];
+          default = pkgs.mkShell ({
+            buildInputs = [
+              # core
+              pkgs.direnv
+              pkgs.git
+              pkgs.home-manager
+              pkgs.just
+              pkgs.nix-direnv
+              pkgs.opentofu
+              pkgs.sops
 
-              buildInputs = [
-                pkgs.cargo
-                pkgs.clippy
-                pkgs.direnv
-                pkgs.rustfmt
-                pkgs.just
-                pkgs.nix-direnv
-                pkgs.rustc
+              # dev
+              pkgs.go
+              pkgs.rustc
+              pkgs.rustfmt
+              pkgs.cargo
+              pkgs.clippy
+            ];
 
-                unstable.git
-                unstable.home-manager
-                unstable.opentofu
-                unstable.sops
-              ];
-            }
-          );
+            # Prevents devshell from polluting cflags or maybe gcc
+            # invocation or something that injects `_FORTIFY_SOURCE`
+            # which then breaks dlv
+            hardeningDisable = [ "fortify" ];
+          });
         }
       );
     };
