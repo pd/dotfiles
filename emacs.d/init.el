@@ -644,6 +644,7 @@ targets."
    ("M-s-'" . pd/vterm-on))
   :config
   (setq vterm-buffer-name-string "*vterm %s*"
+        vterm-shell shell-file-name
         vterm-tramp-shells '(("ssh" "zsh"))
         vterm-copy-mode-remove-fake-newlines t)
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
