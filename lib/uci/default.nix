@@ -61,6 +61,7 @@ with lib;
         mode = "ap";
         bss_transition = true; # 802.11v
         ieee80211r = true;
+        ieee80211w = 1; # PMF optional
         mobility_domain = "dead";
       };
 
