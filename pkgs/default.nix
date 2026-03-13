@@ -1,4 +1,4 @@
-{ pkgs, unstable, stevenblack-blocklist, ... }:
+{ pkgs, stevenblack-blocklist, ... }:
 {
   dns-blocklist = pkgs.callPackage ./dns-blocklist.nix {
     inherit stevenblack-blocklist;
@@ -11,6 +11,6 @@
   ptpimg-uploader = pkgs.callPackage ./ptpimg-uploader.nix { };
   qbt-hooks = pkgs.callPackage ./qbt-hooks { };
   screenshots = pkgs.callPackage ./screenshots.nix { };
-  waybar-pd = pkgs.callPackage ./waybar-pd/package.nix { inherit (unstable) zig; };
+  waybar-pd = pkgs.callPackage ./waybar-pd/package.nix { };
   xtor = pkgs.callPackage ./xtor.nix { };
 }

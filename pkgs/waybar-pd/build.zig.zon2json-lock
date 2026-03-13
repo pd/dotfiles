@@ -1,7 +1,0 @@
-{
-  "wayland-0.5.0-dev-lQa1kv_ZAQCZfnVZMocokZ78QJbH6NaM5RUC9ODQPhx5": {
-    "name": "wayland",
-    "url": "https://codeberg.org/ifreund/zig-wayland/archive/260778a0f2f6af0a2c6bd311a60cb1aa4311ef7a.tar.gz",
-    "hash": "sha256-8r08u15FY3QEq/pJ2BiwJb3Uj8HLzRyoqIkcjgzcx44="
-  }
-}

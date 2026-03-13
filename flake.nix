@@ -191,9 +191,13 @@
               hardeningDisable = [ "fortify" ];
 
               buildInputs = [
+                pkgs.cargo
+                pkgs.clippy
                 pkgs.direnv
+                pkgs.rustfmt
                 pkgs.just
                 pkgs.nix-direnv
+                pkgs.rustc
 
                 unstable.git
                 unstable.home-manager
@@ -201,9 +205,6 @@
                 unstable.sops
               ];
             }
-            // (lib.optionalAttrs pkgs.stdenv.isLinux {
-              nativeBuildInputs = self.packages.${system}.waybar-pd.nativeBuildInputs;
-            })
           );
         }
       );
