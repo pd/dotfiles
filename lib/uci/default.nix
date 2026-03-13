@@ -59,7 +59,6 @@ with lib;
       (iface device)
       // {
         mode = "ap";
-        bss_transition = true; # 802.11v
         ieee80211r = true;
         ieee80211w = 1; # PMF optional
         ft_over_ds = false;
