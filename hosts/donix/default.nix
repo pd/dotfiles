@@ -23,6 +23,9 @@ in
   ];
 
   system.stateVersion = "24.05";
+  time.timeZone = "America/Chicago";
+  docs.enable = false;
+
   nixpkgs.hostPlatform.system = "x86_64-linux";
   networking.hostName = "donix";
   networking.nameservers = [
@@ -33,9 +36,6 @@ in
   networking.useDHCP = false;
   networking.useNetworkd = true;
   wg.offLan = true;
-
-  time.timeZone = "America/Chicago";
-  docs.enable = false;
 
   users.users = lib.mapAttrs mkAdmin friends;
 
