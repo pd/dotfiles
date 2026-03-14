@@ -26,6 +26,7 @@ let
       jellyfin = 8096;
       node-exporter = exporters.node.port;
       ntfy = 9712; # cf donix/ntfy.nix
+      process = exporters.process.port;
       prometheus = prometheus.port;
       qbittorrent = 8090;
       snmp = 9116;
@@ -62,6 +63,25 @@ in
       "orb.home:19100"
       "pi.home"
     ])
+    (
+      (staticJob "processes" ports.process [
+        "desk.home"
+        "donix.wg"
+        "htpc.home"
+        "pi.home"
+      ])
+      // {
+        metric_relabel_configs = [
+          # /proc/PID/io only available if process-exporter runs as owner of
+          # pid or root, which it doesn't, so no reason to store all 0s.
+          {
+            action = "drop";
+            source_labels = [ "__name__" ];
+            regex = "namedprocess_namegroup_(read|write|thread_io)_bytes_total";
+          }
+        ];
+      }
+    )
     (staticJob "prometheus" ports.prometheus [ "htpc.home" ])
     (
       (staticJob "qbittorrent" ports.qbittorrent [ "htpc.home" ])

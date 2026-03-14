@@ -81,4 +81,8 @@
 
   # so things like `uv run` work
   programs.nix-ld.enable = true;
+
+  monitoring.processes = {
+    emacs.cmdline = [ "^/[^ ]+/bin/emacs" ]; # lol
+  };
 }

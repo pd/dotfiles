@@ -43,4 +43,9 @@ in
     "pi"
     "htpc"
   ];
+
+  monitoring.processes = {
+    caddy.comm = [ "caddy" ];
+    ntfy.comm = [ "ntfy" ];
+  };
 }

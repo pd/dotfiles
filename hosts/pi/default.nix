@@ -23,4 +23,8 @@
   ];
 
   docs.enable = false;
+
+  monitoring.processes = {
+    dnsmasq.comm = [ "dnsmasq" ];
+  };
 }
