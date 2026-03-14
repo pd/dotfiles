@@ -93,6 +93,11 @@ in
             PrivateKeyFile = config.sops.secrets.wireguard-private-key.path;
           };
         };
+
+        networks.wg0.domains = [
+          "home"
+          "wg"
+        ];
       };
     })
 
@@ -128,10 +133,7 @@ in
             "${cfg.ipv6}/64"
           ];
           dns = pd.net.resolvers pd.net.wg;
-          domains = [
-            "home"
-            "wg"
-          ];
+
           routes =
             if cfg.offLan then
               [

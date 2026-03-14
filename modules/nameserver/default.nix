@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pd,
   pkgs,
@@ -51,6 +52,29 @@ in
   services.resolved.extraConfig = ''
     DNSStubListener=no
   '';
+
+  # don't use advertised DNS servers, they're us, trust ourselves
+  systemd.network.networks = lib.mkMerge [
+    (lib.mkIf (config.lan.wired.interface != null) {
+      "10-lan" = {
+        dhcpV4Config.UseDNS = false;
+        dhcpV6Config.UseDNS = false;
+        ipv6AcceptRAConfig.UseDNS = false;
+      };
+    })
+
+    (lib.mkIf (config.lan.wifi.interface != null) {
+      "20-wifi" = {
+        dhcpV4Config.UseDNS = false;
+        dhcpV6Config.UseDNS = false;
+        ipv6AcceptRAConfig.UseDNS = false;
+      };
+    })
+
+    (lib.mkIf (config.wg.enable && config.wg.natInterface == null) {
+      wg0.dns = lib.mkForce [ ];
+    })
+  ];
 
   services.dnsmasq = {
     enable = true;
