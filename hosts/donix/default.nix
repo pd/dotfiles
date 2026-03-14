@@ -39,11 +39,10 @@ in
 
   users.users = lib.mapAttrs mkAdmin friends;
 
-  heart.monitor = [
+  monitoring.heart.monitor = [
     "pi"
     "htpc"
   ];
-
   monitoring.processes = {
     caddy.comm = [ "caddy" ];
     ntfy.comm = [ "ntfy" ];

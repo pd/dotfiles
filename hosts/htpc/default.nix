@@ -28,9 +28,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # check in with donix periodically
-  heart.beat = true;
-
   hardware.enableRedistributableFirmware = true;
   security.rtkit.enable = true;
 
@@ -51,5 +48,17 @@
         };
       };
     };
+  };
+
+  monitoring.heart.beat = true;
+  monitoring.processes = {
+    caddy.comm = [ "caddy" ];
+    dnsmasq.comm = [ "dnsmasq" ];
+    grafana.comm = [ "grafana" ];
+    immich.comm = [ "immich" ];
+    jellyfin.comm = [ "jellyfin" ];
+    postgres.comm = [ "postgres" ];
+    prometheus.comm = [ "prometheus" ];
+    qbittorrent.cmdline = [ "^/[^ ]+/bin/qbittorrent-nox" ];
   };
 }

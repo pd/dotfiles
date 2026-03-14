@@ -4,6 +4,7 @@
   pkgs,
   ...
 }:
+with lib;
 let
   beat = pkgs.writeShellApplication {
     name = "heartbeat";
@@ -16,19 +17,21 @@ let
     runtimeInputs = [ pkgs.curl pkgs.gnugrep ];
     text = builtins.readFile ./monitor.sh;
   };
+
+  cfg = config.monitoring.heart;
 in
 {
-  options.heart = {
-    beat = lib.mkEnableOption "send heartbeat to ntfy";
-    monitor = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
+  options.monitoring.heart = {
+    beat = mkEnableOption "send heartbeat to ntfy";
+    monitor = mkOption {
+      type = types.listOf types.str;
       default = [ ];
       description = "monitor ntfy topics for other hosts heartbeats";
     };
   };
 
-  config = lib.mkMerge [
-    (lib.mkIf config.heart.beat {
+  config = mkMerge [
+    (mkIf cfg.beat {
       sops.secrets."ntfy-heartbeat.env" = { };
 
       systemd.services.heartbeat = {
@@ -51,7 +54,7 @@ in
       };
     })
 
-    (lib.mkIf (config.heart.monitor != [ ]) {
+    (mkIf (cfg.monitor != [ ]) {
       sops.secrets."ntfy-acl.env" = { };
 
       systemd.services.heart-monitor = {
@@ -62,7 +65,7 @@ in
           Type = "oneshot";
           EnvironmentFile = config.sops.secrets."ntfy-acl.env".path;
           StateDirectory = "heart-monitor";
-          ExecStart = "${monitor}/bin/heart-monitor ${lib.concatStringsSep " " config.heart.monitor}";
+          ExecStart = "${monitor}/bin/heart-monitor ${concatStringsSep " " cfg.monitor}";
         };
       };
 

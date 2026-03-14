@@ -21,9 +21,7 @@
     traceroute
   ];
 
-  # check in with donix periodically
-  heart.beat = true;
-
+  monitoring.heart.beat = true;
   monitoring.processes = {
     dnsmasq.comm = [ "dnsmasq" ];
   };
