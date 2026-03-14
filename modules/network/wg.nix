@@ -127,12 +127,7 @@ in
             "${cfg.ipv4}/24"
             "${cfg.ipv6}/64"
           ];
-          dns = [
-            pd.net.wg.ipv6.pi
-            pd.net.wg.ipv6.htpc
-            pd.net.wg.ipv4.pi
-            pd.net.wg.ipv4.htpc
-          ];
+          dns = pd.net.resolvers pd.net.wg;
           domains = [
             "home"
             "wg"

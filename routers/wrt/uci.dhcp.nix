@@ -37,7 +37,7 @@ in
       interface = [ "lan" ];
       localservice = true;
       rebind_protection = false;
-      server = lan.resolvers;
+      server = pd.net.resolvers lan;
 
       leasefile = "/tmp/dhcp.leases";
       resolvfile = "/tmp/resolv.conf.d/resolv.conf.auto";
@@ -71,7 +71,7 @@ in
       "other-config"
     ];
     ra_useleasetime = true;
-    dns = lan.resolvers6;
+    dns = pd.net.resolvers6 lan;
   };
 
   odhcpd.odhcpd = {

@@ -23,7 +23,7 @@ uci.mkRouter "rpt" ./secrets.yaml {
           interface = [ "lan" ];
           localservice = true;
           rebind_protection = false;
-          server = lan.resolvers;
+          server = pd.net.resolvers lan;
         }
       ];
 

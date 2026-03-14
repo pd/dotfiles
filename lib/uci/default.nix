@@ -125,7 +125,7 @@ with lib;
             device = "br-lan";
             proto = "static";
             netmask = pd.net.lan.netmask;
-            dns = pd.net.lan.resolvers;
+            dns = pd.net.resolvers pd.net.lan;
             dns_search = [ "home" ];
           };
         };

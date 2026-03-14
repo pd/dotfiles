@@ -97,6 +97,24 @@ let
     // (mkSsh hostname ssh);
 in
 rec {
+  resolvers =
+    network:
+    with network;
+    [
+      ipv6.pi
+      ipv4.pi
+      ipv6.htpc
+      ipv4.htpc
+    ];
+
+  resolvers6 =
+    network:
+    with network;
+    [
+      ipv6.pi
+      ipv6.htpc
+    ];
+
   wifi = {
     ssid = "bazqux";
   };
@@ -108,16 +126,6 @@ rec {
     hosts = filterAttrs (_: h: h ? lan) hosts;
     ipv4 = mapAttrs (_: v: v.lan.ipv4) lan.hosts;
     ipv6 = mapAttrs (_: v: v.lan.ipv6) (filterAttrs (_: h: h.v6) lan.hosts);
-    resolvers = with lan; [
-      ipv6.pi
-      ipv4.pi
-      ipv6.htpc
-      ipv4.htpc
-    ];
-    resolvers6 = with lan; [
-      ipv6.pi
-      ipv6.htpc
-    ];
   };
 
   wg = {
