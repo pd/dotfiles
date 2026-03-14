@@ -31,6 +31,8 @@
   };
 
   home.username = "pd";
+  home.homeDirectory =
+    if pkgs.stdenv.hostPlatform.isDarwin then "/Users/pd" else "/home/pd";
   home.packages =
     with pkgs;
     [
