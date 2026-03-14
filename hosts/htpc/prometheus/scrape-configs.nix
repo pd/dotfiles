@@ -79,6 +79,13 @@ in
             source_labels = [ "__name__" ];
             regex = "namedprocess_namegroup_(read|write|thread_io)_bytes_total";
           }
+          {
+            action = "replace";
+            source_labels = [ "instance" ];
+            target_label = "host";
+            regex = "(.+)\\.(home|wg):[0-9]+";
+            replacement = "$1";
+          }
         ];
       }
     )
@@ -88,7 +95,7 @@ in
       // {
         metric_relabel_configs = [
           {
-            # Drop noisy per-torrent metrics that I don't really care about.
+            # noisy per-torrent metrics I don't really care about
             action = "drop";
             source_labels = [ "__name__" ];
             regex =
