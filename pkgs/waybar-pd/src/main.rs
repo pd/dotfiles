@@ -1,4 +1,5 @@
 mod dunst;
+mod idle;
 mod river;
 
 fn main() {
@@ -8,8 +9,9 @@ fn main() {
     let result = match args.next().as_deref() {
         Some("river-mode") => river::monitor(),
         Some("dunst") => dunst::monitor(),
+        Some("idle") => idle::monitor(),
         _ => {
-            eprintln!("usage: {cmd} [river-mode | dunst]");
+            eprintln!("usage: {cmd} [river-mode | dunst | idle]");
             std::process::exit(1);
         }
     };

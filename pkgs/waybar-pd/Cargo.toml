@@ -6,4 +6,5 @@ edition = "2021"
 [dependencies]
 wayland-client = "0.31"
 wayland-scanner = "0.31"
-zbus = { version = "4", features = ["blocking"] }
+signal-hook = "0.4"
+zbus = { version = "5", features = ["blocking"] }

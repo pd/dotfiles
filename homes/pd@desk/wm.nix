@@ -15,7 +15,6 @@ in
     lswt # to get app-id for riverctl rules
     imv # minimalist image viewer
     river-filtile
-    sway-audio-idle-inhibit
     wl-clipboard
     wlr-randr
   ];
@@ -255,6 +254,7 @@ in
 
         modules-left = [
           "custom/dunst"
+          "custom/idle"
           "tray"
           "custom/river-mode"
         ];
@@ -268,13 +268,24 @@ in
           "memory"
           "network"
           "pulseaudio"
-          "custom/audio-state"
           "clock"
         ];
 
         inherit tray clock pulseaudio;
         "river/tags" = tags;
         "custom/river-mode" = mode;
+
+        "custom/idle" = {
+          format = "{icon}";
+          exec = "${pkgs.pd.waybar-pd}/bin/waybar-pd idle";
+          return-type = "json";
+          exec-on-event = false;
+          on-click = "pkill -USR1 -f 'waybar-pd idle'";
+          format-icons = {
+            inhibited = "󰛊";
+            uninhibited = "󰾫";
+          };
+        };
 
         "custom/dunst" = {
           format = "{icon}";
@@ -284,6 +295,7 @@ in
           };
           exec = "${pkgs.pd.waybar-pd}/bin/waybar-pd dunst";
           return-type = "json";
+          exec-on-event = false;
           on-click = "dunstctl history-pop";
           on-click-middle = "dunstctl history-clear";
           on-click-right = "dunstctl set-paused toggle";
@@ -314,19 +326,6 @@ in
           tooltip-format-ethernet = "{ifname}: {ipaddr}";
           tooltip-format-wifi = "{ifname}: {ipaddr} {essid} ({signalStrength}% / {signaldBm})";
           tooltip-format-disconnected = "Disconnected";
-        };
-
-        "custom/audio-state" = {
-          format = "{icon}";
-          exec = "sway-audio-idle-inhibit --dry-print-both-waybar";
-          exec-if = "which sway-audio-idle-inhibit";
-          return-type = "json";
-          format-icons = {
-            output = "";
-            input = "";
-            output-input = "  ";
-            none = "";
-          };
         };
 
       };
@@ -504,7 +503,6 @@ in
 
         spawn = map (cmd: "'${cmd}'") [
           "waybar"
-          "sway-audio-idle-inhibit"
           layout-outputs
         ];
 
