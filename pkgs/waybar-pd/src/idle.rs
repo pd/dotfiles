@@ -1,7 +1,8 @@
 use std::io::{self, BufRead, BufReader, Write};
-use std::process::{Command, Stdio};
-use std::sync::mpsc;
+use std::process::{Child, Command, Stdio};
+use std::sync::mpsc::{self, Sender};
 use std::thread;
+use std::time::Duration;
 
 fn emit(audio: bool, manual: bool) -> io::Result<()> {
     let (alt, tooltip) = match (audio, manual) {
@@ -19,7 +20,28 @@ fn emit(audio: bool, manual: bool) -> io::Result<()> {
 
 enum Event {
     Audio(bool),
+    SaiiDied,
     Signal,
+}
+
+fn spawn_saii(tx: &Sender<Event>) -> io::Result<Child> {
+    let mut child = Command::new("sway-audio-idle-inhibit")
+        .stdout(Stdio::piped())
+        .spawn()?;
+
+    let stdout = child.stdout.take().unwrap();
+    let tx = tx.clone();
+    thread::spawn(move || {
+        let reader = BufReader::new(stdout);
+        for line in reader.lines() {
+            let Ok(line) = line else { break };
+            let audio = line.trim() == "IDLE INHIBITED";
+            let _ = tx.send(Event::Audio(audio));
+        }
+        let _ = tx.send(Event::SaiiDied);
+    });
+
+    Ok(child)
 }
 
 pub fn monitor() -> Result<(), Box<dyn std::error::Error>> {
@@ -27,23 +49,10 @@ pub fn monitor() -> Result<(), Box<dyn std::error::Error>> {
 
     // saii handles inhibiting when audio is on, and prints an
     // update for us to track when it changes state
-    let mut child = Command::new("sway-audio-idle-inhibit")
-        .stdout(Stdio::piped())
-        .spawn()?;
-
-    let stdout = child.stdout.take().unwrap();
-    let tx_audio = tx.clone();
-    thread::spawn(move || {
-        let reader = BufReader::new(stdout);
-        for line in reader.lines() {
-            let Ok(line) = line else { break };
-            let audio = line.trim() == "IDLE INHIBITED";
-            let _ = tx_audio.send(Event::Audio(audio));
-        }
-    });
+    let mut saii = spawn_saii(&tx)?;
 
     // on click we send a USR1 to toggle on/off
-    let tx_signal = tx;
+    let tx_signal = tx.clone();
     thread::spawn(move || {
         let mut signals =
             signal_hook::iterator::Signals::new([signal_hook::consts::SIGUSR1]).unwrap();
@@ -54,14 +63,20 @@ pub fn monitor() -> Result<(), Box<dyn std::error::Error>> {
 
     let mut audio = false;
     let mut manual = false;
-    let mut inhibitor: Option<std::process::Child> = None;
+    let mut inhibitor: Option<Child> = None;
 
-    // Initial state
     emit(false, false)?;
 
     for event in rx {
         match event {
             Event::Audio(a) => audio = a,
+            Event::SaiiDied => {
+                let status = saii.wait();
+                eprintln!("sway-audio-idle-inhibit exited: {status:?}");
+                audio = false;
+                thread::sleep(Duration::from_secs(1));
+                saii = spawn_saii(&tx)?;
+            }
             Event::Signal => {
                 manual = !manual;
                 if manual {

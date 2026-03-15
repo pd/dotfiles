@@ -240,7 +240,7 @@ in
           color: @base0F;
         }
 
-        #custom-dunst, #tray, #custom-river-mode {
+        #custom-dunst, #custom-idle, #tray, #custom-river-mode {
           margin: 0 10px;
         }
 
