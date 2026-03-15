@@ -49,14 +49,18 @@ in
     };
   };
 
-  services.resolved.extraConfig = ''
-    DNSStubListener=no
-  '';
+  services.resolved = {
+    domains = [ "home" "wg" "~." ];
+    extraConfig = ''
+      DNSStubListener=no
+    '';
+  };
 
   # don't use advertised DNS servers, they're us, trust ourselves
   systemd.network.networks = lib.mkMerge [
     (lib.mkIf (config.lan.wired.interface != null) {
       "10-lan" = {
+        networkConfig.UseDomains = lib.mkForce false;
         dhcpV4Config.UseDNS = false;
         dhcpV6Config.UseDNS = false;
         ipv6AcceptRAConfig.UseDNS = false;
@@ -65,14 +69,18 @@ in
 
     (lib.mkIf (config.lan.wifi.interface != null) {
       "20-wifi" = {
+        networkConfig.UseDomains = lib.mkForce false;
         dhcpV4Config.UseDNS = false;
         dhcpV6Config.UseDNS = false;
         ipv6AcceptRAConfig.UseDNS = false;
       };
     })
 
-    (lib.mkIf (config.wg.enable && config.wg.natInterface == null) {
-      wg0.dns = lib.mkForce [ ];
+    (lib.mkIf config.wg.enable {
+      wg0 = {
+        dns = lib.mkForce [ ];
+        domains = lib.mkForce [ ];
+      };
     })
   ];
 
