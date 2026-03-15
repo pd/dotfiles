@@ -61,6 +61,12 @@
     settings.General.Experimental = true; # show battery charge of devices
   };
 
+  # USB wake from suspend (keyboard + root hubs only, not mouse)
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="1d6b", ATTR{power/wakeup}="enabled"
+    ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="04d9", ATTRS{idProduct}=="1818", ATTR{power/wakeup}="enabled"
+  '';
+
   # Needed for age-plugin-yubikey
   services.pcscd.enable = true;
 

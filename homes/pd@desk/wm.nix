@@ -352,11 +352,15 @@ in
 
   services.swayidle =
     let
+      wlr-randr = lib.getExe' pkgs.wlr-randr "wlr-randr";
+      jq = lib.getExe' pkgs.jq "jq";
+
       display-state = pkgs.writeShellScript "display-state" ''
-        ${pkgs.wlr-randr}/bin/wlr-randr --output DP-1 --"$1" --output DP-2 --"$1"
-        if [[ "$1" == "on" ]]; then
-          ${layout-outputs}
-        fi
+        for output in $(${wlr-randr} --json | ${jq} -r '.[].name'); do
+          ${wlr-randr} --output "$output" --"$1"
+        done
+
+        [[ "$1" == "on" ]] && ${layout-outputs}
       '';
     in
     {
@@ -364,9 +368,13 @@ in
       systemdTarget = "river-session.target";
       timeouts = [
         {
-          timeout = 600;
+          timeout = 300;
           command = "${display-state} off";
           resumeCommand = "${display-state} on";
+        }
+        {
+          timeout = 1800;
+          command = "systemctl suspend";
         }
       ];
     };
