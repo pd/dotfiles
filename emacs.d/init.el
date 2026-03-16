@@ -37,7 +37,6 @@
       visible-bell nil
       messages-buffer-max-lines 1000
       create-lockfiles nil
-      load-prefer-newer t
       ring-bell-function 'ignore)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (use-package diminish)

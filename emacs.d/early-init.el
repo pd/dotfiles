@@ -11,3 +11,6 @@
 
 ; When that doesn't work out:
 ; (setq native-comp-deferred-compilation nil)
+
+; prefer updated init.el to the precompiled version
+(setq load-prefer-newer t)
