@@ -433,20 +433,7 @@ targets."
   (reformatter-define pd/gofmt :program "goimports")
   (add-hook 'go-ts-mode-hook (lambda ()
                                (pd/gofmt-on-save-mode +1)
-                               (setq tab-width 4)))
-
-  ; https://github.com/golang/tools/blob/8d38122b0b1a9991f490aa06b7bfca7b4140bdad/gopls/doc/emacs.md#configuring-eglot
-  ; so eglot starts LSP in a reasonable spot when jumping into ~/go/pkg/... et al
-  (require 'project)
-
-  (defun project-find-go-module (dir)
-    (when-let ((root (locate-dominating-file dir "go.mod")))
-      (cons 'go-module root)))
-
-  (cl-defmethod project-root ((project (head go-module)))
-    (cdr project))
-
-  (add-hook 'project-find-functions #'project-find-go-module))
+                               (setq tab-width 4))))
 
 (use-package jsonnet-mode
   :config
@@ -478,9 +465,26 @@ targets."
   :config
   (add-hook 'nix-mode-hook 'nixfmt-on-save-mode))
 
-(use-package rustic
+(use-package project
   :config
-  (setq rustic-lsp-client 'eglot))
+  ; treat Cargo.toml as a "root" so eglot launches rust-analyzer from
+  ; dotfiles/pkgs/waybar-pd instead of dotfiles root
+  (setq project-vc-extra-root-markers '("Cargo.toml"))
+
+  ; https://github.com/golang/tools/blob/8d38122b0b1a9991f490aa06b7bfca7b4140bdad/gopls/doc/emacs.md#configuring-eglot
+  ; so eglot starts LSP in a reasonable spot when jumping into ~/go/pkg/... et al
+  (defun project-find-go-module (dir)
+    (when-let ((root (locate-dominating-file dir "go.mod")))
+      (cons 'go-module root)))
+
+  (cl-defmethod project-root ((project (head go-module)))
+    (cdr project))
+
+  (add-hook 'project-find-functions #'project-find-go-module))
+
+(use-package rust-mode
+  :init
+  (setq rust-mode-treesitter-derive t))
 
 (use-package sh-script
   :ensure nil
@@ -561,7 +565,7 @@ targets."
 
 (use-package eglot
   :hook
-  ((go-mode go-ts-mode nix-mode zig-ts-mode) . eglot-ensure)
+  ((go-mode go-ts-mode nix-mode rust-mode rust-ts-mode zig-ts-mode) . eglot-ensure)
   :bind
   (("<leader>la" . eglot-code-actions)
    ("<leader>lf" . eglot-format-buffer)
@@ -623,7 +627,7 @@ targets."
                    (js-mode         . js-ts-mode)
                    (json-mode       . json-ts-mode)
                    (ruby-mode       . ruby-ts-mode)
-                   (rust-mode       . rust-ts-mode)
+                   ;; (rust-mode       . rust-ts-mode)
                    (typescript-mode . tsx-ts-mode)
                    (zig-mode        . zig-ts-mode)))
     (add-to-list 'major-mode-remap-alist remap)))
