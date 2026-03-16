@@ -19,15 +19,35 @@ trait LoginManager {
 
     fn list_inhibitors(&self) -> zbus::Result<Vec<(String, String, String, String, u32, u32)>>;
 
+    fn list_sessions(
+        &self,
+    ) -> zbus::Result<Vec<(String, u32, String, String, zbus::zvariant::OwnedObjectPath)>>;
+
     #[zbus(property)]
     fn block_inhibited(&self) -> zbus::Result<String>;
+
+    #[zbus(signal)]
+    fn session_new(&self, id: &str, path: zbus::zvariant::ObjectPath<'_>) -> zbus::Result<()>;
+
+    #[zbus(signal)]
+    fn session_removed(&self, id: &str, path: zbus::zvariant::ObjectPath<'_>) -> zbus::Result<()>;
 }
 
-#[derive(Debug)]
+#[zbus::proxy(
+    interface = "org.freedesktop.login1.Session",
+    default_service = "org.freedesktop.login1",
+    gen_async = false
+)]
+trait LoginSession {
+    #[zbus(property)]
+    fn remote(&self) -> zbus::Result<bool>;
+}
+
 enum Event {
     Audio(bool),
     SaiiDied,
     Signal,
+    SSH(bool),
     InhibitChanged,
 }
 
@@ -51,6 +71,43 @@ fn watch_audio(tx: Sender<Event>) -> io::Result<Child> {
     Ok(child)
 }
 
+fn has_remote_sessions(proxy: &LoginManagerProxy) -> bool {
+    let Ok(sessions) = proxy.list_sessions() else {
+        return false;
+    };
+    sessions.iter().any(|(_, _, _, _, path)| {
+        LoginSessionProxy::builder(proxy.inner().connection())
+            .path(path.as_ref())
+            .ok()
+            .and_then(|b| b.build().ok())
+            .and_then(|p| p.remote().ok())
+            .unwrap_or(false)
+    })
+}
+
+fn watch_ssh(tx: Sender<Event>) {
+    let tx_new = tx.clone();
+    thread::spawn(move || {
+        let conn = Connection::system().unwrap();
+        let proxy = LoginManagerProxy::new(&conn).unwrap();
+        let iter = proxy.receive_session_new().unwrap();
+        for _ in iter {
+            let active = has_remote_sessions(&proxy);
+            let _ = tx_new.send(Event::SSH(active));
+        }
+    });
+
+    thread::spawn(move || {
+        let conn = Connection::system().unwrap();
+        let proxy = LoginManagerProxy::new(&conn).unwrap();
+        let iter = proxy.receive_session_removed().unwrap();
+        for _ in iter {
+            let active = has_remote_sessions(&proxy);
+            let _ = tx.send(Event::SSH(active));
+        };
+    });
+}
+
 fn watch_inhibitors(tx: Sender<Event>) {
     thread::spawn(move || {
         let conn = Connection::system().unwrap();
@@ -72,8 +129,8 @@ fn watch_signals(tx: Sender<Event>) {
     });
 }
 
-fn take_inhibit(proxy: &LoginManagerProxy, why: &str) -> Option<OwnedFd> {
-    let fd = proxy.inhibit("idle", "waybar-pd", why, "block").ok()?;
+fn take_inhibit(proxy: &LoginManagerProxy, what: &str, why: &str) -> Option<OwnedFd> {
+    let fd = proxy.inhibit(what, "waybar-pd", why, "block").ok()?;
     Some(fd.into())
 }
 
@@ -83,23 +140,43 @@ fn list_inhibitors(proxy: &LoginManagerProxy) -> Vec<(String, String)> {
     };
     inhibitors
         .into_iter()
-        .filter(|(what, ..)| what.split(':').any(|w| w == "idle"))
-        .map(|(_, who, why, ..)| (who, why))
+        .filter(|(what, who, ..)| {
+            who == "waybar-pd" && what.split(':').any(|w| w == "idle" || w == "sleep")
+        })
+        .flat_map(|(what, _, why, ..)| {
+            what.split(':')
+                .filter(|w| *w == "idle" || *w == "sleep")
+                .map(|w| (w.to_string(), why.clone()))
+                .collect::<Vec<_>>()
+        })
         .collect()
+}
+
+fn tooltip(inhibitors: &[(String, String)]) -> String {
+    let mut lines: Vec<String> = vec![];
+    for kind in ["idle", "sleep"] {
+        let mut reasons: Vec<&str> = inhibitors
+            .iter()
+            .filter(|(what, _)| what == kind)
+            .map(|(_, why)| why.as_str())
+            .collect();
+        if reasons.is_empty() {
+            continue;
+        }
+        reasons.sort_unstable();
+        reasons.dedup();
+        lines.push(format!("{kind} inhibited ({})", reasons.join(", ")));
+    }
+    lines.join("\\n")
 }
 
 fn emit(inhibitors: &[(String, String)]) -> io::Result<()> {
     let (alt, tooltip) = if inhibitors.is_empty() {
         ("uninhibited".to_string(), "idle uninhibited".to_string())
     } else {
-        let mut reasons: Vec<&str> = inhibitors.iter().map(|(_, why)| why.as_str()).collect();
-        reasons.sort_unstable();
-        reasons.dedup();
-        (
-            "inhibited".to_string(),
-            format!("idle inhibited ({})", reasons.join(", ")),
-        )
+        ("inhibited".to_string(), tooltip(inhibitors))
     };
+
     let mut stdout = io::stdout().lock();
     writeln!(
         stdout,
@@ -115,25 +192,33 @@ pub fn monitor() -> Result<(), Box<dyn std::error::Error>> {
     let proxy = LoginManagerProxy::new(&conn)?;
 
     let mut saii = watch_audio(tx.clone())?;
+    watch_ssh(tx.clone());
     watch_inhibitors(tx.clone());
     watch_signals(tx.clone());
 
     let mut audio_inhibitor: Option<OwnedFd> = None;
     let mut manual_inhibitor: Option<OwnedFd> = None;
+    let mut ssh_inhibitor: Option<OwnedFd> = None;
     for event in rx {
-        eprintln!("{event:?}");
         match event {
             Event::InhibitChanged => {}
             Event::Audio(playing) => {
                 if playing && audio_inhibitor.is_none() {
-                    audio_inhibitor = take_inhibit(&proxy, "audio");
+                    audio_inhibitor = take_inhibit(&proxy, "idle", "audio");
                 } else if !playing {
                     audio_inhibitor = None;
                 }
             }
+            Event::SSH(active) => {
+                if active && ssh_inhibitor.is_none() {
+                    ssh_inhibitor = take_inhibit(&proxy, "sleep", "ssh");
+                } else if !active {
+                    ssh_inhibitor = None;
+                }
+            }
             Event::Signal => {
                 if manual_inhibitor.is_none() {
-                    manual_inhibitor = take_inhibit(&proxy, "manual");
+                    manual_inhibitor = take_inhibit(&proxy, "idle", "manual");
                 } else {
                     manual_inhibitor = None;
                 }
