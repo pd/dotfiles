@@ -7,4 +7,5 @@ edition = "2021"
 wayland-client = "0.31"
 wayland-scanner = "0.31"
 signal-hook = "0.4"
+serde = { version = "1", features = ["derive"] }
 zbus = { version = "5", features = ["blocking"] }

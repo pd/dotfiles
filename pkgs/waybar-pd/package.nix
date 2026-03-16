@@ -4,7 +4,7 @@ rustPlatform.buildRustPackage {
   pname = "waybar-pd";
   version = "0.2.0";
   src = ./.;
-  cargoHash = "sha256-nD76RgphGzgm+uIlPzmw/F5CC3rZJOijAa1lZja2sIU=";
+  cargoHash = "sha256-QTNWnVopjP5M+UwD/81N2tmR3EOhUtWC+/ZPhAy2GHY=";
 
   nativeBuildInputs = [ makeWrapper ];
 

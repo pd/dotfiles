@@ -5,8 +5,28 @@ use std::sync::mpsc::{self, Sender};
 use std::thread;
 use std::time::Duration;
 
+use serde::Deserialize;
 use zbus::blocking::Connection;
-use zbus::zvariant::OwnedFd as ZbusFd;
+use zbus::zvariant::{OwnedFd as ZbusFd, ObjectPath, OwnedObjectPath, Type};
+
+#[derive(Deserialize, Type)]
+struct Inhibitor {
+    what: String,
+    who: String,
+    why: String,
+    _mode: String,
+    _uid: u32,
+    _pid: u32,
+}
+
+#[derive(Deserialize, Type)]
+struct Session {
+    _id: String,
+    _uid: u32,
+    _user: String,
+    _seat: String,
+    path: OwnedObjectPath,
+}
 
 #[zbus::proxy(
     interface = "org.freedesktop.login1.Manager",
@@ -17,20 +37,18 @@ use zbus::zvariant::OwnedFd as ZbusFd;
 trait LoginManager {
     fn inhibit(&self, what: &str, who: &str, why: &str, mode: &str) -> zbus::Result<ZbusFd>;
 
-    fn list_inhibitors(&self) -> zbus::Result<Vec<(String, String, String, String, u32, u32)>>;
+    fn list_inhibitors(&self) -> zbus::Result<Vec<Inhibitor>>;
 
-    fn list_sessions(
-        &self,
-    ) -> zbus::Result<Vec<(String, u32, String, String, zbus::zvariant::OwnedObjectPath)>>;
+    fn list_sessions(&self) -> zbus::Result<Vec<Session>>;
 
     #[zbus(property)]
     fn block_inhibited(&self) -> zbus::Result<String>;
 
     #[zbus(signal)]
-    fn session_new(&self, id: &str, path: zbus::zvariant::ObjectPath<'_>) -> zbus::Result<()>;
+    fn session_new(&self, id: &str, path: ObjectPath<'_>) -> zbus::Result<()>;
 
     #[zbus(signal)]
-    fn session_removed(&self, id: &str, path: zbus::zvariant::ObjectPath<'_>) -> zbus::Result<()>;
+    fn session_removed(&self, id: &str, path: ObjectPath<'_>) -> zbus::Result<()>;
 }
 
 #[zbus::proxy(
@@ -45,10 +63,11 @@ trait LoginSession {
 
 enum Event {
     Audio(bool),
+    InhibitChanged,
     SaiiDied,
     Signal,
+    #[allow(clippy::upper_case_acronyms)]
     SSH(bool),
-    InhibitChanged,
 }
 
 fn watch_audio(tx: Sender<Event>) -> io::Result<Child> {
@@ -75,9 +94,9 @@ fn has_remote_sessions(proxy: &LoginManagerProxy) -> bool {
     let Ok(sessions) = proxy.list_sessions() else {
         return false;
     };
-    sessions.iter().any(|(_, _, _, _, path)| {
+    sessions.iter().any(|s| {
         LoginSessionProxy::builder(proxy.inner().connection())
-            .path(path.as_ref())
+            .path(s.path.as_ref())
             .ok()
             .and_then(|b| b.build().ok())
             .and_then(|p| p.remote().ok())
@@ -140,13 +159,14 @@ fn list_inhibitors(proxy: &LoginManagerProxy) -> Vec<(String, String)> {
     };
     inhibitors
         .into_iter()
-        .filter(|(what, who, ..)| {
-            who == "waybar-pd" && what.split(':').any(|w| w == "idle" || w == "sleep")
+        .filter(|i| {
+            i.who == "waybar-pd" && i.what.split(':').any(|w| w == "idle" || w == "sleep")
         })
-        .flat_map(|(what, _, why, ..)| {
-            what.split(':')
+        .flat_map(|i| {
+            i.what
+                .split(':')
                 .filter(|w| *w == "idle" || *w == "sleep")
-                .map(|w| (w.to_string(), why.clone()))
+                .map(|w| (w.to_string(), i.why.clone()))
                 .collect::<Vec<_>>()
         })
         .collect()
