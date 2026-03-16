@@ -336,6 +336,8 @@ targets."
   :custom
   (get-link-use-commit t))
 
+(use-package inheritenv)
+
 (use-package magit
   :bind
   (("C-x g" . magit-status))
@@ -477,9 +479,9 @@ targets."
   :config
   (add-hook 'nix-mode-hook 'nixfmt-on-save-mode))
 
-(use-package rust-mode
+(use-package rustic
   :config
-  (setq rust-format-on-save t))
+  (setq rustic-lsp-client 'eglot))
 
 (use-package sh-script
   :ensure nil

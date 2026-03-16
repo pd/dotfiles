@@ -24,10 +24,10 @@
                    nerd-icons-completion nerd-icons-corfu
                    nerd-icons-dired nerd-icons-ibuffer nix-mode
                    nix-ts-mode nixfmt nixpkgs-fmt no-littering
-                   orderless popper popwin rust-mode simple-modeline
-                   sops terraform-mode undo-fu vertico vterm wgrep
-                   whitespace-cleanup-mode yaml-mode zeal-at-point
-                   zig-ts-mode))
+                   orderless popper popwin rust-mode rustic
+                   simple-modeline sops terraform-mode undo-fu vertico
+                   vterm wgrep whitespace-cleanup-mode yaml-mode
+                   zeal-at-point zig-ts-mode))
  '(safe-local-variable-values
    '((flycheck-disabled-checkers emacs-lisp-checkdoc emacs-lisp))))
 (custom-set-faces

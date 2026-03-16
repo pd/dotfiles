@@ -19,6 +19,7 @@ in
     lldb
     nil
     (lib.hiPrio ruby') # win over gotools `bundle`
+    rustup
     supabase-cli
     uv
   ];

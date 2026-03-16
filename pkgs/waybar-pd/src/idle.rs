@@ -104,7 +104,7 @@ fn watch_ssh(tx: Sender<Event>) {
         for _ in iter {
             let active = has_remote_sessions(&proxy);
             let _ = tx.send(Event::SSH(active));
-        };
+        }
     });
 }
 
