@@ -5,18 +5,25 @@
   ...
 }:
 let
+  wlr-randr = lib.getExe' pkgs.wlr-randr "wlr-randr";
+  jq = lib.getExe' pkgs.jq "jq";
+
   layout-outputs = lib.getExe' (pkgs.writeShellScriptBin "layout-outputs" ''
-    ${pkgs.wlr-randr}/bin/wlr-randr --output DP-1 --mode 3840x2160 --pos 1210,0 --scale 1.25
-    ${pkgs.wlr-randr}/bin/wlr-randr --output DP-2 --mode 1920x1200 --pos 0,240  --transform 90
+    has_output() {
+      ${wlr-randr} --json | ${jq} -e ".[] | select(.name == \"$1\")" >/dev/null 2>&1
+    }
+
+    has_output DP-1 && ${wlr-randr} --output DP-1 --mode 3840x2160 --pos 1210,0 --scale 1.25
+    has_output DP-2 && ${wlr-randr} --output DP-2 --mode 1920x1200 --pos 0,240  --transform 90
   '') "layout-outputs";
 in
 {
-  home.packages = with pkgs; [
-    lswt # to get app-id for riverctl rules
-    imv # minimalist image viewer
-    river-filtile
-    wl-clipboard
-    wlr-randr
+  home.packages = [
+    pkgs.lswt # to get app-id for riverctl rules
+    pkgs.imv # minimalist image viewer
+    pkgs.river-filtile
+    pkgs.wl-clipboard
+    pkgs.wlr-randr
   ];
 
   stylix = {
@@ -351,9 +358,6 @@ in
 
   services.swayidle =
     let
-      wlr-randr = lib.getExe' pkgs.wlr-randr "wlr-randr";
-      jq = lib.getExe' pkgs.jq "jq";
-
       display-state = pkgs.writeShellScript "display-state" ''
         for output in $(${wlr-randr} --json | ${jq} -r '.[].name'); do
           ${wlr-randr} --output "$output" --"$1"
@@ -365,6 +369,12 @@ in
     {
       enable = true;
       systemdTarget = "river-session.target";
+      events = [
+        {
+          event = "before-sleep";
+          command = "true";
+        }
+      ];
       timeouts = [
         {
           timeout = 300;
@@ -372,8 +382,8 @@ in
           resumeCommand = "${display-state} on";
         }
         {
-          timeout = 1800;
-          command = "systemctl suspend";
+          timeout = 3600;
+          command = "${pkgs.systemd}/bin/systemctl suspend";
         }
       ];
     };

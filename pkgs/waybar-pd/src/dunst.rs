@@ -1,6 +1,16 @@
 use std::io::{self, Write};
-use zbus::blocking::fdo::PropertiesProxy;
 use zbus::blocking::Connection;
+
+#[zbus::proxy(
+    interface = "org.dunstproject.cmd0",
+    default_service = "org.freedesktop.Notifications",
+    default_path = "/org/freedesktop/Notifications",
+    gen_async = false
+)]
+trait Dunst {
+    #[zbus(property, name = "paused")]
+    fn paused(&self) -> zbus::Result<bool>;
+}
 
 fn emit(paused: bool) -> io::Result<()> {
     let state = if paused { "paused" } else { "unpaused" };
@@ -12,25 +22,12 @@ fn emit(paused: bool) -> io::Result<()> {
     stdout.flush()
 }
 
-fn is_paused(proxy: &PropertiesProxy) -> Result<bool, Box<dyn std::error::Error>> {
-    let iface = zbus::names::InterfaceName::from_static_str("org.dunstproject.cmd0")?;
-    let value = proxy.get(iface, "paused")?;
-    Ok(value.try_into()?)
-}
-
 pub fn monitor() -> Result<(), Box<dyn std::error::Error>> {
     let conn = Connection::session()?;
+    let proxy = DunstProxy::new(&conn)?;
 
-    let proxy = PropertiesProxy::builder(&conn)
-        .destination("org.freedesktop.Notifications")?
-        .path("/org/freedesktop/Notifications")?
-        .build()?;
-
-    emit(is_paused(&proxy)?)?;
-
-    let signals = proxy.receive_properties_changed()?;
-    for _signal in signals {
-        emit(is_paused(&proxy)?)?;
+    for _signal in proxy.receive_paused_changed() {
+        emit(proxy.paused()?)?;
     }
 
     Ok(())

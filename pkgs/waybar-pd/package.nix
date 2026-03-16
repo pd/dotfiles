@@ -1,4 +1,4 @@
-{ lib, rustPlatform, makeWrapper, sway-audio-idle-inhibit, systemd }:
+{ lib, rustPlatform, makeWrapper, sway-audio-idle-inhibit }:
 
 rustPlatform.buildRustPackage {
   pname = "waybar-pd";
@@ -10,7 +10,7 @@ rustPlatform.buildRustPackage {
 
   postInstall = ''
     wrapProgram $out/bin/waybar-pd \
-      --prefix PATH : ${lib.makeBinPath [ sway-audio-idle-inhibit systemd ]}
+      --prefix PATH : ${lib.makeBinPath [ sway-audio-idle-inhibit ]}
   '';
 
   meta = {

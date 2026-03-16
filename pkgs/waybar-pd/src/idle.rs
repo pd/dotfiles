@@ -1,14 +1,104 @@
 use std::io::{self, BufRead, BufReader, Write};
+use std::os::fd::OwnedFd;
 use std::process::{Child, Command, Stdio};
 use std::sync::mpsc::{self, Sender};
 use std::thread;
 use std::time::Duration;
 
-fn emit(audio: bool, manual: bool) -> io::Result<()> {
-    let (alt, tooltip) = match (audio, manual) {
-        (_, true) => ("inhibited", "idle inhibited (manual)"),
-        (true, false) => ("inhibited", "idle inhibited (audio)"),
-        (false, false) => ("uninhibited", "idle uninhibited"),
+use zbus::blocking::Connection;
+use zbus::zvariant::OwnedFd as ZbusFd;
+
+#[zbus::proxy(
+    interface = "org.freedesktop.login1.Manager",
+    default_service = "org.freedesktop.login1",
+    default_path = "/org/freedesktop/login1",
+    gen_async = false
+)]
+trait LoginManager {
+    fn inhibit(&self, what: &str, who: &str, why: &str, mode: &str) -> zbus::Result<ZbusFd>;
+
+    fn list_inhibitors(&self) -> zbus::Result<Vec<(String, String, String, String, u32, u32)>>;
+
+    #[zbus(property)]
+    fn block_inhibited(&self) -> zbus::Result<String>;
+}
+
+#[derive(Debug)]
+enum Event {
+    Audio(bool),
+    SaiiDied,
+    Signal,
+    InhibitChanged,
+}
+
+fn watch_audio(tx: Sender<Event>) -> io::Result<Child> {
+    let mut child = Command::new("sway-audio-idle-inhibit")
+        .args(["--dry-print-both"])
+        .stdout(Stdio::piped())
+        .spawn()
+        .map_err(|e| io::Error::new(e.kind(), format!("sway-audio-idle-inhibit: {e}")))?;
+
+    let stdout = child.stdout.take().unwrap();
+    thread::spawn(move || {
+        let reader = BufReader::new(stdout);
+        for line in reader.lines() {
+            let Ok(line) = line else { break };
+            let _ = tx.send(Event::Audio(line.trim() == "RUNNING"));
+        }
+        let _ = tx.send(Event::SaiiDied);
+    });
+
+    Ok(child)
+}
+
+fn watch_inhibitors(tx: Sender<Event>) {
+    thread::spawn(move || {
+        let conn = Connection::system().unwrap();
+        let proxy = LoginManagerProxy::new(&conn).unwrap();
+
+        for _ in proxy.receive_block_inhibited_changed() {
+            let _ = tx.send(Event::InhibitChanged);
+        }
+    });
+}
+
+fn watch_signals(tx: Sender<Event>) {
+    thread::spawn(move || {
+        let mut signals =
+            signal_hook::iterator::Signals::new([signal_hook::consts::SIGUSR1]).unwrap();
+        for _ in signals.forever() {
+            let _ = tx.send(Event::Signal);
+        }
+    });
+}
+
+fn take_inhibit(proxy: &LoginManagerProxy, why: &str) -> Option<OwnedFd> {
+    let fd = proxy.inhibit("idle", "waybar-pd", why, "block").ok()?;
+    Some(fd.into())
+}
+
+fn list_inhibitors(proxy: &LoginManagerProxy) -> Vec<(String, String)> {
+    let Ok(inhibitors) = proxy.list_inhibitors() else {
+        return vec![];
+    };
+    inhibitors
+        .into_iter()
+        .filter(|(what, ..)| what.split(':').any(|w| w == "idle"))
+        .map(|(_, who, why, ..)| (who, why))
+        .collect()
+}
+
+fn emit(inhibitors: &[(String, String)]) -> io::Result<()> {
+    let (alt, tooltip) = if inhibitors.is_empty() {
+        ("uninhibited".to_string(), "idle uninhibited".to_string())
+    } else {
+        let mut reasons: Vec<&str> = inhibitors.iter().map(|(_, why)| why.as_str()).collect();
+        reasons.sort_unstable();
+        reasons.dedup();
+        (
+            "inhibited".to_string(),
+            format!("idle inhibited ({})", reasons.join(", ")),
+        )
     };
     let mut stdout = io::stdout().lock();
     writeln!(
@@ -18,82 +108,45 @@ fn emit(audio: bool, manual: bool) -> io::Result<()> {
     stdout.flush()
 }
 
-enum Event {
-    Audio(bool),
-    SaiiDied,
-    Signal,
-}
-
-fn spawn_saii(tx: &Sender<Event>) -> io::Result<Child> {
-    let mut child = Command::new("sway-audio-idle-inhibit")
-        .stdout(Stdio::piped())
-        .spawn()?;
-
-    let stdout = child.stdout.take().unwrap();
-    let tx = tx.clone();
-    thread::spawn(move || {
-        let reader = BufReader::new(stdout);
-        for line in reader.lines() {
-            let Ok(line) = line else { break };
-            let audio = line.trim() == "IDLE INHIBITED";
-            let _ = tx.send(Event::Audio(audio));
-        }
-        let _ = tx.send(Event::SaiiDied);
-    });
-
-    Ok(child)
-}
-
 pub fn monitor() -> Result<(), Box<dyn std::error::Error>> {
     let (tx, rx) = mpsc::channel();
 
-    // saii handles inhibiting when audio is on, and prints an
-    // update for us to track when it changes state
-    let mut saii = spawn_saii(&tx)?;
+    let conn = Connection::system()?;
+    let proxy = LoginManagerProxy::new(&conn)?;
 
-    // on click we send a USR1 to toggle on/off
-    let tx_signal = tx.clone();
-    thread::spawn(move || {
-        let mut signals =
-            signal_hook::iterator::Signals::new([signal_hook::consts::SIGUSR1]).unwrap();
-        for _ in signals.forever() {
-            let _ = tx_signal.send(Event::Signal);
-        }
-    });
+    let mut saii = watch_audio(tx.clone())?;
+    watch_inhibitors(tx.clone());
+    watch_signals(tx.clone());
 
-    let mut audio = false;
-    let mut manual = false;
-    let mut inhibitor: Option<Child> = None;
-
-    emit(false, false)?;
-
+    let mut audio_inhibitor: Option<OwnedFd> = None;
+    let mut manual_inhibitor: Option<OwnedFd> = None;
     for event in rx {
+        eprintln!("{event:?}");
         match event {
-            Event::Audio(a) => audio = a,
+            Event::InhibitChanged => {}
+            Event::Audio(playing) => {
+                if playing && audio_inhibitor.is_none() {
+                    audio_inhibitor = take_inhibit(&proxy, "audio");
+                } else if !playing {
+                    audio_inhibitor = None;
+                }
+            }
+            Event::Signal => {
+                if manual_inhibitor.is_none() {
+                    manual_inhibitor = take_inhibit(&proxy, "manual");
+                } else {
+                    manual_inhibitor = None;
+                }
+            }
             Event::SaiiDied => {
                 let status = saii.wait();
                 eprintln!("sway-audio-idle-inhibit exited: {status:?}");
-                audio = false;
+                audio_inhibitor = None;
                 thread::sleep(Duration::from_secs(1));
-                saii = spawn_saii(&tx)?;
-            }
-            Event::Signal => {
-                manual = !manual;
-                if manual {
-                    inhibitor = Command::new("systemd-inhibit")
-                        .args(["--what=idle", "--who=waybar-pd", "--why=manual", "--mode=block", "sleep", "infinity"])
-                        .stdin(Stdio::null())
-                        .stdout(Stdio::null())
-                        .stderr(Stdio::null())
-                        .spawn()
-                        .ok();
-                } else if let Some(mut child) = inhibitor.take() {
-                    let _ = child.kill();
-                    let _ = child.wait();
-                }
+                saii = watch_audio(tx.clone())?;
             }
         }
-        emit(audio, manual)?;
+        emit(&list_inhibitors(&proxy))?;
     }
 
     Ok(())
