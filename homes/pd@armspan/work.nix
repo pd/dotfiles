@@ -16,6 +16,7 @@
 
   home.packages = with pkgs; [
     mermaid-cli
+    nodejs_24
     pandoc
 
     (python3.withPackages (pp: [
