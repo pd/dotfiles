@@ -42,7 +42,6 @@ var (
 		"coreutils-stty",
 		"drill", // in lieu of dig
 		"iperf3",
-		"luci-app-attendedsysupgrade",
 		"luci-app-firewall",
 		"luci-app-package-manager",
 		"luci-app-usteer",
