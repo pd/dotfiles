@@ -33,4 +33,8 @@
       "zoom"
     ];
   };
+
+  # cask installation doesn't work, let nix-darwin deal with
+  # the absurd constraint that it "must" be in /Applications
+  programs._1password-gui.enable = true;
 }
