@@ -1,2 +1,5 @@
 #!/bin/sh
-grep 'pi$' /tmp/hosts/odhcpd | grep -v fded | cut -f1
+
+ubus call dhcp ipv6leases |
+  jsonfilter -e '$.device["br-lan"].leases[@.hostname="pi"]["ipv6-addr"][*].address' |
+  grep -v fded:
