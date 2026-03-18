@@ -7,7 +7,7 @@ let
   forwardRule =
     name:
     {
-      ip,
+      ip ? null,
       port,
       family ? "ipv6",
       proto ? [
@@ -20,9 +20,9 @@ let
       target = "ACCEPT";
       src = "wan";
       dest = "*";
-      dest_ip = [ ip ];
       dest_port = port;
-    };
+    }
+    // (if ip != null then { dest_ip = [ ip ]; } else { });
 
   dnat =
     name:
@@ -48,7 +48,6 @@ in
   rule = dmerge.append [
     (forwardRule "wg6" {
       proto = "udp";
-      ip = pd.net.hosts.pi.pub.ipv6;
       port = 51930;
     })
   ];

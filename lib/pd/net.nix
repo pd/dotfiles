@@ -37,16 +37,6 @@ let
     k: on: custom: defaults:
     if on then { ${k} = defaults // custom; } else { };
 
-  mkPub =
-    id: lan:
-    mkIf "pub" (lan != false) { } {
-      # AT&T assigns a /60 or something, then delegates 1e2f::/64. It's
-      # not technically valid to re-delegate that /64, but external IPs
-      # for LAN hosts all land within it. Something like that, who
-      # knows. Mostly works AFAICT.
-      ipv6 = "2600:1700:3040:1e2f::${toString id}";
-    };
-
   mkLan =
     id: lan: v6:
     mkIf "lan" (lan != false) { } (
@@ -92,15 +82,12 @@ let
         ;
     }
     // (mkLan id lan v6)
-    // (mkPub id lan)
     // (mkWg id wg)
     // (mkSsh hostname ssh);
 in
 rec {
   resolvers =
-    network:
-    with network;
-    [
+    network: with network; [
       ipv6.pi
       ipv4.pi
       ipv6.htpc
@@ -108,9 +95,7 @@ rec {
     ];
 
   resolvers6 =
-    network:
-    with network;
-    [
+    network: with network; [
       ipv6.pi
       ipv6.htpc
     ];
