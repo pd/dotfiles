@@ -4,28 +4,7 @@
   pkgs,
   ...
 }:
-let
-  em = pkgs.writeShellScriptBin "em" (
-    if pkgs.stdenv.hostPlatform.isLinux then
-      ''
-        emacsclient --alternate-editor="" --no-wait --reuse-frame "$@"
-      ''
-    else
-      # Inexplicably, `--reuse-frame` does the opposite on MacOS (as of Emacs 30).
-      # It's not just me, apparently:
-      # https://emacs.stackexchange.com/questions/79292/why-is-emacsclient-not-reusing-the-existing-frame
-      ''
-        if emacsclient -n -e "(if (> (length (frame-list)) 1) 't)" | grep t >/dev/null 2>&1; then
-          emacsclient --alternate-editor="" --no-wait "$@"
-        else
-          emacsclient --alternate-editor="" --create-frame --no-wait "$@"
-        fi
-      ''
-  );
-in
 {
-  home.packages = [ em ];
-
   programs.direnv = {
     enable = true;
     enableZshIntegration = true;
