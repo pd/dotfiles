@@ -694,11 +694,11 @@
     "stevenblack-blocklist": {
       "flake": false,
       "locked": {
-        "lastModified": 1773239891,
-        "narHash": "sha256-oNmcZEOUg1AuCZ3jFtrfO+dOJ6DhwMMg/rgJ8fn7+bg=",
+        "lastModified": 1774200018,
+        "narHash": "sha256-aZirZXT8x8mR2WYSdy9tvFmu6LNzP0zDr/KmZ8P8Uvo=",
         "owner": "StevenBlack",
         "repo": "hosts",
-        "rev": "c5915141ac18f35a7d219ad6b48e453e65dd3acb",
+        "rev": "af9c4bdc1d7919b4176b711c2636f9ff3fd75382",
         "type": "github"
       },
       "original": {
