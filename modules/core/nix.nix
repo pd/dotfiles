@@ -1,7 +1,23 @@
-{ lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   inherit (pkgs.stdenv) isLinux;
+
+  hostsNixCache = config.networking.hostName == "htpc";
+  substituters = [
+    "https://nix-community.cachix.org"
+  ]
+  ++ (if hostsNixCache then [ ] else [ "http://nix.home" ]);
+
+  trusted-public-keys = [
+    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+  ]
+  ++ (if hostsNixCache then [ ] else [ "nix.home-1:lDXeyLWCMghXN6ATUouJK1tcAQ0sV8D3yyay98cHhHc=" ]);
 in
 {
   nix = {
@@ -11,13 +27,7 @@ in
         "flakes"
       ];
 
-      substituters = [
-        "https://nix-community.cachix.org"
-      ];
-
-      trusted-public-keys = [
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      ];
+      inherit substituters trusted-public-keys;
 
       trusted-users = if isLinux then [ "@wheel" ] else [ "@admin" ];
     };

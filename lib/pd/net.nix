@@ -174,12 +174,12 @@ rec {
         "img"
         "jellyfin"
         "koito"
+        "nix"
         "ns2"
         "prom"
         "scrobbler"
         "store"
         "torrent"
-        "www"
       ];
     };
 

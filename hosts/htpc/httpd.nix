@@ -10,6 +10,7 @@
           alertmanager = config.services.prometheus.alertmanager.port;
           filebotd = 12345;
           grafana = config.services.grafana.settings.server.http_port;
+          harmonia = 5000;
           immich = config.services.immich.port;
           jellyfin = 8096;
           koito = 4110;
@@ -28,6 +29,7 @@
         "jellyfin.home:80" = "localhost:${jellyfin}";
         "jf.krh.me" = "localhost:${jellyfin}";
         "koito.home:80" = "localhost:${koito}";
+        "nix.home:80" = "localhost:${harmonia}";
         "npd.krh.me" = "localhost:${npd}";
         "prom.home:80" = "localhost:${prom}";
         "scrobbler.home:80" = "localhost:${multiscrobbler}";

@@ -5,6 +5,7 @@
     ../../modules/nameserver
     ./prometheus
     ./httpd.nix
+    ./harmonia.nix
     ./grafana.nix
     ./immich.nix
     ./jellyfin.nix
@@ -55,6 +56,7 @@
     caddy.comm = [ "caddy" ];
     dnsmasq.comm = [ "dnsmasq" ];
     grafana.comm = [ "grafana" ];
+    harmonia.comm = [ "harmonia-cache" ];
     immich.comm = [ "immich" ];
     jellyfin.comm = [ "jellyfin" ];
     postgres.comm = [ "postgres" ];
