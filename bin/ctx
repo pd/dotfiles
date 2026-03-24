@@ -2,23 +2,24 @@
 
 set -euo pipefail
 
-list_contexts() {
-  kubectl config get-contexts -o name
+display_contexts() {
+  kubectl config get-contexts --no-headers |
+    awk '{
+      if ($1 == "*") { name=$2; current=" *"}
+      else { name=$1; current="" }
+      print name current
+    }'
 }
 
 switch_context() {
   local name="$1"
   local matches
-
-  if echo "$name" | grep -q -- '-eu$'; then
-    matches="$(list_contexts | grep -- '-eu$' | grep "${name/-eu/}")"
-  else
-    matches="$(list_contexts | grep -v -- '-eu$' | grep "$name")"
-  fi
+  matches="$(kubectl config get-contexts -o name | grep -v -- '-eu$' | grep "$name")"
 
   if [[ "$(echo "$matches" | wc -l)" -ne 1 ]]; then
-    echo "Non-unique context selector: $name"
-    list_contexts
+    echo "Non-unique context selector: $name" >&2
+    echo >&2
+    display_contexts
     exit 1
   fi
 
@@ -26,7 +27,7 @@ switch_context() {
 }
 
 if [[ "$#" -ne 1 ]]; then
-  list_contexts
+  display_contexts
   exit 0
 fi
 
