@@ -21,8 +21,8 @@
         lib.nixosSystem {
           inherit specialArgs;
           modules = [
-            ./modules/core/nixos
             inputs.sops-nix.nixosModules.sops
+            ./modules/core/nixos
             ./hosts/${host}
           ]
           ++ modules;
