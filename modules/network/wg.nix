@@ -94,10 +94,14 @@ in
           };
         };
 
-        networks.wg0.domains = [
-          "home"
-          "wg"
-        ];
+        networks.wg0 = {
+          domains = [
+            "home"
+            "wg"
+          ];
+
+          linkConfig.RequiredForOnline = false;
+        };
       };
     })
 
