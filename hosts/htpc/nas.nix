@@ -38,6 +38,7 @@ in
     device = "nas.home:/volume1/media";
     options = [
       "noatime"
+      "nfsvers=4.1"
       "x-systemd.automount"
       "x-systemd.requires=network-online.target"
     ];
@@ -48,6 +49,7 @@ in
     device = "nas.home:/volume1/state/qbittorrent";
     options = [
       "noatime"
+      "nfsvers=4.1"
       "x-systemd.automount"
       "x-systemd.requires=network-online.target"
     ];
