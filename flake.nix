@@ -33,27 +33,9 @@
         inputs.nix-darwin.lib.darwinSystem {
           inherit specialArgs;
           modules = [
-            ./modules/core/darwin
             inputs.sops-nix.darwinModules.sops
             inputs.nix-homebrew.darwinModules.nix-homebrew
-            {
-              nix-homebrew = {
-                enable = true;
-                user = "pd";
-                taps = {
-                  "homebrew/homebrew-core" = inputs.homebrew-core;
-                  "homebrew/homebrew-cask" = inputs.homebrew-cask;
-                };
-                autoMigrate = true;
-                mutableTaps = false;
-              };
-            }
-            (
-              { config, ... }:
-              {
-                homebrew.taps = builtins.attrNames config.nix-homebrew.taps;
-              }
-            )
+            ./modules/core/darwin
             ./hosts/${host}
           ]
           ++ modules;
@@ -69,29 +51,11 @@
             hostname = lib.last (lib.splitString "@" userAtHost);
           };
           modules = [
+            inputs.sops-nix.homeManagerModules.sops
+            inputs.stylix.homeModules.stylix
+            inputs.nixvim.homeModules.nixvim
             ./modules/core/nixpkgs.nix
-            {
-              imports = [
-                inputs.sops-nix.homeManagerModules.sops
-                inputs.stylix.homeModules.stylix
-                inputs.nixvim.homeModules.nixvim
-              ];
-
-              nixpkgs.overlays =
-                if system == "x86_64-darwin" || system == "aarch64-darwin" then
-                  # On darwin, use the emacs from nix-darwin-emacs and packages from
-                  # emacs-overlay.
-                  [
-                    inputs.nix-darwin-emacs.overlays.emacs
-                    inputs.emacs-overlay.overlays.package
-                  ]
-                else
-                  # On linux, use emacs-overlay for the packages and FromUsePackage
-                  # helper, but we run an emacs from nixpkgs-unstable.
-                  [
-                    inputs.emacs-overlay.overlays.default
-                  ];
-            }
+            (import ./homes/pd/overlays.nix { inherit inputs system; })
             ./homes/${userAtHost}
           ];
         };
