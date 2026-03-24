@@ -57,6 +57,7 @@ in
     owner = config.users.users.qbittorrent.name;
     group = config.users.users.qbittorrent.group;
   };
+
   services.qbittorrent = {
     enable = true;
     profileDir = "/mnt/qbittorrent";
@@ -128,6 +129,17 @@ in
         program = ''${pkgs.pd.qbt-hooks}/bin/qbt-on-complete \"%F\" \"%L\"'';
       };
     };
+  };
+
+  # ensure profile dir is mounted before trying to start,
+  # and restart when this inevitably OOMs cuz i have far far too
+  # many torrents
+  systemd.services.qbittorrent = {
+    serviceConfig = {
+      Restart = "on-failure";
+      RestartSec = "30s";
+    };
+    unitConfig.RequiresMountsFor = "/mnt/qbittorrent";
   };
 
   sops.secrets."qbittorrent-exporter.env" = { };
