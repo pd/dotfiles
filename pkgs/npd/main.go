@@ -179,7 +179,7 @@ func (jf *JF) Session() (*Session, error) {
 	}
 
 	if len(sessions) == 0 {
-		return nil, fmt.Errorf("GetSession: empty result set")
+		return &Session{}, nil
 	}
 
 	// Take anything, but prefer something now playing
