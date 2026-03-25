@@ -85,8 +85,8 @@ in
             group = "svc";
             url = "https://jf.krh.me/web/";
             interval = "120s";
-            conditions = [ "[STATUS] == 200" ];
             alerts = to-ntfy;
+            conditions = [ "[STATUS] == 200" ];
           }
 
           {
@@ -95,6 +95,30 @@ in
             url = "https://npd.krh.me";
             interval = "300s";
             conditions = [ "[STATUS] == 200" ];
+            alerts = to-ntfy;
+          }
+
+          {
+            name = "ntfy";
+            group = "svc";
+            url = "https://ntfy.krh.me/v1/health";
+            interval = "300s";
+            conditions = [
+              "[STATUS] == 200"
+              "[BODY].healthy == true"
+            ];
+            alerts = to-ntfy;
+          }
+
+          {
+            name = "internetsfamous";
+            group = "svc";
+            url = "https://internetsfamo.us";
+            interval = "600s";
+            conditions = [
+              "[STATUS] == 200"
+              "[BODY] == pat(*a fine town*)"
+            ];
             alerts = to-ntfy;
           }
         ];
