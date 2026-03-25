@@ -19,6 +19,7 @@ locals {
       { type = "A", name = "donix", value = digitalocean_droplet.donix.ipv4_address },
       { type = "AAAA", name = "donix", value = digitalocean_droplet.donix.ipv6_address },
       { type = "CNAME", name = "ntfy", value = "donix.krh.me." },
+      { type = "CNAME", name = "status", value = "donix.krh.me." },
 
       { type = "CNAME", name = "mail", value = "ghs.googlehosted.com." },
       { type = "MX", name = "@", value = "aspmx.l.google.com.", priority = 1 },
@@ -28,6 +29,7 @@ locals {
       { type = "MX", name = "@", value = "alt4.aspmx.l.google.com.", priority = 10 },
 
       { type = "CNAME", name = "jf", value = "home.krh.me." },
+      { type = "CNAME", name = "npd", value = "home.krh.me." },
     ]
   }
 }

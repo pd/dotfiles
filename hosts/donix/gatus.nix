@@ -13,6 +13,14 @@
         path = "/var/lib/gatus/gatus.db";
       };
 
+      security.oidc = {
+        issuer-url = "https://accounts.google.com";
+        redirect-url = "https://status.krh.me/authorization-code/callback";
+        client-id = "$GOOGLE_OIDC_CLIENT_ID";
+        client-secret = "$GOOGLE_OIDC_CLIENT_SECRET";
+        scopes = [ "openid" ];
+      };
+
       connectivity.checker = {
         target = "1.1.1.1:53";
         interval = "300s";

@@ -59,6 +59,10 @@ write_files:
 runcmd:
 - curl https://raw.githubusercontent.com/elitak/nixos-infect/master/nixos-infect | PROVIDER=digitalocean NIXOS_IMPORT=./host.nix NIX_CHANNEL=nixos-24.05 bash 2>&1 | tee /tmp/infect.log
 EOF
+
+  lifecycle {
+    ignore_changes = [image]
+  }
 }
 
 output "donix" {

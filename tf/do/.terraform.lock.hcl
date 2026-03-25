@@ -5,6 +5,7 @@ provider "registry.opentofu.org/backblaze/b2" {
   version = "0.10.0"
   hashes = [
     "h1:1R/GqwgJZz5OkVEVMKVBei1s1t9h2qbMORQYZL6LSjI=",
+    "h1:XopbGPMYulGkGsOipKMYwwiWkL4vfMRQ1gHhH61dFfI=",
     "zh:03d4ec22a8a47dfc4e1beccd261f37b22113646d246853195fe5d8cb6febf90c",
     "zh:08c9ea953b3dcb01aeebd372b9bd2c1a6c1f0b996125bde03c094bc5e75fb55b",
     "zh:4f8589276b11f00feb511bd500e2f02abe41371ce2ab74507dd53a7e1110e944",
@@ -16,6 +17,7 @@ provider "registry.opentofu.org/backblaze/b2" {
 provider "registry.opentofu.org/digitalocean/digitalocean" {
   version = "2.62.0"
   hashes = [
+    "h1:eZ5t1bRAwcvP4BqH3qE6ZvDm9NmP9A2IR8PfiLj7rMU=",
     "h1:uaDIlOdKhXAGBkXJClmEYLHIlpj2pqtKFkTNa8E8UqQ=",
     "zh:1004bd408d8982471a7b0971fb2c47ccb3e9b8b3261422a6c8942151e6624713",
     "zh:173059dd17ab6cb471dd45ee0e2a01db9c2e7d31ac30e33eb3b6269cfca68bbb",
