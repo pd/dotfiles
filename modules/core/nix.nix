@@ -6,18 +6,20 @@
 }:
 with lib;
 let
-  inherit (pkgs.stdenv) isLinux;
+  inherit (pkgs.stdenv.hostPlatform) isLinux isx86_64;
 
   hostsNixCache = config.networking.hostName == "htpc";
+  usesNixCache = isLinux && isx86_64 && !hostsNixCache;
+
   substituters = [
     "https://nix-community.cachix.org"
   ]
-  ++ (if hostsNixCache then [ ] else [ "http://nix.home" ]);
+  ++ (if usesNixCache then [ ] else [ "http://nix.home" ]);
 
   trusted-public-keys = [
     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
   ]
-  ++ (if hostsNixCache then [ ] else [ "nix.home-1:lDXeyLWCMghXN6ATUouJK1tcAQ0sV8D3yyay98cHhHc=" ]);
+  ++ (if usesNixCache then [ ] else [ "nix.home-1:lDXeyLWCMghXN6ATUouJK1tcAQ0sV8D3yyay98cHhHc=" ]);
 in
 {
   nix = {
