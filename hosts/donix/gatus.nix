@@ -39,7 +39,7 @@
           {
             name = "jf";
             url = "https://jf.krh.me/web/";
-            interval = "60s";
+            interval = "120s";
             conditions = [ "[STATUS] == 200" ];
             alerts = to-ntfy;
           }
@@ -47,7 +47,7 @@
           {
             name = "npd";
             url = "https://npd.krh.me";
-            interval = "60s";
+            interval = "300s";
             conditions = [ "[STATUS] == 200" ];
             alerts = to-ntfy;
           }
