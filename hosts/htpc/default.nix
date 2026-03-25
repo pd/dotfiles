@@ -51,7 +51,7 @@
     };
   };
 
-  monitoring.heart.beat = true;
+  monitoring.heartbeat = true;
   monitoring.processes = {
     caddy.comm = [ "caddy" ];
     dnsmasq.comm = [ "dnsmasq" ];

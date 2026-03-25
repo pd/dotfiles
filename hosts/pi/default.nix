@@ -21,7 +21,7 @@
     traceroute
   ];
 
-  monitoring.heart.beat = true;
+  monitoring.heartbeat = true;
   monitoring.processes = {
     dnsmasq.comm = [ "dnsmasq" ];
   };

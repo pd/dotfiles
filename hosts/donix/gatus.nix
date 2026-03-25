@@ -1,12 +1,32 @@
-{ config, ... }:
+{ config, pkgs, ... }:
+let
+  ntfy = attrs: [
+    (
+      {
+        type = "ntfy";
+        send-on-resolved = true;
+      }
+      // attrs
+    )
+  ];
+in
 {
   sops.secrets."gatus.env" = { };
   services.gatus = {
     enable = true;
+    package = pkgs.unstable.gatus;
     environmentFile = config.sops.secrets."gatus.env".path;
 
     settings = {
       web.port = 8989;
+
+      ui = {
+        title = "despotia";
+        header = "despotia";
+        description = " ";
+        dashboard-heading = "whats up";
+        dashboard-subheading = " ";
+      };
 
       storage = {
         type = "sqlite";
@@ -32,20 +52,37 @@
         token = "$NTFY_ACCESS_TOKEN_PUB";
       };
 
+      external-endpoints =
+        let
+          to-ntfy = ntfy {
+            failure-threshold = 1;
+            success-threshold = 1;
+          };
+
+          heartbeat = name: {
+            inherit name;
+            group = "heartbeat";
+            token = "$GATUS_HEARTBEAT_TOKEN";
+            heartbeat.interval = "5m";
+            alerts = to-ntfy;
+          };
+        in
+        [
+          (heartbeat "pi")
+          (heartbeat "htpc")
+        ];
+
       endpoints =
         let
-          to-ntfy = [
-            {
-              type = "ntfy";
-              failure-threshold = 2;
-              success-threshold = 1;
-              send-on-resolved = true;
-            }
-          ];
+          to-ntfy = ntfy {
+            failure-threshold = 2;
+            success-threshold = 1;
+          };
         in
         [
           {
             name = "jf";
+            group = "svc";
             url = "https://jf.krh.me/web/";
             interval = "120s";
             conditions = [ "[STATUS] == 200" ];
@@ -54,6 +91,7 @@
 
           {
             name = "npd";
+            group = "svc";
             url = "https://npd.krh.me";
             interval = "300s";
             conditions = [ "[STATUS] == 200" ];
