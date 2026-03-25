@@ -280,6 +280,7 @@ rec {
       lan = false;
       ssh.hostname = "donix.krh.me";
       wg.publicKey = "WZgf+DC6SBQeatqOgpC2j6tvIu5VxKi/WgdbIU/m7wg=";
+      cnames = [ "gatus" ];
     };
 
     hera = {

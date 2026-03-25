@@ -17,6 +17,7 @@ let
 in
 {
   imports = [
+    ./gatus.nix
     ./infect.nix
     ./ntfy.nix
     ./httpd.nix
@@ -45,6 +46,7 @@ in
   ];
   monitoring.processes = {
     caddy.comm = [ "caddy" ];
+    gatus.comm = [ "gatus" ];
     ntfy.comm = [ "ntfy" ];
   };
 }

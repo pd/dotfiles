@@ -56,6 +56,11 @@ in
               type = types.listOf handler;
               default = [ ];
             };
+            cidrs = mkOption {
+              description = "CIDRs to permit access. Empty allows all.";
+              type = types.listOf types.str;
+              default = [ ];
+            };
             extraConfig = mkOption {
               type = types.lines;
               default = "";
@@ -80,24 +85,25 @@ in
 
     services.caddy =
       let
+        cidrFilter =
+          cidrs:
+          let
+            joined = concatStringsSep " " cidrs;
+          in
+          if joined == "" then
+            ""
+          else
+            ''
+              @refused_cidr not client_ip ${joined}
+              abort @refused_cidr
+            '';
+
         metrics = {
           logFormat = "output discard";
-          extraConfig =
-            let
-              cidrs = concatStringsSep " " cfg.metrics.cidrs;
-              cidrFilter =
-                if cidrs == "" then
-                  ""
-                else
-                  ''
-                    @refused_cidr not client_ip ${cidrs}
-                    abort @refused_cidr
-                  '';
-            in
-            ''
-              ${cidrFilter}
-              metrics
-            '';
+          extraConfig = ''
+            ${cidrFilter cfg.metrics.cidrs}
+            metrics
+          '';
         };
 
         accessLog = host: ''
@@ -120,6 +126,7 @@ in
               in
               {
                 extraConfig = ''
+                  ${cidrFilter upstream.cidrs}
                   ${lib.concatStringsSep "\n" handlers}
                   ${upstream.extraConfig}
                 '';
