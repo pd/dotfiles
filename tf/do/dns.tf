@@ -30,6 +30,7 @@ locals {
 
       { type = "CNAME", name = "jf", value = "home.krh.me." },
       { type = "CNAME", name = "npd", value = "home.krh.me." },
+      { type = "CNAME", name = "rr", value = "home.krh.me." },
     ]
   }
 }

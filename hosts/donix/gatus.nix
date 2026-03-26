@@ -90,6 +90,15 @@ in
           }
 
           {
+            name = "rr";
+            group = "svc";
+            url = "https://rr.krh.me/login";
+            interval = "120s";
+            alerts = to-ntfy;
+            conditions = [ "[STATUS] == 200" ];
+          }
+
+          {
             name = "npd";
             group = "svc";
             url = "https://npd.krh.me/favicon.svg";

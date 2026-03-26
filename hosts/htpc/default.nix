@@ -4,9 +4,10 @@
     ./hardware-configuration.nix
     ../../modules/nameserver
     ./prometheus
-    ./httpd.nix
-    ./harmonia.nix
+    ./arr.nix
     ./grafana.nix
+    ./harmonia.nix
+    ./httpd.nix
     ./immich.nix
     ./jellyfin.nix
     ./nas.nix
@@ -59,8 +60,12 @@
     harmonia.comm = [ "harmonia-cache" ];
     immich.comm = [ "immich" ];
     jellyfin.comm = [ "jellyfin" ];
+    lidarr.cmdline = [ "^.+Lidarr.dll" ];
+    radarr.comm = [ "Radarr" ];
     postgres.comm = [ "postgres" ];
+    prowlarr.comm = [ "Prowlarr" ];
     prometheus.comm = [ "prometheus" ];
     qbittorrent.cmdline = [ "^/[^ ]+/bin/qbittorrent-nox" ];
+    sonarr.comm = [ "Sonarr" ];
   };
 }
