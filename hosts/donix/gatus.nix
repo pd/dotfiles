@@ -92,7 +92,7 @@ in
           {
             name = "npd";
             group = "svc";
-            url = "https://npd.krh.me";
+            url = "https://npd.krh.me/favicon.svg";
             interval = "300s";
             conditions = [ "[STATUS] == 200" ];
             alerts = to-ntfy;
