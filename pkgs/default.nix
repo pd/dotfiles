@@ -11,6 +11,7 @@
   ptpimg-uploader = pkgs.callPackage ./ptpimg-uploader.nix { };
   qbt-hooks = pkgs.callPackage ./qbt-hooks { };
   screenshots = pkgs.callPackage ./screenshots.nix { };
+  sonarqube-cli = pkgs.callPackage ./sonarqube-cli.nix { };
   waybar-pd = pkgs.callPackage ./waybar-pd/package.nix { };
   xtor = pkgs.callPackage ./xtor.nix { };
 }

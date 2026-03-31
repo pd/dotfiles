@@ -19,6 +19,8 @@
     nodejs_24
     pandoc
 
+    pd.sonarqube-cli
+
     (python3.withPackages (pp: [
       pp.avro
       pp.boto3
