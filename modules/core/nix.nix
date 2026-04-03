@@ -14,12 +14,12 @@ let
   substituters = [
     "https://nix-community.cachix.org"
   ]
-  ++ (if usesNixCache then [ ] else [ "http://nix.home" ]);
+  ++ (optionals usesNixCache [ "http://nix.home" ]);
 
   trusted-public-keys = [
     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
   ]
-  ++ (if usesNixCache then [ ] else [ "nix.home-1:lDXeyLWCMghXN6ATUouJK1tcAQ0sV8D3yyay98cHhHc=" ]);
+  ++ (optionals usesNixCache [ "nix.home-1:lDXeyLWCMghXN6ATUouJK1tcAQ0sV8D3yyay98cHhHc=" ]);
 in
 {
   nix = {
