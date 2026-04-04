@@ -12,6 +12,7 @@
     ./jellyfin.nix
     ./nas.nix
     ./psql.nix
+    ./restic.nix
     ./scrobble.nix
   ];
 

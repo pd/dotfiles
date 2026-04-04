@@ -30,6 +30,15 @@ resource "b2_bucket" "tfstate" {
   }
 }
 
+resource "b2_bucket" "backups" {
+  for_each = toset(["pdbkupimg"])
+
+  bucket_name = each.key
+  bucket_type = "allPrivate"
+
+  # restic handles encryption, no point in using SSE
+}
+
 data "digitalocean_ssh_keys" "ssh" {
 }
 
