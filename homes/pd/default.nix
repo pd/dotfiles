@@ -43,13 +43,13 @@
       graphviz
       htop
       ipcalc
-      just
       pwgen
       ssh-to-age
       unzip
       watchexec
     ]
     ++ (with unstable; [
+      just
       mise
       nil
       nixfmt
