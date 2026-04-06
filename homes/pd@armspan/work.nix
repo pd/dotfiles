@@ -15,9 +15,12 @@
   };
 
   home.packages = with pkgs; [
+    ansible
     mermaid-cli
     nodejs_24
     pandoc
+    sshpass
+    tart
 
     pd.sonarqube-cli
 
