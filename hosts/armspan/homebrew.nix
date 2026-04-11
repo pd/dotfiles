@@ -27,6 +27,7 @@
       "signal"
       "slack"
       "steam"
+      "tailscale"
       "visual-studio-code"
       "vlc"
       "wireshark-app"
