@@ -9,6 +9,7 @@
     enable = true;
     enableZshIntegration = true;
     mise.enable = true;
+    mise.package = pkgs.unstable.mise;
     nix-direnv.enable = true;
   };
 
@@ -96,6 +97,9 @@
     completionInit = ''
       autoload -U compinit && compinit
       autoload -U bashcompinit && bashcompinit
+
+      # has implicit dependency on usage package:
+      eval "$(${lib.getExe' pkgs.unstable.mise "mise"} completion zsh)"
     '';
 
     history = {

@@ -55,6 +55,7 @@
       nixfmt
       postgresql
       sops
+      usage
     ]);
 
   nix.gc = {
