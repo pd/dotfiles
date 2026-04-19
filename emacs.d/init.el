@@ -452,6 +452,10 @@ targets."
   (setq comment-column 0))
 
 (use-package markdown-mode)
+(use-package grip-mode
+  :config (setq grip-command 'go-grip)
+  :bind (:map markdown-mode-command-map
+              ("g" . grip-mode))) ; C-c C-c g
 
 (use-package nix-mode
   :config

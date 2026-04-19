@@ -57,7 +57,13 @@ in
     };
   };
 
-  home.packages = with pkgs; [ emacs-all-the-icons-fonts ] ++ [ em ];
+  home.packages =
+    with pkgs;
+    [
+      emacs-all-the-icons-fonts
+      go-grip # used by grip-mode
+    ]
+    ++ [ em ];
 
   services.emacs = {
     enable = true;
