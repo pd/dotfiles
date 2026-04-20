@@ -49,6 +49,7 @@
       watchexec
     ]
     ++ (with unstable; [
+      bitwarden-cli
       just
       mise
       nil

@@ -14,7 +14,6 @@
   home.packages =
     with pkgs;
     [
-      bitwarden-cli
       bitwarden-desktop
       discord # god help me
       pavucontrol # audio
