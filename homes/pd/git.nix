@@ -28,6 +28,7 @@
         rup = "remote update --prune";
         sh = "show";
         st = "status";
+        wt = "worktree";
       };
 
       diff.algorithm = "patience";
