@@ -26,6 +26,7 @@
 # appliances:
 #   nas:        .100
 #   tv:         .101
+#   hthub:      .102
 #   do:         .110
 #   hera:       .120
 #
@@ -229,6 +230,13 @@ rec {
       cnames = [ "orb" ];
     };
 
+    adra = {
+      id = 20;
+      duid = "000100013169d35a1cf64c5afab2";
+      macs.eth = "1c:f6:4c:5a:fa:b2";
+      ssh.port = 22;
+    };
+
     win-wifi = {
       id = 85;
       duid = "00010001282008632cf05ddb8d13";
@@ -276,7 +284,13 @@ rec {
 
     tv = {
       id = 101;
-      macs.wifi = "60:8d:26:68:54:0c";
+      macs.eth = "64:95:6c:fe:f0:cd";
+      ssh = false;
+    };
+
+    hthub = {
+      id = 102;
+      macs.eth = "cc:ba:bd:43:ef:1b";
       ssh = false;
     };
 
