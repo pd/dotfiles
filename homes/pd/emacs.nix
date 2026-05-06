@@ -48,7 +48,6 @@ in
       package = if isDarwin then pkgs.emacs-30 else pkgs.unstable.emacs30-pgtk;
       config = ../../emacs.d/init.el;
       alwaysEnsure = true;
-      defaultInitFile = false;
       extraEmacsPackages =
         epkgs: with epkgs; [
           treesit-grammars.with-all-grammars
