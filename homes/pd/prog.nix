@@ -13,7 +13,7 @@ in
     dive
     duckdb
     go
-    gopls
+    (lib.hiPrio gopls) # win over gotools `modernize`
     gotools
     go-jsonnet
     lldb
