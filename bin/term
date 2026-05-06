@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if which ghostty; then
+  ghostty "${1:-.}"
+elif [[ -e $HOME/Applications/Ghostty.app ]]; then
+  open -a Ghostty "${1:-.}"
+fi

@@ -8,6 +8,7 @@ let
     "ff-container"
     "git-show-file-at-rev"
     "git-take-file-from-rev"
+    "term"
     "utc"
   ];
 
