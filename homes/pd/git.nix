@@ -28,6 +28,7 @@
         rup = "remote update --prune";
         sh = "show";
         st = "status";
+        tfo = "restore --staged";
         wt = "worktree";
       };
 
