@@ -10,6 +10,7 @@
     nvd # to diff nixos generations
     procps
     ripgrep
+    sd
     tcpdump
     tree
     vim
