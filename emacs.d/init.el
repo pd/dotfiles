@@ -713,6 +713,10 @@ With prefix arg, or if no vterms exist, create a new one in default-directory."
      (t
       (consult--multi '(consult-vterm-buffer-source))))))
 
+(use-package ghostel
+  :init
+  (setq ghostel-module-directory (no-littering-expand-var-file-name "ghostel")))
+
 ;; junkdrawer
 (defun pd/reload-buffer ()
   "Kill the current buffer and immediately reload it without moving point."
