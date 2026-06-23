@@ -47,6 +47,7 @@
       ssh-to-age
       unzip
       watchexec
+      yubikey-manager
     ]
     ++ (with unstable; [
       bitwarden-cli
