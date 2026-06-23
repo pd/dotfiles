@@ -72,7 +72,7 @@ in
   # Launch daemon from .app bundle so macOS gives it a proper bundle ID and icon.
   launchd.agents.emacs.config.ProgramArguments = lib.mkIf isDarwin (
     lib.mkForce [
-      "${config.programs.emacs.finalPackage}/Applications/Emacs.app/Contents/MacOS/Emacs"
+      "${homeDir}/Applications/Home Manager Apps/Emacs.app/Contents/MacOS/Emacs"
       "--fg-daemon"
     ]
   );
