@@ -5,6 +5,30 @@
   ...
 }:
 {
+  programs.bat = {
+    enable = true;
+    config = {
+      paging = "never";
+      plain = true;
+      theme = "gruvbox-dark";
+
+      map-syntax = [
+        "[Jj]ustfile:just"
+        "*.justfile:just"
+      ];
+    };
+
+    syntaxes.just = {
+      src = pkgs.fetchFromGitHub {
+        owner = "nk9";
+        repo = "just_sublime";
+        rev = "2dcc60286d1af6a4c6c2c03d50bc03230dc56ce3";
+        hash = "sha256-XlxItYVL9I612DhfCGHiUdv6U6Nv9LOlEbJVf1zTwPg=";
+      };
+      file = "Syntax/Just.sublime-syntax";
+    };
+  };
+
   programs.direnv = {
     enable = true;
     enableZshIntegration = true;
@@ -143,6 +167,7 @@
     '';
 
     shellAliases = {
+      cat = "bat";
       g = "git";
       k = "kubectl";
       ll = "ls -l";
