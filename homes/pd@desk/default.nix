@@ -29,10 +29,10 @@
     ]);
 
   # connect to orbstack nixos vm by jumping through armspan
-  programs.ssh.matchBlocks.orb = {
-    proxyJump = "armspan";
-    hostname = "localhost";
-    port = 32222;
+  programs.ssh.settings.orb = {
+    ProxyJump = "armspan";
+    HostName = "localhost";
+    Port = 32222;
   };
 
   # desk is only linux box that isn't headless
