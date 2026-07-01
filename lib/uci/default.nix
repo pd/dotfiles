@@ -88,16 +88,17 @@ with lib;
 
       uci.settings = {
         dropbear.dropbear =
-          map
-            (iface: {
+          let
+            sshConfig = iface: {
               Interface = iface;
               Port = 1222;
               PasswordAuth = "off";
-            })
-            [
-              "lan"
-              "lan6"
-            ];
+            };
+          in
+          map sshConfig [
+            "lan"
+            "lan6"
+          ];
 
         system = {
           system = [
