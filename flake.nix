@@ -55,7 +55,7 @@
             inputs.stylix.homeModules.stylix
             inputs.nixvim.homeModules.nixvim
             ./modules/core/nixpkgs.nix
-            (import ./homes/pd/overlays.nix { inherit inputs system; })
+            (import ./homes/pd/overlays.nix { inherit inputs; })
             ./homes/${userAtHost}
           ];
         };
@@ -213,11 +213,6 @@
 
     nix-darwin = {
       url = "github:LnL7/nix-darwin/nix-darwin-26.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-darwin-emacs = {
-      url = "github:nix-giant/nix-darwin-emacs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

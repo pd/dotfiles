@@ -17,9 +17,9 @@
                    deadgrep diminish dired-subtree dockerfile-mode
                    embark-consult enh-ruby-mode envrc
                    evil-cleverparens evil-collection evil-commentary
-                   evil-ghostel evil-mc evil-textobj-line
+                   evil-mc evil-textobj-line
                    evil-textobj-syntax exec-path-from-shell
-                   expand-region ghostel git-link go-mode grip-mode
+                   expand-region git-link go-mode grip-mode
                    gruvbox-theme ibuffer-vc inf-ruby jsonnet-mode
                    just-mode just-ts-mode lsp-ui magit marginalia
                    nerd-icons-completion nerd-icons-corfu
