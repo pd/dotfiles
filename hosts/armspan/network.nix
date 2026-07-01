@@ -47,7 +47,7 @@ in
   # the openwrt side is correctly configured to assign these via
   # dhcpv6, mac _supports_ dhcpv6, but then just ignores the IA_NA
   # assignment for the ULA.
-  launchd.agents.homeULA =
+  launchd.daemons.homeULA =
     let
       dev = "en0";
       ula = lan.ipv6.armspan;
