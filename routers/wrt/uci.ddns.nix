@@ -37,7 +37,7 @@ let
   };
 
   ddnsDO =
-    name:
+    _name:
     {
       subdomain,
       id,

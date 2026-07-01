@@ -22,5 +22,5 @@ let
 in
 {
   home.packages = scripts;
-  xdg.configFile = builtins.mapAttrs (dest: source: { inherit source; }) etc;
+  xdg.configFile = builtins.mapAttrs (_dest: source: { inherit source; }) etc;
 }

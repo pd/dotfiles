@@ -2,7 +2,7 @@
   description = "nixen";
 
   outputs =
-    inputs@{ self, nixpkgs, ... }:
+    inputs@{ nixpkgs, ... }:
     let
       inherit (nixpkgs) lib;
 
@@ -141,7 +141,6 @@
 
       devShells = forEachSystem (
         {
-          system,
           pkgs,
           unstable,
           ...

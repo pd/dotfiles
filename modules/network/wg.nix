@@ -154,7 +154,7 @@ in
       let
         clients = removeAttrs pd.net.wg.hosts [ config.networking.hostName ];
 
-        psk-secrets = lib.mapAttrs' (name: peer: {
+        psk-secrets = lib.mapAttrs' (name: _peer: {
           name = "wireguard-preshared-key-${name}";
           value = {
             mode = "0440";
