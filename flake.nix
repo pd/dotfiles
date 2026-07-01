@@ -135,7 +135,7 @@
         }
         // (import ./pkgs {
           inherit pkgs unstable;
-          stevenblack-blocklist = inputs.stevenblack-blocklist;
+          inherit (inputs) stevenblack-blocklist;
         })
       );
 
@@ -146,7 +146,7 @@
           ...
         }:
         {
-          default = pkgs.mkShell ({
+          default = pkgs.mkShell {
             buildInputs = [
               # core
               pkgs.direnv
@@ -174,7 +174,7 @@
             # invocation or something that injects `_FORTIFY_SOURCE`
             # which then breaks dlv
             hardeningDisable = [ "fortify" ];
-          });
+          };
         }
       );
     };

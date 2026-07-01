@@ -16,7 +16,7 @@ in
   sops.secrets.filebot-license = {
     path = "${user.home}/.local/share/filebot/data/.license";
     owner = user.name;
-    group = user.group;
+    inherit (user) group;
   };
 
   environment.systemPackages =

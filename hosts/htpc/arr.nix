@@ -1,4 +1,4 @@
-{ ... }:
+_:
 {
   services.prowlarr.enable = true;
   services.radarr.enable = true;

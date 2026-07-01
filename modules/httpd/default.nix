@@ -132,7 +132,7 @@ in
                 '';
               }
           )
-          // ({ logFormat = accessLog host; })
+          // { logFormat = accessLog host; }
         ) cfg.reverseProxies;
 
         staticSites = mapAttrs (host: site: {
@@ -152,7 +152,7 @@ in
       in
       {
         enable = true;
-        package = cfg.package;
+        inherit (cfg) package;
         email = "letsencrypt@krh.me";
 
         globalConfig = ''

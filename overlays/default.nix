@@ -12,8 +12,8 @@
   pd = final: _prev: {
     pd = import ../pkgs {
       pkgs = final;
-      unstable = final.unstable;
-      stevenblack-blocklist = inputs.stevenblack-blocklist;
+      inherit (final) unstable;
+      inherit (inputs) stevenblack-blocklist;
     };
   };
 }

@@ -17,7 +17,7 @@ let
     let
       alertmanager = config.services.prometheus.alertmanager;
       prometheus = config.services.prometheus;
-      exporters = prometheus.exporters;
+      inherit (prometheus) exporters;
     in
     {
       alertmanager = alertmanager.port;
