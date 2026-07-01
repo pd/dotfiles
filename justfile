@@ -129,6 +129,16 @@ _deploy_router name op:
     fi
 
 [group('dev')]
+check:
+    fd -e nix -X nixfmt --check
+    deadnix --fail
+    statix check
+
+[group('dev')]
+fmt:
+    fd -e nix -X nixfmt
+
+[group('dev')]
 rekey:
     #!/usr/bin/env bash
     set -euo pipefail

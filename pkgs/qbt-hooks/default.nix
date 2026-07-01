@@ -8,7 +8,11 @@
 let
   qbt-on-add = writeShellApplication {
     name = "qbt-on-add";
-    runtimeInputs = [ curl gnused gnugrep ];
+    runtimeInputs = [
+      curl
+      gnused
+      gnugrep
+    ];
     text = builtins.readFile ./qbt-on-add.sh;
   };
 
@@ -20,5 +24,8 @@ let
 in
 symlinkJoin {
   name = "qbt-hooks";
-  paths = [ qbt-on-add qbt-on-complete ];
+  paths = [
+    qbt-on-add
+    qbt-on-complete
+  ];
 }

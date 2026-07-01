@@ -164,6 +164,11 @@
               pkgs.rustfmt
               pkgs.cargo
               pkgs.clippy
+
+              # nix fmt/lint
+              unstable.nixfmt
+              pkgs.deadnix
+              pkgs.statix
             ];
 
             # Prevents devshell from polluting cflags or maybe gcc
