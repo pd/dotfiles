@@ -368,13 +368,9 @@ in
     in
     {
       enable = true;
-      systemdTarget = "river-session.target";
-      events = [
-        {
-          event = "before-sleep";
-          command = "true";
-        }
-      ];
+      systemdTargets = [ "river-session.target" ];
+      events.before-sleep = "true";
+
       timeouts = [
         {
           timeout = 300;

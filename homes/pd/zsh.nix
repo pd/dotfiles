@@ -10,7 +10,7 @@
     config = {
       paging = "never";
       plain = true;
-      theme = "gruvbox-dark";
+      theme = lib.mkForce "gruvbox-dark";
 
       map-syntax = [
         "[Jj]ustfile:just"

@@ -1,4 +1,9 @@
-{ inputs, pkgs, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ../pd
@@ -9,18 +14,25 @@
 
   home.stateVersion = "25.05";
 
-  programs.firefox.enable = true;
+  programs.firefox = {
+    enable = true;
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
+  };
 
   home.packages =
     with pkgs;
     [
-      bitwarden-desktop
       discord # god help me
       pavucontrol # audio
       pinta # remedial image editing
       screen
       zeal
       zoom-us
+
+      # depends on EOL electron, and i don't particularly need it
+      # https://github.com/bitwarden/clients/pull/20448
+      # https://github.com/nixos/nixpkgs/issues/526914
+      # bitwarden-desktop
     ]
     ++ (with unstable; [
       aws-workspaces
