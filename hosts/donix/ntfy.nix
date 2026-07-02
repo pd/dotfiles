@@ -1,7 +1,6 @@
 {
   config,
   pd,
-  pkgs,
   ...
 }:
 let

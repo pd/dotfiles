@@ -1,4 +1,9 @@
-{ inputs, pkgs, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ../pd
@@ -9,18 +14,25 @@
 
   home.stateVersion = "25.05";
 
-  programs.firefox.enable = true;
+  programs.firefox = {
+    enable = true;
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
+  };
 
   home.packages =
     with pkgs;
     [
-      bitwarden-desktop
       discord # god help me
       pavucontrol # audio
       pinta # remedial image editing
       screen
       zeal
       zoom-us
+
+      # depends on EOL electron, and i don't particularly need it
+      # https://github.com/bitwarden/clients/pull/20448
+      # https://github.com/nixos/nixpkgs/issues/526914
+      # bitwarden-desktop
     ]
     ++ (with unstable; [
       aws-workspaces
@@ -29,10 +41,10 @@
     ]);
 
   # connect to orbstack nixos vm by jumping through armspan
-  programs.ssh.matchBlocks.orb = {
-    proxyJump = "armspan";
-    hostname = "localhost";
-    port = 32222;
+  programs.ssh.settings.orb = {
+    ProxyJump = "armspan";
+    HostName = "localhost";
+    Port = 32222;
   };
 
   # desk is only linux box that isn't headless

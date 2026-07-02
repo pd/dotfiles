@@ -2,7 +2,7 @@
   description = "nixen";
 
   outputs =
-    inputs@{ self, nixpkgs, ... }:
+    inputs@{ nixpkgs, ... }:
     let
       inherit (nixpkgs) lib;
 
@@ -55,7 +55,7 @@
             inputs.stylix.homeModules.stylix
             inputs.nixvim.homeModules.nixvim
             ./modules/core/nixpkgs.nix
-            (import ./homes/pd/overlays.nix { inherit inputs system; })
+            (import ./homes/pd/overlays.nix { inherit inputs; })
             ./homes/${userAtHost}
           ];
         };
@@ -135,19 +135,18 @@
         }
         // (import ./pkgs {
           inherit pkgs unstable;
-          stevenblack-blocklist = inputs.stevenblack-blocklist;
+          inherit (inputs) stevenblack-blocklist;
         })
       );
 
       devShells = forEachSystem (
         {
-          system,
           pkgs,
           unstable,
           ...
         }:
         {
-          default = pkgs.mkShell ({
+          default = pkgs.mkShell {
             buildInputs = [
               # core
               pkgs.direnv
@@ -164,13 +163,18 @@
               pkgs.rustfmt
               pkgs.cargo
               pkgs.clippy
+
+              # nix fmt/lint
+              unstable.nixfmt
+              pkgs.deadnix
+              pkgs.statix
             ];
 
             # Prevents devshell from polluting cflags or maybe gcc
             # invocation or something that injects `_FORTIFY_SOURCE`
             # which then breaks dlv
             hardeningDisable = [ "fortify" ];
-          });
+          };
         }
       );
     };
@@ -178,7 +182,7 @@
   inputs = {
     self.submodules = true;
 
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     private = {
@@ -207,17 +211,12 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-darwin = {
-      url = "github:LnL7/nix-darwin/nix-darwin-25.11";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-darwin-emacs = {
-      url = "github:nix-giant/nix-darwin-emacs";
+      url = "github:LnL7/nix-darwin/nix-darwin-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -231,8 +230,7 @@
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-25.11";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/nixvim/nixos-26.05";
     };
 
     quadlet-nix = {
@@ -245,7 +243,7 @@
     };
 
     stylix = {
-      url = "github:nix-community/stylix/release-25.11";
+      url = "github:nix-community/stylix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

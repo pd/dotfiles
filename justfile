@@ -128,6 +128,24 @@ _deploy_router name op:
     else ./result/bin/deploy-{{ name }} --reload; \
     fi
 
+# basic linting
+[group('dev')]
+check:
+    fd -e nix -X nixfmt --check
+    deadnix --fail
+    statix check
+
+# format
+[group('dev')]
+fmt:
+    fd -e nix -X nixfmt
+
+# autofix some lint errors
+[group('dev')]
+fix:
+    deadnix --edit
+    statix fix
+
 [group('dev')]
 rekey:
     #!/usr/bin/env bash

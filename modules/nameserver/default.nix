@@ -49,11 +49,13 @@ in
     };
   };
 
-  services.resolved = {
-    domains = [ "home" "wg" "~." ];
-    extraConfig = ''
-      DNSStubListener=no
-    '';
+  services.resolved.settings.Resolve = {
+    Domains = [
+      "home"
+      "wg"
+      "~."
+    ];
+    DNSStubListener = "no";
   };
 
   # don't use advertised DNS servers, they're us, trust ourselves

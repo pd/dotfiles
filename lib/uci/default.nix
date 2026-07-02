@@ -87,11 +87,18 @@ with lib;
       etc."dropbear/authorized_keys".text = concatStringsSep "\n" authorized-keys;
 
       uci.settings = {
-        dropbear.dropbear = map (iface: {
-            Interface = iface;
-            Port = 1222;
-            PasswordAuth = "off";
-          }) [ "lan" "lan6" ];
+        dropbear.dropbear =
+          let
+            sshConfig = iface: {
+              Interface = iface;
+              Port = 1222;
+              PasswordAuth = "off";
+            };
+          in
+          map sshConfig [
+            "lan"
+            "lan6"
+          ];
 
         system = {
           system = [

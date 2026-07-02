@@ -1,4 +1,9 @@
-{ lib, rustPlatform, makeWrapper, sway-audio-idle-inhibit }:
+{
+  lib,
+  rustPlatform,
+  makeWrapper,
+  sway-audio-idle-inhibit,
+}:
 
 rustPlatform.buildRustPackage {
   pname = "waybar-pd";

@@ -5,7 +5,7 @@ let
     packrat386 = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKykCUxNhZg/CNBEKAb2LPtW4oD6oB1DEeAR55hslr5D" ];
   };
 
-  mkAdmin = user: keys: {
+  mkAdmin = _user: keys: {
     isNormalUser = true;
     extraGroups = [
       "wheel"

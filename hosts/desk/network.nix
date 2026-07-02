@@ -1,4 +1,4 @@
-{ ... }:
+_:
 {
   lan.wired.interface = "eth0";
 

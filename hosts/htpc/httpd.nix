@@ -6,7 +6,7 @@
     enable = true;
     reverseProxies =
       let
-        ports = lib.mapAttrs (_: port: toString port) {
+        ports = lib.mapAttrs (_: toString) {
           alertmanager = config.services.prometheus.alertmanager.port;
           filebotd = 12345;
           grafana = config.services.grafana.settings.server.http_port;
