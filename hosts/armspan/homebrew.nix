@@ -1,5 +1,4 @@
-_:
-{
+_: {
   homebrew = {
     enable = true;
     global.autoUpdate = false;

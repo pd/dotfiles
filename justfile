@@ -145,6 +145,7 @@ fmt:
 fix:
     deadnix --edit
     statix fix
+    fd -e nix -X nixfmt
 
 [group('dev')]
 rekey:

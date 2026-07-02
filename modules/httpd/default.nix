@@ -132,7 +132,9 @@ in
                 '';
               }
           )
-          // { logFormat = accessLog host; }
+          // {
+            logFormat = accessLog host;
+          }
         ) cfg.reverseProxies;
 
         staticSites = mapAttrs (host: site: {
