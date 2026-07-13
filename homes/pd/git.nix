@@ -1,6 +1,9 @@
 { pkgs, ... }:
 {
-  home.packages = [ pkgs.unstable.git-trim ];
+  home.packages = [
+    pkgs.unstable.git-lfs
+    pkgs.unstable.git-trim
+  ];
 
   programs.git = {
     enable = true;
