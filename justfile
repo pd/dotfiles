@@ -123,10 +123,17 @@ rpt op="reload": routers
     @just _deploy_router rpt {{ op }}
 
 _deploy_router name op:
-    if [[ "{{ op }}" == "build" ]]; then true; \
-    elif [[ "{{ op }}" == "restart" ]]; then ./result/bin/deploy-{{ name }}; \
-    else ./result/bin/deploy-{{ name }} --reload; \
-    fi
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    # ensures GNU cp/getopt are available when running dewclaw's generated deploy script
+    run() { nix shell --inputs-from . nixpkgs#coreutils nixpkgs#util-linux --command "$@"; }
+
+    case "{{ op }}" in
+    build)   true;;
+    restart) run ./result/bin/deploy-{{ name }};;
+    *)       run ./result/bin/deploy-{{ name }} --reload;;
+    esac
 
 # basic linting
 [group('dev')]
