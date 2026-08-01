@@ -1,5 +1,6 @@
-# home 192.168.40.0/22 fded:40::/48
-# wg   192.168.60.0/24 fded:60::/48
+# home:    192.168.40.0/22 fded:40::/48
+# wg:      192.168.60.0/24 fded:60::/48
+# unknown:        .42.0/24
 #
 # computers:
 #   wrt:        .1, gw
@@ -11,6 +12,7 @@
 #   air:        .14
 #   win:        .15
 #   armspan:    .16
+#   adra:       .20
 #
 # mobile:
 #   pd:         .50
@@ -29,8 +31,8 @@
 #   hthub:      .102
 #   do:         .110
 #   hera:       .120
+#   aberdeen:   .130
 #
-# unknown:      .42/24
 { lib }:
 with lib;
 let
@@ -306,6 +308,13 @@ rec {
       id = 120;
       macs.eth = "00:11:32:41:42:23";
       ssh = false;
+    };
+
+    aberdeen = {
+      id = 130;
+      duid = "0001000131f642811cf64c5741e8";
+      macs.eth = "1c:f6:4c:57:41:e8";
+      ssh.port = 22;
     };
   };
 }
