@@ -523,6 +523,11 @@ targets."
     :args '("fmt" "-no-color" "-"))
   (add-hook 'terraform-mode-hook 'pd/tffmt-on-save-mode))
 
+(use-package typescript-ts-mode
+  :ensure nil
+  :mode (("\\.ts\\'"  . typescript-ts-mode)
+         ("\\.tsx\\'" . tsx-ts-mode)))
+
 (use-package wgrep)
 
 (use-package whitespace-cleanup-mode
@@ -629,10 +634,8 @@ targets."
                    (go-mode         . go-ts-mode)
                    (just-mode       . just-ts-mode)
                    (js-mode         . js-ts-mode)
-                   (json-mode       . json-ts-mode)
+                   (js-json-mode    . json-ts-mode)
                    (ruby-mode       . ruby-ts-mode)
-                   ;; (rust-mode       . rust-ts-mode)
-                   (typescript-mode . tsx-ts-mode)
                    (zig-mode        . zig-ts-mode)))
     (add-to-list 'major-mode-remap-alist remap)))
 
