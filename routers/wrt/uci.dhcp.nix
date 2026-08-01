@@ -55,7 +55,7 @@ in
 
     # v4
     dhcpv4 = "server";
-    start = 612; # .2.100 .. .2.249
+    start = 612; # .42.100 .. .42.249
     limit = 150;
     dhcp_option = [
       "6,${lan.ipv4.pi},${lan.ipv4.htpc}"
