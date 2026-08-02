@@ -548,7 +548,6 @@ targets."
 (use-package yaml-mode)
 
 (use-package zig-ts-mode
-  :config
   :fmt (:program "zig" :args ("fmt" "--stdin")))
 
 ;; ide
