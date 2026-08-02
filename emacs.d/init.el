@@ -454,12 +454,15 @@ targets."
 
 (use-package just-ts-mode)
 
-(use-package markdown-mode)
+(use-package markdown-ts-mode
+  :mode "\\.md\\'")
+
 (use-package grip-mode
   :custom
   (grip-command 'go-grip)
-  :bind (:map markdown-mode-command-map
-              ("g" . grip-mode))) ; C-c C-c g
+  :bind
+  (:map markdown-ts-mode-map
+        ("C-c g" . grip-mode)))
 
 (use-package nix-mode
   :config
@@ -569,6 +572,9 @@ targets."
   :ensure nil
   :hook
   ((go-ts-mode nix-mode rust-ts-mode typescript-ts-mode tsx-ts-mode zig-ts-mode) . eglot-ensure)
+  :custom
+  (eglot-documentation-renderer 'markdown-ts-view-mode)
+  (eglot-code-action-indications nil)
   :bind
   (("<leader>la" . eglot-code-actions)
    ("<leader>lf" . eglot-format-buffer)
@@ -621,15 +627,8 @@ targets."
 
 (use-package treesit
   :ensure nil
-  :preface
-  (dolist (remap '((css-mode        . css-ts-mode)
-                   (go-mode         . go-ts-mode)
-                   (just-mode       . just-ts-mode)
-                   (js-mode         . js-ts-mode)
-                   (js-json-mode    . json-ts-mode)
-                   (ruby-mode       . ruby-ts-mode)
-                   (zig-mode        . zig-ts-mode)))
-    (add-to-list 'major-mode-remap-alist remap)))
+  :custom
+  (treesit-enabled-modes t))
 
 (use-package zeal-at-point)
 

@@ -42,7 +42,7 @@ in
   programs.emacs = {
     enable = true;
     package = pkgs.emacsWithPackagesFromUsePackage {
-      package = if isDarwin then pkgs.emacs30 else pkgs.unstable.emacs30-pgtk;
+      package = if isDarwin then pkgs.unstable.emacs31 else pkgs.unstable.emacs31-pgtk;
       config = ../../emacs.d/init.el;
       alwaysEnsure = true;
       extraEmacsPackages =
