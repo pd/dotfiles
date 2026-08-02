@@ -337,7 +337,7 @@ targets."
 
 (use-package git-link
   :custom
-  (get-link-use-commit t))
+  (git-link-use-commit t))
 
 (use-package inheritenv)
 
