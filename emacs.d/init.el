@@ -59,26 +59,26 @@
   (load-theme 'gruvbox-dark-hard t))
 
 (use-package simple-modeline
+  :custom
+  (simple-modeline-segments
+   '(;; lhs
+     (simple-modeline-segment-modified
+      simple-modeline-segment-buffer-name
+      pd/simple-modeline-tramp
+      simple-modeline-segment-position)
+
+     ;; rhs
+     (simple-modeline-segment-minor-modes
+      simple-modeline-segment-input-method simple-modeline-segment-eol
+      simple-modeline-segment-encoding simple-modeline-segment-vc
+      simple-modeline-segment-misc-info simple-modeline-segment-process
+      simple-modeline-segment-major-mode)
+     ))
+
   :config
   (defun pd/simple-modeline-tramp ()
     (when-let* ((host (file-remote-p default-directory 'host)))
       (propertize (concat " @" host) 'face 'italic)))
-
-  (setq simple-modeline-segments
-        '(;; lhs
-          (simple-modeline-segment-modified
-           simple-modeline-segment-buffer-name
-           pd/simple-modeline-tramp
-           simple-modeline-segment-position)
-
-          ;; rhs
-          (simple-modeline-segment-minor-modes
-           simple-modeline-segment-input-method simple-modeline-segment-eol
-           simple-modeline-segment-encoding simple-modeline-segment-vc
-           simple-modeline-segment-misc-info simple-modeline-segment-process
-           simple-modeline-segment-major-mode)
-          ))
-
   (simple-modeline-mode))
 
 ;; currently emacs-plus@30 via nix-darwin-emacs:
@@ -138,8 +138,8 @@
    ("<leader>cl" . consult-line)
    ("<leader>cL" . consult-goto-line)
    ("<leader>cm" . consult-focus-lines)) ; "matching"
-  :config
-  (setq consult-narrow-key "<"))
+  :custom
+  (consult-narrow-key "<"))
 
 (use-package consult-dir
   :after consult
@@ -158,6 +158,12 @@
 
    :map embark-file-map
    ("$" . pd/vterm-at))
+
+  :custom
+  (embark-indicators '(embark-which-key-indicator
+                       embark-highlight-indicator
+                       embark-isearch-highlight-indicator))
+
   :config
   (add-to-list 'display-buffer-alist
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
@@ -188,11 +194,6 @@ targets."
          nil nil t (lambda (binding)
                      (not (string-suffix-p "-argument" (cdr binding))))))))
 
-  (setq embark-indicators
-        '(embark-which-key-indicator
-          embark-highlight-indicator
-          embark-isearch-highlight-indicator))
-
   (defun embark-hide-which-key-indicator (fn &rest args)
     "Hide the which-key indicator immediately when using the completing-read prompter."
     (which-key--hide-popup-ignore-command)
@@ -214,13 +215,13 @@ targets."
 ;; condense the 900 ephemeral windows into a single one i can toggle
 ;; open/closed at will
 (use-package popper
+  :custom
+  (popper-reference-buffers '("\\*Messages\\*"
+                              "\\*Backtrace\\*"
+                              help-mode
+                              compilation-mode
+                              ("\\*Warnings\\*" . hide)))
   :init
-  (setq popper-reference-buffers
-        '("\\*Messages\\*"
-          "\\*Backtrace\\*"
-          help-mode
-          compilation-mode
-          ("\\*Warnings\\*" . hide)))
   (popper-mode +1)
   (popper-echo-mode +1)
   :bind
@@ -239,9 +240,10 @@ targets."
   :demand t
   :bind
   (("<escape>" . keyboard-escape-quit))
+  :custom
+  (evil-undo-system 'undo-fu)
   :init
-  (setq evil-want-keybinding nil
-        evil-undo-system 'undo-fu)
+  (setq evil-want-keybinding nil)
   (modify-syntax-entry ?_ "w")
   (evil-mode)
   :config
@@ -274,8 +276,8 @@ targets."
   :diminish
   :hook
   ((lisp-mode emacs-lisp-mode) . evil-cleverparens-mode)
-  :init
-  (setq evil-cleverparens-use-additional-movement-keys nil)
+  :custom
+  (evil-cleverparens-use-additional-movement-keys nil)
   :config
   (require 'evil-cleverparens-text-objects))
 
@@ -290,21 +292,22 @@ targets."
 (use-package deadgrep
   :bind
   ("s-g" . deadgrep)
+  :custom
+  (deadgrep-project-root-function 'pd/deadgrep-project-root)
   :config
   (defun pd/deadgrep-project-root ()
     "deadgrep current dir in dired-mode"
     (if (eq major-mode 'dired-mode) default-directory
-      (deadgrep--project-root)))
-  (setq deadgrep-project-root-function 'pd/deadgrep-project-root))
+      (deadgrep--project-root))))
 
 (use-package envrc
   :init (envrc-global-mode)
   :diminish)
 
-(use-package expand-region
+(use-package expreg
   :bind
-  (("C-=" . er/expand-region)
-   ("C-_" . er/contract-region)))
+  (("C-=" . expreg-expand)
+   ("C--" . expreg-contract)))
 
 (use-package git-link
   :custom
@@ -313,8 +316,8 @@ targets."
 (use-package magit
   :bind
   (("C-x g" . magit-status))
-  :config
-  (setq magit-save-repository-buffers 'dontask))
+  :custom
+  (magit-save-repository-buffers 'dontask))
 
 (use-package nerd-icons
   :custom
@@ -339,9 +342,10 @@ targets."
 
 (use-package recentf
   :ensure nil
+  :custom
+  (recentf-max-saved-items 250)
   :init (recentf-mode)
   :config
-  (setq recentf-max-saved-items 250)
   (add-to-list 'recentf-exclude no-littering-var-directory)
   (add-to-list 'recentf-exclude no-littering-etc-directory))
 
@@ -352,13 +356,15 @@ targets."
 
 (use-package uniquify
   :ensure nil
-  :config (setq uniquify-buffer-name-style 'forward))
+  :custom
+  (uniquify-buffer-name-style 'forward))
 
 (use-package which-key
   :ensure nil
   :init (which-key-mode)
   :diminish
-  :config (setq which-key-idle-delay 0.8))
+  :custom
+  (which-key-idle-delay 0.8))
 
 (use-package windmove
   :ensure nil
@@ -422,8 +428,8 @@ targets."
 
 (use-package enh-ruby-mode
   :mode "\\.rb\\'"
-  :config
-  (setq enh-ruby-preserve-indent-in-heredocs t))
+  :custom
+  (enh-ruby-preserve-indent-in-heredocs t))
 
 (use-package inf-ruby)
 
@@ -440,7 +446,8 @@ targets."
 
 (use-package markdown-mode)
 (use-package grip-mode
-  :config (setq grip-command 'go-grip)
+  :custom
+  (grip-command 'go-grip)
   :bind (:map markdown-mode-command-map
               ("g" . grip-mode))) ; C-c C-c g
 
@@ -457,11 +464,12 @@ targets."
 
 (use-package project
   :ensure nil
-  :config
+  :custom
   ;; treat Cargo.toml as a "root" so eglot launches rust-analyzer from
   ;; dotfiles/pkgs/waybar-pd instead of dotfiles root
-  (setq project-vc-extra-root-markers '("Cargo.toml"))
+  (project-vc-extra-root-markers '("Cargo.toml"))
 
+  :config
   ;; https://github.com/golang/tools/blob/8d38122b0b1a9991f490aa06b7bfca7b4140bdad/gopls/doc/emacs.md#configuring-eglot
   ;; so eglot starts LSP in a reasonable spot when jumping into ~/go/pkg/... et al
   (defun project-find-go-module (dir)
@@ -479,8 +487,8 @@ targets."
 
 (use-package sh-script
   :ensure nil
-  :config
-  (setq sh-basic-offset 2))
+  :custom
+  (sh-basic-offset 2))
 
 (use-package sops
   :init
@@ -499,8 +507,8 @@ targets."
   (add-hook 'sops-mode-hook 'pd/maybe-sops-edit-mode))
 
 (use-package terraform-mode
-  :init
-  (setq terraform-format-on-save nil)
+  :custom
+  (terraform-format-on-save nil)
   :fmt (:program (or (executable-find "tofu") (executable-find "terraform"))
         :args ("fmt" "-no-color" "-")))
 
@@ -588,9 +596,10 @@ targets."
 
 (use-package ibuffer-vc
   :after ibuffer
+  :custom
+  (ibuffer-default-sorting-mode 'filename/process)
+  (ibuffer-show-empty-filter-groups nil)
   :config
-  (setq ibuffer-default-sorting-mode 'filename/process
-        ibuffer-show-empty-filter-groups nil)
   (defun pd/prepare-ibuffer ()
     (ibuffer-auto-mode +1)
     (ibuffer-vc-set-filter-groups-by-vc-root))
@@ -618,8 +627,12 @@ targets."
 (use-package vterm
   :custom
   (vterm-always-compile-module t)
-  (vterm-max-scrollback 50000)
+  (vterm-buffer-name-string "*vterm %s*")
   (vterm-clear-scrollback-when-clearing t)
+  (vterm-copy-mode-remove-fake-newlines t)
+  (vterm-max-scrollback 50000)
+  (vterm-shell shell-file-name)
+  (vterm-tramp-shells '(("ssh" "zsh")))
   :hook
   (vterm-mode . evil-emacs-state)
   :bind
@@ -629,10 +642,6 @@ targets."
    ("M-\""  . vterm)
    ("M-s-'" . pd/vterm-on))
   :config
-  (setq vterm-buffer-name-string "*vterm %s*"
-        vterm-shell shell-file-name
-        vterm-tramp-shells '(("ssh" "zsh"))
-        vterm-copy-mode-remove-fake-newlines t)
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
   (add-to-list 'vterm-eval-cmds
                '("update-default-directory" (lambda (path)

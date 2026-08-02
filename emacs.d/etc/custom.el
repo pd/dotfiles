@@ -17,12 +17,11 @@
                    deadgrep diminish dired-subtree dockerfile-mode
                    embark-consult enh-ruby-mode envrc
                    evil-cleverparens evil-collection evil-commentary
-                   evil-mc evil-textobj-line
-                   evil-textobj-syntax exec-path-from-shell
-                   expand-region git-link go-mode grip-mode
-                   gruvbox-theme ibuffer-vc inf-ruby jsonnet-mode
-                   just-mode just-ts-mode lsp-ui magit marginalia
-                   nerd-icons-completion nerd-icons-corfu
+                   evil-mc evil-textobj-line evil-textobj-syntax
+                   exec-path-from-shell expand-region expreg git-link
+                   go-mode grip-mode gruvbox-theme ibuffer-vc inf-ruby
+                   jsonnet-mode just-mode just-ts-mode lsp-ui magit
+                   marginalia nerd-icons-completion nerd-icons-corfu
                    nerd-icons-dired nerd-icons-ibuffer nix-mode
                    nix-ts-mode nixfmt nixpkgs-fmt no-littering
                    orderless popper popwin rust-mode rustic
