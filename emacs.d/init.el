@@ -53,7 +53,8 @@
 (prefer-coding-system 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
-(setq-default indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil
+              tab-width 4)
 (setq require-final-newline t)
 
 ;; absorb the crazy nix PATH shenanigans
@@ -461,18 +462,12 @@ targets."
   :ensure nil
   :fmt (:program "goimports")
   :custom
-  (go-ts-mode-indent-offset 4)
-  :config
-  (add-hook 'go-ts-mode-hook (lambda ()
-                               (setq tab-width 4))))
+  (go-ts-mode-indent-offset 4))
 
 (use-package jsonnet-mode
   :fmt (:program "jsonnetfmt" :args ("-")))
 
-(use-package just-ts-mode
-  :config
-  (add-hook 'just-ts-mode-hook (lambda ()
-                                 (setq tab-width 4))))
+(use-package just-ts-mode)
 
 (use-package markdown-mode)
 (use-package grip-mode
