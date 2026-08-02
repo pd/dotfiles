@@ -1,10 +1,9 @@
-(setq package-archives
-      '(("melpa" . "https://melpa.org/packages/")
-        ("elpa" . "https://elpa.gnu.org/packages/")))
-
 ;; init use-package
-(setq use-package-always-ensure t
-      use-package-verbose t)
+(setopt package-archives
+        '(("melpa" . "https://melpa.org/packages/")
+          ("elpa" . "https://elpa.gnu.org/packages/"))
+        use-package-verbose t
+        use-package-always-ensure t)
 (eval-when-compile
   (require 'use-package))
 
@@ -18,12 +17,13 @@
 ;; simmer down
 (horizontal-scroll-bar-mode -1)
 (blink-cursor-mode -1)
-(setq inhibit-startup-screen t
-      visible-bell nil
-      messages-buffer-max-lines 1000
-      create-lockfiles nil
-      ring-bell-function 'ignore
-      use-short-answers t)
+(setopt inhibit-startup-screen t
+        visible-bell nil
+        messages-buffer-max-lines 1000
+        create-lockfiles nil
+        ring-bell-function 'ignore
+        read-extended-command-predicate #'command-completion-default-include-p
+        use-short-answers t)
 (use-package diminish)
 
 ;; but still simmer
@@ -38,9 +38,9 @@
 (prefer-coding-system 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
-(setq-default indent-tabs-mode nil
-              tab-width 4)
-(setq require-final-newline t)
+(setopt indent-tabs-mode nil
+        tab-width 4
+        require-final-newline t)
 
 (use-package exec-path-from-shell
   :config (exec-path-from-shell-initialize)
@@ -84,11 +84,12 @@
 ;; currently emacs-plus@30 via nix-darwin-emacs:
 ;; https://github.com/nix-giant/nix-darwin-emacs
 (when (eq system-type 'darwin)
-  (setq ns-command-modifier      'meta
-        ns-alternate-modifier    'super
-        ns-function-modifier     'hyper
-        ns-use-native-fullscreen nil
-        dired-use-ls-dired       nil)
+  (setopt ns-command-modifier      'meta
+          ns-alternate-modifier    'super
+          ns-function-modifier     'hyper
+          ns-use-native-fullscreen nil
+          dired-use-ls-dired       nil)
+
   (add-to-list 'default-frame-alist '(font . "FiraCode Nerd Font"))
   (add-to-list 'default-frame-alist '(ns-appearance . dark))
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . nil))
@@ -155,7 +156,6 @@
   :bind
   (("s-."   . embark-act)
    ("s-;"   . embark-dwim)
-
    :map embark-file-map
    ("$" . pd/vterm-at))
 
@@ -242,8 +242,8 @@ targets."
   (("<escape>" . keyboard-escape-quit))
   :custom
   (evil-undo-system 'undo-fu)
+  (evil-want-keybinding nil)
   :init
-  (setq evil-want-keybinding nil)
   (modify-syntax-entry ?_ "w")
   (evil-mode)
   :config
