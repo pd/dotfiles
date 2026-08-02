@@ -41,6 +41,10 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 (use-package diminish)
 
+;; but still simmer
+(column-number-mode +1)
+(show-paren-mode +1)
+
 ;; religion
 ;; 1. utf-8
 ;; 2. spaces not tabs
@@ -81,8 +85,6 @@
   (hl-line ((t (:background "#1c1c1c"))))
   :config
   (load-theme 'gruvbox-dark-hard t))
-
-(use-package hl-line :ensure nil)
 
 (use-package simple-modeline
   :config
@@ -156,7 +158,7 @@
   :commands
   (consult-buffer consult-focus-lines consult-goto-line consult-imenu consult-ripgrep)
   :bind
-  (("C-x b" . consult-buffer)
+  (("C-x b"      . consult-buffer)
    ("<leader>cb" . consult-buffer)
    ("<leader>cg" . consult-ripgrep)
    ("<leader>ce" . consult-flymake)
@@ -404,9 +406,7 @@ targets."
   :ensure nil
   :config
   (dolist (mode '(display-line-numbers-mode
-                  column-number-mode
                   hl-line-mode
-                  show-paren-mode
                   subword-mode))
     (add-hook 'prog-mode-hook mode)))
 
@@ -602,8 +602,7 @@ targets."
    ("<leader>dw" . dape-watch-dwim)
    ("<leader>dx" . dape-evaluate-expression)))
 
-(use-package ibuffer
-  :ensure nil)
+(use-package ibuffer :ensure nil)
 
 (use-package ibuffer-vc
   :after ibuffer
