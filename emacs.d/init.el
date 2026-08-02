@@ -33,7 +33,6 @@
 (horizontal-scroll-bar-mode -1)
 (blink-cursor-mode -1)
 (setq inhibit-startup-screen t
-      inhibit-startup-echo-area-message t
       visible-bell nil
       messages-buffer-max-lines 1000
       create-lockfiles nil
