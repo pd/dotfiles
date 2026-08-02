@@ -15,13 +15,7 @@
   (setq custom-file (no-littering-expand-etc-file-name "custom.el"))
   (load custom-file))
 
-;; i've got plenty of ram
-(setq gc-cons-threshold (* 128 1024 1024))
-
 ;; simmer down
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
 (horizontal-scroll-bar-mode -1)
 (blink-cursor-mode -1)
 (setq inhibit-startup-screen t
