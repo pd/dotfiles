@@ -487,6 +487,7 @@ targets."
   :hook (nix-mode . nixfmt-on-save-mode))
 
 (use-package project
+  :ensure nil
   :config
   ;; treat Cargo.toml as a "root" so eglot launches rust-analyzer from
   ;; dotfiles/pkgs/waybar-pd instead of dotfiles root
@@ -503,9 +504,9 @@ targets."
 
   (add-hook 'project-find-functions #'project-find-go-module))
 
-(use-package rust-mode
-  :init
-  (setq rust-mode-treesitter-derive t))
+(use-package rust-ts-mode
+  :ensure nil
+  :mode "\\.rs\\'")
 
 (use-package sh-script
   :ensure nil
@@ -578,8 +579,9 @@ targets."
   (keymap-unset corfu-map "RET"))
 
 (use-package eglot
+  :ensure nil
   :hook
-  ((go-mode go-ts-mode nix-mode rust-mode rust-ts-mode zig-ts-mode) . eglot-ensure)
+  ((go-ts-mode nix-mode rust-ts-mode zig-ts-mode) . eglot-ensure)
   :bind
   (("<leader>la" . eglot-code-actions)
    ("<leader>lf" . eglot-format-buffer)
