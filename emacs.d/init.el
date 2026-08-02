@@ -57,24 +57,10 @@
               tab-width 4)
 (setq require-final-newline t)
 
-;; absorb the crazy nix PATH shenanigans
-(defun pd/mise-bin-paths ()
-  (when (executable-find "mise")
-    (with-temp-buffer
-      (call-process "mise" nil t nil "bin-paths" "-q")
-      (split-string (buffer-substring (point-min) (point-max)) "\n"))))
-
 (use-package exec-path-from-shell
-  :init
-  (setq exec-path-from-shell-arguments nil)
-  :config
-  (when (or (daemonp) (memq window-system '(ns pgtk)))
-    (exec-path-from-shell-initialize)
-
-    ;; somehow this isn't functioning when running through
-    ;; exec-path-from-shell, so just do it by hand for now
-    (dolist (path (pd/mise-bin-paths))
-      (add-to-list 'exec-path path))))
+  :config (exec-path-from-shell-initialize)
+  :if (or (daemonp)
+          (memq window-system '(ns pgtk))))
 
 ;; decent theme
 (use-package gruvbox-theme
