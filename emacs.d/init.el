@@ -544,8 +544,6 @@ targets."
   :mode (("\\.ts\\'"  . typescript-ts-mode)
          ("\\.tsx\\'" . tsx-ts-mode)))
 
-(use-package wgrep)
-
 (use-package whitespace-cleanup-mode
   :diminish
   :hook (prog-mode markdown-mode)
