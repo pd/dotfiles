@@ -289,10 +289,11 @@ targets."
   :diminish
   :init (evil-commentary-mode))
 
-(use-package evil-mc
+;; mostly intuitive evil multicursor. evil-mc never stays in my
+;; head for whatever reason. C-n or C-up/down as the main entrypoint.
+(use-package evim
   :after evil
-  :diminish
-  :init (global-evil-mc-mode))
+  :config (evim-setup-global-keys))
 
 (use-package evil-cleverparens
   :after (evil smartparens)
