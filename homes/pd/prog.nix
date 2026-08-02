@@ -21,6 +21,8 @@ in
     (lib.hiPrio ruby') # win over gotools `bundle`
     rustup
     supabase-cli
+    typescript-language-server
+    typescript
     uv
   ];
 }

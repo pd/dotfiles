@@ -581,7 +581,7 @@ targets."
 (use-package eglot
   :ensure nil
   :hook
-  ((go-ts-mode nix-mode rust-ts-mode zig-ts-mode) . eglot-ensure)
+  ((go-ts-mode nix-mode rust-ts-mode typescript-ts-mode tsx-ts-mode zig-ts-mode) . eglot-ensure)
   :bind
   (("<leader>la" . eglot-code-actions)
    ("<leader>lf" . eglot-format-buffer)
