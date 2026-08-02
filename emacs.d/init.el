@@ -11,12 +11,9 @@
 ;; tuck most things away in emacs.d/{etc,var}
 (use-package no-littering
   :config
+  (no-littering-theme-backups)
   (setq custom-file (no-littering-expand-etc-file-name "custom.el"))
-  (load custom-file)
-  (setq backup-directory-alist
-        `((".*" . ,(no-littering-expand-var-file-name "backup/"))))
-  (setq auto-save-file-name-transforms
-        `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
+  (load custom-file))
 
 ;; i've got plenty of ram
 (setq gc-cons-threshold (* 128 1024 1024))
