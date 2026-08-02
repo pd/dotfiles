@@ -68,31 +68,46 @@
   :config
   (load-theme 'gruvbox-dark-hard t))
 
-(use-package simple-modeline
-  :custom
-  (simple-modeline-segments
-   '(;; lhs
-     (simple-modeline-segment-modified
-      simple-modeline-segment-buffer-name
-      pd/simple-modeline-tramp
-      simple-modeline-segment-position)
+;; modeline
+(setopt
+ mode-line-format
+ '("%e"
 
-     ;; rhs
-     (simple-modeline-segment-minor-modes
-      simple-modeline-segment-input-method simple-modeline-segment-eol
-      simple-modeline-segment-encoding simple-modeline-segment-vc
-      simple-modeline-segment-misc-info simple-modeline-segment-process
-      simple-modeline-segment-major-mode)
-     ))
+   ;; lhs
+   mode-line-front-space
+   mode-line-modified
+   mode-line-remote
 
-  :config
-  (defun pd/simple-modeline-tramp ()
-    (when-let* ((host (file-remote-p default-directory 'host)))
-      (propertize (concat " @" host) 'face 'italic)))
-  (simple-modeline-mode))
+   "\t"
+   mode-line-buffer-identification
+   " "
+   mode-line-position
 
-;; currently emacs-plus@30 via nix-darwin-emacs:
-;; https://github.com/nix-giant/nix-darwin-emacs
+   ;; rhs
+   mode-line-format-right-align
+   "\t"
+   (vc-mode vc-mode)
+   "\t"
+   mode-line-modes
+   mode-line-end-spaces
+   )
+
+ mode-line-modified
+ '(:eval
+   (concat
+    (when buffer-read-only "R")
+    (when (buffer-modified-p) (propertize "*" 'face 'warning))))
+
+ mode-line-remote
+ '(:eval
+   (when-let* ((host (file-remote-p default-directory 'host)))
+     (concat " @" (propertize host 'face 'mode-line-emphasis))))
+
+ mode-line-right-align-edge 'right-margin
+ mode-line-position-column-line-format '("%l:%c")
+ mode-line-modes-delimiters '("" . ""))
+
+;; unstable.emacs 31
 (when (eq system-type 'darwin)
   (setopt ns-command-modifier      'meta
           ns-alternate-modifier    'super
@@ -107,7 +122,7 @@
   ;; no i do not want to print
   (unbind-key "s-p"))
 
-;; emacs 30-pgtk, wayland, nix, madness
+;; unstable.emacs31-pgtk
 (when (eq system-type 'gnu/linux)
   (add-to-list 'default-frame-alist '(undecorated . t))
   (add-to-list 'default-frame-alist '(font . "FiraCode Nerd Font-10")))
@@ -266,9 +281,9 @@ targets."
 
 (use-package evil-collection ;; https://github.com/emacs-evil/evil-collection
   :after evil
+  :diminish evil-collection-unimpaired-mode
   :config
-  (evil-collection-init)
-  (diminish 'evil-collection-unimpaired-mode))
+  (evil-collection-init))
 
 (use-package evil-commentary
   :after evil
@@ -312,7 +327,10 @@ targets."
 
 (use-package envrc
   :init (envrc-global-mode)
-  :diminish)
+  :custom
+  (envrc-on-lighter '(" " (:propertize "direnv" face envrc-mode-line-on-face)))
+  (envrc-none-lighter '(""))
+  (envrc-error-lighter '(" " (:propertize "direnv" face envrc-mode-line-error-face))))
 
 (use-package expreg
   :bind
@@ -343,6 +361,7 @@ targets."
   (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
 (use-package nerd-icons-dired
+  :diminish
   :after nerd-icons
   :hook (dired-mode . nerd-icons-dired-mode))
 
@@ -363,6 +382,10 @@ targets."
   :diminish
   :config (require 'smartparens-config)
   :hook ((emacs-lisp-mode lisp-mode) . smartparens-mode))
+
+(use-package subword
+  :ensure nil
+  :diminish)
 
 (use-package uniquify
   :ensure nil
@@ -434,7 +457,10 @@ targets."
 
 (use-package eldoc
   :ensure nil
-  :diminish)
+  :diminish
+  :custom
+  ;; :diminish just isn't working, no idea why, so kill it with fire
+  (eldoc-minor-mode-string nil))
 
 (use-package enh-ruby-mode
   :mode "\\.rb\\'"
@@ -465,15 +491,13 @@ targets."
         ("C-c g" . grip-mode)))
 
 (use-package nix-mode
+  :fmt (:program "nixfmt")
   :config
   (defun pd/nix-repl-from-project-root (orig &rest args)
     (let ((root (project-root (project-current))))
       (let ((default-directory (or root default-directory)))
         (apply orig args))))
   (advice-add 'nix-repl :around #'pd/nix-repl-from-project-root))
-
-(use-package nixfmt
-  :hook (nix-mode . nixfmt-on-save-mode))
 
 (use-package project
   :ensure nil
@@ -568,23 +592,6 @@ targets."
   ;; complete only with TAB, not RET
   (keymap-unset corfu-map "RET"))
 
-(use-package eglot
-  :ensure nil
-  :hook
-  ((go-ts-mode nix-mode rust-ts-mode typescript-ts-mode tsx-ts-mode zig-ts-mode) . eglot-ensure)
-  :custom
-  (eglot-documentation-renderer 'markdown-ts-view-mode)
-  (eglot-code-action-indications nil)
-  :bind
-  (("<leader>la" . eglot-code-actions)
-   ("<leader>lf" . eglot-format-buffer)
-   ("<leader>lr" . eglot-rename)
-   ("<leader>lx" . eglot-shutdown)
-   ("<leader>lX" . eglot-shutdown-all)
-   ("<leader>lz" . eglot-reconnect))
-  :config
-  (add-to-list 'eglot-server-programs '(zig-ts-mode . ("zls"))))
-
 (use-package dape
   :preface
   (setq dape-key-prefix nil)
@@ -607,6 +614,28 @@ targets."
    ("<leader>dp" . dape-pause)
    ("<leader>dw" . dape-watch-dwim)
    ("<leader>dx" . dape-evaluate-expression)))
+
+(use-package eglot
+  :ensure nil
+  :hook
+  ((go-ts-mode nix-mode rust-ts-mode typescript-ts-mode tsx-ts-mode zig-ts-mode) . eglot-ensure)
+  :custom
+  (eglot-documentation-renderer 'markdown-ts-view-mode)
+  (eglot-code-action-indications nil)
+  :bind
+  (("<leader>la" . eglot-code-actions)
+   ("<leader>lf" . eglot-format-buffer)
+   ("<leader>lr" . eglot-rename)
+   ("<leader>lx" . eglot-shutdown)
+   ("<leader>lX" . eglot-shutdown-all)
+   ("<leader>lz" . eglot-reconnect))
+  :config
+  (add-to-list 'eglot-server-programs '(zig-ts-mode . ("zls"))))
+
+(use-package flymake
+  :ensure nil
+  :custom
+  (flymake-mode-line-lighter "fm"))
 
 (use-package ibuffer :ensure nil)
 

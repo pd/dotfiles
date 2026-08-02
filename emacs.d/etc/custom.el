@@ -12,6 +12,7 @@
      "2ff9ac386eac4dffd77a33e93b0c8236bb376c5a5df62e36d4bfa821d56e4e20"
      "d80952c58cf1b06d936b1392c38230b74ae1a2a6729594770762dc0779ac66b7"
      default))
+ '(go-ts-indent-offset 4 nil nil "Customized with use-package go-ts-mode")
  '(package-selected-packages
    '(all-the-icons cape consult-dir consult-project-extra corfu cue-mode
                    deadgrep diminish dired-subtree dockerfile-mode
