@@ -325,8 +325,6 @@ targets."
   :custom
   (git-link-use-commit t))
 
-(use-package inheritenv)
-
 (use-package magit
   :bind
   (("C-x g" . magit-status))
