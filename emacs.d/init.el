@@ -29,13 +29,16 @@
         highlight-nonselected-windows nil
         bidi-display-reordering 'left-to-right
         bidi-paragraph-direction 'left-to-right
-        bidi-inhibit-bpa t)
+        bidi-inhibit-bpa t
+        kill-do-not-save-duplicates t)
 (use-package diminish)
 
 ;; but still simmer
 (column-number-mode +1)
 (show-paren-mode +1)
-(setopt read-process-output-max (* 4 1024 1024))
+(setopt read-process-output-max (* 4 1024 1024)
+        ;; keep clipboard contents when killing text over it
+        save-interprogram-paste-before-kill t)
 
 ;; religion
 ;; 1. utf-8
