@@ -275,8 +275,8 @@ targets."
   (evil-mode)
   :config
   (evil-set-leader '(normal visual motion) (kbd "SPC"))
-  (evil-ex-define-cmd "q" 'kill-this-buffer)
-  (evil-ex-define-cmd "wq" 'kill-this-buffer)
+  (evil-ex-define-cmd "q" 'kill-current-buffer)
+  (evil-ex-define-cmd "wq" 'kill-current-buffer)
 
   (evil-set-initial-state 'git-commit-mode 'insert)
   (evil-set-initial-state 'inferior-emacs-lisp-mode 'emacs))
