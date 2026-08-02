@@ -92,7 +92,7 @@
 
 ;; currently emacs-plus@30 via nix-darwin-emacs:
 ;; https://github.com/nix-giant/nix-darwin-emacs
-(when (string-equal "darwin" system-type)
+(when (eq system-type 'darwin)
   (setq ns-command-modifier      'meta
         ns-alternate-modifier    'super
         ns-function-modifier     'hyper
@@ -106,7 +106,7 @@
   (unbind-key "s-p"))
 
 ;; emacs 30-pgtk, wayland, nix, madness
-(when (string-equal "gnu/linux" system-type)
+(when (eq system-type 'gnu/linux)
   (add-to-list 'default-frame-alist '(undecorated . t))
   (add-to-list 'default-frame-alist '(font . "FiraCode Nerd Font-10")))
 
