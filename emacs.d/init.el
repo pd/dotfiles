@@ -356,7 +356,7 @@ targets."
   :config (nerd-icons-completion-mode))
 
 (use-package nerd-icons-corfu
-  :after nerd-icons
+  :after (nerd-icons corfu)
   :config
   (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
