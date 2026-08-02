@@ -42,10 +42,10 @@
 (use-package diminish)
 
 ;; religion
-; 1. utf-8
-; 2. spaces not tabs
-; 3. no excess whitespace
-; 4. files end with newlines
+;; 1. utf-8
+;; 2. spaces not tabs
+;; 3. no excess whitespace
+;; 4. files end with newlines
 (prefer-coding-system 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
@@ -66,8 +66,8 @@
   (when (or (daemonp) (memq window-system '(ns pgtk)))
     (exec-path-from-shell-initialize)
 
-    ; somehow this isn't functioning when running through
-    ; exec-path-from-shell, so just do it by hand for now
+    ;; somehow this isn't functioning when running through
+    ;; exec-path-from-shell, so just do it by hand for now
     (dolist (path (pd/mise-bin-paths))
       (add-to-list 'exec-path path))))
 
@@ -91,13 +91,13 @@
       (propertize (concat " @" host) 'face 'italic)))
 
   (setq simple-modeline-segments
-        '(; lhs
+        '(;; lhs
           (simple-modeline-segment-modified
            simple-modeline-segment-buffer-name
            pd/simple-modeline-tramp
            simple-modeline-segment-position)
 
-          ; rhs
+          ;; rhs
           (simple-modeline-segment-minor-modes
            simple-modeline-segment-input-method simple-modeline-segment-eol
            simple-modeline-segment-encoding simple-modeline-segment-vc
@@ -107,8 +107,8 @@
 
   (simple-modeline-mode))
 
-; currently emacs-plus@30 via nix-darwin-emacs:
-; https://github.com/nix-giant/nix-darwin-emacs
+;; currently emacs-plus@30 via nix-darwin-emacs:
+;; https://github.com/nix-giant/nix-darwin-emacs
 (when (string-equal "darwin" system-type)
   (setq ns-command-modifier      'meta
         ns-alternate-modifier    'super
@@ -119,7 +119,7 @@
   (add-to-list 'default-frame-alist '(ns-appearance . dark))
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . nil))
 
-  ; no i do not want to print
+  ;; no i do not want to print
   (unbind-key "s-p"))
 
 ;; emacs 30-pgtk, wayland, nix, madness
@@ -237,8 +237,8 @@ targets."
   (completion-styles '(orderless basic))
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
-; condense the 900 ephemeral windows into a single one i can toggle
-; open/closed at will
+;; condense the 900 ephemeral windows into a single one i can toggle
+;; open/closed at will
 (use-package popper
   :init
   (setq popper-reference-buffers
@@ -445,12 +445,6 @@ targets."
   (add-hook 'just-ts-mode-hook (lambda ()
                                  (setq tab-width 4))))
 
-(use-package lisp-data-mode
-  :ensure nil
-  :hook turn-on-eldoc-mode
-  :config
-  (setq comment-column 0))
-
 (use-package markdown-mode)
 (use-package grip-mode
   :config (setq grip-command 'go-grip)
@@ -471,12 +465,12 @@ targets."
 
 (use-package project
   :config
-  ; treat Cargo.toml as a "root" so eglot launches rust-analyzer from
-  ; dotfiles/pkgs/waybar-pd instead of dotfiles root
+  ;; treat Cargo.toml as a "root" so eglot launches rust-analyzer from
+  ;; dotfiles/pkgs/waybar-pd instead of dotfiles root
   (setq project-vc-extra-root-markers '("Cargo.toml"))
 
-  ; https://github.com/golang/tools/blob/8d38122b0b1a9991f490aa06b7bfca7b4140bdad/gopls/doc/emacs.md#configuring-eglot
-  ; so eglot starts LSP in a reasonable spot when jumping into ~/go/pkg/... et al
+  ;; https://github.com/golang/tools/blob/8d38122b0b1a9991f490aa06b7bfca7b4140bdad/gopls/doc/emacs.md#configuring-eglot
+  ;; so eglot starts LSP in a reasonable spot when jumping into ~/go/pkg/... et al
   (defun project-find-go-module (dir)
     (when-let ((root (locate-dominating-file dir "go.mod")))
       (cons 'go-module root)))
@@ -569,7 +563,7 @@ targets."
   (global-corfu-mode)
   (corfu-popupinfo-mode)
   :config
-  ; complete only with TAB, not RET
+  ;; complete only with TAB, not RET
   (keymap-unset corfu-map "RET"))
 
 (use-package eglot
@@ -650,7 +644,8 @@ targets."
   :hook
   (vterm-mode . evil-emacs-state)
   :bind
-  (:map vterm-mode-map                  ; reclaim some bindings
+  ;; reclaim some bindings
+  (:map vterm-mode-map
    ("M-'"   . pd/vterm-or-consult)
    ("M-\""  . vterm)
    ("M-s-'" . pd/vterm-on))
@@ -707,10 +702,10 @@ With prefix arg, or if no vterms exist, create a new one in default-directory."
   (let* ((terms (pd/vterm-buffers))
          (n (length terms)))
     (cond
-     ; no vterms, explicit prefix arg, or single vterm that is our current buffer
+     ;; no vterms, explicit prefix arg, or single vterm that is our current buffer
      ((or arg (eq n 0) (and (eq n 1) (eq major-mode 'vterm-mode)))
       (vterm arg))
-     ; one vterm that isn't our current buffer
+     ;; one vterm that isn't our current buffer
      ((and (eq n 1) (not (eq major-mode 'vterm-mode)))
       (switch-to-buffer (car terms)))
      (t
