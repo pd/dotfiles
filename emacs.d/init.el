@@ -401,6 +401,38 @@ targets."
   :ensure nil
   :init (winner-mode))
 
+;; adds support for
+;; (use-package foo :fmt (:program "foo" :args ("fmt" "-strict")))
+(use-package reformatter
+  :config
+  (defun use-package-normalize/:fmt (name keyword args)
+    (use-package-as-one (symbol-name keyword) args
+      (lambda (_label arg)
+        (if (and (consp arg) (keywordp (car arg)))
+            arg
+          (use-package-error
+           ":fmt wants (:program P [:args (ARG ...)])")))))
+
+  (defun use-package-handler/:fmt (name _keyword spec rest state)
+    (let* ((mode   (if (string-suffix-p "-mode" (symbol-name name))
+                       name
+                     (intern (concat (symbol-name name) "-mode"))))
+           (hook   (intern (concat (symbol-name mode) "-hook")))
+           (fmt    (intern (concat "pd/" (symbol-name name) "-fmt")))
+           (onsave (intern (concat (symbol-name fmt) "-on-save-mode"))))
+      (use-package-concat
+       (use-package-process-keywords name rest state)
+       `((reformatter-define ,fmt
+           :program ,(plist-get spec :program)
+           :args (list ,@(plist-get spec :args)))
+         (add-hook (quote ,hook) (function ,onsave))))))
+
+  (with-eval-after-load 'use-package-core
+    (unless (memq :fmt use-package-keywords)
+      (setq use-package-keywords
+            (mapcan (lambda (kw) (if (eq kw :config) (list :fmt kw) (list kw)))
+                    use-package-keywords)))))
+
 ;; prog
 (use-package prog-mode
   :ensure nil
@@ -427,18 +459,15 @@ targets."
 
 (use-package go-ts-mode
   :ensure nil
+  :fmt (:program "goimports")
   :custom
   (go-ts-mode-indent-offset 4)
   :config
-  (reformatter-define pd/gofmt :program "goimports")
   (add-hook 'go-ts-mode-hook (lambda ()
-                               (pd/gofmt-on-save-mode +1)
                                (setq tab-width 4))))
 
 (use-package jsonnet-mode
-  :config
-  (reformatter-define pd/jsonnetfmt :program "jsonnetfmt" :args '("-"))
-  (add-hook 'jsonnet-mode-hook #'pd/jsonnetfmt-on-save-mode))
+  :fmt (:program "jsonnetfmt" :args ("-")))
 
 (use-package just-ts-mode
   :config
@@ -460,8 +489,7 @@ targets."
   (advice-add 'nix-repl :around #'pd/nix-repl-from-project-root))
 
 (use-package nixfmt
-  :config
-  (add-hook 'nix-mode-hook 'nixfmt-on-save-mode))
+  :hook (nix-mode . nixfmt-on-save-mode))
 
 (use-package project
   :config
@@ -508,14 +536,8 @@ targets."
 (use-package terraform-mode
   :init
   (setq terraform-format-on-save nil)
-
-  :config
-  (setq pd/tffmt
-        (or (executable-find "tofu") (executable-find "terraform")))
-  (reformatter-define pd/tffmt
-    :program pd/tffmt
-    :args '("fmt" "-no-color" "-"))
-  (add-hook 'terraform-mode-hook 'pd/tffmt-on-save-mode))
+  :fmt (:program (or (executable-find "tofu") (executable-find "terraform"))
+        :args ("fmt" "-no-color" "-")))
 
 (use-package typescript-ts-mode
   :ensure nil
@@ -534,10 +556,7 @@ targets."
 
 (use-package zig-ts-mode
   :config
-  (reformatter-define pd/zigfmt
-    :program (executable-find "zig")
-    :args '("fmt" "--stdin"))
-  (add-hook 'zig-ts-mode-hook 'pd/zigfmt-on-save-mode))
+  :fmt (:program "zig" :args ("fmt" "--stdin")))
 
 ;; ide
 (use-package cape
@@ -613,8 +632,6 @@ targets."
     (ibuffer-auto-mode +1)
     (ibuffer-vc-set-filter-groups-by-vc-root))
   (add-hook 'ibuffer-mode-hook 'pd/prepare-ibuffer))
-
-(use-package reformatter)
 
 (use-package tramp
   :ensure nil
