@@ -2,14 +2,9 @@
       '(("melpa" . "https://melpa.org/packages/")
         ("elpa" . "https://elpa.gnu.org/packages/")))
 
-;; bootstrap package/use-package
-(package-initialize)
+;; init use-package
 (setq use-package-always-ensure t
       use-package-verbose t)
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
 (eval-when-compile
   (require 'use-package))
 
