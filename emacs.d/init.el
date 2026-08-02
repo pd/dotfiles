@@ -408,8 +408,7 @@ targets."
                   hl-line-mode
                   show-paren-mode
                   subword-mode))
-    (add-hook 'prog-mode-hook mode)
-    (setq-local indent-tabs-mode nil)))
+    (add-hook 'prog-mode-hook mode)))
 
 (use-package cue-mode)
 
