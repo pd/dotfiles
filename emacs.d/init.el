@@ -21,14 +21,21 @@
         visible-bell nil
         messages-buffer-max-lines 1000
         create-lockfiles nil
-        ring-bell-function 'ignore
         read-extended-command-predicate #'command-completion-default-include-p
-        use-short-answers t)
+        ring-bell-function 'ignore
+        use-short-answers t
+        redisplay-skip-fontification-on-input t
+        cursor-in-non-selected-windows nil
+        highlight-nonselected-windows nil
+        bidi-display-reordering 'left-to-right
+        bidi-paragraph-direction 'left-to-right
+        bidi-inhibit-bpa t)
 (use-package diminish)
 
 ;; but still simmer
 (column-number-mode +1)
 (show-paren-mode +1)
+(setopt read-process-output-max (* 4 1024 1024))
 
 ;; religion
 ;; 1. utf-8
