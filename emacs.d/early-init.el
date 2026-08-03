@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (when (and (fboundp 'startup-redirect-eln-cache)
            (fboundp 'native-comp-available-p)
            (native-comp-available-p))

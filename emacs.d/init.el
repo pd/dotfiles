@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; init use-package
 (setopt package-archives
         '(("melpa" . "https://melpa.org/packages/")
@@ -510,7 +512,7 @@ targets."
   ;; https://github.com/golang/tools/blob/8d38122b0b1a9991f490aa06b7bfca7b4140bdad/gopls/doc/emacs.md#configuring-eglot
   ;; so eglot starts LSP in a reasonable spot when jumping into ~/go/pkg/... et al
   (defun project-find-go-module (dir)
-    (when-let ((root (locate-dominating-file dir "go.mod")))
+    (when-let* ((root (locate-dominating-file dir "go.mod")))
       (cons 'go-module root)))
 
   (cl-defmethod project-root ((project (head go-module)))
