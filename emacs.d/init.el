@@ -9,6 +9,11 @@
 (eval-when-compile
   (require 'use-package))
 
+;; my :fmt and :leader use-package kws
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(require 'pd/use-package-fmt)
+(require 'pd/use-package-leader)
+
 ;; tuck most things away in emacs.d/{etc,var}
 (use-package no-littering
   :config
@@ -327,6 +332,10 @@ targets."
     (if (eq major-mode 'dired-mode) default-directory
       (deadgrep--project-root))))
 
+(use-package dired
+  :ensure nil
+  :leader dired-mode-map)
+
 (use-package envrc
   :init (envrc-global-mode)
   :custom
@@ -344,6 +353,7 @@ targets."
   (git-link-use-commit t))
 
 (use-package magit
+  :leader magit-mode-map
   :bind
   (("C-x g" . magit-status))
   :custom
@@ -380,6 +390,8 @@ targets."
   (add-to-list 'recentf-exclude no-littering-var-directory)
   (add-to-list 'recentf-exclude no-littering-etc-directory))
 
+(use-package reformatter)
+
 (use-package smartparens
   :diminish
   :config (require 'smartparens-config)
@@ -411,38 +423,6 @@ targets."
 (use-package winner
   :ensure nil
   :init (winner-mode))
-
-;; adds support for
-;; (use-package foo :fmt (:program "foo" :args ("fmt" "-strict")))
-(use-package reformatter
-  :config
-  (defun use-package-normalize/:fmt (name keyword args)
-    (use-package-as-one (symbol-name keyword) args
-      (lambda (_label arg)
-        (if (and (consp arg) (keywordp (car arg)))
-            arg
-          (use-package-error
-           ":fmt wants (:program P [:args (ARG ...)])")))))
-
-  (defun use-package-handler/:fmt (name _keyword spec rest state)
-    (let* ((mode   (if (string-suffix-p "-mode" (symbol-name name))
-                       name
-                     (intern (concat (symbol-name name) "-mode"))))
-           (hook   (intern (concat (symbol-name mode) "-hook")))
-           (fmt    (intern (concat "pd/" (symbol-name name) "-fmt")))
-           (onsave (intern (concat (symbol-name fmt) "-on-save-mode"))))
-      (use-package-concat
-       (use-package-process-keywords name rest state)
-       `((reformatter-define ,fmt
-           :program ,(plist-get spec :program)
-           :args (list ,@(plist-get spec :args)))
-         (add-hook (quote ,hook) (function ,onsave))))))
-
-  (with-eval-after-load 'use-package-core
-    (unless (memq :fmt use-package-keywords)
-      (setq use-package-keywords
-            (mapcan (lambda (kw) (if (eq kw :config) (list :fmt kw) (list kw)))
-                    use-package-keywords)))))
 
 ;; prog
 (use-package prog-mode
