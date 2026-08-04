@@ -65,54 +65,12 @@
           (memq window-system '(ns pgtk))))
 
 ;; decent theme
-(use-package gruvbox-theme
-  :custom-face
-  (default ((t (:foreground "#efdfb2" :background "#0a0a0a"))))
-  (region ((t (:background "#2a2a2a"))))
-  (magit-section-highlight ((t (:background "#1c1c1c"))))
-  (magit-diff-context-highlight ((t (:background "#1c1c1c"))))
-  (hl-line ((t (:background "#1c1c1c"))))
+(use-package kanagawa-themes
   :config
-  (load-theme 'gruvbox-dark-hard t))
+  (load-theme 'kanagawa-wave t))
 
-;; modeline
-(setopt
- mode-line-format
- '("%e"
-
-   ;; lhs
-   mode-line-front-space
-   mode-line-modified
-   mode-line-remote
-
-   "\t"
-   mode-line-buffer-identification
-   " "
-   mode-line-position
-
-   ;; rhs
-   mode-line-format-right-align
-   "\t"
-   (vc-mode vc-mode)
-   "\t"
-   mode-line-modes
-   mode-line-end-spaces
-   )
-
- mode-line-modified
- '(:eval
-   (concat
-    (when buffer-read-only "R")
-    (when (buffer-modified-p) (propertize "*" 'face 'warning))))
-
- mode-line-remote
- '(:eval
-   (when-let* ((host (file-remote-p default-directory 'host)))
-     (concat " @" (propertize host 'face 'mode-line-emphasis))))
-
- mode-line-right-align-edge 'right-margin
- mode-line-position-column-line-format '("%l:%c")
- mode-line-modes-delimiters '("" . ""))
+(use-package doom-modeline
+  :init (doom-modeline-mode +1))
 
 ;; unstable.emacs 31
 (when (eq system-type 'darwin)

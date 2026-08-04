@@ -16,8 +16,8 @@
  '(go-ts-indent-offset 4 nil nil "Customized with use-package go-ts-mode")
  '(package-selected-packages
    '(all-the-icons cape consult-dir consult-project-extra corfu cue-mode
-                   deadgrep diminish dired-subtree dockerfile-mode
-                   embark-consult enh-ruby-mode envrc
+                   deadgrep diff-hl diminish dired-subtree
+                   dockerfile-mode embark-consult enh-ruby-mode envrc
                    evil-cleverparens evil-collection evil-commentary
                    evil-mc evil-textobj-line evil-textobj-syntax
                    exec-path-from-shell expand-region expreg git-link
@@ -27,9 +27,9 @@
                    nerd-icons-dired nerd-icons-ibuffer nix-mode
                    nix-ts-mode nixfmt nixpkgs-fmt no-littering
                    orderless popper popwin rust-mode rustic
-                   simple-modeline sops terraform-mode undo-fu vertico
-                   vterm wgrep whitespace-cleanup-mode yaml-mode
-                   zeal-at-point zig-ts-mode))
+                   simple-modeline sops spaceline terraform-mode
+                   undo-fu vertico vterm wgrep whitespace-cleanup-mode
+                   yaml-mode zeal-at-point zig-ts-mode))
  '(safe-local-variable-values
    '((flycheck-disabled-checkers emacs-lisp-checkdoc emacs-lisp))))
 (custom-set-faces

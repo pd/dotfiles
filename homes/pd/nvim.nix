@@ -20,10 +20,7 @@
 
     globals.mapleader = " ";
 
-    colorschemes.kanagawa = {
-      enable = true;
-      settings.theme = "dragon";
-    };
+    colorschemes.kanagawa.enable = true;
 
     lsp.servers = {
       nil_ls.enable = true;
