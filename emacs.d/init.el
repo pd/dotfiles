@@ -244,6 +244,14 @@ targets."
   (evil-set-initial-state 'git-commit-mode 'insert)
   (evil-set-initial-state 'inferior-emacs-lisp-mode 'emacs))
 
+(use-package anzu
+  :after evil
+  :diminish
+  :init (global-anzu-mode +1))
+
+(use-package evil-anzu
+  :after (evil anzu))
+
 (use-package evil-collection ;; https://github.com/emacs-evil/evil-collection
   :after evil
   :diminish evil-collection-unimpaired-mode
