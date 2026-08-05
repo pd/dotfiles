@@ -231,6 +231,7 @@ targets."
   :bind
   (("<escape>" . keyboard-escape-quit))
   :custom
+  (evil-search-module 'evil-search)
   (evil-undo-system 'undo-fu)
   (evil-want-keybinding nil)
   :init
