@@ -239,6 +239,13 @@ targets."
   (evil-search-module 'evil-search)
   (evil-undo-system 'undo-fu)
   (evil-want-keybinding nil)
+
+  ;; RET in repls should be submit in both insert and normal state;
+  ;; use S-RET to force a newline
+  (evil-collection-binding-overrides
+   '((repl-submit :state (insert normal))
+     (repl-newline :enabled nil)))
+
   :init
   (evil-mode)
   :config
