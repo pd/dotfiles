@@ -66,6 +66,11 @@
 
 ;; decent theme
 (use-package kanagawa-themes
+  :custom-face
+  (comint-highlight-prompt
+   ((t (:inherit minibuffer-prompt
+                 :background unspecified
+                 :foreground "#9cabca"))))
   :config
   (load-theme 'kanagawa-wave t))
 
