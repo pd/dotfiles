@@ -240,9 +240,7 @@ targets."
   (evil-set-leader '(normal visual motion) (kbd "SPC"))
   (evil-ex-define-cmd "q" 'kill-current-buffer)
   (evil-ex-define-cmd "wq" (lambda () (save-buffer) (kill-current-buffer)))
-
-  (evil-set-initial-state 'git-commit-mode 'insert)
-  (evil-set-initial-state 'inferior-emacs-lisp-mode 'emacs))
+  (evil-set-initial-state 'git-commit-mode 'insert))
 
 (use-package anzu
   :after evil
@@ -273,7 +271,7 @@ targets."
   :after (evil smartparens)
   :diminish
   :hook
-  ((lisp-mode emacs-lisp-mode) . evil-cleverparens-mode)
+  ((lisp-mode emacs-lisp-mode inferior-emacs-lisp-mode) . evil-cleverparens-mode)
   :custom
   (evil-cleverparens-use-additional-movement-keys nil)
   :config
@@ -365,7 +363,7 @@ targets."
 (use-package smartparens
   :diminish
   :config (require 'smartparens-config)
-  :hook ((emacs-lisp-mode lisp-mode) . smartparens-mode))
+  :hook ((emacs-lisp-mode inferior-emacs-lisp-mode lisp-mode) . smartparens-mode))
 
 (use-package subword
   :ensure nil
