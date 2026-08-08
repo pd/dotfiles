@@ -262,6 +262,16 @@ targets."
 (use-package evil-anzu
   :after (evil anzu))
 
+(use-package evil-cleverparens
+  :after (evil smartparens)
+  :diminish
+  :hook
+  ((lisp-mode emacs-lisp-mode inferior-emacs-lisp-mode) . evil-cleverparens-mode)
+  :custom
+  (evil-cleverparens-use-additional-movement-keys nil)
+  :config
+  (require 'evil-cleverparens-text-objects))
+
 (use-package evil-collection ;; https://github.com/emacs-evil/evil-collection
   :after evil
   :diminish evil-collection-unimpaired-mode
@@ -273,21 +283,9 @@ targets."
   :diminish
   :init (evil-commentary-mode))
 
-;; mostly intuitive evil multicursor. evil-mc never stays in my
-;; head for whatever reason. C-n or C-up/down as the main entrypoint.
-(use-package evim
+(use-package evil-lion
   :after evil
-  :config (evim-setup-global-keys))
-
-(use-package evil-cleverparens
-  :after (evil smartparens)
-  :diminish
-  :hook
-  ((lisp-mode emacs-lisp-mode inferior-emacs-lisp-mode) . evil-cleverparens-mode)
-  :custom
-  (evil-cleverparens-use-additional-movement-keys nil)
-  :config
-  (require 'evil-cleverparens-text-objects))
+  :init (evil-lion-mode))
 
 (use-package evil-surround
   :config
@@ -295,6 +293,12 @@ targets."
 
 (use-package evil-textobj-line)
 (use-package evil-textobj-syntax)
+
+;; mostly intuitive evil multicursor. evil-mc never stays in my
+;; head for whatever reason. C-n or C-up/down as the main entrypoint.
+(use-package evim
+  :after evil
+  :config (evim-setup-global-keys))
 
 ;; qol
 (use-package autorevert
