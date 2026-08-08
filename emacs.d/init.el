@@ -654,56 +654,6 @@ targets."
     (setq term-prompt-regexp "^> "))
   (add-hook 'vterm-mode-hook 'pd/vterm-term-prompt-regexp))
 
-(defun pd/vterm-buffers ()
-  (--filter (with-current-buffer it (eq major-mode 'vterm-mode))
-            (buffer-list)))
-
-(defvar consult-vterm-buffer-source
-  `(:name "vterm"
-          :hidden   nil
-          :narrow   ?t
-          :category buffer
-          :state    ,#'consult--buffer-state
-          :items    ,(lambda () (mapcar #'buffer-name (pd/vterm-buffers)))))
-
-(defun pd/vterm-at (path)
-  (interactive "fDir: \n")
-  (let ((default-directory (if (file-directory-p path) path
-                             (file-name-directory path))))
-    (vterm)))
-
-(defun pd/vterm-on (host)
-  "vterm on a host"
-  (interactive
-   (let* ((sconfig-hosts (lambda (path)
-                          (let ((fname (expand-file-name path)))
-                            (when (file-exists-p fname)
-                              (mapcar 'cadr (tramp-parse-sconfig fname))))))
-          (ssh-configs (apply 'append (mapcar sconfig-hosts '("~/.ssh/config" "~/.orbstack/ssh/config"))))
-          (hosts (remq nil ssh-configs)))
-     (list (completing-read "Host: " (nconc '("localhost") hosts)))))
-  (if (string-equal host "localhost")
-      (pd/vterm-at "~")
-    (pd/vterm-at (format "/ssh:%s:." host))))
-
-(defun pd/vterm-or-consult (&optional arg)
-  "Use consult to switch to a vterm.
-With prefix arg, or if no vterms exist, create a new one in default-directory."
-  (interactive "P")
-  (require 'consult)
-  (let* ((terms (pd/vterm-buffers))
-         (n (length terms)))
-    (cond
-     ;; no vterms, explicit prefix arg, or single vterm that is our current buffer
-     ((or arg (eq n 0) (and (eq n 1) (eq major-mode 'vterm-mode)))
-      (vterm arg))
-     ;; one vterm that isn't our current buffer
-     ((and (eq n 1) (not (eq major-mode 'vterm-mode)))
-      (switch-to-buffer (car terms)))
-     (t
-      (consult--multi '(consult-vterm-buffer-source))))))
-
-;; maybe
 (use-package ghostel
   :custom
   (ghostel-kill-buffer-on-exit nil)
@@ -712,6 +662,69 @@ With prefix arg, or if no vterms exist, create a new one in default-directory."
 (use-package evil-ghostel
   :after (ghostel evil)
   :hook (ghostel-mode . evil-ghostel-mode))
+
+(defun pd/is-term (buf)
+  (with-current-buffer buf
+    (or
+     (eq major-mode 'ghostel-mode)
+     (eq major-mode 'vterm-mode))))
+
+(defun pd/term-buffers ()
+  (--filter (pd/is-term it) (buffer-list)))
+
+(defvar consult-term-buffer-source
+  `(:name "term"
+          :hidden   nil
+          :narrow   ?t
+          :category buffer
+          :state    ,#'consult--buffer-state
+          :items    ,(lambda () (mapcar #'buffer-name (pd/term-buffers)))))
+
+(defun pd/term-at (path)
+  (interactive "fDir: \n")
+  (let ((default-directory (if (file-directory-p path) path
+                             (file-name-directory path))))
+    (ghostel t)))
+
+(defun pd/ssh-hosts ()
+  (let* ((parse-ssh-config
+          (lambda (path)
+            (let ((fname (expand-file-name path)))
+              (when (file-exists-p fname)
+                (mapcar 'cadr (tramp-parse-sconfig fname))))))
+
+         (ssh-configs
+          (apply 'append (mapcar parse-ssh-config '("~/.ssh/config" "~/.orbstack/ssh/config")))))
+    (remq nil ssh-configs)))
+
+(defun pd/term-on (host)
+  "Launch terminal on HOST."
+  (interactive
+   (let* ((hosts (pd/ssh-hosts)))
+     (list (completing-read "Host: " (nconc '("localhost") hosts)))))
+  (if (string-equal host "localhost")
+      (pd/term-at "~")
+    (pd/term-at (format "/ssh:%s:." host))))
+
+(defun pd/consult-term (&optional arg)
+  "Use consult to switch to a terminal buffer.
+With prefix arg, or if no terms exist, create a new one in default-directory."
+  (interactive "P")
+  (require 'consult)
+  (let* ((terms (pd/term-buffers))
+         (n (length terms)))
+    (cond
+     ((or arg                                         ;; explicit prefix arg
+          (eq n 0)                                    ;; no terminals
+          (and (eq n 1) (eq major-mode 'vterm-mode))) ;; just one term, our current buffer
+      (vterm arg))
+
+     ((and (eq n 1)                           ;; one term and
+           (not (pd/is-term (current-buffer)))) ;; we're not currently in a terminal
+      (switch-to-buffer (car terms)))
+
+     (t ;; otherwise just let consult filter it
+      (consult--multi '(consult-term-buffer-source))))))
 
 ;; junkdrawer
 (defun pd/reload-buffer ()
@@ -754,9 +767,6 @@ uncomment the current line."
 
    ;; misc
    ("M-;"     . pd/comment-dwim)
-   ("M-'"     . pd/vterm-or-consult)
-   ("M-\""    . vterm)
-   ("M-s-'"   . pd/vterm-on)
    ("C-x C-b" . ibuffer)
    ("C-x C-d" . dired)
    ("C-x d"   . dired)
@@ -783,6 +793,11 @@ uncomment the current line."
    ("<leader>tw" . transpose-words)
    ("<leader>tl" . transpose-lines)
    ("<leader>ts" . transpose-sexps)
+
+   ;; shells
+   ("M-'"     . pd/consult-term)
+   ("M-\""    . pd/term)
+   ("M-s-'"   . pd/term-on)
 
    ;; repls
    ("<leader>xe" . ielm)
