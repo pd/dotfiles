@@ -15,23 +15,20 @@
      default))
  '(go-ts-indent-offset 4 nil nil "Customized with use-package go-ts-mode")
  '(package-selected-packages
-   '(all-the-icons cape consult-dir consult-eglot consult-eglot-embark
-                   consult-git-log-grep consult-project-extra corfu
+   '(all-the-icons cape consult-dir consult-project-extra corfu
                    cue-mode deadgrep diff-hl diminish dired-subtree
                    dockerfile-mode embark-consult enh-ruby-mode envrc
                    evil-anzu evil-cleverparens evil-collection
-                   evil-commentary evil-mc evil-surround
+                   evil-commentary evil-lion evil-mc evil-surround
                    evil-textobj-line evil-textobj-syntax
-                   exec-path-from-shell expand-region expreg git-link
-                   go-mode grip-mode gruvbox-theme ibuffer-vc inf-ruby
-                   jsonnet-mode just-mode just-ts-mode lsp-ui magit
-                   marginalia nerd-icons-completion nerd-icons-corfu
-                   nerd-icons-dired nerd-icons-ibuffer nix-mode
-                   nix-ts-mode nixfmt nixpkgs-fmt no-littering
-                   orderless popper popwin rust-mode rustic
-                   simple-modeline sops spaceline terraform-mode
-                   undo-fu vertico vterm wgrep whitespace-cleanup-mode
-                   yaml-mode zeal-at-point zig-ts-mode))
+                   exec-path-from-shell expand-region expreg ghostel
+                   git-link go-mode grip-mode gruvbox-theme ibuffer-vc
+                   inf-ruby jsonnet-mode just-ts-mode magit marginalia
+                   nerd-icons-completion nerd-icons-corfu
+                   nerd-icons-dired nerd-icons-ibuffer nix-mode nixfmt
+                   no-littering orderless popper sops terraform-mode
+                   undo-fu vertico vterm whitespace-cleanup-mode
+                   yaml-mode zig-ts-mode))
  '(safe-local-variable-values
    '((flycheck-disabled-checkers emacs-lisp-checkdoc emacs-lisp))))
 (custom-set-faces
