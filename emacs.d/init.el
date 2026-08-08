@@ -643,7 +643,6 @@ targets."
   ;; reclaim some bindings
   (:map vterm-mode-map
    ("M-'"   . pd/vterm-or-consult)
-   ("M-\""  . vterm)
    ("M-s-'" . pd/vterm-on))
   :config
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
@@ -657,7 +656,10 @@ targets."
 (use-package ghostel
   :custom
   (ghostel-kill-buffer-on-exit nil)
-  (ghostel-module-auto-install nil))
+  (ghostel-module-auto-install nil)
+  :config
+  (setopt ghostel-keymap-exceptions
+          (append ghostel-keymap-exceptions '("M-'"))))
 
 (use-package evil-ghostel
   :after (ghostel evil)
@@ -717,7 +719,7 @@ With prefix arg, or if no terms exist, create a new one in default-directory."
      ((or arg                                         ;; explicit prefix arg
           (eq n 0)                                    ;; no terminals
           (and (eq n 1) (eq major-mode 'vterm-mode))) ;; just one term, our current buffer
-      (vterm arg))
+      (ghostel arg))
 
      ((and (eq n 1)                           ;; one term and
            (not (pd/is-term (current-buffer)))) ;; we're not currently in a terminal
