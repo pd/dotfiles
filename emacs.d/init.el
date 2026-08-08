@@ -59,6 +59,8 @@
         tab-width 4
         require-final-newline t)
 
+;; sane env
+(setenv "EDITOR" "emacsclient")
 (use-package exec-path-from-shell
   :config (exec-path-from-shell-initialize)
   :if (or (daemonp)
@@ -150,9 +152,7 @@
 (use-package embark
   :bind
   (("s-."   . embark-act)
-   ("s-;"   . embark-dwim)
-   :map embark-file-map
-   ("$" . pd/vterm-at))
+   ("s-;"   . embark-dwim))
 
   :custom
   (embark-indicators '(embark-which-key-indicator
@@ -702,6 +702,7 @@ With prefix arg, or if no vterms exist, create a new one in default-directory."
 ;; maybe
 (use-package ghostel
   :custom
+  (ghostel-kill-buffer-on-exit nil)
   (ghostel-module-auto-install nil))
 
 (use-package evil-ghostel
