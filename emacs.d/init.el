@@ -699,6 +699,15 @@ With prefix arg, or if no vterms exist, create a new one in default-directory."
      (t
       (consult--multi '(consult-vterm-buffer-source))))))
 
+;; maybe
+(use-package ghostel
+  :custom
+  (ghostel-module-auto-install nil))
+
+(use-package evil-ghostel
+  :after (ghostel evil)
+  :hook (ghostel-mode . evil-ghostel-mode))
+
 ;; junkdrawer
 (defun pd/reload-buffer ()
   "Kill the current buffer and immediately reload it without moving point."

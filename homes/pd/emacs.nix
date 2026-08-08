@@ -7,7 +7,7 @@
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   homeDir = config.home.homeDirectory;
-  lnDot = f: { source = config.lib.file.mkOutOfStoreSymlink "${homeDir}/dotfiles/${f}"; };
+  lnDot = path: { source = config.lib.file.mkOutOfStoreSymlink "${homeDir}/dotfiles/${path}"; };
 
   em = pkgs.writeShellScriptBin "em" (
     if isDarwin then
@@ -41,7 +41,7 @@ in
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacsWithPackagesFromUsePackage {
+    package = pkgs.unstable.emacsWithPackagesFromUsePackage {
       package = if isDarwin then pkgs.unstable.emacs31 else pkgs.unstable.emacs31-pgtk;
       config = ../../emacs.d/init.el;
       alwaysEnsure = true;
@@ -49,6 +49,8 @@ in
         epkgs: with epkgs; [
           treesit-grammars.with-all-grammars
           vterm
+          ghostel
+          evil-ghostel
         ];
     };
   };

@@ -5,6 +5,9 @@
     unstable = import inputs.nixpkgs-unstable {
       system = final.stdenv.hostPlatform.system;
       config.allowUnfree = true;
+
+      # and ensure emacs-overlay applies to it as well
+      overlays = [ inputs.emacs-overlay.overlays.default ];
     };
   };
 
