@@ -22,6 +22,10 @@ in
       unsetopt nomatch
 
       source "${vtermZsh}"
+
+      if [[ "$${$${INSIDE_EMACS-}%%,*}" == "ghostel" || "$TERM" = "xterm-ghostty" ]]; then
+        source "${pkgs.unstable.emacsPackages.ghostel.src}/etc/shell/ghostel.zsh"
+      fi
     '';
   };
 }
