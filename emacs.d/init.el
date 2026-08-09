@@ -57,6 +57,7 @@
 (set-keyboard-coding-system 'utf-8)
 (setopt indent-tabs-mode nil
         tab-width 4
+        tab-always-indent 'complete
         require-final-newline t)
 
 ;; sane env

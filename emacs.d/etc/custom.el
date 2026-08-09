@@ -15,15 +15,15 @@
      default))
  '(go-ts-indent-offset 4 nil nil "Customized with use-package go-ts-mode")
  '(package-selected-packages
-   '(all-the-icons cape consult-dir consult-project-extra corfu
-                   cue-mode deadgrep diff-hl diminish dired-subtree
+   '(all-the-icons cape consult-dir consult-project-extra corfu cue-mode
+                   deadgrep diff-hl diminish dired-subtree
                    dockerfile-mode embark-consult enh-ruby-mode envrc
                    evil-anzu evil-cleverparens evil-collection
                    evil-commentary evil-lion evil-mc evil-surround
                    evil-textobj-line evil-textobj-syntax
                    exec-path-from-shell expand-region expreg ghostel
-                   git-link go-mode grip-mode gruvbox-theme ibuffer-vc
-                   inf-ruby jsonnet-mode just-ts-mode magit marginalia
+                   git-link go-mode grip-mode ibuffer-vc inf-ruby
+                   jsonnet-mode just-ts-mode magit marginalia
                    nerd-icons-completion nerd-icons-corfu
                    nerd-icons-dired nerd-icons-ibuffer nix-mode nixfmt
                    no-littering orderless popper sops terraform-mode
