@@ -99,7 +99,7 @@
   (add-to-list 'default-frame-alist '(undecorated . t))
   (add-to-list 'default-frame-alist '(font . "FiraCode Nerd Font-10")))
 
-;; just buy into the whole vertico et al ecosystem for now
+;; bought into the whole vertico ecosystem
 (use-package vertico
   :init (vertico-mode)
   :bind
@@ -137,7 +137,19 @@
    ("<leader>cL" . consult-goto-line)
    ("<leader>cm" . consult-focus-lines)) ; "matching"
   :custom
-  (consult-narrow-key "<"))
+  (consult-narrow-key "<")
+  :init
+  (setopt xref-show-xrefs-function #'consult-xref
+          xref-show-definitions-function #'consult-xref)
+  :config
+  ;; these previews open files, so let the input settle first. in-buffer
+  ;; previews (consult-line, -imenu, -flymake) stay on every keystroke.
+  (consult-customize
+   consult-ripgrep consult-git-grep consult-grep consult-man
+   consult-bookmark consult-recent-file consult-xref
+   consult-source-bookmark consult-source-file-register
+   consult-source-recent-file consult-source-project-recent-file
+   :preview-key '(:debounce 0.4 any)))
 
 (use-package consult-dir
   :after consult
