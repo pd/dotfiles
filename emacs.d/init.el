@@ -625,34 +625,8 @@ targets."
   :custom
   (treesit-enabled-modes t))
 
-(use-package zeal-at-point)
 
 ;; shell
-(use-package vterm
-  :custom
-  (vterm-always-compile-module t)
-  (vterm-buffer-name-string "*vterm %s*")
-  (vterm-clear-scrollback-when-clearing t)
-  (vterm-copy-mode-remove-fake-newlines t)
-  (vterm-max-scrollback 50000)
-  (vterm-shell shell-file-name)
-  (vterm-tramp-shells '(("ssh" "zsh")))
-  :hook
-  (vterm-mode . evil-emacs-state)
-  :bind
-  ;; reclaim some bindings
-  (:map vterm-mode-map
-   ("M-'"   . pd/vterm-or-consult)
-   ("M-s-'" . pd/vterm-on))
-  :config
-  (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
-  (add-to-list 'vterm-eval-cmds
-               '("update-default-directory" (lambda (path)
-                                              (setq default-directory path))))
-  (defun pd/vterm-term-prompt-regexp ()
-    (setq term-prompt-regexp "^> "))
-  (add-hook 'vterm-mode-hook 'pd/vterm-term-prompt-regexp))
-
 (use-package ghostel
   :custom
   (ghostel-kill-buffer-on-exit nil)
@@ -665,68 +639,12 @@ targets."
   :after (ghostel evil)
   :hook (ghostel-mode . evil-ghostel-mode))
 
-(defun pd/is-term (buf)
-  (with-current-buffer buf
-    (or
-     (eq major-mode 'ghostel-mode)
-     (eq major-mode 'vterm-mode))))
+(use-package pd/term
+  :ensure nil
+  :bind
+  (("M-'"   . pd/consult-term)
+   ("M-s-'" . pd/term-on)))
 
-(defun pd/term-buffers ()
-  (--filter (pd/is-term it) (buffer-list)))
-
-(defvar consult-term-buffer-source
-  `(:name "term"
-          :hidden   nil
-          :narrow   ?t
-          :category buffer
-          :state    ,#'consult--buffer-state
-          :items    ,(lambda () (mapcar #'buffer-name (pd/term-buffers)))))
-
-(defun pd/term-at (path)
-  (interactive "fDir: \n")
-  (let ((default-directory (if (file-directory-p path) path
-                             (file-name-directory path))))
-    (ghostel t)))
-
-(defun pd/ssh-hosts ()
-  (let* ((parse-ssh-config
-          (lambda (path)
-            (let ((fname (expand-file-name path)))
-              (when (file-exists-p fname)
-                (mapcar 'cadr (tramp-parse-sconfig fname))))))
-
-         (ssh-configs
-          (apply 'append (mapcar parse-ssh-config '("~/.ssh/config" "~/.orbstack/ssh/config")))))
-    (remq nil ssh-configs)))
-
-(defun pd/term-on (host)
-  "Launch terminal on HOST."
-  (interactive
-   (let* ((hosts (pd/ssh-hosts)))
-     (list (completing-read "Host: " (nconc '("localhost") hosts)))))
-  (if (string-equal host "localhost")
-      (pd/term-at "~")
-    (pd/term-at (format "/ssh:%s:." host))))
-
-(defun pd/consult-term (&optional arg)
-  "Use consult to switch to a terminal buffer.
-With prefix arg, or if no terms exist, create a new one in default-directory."
-  (interactive "P")
-  (require 'consult)
-  (let* ((terms (pd/term-buffers))
-         (n (length terms)))
-    (cond
-     ((or arg                                         ;; explicit prefix arg
-          (eq n 0)                                    ;; no terminals
-          (and (eq n 1) (eq major-mode 'vterm-mode))) ;; just one term, our current buffer
-      (ghostel arg))
-
-     ((and (eq n 1)                           ;; one term and
-           (not (pd/is-term (current-buffer)))) ;; we're not currently in a terminal
-      (switch-to-buffer (car terms)))
-
-     (t ;; otherwise just let consult filter it
-      (consult--multi '(consult-term-buffer-source))))))
 
 ;; junkdrawer
 (defun pd/reload-buffer ()
@@ -795,11 +713,6 @@ uncomment the current line."
    ("<leader>tw" . transpose-words)
    ("<leader>tl" . transpose-lines)
    ("<leader>ts" . transpose-sexps)
-
-   ;; shells
-   ("M-'"     . pd/consult-term)
-   ("M-\""    . pd/term)
-   ("M-s-'"   . pd/term-on)
 
    ;; repls
    ("<leader>xe" . ielm)
