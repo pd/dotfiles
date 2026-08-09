@@ -172,6 +172,7 @@
   (embark-indicators '(embark-which-key-indicator
                        embark-highlight-indicator
                        embark-isearch-highlight-indicator))
+  (prefix-help-command 'embark-prefix-help-command)
 
   :config
   (add-to-list 'display-buffer-alist
