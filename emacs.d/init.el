@@ -218,7 +218,12 @@ targets."
 (use-package orderless
   :custom
   (completion-styles '(orderless basic))
-  (completion-category-overrides '((file (styles basic partial-completion)))))
+  (completion-pcm-leading-wildcard t)
+  (completion-category-overrides
+   '((file         (styles basic partial-completion))
+     (buffer       (styles orderless basic))
+     (project-file (styles orderless basic))
+     (eglot-capf   (styles orderless basic)))))
 
 ;; condense the 900 ephemeral windows into a single one i can toggle
 ;; open/closed at will
