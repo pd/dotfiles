@@ -466,6 +466,7 @@ targets."
 (use-package just-ts-mode)
 
 (use-package markdown-ts-mode
+  :ensure nil
   :mode "\\.md\\'")
 
 (use-package grip-mode
