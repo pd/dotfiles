@@ -40,11 +40,13 @@
 (use-package diminish)
 
 ;; but still simmer
-(column-number-mode +1)
-(show-paren-mode +1)
 (setopt read-process-output-max (* 4 1024 1024)
         ;; keep clipboard contents when killing text over it
-        save-interprogram-paste-before-kill t)
+        save-interprogram-paste-before-kill t
+        enable-recursive-minibuffers t)
+(column-number-mode +1)
+(show-paren-mode +1)
+(minibuffer-depth-indicate-mode +1)
 
 ;; religion
 ;; 1. utf-8
