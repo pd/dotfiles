@@ -28,7 +28,6 @@
         visible-bell nil
         messages-buffer-max-lines 1000
         create-lockfiles nil
-        read-extended-command-predicate #'command-completion-default-include-p
         ring-bell-function 'ignore
         use-short-answers t
         redisplay-skip-fontification-on-input t
@@ -57,7 +56,6 @@
 (set-keyboard-coding-system 'utf-8)
 (setopt indent-tabs-mode nil
         tab-width 4
-        tab-always-indent 'complete
         require-final-newline t)
 
 ;; sane env
@@ -120,7 +118,9 @@
 
 (use-package savehist
   :ensure nil
-  :init (savehist-mode))
+  :init (savehist-mode)
+  :custom
+  (savehist-additional-variables '(evil-jumps-history corfu-history vertico-repeat-history)))
 
 (use-package marginalia
   :init (marginalia-mode))
@@ -574,6 +574,7 @@ targets."
   :init
   (global-corfu-mode)
   (corfu-popupinfo-mode)
+  (corfu-history-mode)
   :config
   ;; complete only with TAB, not RET
   (keymap-unset corfu-map "RET"))
@@ -698,6 +699,12 @@ uncomment the current line."
 ;; the end
 (use-package emacs
   :ensure nil
+  :custom
+  ;; https://github.com/minad/corfu/blob/4b440fb30ff2fff4291af676b59da7ab22130a45/README.org#configuration
+  (tab-always-indent 'complete)
+  (text-mode-ispell-word-completion nil)
+  (read-extended-command-predicate #'command-completion-default-include-p)
+
   :init
   (unbind-key "M-t")
 
