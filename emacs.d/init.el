@@ -128,22 +128,29 @@
   :init (marginalia-mode))
 
 (use-package consult
-  :commands
-  (consult-buffer consult-focus-lines consult-goto-line consult-imenu consult-ripgrep)
   :bind
-  (("C-x b"      . consult-buffer)
+  (("C-c h"      . consult-history) ;; searchable history in REPLs
+   ("C-x b"      . consult-buffer)
    ("<leader>cb" . consult-buffer)
    ("<leader>cg" . consult-ripgrep)
    ("<leader>ce" . consult-flymake)
    ("<leader>ci" . consult-imenu)
    ("<leader>cl" . consult-line)
    ("<leader>cL" . consult-goto-line)
-   ("<leader>cm" . consult-focus-lines)) ; "matching"
+   ("<leader>cm" . consult-focus-lines) ;; "matching"
+
+   ;; search minibuffer history
+   :map minibuffer-local-map
+   ("M-r" . consult-history)
+   ("M-s" . consult-history))
+
   :custom
   (consult-narrow-key "<")
+
   :init
   (setopt xref-show-xrefs-function #'consult-xref
           xref-show-definitions-function #'consult-xref)
+
   :config
   ;; these previews open files, so let the input settle first. in-buffer
   ;; previews (consult-line, -imenu, -flymake) stay on every keystroke.
