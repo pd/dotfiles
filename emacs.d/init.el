@@ -152,7 +152,8 @@
 (use-package embark
   :bind
   (("s-."   . embark-act)
-   ("s-;"   . embark-dwim))
+   ("s-;"   . embark-dwim)
+   ("C-h b" . embark-bindings))
 
   :custom
   (embark-indicators '(embark-which-key-indicator
