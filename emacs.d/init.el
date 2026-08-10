@@ -269,14 +269,18 @@ targets."
 (use-package evil
   :demand t
   :bind
-  (("<escape>" . keyboard-escape-quit))
+  (("<escape>" . keyboard-escape-quit)
+   ;; let me have C-d back for EOF
+   :map evil-insert-state-map
+   ("C-d" . nil))
+
   :custom
   (evil-search-module 'evil-search)
   (evil-undo-system 'undo-fu)
   (evil-want-keybinding nil)
+
   :init
   (evil-mode)
-
   :config
   (evil-set-leader '(normal visual motion) (kbd "SPC"))
   (evil-ex-define-cmd "q" 'kill-current-buffer)
