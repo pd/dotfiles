@@ -22,8 +22,6 @@
   (load custom-file))
 
 ;; simmer down
-(horizontal-scroll-bar-mode -1)
-(blink-cursor-mode -1)
 (setopt inhibit-startup-screen t
         visible-bell nil
         messages-buffer-max-lines 1000
@@ -80,7 +78,7 @@
 (use-package doom-modeline
   :init (doom-modeline-mode +1))
 
-;; unstable.emacs 31
+;; unstable.emacs31
 (when (eq system-type 'darwin)
   (setopt ns-command-modifier      'meta
           ns-alternate-modifier    'super
