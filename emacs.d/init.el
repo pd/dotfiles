@@ -38,10 +38,9 @@
 (use-package diminish)
 
 ;; but still simmer
-(setopt read-process-output-max (* 4 1024 1024)
+(setopt enable-recursive-minibuffers t
         ;; keep clipboard contents when killing text over it
-        save-interprogram-paste-before-kill t
-        enable-recursive-minibuffers t)
+        save-interprogram-paste-before-kill t)
 (column-number-mode +1)
 (show-paren-mode +1)
 (minibuffer-depth-indicate-mode +1)
