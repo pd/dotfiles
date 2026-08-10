@@ -40,8 +40,9 @@ uci.mkRouter "rpt" ./secrets.yaml {
     network = {
       device = uci.bridgeLan 2 hosts.rpt.macs.lan;
       interface.lan = {
-        device = "br-lan";
-        proto = "dhcp";
+        ipaddr = lan.ipv4.rpt;
+        ip6addr = "${lan.ipv6.rpt}/64";
+        gateway = lan.ipv4.wrt;
       };
 
       interface.lan6 = {
