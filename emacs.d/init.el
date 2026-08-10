@@ -334,7 +334,8 @@ targets."
 ;; qol
 (use-package autorevert
   :ensure nil
-  :diminish auto-revert-mode)
+  :diminish auto-revert-mode
+  :config (auto-revert-mode))
 
 (use-package deadgrep
   :bind
@@ -685,33 +686,22 @@ targets."
 
 
 ;; junkdrawer
-(defun pd/reload-buffer ()
-  "Kill the current buffer and immediately reload it without moving point."
-  (interactive)
-  (let ((path (buffer-file-name))
-        (point (point)))
-    (kill-buffer)
-    (find-file path)
-    (goto-char point)))
-
 (defun pd/find-init.el ()
   "find-file init.el"
   (interactive)
   (find-file (expand-file-name user-init-file)))
 
-(defun pd/comment-dwim (arg)
-  "If the region is active (`mark-active') and `transient-mark-mode'
-is on, lets `comment-dwim' do its thing.
-If not, `comment-dwim' doesn't DWIM at all. Instead, comment or
-uncomment the current line."
-  (interactive "*P")
-  (if (and mark-active transient-mark-mode)
-      (comment-dwim arg)
-    (save-excursion
-      (back-to-indentation)
-      (let ((beg (point)))
-        (end-of-line)
-        (comment-or-uncomment-region beg (point))))))
+;; remind me to use a different binding
+(defmacro pd/defremind (name reminder)
+  "Define NAME as a command that just emits REMINDER."
+  (declare (indent 1))
+  `(defun ,name ()
+     ,(format "Remind me: use %s." reminder)
+     (interactive)
+     (message "Use %s" ,reminder)))
+
+(pd/defremind pd/remind-evil-commentary "gc / gcc for evil-commentary")
+(pd/defremind pd/remind-evil-lion "gl / gL for evil-lion")
 
 ;; the end
 (use-package emacs
@@ -726,16 +716,16 @@ uncomment the current line."
   (unbind-key "M-t")
 
   :bind
-  (("<leader>bz" . pd/reload-buffer)
+  (("<leader>bz" . revert-buffer-quick)
    ("<leader>bb" . ibuffer)
 
    ;; misc
-   ("M-;"     . pd/comment-dwim)
+   ("M-;"     . pd/remind-evil-commentary)
    ("C-x C-b" . ibuffer)
    ("C-x C-d" . dired)
    ("C-x d"   . dired)
    ("C-c w"   . delete-trailing-whitespace)
-   ("C-c ="   . align-regexp)
+   ("C-c ="   . pd/remind-evil-lion)
    ("C-M-+"   . text-scale-increase)
    ("C-M-_"   . text-scale-decrease)
 
