@@ -411,8 +411,11 @@ targets."
 
 (use-package smartparens
   :diminish
-  :config (require 'smartparens-config)
-  :hook ((emacs-lisp-mode inferior-emacs-lisp-mode lisp-mode) . smartparens-mode))
+  :hook ((emacs-lisp-mode inferior-emacs-lisp-mode lisp-mode) . smartparens-mode)
+  :custom
+  (sp-highlight-pair-overlay nil)
+  :config
+  (require 'smartparens-config))
 
 (use-package subword
   :ensure nil
