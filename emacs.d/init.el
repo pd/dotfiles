@@ -162,9 +162,11 @@
    :preview-key '(:debounce 0.4 any)))
 
 (use-package consult-dir
-  :after consult
+  :after vertico
   :bind
-  ("<leader>cd" . consult-dir))
+  (("<leader>cd" . consult-dir)
+   :map vertico-map
+   ("C-x C-d" . consult-dir)))
 
 (use-package consult-project-extra
   :after consult
