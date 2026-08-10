@@ -42,6 +42,7 @@
         ;; keep clipboard contents when killing text over it
         save-interprogram-paste-before-kill t)
 (column-number-mode +1)
+(size-indication-mode +1)
 (show-paren-mode +1)
 (minibuffer-depth-indicate-mode +1)
 
