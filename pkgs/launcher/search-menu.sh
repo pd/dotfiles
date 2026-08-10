@@ -4,6 +4,7 @@ searches() {
   echo 'home-manager '
   echo 'nixgh '
   echo 'nixdarwin '
+  echo 'emacsgh '
 }
 
 
@@ -17,6 +18,7 @@ case "$q" in
   home-manager*) url="https://home-manager-options.extranix.com/?release=release-${version}&query=${term}";;
   nixgh*) url="https://github.com/search?type=code&q=language%3Anix%20${term}";;
   nixdarwin*) url="https://searchix.alanpearce.eu/options/darwin/search?query=${term}";;
+  emacsgh*) url="https://github.com/search?type=code&q=language%3A\"Emacs+Lisp\"++${term}";;
   *) exit 1;;
 esac
 
