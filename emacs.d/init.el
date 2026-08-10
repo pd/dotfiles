@@ -377,8 +377,10 @@ targets."
   (nerd-icons-font-family "Symbols Nerd Font Mono"))
 
 (use-package nerd-icons-completion
-  :after nerd-icons
-  :config (nerd-icons-completion-mode))
+  :after marginalia
+  :config
+  (nerd-icons-completion-mode)
+  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
 
 (use-package nerd-icons-corfu
   :after (nerd-icons corfu)
