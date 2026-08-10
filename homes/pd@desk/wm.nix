@@ -13,8 +13,8 @@ let
       ${wlr-randr} --json | ${jq} -e ".[] | select(.name == \"$1\")" >/dev/null 2>&1
     }
 
-    has_output DP-1 && ${wlr-randr} --output DP-1 --mode 3840x2160 --scale 1.25 --pos 2160,0
-    has_output DP-2 && ${wlr-randr} --output DP-2 --mode 3840x2160 --scale 1.4  --transform 270
+    has_output DP-2 && ${wlr-randr} --output DP-2 --mode 3840x2160 --scale 1.40625 --transform 270 --pos 0,0
+    has_output DP-1 && ${wlr-randr} --output DP-1 --mode 3840x2160 --scale 1.25    --pos 1536,0
   '') "layout-outputs";
 in
 {
