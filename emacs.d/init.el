@@ -35,7 +35,12 @@
         bidi-paragraph-direction 'left-to-right
         bidi-inhibit-bpa t
         kill-do-not-save-duplicates t)
-(use-package diminish)
+
+(use-package diminish
+  :config
+  (diminish 'auto-fill-function)
+  (diminish 'diff-minor-mode)
+  (diminish 'with-editor-mode))
 
 ;; but still simmer
 (setopt enable-recursive-minibuffers t
@@ -76,7 +81,8 @@
   (load-theme 'kanagawa-wave t))
 
 (use-package doom-modeline
-  :init (doom-modeline-mode +1))
+  :init (doom-modeline-mode +1)
+  :custom (doom-modeline-minor-modes t))
 
 ;; unstable.emacs31
 (when (eq system-type 'darwin)
@@ -268,15 +274,9 @@ targets."
   (evil-search-module 'evil-search)
   (evil-undo-system 'undo-fu)
   (evil-want-keybinding nil)
-
-  ;; RET in repls should be submit in both insert and normal state;
-  ;; use S-RET to force a newline
-  (evil-collection-binding-overrides
-   '((repl-submit :state (insert normal))
-     (repl-newline :enabled nil)))
-
   :init
   (evil-mode)
+
   :config
   (evil-set-leader '(normal visual motion) (kbd "SPC"))
   (evil-ex-define-cmd "q" 'kill-current-buffer)
@@ -304,6 +304,12 @@ targets."
 (use-package evil-collection ;; https://github.com/emacs-evil/evil-collection
   :after evil
   :diminish evil-collection-unimpaired-mode
+  :custom
+  ;; RET in repls should be submit in both insert and normal state;
+  ;; use S-RET to force a newline
+  (evil-collection-binding-overrides
+   '((repl-submit  :state (insert normal))
+     (repl-newline :enabled nil)))
   :config
   (evil-collection-init))
 
@@ -353,8 +359,8 @@ targets."
 (use-package envrc
   :init (envrc-global-mode)
   :custom
-  (envrc-on-lighter '(" " (:propertize "direnv" face envrc-mode-line-on-face)))
-  (envrc-none-lighter '(""))
+  (envrc-on-lighter    '(" " (:propertize "direnv" face envrc-mode-line-on-face)))
+  (envrc-none-lighter  '(""))
   (envrc-error-lighter '(" " (:propertize "direnv" face envrc-mode-line-error-face))))
 
 (use-package expreg
@@ -458,10 +464,7 @@ targets."
 
 (use-package eldoc
   :ensure nil
-  :diminish
-  :custom
-  ;; :diminish just isn't working, no idea why, so kill it with fire
-  (eldoc-minor-mode-string nil))
+  :diminish)
 
 (use-package enh-ruby-mode
   :mode "\\.rb\\'"
