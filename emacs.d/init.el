@@ -632,6 +632,7 @@ targets."
   :custom
   (eglot-documentation-renderer 'markdown-ts-view-mode)
   (eglot-code-action-indications nil)
+  (eglot-autoshutdown t)
   :bind
   (("<leader>la" . eglot-code-actions)
    ("<leader>lf" . eglot-format-buffer)
@@ -668,7 +669,6 @@ targets."
   :ensure nil
   :custom
   (treesit-enabled-modes t))
-
 
 ;; shell
 (use-package ghostel
