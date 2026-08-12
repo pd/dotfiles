@@ -51,6 +51,16 @@
 (show-paren-mode +1)
 (minibuffer-depth-indicate-mode +1)
 
+;; happens to work out Just Right (tm) on my two main machines
+;; to produce an emacs that mostly divides into 2x2 windows,
+;; then starts reusing them. i never want 8 buffers on screen.
+;;
+;; determined by way of C-x 4 b and hella guess and check. the
+;; second i have a slightly differently sized screen, prolly
+;; all fucked and i won't even remember why.
+(setopt split-width-threshold  240
+        split-height-threshold 65)
+
 ;; religion
 ;; 1. utf-8
 ;; 2. spaces not tabs
