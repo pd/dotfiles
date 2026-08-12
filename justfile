@@ -119,7 +119,7 @@ wrt op="reload": routers
     @just _deploy_router wrt {{ op }}
 
 [group('routers')]
-rpt op="reload": routers
+rpt op="restart": routers
     @just _deploy_router rpt {{ op }}
 
 _deploy_router name op:
