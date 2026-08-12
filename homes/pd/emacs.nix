@@ -30,7 +30,8 @@ let
       ''
     else
       ''
-        emacsclient --alternate-editor="" --no-wait --reuse-frame "$@"
+        systemctl --user start emacs.service
+        emacsclient --no-wait --reuse-frame "$@"
       ''
   );
 in
