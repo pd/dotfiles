@@ -76,6 +76,7 @@ with lib;
 
   mkRouter =
     hostname: secrets: custom:
+    { pkgs, ... }:
     dmerge.merge {
       deploy = {
         host = "${hostname}.home";
@@ -196,7 +197,7 @@ with lib;
       # it's explicitly marked internal. still doing it.
 
       # Install just enough for a decent zsh env that works via
-      # tramp+vterm.
+      # tramp + vterm/ghostty
       deploySteps.zsh = {
         priority = 100;
         copy = "";
@@ -215,7 +216,28 @@ with lib;
         '';
       };
 
-      # I don't want dewclaw managing packages at all.
+      deploySteps.terminfo =
+        let
+          # pkgs.ghostty is linux only, so gank terminfo from there if
+          # we're running on darwin
+          ghostty =
+            if pkgs.stdenv.hostPlatform.isLinux then
+              pkgs.ghostty
+            else
+              (import pkgs.path { system = "x86_64-linux"; }).ghostty;
+        in
+        {
+          priority = 95;
+          copy = ''
+            scp ${ghostty.terminfo}/share/terminfo/x/xterm-ghostty device:/tmp/xterm-ghostty.ti
+          '';
+          apply = ''
+            mkdir -p /usr/share/terminfo/x
+            cp /tmp/xterm-ghostty.ti /usr/share/terminfo/x/xterm-ghostty
+            chmod 0644 /usr/share/terminfo/x/xterm-ghostty
+          '';
+        };
+
       deploySteps.packages = {
         copy = mkForce "";
         apply = mkForce "";
