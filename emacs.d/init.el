@@ -353,7 +353,9 @@ targets."
 (use-package autorevert
   :ensure nil
   :diminish auto-revert-mode
-  :config (auto-revert-mode))
+  :custom
+  (global-auto-revert-non-file-buffers t)
+  :config (global-auto-revert-mode))
 
 (use-package deadgrep
   :bind
