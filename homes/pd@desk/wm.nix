@@ -488,21 +488,18 @@ in
           "-app-id Slack tags 8" # 4
           "-app-id signal tags 16" # 5
           "-app-id signal output DP-2"
+
           "-app-id 'steam_app_*' tags 32" # 6
           "-app-id 'steam_app_*' output DP-1"
+          "-app-id RimWorldLinux tags 32" # 6
+          "-app-id RimWorldLinux output DP-1"
+          "-app-id RimWorldLinux float"
 
           "-app-id .blueman-manager-wrapped float"
           "-app-id imv float"
           "-app-id org.pulseaudio.pavucontrol float"
           "-app-id com.github.PintaProject.Pinta float"
           "-app-id firefox -title Library float"
-
-          # AWS workspaces
-          "-app-id Dcvclient tags 16" # 5
-          "-app-id Dcvclient output DP-1" # 5
-          "-app-id workspacesclient tags 8" # 6
-          "-app-id workspacesclient output DP-1"
-          "-app-id workspacesclient float"
         ];
 
         set-cursor-warp = "on-output-change";
