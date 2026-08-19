@@ -95,6 +95,7 @@ in
     (
       (staticJob "qbittorrent" ports.qbittorrent [ "htpc.home" ])
       // {
+        scrape_interval = "60s";
         metric_relabel_configs = [
           {
             # noisy per-torrent metrics I don't really care about
