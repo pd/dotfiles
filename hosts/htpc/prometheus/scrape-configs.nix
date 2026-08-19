@@ -57,14 +57,29 @@ in
     (staticJob "harmonia" ports.harmonia [ "htpc.home" ])
     (staticJob "jellyfin" ports.jellyfin [ "htpc.home" ])
     (staticJob "ntfy" ports.ntfy [ "donix.wg" ])
-    (staticJob "nodes" ports.node-exporter [
-      "desk.home"
-      "donix.wg"
-      "htpc.home"
-      "nas.home"
-      "orb.home:19100"
-      "pi.home"
-    ])
+    (
+      (staticJob "nodes" ports.node-exporter [
+        "desk.home"
+        "donix.wg"
+        "htpc.home"
+        "nas.home"
+        "orb.home:19100"
+        "pi.home"
+      ])
+      // {
+        metric_relabel_configs = [
+          {
+            # i just alert where a unit fails, otherwise who cares
+            action = "drop";
+            source_labels = [
+              "__name__"
+              "state"
+            ];
+            regex = "node_systemd_unit_state;(activating|active|deactivating|inactive)";
+          }
+        ];
+      }
+    )
     (
       (staticJob "processes" ports.process [
         "desk.home"
