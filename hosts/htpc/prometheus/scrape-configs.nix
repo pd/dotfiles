@@ -24,7 +24,6 @@ let
       caddy = 2020;
       dnsmasq = exporters.dnsmasq.port;
       harmonia = 5000;
-      jellyfin = 8096;
       node-exporter = exporters.node.port;
       ntfy = 9712; # cf donix/ntfy.nix
       process = exporters.process.port;
@@ -55,7 +54,6 @@ in
       "pi.home"
     ])
     (staticJob "harmonia" ports.harmonia [ "htpc.home" ])
-    (staticJob "jellyfin" ports.jellyfin [ "htpc.home" ])
     (staticJob "ntfy" ports.ntfy [ "donix.wg" ])
     (
       (staticJob "nodes" ports.node-exporter [
