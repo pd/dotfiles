@@ -163,6 +163,18 @@ in
         return-type = "json";
       };
 
+      idle = {
+        format = "{icon}";
+        exec = "${pkgs.pd.waybar-pd}/bin/waybar-pd idle";
+        return-type = "json";
+        exec-on-event = false;
+        on-click = "pkill -USR1 -f 'waybar-pd idle'";
+        format-icons = {
+          inhibited = "󰛊";
+          uninhibited = "󰾫";
+        };
+      };
+
       pulseaudio =
         let
           pavucontrol = lib.getExe' pkgs.pavucontrol "pavucontrol";
@@ -278,21 +290,15 @@ in
           "clock"
         ];
 
-        inherit tray clock pulseaudio;
+        inherit
+          tray
+          idle
+          clock
+          pulseaudio
+          ;
         "river/tags" = tags;
         "custom/river-mode" = mode;
-
-        "custom/idle" = {
-          format = "{icon}";
-          exec = "${pkgs.pd.waybar-pd}/bin/waybar-pd idle";
-          return-type = "json";
-          exec-on-event = false;
-          on-click = "pkill -USR1 -f 'waybar-pd idle'";
-          format-icons = {
-            inhibited = "󰛊";
-            uninhibited = "󰾫";
-          };
-        };
+        "custom/idle" = idle;
 
         "custom/dunst" = {
           format = "{icon}";
@@ -341,6 +347,7 @@ in
         output = "DP-2";
 
         modules-left = [
+          "custom/idle"
           "tray"
           "custom/river-mode"
         ];
@@ -350,9 +357,15 @@ in
           "clock"
         ];
 
-        inherit tray clock pulseaudio;
+        inherit
+          tray
+          idle
+          clock
+          pulseaudio
+          ;
         "river/tags" = tags;
         "custom/river-mode" = mode;
+        "custom/idle" = idle;
       };
     };
 
