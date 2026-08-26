@@ -687,6 +687,9 @@ targets."
   :custom
   (ghostel-kill-buffer-on-exit nil)
   (ghostel-module-auto-install nil)
+  (ghostel-tramp-shells
+   '(("ssh" login-shell "/bin/zsh")
+     ("docker" "/bin/sh")))
   :config
   (setopt ghostel-keymap-exceptions
           (append ghostel-keymap-exceptions '("M-'"))))
@@ -696,11 +699,7 @@ targets."
   :hook (ghostel-mode . evil-ghostel-mode))
 
 (use-package pd/term
-  :ensure nil
-  :bind
-  (("M-'"   . pd/consult-term)
-   ("M-s-'" . pd/term-on)))
-
+  :ensure nil)
 
 ;; junkdrawer
 (defun pd/find-init.el ()
@@ -769,6 +768,8 @@ targets."
    ("<leader>xe" . ielm)
    ("<leader>xn" . nix-repl)
    ("<leader>xr" . inf-ruby)
+   ("<leader>xz" . pd/consult-term)
+   ("M-'"        . pd/consult-term)
 
    ;; other window plz
    ("<leader>wo" . other-window-prefix)))
