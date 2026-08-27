@@ -84,18 +84,6 @@ in
   };
 
   # term
-  programs.alacritty = {
-    enable = true;
-    settings = {
-      mouse.hide_when_typing = true;
-
-      # nas doesn't have alacritty in terminfo,
-      # not worth fighting
-      env.TERM = "xterm-256color";
-    };
-  };
-
-  # term 2
   programs.ghostty = {
     enable = true;
     package = pkgs.unstable.ghostty;
