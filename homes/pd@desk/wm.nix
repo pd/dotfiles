@@ -16,6 +16,11 @@ let
     has_output DP-2 && ${wlr-randr} --output DP-2 --mode 3840x2160 --scale 1.40625 --transform 270 --pos 0,0
     has_output DP-1 && ${wlr-randr} --output DP-1 --mode 3840x2160 --scale 1.25    --pos 1536,0
   '') "layout-outputs";
+
+  bounce-waybar = lib.getExe' (pkgs.writeShellScriptBin "bounce-waybar" ''
+    pkill -x waybar
+    riverctl spawn waybar
+  '') "bounce-waybar";
 in
 {
   home.packages = [
@@ -446,6 +451,7 @@ in
           "None Print" = "spawn '${pkgs.pd.screenshots}/bin/wl-screenshot-region'";
           "${mod} Print" = "spawn '${pkgs.pd.screenshots}/bin/wl-screenshot-output'";
 
+          "${mod} F11" = "spawn ${bounce-waybar}";
           "${mod} F12" = "spawn ${layout-outputs}";
           "${mod}+Shift+Control BackSpace" = "exit";
         }
