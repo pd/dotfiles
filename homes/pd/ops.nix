@@ -45,6 +45,8 @@ in
 
   programs.zsh = {
     initContent = ''
+      alias kg='kubectl get'
+      alias kd='kubectl describe'
       alias kapf='kubectl apply -f- --server-side --force-conflicts'
       alias kdiff='kubectl diff -f- --server-side'
     '';
