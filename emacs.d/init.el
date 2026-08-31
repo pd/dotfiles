@@ -526,6 +526,7 @@ targets."
   ;; treat Cargo.toml as a "root" so eglot launches rust-analyzer from
   ;; dotfiles/pkgs/waybar-pd instead of dotfiles root
   (project-vc-extra-root-markers '("Cargo.toml"))
+  (project-vc-merge-submodules nil)
 
   :config
   ;; https://github.com/golang/tools/blob/8d38122b0b1a9991f490aa06b7bfca7b4140bdad/gopls/doc/emacs.md#configuring-eglot
