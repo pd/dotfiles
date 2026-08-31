@@ -17,6 +17,7 @@
   ];
 
   programs.home-manager.enable = true;
+  programs.man.generateCaches = true;
 
   sops.defaultSopsFile = ./secrets.yaml;
   sops.age.keyFile =
