@@ -35,7 +35,6 @@
       # bitwarden-desktop
     ]
     ++ (with unstable; [
-      aws-workspaces
       signal-desktop
       slack
     ]);
