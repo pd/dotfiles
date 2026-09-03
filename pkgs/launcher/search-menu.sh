@@ -1,12 +1,12 @@
 searches() {
+  echo 'emacsgh '
+  echo 'home-manager '
+  echo 'melpa '
+  echo 'nixdarwin '
+  echo 'nixgh '
   echo 'nixos '
   echo 'nixpkgs '
-  echo 'home-manager '
-  echo 'nixgh '
-  echo 'nixdarwin '
-  echo 'emacsgh '
 }
-
 
 q="$(searches | fuzzel --dmenu --fuzzy-min-length=2)"
 term="$(echo "$q" | cut -d' ' -f2- | jq -Rr @uri)"
@@ -19,6 +19,7 @@ case "$q" in
   nixgh*) url="https://github.com/search?type=code&q=language%3Anix%20${term}";;
   nixdarwin*) url="https://searchix.alanpearce.eu/options/darwin/search?query=${term}";;
   emacsgh*) url="https://github.com/search?type=code&q=language%3A\"Emacs+Lisp\"++${term}";;
+  melpa*) url="https://melpa.org/#/?q=${term}";;
   *) exit 1;;
 esac
 
