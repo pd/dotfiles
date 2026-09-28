@@ -43,6 +43,11 @@
       (pd/term-at "~")
     (pd/term-at (format "/ssh:%s:." host))))
 
+(defun pd/ghostel-buffer-name (title)
+  "Name ghostel buffer after TRAMP-y default-directory on remote hosts."
+  (or (ghostel-buffer-name-by-title title)
+      (ghostel-buffer-name-by-directory title)))
+
 (defvar pd/consult-term-buffer-source
   `(:name "term"
           :hidden   nil
@@ -112,5 +117,8 @@ Narrowing:
                         pd/consult-term-dir-source
                         pd/consult-term-project-source
                         pd/consult-term-host-source))))))
+
+(with-eval-after-load 'ghostel
+  (setopt ghostel-buffer-name-function #'pd/ghostel-buffer-name))
 
 (provide 'pd/term)

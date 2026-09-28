@@ -691,6 +691,7 @@ targets."
   (ghostel-tramp-shells
    '(("ssh" login-shell "/bin/zsh")
      ("docker" "/bin/sh")))
+  (ghostel-tramp-shell-integration '(zsh))
   :config
   (setopt ghostel-keymap-exceptions
           (append ghostel-keymap-exceptions '("M-'"))))
@@ -769,6 +770,7 @@ targets."
    ("<leader>xe" . ielm)
    ("<leader>xn" . nix-repl)
    ("<leader>xr" . inf-ruby)
+   ("<leader>xs" . pd/consult-term)
    ("<leader>xz" . pd/consult-term)
    ("M-'"        . pd/consult-term)
 
