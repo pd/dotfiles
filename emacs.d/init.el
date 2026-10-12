@@ -419,6 +419,33 @@ targets."
   :after nerd-icons
   :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
 
+(use-package project
+  :ensure nil
+  :custom
+  ;; treat Cargo.toml as a "root" so eglot launches rust-analyzer from
+  ;; dotfiles/pkgs/waybar-pd instead of dotfiles root
+  (project-vc-extra-root-markers '("Cargo.toml"))
+  (project-vc-merge-submodules nil)
+
+  :config
+  ;; https://github.com/golang/tools/blob/8d38122b0b1a9991f490aa06b7bfca7b4140bdad/gopls/doc/emacs.md#configuring-eglot
+  ;; so eglot starts LSP in a reasonable spot when jumping into ~/go/pkg/... et al
+  (defun project-find-go-module (dir)
+    (when-let* ((root (locate-dominating-file dir "go.mod")))
+      (cons 'go-module root)))
+
+  (cl-defmethod project-root ((project (head go-module)))
+    (cdr project))
+
+  (add-hook 'project-find-functions #'project-find-go-module))
+
+(use-package disproject
+  :after project
+  :bind
+  (("<leader>p" . disproject-dispatch))
+  :custom
+  (disproject-shell-command #'ghostel))
+
 (use-package recentf
   :ensure nil
   :custom
@@ -519,26 +546,6 @@ targets."
       (let ((default-directory (or root default-directory)))
         (apply orig args))))
   (advice-add 'nix-repl :around #'pd/nix-repl-from-project-root))
-
-(use-package project
-  :ensure nil
-  :custom
-  ;; treat Cargo.toml as a "root" so eglot launches rust-analyzer from
-  ;; dotfiles/pkgs/waybar-pd instead of dotfiles root
-  (project-vc-extra-root-markers '("Cargo.toml"))
-  (project-vc-merge-submodules nil)
-
-  :config
-  ;; https://github.com/golang/tools/blob/8d38122b0b1a9991f490aa06b7bfca7b4140bdad/gopls/doc/emacs.md#configuring-eglot
-  ;; so eglot starts LSP in a reasonable spot when jumping into ~/go/pkg/... et al
-  (defun project-find-go-module (dir)
-    (when-let* ((root (locate-dominating-file dir "go.mod")))
-      (cons 'go-module root)))
-
-  (cl-defmethod project-root ((project (head go-module)))
-    (cdr project))
-
-  (add-hook 'project-find-functions #'project-find-go-module))
 
 (use-package rust-ts-mode
   :ensure nil
