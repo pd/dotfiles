@@ -514,7 +514,10 @@ targets."
   :custom
   (enh-ruby-preserve-indent-in-heredocs t))
 
-(use-package inf-ruby)
+(use-package inf-ruby
+  :config
+  (when (executable-find "pry")
+    (setopt inf-ruby-default-implementation "pry")))
 
 (use-package go-ts-mode
   :ensure nil
