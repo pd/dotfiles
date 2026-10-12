@@ -550,6 +550,8 @@ targets."
         (apply orig args))))
   (advice-add 'nix-repl :around #'pd/nix-repl-from-project-root))
 
+(use-package rego-mode)
+
 (use-package rust-ts-mode
   :ensure nil
   :mode "\\.rs\\'")
