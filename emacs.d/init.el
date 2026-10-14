@@ -743,6 +743,9 @@ targets."
 (use-package emacs
   :ensure nil
   :custom
+  ;; prevent find-library from showing .el, .elc etc etc files
+  (find-library-include-other-files nil)
+
   ;; https://github.com/minad/corfu/blob/4b440fb30ff2fff4291af676b59da7ab22130a45/README.org#configuration
   (tab-always-indent 'complete)
   (text-mode-ispell-word-completion nil)
