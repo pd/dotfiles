@@ -73,6 +73,11 @@
         tab-width 4
         require-final-newline t)
 
+;; except sometimes langs want tabs
+(defun pd/use-tabs ()
+  "Use as mode hook to setq-local indent-tabs-mode."
+  (setq-local indent-tabs-mode t))
+
 ;; sane env
 (setenv "EDITOR" "emacsclient")
 (use-package exec-path-from-shell
@@ -550,7 +555,8 @@ targets."
         (apply orig args))))
   (advice-add 'nix-repl :around #'pd/nix-repl-from-project-root))
 
-(use-package rego-mode)
+(use-package rego-mode
+  :hook (rego-mode . pd/use-tabs))
 
 (use-package rust-ts-mode
   :ensure nil
