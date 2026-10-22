@@ -429,6 +429,7 @@ in
           "${mod} backslash" = "spawn 'cliphist-fuzzel-img'";
 
           "${mod} R" = "enter-mode reshape";
+          "${mod} Q" = "close";
 
           "${mod}+Shift H" = "focus-view left";
           "${mod}+Shift J" = "focus-view down";
