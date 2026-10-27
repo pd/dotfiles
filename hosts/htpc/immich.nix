@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   sops.secrets."immich.env" = {
     owner = config.services.immich.user;
@@ -7,6 +7,7 @@
 
   services.immich = {
     enable = true;
+    package = pkgs.unstable.immich;
     secretsFile = config.sops.secrets."immich.env".path;
     database.createDB = true;
     mediaLocation = "/media/photos";
