@@ -29,11 +29,6 @@ terraform {
 resource "b2_bucket" "tfstate" {
   bucket_name = "pdtfstate"
   bucket_type = "allPrivate"
-
-  default_server_side_encryption {
-    algorithm = "AES256"
-    mode      = "SSE-B2"
-  }
 }
 
 resource "b2_bucket" "backups" {
@@ -41,8 +36,6 @@ resource "b2_bucket" "backups" {
 
   bucket_name = each.key
   bucket_type = "allPrivate"
-
-  # restic handles encryption, no point in using SSE
 }
 
 data "digitalocean_ssh_keys" "ssh" {
