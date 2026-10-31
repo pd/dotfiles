@@ -27,6 +27,7 @@ in
     device = "eth1";
     proto = "dhcp";
     peerdns = false;
+    sendclientid = "hardware";
   };
 
   interface.wan6 = {
@@ -36,5 +37,6 @@ in
     reqprefix = "auto";
     peerdns = false;
     delegate = true;
+    sendclientid = "hardware";
   };
 }
