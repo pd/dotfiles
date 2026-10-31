@@ -1,3 +1,9 @@
+# DO API key scopes:
+#   actions:read regions:read sizes:read vpc:read
+#   image:read snapshot:read ssh_key:read
+#   domain:{create,read,update,delete}
+#   droplet:{create,read,update,delete}
+
 terraform {
   backend "s3" {
     bucket                      = "pdtfstate"
