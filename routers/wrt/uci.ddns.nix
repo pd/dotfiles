@@ -47,11 +47,13 @@ let
     {
       enabled = true;
       service_name = "digitalocean.com-v2";
-      password._secret = "do_api_key";
       domain = "krh.me";
       username = subdomain;
       lookup_host = "${subdomain}.krh.me";
       param_opt = id;
+
+      # DO API key scopes: domain:{read, update}
+      password._secret = "do_api_key";
 
       use_ipv6 = ipv == 6;
       ip_source = if script != null then "script" else "network";
