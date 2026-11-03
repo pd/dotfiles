@@ -39,13 +39,6 @@
       slack
     ]);
 
-  # connect to orbstack nixos vm by jumping through armspan
-  programs.ssh.settings.orb = {
-    ProxyJump = "armspan";
-    HostName = "localhost";
-    Port = 32222;
-  };
-
   # desk is only linux box that isn't headless
   programs.nixvim.clipboard.providers.wl-copy.enable = true;
 }

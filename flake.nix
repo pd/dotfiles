@@ -97,14 +97,12 @@
         inputs.quadlet-nix.nixosModules.quadlet
       ];
 
-      nixosConfigurations.orb = mkNixos "orb" [ ];
       nixosConfigurations.donix = mkNixos "donix" [ ];
       nixosConfigurations.pi = mkNixos "pi" [ ];
 
       homeConfigurations."pd@desk" = mkHome "pd@desk" "x86_64-linux";
       homeConfigurations."pd@armspan" = mkHome "pd@armspan" "aarch64-darwin";
       homeConfigurations."pd@htpc" = mkHome "pd@htpc" "x86_64-linux";
-      homeConfigurations."pd@orb" = mkHome "pd@orb" "aarch64-linux";
 
       packages = forEachSystem (
         { pkgs, unstable, ... }:

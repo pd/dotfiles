@@ -61,7 +61,6 @@ in
         "donix.wg"
         "htpc.home"
         "nas.home"
-        "orb.home:19100"
         "pi.home"
       ])
       // {

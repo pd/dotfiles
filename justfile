@@ -66,10 +66,6 @@ pi op="test":
 donix op="test":
     @just _nixos_rebuild {{ op }} donix
 
-[group('hosts')]
-orb op="test":
-    @just _nixos_rebuild {{ op }} orb
-
 _nixos_rebuild op host:
     #!/usr/bin/env bash
     set -euo pipefail
