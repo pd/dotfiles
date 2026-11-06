@@ -454,6 +454,7 @@ in
 
           "${mod} F11" = "spawn ${bounce-waybar}";
           "${mod} F12" = "spawn ${layout-outputs}";
+          "${mod}+Shift+Control S" = "spawn 'systemctl suspend'";
           "${mod}+Shift+Control BackSpace" = "exit";
         }
         // (lib.zipAttrs (map tag (lib.range 1 9)));
