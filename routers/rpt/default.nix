@@ -29,12 +29,18 @@ uci.mkRouter "rpt" ./secrets.yaml {
       dhcp.lan = {
         ignore = true;
         interface = "lan";
+        dhcpv4 = "disabled";
+        dhcpv6 = "disabled";
+        ra = "disabled";
+        ndp = "disabled";
       };
 
       dhcp.lan6 = {
         ignore = true;
         interface = "lan6";
       };
+
+      odhcpd.odhcpd.maindhcp = false;
     };
 
     network = {
