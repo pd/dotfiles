@@ -1,7 +1,12 @@
-{ pkgs, stevenblack-blocklist, ... }:
+{
+  pkgs,
+  stevenblack-blocklist,
+  hagezi-lgwebos,
+  ...
+}:
 {
   dns-blocklist = pkgs.callPackage ./dns-blocklist.nix {
-    inherit stevenblack-blocklist;
+    inherit stevenblack-blocklist hagezi-lgwebos;
   };
 
   filebotd = pkgs.callPackage ./filebotd { };

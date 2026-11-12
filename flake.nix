@@ -133,7 +133,7 @@
         }
         // (import ./pkgs {
           inherit pkgs unstable;
-          inherit (inputs) stevenblack-blocklist;
+          inherit (inputs) stevenblack-blocklist hagezi-lgwebos;
         })
       );
 
@@ -256,7 +256,12 @@
     };
 
     stevenblack-blocklist = {
-      url = "github:StevenBlack/hosts";
+      url = "file+https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
+      flake = false;
+    };
+
+    hagezi-lgwebos = {
+      url = "file+https://raw.githubusercontent.com/hagezi/dns-blocklists/main/dnsmasq/native.lgwebos.txt";
       flake = false;
     };
   };

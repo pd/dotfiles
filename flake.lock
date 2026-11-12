@@ -281,6 +281,18 @@
         "type": "github"
       }
     },
+    "hagezi-lgwebos": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-kB8zBpPmoFGPgOOkNimxQrChMcedY6r9LAketqsxPoc=",
+        "type": "file",
+        "url": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/dnsmasq/native.lgwebos.txt"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/dnsmasq/native.lgwebos.txt"
+      }
+    },
     "haumea": {
       "inputs": {
         "nixpkgs": [
@@ -557,6 +569,7 @@
         "disko": "disko",
         "dmerge": "dmerge",
         "emacs-overlay": "emacs-overlay",
+        "hagezi-lgwebos": "hagezi-lgwebos",
         "home-manager": "home-manager",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
@@ -596,17 +609,13 @@
     "stevenblack-blocklist": {
       "flake": false,
       "locked": {
-        "lastModified": 1793108199,
-        "narHash": "sha256-lkaVBsovsc4Q+ABVW8uIYvCuBT4C6LQ0cxz2+bEf2O4=",
-        "owner": "StevenBlack",
-        "repo": "hosts",
-        "rev": "6bc660198469671e8871a867d30ec5ef41861356",
-        "type": "github"
+        "narHash": "sha256-DWI9Uh3vLk4qLM3JU1ZAfDsmzYfCFovutrNN7YLzhGE=",
+        "type": "file",
+        "url": "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
       },
       "original": {
-        "owner": "StevenBlack",
-        "repo": "hosts",
-        "type": "github"
+        "type": "file",
+        "url": "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
       }
     },
     "stylix": {
