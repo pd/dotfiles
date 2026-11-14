@@ -131,6 +131,33 @@ _deploy_router name op:
     *)       run ./result/bin/deploy-{{ name }} --reload;;
     esac
 
+# no args: dns + flakes; `flakes`: all inputs; `dns`: blocklist SHAs; else: named inputs
+[group('dev')]
+bump *inputs:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    case "{{ inputs }}" in
+      "")     just bump dns && just bump flakes;;
+      flakes) nix flake update;;
+      dns)    just _bump_dns;;
+      *)      nix flake update {{ inputs }};;
+    esac
+
+_bump_dns:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    pin() {
+      local repo=$1
+      local branch=$2
+      local sha
+      sha=$(git ls-remote "https://github.com/$repo" "refs/heads/$branch" | cut -f1)
+      [[ $sha =~ ^[0-9a-f]{40}$ ]] || { echo "bad sha for $repo: '$sha'" >&2; exit 1; }
+      sed -i -E "s#(raw\.githubusercontent\.com/$repo/)[0-9a-f]{40}/#\1$sha/#" flake.nix
+    }
+    pin StevenBlack/hosts master
+    pin hagezi/dns-blocklists main
+    nix flake update stevenblack-blocklist hagezi-lgwebos
+
 # basic linting
 [group('dev')]
 check:

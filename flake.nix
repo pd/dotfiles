@@ -149,6 +149,7 @@
               # core
               pkgs.direnv
               pkgs.git
+              pkgs.gnused
               pkgs.home-manager
               pkgs.just
               pkgs.nix-direnv
@@ -256,12 +257,12 @@
     };
 
     stevenblack-blocklist = {
-      url = "file+https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
+      url = "file+https://raw.githubusercontent.com/StevenBlack/hosts/35c74714ad86b36806b3f40f3c36abf8b2063cb5/hosts";
       flake = false;
     };
 
     hagezi-lgwebos = {
-      url = "file+https://raw.githubusercontent.com/hagezi/dns-blocklists/main/dnsmasq/native.lgwebos.txt";
+      url = "file+https://raw.githubusercontent.com/hagezi/dns-blocklists/c5b86b28c193e4bfbd79c36d652e626f61d143fb/dnsmasq/native.lgwebos.txt";
       flake = false;
     };
   };
