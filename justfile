@@ -164,6 +164,7 @@ check:
     fd -e nix -X nixfmt --check
     deadnix --fail
     statix check
+    (cd pkgs/waybar-pd && cargo check)
 
 # format
 [group('dev')]

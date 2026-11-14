@@ -7,7 +7,7 @@ use std::time::Duration;
 
 use serde::Deserialize;
 use zbus::blocking::Connection;
-use zbus::zvariant::{OwnedFd as ZbusFd, ObjectPath, OwnedObjectPath, Type};
+use zbus::zvariant::{ObjectPath, OwnedFd as ZbusFd, OwnedObjectPath, Type};
 
 #[derive(Deserialize, Type)]
 struct Inhibitor {
@@ -139,9 +139,10 @@ fn watch_inhibitors(tx: Sender<Event>, proxy: &LoginManagerProxy<'static>) {
 }
 
 fn watch_signals(tx: Sender<Event>) {
+    use signal_hook::{consts::SIGUSR1, iterator::Signals};
+
     thread::spawn(move || {
-        let mut signals =
-            signal_hook::iterator::Signals::new([signal_hook::consts::SIGUSR1]).unwrap();
+        let mut signals = Signals::new([SIGUSR1]).unwrap();
         for _ in signals.forever() {
             let _ = tx.send(Event::Signal);
         }
@@ -159,9 +160,7 @@ fn list_inhibitors(proxy: &LoginManagerProxy) -> Vec<(String, String)> {
     };
     inhibitors
         .into_iter()
-        .filter(|i| {
-            i.who == "waybar-pd" && i.what.split(':').any(|w| w == "idle" || w == "sleep")
-        })
+        .filter(|i| i.who == "waybar-pd" && i.what.split(':').any(|w| w == "idle" || w == "sleep"))
         .flat_map(|i| {
             i.what
                 .split(':')
@@ -212,14 +211,14 @@ pub fn monitor() -> Result<(), Box<dyn std::error::Error>> {
     let proxy = LoginManagerProxy::new(&conn)?;
 
     let mut saii = watch_audio(tx.clone())?;
+    watch_inhibitors(tx.clone(), &proxy);
+    watch_signals(tx.clone());
     watch_ssh(
         tx.clone(),
         &proxy,
         proxy.receive_session_new()?,
         proxy.receive_session_removed()?,
     );
-    watch_inhibitors(tx.clone(), &proxy);
-    watch_signals(tx.clone());
 
     let mut audio_inhibitor: Option<OwnedFd> = None;
     let mut manual_inhibitor: Option<OwnedFd> = None;
