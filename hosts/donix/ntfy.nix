@@ -12,6 +12,7 @@ in
   networking.firewall.allowedTCPPorts = [ metricsPort ];
 
   sops.secrets."ntfy-auth.env" = { };
+
   services.ntfy-sh = {
     enable = true;
     environmentFile = config.sops.secrets."ntfy-auth.env".path;
@@ -39,6 +40,16 @@ in
         "pub:*:wo"
         "sub:*:ro"
       ];
+    };
+  };
+
+  systemd.services.ntfy-sh = {
+    wants = [ "systemd-networkd-wait-online@wg0.service" ];
+    after = [ "systemd-networkd-wait-online@wg0.service" ];
+    startLimitIntervalSec = 0;
+    serviceConfig = {
+      Restart = "on-failure";
+      RestartSec = "5s";
     };
   };
 }
