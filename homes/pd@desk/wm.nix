@@ -374,6 +374,7 @@ in
     in
     {
       enable = true;
+      package = pkgs.unstable.swayidle;
       systemdTargets = [ "river-session.target" ];
       events.before-sleep = "true";
 
