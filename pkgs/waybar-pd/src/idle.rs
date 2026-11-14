@@ -104,34 +104,34 @@ fn has_remote_sessions(proxy: &LoginManagerProxy) -> bool {
     })
 }
 
-fn watch_ssh(tx: Sender<Event>) {
+fn watch_ssh(
+    tx: Sender<Event>,
+    proxy: &LoginManagerProxy<'static>,
+    new_sessions: SessionNewIterator,
+    removed_sessions: SessionRemovedIterator,
+) {
+    // fire off once in case session is open when we start
+    let _ = tx.send(Event::SSH(has_remote_sessions(proxy)));
+
     let tx_new = tx.clone();
+    let proxy_new = proxy.clone();
+    let proxy_removed = proxy.clone();
     thread::spawn(move || {
-        let conn = Connection::system().unwrap();
-        let proxy = LoginManagerProxy::new(&conn).unwrap();
-        let iter = proxy.receive_session_new().unwrap();
-        for _ in iter {
-            let active = has_remote_sessions(&proxy);
-            let _ = tx_new.send(Event::SSH(active));
+        for _ in new_sessions {
+            let _ = tx_new.send(Event::SSH(has_remote_sessions(&proxy_new)));
         }
     });
 
     thread::spawn(move || {
-        let conn = Connection::system().unwrap();
-        let proxy = LoginManagerProxy::new(&conn).unwrap();
-        let iter = proxy.receive_session_removed().unwrap();
-        for _ in iter {
-            let active = has_remote_sessions(&proxy);
-            let _ = tx.send(Event::SSH(active));
+        for _ in removed_sessions {
+            let _ = tx.send(Event::SSH(has_remote_sessions(&proxy_removed)));
         }
     });
 }
 
-fn watch_inhibitors(tx: Sender<Event>) {
+fn watch_inhibitors(tx: Sender<Event>, proxy: &LoginManagerProxy<'static>) {
+    let proxy = proxy.clone();
     thread::spawn(move || {
-        let conn = Connection::system().unwrap();
-        let proxy = LoginManagerProxy::new(&conn).unwrap();
-
         for _ in proxy.receive_block_inhibited_changed() {
             let _ = tx.send(Event::InhibitChanged);
         }
@@ -212,8 +212,13 @@ pub fn monitor() -> Result<(), Box<dyn std::error::Error>> {
     let proxy = LoginManagerProxy::new(&conn)?;
 
     let mut saii = watch_audio(tx.clone())?;
-    watch_ssh(tx.clone());
-    watch_inhibitors(tx.clone());
+    watch_ssh(
+        tx.clone(),
+        &proxy,
+        proxy.receive_session_new()?,
+        proxy.receive_session_removed()?,
+    );
+    watch_inhibitors(tx.clone(), &proxy);
     watch_signals(tx.clone());
 
     let mut audio_inhibitor: Option<OwnedFd> = None;
