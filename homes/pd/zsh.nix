@@ -32,8 +32,6 @@
   programs.direnv = {
     enable = true;
     enableZshIntegration = true;
-    mise.enable = true;
-    mise.package = pkgs.unstable.mise;
     nix-direnv.enable = true;
   };
 
