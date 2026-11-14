@@ -694,6 +694,7 @@ targets."
   :custom
   (ghostel-kill-buffer-on-exit nil)
   (ghostel-module-auto-install nil)
+  (ghostel-ssh-install-terminfo nil)
   (ghostel-tramp-shells
    '(("ssh" login-shell "/bin/zsh")
      ("docker" "/bin/sh")))
