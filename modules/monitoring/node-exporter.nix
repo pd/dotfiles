@@ -1,6 +1,13 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   textfileDir = "/run/prometheus-node-exporter/textfile";
+  bindsWg = !config.lan.enable && config.wg.enable;
+  waitWg = [ "systemd-networkd-wait-online@wg0.service" ];
 in
 {
   services.prometheus.exporters.node = {
@@ -9,7 +16,7 @@ in
     listenAddress =
       if config.lan.enable then
         "0.0.0.0"
-      else if config.wg.enable then
+      else if bindsWg then
         config.wg.ipv4
       else
         null;
@@ -20,6 +27,13 @@ in
     extraFlags = [
       "--collector.textfile.directory=${textfileDir}"
     ];
+  };
+
+  systemd.services.prometheus-node-exporter = {
+    wants = lib.mkIf bindsWg waitWg;
+    after = lib.mkIf bindsWg waitWg;
+    startLimitIntervalSec = 0;
+    serviceConfig.RestartSec = "5s";
   };
 
   systemd.services.prometheus-nixos = {
