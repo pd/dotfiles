@@ -28,6 +28,7 @@
 
   nix.linux-builder = {
     enable = true;
+    ephemeral = true;
     maxJobs = 8;
     config.virtualisation = {
       cores = 8;
