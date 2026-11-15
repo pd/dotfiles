@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pd, ... }: {
   system.stateVersion = 7;
   nixpkgs.hostPlatform.system = "aarch64-darwin";
 
@@ -10,7 +10,10 @@
 
   networking.hostName = "mini";
   system.primaryUser = "pd";
-  users.users.pd.home = /Users/pd;
+  users.users.pd = {
+    home = /Users/pd;
+    openssh.authorizedKeys.keys = pd.keys.workstations.ssh;
+  };
 
   homebrew = {
     enable = true;
@@ -33,5 +36,6 @@
         diskSize = 50 * 1024;
       };
     };
+    config.users.users.builder.openssh.authorizedKeys.keys = pd.keys.pi.root.ssh;
   };
 }
