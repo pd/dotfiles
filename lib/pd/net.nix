@@ -31,7 +31,6 @@
 #   hthub:      .102
 #   do:         .110
 #   hera:       .120
-#   aberdeen:   .130
 #
 { lib }:
 with lib;
@@ -307,13 +306,6 @@ rec {
       id = 120;
       macs.eth = "00:11:32:41:42:23";
       ssh = false;
-    };
-
-    aberdeen = {
-      id = 130;
-      duid = "0001000131f642811cf64c5741e8";
-      macs.eth = "1c:f6:4c:57:41:e8";
-      ssh.port = 22;
     };
   };
 }
