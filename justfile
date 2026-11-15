@@ -30,6 +30,8 @@ repl host:
     #!/usr/bin/env bash
     if [[ "{{ host }}" == "armspan" ]]; then
       nix repl 'path:.#darwinConfigurations.armspan'
+    elif [[ "{{ host }}" == "mini" ]]; then
+      nix repl 'path:.#darwinConfigurations.mini'
     elif [[ "{{ host }}" == "hm" ]]; then
       just hm repl
     else
@@ -91,10 +93,14 @@ _nixos_rebuild op host:
       nixos-rebuild {{ op }} --flake 'path:.#{{ host }}' --target-host {{ host }} --build-host {{ host }} --sudo --no-reexec
     fi
 
-# can only really be run on armspan
+# can only really be run on the darwin boxes themselves
 [group('hosts')]
 armspan op="switch":
     @just _darwin_rebuild {{ op }} armspan
+
+[group('hosts')]
+mini op="switch":
+    @just _darwin_rebuild {{ op }} mini
 
 _darwin_rebuild op host:
     #!/usr/bin/env bash
