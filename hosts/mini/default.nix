@@ -1,4 +1,4 @@
-{
+{ pkgs, ... }: {
   system.stateVersion = 7;
   nixpkgs.hostPlatform.system = "aarch64-darwin";
 
@@ -21,5 +21,17 @@
       "firefox"
       "ghostty"
     ];
+  };
+
+  nix.linux-builder = {
+    enable = true;
+    maxJobs = 8;
+    config.virtualisation = {
+      cores = 8;
+      darwin-builder = {
+        memorySize = 8 * 1024;
+        diskSize = 50 * 1024;
+      };
+    };
   };
 }
