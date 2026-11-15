@@ -12,7 +12,7 @@
 #   air:        .14
 #   win:        .15
 #   armspan:    .16
-#   adra:       .20
+#   mini:       .20
 #
 # mobile:
 #   pd:         .50
@@ -231,7 +231,7 @@ rec {
       wg.publicKey = "6dbFtf4/jeF7/H4UDEnxkFbTSmsaXs43msfJ6YcydTk=";
     };
 
-    adra = {
+    mini = {
       id = 20;
       duid = "000100013169d35a1cf64c5afab2";
       macs.eth = "1c:f6:4c:5a:fa:b2";

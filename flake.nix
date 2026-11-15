@@ -35,6 +35,7 @@
           modules = [
             inputs.sops-nix.darwinModules.sops
             inputs.nix-homebrew.darwinModules.nix-homebrew
+            inputs.nix-index-database.darwinModules.nix-index
             ./modules/core/darwin
             ./hosts/${host}
           ]
@@ -88,21 +89,24 @@
         ./modules/fonts
       ];
 
-      darwinConfigurations.armspan = mkDarwin "armspan" [
-        inputs.nix-index-database.darwinModules.nix-index
-        ./modules/fonts
-      ];
-
       nixosConfigurations.htpc = mkNixos "htpc" [
         inputs.quadlet-nix.nixosModules.quadlet
       ];
+
+      darwinConfigurations.armspan = mkDarwin "armspan" [
+        ./modules/fonts
+      ];
+
+      darwinConfigurations.mini = mkDarwin "mini" [ ];
 
       nixosConfigurations.donix = mkNixos "donix" [ ];
       nixosConfigurations.pi = mkNixos "pi" [ ];
 
       homeConfigurations."pd@desk" = mkHome "pd@desk" "x86_64-linux";
-      homeConfigurations."pd@armspan" = mkHome "pd@armspan" "aarch64-darwin";
       homeConfigurations."pd@htpc" = mkHome "pd@htpc" "x86_64-linux";
+
+      homeConfigurations."pd@armspan" = mkHome "pd@armspan" "aarch64-darwin";
+      homeConfigurations."pd@mini" = mkHome "pd@mini" "aarch64-darwin";
 
       packages = forEachSystem (
         { pkgs, unstable, ... }:
