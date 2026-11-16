@@ -2,12 +2,6 @@
   system.stateVersion = 7;
   nixpkgs.hostPlatform.system = "aarch64-darwin";
 
-  imports = [
-    # ./system.nix
-    # ./network.nix
-    # ./homebrew.nix
-  ];
-
   networking.hostName = "mini";
   system.primaryUser = "pd";
   users.users.pd = {
@@ -39,4 +33,7 @@
     };
     config.users.users.builder.openssh.authorizedKeys.keys = pd.keys.pi.root.ssh;
   };
+
+  power.sleep.computer = "never";
+  power.restartAfterPowerFailure = true;
 }
