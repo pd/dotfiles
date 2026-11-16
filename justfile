@@ -93,7 +93,6 @@ _nixos_rebuild op host:
       nixos-rebuild {{ op }} --flake 'path:.#{{ host }}' --target-host {{ host }} --build-host {{ host }} --sudo --no-reexec
     fi
 
-# can only really be run on the darwin boxes themselves
 [group('hosts')]
 armspan op="switch":
     @just _darwin_rebuild {{ op }} armspan
@@ -105,12 +104,24 @@ mini op="switch":
 _darwin_rebuild op host:
     #!/usr/bin/env bash
     set -euo pipefail
-    if [[ "{{ op }}" == "diff" ]]; then
-      just build {{ host }}
-      nvd diff /run/current-system ./result
-    else
-      sudo darwin-rebuild {{ op }} --flake 'path:.#{{ host }}'
+    if [[ "{{ host }}" == "$(hostname -s)" ]]; then
+      if [[ "{{ op }}" == "diff" ]]; then
+        just build {{ host }}
+        nvd diff /run/current-system ./result
+      else
+        sudo darwin-rebuild {{ op }} --flake 'path:.#{{ host }}'
+      fi
+      exit
     fi
+
+    out=$(nix build --no-link --print-out-paths --eval-store auto --store "ssh-ng://{{ host }}" 'path:.#darwinConfigurations.{{ host }}.system')
+    case "{{ op }}" in
+      build) echo "$out" ;;
+      diff) ssh "{{ host }}" nix run nixpkgs#nvd diff /run/current-system "$out" ;;
+      switch) ssh -t "{{ host }}" "sudo nix-env -p /nix/var/nix/profiles/system --set $out && sudo $out/activate" ;;
+      activate) ssh -t "{{ host }}" "sudo $out/activate" ;;
+      *) echo "unsupported remote op: {{ op }}" >&2; exit 1 ;;
+    esac
 
 [group('routers')]
 routers:
