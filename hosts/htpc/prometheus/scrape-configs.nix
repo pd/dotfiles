@@ -60,6 +60,7 @@ in
         "desk.home"
         "donix.wg"
         "htpc.home"
+        "mini.home"
         "nas.home"
         "pi.home"
       ])

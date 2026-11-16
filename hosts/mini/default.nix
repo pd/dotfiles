@@ -34,6 +34,13 @@
     config.users.users.builder.openssh.authorizedKeys.keys = pd.keys.pi.root.ssh;
   };
 
+  services.prometheus.exporters.node = {
+    enable = true;
+    # https://github.com/prometheus/node_exporter/issues/2906
+    # https://github.com/prometheus/node_exporter/pull/3767
+    disabledCollectors = [ "thermal" ];
+  };
+
   power.sleep.computer = "never";
   power.restartAfterPowerFailure = true;
 }
