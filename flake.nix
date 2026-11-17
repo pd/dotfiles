@@ -21,7 +21,6 @@
         lib.nixosSystem {
           inherit specialArgs;
           modules = [
-            inputs.sops-nix.nixosModules.sops
             inputs.agenix.nixosModules.default
             ./modules/core/nixos
             ./hosts/${host}
@@ -34,7 +33,6 @@
         inputs.nix-darwin.lib.darwinSystem {
           inherit specialArgs;
           modules = [
-            inputs.sops-nix.darwinModules.sops
             inputs.agenix.darwinModules.default
             inputs.nix-homebrew.darwinModules.nix-homebrew
             inputs.nix-index-database.darwinModules.nix-index
@@ -54,7 +52,6 @@
             hostname = lib.last (lib.splitString "@" userAtHost);
           };
           modules = [
-            inputs.sops-nix.homeManagerModules.sops
             inputs.agenix.homeManagerModules.default
             inputs.stylix.homeModules.stylix
             inputs.nixvim.homeModules.nixvim
@@ -165,7 +162,6 @@
 
               # secrets
               inputs.agenix.packages.${system}.agenix
-              pkgs.sops
 
               # dev
               pkgs.go
@@ -249,11 +245,6 @@
 
     agenix = {
       url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

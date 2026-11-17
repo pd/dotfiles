@@ -50,7 +50,6 @@
       nil
       nixfmt
       postgresql
-      sops
       usage
     ]);
 

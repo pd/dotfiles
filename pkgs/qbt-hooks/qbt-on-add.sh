@@ -2,7 +2,7 @@ HASH="${1:-}"
 TRACKER="${2:-}"
 CURRENT_CAT="${3:-}"
 QBT_API="http://torrent.home/api/v2"
-CATEGORIES="${QBT_CATEGORIES:-/run/secrets/qbt-categories}"
+CATEGORIES="${QBT_CATEGORIES:-/run/agenix/qbt-categories}"
 
 case "$CURRENT_CAT" in
   ptparchive|opsbetter) exit 0 ;;
