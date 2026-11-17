@@ -197,8 +197,4 @@ fix:
 
 [group('dev')]
 rekey:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    for f in .envrc.sops.yaml {homes,hosts,routers}/*/secrets.yaml; do
-      sops updatekeys -y "$f"
-    done
+    agenix --rekey

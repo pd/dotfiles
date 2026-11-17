@@ -13,7 +13,7 @@ in
     "${inputs.private}/archival"
   ];
 
-  sops.secrets.filebot-license = {
+  age.secrets.filebot-license = {
     path = "${user.home}/.local/share/filebot/data/.license";
     owner = user.name;
     inherit (user) group;
@@ -55,10 +55,12 @@ in
     ];
   };
 
-  sops.secrets."qbt-categories" = {
+  age.secrets."qbt-categories" = {
     owner = config.users.users.qbittorrent.name;
     group = config.users.users.qbittorrent.group;
   };
+  systemd.services.qbittorrent.environment.QBT_CATEGORIES =
+    config.age.secrets."qbt-categories".path;
 
   services.qbittorrent = {
     enable = true;
@@ -144,7 +146,7 @@ in
     unitConfig.RequiresMountsFor = "/mnt/qbittorrent";
   };
 
-  sops.secrets."qbittorrent-exporter.env" = { };
+  age.secrets."qbittorrent-exporter.env" = { };
   networking.firewall.allowedTCPPorts = [ 8090 ];
   systemd.services.qbittorrent-exporter = {
     enable = true;
@@ -155,7 +157,7 @@ in
       Type = "exec";
       Restart = "on-failure";
       DynamicUser = true;
-      EnvironmentFile = config.sops.secrets."qbittorrent-exporter.env".path;
+      EnvironmentFile = config.age.secrets."qbittorrent-exporter.env".path;
       ExecStart = "${pkgs.prometheus-qbittorrent-exporter}/bin/qbit-exp -e";
     };
     environment = {
@@ -165,7 +167,7 @@ in
     };
   };
 
-  sops.secrets."filebotd.env" = { };
+  age.secrets."filebotd.env" = { };
   systemd.services.filebotd = {
     enable = true;
     description = "filebotd";
@@ -181,7 +183,7 @@ in
       Type = "exec";
       User = user.name;
       ExecStart = "${pkgs.pd.filebotd}/bin/filebotd";
-      EnvironmentFile = config.sops.secrets."filebotd.env".path;
+      EnvironmentFile = config.age.secrets."filebotd.env".path;
     };
   };
 

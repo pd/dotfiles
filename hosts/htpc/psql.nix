@@ -5,7 +5,7 @@
   ...
 }:
 {
-  sops.secrets."psql-init.sql" = {
+  age.secrets."psql-init.sql" = {
     owner = "postgres";
   };
 
@@ -24,6 +24,6 @@
   };
 
   systemd.services.postgresql.postStart = lib.mkAfter ''
-    psql < ${config.sops.secrets."psql-init.sql".path}
+    psql < ${config.age.secrets."psql-init.sql".path}
   '';
 }

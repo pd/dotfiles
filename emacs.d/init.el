@@ -571,6 +571,19 @@ targets."
   :config
   (global-sops-mode +1))
 
+;; wip moving to agenix
+(use-package agenix
+  :demand t
+  :config
+  ; agenix.el has secrets.nix hardcoded still
+  (defun pd/agenix-rules-dir (pathname)
+    (locate-dominating-file pathname "agenix-rules.nix"))
+  (advice-add 'agenix-secrets-base-dir :override #'pd/agenix-rules-dir)
+  (advice-add 'agenix-locate-secrets-nix :override
+              (lambda (pathname)
+                (when-let* ((dir (pd/agenix-rules-dir pathname)))
+                  (expand-file-name "agenix-rules.nix" dir)))))
+
 (use-package terraform-mode
   :custom
   (terraform-format-on-save nil)

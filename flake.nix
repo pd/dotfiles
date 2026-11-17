@@ -21,7 +21,7 @@
         lib.nixosSystem {
           inherit specialArgs;
           modules = [
-            inputs.sops-nix.nixosModules.sops
+            inputs.agenix.nixosModules.default
             ./modules/core/nixos
             ./hosts/${host}
           ]
@@ -33,7 +33,7 @@
         inputs.nix-darwin.lib.darwinSystem {
           inherit specialArgs;
           modules = [
-            inputs.sops-nix.darwinModules.sops
+            inputs.agenix.darwinModules.default
             inputs.nix-homebrew.darwinModules.nix-homebrew
             inputs.nix-index-database.darwinModules.nix-index
             ./modules/core/darwin
@@ -52,7 +52,7 @@
             hostname = lib.last (lib.splitString "@" userAtHost);
           };
           modules = [
-            inputs.sops-nix.homeManagerModules.sops
+            inputs.agenix.homeManagerModules.default
             inputs.stylix.homeModules.stylix
             inputs.nixvim.homeModules.nixvim
             ./modules/core/nixpkgs.nix
@@ -143,6 +143,7 @@
 
       devShells = forEachSystem (
         {
+          system,
           pkgs,
           unstable,
           ...
@@ -158,7 +159,9 @@
               pkgs.just
               pkgs.nix-direnv
               pkgs.opentofu
-              pkgs.sops
+
+              # secrets
+              inputs.agenix.packages.${system}.agenix
 
               # dev
               pkgs.go
@@ -240,8 +243,8 @@
       url = "github:SEIAROTg/quadlet-nix";
     };
 
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
+    agenix = {
+      url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

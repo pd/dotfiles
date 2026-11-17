@@ -19,13 +19,6 @@
   programs.home-manager.enable = true;
   programs.man.generateCaches = true;
 
-  sops.defaultSopsFile = ./secrets.yaml;
-  sops.age.keyFile =
-    if pkgs.stdenv.hostPlatform.isLinux then
-      "${config.home.homeDirectory}/.config/sops/age/keys.txt"
-    else
-      "${config.home.homeDirectory}/Library/Application Support/sops/age/keys.txt";
-
   news = {
     display = "silent";
     entries = lib.mkForce [ ];
@@ -57,7 +50,6 @@
       nil
       nixfmt
       postgresql
-      sops
       usage
     ]);
 

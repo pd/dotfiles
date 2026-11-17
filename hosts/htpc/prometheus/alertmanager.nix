@@ -27,7 +27,7 @@ in
     };
   };
 
-  sops.secrets.alertmanager-ntfy = { };
+  age.secrets.alertmanager-ntfy = { };
   services.prometheus.alertmanager-ntfy = {
     enable = true;
     settings = {
@@ -42,6 +42,6 @@ in
         };
       };
     };
-    extraConfigFiles = [ config.sops.secrets.alertmanager-ntfy.path ];
+    extraConfigFiles = [ config.age.secrets.alertmanager-ntfy.path ];
   };
 }

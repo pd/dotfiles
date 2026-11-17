@@ -81,9 +81,12 @@ with lib;
       deploy = {
         host = "${hostname}.home";
         sshConfig.Port = 1222;
+        sshConfig.HostKeyAlias = hostname;
       };
 
-      sopsSecrets = secrets;
+      secretsCommand = pkgs.writeShellScript "${hostname}-secrets" ''
+        exec ${pkgs.age}/bin/age -d -i "$HOME/.ssh/id_ed25519" ${secrets}
+      '';
       users.root.hashedPasswordSecret = "root_password";
       etc."dropbear/authorized_keys".text = concatStringsSep "\n" authorized-keys;
 

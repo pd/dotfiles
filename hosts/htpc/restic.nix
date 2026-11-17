@@ -4,15 +4,15 @@
   ...
 }:
 {
-  sops.secrets."restic.env" = { };
-  sops.secrets."restic-password" = { };
+  age.secrets."restic.env" = { };
+  age.secrets."restic-password" = { };
 
   services.restic.backups = {
     immich = {
       initialize = true;
       repository = "s3:s3.us-east-005.backblazeb2.com/pdbkupimg";
-      environmentFile = config.sops.secrets."restic.env".path;
-      passwordFile = config.sops.secrets."restic-password".path;
+      environmentFile = config.age.secrets."restic.env".path;
+      passwordFile = config.age.secrets."restic-password".path;
 
       paths = [
         "/media/photos"

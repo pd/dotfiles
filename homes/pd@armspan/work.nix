@@ -54,4 +54,12 @@
       ]
     ))
   ];
+
+  ssh.knownHosts.aberdeen = {
+    hostNames = [
+      "aberdeen"
+      "aberdeen.taild4866.ts.net"
+    ];
+    publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEhKyD+IAhImGMX0WwQIQIaMsnvMIiqP43eBLiVjzdTg";
+  };
 }

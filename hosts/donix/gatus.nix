@@ -11,11 +11,11 @@ let
   ];
 in
 {
-  sops.secrets."gatus.env" = { };
+  age.secrets."gatus.env" = { };
   services.gatus = {
     enable = true;
     package = pkgs.unstable.gatus;
-    environmentFile = config.sops.secrets."gatus.env".path;
+    environmentFile = config.age.secrets."gatus.env".path;
 
     settings = {
       web.port = 8989;

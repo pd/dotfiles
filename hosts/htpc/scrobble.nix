@@ -4,9 +4,9 @@ let
   storage.multiscrobbler = "/var/lib/multiscrobbler";
 in
 {
-  sops.secrets."koito.env" = { };
-  sops.secrets."multiscrobbler.env" = { };
-  sops.secrets."npd.env" = { };
+  age.secrets."koito.env" = { };
+  age.secrets."multiscrobbler.env" = { };
+  age.secrets."npd.env" = { };
 
   systemd.tmpfiles.settings."10-scrobble" = {
     "${storage.koito}".d = {
@@ -35,7 +35,7 @@ in
       Restart = "on-failure";
       User = config.users.users.pd.name;
       ExecStart = "${pkgs.pd.npd}/bin/npd";
-      EnvironmentFile = config.sops.secrets."npd.env".path;
+      EnvironmentFile = config.age.secrets."npd.env".path;
     };
   };
 
@@ -46,7 +46,7 @@ in
     koito.containerConfig = {
       image = "docker.io/gabehf/koito:v0.0.13@sha256:456beeeaa3485a52ce7073013e1479036da6a50ee49d07e9703815f194401dc8";
       networks = [ "host" ];
-      environmentFiles = [ config.sops.secrets."koito.env".path ];
+      environmentFiles = [ config.age.secrets."koito.env".path ];
       environments = {
         KOITO_ALLOWED_HOSTS = "*";
         KOITO_BIND_ADDR = "127.0.0.1";
@@ -70,7 +70,7 @@ in
         "${storage.multiscrobbler}:/config"
       ];
       environments.TZ = "America/Chicago";
-      environmentFiles = [ config.sops.secrets."multiscrobbler.env".path ];
+      environmentFiles = [ config.age.secrets."multiscrobbler.env".path ];
     };
   };
 }

@@ -27,6 +27,7 @@ in
       kustomize-sops
       opentofu
       s5cmd
+      unstable.sops
       ssm-session-manager-plugin
       stern
     ]

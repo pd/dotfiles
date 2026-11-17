@@ -68,7 +68,7 @@ in
     })
 
     (mkIf (cfg.enable && cfg.wifi.interface != null) {
-      sops.secrets.wifi = {
+      age.secrets.wifi = {
         mode = "0440";
         owner = "root";
         group = "wheel";
