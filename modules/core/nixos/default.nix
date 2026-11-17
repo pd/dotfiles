@@ -7,6 +7,7 @@
 {
   imports = [
     ../.
+    ./agenix.nix
     ../../network
     ../../monitoring
   ];

@@ -5,7 +5,7 @@
   uci,
   ...
 }:
-uci.mkRouter "wrt" ./secrets.yaml {
+uci.mkRouter "wrt" ./secrets.json.age {
   uci.retain = [
     "luci"
     "rpcd"

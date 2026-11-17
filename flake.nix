@@ -22,6 +22,7 @@
           inherit specialArgs;
           modules = [
             inputs.sops-nix.nixosModules.sops
+            inputs.agenix.nixosModules.default
             ./modules/core/nixos
             ./hosts/${host}
           ]
@@ -54,6 +55,7 @@
           };
           modules = [
             inputs.sops-nix.homeManagerModules.sops
+            inputs.agenix.homeManagerModules.default
             inputs.stylix.homeModules.stylix
             inputs.nixvim.homeModules.nixvim
             ./modules/core/nixpkgs.nix
@@ -144,6 +146,7 @@
 
       devShells = forEachSystem (
         {
+          system,
           pkgs,
           unstable,
           ...
@@ -159,6 +162,9 @@
               pkgs.just
               pkgs.nix-direnv
               pkgs.opentofu
+
+              # secrets
+              inputs.agenix.packages.${system}.agenix
               pkgs.sops
 
               # dev

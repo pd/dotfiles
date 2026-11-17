@@ -46,12 +46,12 @@ in
 
     privateKeyFile = mkOption {
       type = types.str;
-      default = config.sops.secrets.wireguard-private-key.path;
+      default = config.age.secrets.wireguard-private-key.path;
     };
 
     presharedKeyFile = mkOption {
       type = types.str;
-      default = config.sops.secrets.wireguard-preshared-key.path;
+      default = config.age.secrets.wireguard-preshared-key.path;
     };
 
     natInterface = mkOption {
@@ -72,7 +72,7 @@ in
 
   config = mkMerge [
     (mkIf cfg.enable {
-      sops.secrets.wireguard-private-key = {
+      age.secrets.wireguard-private-key = {
         mode = "0440";
         owner = config.users.users.root.name;
         group = "systemd-network";
@@ -90,7 +90,7 @@ in
           };
 
           wireguardConfig = {
-            PrivateKeyFile = config.sops.secrets.wireguard-private-key.path;
+            PrivateKeyFile = config.age.secrets.wireguard-private-key.path;
           };
         };
 
@@ -106,7 +106,7 @@ in
     })
 
     (mkIf (cfg.enable && !isServer) {
-      sops.secrets.wireguard-preshared-key = {
+      age.secrets.wireguard-preshared-key = {
         mode = "0440";
         owner = config.users.users.root.name;
         group = "systemd-network";
@@ -117,7 +117,7 @@ in
           {
             Endpoint = if cfg.offLan then "wg.krh.me:51930" else cfg.endpoint;
             PublicKey = cfg.serverPublicKey;
-            PresharedKeyFile = config.sops.secrets.wireguard-preshared-key.path;
+            PresharedKeyFile = config.age.secrets.wireguard-preshared-key.path;
             AllowedIPs = [
               cfg.cidr
               cfg.cidr6
@@ -170,7 +170,7 @@ in
             "${peer.wg.ipv6}/128"
           ];
           PublicKey = peer.wg.publicKey;
-          PresharedKeyFile = config.sops.secrets."wireguard-preshared-key-${name}".path;
+          PresharedKeyFile = config.age.secrets."wireguard-preshared-key-${name}".path;
         }) clients;
 
         peerSection = peer: ''
@@ -185,7 +185,7 @@ in
         wgPeerNames = pkgs.writeText "wg-peer-names" conf;
       in
       {
-        sops.secrets = psk-secrets;
+        age.secrets = psk-secrets;
 
         boot.kernel.sysctl = {
           "net.ipv4.conf.all.forwarding" = 1;

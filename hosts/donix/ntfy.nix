@@ -11,11 +11,11 @@ in
 {
   networking.firewall.allowedTCPPorts = [ metricsPort ];
 
-  sops.secrets."ntfy-auth.env" = { };
+  age.secrets."ntfy-auth.env" = { };
 
   services.ntfy-sh = {
     enable = true;
-    environmentFile = config.sops.secrets."ntfy-auth.env".path;
+    environmentFile = config.age.secrets."ntfy-auth.env".path;
     settings = {
       base-url = "https://ntfy.krh.me";
       listen-http = "localhost:${toString port}";

@@ -5,11 +5,11 @@
     pd.xtor
   ];
 
-  sops.secrets.PTPIMG_API_KEY = { };
-  sops.secrets.OPS_ANNOUNCE_URL = { };
+  age.secrets.PTPIMG_API_KEY.file = ./secrets/PTPIMG_API_KEY.age;
+  age.secrets.OPS_ANNOUNCE_URL.file = ./secrets/OPS_ANNOUNCE_URL.age;
 
   programs.zsh.envExtra = ''
-    export PTPIMG_API_KEY="$(cat ${config.sops.secrets.PTPIMG_API_KEY.path})"
-    export OPS_ANNOUNCE_URL="$(cat ${config.sops.secrets.OPS_ANNOUNCE_URL.path})"
+    export PTPIMG_API_KEY="$(cat ${config.age.secrets.PTPIMG_API_KEY.path})"
+    export OPS_ANNOUNCE_URL="$(cat ${config.age.secrets.OPS_ANNOUNCE_URL.path})"
   '';
 }

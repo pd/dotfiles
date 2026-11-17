@@ -50,8 +50,8 @@
 
   # desktop ends up occasionally wanting a password for
   # screenlocks, polkit agent, etc.
-  sops.secrets.desktop-password.neededForUsers = true;
-  users.users.pd.hashedPasswordFile = config.sops.secrets.desktop-password.path;
+  age.secrets.desktop-password = { };
+  users.users.pd.hashedPasswordFile = config.age.secrets.desktop-password.path;
 
   # Installed at the system level for setcap + wireshark group
   programs.wireshark.enable = true;

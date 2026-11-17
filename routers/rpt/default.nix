@@ -6,7 +6,7 @@
 let
   inherit (pd.net) lan hosts;
 in
-uci.mkRouter "rpt" ./secrets.yaml {
+uci.mkRouter "rpt" ./secrets.json.age {
   uci.retain = [
     "luci"
     "rpcd"

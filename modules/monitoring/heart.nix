@@ -18,7 +18,7 @@ in
   options.monitoring.heartbeat = mkEnableOption "send heartbeat to gatus";
 
   config = mkIf cfg.heartbeat {
-    sops.secrets."gatus-heartbeat.env" = { };
+    age.secrets."gatus-heartbeat.env" = { };
 
     systemd.services.heartbeat = {
       description = "Send heartbeat to gatus";
@@ -26,7 +26,7 @@ in
       after = [ "network-online.target" ];
       serviceConfig = {
         Type = "oneshot";
-        EnvironmentFile = config.sops.secrets."gatus-heartbeat.env".path;
+        EnvironmentFile = config.age.secrets."gatus-heartbeat.env".path;
         ExecStart = "${beat}/bin/heartbeat";
       };
     };
