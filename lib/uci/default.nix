@@ -81,6 +81,7 @@ with lib;
       deploy = {
         host = "${hostname}.home";
         sshConfig.Port = 1222;
+        sshConfig.HostKeyAlias = hostname;
       };
 
       sopsSecrets = secrets;
