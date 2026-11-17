@@ -34,6 +34,7 @@
           inherit specialArgs;
           modules = [
             inputs.sops-nix.darwinModules.sops
+            inputs.agenix.darwinModules.default
             inputs.nix-homebrew.darwinModules.nix-homebrew
             inputs.nix-index-database.darwinModules.nix-index
             ./modules/core/darwin
@@ -238,6 +239,11 @@
 
     quadlet-nix = {
       url = "github:SEIAROTg/quadlet-nix";
+    };
+
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     sops-nix = {
