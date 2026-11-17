@@ -7,6 +7,12 @@ use_sops() {
   watch_file "$path"
 }
 
+use_age() {
+  local path="${1:-$PWD/.envrc.age}"
+  eval "$(age -d -i "$HOME/.ssh/id_ed25519" "$path" | direnv dotenv bash /dev/stdin)"
+  watch_file "$path"
+}
+
 # https://github.com/direnv/direnv/wiki/Python/16d17bc6690f6842e72c03a43daf8c0eb662ef59#uv
 layout_uv() {
   if [[ -d ".venv" ]]; then
