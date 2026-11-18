@@ -59,8 +59,7 @@ in
     owner = config.users.users.qbittorrent.name;
     group = config.users.users.qbittorrent.group;
   };
-  systemd.services.qbittorrent.environment.QBT_CATEGORIES =
-    config.age.secrets."qbt-categories".path;
+  systemd.services.qbittorrent.environment.QBT_CATEGORIES = config.age.secrets."qbt-categories".path;
 
   services.qbittorrent = {
     enable = true;

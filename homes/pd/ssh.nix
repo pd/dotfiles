@@ -46,12 +46,14 @@ in
   };
 
   config = {
-    ssh.knownHosts = lib.mapAttrs (_: keys: { publicKey = keys.host; }) (lib.filterAttrs hasHostKey pd.keys) // {
-      github = {
-        hostNames = [ "github.com" ];
-        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
+    ssh.knownHosts =
+      lib.mapAttrs (_: keys: { publicKey = keys.host; }) (lib.filterAttrs hasHostKey pd.keys)
+      // {
+        github = {
+          hostNames = [ "github.com" ];
+          publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
+        };
       };
-    };
 
     home.file.".ssh/known_hosts.d/home".text = lib.concatStrings (
       lib.mapAttrsToList toKnownHost config.ssh.knownHosts
