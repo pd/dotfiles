@@ -99,7 +99,6 @@ Narrowing:
 * `p': projects
 * `h': hosts"
   (interactive "P")
-  (require 'consult)
   (let* ((terms (pd/term-buffers))
          (in-term (pd/buffer-term-p (current-buffer)))
          (n (length terms)))
@@ -113,10 +112,23 @@ Narrowing:
         (ghostel t)))                    ;; else open a new one.
 
      (t ;; otherwise just let consult filter it
-      (consult--multi '(pd/consult-term-buffer-source
-                        pd/consult-term-dir-source
-                        pd/consult-term-project-source
-                        pd/consult-term-host-source))))))
+      (pd/consult-term--multi)))))
+
+(defun pd/consult-term--multi (&optional narrow)
+  (require 'consult)
+  (consult--multi '(pd/consult-term-buffer-source
+                    pd/consult-term-dir-source
+                    pd/consult-term-project-source
+                    pd/consult-term-host-source)
+                  :initial-narrow narrow))
+
+(defun pd/consult-term-project ()
+  (interactive)
+  (pd/consult-term--multi ?p))
+
+(defun pd/consult-term-host ()
+  (interactive)
+  (pd/consult-term--multi ?h))
 
 (with-eval-after-load 'ghostel
   (setopt ghostel-buffer-name-function #'pd/ghostel-buffer-name))

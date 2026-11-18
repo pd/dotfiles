@@ -795,7 +795,10 @@ targets."
    ("<leader>xr" . inf-ruby)
    ("<leader>xs" . pd/consult-term)
    ("<leader>xz" . pd/consult-term)
+
    ("M-'"        . pd/consult-term)
+   ("M-\""       . pd/consult-term-project)
+   ("C-M-\""     . pd/consult-term-host)
 
    ;; other window plz
    ("<leader>wo" . other-window-prefix)))
