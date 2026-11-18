@@ -18,7 +18,7 @@ let
   '') "layout-outputs";
 
   bounce-waybar = lib.getExe' (pkgs.writeShellScriptBin "bounce-waybar" ''
-    pkill -x waybar
+    pkill waybar
     riverctl spawn waybar
   '') "bounce-waybar";
 in
