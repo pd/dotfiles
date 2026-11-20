@@ -22,6 +22,7 @@ in
       kfilt
       unstable.kind
       unstable.kubectl
+      kubectx
       kubernetes-helm
       kustomize
       kustomize-sops
@@ -50,6 +51,8 @@ in
       alias kd='kubectl describe'
       alias kapf='kubectl apply -f- --server-side --force-conflicts'
       alias kdiff='kubectl diff -f- --server-side'
+
+      alias ctx=kubectx
     '';
 
     # awscli zsh completion doesn't autoload as expected, dunno why
