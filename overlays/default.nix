@@ -16,7 +16,7 @@
     pd = import ../pkgs {
       pkgs = final;
       inherit (final) unstable;
-      inherit (inputs) stevenblack-blocklist hagezi-lgwebos;
+      inherit (inputs) stevenblack-blocklist hagezi-lgwebos hagezi-pro-plus;
     };
   };
 }

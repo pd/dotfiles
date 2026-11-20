@@ -173,7 +173,7 @@ _bump_dns:
     }
     pin StevenBlack/hosts master
     pin hagezi/dns-blocklists main
-    nix flake update stevenblack-blocklist hagezi-lgwebos
+    nix flake update stevenblack-blocklist hagezi-lgwebos hagezi-pro-plus
 
 # basic linting
 [group('dev')]

@@ -2,6 +2,7 @@
   pkgs,
   stevenblack-blocklist,
   hagezi-lgwebos,
+  hagezi-pro-plus,
 }:
 # performing the relevant bits of: https://github.com/ScriptTiger/Hosts-BL
 pkgs.runCommand "dns-blocklist" { } ''
@@ -15,4 +16,5 @@ pkgs.runCommand "dns-blocklist" { } ''
 
   # dnsmasq conf syntax
   cp ${hagezi-lgwebos} $out/lgwebos.conf
+  cp ${hagezi-pro-plus} $out/pro.plus.conf
 ''

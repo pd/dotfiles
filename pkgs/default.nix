@@ -2,11 +2,12 @@
   pkgs,
   stevenblack-blocklist,
   hagezi-lgwebos,
+  hagezi-pro-plus,
   ...
 }:
 {
   dns-blocklist = pkgs.callPackage ./dns-blocklist.nix {
-    inherit stevenblack-blocklist hagezi-lgwebos;
+    inherit stevenblack-blocklist hagezi-lgwebos hagezi-pro-plus;
   };
 
   filebotd = pkgs.callPackage ./filebotd { };

@@ -117,7 +117,10 @@ in
       no-hosts = true;
       expand-hosts = false;
       addn-hosts = [ "${pkgs.pd.dns-blocklist}/dns-blocklist" ];
-      conf-file = [ "${pkgs.pd.dns-blocklist}/lgwebos.conf" ];
+      conf-file = [
+        "${pkgs.pd.dns-blocklist}/lgwebos.conf"
+        "${pkgs.pd.dns-blocklist}/pro.plus.conf"
+      ];
     };
   };
 

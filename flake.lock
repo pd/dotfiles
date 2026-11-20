@@ -306,11 +306,23 @@
       "locked": {
         "narHash": "sha256-t6MvRrB4wrI7l5T0MKNzRWE86lBofYEocteLnOVRbvs=",
         "type": "file",
-        "url": "https://raw.githubusercontent.com/hagezi/dns-blocklists/c5b86b28c193e4bfbd79c36d652e626f61d143fb/dnsmasq/native.lgwebos.txt"
+        "url": "https://raw.githubusercontent.com/hagezi/dns-blocklists/e01e7558a247e0cbd3b8575feaa8e7c379b20deb/dnsmasq/native.lgwebos.txt"
       },
       "original": {
         "type": "file",
-        "url": "https://raw.githubusercontent.com/hagezi/dns-blocklists/c5b86b28c193e4bfbd79c36d652e626f61d143fb/dnsmasq/native.lgwebos.txt"
+        "url": "https://raw.githubusercontent.com/hagezi/dns-blocklists/e01e7558a247e0cbd3b8575feaa8e7c379b20deb/dnsmasq/native.lgwebos.txt"
+      }
+    },
+    "hagezi-pro-plus": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-p8s+kMETHE8Rqz9Btb0emVciVxdR0mh6ebgU0XFNgNk=",
+        "type": "file",
+        "url": "https://raw.githubusercontent.com/hagezi/dns-blocklists/e01e7558a247e0cbd3b8575feaa8e7c379b20deb/dnsmasq/pro.plus.txt"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://raw.githubusercontent.com/hagezi/dns-blocklists/e01e7558a247e0cbd3b8575feaa8e7c379b20deb/dnsmasq/pro.plus.txt"
       }
     },
     "haumea": {
@@ -591,6 +603,7 @@
         "dmerge": "dmerge",
         "emacs-overlay": "emacs-overlay",
         "hagezi-lgwebos": "hagezi-lgwebos",
+        "hagezi-pro-plus": "hagezi-pro-plus",
         "home-manager": "home-manager",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
@@ -609,13 +622,13 @@
     "stevenblack-blocklist": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-dW2BIWaScCHavS93jbPDcsnek4Gly7g0Y+5Gq+UPyEA=",
+        "narHash": "sha256-aVPN90HlPNuaEcqrc1tQi7uGeBH+KeWLYd5FZcJ93FE=",
         "type": "file",
-        "url": "https://raw.githubusercontent.com/StevenBlack/hosts/35c74714ad86b36806b3f40f3c36abf8b2063cb5/hosts"
+        "url": "https://raw.githubusercontent.com/StevenBlack/hosts/ce25ce24d6dca08fa484612091a822bc93587086/hosts"
       },
       "original": {
         "type": "file",
-        "url": "https://raw.githubusercontent.com/StevenBlack/hosts/35c74714ad86b36806b3f40f3c36abf8b2063cb5/hosts"
+        "url": "https://raw.githubusercontent.com/StevenBlack/hosts/ce25ce24d6dca08fa484612091a822bc93587086/hosts"
       }
     },
     "stylix": {

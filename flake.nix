@@ -137,7 +137,7 @@
         }
         // (import ./pkgs {
           inherit pkgs unstable;
-          inherit (inputs) stevenblack-blocklist hagezi-lgwebos;
+          inherit (inputs) stevenblack-blocklist hagezi-lgwebos hagezi-pro-plus;
         })
       );
 
@@ -264,12 +264,17 @@
     };
 
     stevenblack-blocklist = {
-      url = "file+https://raw.githubusercontent.com/StevenBlack/hosts/35c74714ad86b36806b3f40f3c36abf8b2063cb5/hosts";
+      url = "file+https://raw.githubusercontent.com/StevenBlack/hosts/ce25ce24d6dca08fa484612091a822bc93587086/hosts";
       flake = false;
     };
 
     hagezi-lgwebos = {
-      url = "file+https://raw.githubusercontent.com/hagezi/dns-blocklists/c5b86b28c193e4bfbd79c36d652e626f61d143fb/dnsmasq/native.lgwebos.txt";
+      url = "file+https://raw.githubusercontent.com/hagezi/dns-blocklists/e01e7558a247e0cbd3b8575feaa8e7c379b20deb/dnsmasq/native.lgwebos.txt";
+      flake = false;
+    };
+
+    hagezi-pro-plus = {
+      url = "file+https://raw.githubusercontent.com/hagezi/dns-blocklists/e01e7558a247e0cbd3b8575feaa8e7c379b20deb/dnsmasq/pro.plus.txt";
       flake = false;
     };
   };
