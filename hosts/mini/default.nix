@@ -9,6 +9,11 @@
     openssh.authorizedKeys.keys = pd.keys.workstations.ssh;
   };
 
+  networking.homeULA = {
+    enable = true;
+    interface = "en0";
+  };
+
   homebrew = {
     enable = true;
     global.autoUpdate = false;

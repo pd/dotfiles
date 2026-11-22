@@ -232,7 +232,7 @@ rec {
 
     mini = {
       id = 20;
-      duid = "000100013169d35a1cf64c5afab2";
+      duid = "00010001328cc4d51cf64c5afab2";
       macs.eth = "1c:f6:4c:5a:fa:b2";
       ssh.port = 22;
     };

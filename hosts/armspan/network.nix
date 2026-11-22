@@ -1,7 +1,6 @@
 {
   config,
   pd,
-  pkgs,
   ...
 }:
 let
@@ -39,48 +38,5 @@ in
           persistentKeepalive = 25;
         }
       ];
-    };
-
-  # assign the static IPv6 I want iff we're on the right network.
-  # the openwrt side is correctly configured to assign these via
-  # dhcpv6, mac _supports_ dhcpv6, but then just ignores the IA_NA
-  # assignment for the ULA.
-  launchd.daemons.homeULA =
-    let
-      dev = "en0";
-      ula = lan.ipv6.armspan;
-
-      home-ula-toggle = pkgs.writeShellScript "home-ula-toggle" ''
-        on_home_wifi() {
-          # macos 15 sequoia has intentionally made it a nightmare
-          # to retrieve the ssid you're connected to, so just check
-          # that we've probably got a v6 addr in the right /64.
-          #
-          # why do i still run an OS that is actively hostile
-          ifconfig en0 inet6 | grep -q 'fded:40::'
-        }
-
-        has_ula() {
-          ifconfig ${dev} inet6 | grep -q "${ula}"
-        }
-
-        if ! on_home_wifi; then
-          ifconfig ${dev} inet6 ${ula} -alias
-        elif ! has_ula; then
-          ifconfig ${dev} inet6 ${ula} prefixlen 64 alias
-        fi
-      '';
-    in
-    {
-      command = home-ula-toggle;
-      serviceConfig = {
-        Label = "home.ula.toggle";
-        RunAtLoad = true;
-
-        WatchPaths = [
-          "/Library/Preferences/SystemConfiguration/NetworkInterfaces.plist"
-          "/Library/Preferences/SystemConfiguration/com.apple.airport.preferences.plist"
-        ];
-      };
     };
 }

@@ -15,6 +15,11 @@
   networking.hostName = "armspan";
   users.users.pd.home = /Users/pd;
 
+  networking.homeULA = {
+    enable = true;
+    interface = "en0";
+  };
+
   security.pam.services.sudo_local.touchIdAuth = true;
 
   environment = {

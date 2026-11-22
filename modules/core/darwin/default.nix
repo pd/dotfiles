@@ -3,6 +3,7 @@
   imports = [
     ../.
     ./homebrew.nix
+    ./ula.nix
   ];
 
   security.sudo.extraConfig = ''
