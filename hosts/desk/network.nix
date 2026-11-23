@@ -20,6 +20,7 @@
       MACAddressPolicy = "none";
       MACAddress = "2c:f0:5d:db:8d:f3";
       Name = "eth0";
+      WakeOnLan = "magic";
     };
   };
 
