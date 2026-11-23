@@ -9,7 +9,7 @@
     ./wayland.nix
   ];
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "26.05";
   networking.hostName = "desk";
   time.timeZone = "America/Chicago";
 

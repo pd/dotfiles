@@ -8,7 +8,7 @@ in
     ../../modules/nameserver
   ];
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "26.05";
   time.timeZone = "America/Chicago";
   docs.enable = false;
 
