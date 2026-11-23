@@ -32,7 +32,7 @@ resource "b2_bucket" "tfstate" {
 }
 
 resource "b2_bucket" "backups" {
-  for_each = toset(["pdbkupimg"])
+  for_each = toset(["pdbkupapps", "pdbkupimg"])
 
   bucket_name = each.key
   bucket_type = "allPrivate"
