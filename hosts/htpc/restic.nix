@@ -19,7 +19,7 @@ let
 
       dump = {
         pg = name: db: "${sudo} -u postgres ${pg_dump} -Fc ${db} > ${dumpDir}/${name}.pgdump";
-        sqlite = name: db: "${sqlite3} ${db} '.backup ${dumpDir}/${name}.db'";
+        sqlite = name: db: "${sqlite3} file:${db}?mode=rw '.backup ${dumpDir}/${name}.db'";
       };
     in
     ''
