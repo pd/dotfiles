@@ -3,7 +3,7 @@
   ...
 }:
 {
-  system.stateVersion = 6;
+  system.stateVersion = 7;
   nixpkgs.hostPlatform.system = "aarch64-darwin";
 
   imports = [
