@@ -6,7 +6,7 @@
     "${inputs.private}/pd@armspan"
   ];
 
-  home.stateVersion = "25.05";
+  home.stateVersion = "26.05";
 
   programs.ssh.includes = [ "~/.orbstack/ssh/config" ];
 

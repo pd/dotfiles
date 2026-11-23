@@ -17,7 +17,7 @@
   ];
 
   programs.home-manager.enable = true;
-  programs.man.generateCaches = true;
+  programs.man.generateCaches = pkgs.stdenv.hostPlatform.isLinux;
 
   news = {
     display = "silent";
