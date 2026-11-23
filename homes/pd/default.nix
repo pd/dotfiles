@@ -7,6 +7,7 @@
   imports = [
     ./emacs.nix
     ./files.nix
+    ./firefox.nix
     ./git.nix
     ./nvim.nix
     ./ops.nix

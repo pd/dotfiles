@@ -14,6 +14,11 @@
     pkgs.nixos-rebuild-ng
   ];
 
+  programs.firefox = {
+    enable = true;
+    package = null; # via homebrew instead
+  };
+
   programs.ghostty = {
     enable = true;
     package = null; # via homebrew instead
