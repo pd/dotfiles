@@ -137,6 +137,7 @@
         }
         // (import ./pkgs {
           inherit pkgs unstable;
+          inherit (libx) pd;
           inherit (inputs) stevenblack-blocklist hagezi-lgwebos hagezi-pro-plus;
         })
       );

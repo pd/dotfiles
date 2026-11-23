@@ -26,6 +26,7 @@
     systemPackages = with pkgs; [
       wireguard-go
       wireguard-tools
+      pd.wake-desk
     ];
 
     variables = {

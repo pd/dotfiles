@@ -15,6 +15,7 @@
   pd = final: _prev: {
     pd = import ../pkgs {
       pkgs = final;
+      pd = import ../lib/pd { inherit (final) lib; };
       inherit (final) unstable;
       inherit (inputs) stevenblack-blocklist hagezi-lgwebos hagezi-pro-plus;
     };

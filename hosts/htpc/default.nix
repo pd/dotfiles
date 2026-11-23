@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -33,6 +33,8 @@
 
   hardware.enableRedistributableFirmware = true;
   security.rtkit.enable = true;
+
+  environment.systemPackages = [ pkgs.pd.wake-desk ];
 
   virtualisation.quadlet = {
     enable = true;
