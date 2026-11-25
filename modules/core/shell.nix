@@ -1,10 +1,4 @@
 { pkgs, ... }:
-let
-  vtermZsh = pkgs.writeTextFile {
-    name = "vterm.plugin.zsh";
-    text = builtins.readFile ./vterm.zsh;
-  };
-in
 {
   # Ensure the default shell experience isn't too miserable,
   # especially given emacs+tramp+ssh.
@@ -21,9 +15,7 @@ in
       setopt autocd
       unsetopt nomatch
 
-      source "${vtermZsh}"
-
-      if [[ "$${$${INSIDE_EMACS-}%%,*}" == "ghostel" || "$TERM" = "xterm-ghostty" ]]; then
+      if [[ "''${INSIDE_EMACS:-}" == ghostel* || "$TERM" = "xterm-ghostty" ]]; then
         source "${pkgs.unstable.emacsPackages.ghostel.src}/etc/shell/ghostel.zsh"
       fi
     '';

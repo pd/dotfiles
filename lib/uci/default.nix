@@ -200,7 +200,7 @@ with lib;
       # it's explicitly marked internal. still doing it.
 
       # Install just enough for a decent zsh env that works via
-      # tramp + vterm/ghostty
+      # tramp + ghostty
       deploySteps.zsh = {
         priority = 100;
         copy = "";
@@ -213,9 +213,24 @@ with lib;
           fi
           EOF
 
-          cat >/root/.zshrc <<EOF
+          cat >/root/.zshrc <<'EOF'
           export PROMPT='%n@%m:%~/ > '
+
+          if [[ "''${INSIDE_EMACS:-}" == ghostel* || "$TERM" = "xterm-ghostty" ]]; then
+            source /root/.ghostel.zsh
+          fi
           EOF
+        '';
+      };
+
+      deploySteps.ghostel = {
+        priority = 96;
+        copy = ''
+          scp ${pkgs.unstable.emacsPackages.ghostel.src}/etc/shell/ghostel.zsh device:/tmp/ghostel.zsh
+        '';
+        apply = ''
+          cp /tmp/ghostel.zsh /root/.ghostel.zsh
+          chmod 0644 /root/.ghostel.zsh
         '';
       };
 

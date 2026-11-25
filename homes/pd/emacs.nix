@@ -49,7 +49,6 @@ in
       extraEmacsPackages =
         epkgs: with epkgs; [
           treesit-grammars.with-all-grammars
-          vterm
           ghostel
           evil-ghostel
         ];

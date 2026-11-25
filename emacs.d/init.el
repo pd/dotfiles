@@ -711,7 +711,7 @@ targets."
   (ghostel-tramp-shells
    '(("ssh" login-shell "/bin/zsh")
      ("docker" "/bin/sh")))
-  (ghostel-tramp-shell-integration '(zsh))
+  (ghostel-tramp-shell-integration nil)
   :config
   (setopt ghostel-keymap-exceptions
           (append ghostel-keymap-exceptions '("M-'"))))

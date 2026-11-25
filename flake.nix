@@ -116,11 +116,8 @@
             pkgs.callPackage ./pkgs/router {
               inherit (inputs) dmerge dewclaw;
               inherit (libx) pd uci;
-              inherit
-                lib
-                host
-                pkgs
-                ;
+              inherit lib host;
+              pkgs = pkgs.extend (import ./overlays { inherit inputs; }).unstable;
               path = ./routers/${host};
             };
         in
