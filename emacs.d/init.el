@@ -695,7 +695,9 @@ targets."
 
 (use-package tramp
   :ensure nil
-  :autoload (tramp-parse-sconfig))
+  :autoload (tramp-parse-sconfig)
+  :config
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
 
 (use-package treesit
   :ensure nil
