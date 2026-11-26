@@ -449,7 +449,7 @@ targets."
   :bind
   (("<leader>p" . disproject-dispatch))
   :custom
-  (disproject-shell-command #'ghostel))
+  (disproject-shell-command #'ghostel-project))
 
 (use-package recentf
   :ensure nil
@@ -706,7 +706,50 @@ targets."
 
 ;; shell
 (use-package ghostel
+  :preface
+  (defun pd/ghostel--abbreviate (dir)
+    "Abbreviate DIR for a ghostel buffer name without remote I/O.
+Avoids re-using a tramp connection with an active command and causing
+wonky desyncs."
+    (if-let* (((file-remote-p dir))
+              (vec (tramp-dissect-file-name dir))
+              (home (tramp-get-connection-property vec "~"))
+              (local (tramp-file-name-localname vec))
+              ((or (string= local home)
+                   (string-prefix-p (file-name-as-directory home) local))))
+        (tramp-make-tramp-file-name vec (concat "~" (substring local (length home))))
+      (if (file-remote-p dir) dir (abbreviate-file-name dir))))
+
+  (defun pd/ghostel-buffer-name (title)
+    (or (ghostel-buffer-name-by-title title)
+        (format "*ghostel: %s*"
+                (pd/ghostel--abbreviate (directory-file-name default-directory)))))
+
+  (defun pd/ssh-hosts ()
+    "Host names from the user's ssh configs."
+    (seq-mapcat (lambda (file)
+                  (when (file-exists-p file)
+                    (delq nil (mapcar #'cadr (tramp-parse-sconfig file)))))
+                (mapcar #'expand-file-name
+                        '("~/.ssh/config" "~/.orbstack/ssh/config"))))
+
+  (defun pd/ghostel-on-host (host)
+    "Open a new ghostel terminal on HOST."
+    (interactive
+     (list (completing-read "Host: " (cons "localhost" (pd/ssh-hosts)))))
+    (let ((default-directory (if (string= host "localhost")
+                                 "~/"
+                               (format "/ssh:%s:." host))))
+      (ghostel-new)))
+
+  (defun pd/ghostel-in-project (dir)
+    "Open a new ghostel terminal in the project at DIR."
+    (interactive (list (project-prompt-project-dir)))
+    (let ((default-directory dir))
+      (ghostel-new)))
+
   :custom
+  (ghostel-buffer-name-function #'pd/ghostel-buffer-name)
   (ghostel-kill-buffer-on-exit nil)
   (ghostel-module-auto-install nil)
   (ghostel-ssh-install-terminfo nil)
@@ -714,6 +757,7 @@ targets."
    '(("ssh" login-shell "/bin/zsh")
      ("docker" "/bin/sh")))
   (ghostel-tramp-shell-integration nil)
+
   :config
   (setopt ghostel-keymap-exceptions
           (append ghostel-keymap-exceptions '("M-'"))))
@@ -722,8 +766,10 @@ targets."
   :after (ghostel evil)
   :hook (ghostel-mode . evil-ghostel-mode))
 
-(use-package pd/term
-  :ensure nil)
+(use-package consult-ghostel
+  :after (consult ghostel)
+  :demand t
+  :config (consult-ghostel-mode))
 
 ;; junkdrawer
 (defun pd/find-init.el ()
@@ -786,21 +832,23 @@ targets."
    ("<leader>rs" . replace-string)
 
    ;; transpositions
-   ("<leader>tc" . transpose-chars)
-   ("<leader>tw" . transpose-words)
-   ("<leader>tl" . transpose-lines)
-   ("<leader>ts" . transpose-sexps)
+   ("<leader>Tc" . transpose-chars)
+   ("<leader>Tw" . transpose-words)
+   ("<leader>Tl" . transpose-lines)
+   ("<leader>Ts" . transpose-sexps)
+
+   ;; terminals
+   ("<leader>tt" . consult-ghostel)
+   ("<leader>th" . pd/ghostel-on-host)
+   ("<leader>tn" . ghostel-new)
+   ("<leader>tp" . pd/ghostel-in-project)
+   ("<leader>tP" . consult-ghostel-project)
+   ("M-'"        . consult-ghostel) ; for when <leader> is borked
 
    ;; repls
    ("<leader>xe" . ielm)
    ("<leader>xn" . nix-repl)
    ("<leader>xr" . inf-ruby)
-   ("<leader>xs" . pd/consult-term)
-   ("<leader>xz" . pd/consult-term)
-
-   ("M-'"        . pd/consult-term)
-   ("M-\""       . pd/consult-term-project)
-   ("C-M-\""     . pd/consult-term-host)
 
    ;; other window plz
    ("<leader>wo" . other-window-prefix)))

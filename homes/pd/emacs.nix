@@ -52,6 +52,30 @@ in
           ghostel
           evil-ghostel
         ];
+
+      # should land in unstable soon but i want it now
+      override = final: prev: {
+        ghostel = prev.ghostel.overrideAttrs (
+          finalAttrs: _: {
+            version = "0.67.0";
+            src = pkgs.fetchFromGitHub {
+              owner = "dakra";
+              repo = "ghostel";
+              tag = "v${finalAttrs.version}";
+              hash = "sha256-GjS6SYoCwmRrP2P7SOFTtStHDPtuy6Uq52Sug8eYfYE=";
+            };
+            zig = pkgs.unstable.zig_0_17;
+            zigDeps = finalAttrs.zig.fetchDeps {
+              inherit (finalAttrs) src pname version;
+              fetchAll = true;
+              hash = "sha256-3pDE8/KCzHR08VqAHJR6rdMOGARCyH0tc5UTOeCvs14=";
+            };
+          }
+        );
+        consult-ghostel = prev.consult-ghostel.overrideAttrs {
+          inherit (final.ghostel) src version;
+        };
+      };
     };
   };
 
