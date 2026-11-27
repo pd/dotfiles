@@ -11,8 +11,9 @@ music_format=$(cat <<'EOF'
 
   def discs = any{ media.Part_Position_Total.toInteger() }{ 1 }
   def disc = discs > 1 ? "Disc ${media.Part_Position}/" : ""
+  def year = any{ " (${y})" }{ null } ?: ""
 
-  "${name}/${album} (${y})/${disc}${name} - ${album} (${y}) - ${pi.pad(2)}. ${t}"
+  "${name}/${album}${year}/${disc}${name} - ${album}${year} - ${pi.pad(2)}. ${t}"
 }
 EOF
 )
