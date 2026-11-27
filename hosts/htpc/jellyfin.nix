@@ -2,6 +2,7 @@
 {
   services.jellyfin = {
     enable = true;
+    package = pkgs.unstable.jellyfin;
   };
 
   hardware.graphics = {
@@ -11,10 +12,4 @@
       vpl-gpu-rt
     ];
   };
-
-  environment.systemPackages = with pkgs; [
-    jellyfin
-    jellyfin-web
-    jellyfin-ffmpeg
-  ];
 }
