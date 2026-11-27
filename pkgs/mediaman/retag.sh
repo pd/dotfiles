@@ -2,6 +2,10 @@
 
 set -euo pipefail
 
+NAS_HOST="${NAS_HOST:-nas}"
+LOCAL_ROOT="${LOCAL_ROOT:-/media}"
+NAS_ROOT="${NAS_ROOT:-/volume1/media}"
+
 retag() {
   local dir="$1"; shift
   local mods=("$@")
@@ -20,7 +24,23 @@ retag() {
   metaflac \
     --block-type VORBIS_COMMENT \
     "${flags[@]}" \
-    "$tmpdir"/*.flac
+    "$dir"/*.flac
+}
+
+to_nas() {
+  local path="$1"
+  if [[ "$path" != "$LOCAL_ROOT"/* ]]; then
+    echo "Not under $LOCAL_ROOT: $path" >&2
+    exit 1
+  fi
+  echo "$NAS_ROOT/${path#"$LOCAL_ROOT"/}"
+}
+
+reflink_copy() {
+  # paths over stdin so i don't have to juggle quoting quotes etc
+  printf '%s\n%s\n' "$(to_nas "$1")" "$(to_nas "$2")" |
+    ssh -o BatchMode=yes -o LogLevel=ERROR "$NAS_HOST" \
+      'IFS= read -r src && IFS= read -r dest && cp --reflink=always -t "$dest" -- "$src"/*.flac'
 }
 
 main() {
@@ -48,13 +68,13 @@ main() {
     exit 1
   fi
 
-  rm -r "$dir"
-  cp "$src/"*.flac "$tmpdir"
+  reflink_copy "$src" "$tmpdir"
   retag "$tmpdir" "${mods[@]}"
+  rm -r "$dir"
 
   ACTION=move media-sort music "$tmpdir"
 }
 
-tmpdir="$(mktemp -d)"
+tmpdir="$(mktemp -d -p "$LOCAL_ROOT" .retag.XXXXXX)"
 trap 'rm -rf "$tmpdir"' EXIT
 main "$tmpdir" "$@"
