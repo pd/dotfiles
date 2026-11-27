@@ -70,7 +70,10 @@ main() {
 
   reflink_copy "$src" "$tmpdir"
   retag "$tmpdir" "${mods[@]}"
-  rm -r "$dir"
+
+  if [[ "$(realpath -s "$dir")" == "$LOCAL_ROOT"/sorted/* ]]; then
+    rm -r "$dir"
+  fi
 
   ACTION=move media-sort music "$tmpdir"
 }
