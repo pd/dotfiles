@@ -4,6 +4,19 @@ set -euo pipefail
 
 ACTION="${ACTION:-symlink}"
 
+music_format=$(cat <<'EOF'
+{
+  def name = any{ albumArtist.replaceAll(/^(.+) \1$/){ it[1] } }{ artist }
+  name = new File("/media/sorted/Music").list().find{ it.equalsIgnoreCase(name) } ?: name
+
+  def discs = any{ media.Part_Position_Total.toInteger() }{ 1 }
+  def disc = discs > 1 ? "Disc ${media.Part_Position}/" : ""
+
+  "${name}/${album} (${y})/${disc}${name} - ${album} (${y}) - ${pi.pad(2)}. ${t}"
+}
+EOF
+)
+
 usage() {
   echo "$0 [tv|movie|music] [path]" >&2
   echo "  \$ACTION: --action flag [move, symlink, test]; default: symlink"
@@ -39,10 +52,7 @@ main() {
   case "$kind" in
   tv)    _filebot "${DB:-TheMovieDB::TV}" /media/sorted/TV "$path" ;;
   movie) _filebot "${DB:-TheMovieDB}" /media/sorted/Movies "$path" ;;
-  music)
-    local artist='{def a = any{albumArtist.replaceAll(/^(.+) \1$/){ it[1] }}{artist}; new File("/media/sorted/Music").list().find{ it.equalsIgnoreCase(a) } ?: a}'
-    _filebot "${DB:-ID3}" /media/sorted/Music "$path" "$artist/{album} ({y})/$artist - {album} ({y}) - {pi.pad(2)}. {t}"
-    ;;
+  music) _filebot "${DB:-ID3}" /media/sorted/Music "$path" "$music_format" ;;
   *)     usage;;
   esac
 }
