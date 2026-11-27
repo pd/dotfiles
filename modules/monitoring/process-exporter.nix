@@ -13,7 +13,11 @@ in
     services.prometheus.exporters.process = {
       enable = true;
       openFirewall = true;
-      extraFlags = [ "-threads=false" ];
+      extraFlags = [
+        "-threads=false"
+        "-recheck-with-time-limit=1m"
+        "-remove-empty-groups"
+      ];
       settings.process_names = lib.mapAttrsToList (name: attrs: attrs // { inherit name; }) cfg;
     };
   };
