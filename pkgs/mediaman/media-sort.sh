@@ -10,7 +10,7 @@ music_format=$(cat <<'EOF'
   name = new File("/media/sorted/Music").list().find{ it.equalsIgnoreCase(name) } ?: name
 
   def discs = any{ media.Part_Position_Total.toInteger() }{ 1 }
-  def disc = discs > 1 ? "Disc ${media.Part_Position}/" : ""
+  def disc = discs > 1 ? "Disc ${media.Part_Position.tokenize('/ ')[0]}/" : ""
   def year = any{ " (${y})" }{ null } ?: ""
 
   "${name}/${album}${year}/${disc}${name} - ${album}${year} - ${pi.pad(2)}. ${t}"
