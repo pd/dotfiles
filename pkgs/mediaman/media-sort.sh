@@ -39,7 +39,10 @@ main() {
   case "$kind" in
   tv)    _filebot "${DB:-TheMovieDB::TV}" /media/sorted/TV "$path" ;;
   movie) _filebot "${DB:-TheMovieDB}" /media/sorted/Movies "$path" ;;
-  music) _filebot "${DB:-ID3}" /media/sorted/Music "$path" "{any{albumArtist}{artist}}/{album} ({y})/{any{albumArtist}{artist}} - {album} ({y}) - {pi.pad(2)}. {t}" ;;
+  music)
+    local artist='{def a = any{albumArtist.replaceAll(/^(.+) \1$/){ it[1] }}{artist}; new File("/media/sorted/Music").list().find{ it.equalsIgnoreCase(a) } ?: a}'
+    _filebot "${DB:-ID3}" /media/sorted/Music "$path" "$artist/{album} ({y})/$artist - {album} ({y}) - {pi.pad(2)}. {t}"
+    ;;
   *)     usage;;
   esac
 }
